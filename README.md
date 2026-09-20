@@ -4,8 +4,9 @@
 
 HRS take-home: design an RL environment for recovery from lying on the back,
 run a training experiment, and integrate recovery and telemetry with ROS 2.
-This repository currently contains only repository setup and requirements capture.
-Simulation, RL environment, ROS nodes, training and evaluation are **Pending**.
+Repository setup and requirements capture are complete. Native MuJoCo loading and a
+short headless stepping check pass for one official X2 model candidate.
+Recovery simulation, RL environment, ROS nodes, training and evaluation remain **Pending**.
 Evaluation: **Not evaluated**.
 
 The two-page task brief, *AgiBot X2 Ground Recovery — Environment Design and ROS 2
@@ -18,21 +19,23 @@ These are project choices, not additional requirements imposed by the task PDF.
 
 ## Observed environment
 
-Read-only inspection on 2026-09-20, executed inside the target VM:
+Dependency validation on 2026-09-20, executed inside the target VM:
 
 | Item | Observed fact |
 | --- | --- |
 | Platform | Ubuntu 24.04.5 LTS; Linux 7.0.0-31-generic; aarch64; dpkg architecture arm64 |
 | Virtualization | `systemd-detect-virt`: parallels; platform identifies as Parallels ARM Virtual Machine |
 | VM resources | 8 available CPUs; `free -h`: 11 GiB RAM, 4.0 GiB swap (rounded) |
-| Python | System interpreter `/usr/bin/python3`, Python 3.12.3 |
+| Python | System `/usr/bin/python3` and project `.venv/bin/python`: Python 3.12.3 |
 | ROS 2 | `/opt/ros/jazzy/setup.bash` exists; sourced in a child shell; ROS_DISTRO=jazzy |
-| ROS tools | `ros2` and `colcon` found after sourcing; system Python imports `rclpy` from Jazzy |
-| MuJoCo | System Python import failed: `ModuleNotFoundError`; no version established |
+| ROS tools | `ros2` and `colcon` found; system and venv Python import Jazzy rclpy and all three required interface types |
+| MuJoCo | 3.13.0 Python bindings and native library load in `.venv`; absent from system Python |
+| Dependencies | NumPy 1.26.4; `.venv/bin/python -m pip check` passes |
+| RL libraries | Gymnasium, Stable-Baselines3 and PyTorch are not installed or validated |
 
-This inventory does not establish X2 loading, simulation correctness, ROS communication,
-or GPU capability. Other Python environments were not assessed.
-MuJoCo availability and dependency compatibility remain future environment work.
+The venv inherits system packages for ROS compatibility. Adding cffi 2.1.1 inside the
+venv resolved an inherited PyNaCl dependency check failure; system packages were unchanged.
+ROS communication, rendering, GPU capability and the training stack remain unverified.
 
 ## Acceptance criteria
 
@@ -80,8 +83,75 @@ make ONNX, legged_control2, ros2_control or a separate simulator bridge dependen
 
 ## Development and verification status
 
-Repository setup and acceptance criteria are documented. Implementation and end-to-end
-verification remain pending. Runnable commands will be added as they are verified.
+The following commands validate dependencies and an unmodified official model. They do
+not implement a recovery reset, controller, ROS package or training experiment.
+
+### Dependency and model checks
+
+From the project root, create the venv and install the checked versions:
+
+```bash
+python3 -m venv --system-site-packages .venv
+.venv/bin/python -m pip install --only-binary=:all: mujoco==3.13.0 cffi==2.1.1
+source /opt/ros/jazzy/setup.bash
+.venv/bin/python -c 'import mujoco, rclpy; from sensor_msgs.msg import JointState; from std_srvs.srv import Trigger; from std_msgs.msg import String; print(mujoco.__version__, mujoco.mj_versionString())'
+.venv/bin/python -m pip check
+```
+
+Observed: both MuJoCo versions are 3.13.0; imports pass; no broken requirements.
+Local supporting packages: absl-py 2.5.0, etils 1.14.0, fsspec 2026.9.0, glfw 2.10.2,
+PyOpenGL 3.1.10 and pycparser 3.0. This is a validated snapshot, not a complete lockfile.
+
+Keep the upstream checkout outside this repository. For the initial download:
+
+```bash
+export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
+git clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git "$X2_ASSET_REPO"
+git -C "$X2_ASSET_REPO" sparse-checkout set X2_URDF-v1.3.0
+git -C "$X2_ASSET_REPO" checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0
+```
+
+The checkout retains the upstream Mulan PSL v2 license and has no local changes.
+v1.3.0 Ultra is the initial loading candidate, not a final recovery-model selection.
+It supplies a paired URDF, native MJCF and scene, avoiding conversion for this check.
+
+Headless load and stepping check (no renderer required):
+
+```bash
+.venv/bin/python - <<'PY'
+import os
+from pathlib import Path
+import mujoco as mj
+import numpy as np
+scene = Path(os.environ["X2_ASSET_REPO"]) / "X2_URDF-v1.3.0/scene.xml"
+m = mj.MjModel.from_xml_path(str(scene))
+d = mj.MjData(m)
+mj.mj_forward(m, d)
+print("nq nv nu:", m.nq, m.nv, m.nu, "initial contacts:", d.ncon)
+for _ in range(100):
+    mj.mj_step(m, d)
+assert np.isfinite(d.qpos).all() and np.isfinite(d.qvel).all()
+assert np.isclose(d.time, 0.1) and not np.any(d.warning.number)
+print("time:", d.time, "warnings:", d.warning.number.tolist())
+PY
+```
+
+Observed: `nq=38`, `nv=37`, `nu=31`, zero initial contacts, 0.1 s advanced and
+all warning counters zero. This checks loading and short stepping, not standing or recovery.
+
+Model audit findings at the pinned revision:
+
+- One free joint, 31 limited hinge joints, 31 control-limited motors and a plane floor;
+  timestep 0.001 s. No separate actuator force limits are enabled.
+- All 31 actuated joint names match the URDF. The first hinge uses qpos index 7 and
+  qvel index 6: floating-base coordinates must not be published as named hinge positions.
+- Twelve joint position ranges and thirteen motor control ranges differ from the URDF.
+  For example, waist yaw has upper bound 2.382 rad in MJCF versus 2.2078 in URDF;
+  head yaw spans ±0.366 versus ±0.349 rad. Hip/knee motors use ±118 versus URDF ±120;
+  wrist pitch/roll use ±2.2 versus URDF ±4.8. Reconcile limits before recovery control.
+- The default base is upright at z=0.68 m, not resting supine. Collision masks include
+  both disabled visual geoms and enabled collision geoms; a valid supine reset and
+  collision/limit behavior still require verification. No model edits were made.
 
 ### Development history
 
@@ -92,6 +162,8 @@ push completed work throughout development (PDF p. 2, Commit history).
 
 Reviewed README content and GitHub directory trees on 2026-09-20:
 
+- [MuJoCo Python API](https://mujoco.readthedocs.io/en/stable/python.html) and
+  [PyPI distribution](https://pypi.org/project/mujoco/3.13.0/): native bindings and ARM64 wheel.
 - Task PDF: p. 1, Simulation and reinforcement learning / ROS 2 integration;
   p. 2, ROS 2 interfaces / Validation / GitHub repository submission / README requirements.
 - [AgibotTech/agibot_x2_urdf](https://github.com/AgibotTech/agibot_x2_urdf), inspected revision
@@ -103,7 +175,7 @@ Reviewed README content and GitHub directory trees on 2026-09-20:
   `X2-Ultra.urdf`, `X2-EDU.urdf`, their `_simple_collision.urdf` variants,
   `X2-Ultra.xml`, `X2-EDU.xml`, `scene.xml`. Both have mesh directories.
   Scene XML reads confirm each includes its Ultra XML and a plane floor.
-  Model selection, loading, collisions, limits and recovery suitability remain unverified.
+  v1.3.0 loading results and unresolved model checks are recorded above; v1.4.0 was not loaded.
 - [ioai-tech/humanoid_controller](https://github.com/ioai-tech/humanoid_controller), inspected revision
   `2f94ff0ebd072e255d90bbbb2122d0f1a622a0b3`. README describes ROS 2 Humble,
   legged_control2 and ONNX inference with MuJoCo launch; tree includes
