@@ -1,4 +1,4 @@
-"""Bounded runtime diagnostics and Step 3 audit; no recovery environment."""
+"""Bounded runtime, model, standing and Gymnasium environment diagnostics."""
 
 import argparse
 import json
@@ -288,10 +288,174 @@ def client(seconds):
         rclpy.shutdown()
 
 
+def env_diagnostic(mode, asset_repo, output, seconds):
+    """Bounded Step 6 checks/media; environment itself never writes evidence."""
+    from dataclasses import asdict
+    from datetime import datetime, timezone
+    import copy
+    import hashlib
+    import uuid
+    import warnings
+    from .env import X2RecoveryEnv, EnvConfig, _diagnostic, _reward
+    from .model_audit import identity, fingerprint
+    from .reset import integration_state
+    output=Path(output).resolve()/('run-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')+'-'+uuid.uuid4().hex[:6])
+    output.mkdir(parents=True,exist_ok=False)
+    evidence={'verdict':'INCOMPLETE','run_completed':False,'mode':mode,'command':sys.argv,
+              'runtime':identity(Path(__file__).resolve().parents[3]),'checks':{},'rollouts':[],
+              'recovery_training':'NOT RUN','five_episode_evaluation':'NOT EVALUATED'}
+    def save():
+        (output/'report.json').write_text(json.dumps(_diagnostic(evidence),indent=2,allow_nan=False)+'\n')
+    save();print('Step 6 evidence: '+str(output),flush=True)
+    env=None
+    try:
+        if mode=='env-check':
+            from gymnasium.utils.env_checker import check_env as gym_check
+            from stable_baselines3.common.env_checker import check_env as sb3_check
+            for name,checker in [('gymnasium_checker',gym_check),('sb3_checker',sb3_check)]:
+                with X2RecoveryEnv(asset_repo=asset_repo) as env:
+                    with warnings.catch_warnings(record=True) as captured:
+                        warnings.simplefilter('always');checker(env,skip_render_check=True)
+                    messages=[str(w.message) for w in captured]
+                    for message in messages:print(name+' warning: '+message,flush=True)
+                    evidence['checks'][name]={'status':'PASS','warnings':messages,'render':'separately tested'}
+                save();print(name+': PASS',flush=True)
+            started=time.monotonic();load_effective_model(asset_repo)
+            evidence['model_load_wall_s']=time.monotonic()-started
+            cases=[('zero',20.),('small_random',2.),('script',2.),('group_legs',.4),
+                   ('group_arms',.4),('group_waist_head',.4),('positive',.2),('negative',.2),('mixed_full',.2)]
+        else:cases=[('script',seconds)]
+        for name,length in cases:
+            mode_render='rgb_array' if mode=='env-record' else 'human' if mode=='env-live' else None
+            started=time.monotonic()
+            env=X2RecoveryEnv(render_mode=mode_render,asset_repo=asset_repo,capture_substeps=name not in ('zero','small_random'))
+            creation=time.monotonic()-started
+            evidence['resolved_config']=env.resolved_config();evidence['model_fingerprint']=fingerprint(env.loaded)
+            evidence['saturation_denominators']={'aggregate':'saturated (joint,physics-step) pairs / (31 * executed steps)',
+                'per_joint':'saturated steps for each joint / executed steps',
+                'any_joint':'physics steps with any saturated joint / executed steps',
+                'target_boundary':'boundary (joint,policy-action) pairs / (31 * executed policy actions)'}
+            started=time.monotonic();obs,info=env.reset(seed=60);reset_cost=time.monotonic()-started
+            initial=env.loaded.read_state(env.data)[0];rng=np.random.default_rng(600)
+            rewards=[];rows=[];elapsed_calls=[];steps=[];images=[];frame_states=[]
+            obs_min=obs.copy();obs_max=obs.copy()
+            def frame():
+                from PIL import Image, ImageDraw
+                before=integration_state(env.model,env.data).copy()
+                pixels=env.render() if mode=='env-record' else env._human.frame.copy()
+                require(np.array_equal(before,integration_state(env.model,env.data)),'Rendering altered physics')
+                require(pixels.dtype==np.uint8 and pixels.shape[-1]==3 and pixels.std()>1.,'Black/invalid render')
+                im=Image.fromarray(pixels);draw=ImageDraw.Draw(im)
+                draw.rectangle((0,0,480,20),fill='black')
+                draw.text((4,4),f'ACTUAL ENV ROLLOUT | elapsed={env.data.time-env.episode_start_time:.3f}s | NOT recovery',fill='white')
+                images.append(im);frame_states.append({'time_s':float(env.data.time),'elapsed_sim_s':float(env.data.time-env.episode_start_time),
+                    'qpos':env.data.qpos.copy(),'qvel':env.data.qvel.copy(),'ctrl':env.data.ctrl.copy()})
+            if mode_render:frame()
+            with (output/(name+'-policy.jsonl')).open('w') as policy_log, (output/(name+'-substeps.jsonl')).open('w') as physics_log:
+                for k in range(int(np.ceil(length/env.control_dt))):
+                    action=np.zeros(31,np.float32)
+                    if name=='small_random':action=rng.uniform(-.1,.1,31).astype(np.float32)
+                    if name=='positive':action[:]=1.
+                    if name=='negative':action[:]=-1.
+                    if name=='mixed_full':action[::2]=1.;action[1::2]=-1.
+                    if name.startswith('group_'):
+                        for j,r in enumerate(env.loaded.mapping):
+                            selected=(('hip' in r.joint_name or 'knee' in r.joint_name) if name=='group_legs' else
+                                      any(x in r.joint_name for x in ('shoulder','elbow','wrist')) if name=='group_arms' else
+                                      any(x in r.joint_name for x in ('waist','head')))
+                            if selected:action[j]=.3 if k<10 else -.3
+                    if name=='script':
+                        target=initial.copy()
+                        for j,r in enumerate(env.loaded.mapping):
+                            if 'knee' in r.joint_name:target[j]=.4 if k<50 else .8
+                            if 'hip_pitch' in r.joint_name:target[j]=-.2 if k<50 else -.4
+                            if 'elbow' in r.joint_name:target[j]=-.9
+                        action=env.action_for_targets(target)
+                    before=time.monotonic();obs,reward,terminated,truncated,info=env.step(action)
+                    elapsed_calls.append(time.monotonic()-before);steps.append(info['physics_steps_executed'])
+                    obs_min=np.minimum(obs_min,obs);obs_max=np.maximum(obs_max,obs)
+                    rewards.append(reward);rows.append(info)
+                    policy_log.write(json.dumps({'action':action.tolist(),'reward':reward,'terminated':terminated,'truncated':truncated,**info},allow_nan=False)+'\n')
+                    for sample in env.last_substeps:physics_log.write(json.dumps(sample,allow_nan=False)+'\n')
+                    if mode_render and (k%2==1 or terminated or truncated):frame()
+                    if terminated or truncated:break
+            total_steps=sum(steps);gamma=env.config.shaping_gamma
+            case={'name':name,'seed':60,'reset_seed':env.reset_seed,'status':'PASS','policy_steps':len(rows),
+                'physics_steps':total_steps,'sim_s':rows[-1]['elapsed_sim_s'],
+                'termination_reason':rows[-1]['termination_reason'],'truncation_reason':rows[-1]['truncation_reason'],
+                'is_success':rows[-1]['is_success'],'environment_creation_wall_s':creation,'reset_wall_s':reset_cost,
+                'step_calls_wall_s':sum(elapsed_calls),'return_undiscounted':sum(rewards),
+                'return_discounted':sum(gamma**k*r for k,r in enumerate(rewards)),
+                'reward_terms':{key:{'min':min(r['reward_terms'][key] for r in rows),'max':max(r['reward_terms'][key] for r in rows),
+                     'sum':sum(r['reward_terms'][key] for r in rows),'discounted_sum':sum(gamma**k*r['reward_terms'][key] for k,r in enumerate(rows))}
+                    for key in rows[0]['reward_terms']},
+                'saturation_fraction':sum(r['torque_saturation_fraction']*n for r,n in zip(rows,steps))/total_steps,
+                'any_saturation_time_fraction':sum(r['control']['any_saturation_time_fraction']*n for r,n in zip(rows,steps))/total_steps,
+                'joint_saturation_time_fraction':(sum((np.array(r['control']['joint_saturation_time_fraction'])*n for r,n in zip(rows,steps)),start=np.zeros(31))/total_steps).tolist(),
+                'target_boundary_fraction':float(np.mean([r['control']['target_boundary_fraction'] for r in rows])),
+                'peaks':{key:max(r['control'][key] for r in rows) for key in ('joint_rad_s','joint_limit_rad','floor_penetration_m',
+                         'self_penetration_m','raw_torque_abs_max_Nm','applied_torque_abs_max_Nm')},
+                'last_joint_velocity_rad_s':env.loaded.read_state(env.data)[1].tolist(),
+                'final_state':rows[-1]['state'],'observation_min':obs_min.tolist(),'observation_max':obs_max.tolist(),
+                'warnings':env.data.warning.number.tolist()}
+            require(not any(case['warnings']),'Numerical warnings in real rollout')
+            if name=='zero':
+                require(truncated and not terminated and abs(case['sim_s']-20)<1e-9,'Default 20 s timeout not exercised')
+                wall=sum(elapsed_calls[5:]);n=sum(steps[5:]);count=len(steps[5:])
+                evidence['performance']={'excluded_warmup_policy_steps':5,'policy_steps':count,'physics_steps':n,
+                    'wall_s':wall,'step_mean_ms':wall/count*1000,'physics_steps_per_s':n/wall,
+                    'policy_steps_per_s':count/wall,'sim_s_per_wall_s':n*env.physics_dt/wall,
+                    'excludes':'model loading, reset, first 5 policy steps, logging, rendering'}
+            if images:
+                path=output/'env-rollout.gif';images[0].save(path,save_all=True,append_images=images[1:],duration=40,loop=0)
+                files=[]
+                for i in sorted(set([0,len(images)//2,len(images)-1])):
+                    p=output/f'frame-{i:03d}.png';images[i].save(p);files.append(p.name)
+                (output/'frame-states.json').write_text(json.dumps(_diagnostic(frame_states),allow_nan=False))
+                evidence['media']={'status':'GENERATED_REQUIRES_INSPECTION','path':path.name,'frames':len(images),'pngs':files,
+                    'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'method':'Images of actual current env.reset/step state; render does not advance physics',
+                    'backend':os.environ.get('MUJOCO_GL'),'DISPLAY':os.environ.get('DISPLAY')}
+            evidence['rollouts'].append(case);env.close();env.close();save()
+            print(name+': '+str(case['termination_reason'] or case['truncation_reason'] or 'bounded rollout complete'),flush=True)
+        if mode=='env-check':
+            # Independent standing-only fixture. Never installed into an environment.
+            from .step5 import standing_pose, gains, place, rollout, summary
+            from .success import StandingContext, CALIBRATED_SETTINGS
+            x=load_effective_model(asset_repo);ctx=StandingContext(x);pose=standing_pose(x);d,_=place(x,pose);kp,kd=gains(x)
+            samples,_,details=rollout(ctx,d,pose,kp,kd,3.,CALIBRATED_SETTINGS)
+            fixture=summary(samples,details)
+            require(fixture['ever_held'] and not fixture['ever_recovery'],'Standing fixture failed')
+            evidence['checks']['independent_standing_fixture']={'status':'PASS',**fixture,'scope':'physical standing ONLY; not an env recovery'}
+            # Synthetic comparisons have matching start potential, and report BOTH returns.
+            c=EnvConfig();p=np.array([.4,.75]);g=c.shaping_gamma
+            def comparison(states,terminate=False,success=False,torque=0.,hold=0.):
+                values=[]
+                for i,(a,b) in enumerate(zip(states,states[1:])):
+                    final=i==len(states)-2
+                    values.append(_reward(c,np.array(a),np.array(b),terminate and final,hold,torque,0.,success and final)[0])
+                return {'transitions':len(values),'undiscounted':sum(values),'discounted':sum(g**i*v for i,v in enumerate(values))}
+            evidence['reward_synthetic']={
+                'scope':'constructed potential histories; NO physical recovery',
+                'stationary_seated_1000':comparison([p]*1001),
+                'rise_fall_100':comparison([p,np.array([.9,1.])]*50+[p]),
+                'immediate_success':comparison([np.ones(2)]*2,True,True),
+                'delayed_success_50_unqualified':comparison([np.ones(2)]*52,True,True),
+                'early_abort':comparison([p]*2,True,False,torque=.02),
+                'late_abort_50':comparison([p]*51,True,False,torque=.02),
+                'limitation':'Early abort can avoid future running costs when success never occurs; no claim of reward-hacking immunity.'}
+        evidence.update(verdict='AUTOMATED_PASS' if mode=='env-check' else 'AWAITING_VISUAL_REVIEW',run_completed=True,exit_code=0)
+        save();return 0
+    except Exception as exc:
+        evidence.update(error=str(exc),error_evidence=getattr(exc,'evidence',None),exit_code=1)
+        save();print('Step 6 INCOMPLETE: '+str(exc),flush=True);return 1
+    finally:
+        if env is not None:env.close()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=["runtime", "model", "audit", "render", "viewer", "serve", "client",
-                                        "step4", "step4-live", "step4-record", "step5", "step5-review"])
+                                        "step4", "step4-live", "step4-record", "step5", "step5-review", "env-check", "env-record", "env-live"])
     parser.add_argument("--repeat", type=int, default=2, help="Step 4 demo reset count, 1..20")
     parser.add_argument("--x2-scene", type=Path, help="Legacy alias: must be the pinned Ultra scene")
     parser.add_argument("--asset-repo", type=Path)
@@ -302,7 +466,7 @@ def main():
     args = parser.parse_args()
     if not 0 < args.seconds <= 60:
         parser.error("--seconds must be in (0, 60]")
-    if args.mode in ("render", "audit", "step4", "step4-live", "step4-record", "step5", "step5-review") and args.output is None:
+    if args.mode in ("render", "audit", "step4", "step4-live", "step4-record", "step5", "step5-review", "env-check", "env-record", "env-live") and args.output is None:
         parser.error("--output is required")
     if args.x2_scene is not None:
         scene = args.x2_scene.expanduser().resolve()
@@ -312,6 +476,8 @@ def main():
         if args.asset_repo is not None and candidate != args.asset_repo.expanduser().resolve():
             parser.error("--asset-repo and --x2-scene disagree")
         args.asset_repo = candidate
+    if args.mode.startswith("env-"):
+        return env_diagnostic(args.mode, args.asset_repo, args.output, args.seconds)
     if args.mode == "step5":
         from .step5 import run
         return run(args.asset_repo, args.output)

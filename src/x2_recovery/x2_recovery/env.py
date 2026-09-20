@@ -3,7 +3,7 @@
 State and contact observations are simulator-accessible, not a hardware sensing
 claim. Only reset_supine initializes physics; step uses bounded joint torques.
 """
-from dataclasses import asdict, dataclass, field, replace
+from dataclasses import asdict, dataclass, replace
 import copy
 import time
 import gymnasium as gym
@@ -60,6 +60,8 @@ class EnvConfig:
         require(self.height_weight>=0 and self.upright_weight>=0 and self.standing_hold_weight>=0
                 and self.torque_cost_weight<=0 and self.action_change_weight<=0 and self.success_bonus>0,
                 'Invalid reward signs')
+        require(isinstance(self.reference_angles,tuple) and isinstance(self.pd_gains,tuple)
+                and all(isinstance(r,tuple) for r in self.reference_angles+self.pd_gains), 'Use immutable config tuples')
         require(len(dict(self.reference_angles))==len(self.reference_angles)
                 and all(np.isfinite(v) for _,v in self.reference_angles), 'Invalid reference angles')
         require(len({r[0] for r in self.pd_gains})==len(self.pd_gains)
@@ -79,7 +81,7 @@ def _diagnostic(value):
     if isinstance(value, dict): return {str(k):_diagnostic(v) for k,v in value.items()}
     if isinstance(value, (list,tuple)): return [_diagnostic(v) for v in value]
     if isinstance(value, float) and not np.isfinite(value): return {'invalid_numeric':repr(value)}
-    return value
+    return value if value is None or isinstance(value,(str,bool,int,float)) else repr(value)
 
 
 def _potential(v):
@@ -118,7 +120,7 @@ class X2RecoveryEnv(gym.Env):
         n=self.config.episode_timeout_s/self.physics_dt
         require(abs(n-round(n))<1e-8, 'Timeout must align to physics timestep')
         self.timeout_steps=int(round(n))
-        self.metadata={**type(self).metadata,'render_fps':round(1/self.control_dt)}
+        self.metadata={**type(self).metadata,'render_fps':max(1,round(1/self.control_dt))}
         self.tracker=SuccessTracker(CALIBRATED_SETTINGS,self.physics_dt,self.config.episode_timeout_s)
         self.q_min=self.context.ranges[:,0].copy();self.q_max=self.context.ranges[:,1].copy()
         self.q_ref=np.zeros(31);self.kp=np.empty(31);self.kd=np.empty(31)
@@ -198,6 +200,7 @@ class X2RecoveryEnv(gym.Env):
             observation=self._observation()
             info=self._info(0,None,None,{}, {},0.)
             if self.render_mode=='human':self.render()
+            require(time.monotonic()-started<self.config.reset_wall_s,'Reset wall-time deadline')
             return observation,info
         except Exception as exc:raise self._fail(exc) from exc
 
@@ -240,6 +243,7 @@ class X2RecoveryEnv(gym.Env):
             self._target=target;self.last_substeps=[]
             change=float(np.mean((applied.astype(float)-self.previous_action)**2))
             qualified_s=torque_integral=0.;saturated=0;executed=0
+            saturated_time=0;joint_saturated=np.zeros(31,dtype=int)
             termination=None;truncation=None;raw_max=applied_max=0.
             peaks={key:0. for key in ('joint_rad_s','joint_limit_rad','floor_penetration_m','self_penetration_m')}
             for _ in range(self.config.decimation):
@@ -252,7 +256,8 @@ class X2RecoveryEnv(gym.Env):
                 require(result['invalid_reason'] is None,'Invalid success sampling: '+str(result['invalid_reason']))
                 self._measurement=v;self._result=result;executed+=1;self._physics_steps+=1
                 effort=self.data.qfrc_actuator[self.context.vadr].copy()
-                saturated+=int(np.count_nonzero(tau_raw!=tau))
+                mask=tau_raw!=tau;saturated+=int(np.count_nonzero(mask))
+                saturated_time+=int(np.any(mask));joint_saturated+=mask
                 raw_max=max(raw_max,float(max(abs(tau_raw))));applied_max=max(applied_max,float(max(abs(effort))))
                 torque_integral+=float(np.mean((effort/self.effort_magnitude)**2))*self.physics_dt
                 qualified=bool(result['instant_standing_ok'] and not result['failures'] and result['invalid_reason'] is None)
@@ -276,9 +281,12 @@ class X2RecoveryEnv(gym.Env):
             self._expected_state=integration_state(self.model,self.data)
             observation=self._observation()
             info=self._info(executed,termination,truncation,raw,terms,saturated/(executed*31))
-            info.update(control={'target_boundary_fraction':float(np.mean((target==self.q_min)|(target==self.q_max))),
+            info.update(control={'any_saturation_time_fraction':saturated_time/executed,
+                                 'joint_saturation_time_fraction':(joint_saturated/executed).tolist(),
+                                 'target_boundary_fraction':float(np.mean((target==self.q_min)|(target==self.q_max))),
                                  'raw_torque_abs_max_Nm':raw_max,'applied_torque_abs_max_Nm':applied_max,**peaks})
             if self.render_mode=='human':self.render()
+            require(time.monotonic()<deadline,'Step wall-time deadline')
             return observation,reward,termination is not None,truncation is not None,info
         except Exception as exc:raise self._fail(exc,action) from exc
 
@@ -321,7 +329,7 @@ class X2RecoveryEnv(gym.Env):
     def render(self):
         require(not self._closed,'Environment closed')
         if self.render_mode is None:return None
-        require(self._measurement is not None,'Call reset before render')
+        require(self._measurement is not None and self.last_error is None,'Call reset before render: no valid state')
         before=integration_state(self.model,self.data)
         try:
             self._check_model()
@@ -362,6 +370,7 @@ class _HumanView:
             self.scene=mj.MjvScene(model,maxgeom=2000);self.option=mj.MjvOption()
             type(self).users+=1
         except Exception:
+            if self.context is not None:self.context.free()
             if self.window:glfw.destroy_window(self.window)
             if not type(self).users:glfw.terminate()
             raise

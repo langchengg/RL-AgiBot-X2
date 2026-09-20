@@ -11,7 +11,7 @@ setup(
     install_requires=["setuptools"],
     maintainer="Lang Cheng",
     maintainer_email="96649762+langchengg@users.noreply.github.com",
-    description="Runtime diagnostics for the AgiBot X2 recovery project.",
+    description="Native MuJoCo recovery environment and diagnostics for AgiBot X2.",
     license="UNLICENSED",
     entry_points={"console_scripts": ["runtime_check = x2_recovery.diagnostics:main"]},
 )

@@ -2,7 +2,7 @@
 <package format="3">
   <name>x2_recovery</name>
   <version>0.1.0</version>
-  <description>Runtime diagnostics for the AgiBot X2 recovery project.</description>
+  <description>Native MuJoCo recovery environment and diagnostics for AgiBot X2.</description>
   <maintainer email="96649762+langchengg@users.noreply.github.com">Lang Cheng</maintainer>
   <license>UNLICENSED</license>
   <buildtool_depend>ament_python</buildtool_depend>
