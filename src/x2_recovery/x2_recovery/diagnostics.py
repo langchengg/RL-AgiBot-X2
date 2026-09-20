@@ -443,6 +443,14 @@ def env_diagnostic(mode, asset_repo, output, seconds):
                 'early_abort':comparison([p]*2,True,False,torque=.02),
                 'late_abort_50':comparison([p]*51,True,False,torque=.02),
                 'limitation':'Early abort can avoid future running costs when success never occurs; no claim of reward-hacking immunity.'}
+            finish=_reward(c,np.ones(2),np.ones(2),True,.002,0.,0.,True)[0]
+            interrupted=[_reward(c,np.ones(2),np.ones(2),False,.019,0.,0.,False)[0]]
+            interrupted += [_reward(c,np.ones(2),np.ones(2),False,.020,0.,0.,False)[0]]*99+[finish]
+            evidence['reward_synthetic']['one_ms_interruption_with_hold_reward']={
+                'assumption':'Same synthetic state, 2 ms short of success; interrupt first 1 ms then hold a new 2 s window. No physical recovery.',
+                'immediate':{'transitions':1,'undiscounted':finish,'discounted':finish},
+                'interrupted':{'transitions':len(interrupted),'undiscounted':sum(interrupted),
+                               'discounted':sum(g**i*v for i,v in enumerate(interrupted))}}
         evidence.update(verdict='AUTOMATED_PASS' if mode=='env-check' else 'AWAITING_VISUAL_REVIEW',run_completed=True,exit_code=0)
         save();return 0
     except Exception as exc:

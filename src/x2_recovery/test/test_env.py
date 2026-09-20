@@ -325,6 +325,13 @@ class RewardLogicTests(unittest.TestCase):
         delayed=sum(c.shaping_gamma**k*r for k,r in enumerate(delay))+c.shaping_gamma**50*immediate
         abort=_reward(c,p,p,True,0,0,0,False)[0]
         self.assertGreater(immediate,delayed);self.assertGreater(delayed,abort)
+        # Same synthetic goal state, 2 ms short of success. A 1 ms interruption
+        # then a new 2 s window delays the bonus, despite collecting hold reward.
+        finish=_reward(c,p,p,True,.002,0,0,True)[0]
+        interrupted=[_reward(c,p,p,False,.019,0,0,False)[0]]
+        interrupted += [_reward(c,p,p,False,.020,0,0,False)[0]]*99
+        interrupted += [finish]
+        self.assertGreater(finish,sum(c.shaping_gamma**k*r for k,r in enumerate(interrupted)))
         # With no future success and running costs, early abort CAN be less negative.
         # This is an explicit limitation, not a fabricated guarantee against hacking.
         wait=[_reward(c,p,p,False,0,.02,0,False)[0]]*50
