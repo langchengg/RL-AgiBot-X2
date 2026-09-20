@@ -4,7 +4,8 @@
 
 HRS take-home: design an RL environment for recovery from lying on the back,
 run a training experiment, and integrate recovery and telemetry with ROS 2.
-**Step 4 physics verified; visualization closeout in progress** in the target VM. The pinned official model has
+**Step 4 COMPLETE** in the target VM: reset, bounded actuation, inspected live MuJoCo
+demonstration and locally played recording all passed. The pinned official model has
 one effective loader, source-consistent pelvis inertia, conservative joint ranges and
 verified state/control mappings. CPU PPO and ROS compatibility were verified in Step 2.
 OSMesa recording works. The Step 4 live window uses native MuJoCo visualization and
@@ -55,7 +56,7 @@ Source abbreviations refer to sections of the supplied task PDF:
 
 | ID | Deliverable | Acceptance criteria / required evidence | Source | Status |
 | --- | --- | --- | --- | --- |
-| A1 | Simulation and robot model | Select an AgiBot X2 URDF and simulator; load a floating base on a flat floor. Each episode resets to resting on the back without floor intersection. Configure collisions and respect joint/actuator limits. Document source, version, modifications and simulation settings; provide model-load, reset and limit evidence. Upstream XML availability alone is insufficient. | SIM; DOC | Pending |
+| A1 | Simulation and robot model | Select an AgiBot X2 URDF and simulator; load a floating base on a flat floor. Each episode resets to resting on the back without floor intersection. Configure collisions and respect joint/actuator limits. Document source, version, modifications and simulation settings; provide model-load, reset and limit evidence. Upstream XML availability alone is insufficient. | SIM; DOC | PASS within documented numerical contact tolerance; see Step 4 |
 | A2 | RL environment | Define observations, actions, reward, reset and episode end conditions. Explain reward terms, weights, rationale and recovery incentives, plus environment simplifications. Dimensions, gains, weights and thresholds must follow actual design and validation. | SIM; DOC | Pending |
 | A3 | Training experiment | Actually run PPO or another RL algorithm. Save any produced policy checkpoint and a real training reward plot. Record algorithm, training settings and compute resources. No fabricated or placeholder data. Zero success does not waive training; document any genuine training blocker and apply A5's baseline fallback. | SIM; VAL; DOC | Pending |
 | A4 | ROS 2 integration | Python or C++ package with recovery and telemetry nodes; colcon build and one launch file for both. Connect a real simulator. Accept before executing one episode with an available checkpoint or scripted baseline; reject concurrent requests. Publish simulator-derived status and actual joint states. Configurable timeout sends unsuccessful attempts to FAILED. Telemetry subscribes to both topics and logs status plus one joint position. Command targets or fabricated values are not measured telemetry. Docker is optional. | ROS; IF | Pending |
@@ -63,6 +64,12 @@ Source abbreviations refer to sections of the supplied task PDF:
 | A6 | Reproducibility and end-to-end validation | Verify a fresh ROS 2 build, one launch command for both nodes, and a CLI request that actually starts recovery in the simulator with live joint telemetry from that episode. Verify busy rejection and unsuccessful timeout to FAILED. Record actual commands and outcomes. Final README must cover dependencies/setup, simulation/training/evaluation commands, model and compute resources, environment/reward design, training settings, success checks/results, failure analysis/improvements, node responsibilities and build/launch/service/topic commands plus simulator integration. | VAL; DOC | Pending |
 
 An empty-workspace build is not evidence for A6. Evaluation has not been run.
+A1 now has floating-base/model/collision/limit evidence on the current effective model,
+geometry-checked collision-free placement, and repeated load-bearing supine dwell/hold.
+Its numerical interpretation permits at most 1 mm settled soft-contact penetration;
+the observed window maximum is 0.385257 mm, not mathematically zero. This is an explicit
+project tolerance, not a PDF-prescribed value or a claim that arbitrary future actions
+cannot cause intersections. Historical A1 Pending statements below describe earlier steps.
 
 ## ROS 2 interface contract
 
@@ -353,7 +360,8 @@ its 180 ms record, so the observed wrist/hip failure is not demonstrated there.
 Longer settling and an episode-ready supine initial state remain untested; their
 future validation must exclude trapping and assess penetration separately.
 There is no newly unresolved blocker to Step 3's bounded model/interface scope;
-**Step 3 remains COMPLETE**, while A1–A6 and reset acceptance remain Pending.
+**Step 3 remains COMPLETE**. At that historical closeout, A1–A6 and reset acceptance
+were Pending; Step 4's current reset and A1 evidence is documented below.
 
 COM comparison uses the actual `mjINT_EULER` integrator, now explicitly checked:
 with zero initial velocity, N=100 and h=0.001 s,
@@ -526,6 +534,18 @@ external support, model switching, velocity scaling or per-step pose overwrite i
 The same qpos **and nonzero qvel** remain in the caller's MjData. Its actual time is
 returned as `episode_start_time`; future episode time is `data.time - origin`.
 
+Minimal caller (after loading once with `load_effective_model()`):
+
+```python
+import mujoco
+from x2_recovery.reset import reset_supine
+
+data = mujoco.MjData(loaded.model)
+metadata = reset_supine(loaded, data, seed=100)
+episode_start_time = metadata["episode_start_time"]
+# Continue stepping this same data; do not zero qvel or reset data.time.
+```
+
 Only model change: `waist_pitch_joint.margin` 0 -> 0.005 rad, in `model.py` for **all**
 dynamics. Natural long settling originally loaded the soft upper limit to about
 0.31537 rad, beyond the unchanged 0.314 bound. Earlier activation leaves final waist
@@ -540,7 +560,8 @@ Affected Step 3 checks (including all 62 limit sides and collision probes), othe
 model/interface checks and four newly generated collision images were revalidated;
 the old reports and the two original wrist/hip side-lying FAILs remain intact.
 
-Successful development batch: **20/20 fixed + 20/20 seeds 100–119**, each after
+Final installed implementation `9566fd5390ffe0ebb66e586fcf679f043228b229`:
+**20/20 fixed + 20/20 seeds 100–119**, each after
 explicit previous-episode motion/control/force/warm-start contamination. Repeats of
 100, 107, 119 after different contamination matched requested poses, final q/dq,
 metrics and timing exactly here (declared tolerance 1e-10, no cross-platform promise).
@@ -553,6 +574,10 @@ Window worst linear speed 0.005469 m/s, angular speed 0.011068 rad/s, hinge spee
 (weight 411.691 N), including 113.401–114.470 N on the torso. Final torso face-up
 angle <=17.698 degrees, pelvis <=0.105 degrees. All initial clearances were 2 mm.
 Per-trial pair/time extrema and sampled traces remain in strict JSON.
+The worst transient was floor/geom 80 (`right_wrist_roll_link`), seed 106 at 0.078 s;
+the worst window value was floor/geom 67 (`left_wrist_roll_link`), seed 110 at 0.144 s;
+the largest final value was floor/geom 80, seed 117 at 1.653 s. Initial penetration
+was zero, with the independently verified 2 mm clearance.
 
 **Preserved failures:** `natural-baseline.json` records slow waist/hip drift;
 `pose-development*.json` and `low-energy-development.json` retain rejected candidates.
@@ -579,6 +604,10 @@ capability. Four further bounded sequences cover legs, arms/wrists, waist/head a
 all joints together. The live/recorded demo uses longer 350 ms head-yaw pulses plus
 250 ms neutral intervals for visible motion, then the same small grouped sequences.
 Zero torque does not instantaneously stop motion. No standing controller is present.
+Measured transmitted-effort error was zero; worst individual-test hinge speed was
+0.258136 rad/s. Grouped tests peaked at 0.036139 rad/s and 0.194557 mm floor penetration,
+with no measured self penetration. The visible head-yaw demonstration reached about
+0.13064 rad and returned towards 0.0338 rad after the negative pulse.
 
 Commands (existing venv, no dependency installation):
 
@@ -592,8 +621,8 @@ source audit-output/step4/final-build/install/setup.bash
 MUJOCO_GL=osmesa .venv/bin/python -m unittest discover -s src/x2_recovery/test -v
 MUJOCO_GL=osmesa ros2 run x2_recovery runtime_check step4 --output audit-output/step4/verification
 MUJOCO_GL=glfw PYGLFW_LIBRARY_VARIANT=x11 LIBGL_ALWAYS_SOFTWARE=1 \
-  ros2 run x2_recovery runtime_check step4-live --repeat 2 --output audit-output/step4/live
-MUJOCO_GL=osmesa ros2 run x2_recovery runtime_check step4-record \
+  timeout --kill-after=5s 90s ros2 run x2_recovery runtime_check step4-live --repeat 2 --output audit-output/step4/live
+MUJOCO_GL=osmesa timeout --kill-after=5s 180s ros2 run x2_recovery runtime_check step4-record \
   --repeat 2 --output audit-output/step4/recording
 ```
 
@@ -614,6 +643,40 @@ from copied states of a single continuous reset-to-actuation run, including init
 placement. It never feeds state back into physics. No installed H.264 encoder was
 available, so the existing Pillow animated format is used. Reports start incomplete;
 media generation and process exit never automatically grant visual approval.
+
+Final evidence below is under ignored `audit-output/step4/`; no logs/media/assets are
+tracked. The physics report links the independently run live/recording reports and
+records manual inspection with matching source, model, criteria, trajectory and media
+hashes. The CLI's original unreviewed statuses are retained in review metadata.
+
+| Area | Status | Evidence |
+| --- | --- | --- |
+| RESET | PASS | `verification/run-20260920T091936-386c73/report.json`: 20+20, three same-seed repeats, full dwell/hold and preserved final state |
+| ACTUATION | PASS | Same report: 31 causal joint checks, no clearance fixtures, four grouped sequences |
+| LIVE_VIEWER | PASS | `live/run-20260920T091948-96ae14/report.json`: exit 0, two complete resets/sequences, 19.369 s wall time, 190 frames; normal and collision images actually inspected |
+| RECORDING | PASS | `recording/run-20260920T092545-7e098b/report.json` and `demonstration.gif`: exit 0, generation 84.327 s; actual-state replay inspected and played locally |
+
+The live backend was GLFW X11 on real desktop `DISPLAY=:0` (Wayland session), using
+already installed llvmpipe LLVM 20.1.2 with process-local `LIBGL_ALWAYS_SOFTWARE=1`.
+Observed rate was **9.81 FPS** while other checks/rendering ran, below the 25 FPS target;
+there is no real-time-performance claim. The 1 ms physics step was unchanged. The GIF
+has 190 frames, 25 nominal FPS and 7.6 s playback; each explicit reset covers simulation
+time 0–3.661 s (7.322 s total). Extra phase-boundary samples explain the small playback
+duration difference. No recorded frames were dropped; trajectory timestamps are saved.
+The existing GTK3/GdkPixbuf native image player mapped a window on `:0` and advanced
+all 190 distinct frames during 10.007 s of playback, exit 0. Local reproduction:
+
+```bash
+.venv/bin/python audit-output/step4/play_recording.py \
+  "$PWD/audit-output/step4/recording/run-20260920T092545-7e098b/demonstration.gif"
+```
+
+Fresh `final-build` colcon build passed. The installed entry point uses this `.venv`,
+its new overlay and the current checkout; `final-identity.log` records resolved paths.
+The complete regression suite passed **22 tests in 4.975 s**, including 14 existing
+and eight focused reset tests (`final-tests.log`). These and final physics/live/media
+checks ran on implementation commit `9566fd5`; subsequent closeout changes are README
+only, with implementation hashes rechecked rather than repeating physics mechanically.
 
 Reproducible bug notes and sources:
 
@@ -636,6 +699,11 @@ Reproducible bug notes and sources:
   `gl-clear-probe.log`, `mujoco-gl-probe.log`, `x2-gl-probe.log` and native black frames
   preserve reproduction evidence; the first high-resolution software run hit its
   external 40 s timeout. Optimized software rendering completed the full sequence.
+  This is an observed backend-specific workaround; the underlying virgl defect was
+  not patched. A later recording produced complete media but its shell returned 143
+  (termination cause unestablished); that evidence remains in
+  `recording/run-20260920T091949-6bf409`. The separate 180 s bounded recording above
+  exited 0 and produced byte-identical trajectory/GIF, then passed native playback.
 
 A2–A6 remain Pending. X2 training is **Not run**, evaluation **Not evaluated**.
 Next work is environment observation/action/reward design; none is implemented here.
@@ -645,7 +713,8 @@ Next work is environment observation/action/reward design; none is implemented h
 The repository was established before implementation. Preserve meaningful commits and
 record completed work in local commits (PDF p. 2, Commit history). The current
 user instruction overrides the PDF push request: **no remote writes without explicit
-approval of the specific push/PR operation**. Step 3 is finished locally only.
+approval of the specific push/PR operation**. Step 4 commits remain local on the
+feature branch; `main` remains at the Step 3 base. No automatic merge is performed.
 
 ## References
 
