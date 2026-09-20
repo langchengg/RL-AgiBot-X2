@@ -132,6 +132,13 @@ def apply_overrides(spec, urdf):
         edits.append({"target": name + ".range", "old": list(old), "new": list(new),
                       "units": "rad", "source": URDF + "#" + name,
                       "reason": "Project conservative intersection policy; not a hardware specification"})
+    waist = spec.joint("waist_pitch_joint")
+    require(waist.margin == 0, "Waist limit margin precondition failed")
+    waist.margin = .005
+    edits.append({"target": "waist_pitch_joint.margin", "old": 0., "new": .005,
+                  "units": "rad", "source": "Step 4 natural settling diagnosis",
+                  "reason": "Activate the unchanged soft limit early: gravity otherwise produces "
+                            "0.00137 rad steady upper-bound violation. No range/effort widening."})
     return tuple(edits)
 
 

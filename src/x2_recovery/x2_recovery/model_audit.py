@@ -792,7 +792,8 @@ def collision_audit(loaded, spec, output):
 
 PHYSICS_FIELDS = ('qpos0', 'body_mass', 'body_ipos', 'body_iquat', 'body_inertia', 'body_pos', 'body_quat',
                   'body_gravcomp',
-                  'jnt_type', 'jnt_axis', 'jnt_range', 'jnt_limited', 'jnt_actfrcrange', 'jnt_actfrclimited',
+                  'jnt_type', 'jnt_axis', 'jnt_range', 'jnt_margin', 'jnt_solref', 'jnt_solimp',
+                  'jnt_limited', 'jnt_actfrcrange', 'jnt_actfrclimited',
                   'jnt_qposadr', 'jnt_dofadr', 'dof_armature', 'dof_damping', 'dof_frictionloss',
                   'geom_pos', 'geom_quat', 'geom_size', 'geom_type', 'geom_contype', 'geom_conaffinity',
                   'geom_friction', 'geom_solref', 'geom_solimp', 'geom_margin', 'geom_gap',

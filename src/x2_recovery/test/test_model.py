@@ -37,7 +37,8 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(self.loaded.joint('left_hip_yaw_joint').position_range, (-1.684, 3.43))
         self.assertEqual(self.loaded.joint('left_wrist_roll_joint').effort_range, (-2.2, 2.2))
         # Full tensor validation occurs on every load (including off-diagonals).
-        self.assertEqual(len(self.loaded.overrides), 7)
+        self.assertEqual(len(self.loaded.overrides), 8)
+        self.assertEqual(m.jnt_margin[m.joint('waist_pitch_joint').id], .005)
 
     def test_nonzero_named_mapping_and_example(self):
         evidence = mapping_audit(self.loaded)
