@@ -31,3 +31,6 @@ HRS_Take_Home_Task*.pdf
 
 # Python package metadata produced by colcon/setuptools
 *.egg-info/
+
+# Local model audit evidence (strict JSON, rendered images, verification logs)
+/audit-output/

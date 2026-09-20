@@ -1,4 +1,4 @@
-"""Bounded Step 2 checks, independent of the future X2 recovery environment."""
+"""Bounded runtime diagnostics and Step 3 audit; no recovery environment."""
 
 import argparse
 import json
@@ -8,16 +8,12 @@ import sys
 import tempfile
 import time
 
-import gymnasium as gym
+# Must be selected before MuJoCo/PyOpenGL import in this process.
+os.environ.setdefault("MUJOCO_GL", "osmesa")
 import mujoco as mj
 import numpy as np
-import rclpy
-from rclpy.utilities import get_rmw_implementation_identifier
-from sensor_msgs.msg import JointState
-import stable_baselines3 as sb3
-from std_msgs.msg import String
-from std_srvs.srv import Trigger
-import torch
+
+from .model import SCENE, load_effective_model, require
 
 SIMPLE_SCENE = """
 <mujoco model="runtime_probe">
@@ -40,6 +36,15 @@ def report(check, **values):
 
 
 def runtime_identity():
+    import gymnasium as gym
+    import rclpy
+    from rclpy.utilities import get_rmw_implementation_identifier
+    from sensor_msgs.msg import JointState
+    import stable_baselines3 as sb3
+    from std_msgs.msg import String
+    from std_srvs.srv import Trigger
+    import torch
+
     torch.set_num_threads(2)
     torch.set_num_interop_threads(1)
     report("identity", python=sys.version.split()[0], executable=sys.executable, prefix=sys.prefix,
@@ -71,11 +76,12 @@ def simple_model():
 
 
 def finite_physics(data):
-    assert np.isfinite(data.qpos).all() and np.isfinite(data.qvel).all()
-    assert not np.any(data.warning.number), data.warning.number
+    require(np.isfinite(data.qpos).all() and np.isfinite(data.qvel).all()
+            and np.isfinite(data.qacc).all(), "Nonfinite physics state")
+    require(not np.any(data.warning.number), f"MuJoCo warnings: {data.warning.number}")
 
 
-def physics_checks(scene):
+def physics_checks(asset_repo):
     start = time.perf_counter()
     model, data = simple_model()
     load_seconds = time.perf_counter() - start
@@ -88,22 +94,26 @@ def physics_checks(scene):
         mj.mj_step(model, data)
     elapsed = time.perf_counter() - start
     finite_physics(data)
-    assert np.isclose(data.time - start_time, 2000 * model.opt.timestep)
+    require(np.isclose(data.time - start_time, 2000 * model.opt.timestep), "Wrong simple-scene time progression")
     report("simple_physics", result="PASS", steps=2000, warmup_steps=100,
            load_seconds=load_seconds, step_seconds=elapsed,
            steps_per_second=2000 / elapsed, simulated_seconds=data.time - start_time)
-    model = mj.MjModel.from_xml_path(str(scene))
+    model = load_effective_model(asset_repo).model
     data = mj.MjData(model)
     mj.mj_forward(model, data)
     for _ in range(100):
         mj.mj_step(model, data)
     finite_physics(data)
-    assert np.isclose(data.time, 0.1)
-    report("official_x2", result="PASS", nq=model.nq, nv=model.nv, nu=model.nu,
+    require(np.isclose(data.time, 0.1), "Wrong X2 time progression")
+    report("effective_x2", result="PASS", nq=model.nq, nv=model.nv, nu=model.nu,
            steps=100, simulated_seconds=data.time)
 
 
 def ppo_check():
+    import gymnasium as gym
+    import stable_baselines3 as sb3
+    import torch
+
     env = gym.make("Pendulum-v1", render_mode=None)
     start = time.monotonic()
     try:
@@ -152,7 +162,7 @@ def ppo_check():
         env.close()
 
 
-def render_checks(scene, output):
+def render_checks(asset_repo, output):
     from PIL import Image
 
     output.mkdir(parents=True, exist_ok=True)
@@ -160,7 +170,7 @@ def render_checks(scene, output):
         if name == "simple":
             model, data = simple_model()
         else:
-            model = mj.MjModel.from_xml_path(str(scene))
+            model = load_effective_model(asset_repo).model
             data = mj.MjData(model)
             mj.mj_forward(model, data)
         camera = mj.MjvCamera()
@@ -174,7 +184,7 @@ def render_checks(scene, output):
         report("offscreen_frame", backend=os.environ.get("MUJOCO_GL"), path=str(path),
                shape=list(pixels.shape), pixel_std=float(pixels.std()),
                result="SAVED; visual inspection required")
-        assert pixels.shape == (240, 320, 3) and pixels.std() > 1
+        require(pixels.shape == (240, 320, 3) and pixels.std() > 1, "Invalid offscreen image")
 
 
 def viewer_check():
@@ -192,6 +202,11 @@ def viewer_check():
 
 
 def serve(seconds):
+    import rclpy
+    from sensor_msgs.msg import JointState
+    from std_msgs.msg import String
+    from std_srvs.srv import Trigger
+
     rclpy.init()
     node = rclpy.create_node("x2_smoke_server")
     try:
@@ -236,6 +251,11 @@ def serve(seconds):
 
 
 def client(seconds):
+    import rclpy
+    from sensor_msgs.msg import JointState
+    from std_msgs.msg import String
+    from std_srvs.srv import Trigger
+
     rclpy.init()
     node = rclpy.create_node("x2_smoke_client")
     try:
@@ -270,23 +290,37 @@ def client(seconds):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mode", choices=["runtime", "render", "viewer", "serve", "client"])
-    parser.add_argument("--x2-scene", type=Path)
+    parser.add_argument("mode", choices=["runtime", "model", "audit", "render", "viewer", "serve", "client"])
+    parser.add_argument("--x2-scene", type=Path, help="Legacy alias: must be the pinned Ultra scene")
+    parser.add_argument("--asset-repo", type=Path)
+    parser.add_argument("--image-review-from", type=Path,
+                        help="Reuse visual observations from a report only if new image hashes match")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--seconds", type=float, default=20)
     args = parser.parse_args()
     if not 0 < args.seconds <= 60:
         parser.error("--seconds must be in (0, 60]")
-    if args.mode in ("runtime", "render") and args.x2_scene is None:
-        parser.error("--x2-scene is required")
-    if args.mode == "render" and args.output is None:
+    if args.mode in ("render", "audit") and args.output is None:
         parser.error("--output is required")
-    runtime_identity()
+    if args.x2_scene is not None:
+        scene = args.x2_scene.expanduser().resolve()
+        candidate = scene.parent.parent
+        if scene != candidate / SCENE:
+            parser.error("--x2-scene must identify the pinned X2_URDF-v1.3.0/scene.xml")
+        if args.asset_repo is not None and candidate != args.asset_repo.expanduser().resolve():
+            parser.error("--asset-repo and --x2-scene disagree")
+        args.asset_repo = candidate
     if args.mode == "runtime":
-        physics_checks(args.x2_scene)
+        runtime_identity()
+        physics_checks(args.asset_repo)
         ppo_check()
+    elif args.mode == "model":
+        physics_checks(args.asset_repo)
+    elif args.mode == "audit":
+        from .model_audit import run_audit
+        return run_audit(args.asset_repo, args.output, image_review_from=args.image_review_from)
     elif args.mode == "render":
-        render_checks(args.x2_scene, args.output)
+        render_checks(args.asset_repo, args.output)
     elif args.mode == "viewer":
         viewer_check()
     elif args.mode == "serve":
