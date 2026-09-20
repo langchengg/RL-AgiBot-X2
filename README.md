@@ -4,9 +4,11 @@
 
 HRS take-home: design an RL environment for recovery from lying on the back,
 run a training experiment, and integrate recovery and telemetry with ROS 2.
-Repository setup and requirements capture are complete. Native MuJoCo loading and a
-short headless stepping check pass for one official X2 model candidate.
-Recovery simulation, RL environment, ROS nodes, training and evaluation remain **Pending**.
+**Step 2 core runtime verified** in the target VM. CPU PPO, native MuJoCo and a
+real ROS diagnostic package work together. OSMesa offscreen rendering passes;
+the interactive viewer is unstable on this VM.
+X2 recovery control, its Gymnasium environment, final ROS nodes, training and evaluation
+remain **Pending**. The diagnostic package does not implement recovery behavior.
 Evaluation: **Not evaluated**.
 
 The two-page task brief, *AgiBot X2 Ground Recovery — Environment Design and ROS 2
@@ -19,23 +21,27 @@ These are project choices, not additional requirements imposed by the task PDF.
 
 ## Observed environment
 
-Dependency validation on 2026-09-20, executed inside the target VM:
+Checks rerun on 2026-09-20 inside the existing Parallels VM:
 
-| Item | Observed fact |
+| Item | Observed value |
 | --- | --- |
-| Platform | Ubuntu 24.04.5 LTS; Linux 7.0.0-31-generic; aarch64; dpkg architecture arm64 |
-| Virtualization | `systemd-detect-virt`: parallels; platform identifies as Parallels ARM Virtual Machine |
-| VM resources | 8 available CPUs; `free -h`: 11 GiB RAM, 4.0 GiB swap (rounded) |
-| Python | System `/usr/bin/python3` and project `.venv/bin/python`: Python 3.12.3 |
-| ROS 2 | `/opt/ros/jazzy/setup.bash` exists; sourced in a child shell; ROS_DISTRO=jazzy |
-| ROS tools | `ros2` and `colcon` found; system and venv Python import Jazzy rclpy and all three required interface types |
-| MuJoCo | 3.13.0 Python bindings and native library load in `.venv`; absent from system Python |
-| Dependencies | NumPy 1.26.4; `.venv/bin/python -m pip check` passes |
-| RL libraries | Gymnasium, Stable-Baselines3 and PyTorch are not installed or validated |
+| OS / virtualization | Ubuntu 24.04.5 LTS; Linux 7.0.0-31-generic; aarch64/arm64; Parallels |
+| VM allocation | 8 CPUs; approximately 11 GiB RAM and 4 GiB swap |
+| Disk | 62 GiB filesystem, 40 GiB available after installation (`df -h`, rounded) |
+| Python | System `/usr/bin/python3` and project `.venv/bin/python`: 3.12.3 |
+| Runtime identity | Installed executable uses `<checkout>/.venv/bin/python`; prefix `<checkout>/.venv`; base prefix `/usr` |
+| ROS | Jazzy in `/opt/ros/jazzy`; rclpy 7.1.12; sensor_msgs, std_msgs, std_srvs 5.3.8 |
+| Build tools | colcon-core 0.21.3; setuptools 68.1.2; ament-package 0.16.5 |
+| Simulation / RL | MuJoCo 3.13.0; Gymnasium 1.3.0; Stable-Baselines3 2.9.0; PyTorch 2.8.0+cpu |
+| Other direct dependencies | NumPy 1.26.4; cffi 2.1.1; Pillow 10.2.0 |
+| Graphics | Virtio virtual VGA and renderD128; Mesa virgl, desktop OpenGL 4.0; DISPLAY=:0 |
+| Rendering libraries | Python glfw 2.10.2; PyOpenGL 3.1.10; libosmesa6 25.1.7 |
+| PyTorch backends | CPU used explicitly; CUDA=false, MPS=false; 2 compute threads, 1 interop thread |
 
-The venv inherits system packages for ROS compatibility. Adding cffi 2.1.1 inside the
-venv resolved an inherited PyNaCl dependency check failure; system packages were unchanged.
-ROS communication, rendering, GPU capability and the training stack remain unverified.
+The venv uses system site-packages: NumPy/Pillow come from Ubuntu, rclpy and interface
+modules from Jazzy, and MuJoCo/Gymnasium/SB3/Torch from the venv. The installed diagnostic
+prints module paths and interpreter identity in one process. No system Python packages
+were replaced. Virtual graphics capability does not establish a training GPU.
 
 ## Acceptance criteria
 
@@ -69,89 +75,147 @@ FAILED at its configurable timeout. Keep the required Trigger service and messag
 The telemetry node subscribes to joint states and recovery status and logs both the
 current status and one joint position. Source: PDF p. 1 ROS; p. 2 IF and VAL.
 
-## Planned implementation choices
+## Implementation route
 
-- Use MuJoCo's native Python API on the target Ubuntu/Jazzy ARM64 environment.
-- Consider Gymnasium with Stable-Baselines3 PPO, initially using CPU training.
-- Implement both nodes in Python/rclpy.
-- Prefer direct calls from the recovery node into a shared environment implementation.
-- Determine the final model version, actuator setup, reward, training budget, success
-  thresholds and dependency versions only after inspection and verification.
+These project choices are separate from the PDF requirements:
 
-These are plans, not implemented features or PDF mandates. Reference projects do not
-make ONNX, legged_control2, ros2_control or a separate simulator bridge dependencies.
+- Official X2 Ultra v1.3.0 at `60c5de582c523cd188f563819e62d34cfdc3d2d0`, using native
+  MuJoCo Python. Selecting this version does not approve its physical limits.
+- Future environment: Gymnasium; learning: SB3 PPO with MlpPolicy, initially CPU.
+- One ament_python package, eventually containing Python/rclpy recovery and telemetry
+  nodes plus one launch file. Only the diagnostic entry point exists now.
+- Recovery will directly use the same environment class as training/evaluation.
+- Actuation semantics, reward, X2 training budget and success thresholds remain future work.
+
+No simulator bridge, ONNX, ros2_control or alternative simulation framework is required.
 
 ## Development and verification status
 
-The following commands validate dependencies and an unmodified official model. They do
-not implement a recovery reset, controller, ROS package or training experiment.
+### Setup and fresh build
 
-### Dependency and model checks
-
-From the project root, create the venv and install the checked versions:
+Run from the repository root. Jazzy and the existing Ubuntu Python/colcon packages are
+prerequisites; do not install rclpy from PyPI. The inspected `/usr/bin/colcon` shebang uses
+system Python, so invoke it explicitly with the venv interpreter.
 
 ```bash
-python3 -m venv --system-site-packages .venv
-.venv/bin/python -m pip install --only-binary=:all: mujoco==3.13.0 cffi==2.1.1
 source /opt/ros/jazzy/setup.bash
-.venv/bin/python -c 'import mujoco, rclpy; from sensor_msgs.msg import JointState; from std_srvs.srv import Trigger; from std_msgs.msg import String; print(mujoco.__version__, mujoco.mj_versionString())'
+# Only if .venv does not already exist:
+# /usr/bin/python3 -m venv --system-site-packages .venv
+touch .venv/COLCON_IGNORE
+.venv/bin/python -m pip install --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu 'torch==2.8.0+cpu'
+.venv/bin/python -m pip install --only-binary=:all: --index-url https://pypi.org/simple -r requirements.txt
 .venv/bin/python -m pip check
+.venv/bin/python /usr/bin/colcon list --base-paths src
+STEP2_DIR="$(mktemp -d /tmp/hrs-x2-step2.XXXXXX)"
+.venv/bin/python /usr/bin/colcon --log-base "$STEP2_DIR/final-log" build \
+  --base-paths src --packages-select x2_recovery --symlink-install \
+  --build-base "$STEP2_DIR/final-build" --install-base "$STEP2_DIR/final-install"
+source "$STEP2_DIR/final-install/setup.bash"
+head -1 "$STEP2_DIR/final-install/x2_recovery/lib/x2_recovery/runtime_check"
 ```
 
-Observed: both MuJoCo versions are 3.13.0; imports pass; no broken requirements.
-Local supporting packages: absl-py 2.5.0, etils 1.14.0, fsspec 2026.9.0, glfw 2.10.2,
-PyOpenGL 3.1.10 and pycparser 3.0. This is a validated snapshot, not a complete lockfile.
+PyPI metadata and official wheel listings were checked before installation: Gymnasium
+and SB3 have universal wheels; Torch has a cp312 Linux aarch64 CPU wheel. SB3 2.9.0
+accepts Torch >=2.8 and Gymnasium <2.0; these pins retain working MuJoCo/NumPy and avoid
+CUDA packages or source builds. requirements.txt pins direct dependencies and the cffi
+compatibility requirement from inherited PyNaCl; it is not a transitive lockfile.
+No apt/build-tool changes were needed. Build outputs and raw logs stay in the temporary
+directory; colcon discovers only src, and the venv has COLCON_IGNORE.
 
-Keep the upstream checkout outside this repository. For the initial download:
+### Model source
+
+The existing external checkout is reused, not vendored or modified:
 
 ```bash
 export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
+git -C "$X2_ASSET_REPO" rev-parse HEAD
+git -C "$X2_ASSET_REPO" status --short
+export X2_SCENE="$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml"
+```
+
+Observed revision: `60c5de582c523cd188f563819e62d34cfdc3d2d0`; worktree clean.
+For a new checkout, the previously verified download sequence is:
+
+```bash
 git clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git "$X2_ASSET_REPO"
 git -C "$X2_ASSET_REPO" sparse-checkout set X2_URDF-v1.3.0
 git -C "$X2_ASSET_REPO" checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0
 ```
 
-The checkout retains the upstream Mulan PSL v2 license and has no local changes.
-v1.3.0 Ultra is the initial loading candidate, not a final recovery-model selection.
-It supplies a paired URDF, native MJCF and scene, avoiding conversion for this check.
+The upstream Mulan PSL v2 license stays with the assets. No project license is granted
+by this work; ROS package metadata uses UNLICENSED.
 
-Headless load and stepping check (no renderer required):
+### Executed checks
+
+Using the sourced overlay and the variables above:
 
 ```bash
-.venv/bin/python - <<'PY'
-import os
-from pathlib import Path
-import mujoco as mj
-import numpy as np
-scene = Path(os.environ["X2_ASSET_REPO"]) / "X2_URDF-v1.3.0/scene.xml"
-m = mj.MjModel.from_xml_path(str(scene))
-d = mj.MjData(m)
-mj.mj_forward(m, d)
-print("nq nv nu:", m.nq, m.nv, m.nu, "initial contacts:", d.ncon)
-for _ in range(100):
-    mj.mj_step(m, d)
-assert np.isfinite(d.qpos).all() and np.isfinite(d.qvel).all()
-assert np.isclose(d.time, 0.1) and not np.any(d.warning.number)
-print("time:", d.time, "warnings:", d.warning.number.tolist())
-PY
+timeout --kill-after=5s 120s ros2 run x2_recovery runtime_check runtime --x2-scene "$X2_SCENE"
+MUJOCO_GL=osmesa timeout --kill-after=5s 40s ros2 run x2_recovery runtime_check render \
+  --x2-scene "$X2_SCENE" --output "$STEP2_DIR/frames-osmesa"
 ```
 
-Observed: `nq=38`, `nv=37`, `nu=31`, zero initial contacts, 0.1 s advanced and
-all warning counters zero. This checks loading and short stepping, not standing or recovery.
+The PPO dependency/runtime smoke test uses one Pendulum-v1 environment without rendering,
+seed 42, MlpPolicy, device=cpu, n_steps=128, batch_size=64, n_epochs=2 and 1024 timesteps.
+It checks finite data and parameters, an actual parameter change, checkpoint save/load,
+and 32 deterministic prediction steps. PPO has a 60 s internal deadline and the complete
+runtime command a 120 s external bound. Its temporary checkpoint is removed automatically.
+These are compatibility checks, not X2 hyperparameters, convergence evidence, A3 training,
+or any of the five A5 evaluation episodes.
 
-Model audit findings at the pinned revision:
+Cross-process communication was checked with matching Fast DDS, domain 42, localhost-only
+discovery and reliable/volatile keep-last-10 topic QoS. No global networking changes:
 
-- One free joint, 31 limited hinge joints, 31 control-limited motors and a plane floor;
-  timestep 0.001 s. No separate actuator force limits are enabled.
-- All 31 actuated joint names match the URDF. The first hinge uses qpos index 7 and
-  qvel index 6: floating-base coordinates must not be published as named hinge positions.
-- Twelve joint position ranges and thirteen motor control ranges differ from the URDF.
-  For example, waist yaw has upper bound 2.382 rad in MJCF versus 2.2078 in URDF;
-  head yaw spans ±0.366 versus ±0.349 rad. Hip/knee motors use ±118 versus URDF ±120;
-  wrist pitch/roll use ±2.2 versus URDF ±4.8. Reconcile limits before recovery control.
-- The default base is upright at z=0.68 m, not resting supine. Collision masks include
-  both disabled visual geoms and enabled collision geoms; a valid supine reset and
-  collision/limit behavior still require verification. No model edits were made.
+```bash
+export ROS_DOMAIN_ID=42 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+timeout --kill-after=5s 35s ros2 run x2_recovery runtime_check serve --seconds 20 > "$STEP2_DIR/server.log" 2>&1 &
+smoke_pid=$!
+trap 'kill "$smoke_pid" 2>/dev/null || true' EXIT
+timeout --kill-after=5s 25s ros2 run x2_recovery runtime_check client --seconds 15
+client_exit=$?
+wait "$smoke_pid"
+server_exit=$?
+trap - EXIT
+cat "$STEP2_DIR/server.log"
+test "$client_exit" -eq 0 && test "$server_exit" -eq 0
+```
+
+The client waits for discovery and repeated publications, verifies String content,
+JointState names/finite changing positions/timestamps, then checks the Trigger response.
+The server reads `probe_hinge` qpos from the tiny simulated scene. Endpoints are only
+`/x2_smoke/status`, `/x2_smoke/joint_states`, `/x2_smoke/ping`; none implement the final
+recovery interfaces, busy rejection or recovery timeout behavior.
+
+| Check (rerun this step) | Status | Observed evidence |
+| --- | --- | --- |
+| Complete stack in one process | PASS | Installed ros2-run entry point imports all requested modules from the intended runtime |
+| pip check; NumPy/Torch interop | PASS | No broken requirements; shared-array conversion and finite CPU forward/backward gradients |
+| Fresh ROS package build | PASS | One x2_recovery ament_python package; final fresh build 0.72 s; entry point shebang uses venv |
+| Simple MuJoCo physics | PASS | 100 warm-up + 2000 timed steps; 4.0 simulated s; finite state, no warnings |
+| Simple-scene timing | PASS | Load 0.000776 s; timed stepping 0.001944 s, approximately 1.03 million steps/s; loading/warm-up excluded |
+| Pinned X2 regression | PASS | nq=38, nv=37, nu=31; 100 steps / 0.1 s, finite state, no warnings |
+| PPO dependency/runtime smoke test | PASS | 1024 steps, 16 optimization epochs; 1.305 s setup/learning, 1.329 s including reload/rollout; max parameter change 0.0106144 |
+| Cross-process ROS topics/service | PASS | 3 String and 3 JointState messages received; positions 0.392532, 0.383565, 0.371238 rad; Trigger success=true; both processes exit 0 |
+| OSMesa offscreen frames | PASS | 320x240 simple/X2 PNGs saved and visually inspected: visible hinge/floor and complete robot/floor |
+| Automatic GLFW desktop rendering | FAIL | Image-validity assertion failed; forcing X11 on the selected Wayland library was unsupported |
+| Interactive viewer | FAIL | X11 variant opened for 2 s, but process exited with segmentation fault; software retry hit GLXBadDrawable and 20 s timeout |
+| Recovery, robot training/evaluation | NOT RUN | A1-A6 Pending; evaluation Not evaluated |
+
+The simple-scene timing is a short runtime measurement, not an X2 training-speed estimate.
+OSMesa uses the already installed libosmesa6 25.1.7; no graphics packages/drivers were
+changed. Interactive capability is unverified beyond opening a window. The bounded failed
+viewer attempts used `PYGLFW_LIBRARY_VARIANT=x11 MUJOCO_GL=glfw` and then additionally
+`LIBGL_ALWAYS_SOFTWARE=1`, each with `timeout --kill-after=5s 20s ros2 run x2_recovery runtime_check viewer`.
+All diagnostic processes were bounded and have exited. No core checks are blocked;
+the graphics limitation is isolated to desktop rendering/viewer reliability.
+
+### Model limitations retained from the earlier audit
+
+The selected model's 12 joint-range and 13 actuator-control-range discrepancies against
+its URDF remain unresolved. Control ranges are not approved joint torque limits:
+transmission/gear semantics must be inspected before configuring actuation. Its default
+upright base at z=0.68 m is not a valid supine reset. Collision/limit behavior and reset
+still require verification. Step 2 made no model edits and does not pass A1.
 
 ### Development history
 
@@ -162,6 +226,9 @@ push completed work throughout development (PDF p. 2, Commit history).
 
 Reviewed README content and GitHub directory trees on 2026-09-20:
 
+- [SB3 package metadata](https://pypi.org/project/stable-baselines3/2.9.0/),
+  [Gymnasium metadata](https://pypi.org/project/gymnasium/1.3.0/), and
+  [official PyTorch CPU wheels](https://download.pytorch.org/whl/cpu/torch/).
 - [MuJoCo Python API](https://mujoco.readthedocs.io/en/stable/python.html) and
   [PyPI distribution](https://pypi.org/project/mujoco/3.13.0/): native bindings and ARM64 wheel.
 - Task PDF: p. 1, Simulation and reinforcement learning / ROS 2 integration;

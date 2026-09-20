@@ -28,3 +28,6 @@ __pycache__/
 
 # Task handout, if placed in the workspace
 HRS_Take_Home_Task*.pdf
+
+# Python package metadata produced by colcon/setuptools
+*.egg-info/
