@@ -4,9 +4,10 @@
 
 HRS take-home: design an RL environment for recovery from lying on the back,
 run a training experiment, and integrate recovery and telemetry with ROS 2.
-**Step 2 core runtime verified** in the target VM. CPU PPO, native MuJoCo and a
-real ROS diagnostic package work together. OSMesa offscreen rendering passes;
-the interactive viewer is unstable on this VM.
+**Step 3 model audit complete** in the target VM. The pinned official model now has
+one effective loader, source-consistent pelvis inertia, conservative joint ranges and
+verified state/control mappings. CPU PPO and ROS compatibility were verified in Step 2.
+OSMesa offscreen rendering works; the interactive viewer remains unstable on this VM.
 X2 recovery control, its Gymnasium environment, final ROS nodes, training and evaluation
 remain **Pending**. The diagnostic package does not implement recovery behavior.
 Evaluation: **Not evaluated**.
@@ -85,7 +86,8 @@ These project choices are separate from the PDF requirements:
 - One ament_python package, eventually containing Python/rclpy recovery and telemetry
   nodes plus one launch file. Only the diagnostic entry point exists now.
 - Recovery will directly use the same environment class as training/evaluation.
-- Actuation semantics, reward, X2 training budget and success thresholds remain future work.
+- Simulator torque semantics are verified below. RL actions, controller, reward, X2
+  training budget and success thresholds remain future work.
 
 No simulator bridge, ONNX, ros2_control or alternative simulation framework is required.
 
@@ -124,7 +126,12 @@ directory; colcon discovers only src, and the venv has COLCON_IGNORE.
 
 ### Model source
 
-The existing external checkout is reused, not vendored or modified:
+The existing external checkout is reused, not vendored or modified. Source:
+[AgibotTech/agibot_x2_urdf](https://github.com/AgibotTech/agibot_x2_urdf),
+commit `60c5de582c523cd188f563819e62d34cfdc3d2d0`, **X2 Ultra v1.3.0**.
+Reference URDF: `X2_URDF-v1.3.0/x2_ultra.urdf`; robot MJCF:
+`X2_URDF-v1.3.0/x2_ultra.xml`; scene: `X2_URDF-v1.3.0/scene.xml`
+(includes only that robot MJCF). Runtime loading is offline after setup:
 
 ```bash
 export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
@@ -145,7 +152,7 @@ git -C "$X2_ASSET_REPO" checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2
 The upstream Mulan PSL v2 license stays with the assets. No project license is granted
 by this work; ROS package metadata uses UNLICENSED.
 
-### Executed checks
+### Step 2 checks (historical)
 
 Using the sourced overlay and the variables above:
 
@@ -186,7 +193,7 @@ The server reads `probe_hinge` qpos from the tiny simulated scene. Endpoints are
 `/x2_smoke/status`, `/x2_smoke/joint_states`, `/x2_smoke/ping`; none implement the final
 recovery interfaces, busy rejection or recovery timeout behavior.
 
-| Check (rerun this step) | Status | Observed evidence |
+| Check (rerun in Step 2) | Status | Observed evidence |
 | --- | --- | --- |
 | Complete stack in one process | PASS | Installed ros2-run entry point imports all requested modules from the intended runtime |
 | pip check; NumPy/Torch interop | PASS | No broken requirements; shared-array conversion and finite CPU forward/backward gradients |
@@ -209,18 +216,149 @@ viewer attempts used `PYGLFW_LIBRARY_VARIANT=x11 MUJOCO_GL=glfw` and then additi
 All diagnostic processes were bounded and have exited. No core checks are blocked;
 the graphics limitation is isolated to desktop rendering/viewer reliability.
 
-### Model limitations retained from the earlier audit
+### Step 3: effective model and evidence
 
-The selected model's 12 joint-range and 13 actuator-control-range discrepancies against
-its URDF remain unresolved. Control ranges are not approved joint torque limits:
-transmission/gear semantics must be inspected before configuring actuation. Its default
-upright base at z=0.68 m is not a valid supine reset. Collision/limit behavior and reset
-still require verification. Step 2 made no model edits and does not pass A1.
+`x2_recovery.model.load_effective_model(asset_repo=None)` is the only normal X2
+loading path, including existing runtime/render diagnostics. It accepts a repository
+path or `X2_ASSET_REPO`, otherwise the cache path under `Path.home()`. It checks the
+pinned Git revision, relevant dirty/untracked files and XML/license hashes. It uses
+MuJoCo 3.13.0 `MjSpec.from_file`, named edits and recompilation, preserving relative
+includes/meshes without changing cwd. Every call returns a fresh model; no ROS,
+Torch, SB3, rendering, probes, reports or network access are imported/performed by
+this module. The audit alone compiles an explicitly labeled unmodified baseline.
+Incompatible assets, patch preconditions and mappings raise explicit errors.
+
+Seven in-memory overrides are applied, with old/new values and reasons in the report:
+
+- **Pelvis inertial:** source MJCF omits it. AUTO mass inference includes the
+  density-1000 collision mesh; visual meshes have density zero. Disabling contact
+  masks leaves inferred mass unchanged, and doubling density doubles it in a
+  disposable compilation. Raw pelvis mass **5.031810659 kg** becomes URDF
+  **3.523487 kg**; robot total **43.474796659 → 41.966473 kg**.
+  COM changes from `[-0.00152667, 0.00012933, 0.00289836]` to
+  `[-0.001209, -0.000023, -0.002011]` m in the pelvis frame.
+  The full tensor at COM, in pelvis axes, is
+  `[[0.0126, 0, 0.000163], [0, 0.007924, -0.000005],
+  [0.000163, -0.000005, 0.012417]]` kg m². `fullinertia` preserves the
+  off-diagonals; the loader verifies the reconstructed compiled tensor.
+- **Six range intersections (rad):** waist yaw `[-3.43,2.382] → [-3.43,2.2078]`;
+  head yaw `±0.366 → ±0.349`; both wrist pitches `±0.558 → ±0.5236`;
+  left wrist roll `[-1.571,0.724] → [-1.5097,0.724]`; right wrist roll
+  `[-0.724,1.571] → [-0.724,1.5097]`. These are conservative **project policies**,
+  not new official hardware specifications. Axis/sign/zero and parent-child
+  transforms were checked first. No mass scaling, balancing, collision geometry,
+  friction, solver or actuator-bound changes were made.
+
+Recomputed differences: **12 joint ranges**, comprising six narrower retained
+intervals and six wider intersected intervals; **zero rounding-only differences**
+at the declared 1e-4 rad classification threshold. **13 effort-envelope differences**:
+eight hip/knee motors plus waist yaw retain ±118 N m versus URDF ±120; four wrist
+pitch/roll motors retain ±2.2 versus ±4.8. Other bounds agree. All 31 motors have
+unit gain/gear, no bias or activation state, enabled input limits and enabled joint
+actuation limits. Input clipping dominates the equal/wider downstream joint clamp;
+that downstream clamp was **not independently exercised**. Absence of an actuator
+`forcerange` does not mean unlimited joint effort. URDF speed limits are reported
+but **not enforced** by this route; no hidden speed clamp was added.
+
+| Audit area | Result | Measured evidence and scope |
+| --- | --- | --- |
+| Floating base | PASS | root pelvis (body 1), free joint 0; qpos address 0 (7 coordinates), DOF address 0 (6 velocities); nq=38, nv=37, nu=31; no equality, mocap, tendon, gravcomp or callbacks. Contact-free whole-robot COM drops 0.0495405 m in 100 ms, matching semi-implicit Euler gravity; valid independent translation/rotation tested. |
+| Mass/inertia | PASS | 32 dynamic bodies; effective 41.966473 kg; qpos0 COM world `[0.00168761,0.00024727,0.71173956]` m. Positive principal moments and triangle inequalities; full common-frame tensors match URDF within export precision (max mass error 3.8e-5 kg, tensor error 4.65e-7 kg m²). Fixed sensor/base frames add no omitted mass. |
+| Collision coverage | PASS, bounded poses | Back, both forearms, wrist/hand proxies, knee/shin meshes and feet have actual active floor force. Peak individual normal forces: back 448.54 N; forearms L/R 468.11/477.70 N; wrist proxies 77.21/141.48 N; shins 564.27/509.91 N; feet 344.44/386.04 N. Six 180 ms whole-model probes; largest floor penetration 10.99 mm (<15 mm), required-pose self penetration 2.66 mm (<5 mm); no warnings/reset. Four collision-only OSMesa images inspected. |
+| Joint ranges | PASS | 31 coordinate-equivalent revolute joints, no unmatched movable/mimic joints; six restrictions, six stricter source ranges retained, 19 exact agreements. |
+| Actuator semantics | PASS | 155 fresh forward checks: zero, ±40% and ±105% source inputs for every motor; sparse transmission moments, sign and measured actuator/joint forces agree within 1e-10 N m. Raw ctrl remains unclipped in its buffer. |
+| Effective limits | PASS, stated scope | All finite joint bounds enabled. 62 lower/upper probes with 0.1 N m outward input, 80 ms each; explicit named limit constraints and restoring acceleration. Disposable copies disable contact/frictionloss and gravity only. Initial/peak penetration 0.002 rad (<0.005); max final 0.000270 rad (<0.001). Does not certify full-collision reachability of every bound. |
+| Indexing | PASS | 31 unique controlled hinges; distinct nonzero positions/velocities and isolated inputs verified. Head motors occur before arms in ctrl order but after arms in joint traversal. No magic scalar-state slice or joint-ID/ctrl-index assumption. |
+
+Settings remain timestep 0.001 s, gravity `[0,0,-9.81]` m/s², Euler integrator,
+Newton solver, pyramidal cone, tolerance 1e-8, 100 iterations, all global disable
+flags zero. The strict JSON report includes complete settings, inertias, geoms,
+limits, actuator/mapping tables, source and project identities/hashes, definitions,
+measurements, warning/time checks and evidence scopes. Quaternions are unit `wxyz`;
+free-base linear velocity is world-frame and angular velocity is body-local.
+The installed header/API behavior and
+[MuJoCo 3.13.0 source](https://github.com/google-deepmind/mujoco/tree/3.13.0)
+were checked, including sparse moments, clamp order and quaternion integration.
+
+Mesh contact uses convex hulls. Each foot uses twelve 5 mm spheres, not its detailed
+visual mesh; the floor is an infinite plane. No articulated hands/fingers exist.
+Two original arm-at-side impact probes remain labeled **FAIL** in the report's
+pose investigation: wrists become trapped against hip hulls (6.21/5.94 mm soft
+penetration). The required arm-floor probes move the shoulder to -0.6 rad to
+separate these contacts; physics, duration and thresholds stay unchanged.
+This classifies the failure rather than claiming arbitrary-pose robustness.
+The later supine reset must explicitly avoid such limb trapping. No episode-ready
+reset, hardware calibration or recovery trainability is established. **A1-A6 stay
+Pending; evaluation stays Not evaluated.** Next: implement and validate a reusable
+supine reset, without starting training or controller design in this step.
+
+### Reproduce Step 3 locally
+
+Reuse the existing venv; do not repeat dependency installation for these checks.
+All outputs below are under the explicitly ignored `audit-output/` directory.
+The build was fresh and used the verified venv interpreter; ten regression tests
+passed, including missing assets, wrong hashes/patch conditions, incompatible
+mapping, wrong expected force, repeated loads and stale/failed-report handling.
+
+```bash
+source /opt/ros/jazzy/setup.bash
+export MUJOCO_GL=osmesa
+export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
+.venv/bin/python /usr/bin/colcon --log-base audit-output/step3-build/log build \
+  --base-paths src --packages-select x2_recovery --symlink-install \
+  --build-base audit-output/step3-build/build --install-base audit-output/step3-build/install
+source audit-output/step3-build/install/setup.bash
+.venv/bin/python -m unittest discover -s src/x2_recovery/test -v
+timeout --kill-after=5s 30s ros2 run x2_recovery runtime_check model
+timeout --kill-after=5s 30s ros2 run x2_recovery runtime_check render \
+  --x2-scene "$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml" --output audit-output/step3/render
+timeout --kill-after=5s 60s ros2 run x2_recovery runtime_check audit \
+  --output audit-output/step3 --image-review-from audit-output/step3/report.json
+```
+
+The last command regenerates `audit-output/step3/report.json` and
+`collision-{back,feet,left_arm,left_shin}.png`. It reuses only prior visual
+observations whose SHA256 matches each **newly rendered** image; all numerical
+checks rerun. On a fresh checkout omit `--image-review-from`: the command deliberately
+returns nonzero with visual review NOT_TESTED. Inspect the four PNGs, then add an
+`image_review` object to the report keyed by each PNG filename, each with the actual
+`sha256` (from its image record) and a specific `observation` describing what was
+seen. Rerun the last command. Missing/stale observations cannot yield COMPLETE.
+No prior numerical PASS or completion verdict is trusted. A failed/incomplete
+current run replaces the old report and exits nonzero; NaN/Infinity becomes a
+failed measurement in strict JSON. Repeated loads, a different cwd and unchanged
+upstream hashes are verified after the probes. PPO and ROS communication were not
+rerun because these changes do not affect their implementations.
+
+The controlled joints are both legs (6 each), waist (3), head (2) and both arms
+including wrists (7 each). Use the compiled mapping to read actual state and write
+control; this is the simulator interface, not an RL action space:
+
+```python
+from x2_recovery.model import load_effective_model
+import mujoco
+
+loaded = load_effective_model()  # independent MjModel, verified mapping
+model = loaded.model
+data = mujoco.MjData(model)
+row = loaded.joint("head_yaw_joint")
+position = data.qpos[row.qpos_address]  # discovered address 36, rad
+velocity = data.qvel[row.dof_address]   # discovered address 35, rad/s
+data.ctrl[row.ctrl_index] = 0.2         # motor_head_yaw_joint: ctrl 15, joint ID 30
+mujoco.mj_forward(model, data)
+torque = data.qfrc_actuator[row.dof_address]  # measured +0.2 N m
+positions, velocities = loaded.read_state(data)  # copies in ctrl order
+```
+
+The audit's nonzero example reads 0.04 rad and -0.016 rad/s, then measures +0.2 N m
+from +0.2 input. Robot loading does not maintain a pose or implement a controller.
 
 ### Development history
 
 The repository was established before implementation. Preserve meaningful commits and
-push completed work throughout development (PDF p. 2, Commit history).
+record completed work in local commits (PDF p. 2, Commit history). The current
+user instruction overrides the PDF push request: **no remote writes without explicit
+approval of the specific push/PR operation**. Step 3 is finished locally only.
 
 ## References
 
@@ -242,7 +380,7 @@ Reviewed README content and GitHub directory trees on 2026-09-20:
   `X2-Ultra.urdf`, `X2-EDU.urdf`, their `_simple_collision.urdf` variants,
   `X2-Ultra.xml`, `X2-EDU.xml`, `scene.xml`. Both have mesh directories.
   Scene XML reads confirm each includes its Ultra XML and a plane floor.
-  v1.3.0 loading results and unresolved model checks are recorded above; v1.4.0 was not loaded.
+  v1.3.0 effective-model results and remaining scope limitations are recorded above; v1.4.0 was not loaded.
 - [ioai-tech/humanoid_controller](https://github.com/ioai-tech/humanoid_controller), inspected revision
   `2f94ff0ebd072e255d90bbbb2122d0f1a622a0b3`. README describes ROS 2 Humble,
   legged_control2 and ONNX inference with MuJoCo launch; tree includes
