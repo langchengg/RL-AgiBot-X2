@@ -1,4 +1,4 @@
-"""Step 6: separate real-X2 integration and explicitly synthetic fault/reward tests."""
+"""Separate real-X2 integration and explicitly synthetic fault/reward tests."""
 from dataclasses import replace
 import copy
 import json

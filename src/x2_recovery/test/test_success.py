@@ -1,4 +1,4 @@
-"""Constructed measurements test logic only; X2 physics is runtime_check step5."""
+"""Constructed measurements test logic only; X2 physics is runtime_check success-check."""
 import copy
 from dataclasses import replace
 from types import SimpleNamespace as NS

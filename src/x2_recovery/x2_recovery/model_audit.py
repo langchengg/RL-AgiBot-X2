@@ -1,4 +1,4 @@
-"""Bounded Step 3 evidence. Run through runtime_check audit; not a recovery reset."""
+"""Bounded effective-model evidence. Run through runtime_check audit; not a recovery reset."""
 
 import copy
 from dataclasses import asdict

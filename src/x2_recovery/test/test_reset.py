@@ -10,7 +10,7 @@ import numpy as np
 from x2_recovery.model import load_effective_model
 from x2_recovery.reset import (ResetSettings,ResetFailure,construct_pose,reset_supine,
     measurements,settled_failures,initial_geometry,notify,checked_step,integration_state)
-from x2_recovery.step4 import contaminate,pulse,ceiling,causal_joint
+from x2_recovery.simulation_validation import contaminate,pulse,ceiling,causal_joint
 
 
 class ResetTests(unittest.TestCase):

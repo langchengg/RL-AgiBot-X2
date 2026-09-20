@@ -12,7 +12,7 @@ from .model import compiled_mapping, require
 from .reset import (check_callbacks, floor_geometry, measurements as reset_measurements,
                     model_signature, ResetSettings, settled_failures)
 
-# Existing Step 4 identity, unchanged physics. Computed once at context creation.
+# Calibrated effective-model identity, unchanged physics. Computed once at context creation.
 MODEL_SIGNATURE = 'c168981e31f28d03ed9ca518d5bdb701ecea8f8df41ca03096a69e40bb0b0a3a'
 MODEL_FINGERPRINT = 'bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0'
 

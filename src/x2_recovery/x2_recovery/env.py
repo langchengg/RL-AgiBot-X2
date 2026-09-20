@@ -20,7 +20,7 @@ class EnvConfig:
     episode_timeout_s: float = 20.
     step_wall_s: float = 5.
     reset_wall_s: float = 45.
-    reset_perturb_rad: float = 0.  # Only the Step 4 validated [0, .005] range.
+    reset_perturb_rad: float = 0.  # Only the validated supine-reset [0, .005] range.
     joint_velocity_scale_rad_s: float = 5.
     base_linear_scale_m_s: float = 1.
     base_angular_scale_rad_s: float = 2.
@@ -41,7 +41,7 @@ class EnvConfig:
     reference_angles: tuple = (('hip_pitch', -.05), ('knee', .10), ('ankle_pitch', -.05),
                                ('shoulder_pitch', -.15), ('elbow', -.30))
     shoulder_roll_rad: float = .15
-    # group, Kp [N m/rad], Kd [N m s/rad]; candidate based on Step 5 posture PD.
+    # group, Kp [N m/rad], Kd [N m s/rad]; candidate based on calibrated standing-fixture PD.
     pd_gains: tuple = (('hip', 600., 16.970562748477143), ('knee', 600., 16.970562748477143),
                       ('ankle', 300., 11.313708498984761), ('waist', 300., 11.313708498984761),
                       ('shoulder', 100., 4.242640687119286), ('elbow', 100., 4.242640687119286),
@@ -353,7 +353,7 @@ class X2RecoveryEnv(gym.Env):
 
 
 class _HumanView:
-    """Step 4 native mjv/mjr + GLFW mechanism; no GUI state editing or mouse forces."""
+    """Native mjv/mjr + GLFW mechanism; no GUI state editing or mouse forces."""
     users=0  # GLFW process lifetime only; no shared model/data/window.
 
     def __init__(self,model):

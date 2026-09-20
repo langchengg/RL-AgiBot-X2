@@ -289,7 +289,7 @@ def client(seconds):
 
 
 def env_diagnostic(mode, asset_repo, output, seconds):
-    """Bounded Step 6 checks/media; environment itself never writes evidence."""
+    """Bounded environment checks/media; environment itself never writes evidence."""
     from dataclasses import asdict
     from datetime import datetime, timezone
     import copy
@@ -306,7 +306,7 @@ def env_diagnostic(mode, asset_repo, output, seconds):
               'recovery_training':'NOT RUN','five_episode_evaluation':'NOT EVALUATED'}
     def save():
         (output/'report.json').write_text(json.dumps(_diagnostic(evidence),indent=2,allow_nan=False)+'\n')
-    save();print('Step 6 evidence: '+str(output),flush=True)
+    save();print('Environment validation evidence: '+str(output),flush=True)
     env=None
     try:
         if mode=='env-check':
@@ -419,7 +419,7 @@ def env_diagnostic(mode, asset_repo, output, seconds):
             print(name+': '+str(case['termination_reason'] or case['truncation_reason'] or 'bounded rollout complete'),flush=True)
         if mode=='env-check':
             # Independent standing-only fixture. Never installed into an environment.
-            from .step5 import standing_pose, gains, place, rollout, summary
+            from .success_validation import standing_pose, gains, place, rollout, summary
             from .success import StandingContext, CALIBRATED_SETTINGS
             x=load_effective_model(asset_repo);ctx=StandingContext(x);pose=standing_pose(x);d,_=place(x,pose);kp,kd=gains(x)
             samples,_,details=rollout(ctx,d,pose,kp,kd,3.,CALIBRATED_SETTINGS)
@@ -455,7 +455,7 @@ def env_diagnostic(mode, asset_repo, output, seconds):
         save();return 0
     except Exception as exc:
         evidence.update(error=str(exc),error_evidence=getattr(exc,'evidence',None),exit_code=1)
-        save();print('Step 6 INCOMPLETE: '+str(exc),flush=True);return 1
+        save();print('Environment validation INCOMPLETE: '+str(exc),flush=True);return 1
     finally:
         if env is not None:env.close()
 
@@ -463,8 +463,8 @@ def env_diagnostic(mode, asset_repo, output, seconds):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=["runtime", "model", "audit", "render", "viewer", "serve", "client",
-                                        "step4", "step4-live", "step4-record", "step5", "step5-review", "env-check", "env-record", "env-live"])
-    parser.add_argument("--repeat", type=int, default=2, help="Step 4 demo reset count, 1..20")
+                                        "simulation-check", "simulation-live", "simulation-record", "success-check", "success-review", "env-check", "env-record", "env-live"])
+    parser.add_argument("--repeat", type=int, default=2, help="Simulation demo reset count, 1..20")
     parser.add_argument("--x2-scene", type=Path, help="Legacy alias: must be the pinned Ultra scene")
     parser.add_argument("--asset-repo", type=Path)
     parser.add_argument("--image-review-from", type=Path,
@@ -474,7 +474,7 @@ def main():
     args = parser.parse_args()
     if not 0 < args.seconds <= 60:
         parser.error("--seconds must be in (0, 60]")
-    if args.mode in ("render", "audit", "step4", "step4-live", "step4-record", "step5", "step5-review", "env-check", "env-record", "env-live") and args.output is None:
+    if args.mode in ("render", "audit", "simulation-check", "simulation-live", "simulation-record", "success-check", "success-review", "env-check", "env-record", "env-live") and args.output is None:
         parser.error("--output is required")
     if args.x2_scene is not None:
         scene = args.x2_scene.expanduser().resolve()
@@ -486,16 +486,16 @@ def main():
         args.asset_repo = candidate
     if args.mode.startswith("env-"):
         return env_diagnostic(args.mode, args.asset_repo, args.output, args.seconds)
-    if args.mode == "step5":
-        from .step5 import run
+    if args.mode == "success-check":
+        from .success_validation import run
         return run(args.asset_repo, args.output)
-    if args.mode == "step5-review":
+    if args.mode == "success-review":
         if args.image_review_from is None:
-            parser.error("step5-review requires --image-review-from observations.json")
-        from .step5 import review
+            parser.error("success-review requires --image-review-from observations.json")
+        from .success_validation import review
         return review(args.output, args.image_review_from)
-    if args.mode.startswith("step4"):
-        from .step4 import run
+    if args.mode.startswith("simulation-"):
+        from .simulation_validation import run
         return run(args.mode, args.asset_repo, args.output, args.repeat)
     if args.mode == "runtime":
         runtime_identity()

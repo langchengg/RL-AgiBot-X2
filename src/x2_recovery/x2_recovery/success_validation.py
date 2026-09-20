@@ -1,4 +1,4 @@
-"""Step 5 bounded calibration / acceptance. Standing fixture, NOT recovery policy."""
+"""Bounded standing calibration / validation. Standing fixture, NOT recovery policy."""
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -123,7 +123,7 @@ CALIBRATION = {
 def code_identity():
     root=Path(__file__).parent
     return {name:hashlib.sha256((root/name).read_bytes()).hexdigest()
-            for name in ('model.py','reset.py','success.py','step5.py','diagnostics.py')}
+            for name in ('model.py','reset.py','success.py','success_validation.py','diagnostics.py')}
 
 
 def summary(rows,info):
@@ -220,7 +220,7 @@ def run(asset_repo,output):
             'settings':asdict(CALIBRATED_SETTINGS),'calibration':CALIBRATION,
             'recovery_training':'NOT RUN','five_episode_recovery_evaluation':'NOT EVALUATED'}
     path=output/'report.json';write_json(path,report)
-    print('Step 5 evidence: '+str(output),flush=True)
+    print('Success validation evidence: '+str(output),flush=True)
     try:
         project=Path(__file__).resolve().parents[3]
         report['runtime']=identity(project)
@@ -297,11 +297,11 @@ def run(asset_repo,output):
         report['images']=render_evidence(loaded,snapshots,output)
         report.update(run_completed=True,automated_checks='PASS',verdict='AWAITING_VISUAL_REVIEW',exit_code=1)
         write_json(path,report)
-        print('Automated checks PASS; inspect images then use step5-review. '+str(path),flush=True)
+        print('Automated checks PASS; inspect images then use success-review. '+str(path),flush=True)
         return 1
     except Exception as exc:
         report.update(error=str(exc),exit_code=1)
-        write_json(path,report);print('Step 5 INCOMPLETE: '+str(exc),flush=True)
+        write_json(path,report);print('Success validation INCOMPLETE: '+str(exc),flush=True)
         return 1
 
 
@@ -323,5 +323,5 @@ def review(output,observations):
         require(hashlib.sha256((directory/image['path']).read_bytes()).hexdigest()==image['sha256'], 'Image changed')
         require(isinstance(notes[image['path']],str) and len(notes[image['path']].strip())>20,'Specific observation required')
     report.update(visual_review=notes,verdict='COMPLETE',review_command=sys.argv,review_exit_code=0)
-    write_json(path,report);print('Step 5 COMPLETE: '+str(path))
+    write_json(path,report);print('Success validation COMPLETE: '+str(path))
     return 0

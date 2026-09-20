@@ -1,4 +1,4 @@
-"""Bounded Step 4 diagnostics, live observer and OSMesa trajectory recording."""
+"""Bounded simulation diagnostics, live observer and OSMesa trajectory recording."""
 from dataclasses import asdict, replace
 from pathlib import Path
 import hashlib
@@ -198,7 +198,7 @@ class LiveObserver:
         self.head=loaded.joint('head_yaw_joint');self.last=None;self.frames=0
         self.closed=False;self.collision=False;self.saved=[]
         require(glfw.init(),'GLFW initialization failed')
-        self.window=glfw.create_window(640,480,'X2 Step 4 - MuJoCo live physics',None,None)
+        self.window=glfw.create_window(640,480,'X2 - MuJoCo live physics',None,None)
         require(self.window is not None,'GLFW window/context creation failed')
         glfw.make_context_current(self.window);glfw.swap_interval(1)
         self.context=mj.MjrContext(self.m,mj.mjtFontScale.mjFONTSCALE_100)
@@ -320,12 +320,12 @@ def run(mode,asset_repo,output,repeat=2):
             'LIVE_VIEWER':{'status':'NOT_TESTED'},'RECORDING':{'status':'NOT_TESTED'}}
     write_json(output/'report.json',report);live=None;start=time.monotonic()
     try:
-        if mode=='step4':
+        if mode=='simulation-check':
             report['RESET']=reset_batch(loaded,d);write_json(output/'report.json',report)
             report['ACTUATION']=actuation_checks(loaded,d)
         else:
             frames=[]
-            if mode=='step4-live':live=LiveObserver(loaded,d,output)
+            if mode=='simulation-live':live=LiveObserver(loaded,d,output)
             def observer(frame):
                 frames.append(frame)
                 if live:live(frame)
@@ -339,7 +339,7 @@ def run(mode,asset_repo,output,repeat=2):
         report['run_completed']=True
     except Exception as exc:
         report.update(error=repr(exc),run_completed=False)
-        area={'step4-live':'LIVE_VIEWER','step4-record':'RECORDING'}.get(mode)
+        area={'simulation-live':'LIVE_VIEWER','simulation-record':'RECORDING'}.get(mode)
         if area:
             report[area]={'status':'FAIL','error':repr(exc)}
             if live:report[area].update(backend=live.backend,window_frames=live.saved)
@@ -357,5 +357,5 @@ def run(mode,asset_repo,output,repeat=2):
         print(json.dumps({'report':str(output/'report.json'),'completed':report.get('run_completed'),
                           'RESET':report['RESET']['status'],'ACTUATION':report['ACTUATION']['status'],
                           'LIVE_VIEWER':report['LIVE_VIEWER']['status'],'RECORDING':report['RECORDING']['status']}),flush=True)
-    if mode=='step4':return 0 if report['run_completed'] and report['RESET']['status']==report['ACTUATION']['status']=='PASS' else 1
+    if mode=='simulation-check':return 0 if report['run_completed'] and report['RESET']['status']==report['ACTUATION']['status']=='PASS' else 1
     return 0 if report.get('run_completed') else 1
