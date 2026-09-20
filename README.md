@@ -1,33 +1,53 @@
 # AgiBot X2 Ground Recovery
 
-## Overview and current status
+## Overview
 
-HRS take-home: design an RL environment for recovery from lying on the back,
-run a training experiment, and integrate recovery and telemetry with ROS 2.
-**Step 6 COMPLETE / A2 PASS**: the native Gymnasium environment passed VM integration,
-checker, reward, timing, rendering and regression tests.
-**Step 5 COMPLETE**: an independent, calibrated standing/recovery-success detector now
-passes physical positive/negative tests in the target VM. **Step 4 COMPLETE**: reset,
-bounded actuation, inspected live MuJoCo demonstration and locally played recording all passed. The pinned official model has
-one effective loader, source-consistent pelvis inertia, conservative joint ranges and
-verified state/control mappings. CPU PPO and ROS compatibility were verified in Step 2.
-OSMesa recording works. The Step 4 live window uses native MuJoCo visualization and
-existing X11 GLFW with process-local Mesa software rendering; virgl gives black X2 frames.
-X2 recovery policy, final ROS nodes, training and evaluation remain **Pending**.
-The environment is usable; no policy has yet been shown to recover.
-Evaluation: **Not evaluated**.
+A native MuJoCo and Gymnasium implementation for AgiBot X2 ground recovery, developed
+for the HRS take-home task. The floating-base model, resting supine reset, bounded
+joint control, independent success detector and environment have been validated in
+an Ubuntu ARM64 Parallels VM. No policy has yet been shown to recover from supine to
+standing. The original two-page task brief defines the remaining training,
+five-episode evaluation and ROS integration requirements.
 
-The two-page task brief, *AgiBot X2 Ground Recovery — Environment Design and ROS 2
-Integration*, defines acceptance. References below provide implementation context.
+| Component | Status |
+| --- | --- |
+| MuJoCo model and supine reset | Validated within documented numerical tolerances |
+| Joint control and standing-success detector | Validated |
+| Gymnasium environment | Validated |
+| PPO recovery training | Not run |
+| Five-episode recovery evaluation | Not evaluated |
+| ROS recovery and telemetry nodes | Pending; diagnostic communication only |
+| Final ROS end-to-end validation | Pending |
 
-## Target environment
+## System Architecture
 
-Ubuntu 24.04 ARM64 in Parallels, ROS 2 Jazzy, and MuJoCo.
-These are project choices, not additional requirements imposed by the task PDF.
+One `ament_python` package contains the native simulator environment and validation
+utilities. Training, evaluation and eventual ROS recovery control will use the same
+environment. No simulator bridge, ONNX conversion, ros2_control, Gazebo or alternative
+simulation framework is required.
 
-## Observed environment
+| Module | Responsibility |
+| --- | --- |
+| [model.py](src/x2_recovery/x2_recovery/model.py) | Offline pinned-asset verification, effective model construction and joint/control mapping |
+| [reset.py](src/x2_recovery/x2_recovery/reset.py) | Geometric placement, physical supine settling and checked stepping |
+| [success.py](src/x2_recovery/x2_recovery/success.py) | Read-only standing measurements and continuous, reward-independent success tracking |
+| [env.py](src/x2_recovery/x2_recovery/env.py) | Gymnasium reset/step, observations, bounded PD, rewards, lifecycle and lazy rendering |
+| [model_audit.py](src/x2_recovery/x2_recovery/model_audit.py) | Disposable model/interface probes and evidence validation |
+| [simulation_validation.py](src/x2_recovery/x2_recovery/simulation_validation.py) | Reset batches, causal actuation probes, live observation and actual-state recording |
+| [success_validation.py](src/x2_recovery/x2_recovery/success_validation.py) | Independent standing calibration fixtures and physical positive/negative validation |
+| [diagnostics.py](src/x2_recovery/x2_recovery/diagnostics.py) | `runtime_check` command dispatch, environment checks and ROS dependency probes |
 
-Checks rerun on 2026-09-20 inside the existing Parallels VM:
+The environment owns model/data, RNG, tracker, previous action and rendering resources
+per instance. Core measurements and tracking do not perform audit I/O or import ROS,
+training or recording components. Standing fixtures are validation tools, not recovery
+policies or normal environment initial states.
+
+## Requirements
+
+Target: Ubuntu 24.04 ARM64 in Parallels, ROS 2 Jazzy and native MuJoCo Python.
+These are project choices, not additional constraints imposed by the task brief.
+
+Runtime observed on 2026-09-20 inside the existing Parallels VM:
 
 | Item | Observed value |
 | --- | --- |
@@ -49,64 +69,7 @@ modules from Jazzy, and MuJoCo/Gymnasium/SB3/Torch from the venv. The installed 
 prints module paths and interpreter identity in one process. No system Python packages
 were replaced. Virtual graphics capability does not establish a training GPU.
 
-## Acceptance criteria
-
-The matrix defines required evidence; Pending items have not passed acceptance.
-Source abbreviations refer to sections of the supplied task PDF:
-**SIM** = p. 1, Simulation and reinforcement learning; **ROS** = p. 1, ROS 2 integration;
-**IF** = p. 2, ROS 2 interfaces; **VAL** = p. 2, Validation;
-**DOC** = p. 2, README requirements.
-
-| ID | Deliverable | Acceptance criteria / required evidence | Source | Status |
-| --- | --- | --- | --- | --- |
-| A1 | Simulation and robot model | Select an AgiBot X2 URDF and simulator; load a floating base on a flat floor. Each episode resets to resting on the back without floor intersection. Configure collisions and respect joint/actuator limits. Document source, version, modifications and simulation settings; provide model-load, reset and limit evidence. Upstream XML availability alone is insufficient. | SIM; DOC | PASS within documented numerical contact tolerance; see Step 4 |
-| A2 | RL environment | Define observations, actions, reward, reset and episode end conditions. Explain reward terms, weights, rationale and recovery incentives, plus environment simplifications. Dimensions, gains, weights and thresholds must follow actual design and validation. | SIM; DOC | PASS; see Step 6 |
-| A3 | Training experiment | Actually run PPO or another RL algorithm. Save any produced policy checkpoint and a real training reward plot. Record algorithm, training settings and compute resources. No fabricated or placeholder data. Zero success does not waive training; document any genuine training blocker and apply A5's baseline fallback. | SIM; VAL; DOC | Pending |
-| A4 | ROS 2 integration | Python or C++ package with recovery and telemetry nodes; colcon build and one launch file for both. Connect a real simulator. Accept before executing one episode with an available checkpoint or scripted baseline; reject concurrent requests. Publish simulator-derived status and actual joint states. Configurable timeout sends unsuccessful attempts to FAILED. Telemetry subscribes to both topics and logs status plus one joint position. Command targets or fabricated values are not measured telemetry. Docker is optional. | ROS; IF | Pending |
-| A5 | Evaluation | Run five simulation episodes with the available policy; report success count and failures. Success means upright, stable standing on both feet without other body support. Define and document concrete success checks; no numerical thresholds are prescribed. Zero successes is acceptable with explanation. If training is blocked, evaluate and clearly label a scripted baseline. Reasonable hand contact during rising is not itself a failure of the final standing check. | VAL; DOC | Pending |
-| A6 | Reproducibility and end-to-end validation | Verify a fresh ROS 2 build, one launch command for both nodes, and a CLI request that actually starts recovery in the simulator with live joint telemetry from that episode. Verify busy rejection and unsuccessful timeout to FAILED. Record actual commands and outcomes. Final README must cover dependencies/setup, simulation/training/evaluation commands, model and compute resources, environment/reward design, training settings, success checks/results, failure analysis/improvements, node responsibilities and build/launch/service/topic commands plus simulator integration. | VAL; DOC | Pending |
-
-An empty-workspace build is not evidence for A6. Evaluation has not been run.
-A1 now has floating-base/model/collision/limit evidence on the current effective model,
-geometry-checked collision-free placement, and repeated load-bearing supine dwell/hold.
-Its numerical interpretation permits at most 1 mm settled soft-contact penetration;
-the observed window maximum is 0.385257 mm, not mathematically zero. This is an explicit
-project tolerance, not a PDF-prescribed value or a claim that arbitrary future actions
-cannot cause intersections. Historical A1 Pending statements below describe earlier steps.
-
-## ROS 2 interface contract
-
-| Interface | Type | Required behavior |
-| --- | --- | --- |
-| `/x2/start_recovery` | `std_srvs/srv/Trigger` | Return `success=true` when accepted, before episode execution; `success=false` when busy. Acceptance does not mean the robot has stood up. |
-| `/x2/recovery_status` | `std_msgs/msg/String` | Publish `IDLE`, `RUNNING`, `SUCCEEDED` or `FAILED`. |
-| `/x2/joint_states` | `sensor_msgs/msg/JointState` | Publish joint names, actual simulator positions and timestamps while running. |
-
-Each accepted request executes exactly one episode. An unsuccessful attempt reaches
-FAILED at its configurable timeout. Keep the required Trigger service and message types.
-The telemetry node subscribes to joint states and recovery status and logs both the
-current status and one joint position. Source: PDF p. 1 ROS; p. 2 IF and VAL.
-
-## Implementation route
-
-These project choices are separate from the PDF requirements:
-
-- Official X2 Ultra v1.3.0 at `60c5de582c523cd188f563819e62d34cfdc3d2d0`, using native
-  MuJoCo Python. Selecting this version does not approve its physical limits.
-- Gymnasium X2RecoveryEnv is implemented and checked in Step 6; future learning uses
-  SB3 PPO with MlpPolicy, initially CPU.
-- One ament_python package, eventually containing Python/rclpy recovery and telemetry
-  nodes plus one launch file. Only the diagnostic entry point exists now.
-- Recovery will directly use the same environment class as training/evaluation.
-- Simulator torque semantics are verified below. Step 6 defines actions, bounded PD and
-  reward; a recovery policy and X2 training budget remain future work. Independent
-  success thresholds are frozen in Step 5.
-
-No simulator bridge, ONNX, ros2_control or alternative simulation framework is required.
-
-## Development and verification status
-
-### Setup and fresh build
+## Setup
 
 Run from the repository root. Jazzy and the existing Ubuntu Python/colcon packages are
 prerequisites; do not install rclpy from PyPI. The inspected `/usr/bin/colcon` shebang uses
@@ -121,12 +84,12 @@ touch .venv/COLCON_IGNORE
 .venv/bin/python -m pip install --only-binary=:all: --index-url https://pypi.org/simple -r requirements.txt
 .venv/bin/python -m pip check
 .venv/bin/python /usr/bin/colcon list --base-paths src
-STEP2_DIR="$(mktemp -d /tmp/hrs-x2-step2.XXXXXX)"
-.venv/bin/python /usr/bin/colcon --log-base "$STEP2_DIR/final-log" build \
+VALIDATION_BUILD_DIR="$(mktemp -d /tmp/hrs-x2-validation.XXXXXX)"
+.venv/bin/python /usr/bin/colcon --log-base "$VALIDATION_BUILD_DIR/final-log" build \
   --base-paths src --packages-select x2_recovery --symlink-install \
-  --build-base "$STEP2_DIR/final-build" --install-base "$STEP2_DIR/final-install"
-source "$STEP2_DIR/final-install/setup.bash"
-head -1 "$STEP2_DIR/final-install/x2_recovery/lib/x2_recovery/runtime_check"
+  --build-base "$VALIDATION_BUILD_DIR/final-build" --install-base "$VALIDATION_BUILD_DIR/final-install"
+source "$VALIDATION_BUILD_DIR/final-install/setup.bash"
+head -1 "$VALIDATION_BUILD_DIR/final-install/x2_recovery/lib/x2_recovery/runtime_check"
 ```
 
 PyPI metadata and official wheel listings were checked before installation: Gymnasium
@@ -136,6 +99,8 @@ CUDA packages or source builds. requirements.txt pins direct dependencies and th
 compatibility requirement from inherited PyNaCl; it is not a transitive lockfile.
 No apt/build-tool changes were needed. Build outputs and raw logs stay in the temporary
 directory; colcon discovers only src, and the venv has COLCON_IGNORE.
+
+## Robot Model and Simulation
 
 ### Model source
 
@@ -162,74 +127,9 @@ git -C "$X2_ASSET_REPO" sparse-checkout set X2_URDF-v1.3.0
 git -C "$X2_ASSET_REPO" checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0
 ```
 
-The upstream Mulan PSL v2 license stays with the assets. No project license is granted
-by this work; ROS package metadata uses UNLICENSED.
+The upstream Mulan PSL v2 license stays with the assets. No project license is granted; ROS package metadata uses UNLICENSED.
 
-### Step 2 checks (historical)
-
-Using the sourced overlay and the variables above:
-
-```bash
-timeout --kill-after=5s 120s ros2 run x2_recovery runtime_check runtime --x2-scene "$X2_SCENE"
-MUJOCO_GL=osmesa timeout --kill-after=5s 40s ros2 run x2_recovery runtime_check render \
-  --x2-scene "$X2_SCENE" --output "$STEP2_DIR/frames-osmesa"
-```
-
-The PPO dependency/runtime smoke test uses one Pendulum-v1 environment without rendering,
-seed 42, MlpPolicy, device=cpu, n_steps=128, batch_size=64, n_epochs=2 and 1024 timesteps.
-It checks finite data and parameters, an actual parameter change, checkpoint save/load,
-and 32 deterministic prediction steps. PPO has a 60 s internal deadline and the complete
-runtime command a 120 s external bound. Its temporary checkpoint is removed automatically.
-These are compatibility checks, not X2 hyperparameters, convergence evidence, A3 training,
-or any of the five A5 evaluation episodes.
-
-Cross-process communication was checked with matching Fast DDS, domain 42, localhost-only
-discovery and reliable/volatile keep-last-10 topic QoS. No global networking changes:
-
-```bash
-export ROS_DOMAIN_ID=42 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-timeout --kill-after=5s 35s ros2 run x2_recovery runtime_check serve --seconds 20 > "$STEP2_DIR/server.log" 2>&1 &
-smoke_pid=$!
-trap 'kill "$smoke_pid" 2>/dev/null || true' EXIT
-timeout --kill-after=5s 25s ros2 run x2_recovery runtime_check client --seconds 15
-client_exit=$?
-wait "$smoke_pid"
-server_exit=$?
-trap - EXIT
-cat "$STEP2_DIR/server.log"
-test "$client_exit" -eq 0 && test "$server_exit" -eq 0
-```
-
-The client waits for discovery and repeated publications, verifies String content,
-JointState names/finite changing positions/timestamps, then checks the Trigger response.
-The server reads `probe_hinge` qpos from the tiny simulated scene. Endpoints are only
-`/x2_smoke/status`, `/x2_smoke/joint_states`, `/x2_smoke/ping`; none implement the final
-recovery interfaces, busy rejection or recovery timeout behavior.
-
-| Check (rerun in Step 2) | Status | Observed evidence |
-| --- | --- | --- |
-| Complete stack in one process | PASS | Installed ros2-run entry point imports all requested modules from the intended runtime |
-| pip check; NumPy/Torch interop | PASS | No broken requirements; shared-array conversion and finite CPU forward/backward gradients |
-| Fresh ROS package build | PASS | One x2_recovery ament_python package; final fresh build 0.72 s; entry point shebang uses venv |
-| Simple MuJoCo physics | PASS | 100 warm-up + 2000 timed steps; 4.0 simulated s; finite state, no warnings |
-| Simple-scene timing | PASS | Load 0.000776 s; timed stepping 0.001944 s, approximately 1.03 million steps/s; loading/warm-up excluded |
-| Pinned X2 regression | PASS | nq=38, nv=37, nu=31; 100 steps / 0.1 s, finite state, no warnings |
-| PPO dependency/runtime smoke test | PASS | 1024 steps, 16 optimization epochs; 1.305 s setup/learning, 1.329 s including reload/rollout; max parameter change 0.0106144 |
-| Cross-process ROS topics/service | PASS | 3 String and 3 JointState messages received; positions 0.392532, 0.383565, 0.371238 rad; Trigger success=true; both processes exit 0 |
-| OSMesa offscreen frames | PASS | 320x240 simple/X2 PNGs saved and visually inspected: visible hinge/floor and complete robot/floor |
-| Automatic GLFW desktop rendering | FAIL | Image-validity assertion failed; forcing X11 on the selected Wayland library was unsupported |
-| Interactive viewer | FAIL | X11 variant opened for 2 s, but process exited with segmentation fault; software retry hit GLXBadDrawable and 20 s timeout |
-| Recovery, robot training/evaluation | NOT RUN | A1-A6 Pending; evaluation Not evaluated |
-
-The simple-scene timing is a short runtime measurement, not an X2 training-speed estimate.
-OSMesa uses the already installed libosmesa6 25.1.7; no graphics packages/drivers were
-changed. Interactive capability is unverified beyond opening a window. The bounded failed
-viewer attempts used `PYGLFW_LIBRARY_VARIANT=x11 MUJOCO_GL=glfw` and then additionally
-`LIBGL_ALWAYS_SOFTWARE=1`, each with `timeout --kill-after=5s 20s ros2 run x2_recovery runtime_check viewer`.
-All diagnostic processes were bounded and have exited. No core checks are blocked;
-the graphics limitation is isolated to desktop rendering/viewer reliability.
-
-### Step 3: effective model and evidence (historical baseline at 0c627d7)
+### Model construction and modifications
 
 `x2_recovery.model.load_effective_model(asset_repo=None)` is the only normal X2
 loading path, including existing runtime/render diagnostics. It accepts a repository
@@ -241,7 +141,7 @@ Torch, SB3, rendering, probes, reports or network access are imported/performed 
 this module. The audit alone compiles an explicitly labeled unmodified baseline.
 Incompatible assets, patch preconditions and mappings raise explicit errors.
 
-Seven in-memory overrides are applied, with old/new values and reasons in the report:
+The pelvis and six joint-range overrides are applied, with old/new values and reasons in the report:
 
 - **Pelvis inertial:** source MJCF omits it. AUTO mass inference includes the
   density-1000 collision mesh; visual meshes have density zero. Disabling contact
@@ -262,7 +162,31 @@ Seven in-memory overrides are applied, with old/new values and reasons in the re
   transforms were checked first. No mass scaling, balancing, collision geometry,
   friction, solver or actuator-bound changes were made.
 
-Recomputed differences: **12 joint ranges**, comprising six narrower retained
+An additional in-memory override sets `waist_pitch_joint.margin` 0 -> 0.005 rad, in `model.py` for **all**
+dynamics. Natural long settling originally loaded the soft upper limit to about
+0.31537 rad, beyond the unchanged 0.314 bound. Earlier activation leaves final waist
+pitch about 0.31037 rad inside that range. Solref/solimp, masses/inertias, damping,
+contact masks, exclusions, gravity, 1 ms Euler, friction and torque limits are unchanged.
+Active contacts retain combined `solref=[0.02,1]` and the original impedance; measured
+combined values are in the report. Fingerprinting includes joint margin and
+limit solver parameters, closing an identity gap exposed by this change.
+
+Effective-model fingerprint: `bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0`.
+This fingerprint binds the effective physical model and frozen success calibration.
+
+Simulation settings are timestep 0.001 s, gravity `[0,0,-9.81]` m/s², Euler integrator,
+Newton solver, pyramidal cone, tolerance 1e-8, 100 iterations, all global disable
+flags zero. The strict JSON report includes complete settings, inertias, geoms,
+limits, actuator/mapping tables, source and project identities/hashes, definitions,
+measurements, warning/time checks and evidence scopes. Quaternions are unit `wxyz`;
+free-base linear velocity is world-frame and angular velocity is body-local.
+The installed header/API behavior and
+[MuJoCo 3.13.0 source](https://github.com/google-deepmind/mujoco/tree/3.13.0)
+were checked, including sparse moments, clamp order and quaternion integration.
+
+### Collision, joint and actuator limits
+
+The source comparison identifies **12 joint ranges**, comprising six narrower retained
 intervals and six wider intersected intervals; **zero rounding-only differences**
 at the declared 1e-4 rad classification threshold. **13 effort-envelope differences**:
 eight hip/knee motors plus waist yaw retain ±118 N m versus URDF ±120; four wrist
@@ -273,179 +197,10 @@ that downstream clamp was **not independently exercised**. Absence of an actuato
 `forcerange` does not mean unlimited joint effort. URDF speed limits are reported
 but **not enforced** by this route; no hidden speed clamp was added.
 
-| Audit area | Result | Measured evidence and scope |
-| --- | --- | --- |
-| Floating base | PASS | root pelvis (body 1), free joint 0; qpos address 0 (7 coordinates), DOF address 0 (6 velocities); nq=38, nv=37, nu=31; no equality, mocap, tendon, gravcomp or callbacks. Contact-free whole-robot COM drops 0.0495405 m in 100 ms, matching semi-implicit Euler gravity; valid independent translation/rotation tested. |
-| Mass/inertia | PASS | 32 dynamic bodies; effective 41.966473 kg; qpos0 COM world `[0.00168761,0.00024727,0.71173956]` m. Positive principal moments and triangle inequalities; full common-frame tensors match URDF within export precision (max mass error 3.8e-5 kg, tensor error 4.65e-7 kg m²). Fixed sensor/base frames add no omitted mass. |
-| Collision coverage | PASS, bounded poses | Back, both forearms, wrist/hand proxies, knee/shin meshes and feet have actual active floor force. Peak individual normal forces: back 448.54 N; forearms L/R 468.11/477.70 N; wrist proxies 77.21/141.48 N; shins 564.27/509.91 N; feet 344.44/386.04 N. Six 180 ms whole-model probes; largest floor penetration 10.99 mm (<15 mm), required-pose self penetration 2.66 mm (<5 mm); no warnings/reset. Four collision-only OSMesa images inspected. |
-| Joint ranges | PASS | 31 coordinate-equivalent revolute joints, no unmatched movable/mimic joints; six restrictions, six stricter source ranges retained, 19 exact agreements. |
-| Actuator semantics | PASS | 155 fresh forward checks: zero, ±40% and ±105% source inputs for every motor; sparse transmission moments, sign and measured actuator/joint forces agree within 1e-10 N m. Raw ctrl remains unclipped in its buffer. |
-| Effective limits | PASS, stated scope | All finite joint bounds enabled. 62 lower/upper probes with 0.1 N m outward input, 80 ms each; explicit named limit constraints and restoring acceleration. Disposable copies disable contact/frictionloss and gravity only. Initial/peak penetration 0.002 rad (<0.005); max final 0.000270 rad (<0.001). Does not certify full-collision reachability of every bound. |
-| Indexing | PASS | 31 unique controlled hinges; distinct nonzero positions/velocities and isolated inputs verified. Head motors occur before arms in ctrl order but after arms in joint traversal. No magic scalar-state slice or joint-ID/ctrl-index assumption. |
-
-Settings remain timestep 0.001 s, gravity `[0,0,-9.81]` m/s², Euler integrator,
-Newton solver, pyramidal cone, tolerance 1e-8, 100 iterations, all global disable
-flags zero. The strict JSON report includes complete settings, inertias, geoms,
-limits, actuator/mapping tables, source and project identities/hashes, definitions,
-measurements, warning/time checks and evidence scopes. Quaternions are unit `wxyz`;
-free-base linear velocity is world-frame and angular velocity is body-local.
-The installed header/API behavior and
-[MuJoCo 3.13.0 source](https://github.com/google-deepmind/mujoco/tree/3.13.0)
-were checked, including sparse moments, clamp order and quaternion integration.
-
-Mesh contact uses convex hulls. Each foot uses twelve 5 mm spheres, not its detailed
-visual mesh; the floor is an infinite plane. No articulated hands/fingers exist.
-Two original arm-at-side impact probes remain labeled **FAIL** in the report's
-pose investigation: wrists become trapped against hip hulls (6.21/5.94 mm soft
-penetration). The required arm-floor probes move the shoulder to -0.6 rad to
-separate these contacts; physics, duration and thresholds stay unchanged.
-This classifies the failure rather than claiming arbitrary-pose robustness.
-The later supine reset must explicitly avoid such limb trapping. No episode-ready
-reset, hardware calibration or recovery trainability is established. **A1-A6 stay
-Pending; evaluation stays Not evaluated.** Next: implement and validate a reusable
-supine reset, without starting training or controller design in this step.
-
-These historical measurements and original reports are preserved. Step 4 adds a
-conservative waist limit activation margin in the same loader; see its new fingerprint,
-revalidation and reset evidence below. Old visual approvals are not reused for that model.
-
-### Step 3 closeout review
-
-The closeout fixed a real evidence-reuse gap: earlier reviews checked only image
-bytes. It also records ground penetration at initialization, every-step maximum
-(with time/pair), and the final coherent state. Previously only the maximum scalar
-and four sparse contact snapshots were saved, so the peak pair was unrecoverable.
-The one requested fresh-directory audit supplied that missing evidence; no extra
-pose search or model/physics changes were made. The effective-model fingerprint
-is unchanged. Four targeted closeout tests passed, including same-path invalidation,
-changed physics/probes with identical pixels, changed pixels, and Euler expectations.
-
-Ground penetration below is in **mm**, sampled initially and after every 1 ms step;
-final means 180 ms. All initial states had **0 penetration, no contact pair**, and
-2 mm clearance to the listed nearest floor/robot pair. `0` is the floor geom.
-These are the maxima across all robot-floor contacts, not just the named region.
-
-| Pose | Initial nearest pair (no contact) | Whole-run maximum: mm / pair / time | Final: mm / pair |
-| --- | --- | --- | --- |
-| feet | 0–15 | 1.394 / 0–18 / 40 ms | 0.265 / 0–18 |
-| back | 0–53 | 10.991 / 0–67 / 162 ms | 8.848 / 0–2 |
-| left_arm | 0–67 | 9.863 / 0–22 / 154 ms | 4.324 / 0–24 |
-| right_arm | 0–80 | 10.763 / 0–44 / 155 ms | 4.997 / 0–46 |
-| left_shin | 0–11 | 7.223 / 0–56 / 132 ms | 1.326 / 0–56 |
-| right_shin | 0–34 | 7.246 / 0–69 / 132 ms | 1.373 / 0–69 |
-| left_arm_at_side (FAIL retained) | 0–67 | 10.495 / 0–22 / 171 ms | 9.485 / 0–22 |
-| right_arm_at_side (FAIL retained) | 0–80 | 10.191 / 0–44 / 172 ms | 9.413 / 0–44 |
-
-Geom IDs: 2 pelvis; 11/34 left/right knee-shin mesh; 15/18/22/24 left foot
-sphere proxies; 44/46 right foot sphere proxies; 53 torso; 56/69 left/right shoulder
-pitch hulls; 67/80 left/right wrist-roll hulls. Complete body/local-index labels
-remain in the JSON geom inventory. All **62 joint-limit sides** already recorded
-whole-run and final violations: every maximum is 0.002 rad (the deliberately
-initialized overshoot); largest final violation is **0.000269485464 rad**, left
-wrist yaw lower bound. Individual final values remain in the existing limit table.
-
-The **15 mm** floor threshold is a permissive project screening cutoff for these
-180 ms passive impacts under the unchanged source soft-contact settings. It was
-chosen before the formal suite to bound transient overlap; it is **not derived
-from an official specification, hardware calibration or a proven accuracy bound**.
-It does not establish contact fidelity, zero penetration or settled support, and
-must not be transferred to future reset acceptance. In particular, the back probe's
-8.848 mm final floor penetration means this trajectory is not an accepted resting
-supine reset.
-
-The two original arm-at-side failures start from valid, contact-free states. Their
-wrist/hip-yaw geom pairs **9–67 / 32–80** first contact at **116 / 115 ms**, exceed
-the unchanged 5 mm self-contact threshold at **121 / 120 ms**, and peak at
-**6.214 / 5.937 mm at 125 / 123 ms**. They are reproducible, pose-dependent
-soft-constraint violations during passive limb trapping, not initial intersections
-or numerical resets (finite states and zero warnings). Both remain FAIL in the
-original report and new report's investigation; the arm-forward PASS does not
-replace them. The selected **back diagnostic pose** has no self-contact throughout
-its 180 ms record, so the observed wrist/hip failure is not demonstrated there.
-Longer settling and an episode-ready supine initial state remain untested; their
-future validation must exclude trapping and assess penetration separately.
-There is no newly unresolved blocker to Step 3's bounded model/interface scope;
-**Step 3 remains COMPLETE**. At that historical closeout, A1–A6 and reset acceptance
-were Pending; Step 4's current reset and A1 evidence is documented below.
-
-COM comparison uses the actual `mjINT_EULER` integrator, now explicitly checked:
-with zero initial velocity, N=100 and h=0.001 s,
-`g*h²*N*(N+1)/2 = -0.0495405 m`. The continuous value `g*(N*h)²/2 = -0.04905 m`
-is reported separately and is not used as the discrete acceptance target.
-
-Executed closeout commands (existing symlink-installed package; no rebuild needed):
-
-```bash
-source /opt/ros/jazzy/setup.bash
-source audit-output/step3-build/install/setup.bash
-MUJOCO_GL=osmesa PYTHONPATH=src/x2_recovery/test:$PYTHONPATH .venv/bin/python \
-  -m unittest test_model.CloseoutTests -v
-# This directory did not exist; no --image-review-from or prior report was used.
-MUJOCO_GL=osmesa timeout --kill-after=5s 60s ros2 run x2_recovery runtime_check audit \
-  --output audit-output/step3-closeout
-```
-
-The fresh run finished every physical check and rendered four images, then correctly
-exited **1**, visual review **NOT_TESTED**. After actual inspection, only visual
-review/completion was updated with the existing Python helpers and verified hashes;
-no physical checks were rerun. `audit-output/step3-closeout/report.json` retains
-that initial outcome in `closeout_validation` and the final COMPLETE result.
-The original `audit-output/step3/report.json` is preserved. Future regenerations
-can use `--image-review-from audit-output/step3-closeout/report.json` with matching
-context; context changes require actual image review again.
-
-### Reproduce Step 3 locally
-
-Reuse the existing venv; do not repeat dependency installation for these checks.
-All outputs below are under the explicitly ignored `audit-output/` directory.
-The original Step 3 build was fresh and used the verified venv interpreter; its ten
-regression tests passed, including missing assets, wrong hashes/patch conditions,
-incompatible mapping, wrong expected force, repeated loads and stale/failed-report
-handling. The closeout reused that symlink install and ran only the four targeted
-tests above, plus the one explicitly requested fresh-directory audit.
-
-```bash
-source /opt/ros/jazzy/setup.bash
-export MUJOCO_GL=osmesa
-export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
-.venv/bin/python /usr/bin/colcon --log-base audit-output/step3-build/log build \
-  --base-paths src --packages-select x2_recovery --symlink-install \
-  --build-base audit-output/step3-build/build --install-base audit-output/step3-build/install
-source audit-output/step3-build/install/setup.bash
-.venv/bin/python -m unittest discover -s src/x2_recovery/test -v
-timeout --kill-after=5s 30s ros2 run x2_recovery runtime_check model
-timeout --kill-after=5s 30s ros2 run x2_recovery runtime_check render \
-  --x2-scene "$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml" --output audit-output/step3/render
-timeout --kill-after=5s 60s ros2 run x2_recovery runtime_check audit \
-  --output audit-output/step3-closeout --image-review-from audit-output/step3-closeout/report.json
-```
-
-The last command regenerates `audit-output/step3-closeout/report.json` and
-`collision-{back,feet,left_arm,left_shin}.png`. It reuses only prior visual
-observations whose image SHA256 **and model/probe context digest** match the new
-run; all numerical checks rerun. The context binds the compiled physics/mapping
-fingerprint, pinned source identity, MuJoCo version, actual probe definitions and
-tolerances, and loader/audit implementation hashes. Identical pixels alone are
-insufficient. Legacy observations without a context digest are rejected. The
-same read/write report path is safe: observations are read into memory first,
-then the report is replaced with an incomplete current-run record; no old numerical
-PASS or completion status is imported. Validation of all four reviews finishes
-before any individual image is marked reviewed.
-
-On a fresh checkout omit `--image-review-from`: physics and rendering still finish,
-but the command returns nonzero with visual review NOT_TESTED. Inspect all four
-PNGs, then record `image_review` entries keyed by filename with the actual `sha256`,
-the image record's `review_context_sha256` stored as `context_sha256`, and a specific
-`observation` of what was seen. Only record these after actual inspection. A normal
-rerun verifies them; for review-only completion of an already finished run, the
-existing Python `visual_review`/`save_report` helpers can update that report after
-checking current model/probe/code and file hashes, without rerunning physics.
-Missing/stale observations cannot yield COMPLETE.
-No prior numerical PASS or completion verdict is trusted. A failed/incomplete
-current run replaces the old report and exits nonzero; NaN/Infinity becomes a
-failed measurement in strict JSON. Repeated loads, a different cwd and unchanged
-upstream hashes are verified after the probes. PPO and ROS communication were not
-rerun because these changes do not affect their implementations.
+Mesh contact uses convex hulls. Each foot uses twelve 5 mm collision spheres, not
+its detailed visual mesh; the floor is an infinite plane. Hands/fingers are not
+articulated. Passive wrist/hip trapping failures and transient penetration measurements
+are retained under [Validation and Reproducibility](#validation-and-reproducibility).
 
 The controlled joints are both legs (6 each), waist (3), head (2) and both arms
 including wrists (7 each). Use the compiled mapping to read actual state and write
@@ -470,12 +225,24 @@ positions, velocities = loaded.read_state(data)  # copies in ctrl order
 The audit's nonzero example reads 0.04 rad and -0.016 rad/s, then measures +0.2 N m
 from +0.2 input. Robot loading does not maintain a pose or implement a controller.
 
-### Step 4: physical supine reset and bounded actuation
+## Recovery Environment
 
-Base: local `main` at `0c627d7ac28da57ff08a5b233b3f3cfdaa4eeb96`, containing
-`226ca31f34df6b61ae33c1e6af35834290a97c31` and
-`242fa640994b98de681329cf5a73e31d34b90fbc`. Work stays on
-`feat/step4-supine-reset`; no automatic merge or remote write.
+`env.py` implements `X2RecoveryEnv` with independent model/data, RNG, success tracker, controller history
+and lazy rendering resources. It does not import ROS or the audit/standing fixture.
+It uses the effective X2 model, 31-joint mapping and frozen success calibration.
+A recovery policy and final ROS nodes are separate, unfinished components.
+
+```python
+import numpy as np
+from x2_recovery.env import X2RecoveryEnv
+
+with X2RecoveryEnv() as env:
+    observation, info = env.reset(seed=60)
+    observation, reward, terminated, truncated, info = env.step(np.zeros(31, np.float32))
+    # Inspect terminated/truncated; explicitly reset before another episode.
+```
+
+### Reset
 
 `reset.py` supplies `ResetSettings`, `construct_pose`, measured predicates and
 `reset_supine(loaded, data, seed=..., settings=..., observer=...)`. It uses the existing
@@ -515,7 +282,7 @@ and parent/weld filters are reported separately, not newly whitelisted. Nominal
 wrist/hip gaps are 285.18 / 286.10 mm. Collision hulls/spherical foot proxies differ
 from visible shells; visually detailed hands have no articulated finger DOFs.
 
-Acceptance settings were fixed before the successful 20+20 batch:
+Reset criteria (validated with 20 fixed and 20 seeded trials):
 
 | Predicate | Project criterion |
 | --- | --- |
@@ -529,7 +296,7 @@ Acceptance settings were fixed before the successful 20+20 batch:
 | Transient safety | ground <=12 mm, self <=3 mm, joint violation <=0.005 rad, hinge speed <=12 rad/s |
 
 The 1 mm steady and 12 mm transient criteria are project numerical/safety choices,
-not PDF/hardware specifications or the old Step 3 15 mm impact screen. The final
+not PDF/hardware specifications or the 15 mm passive-impact screening cutoff. The final
 state has measured soft-contact compliance, not mathematically zero intersection.
 Every step refreshes derived state, contacts and forces, checks finite values,
 warning counters, unit quaternion and exact time progression. Force is obtained
@@ -551,177 +318,158 @@ episode_start_time = metadata["episode_start_time"]
 # Continue stepping this same data; do not zero qvel or reset data.time.
 ```
 
-Only model change: `waist_pitch_joint.margin` 0 -> 0.005 rad, in `model.py` for **all**
-dynamics. Natural long settling originally loaded the soft upper limit to about
-0.31537 rad, beyond the unchanged 0.314 bound. Earlier activation leaves final waist
-pitch about 0.31037 rad inside that range. Solref/solimp, masses/inertias, damping,
-contact masks, exclusions, gravity, 1 ms Euler, friction and torque limits are unchanged.
-Active contacts retain combined `solref=[0.02,1]` and the original impedance; measured
-combined values are in the report. Fingerprinting now includes joint margin and
-limit solver parameters, closing an identity gap exposed by this change.
+Reset calls Gymnasium's seed initialization and draws an actual reset seed from
+`self.np_random`. `seed=None` continues that RNG sequence. The existing supine reset
+hands over the **same MjData, qpos, residual qvel and nonzero time**; that instant starts
+episode timing and provenance, excluding settling. Default perturbation is zero;
+optional `reset_perturb_rad=0.005` uses the previously validated reset range. Reset
+failure raises without retry. Only absent/empty reset options are supported. Previous
+action is initialized to zero as a “no policy action yet” convention; no standing
+initialization is exposed.
 
-New model fingerprint: `bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0`.
-Affected Step 3 checks (including all 62 limit sides and collision probes), other
-model/interface checks and four newly generated collision images were revalidated;
-the old reports and the two original wrist/hip side-lying FAILs remain intact.
+### Observation space
 
-Final installed implementation `9566fd5390ffe0ebb66e586fcf679f043228b229`:
-**20/20 fixed + 20/20 seeds 100–119**, each after
-explicit previous-episode motion/control/force/warm-start contamination. Repeats of
-100, 107, 119 after different contamination matched requested poses, final q/dq,
-metrics and timing exactly here (declared tolerance 1e-10, no cross-platform promise).
-Worst total reset time 1.814 s; whole dwell+hold maximum ground penetration 0.385257 mm,
-transient maximum 3.932839 mm, largest final penetration 0.196431 mm. No eligible
-self penetration, final bound violation, instability warning or time rollback.
-Window worst linear speed 0.005469 m/s, angular speed 0.011068 rad/s, hinge speed
-0.019953 rad/s; drift 0.135136 mm / 0.009658 rad. Worst final hinge speed is
-0.006280 rad/s, retained at handoff. Final ground support is 411.648–411.691 N
-(weight 411.691 N), including 113.401–114.470 N on the torso. Final torso face-up
-angle <=17.698 degrees, pelvis <=0.105 degrees. All initial clearances were 2 mm.
-Per-trial pair/time extrema and sampled traces remain in strict JSON.
-The worst transient was floor/geom 80 (`right_wrist_roll_link`), seed 106 at 0.078 s;
-the worst window value was floor/geom 67 (`left_wrist_roll_link`), seed 110 at 0.144 s;
-the largest final value was floor/geom 80, seed 117 at 1.653 s. Initial penetration
-was zero, with the independently verified 2 mm clearance.
+Every return is an independent, finite float32 `(117,)` array in
+`Box(-inf,inf)`. q scaling uses the effective mechanical midpoint/half-range; physical
+limit excess is observable, not clipped away. R is pelvis body-to-world rotation.
 
-**Preserved failures:** `natural-baseline.json` records slow waist/hip drift;
-`pose-development*.json` and `low-energy-development.json` retain rejected candidates.
-The first real acceptance run, `verification/run-20260920T085519-56c2e7/report.json`,
-failed **0/20 fixed and 0/20 seeded passes** on knee impact exceeding 0.005 rad at
-about 105 ms. The initial pose was then changed to reduce the fall, with no relaxation
-of the acceptance criteria. These are development tests, not five recovery episodes.
+| Slice | Meaning / scaling |
+| --- | --- |
+| 0:31 | `(q-midpoint)/half_range`, actuator order |
+| 31:62 | joint velocity / 5 rad/s |
+| 62:65 | unit gravity in pelvis frame, `R.T @ [0,0,-1]` |
+| 65:68 | pelvis **origin** linear velocity in pelvis frame / 1 m/s |
+| 68:71 | pelvis angular velocity in pelvis frame / 2 rad/s |
+| 71:72 | pelvis floor-relative height / frozen 0.6724955472220092 m |
+| 72:74 | left/right world vertical foot force / current robot weight |
+| 74:75 | sum of individual non-foot ground force magnitudes / weight |
+| 75:106 | previous actually adopted policy action; current action after step |
+| 106:107 | continuous stable duration / 2.0 s |
+| 107:108 | tracker window valid flag |
+| 108:117 | pelvis/left/right displacement from tracker window start, three vectors |
 
-`step4.py` performs 31 named joint causal tests. Zero, positive and negative rollouts
-start from `mj_copyData` full integration-state copies of the same accepted reset.
-Inputs are torque in N m (gain=gear=1), not desired angles. A sin-squared 120 ms pulse
-is followed by 120 ms neutral input; effort and q/dq are sampled through the mapping.
-Per-joint ceilings are 4 N m hip/knee, 1.5 ankle/shoulder, 2 waist, 1 elbow, 0.7 wrist,
-0.6 head, further bounded by half the retained effective effort interval. Start at
-half ceiling; escalate once only for insufficient causal motion, never after a safety
-stop. Diagnostic guards: 0.2 rad displacement, 4 rad/s hinge speed, 0.1 mrad bound
-violation, 12/3 mm ground/self penetration. Inputs return to zero even on errors.
+For the last nine channels, world horizontal displacement `[dx,dy,0]` is rotated by
+`R.T`, then divided by 0.05 m for pelvis or 0.03 m for each fixed foot-body origin.
+Without a valid window, flag, timer and all displacements are zero. References come
+from the existing tracker, with no second window algorithm. MuJoCo free-joint qvel
+translation is world-frame origin velocity, while rotation is already body-local;
+the latter is not rotated twice. A known-yaw test compares the origin velocity with
+`mj_objectVelocity`'s body COM velocity and its angular lever-arm correction. Contact
+channels reuse the independent success detector’s actual constraint forces. Returned info also owns its data.
+These observations use simulation-accessible states/contact forces; hardware
+availability and complete observability have not been established.
 
-All 31 joints passed at the first amplitude in the accepted supine pose; no fixture
-was needed. Maximum sampled causal q differences ranged from 0.00006635 rad (waist
-pitch) to 0.01428 rad (hip yaw). Small displacement includes soft-contact/friction
-compliance; this is input-to-effort/motion evidence, not useful range or recovery
-capability. Four further bounded sequences cover legs, arms/wrists, waist/head and
-all joints together. The live/recorded demo uses longer 350 ms head-yaw pulses plus
-250 ms neutral intervals for visible motion, then the same small grouped sequences.
-Zero torque does not instantaneously stop motion. No standing controller is present.
-Measured transmitted-effort error was zero; worst individual-test hinge speed was
-0.258136 rad/s. Grouped tests peaked at 0.036139 rad/s and 0.194557 mm floor penetration,
-with no measured self penetration. The visible head-yaw demonstration reached about
-0.13064 rad and returned towards 0.0338 rad after the negative pulse.
+### Action space
 
-Commands (existing venv, no dependency installation):
+`Box(-1,1,(31,),float32)` follows `loaded.mapping`, without a
+second joint ordering. Zero means the fixed q_ref target, not zero torque or holding
+the current state. Reference angles match the independently calibrated near-straight standing pose:
+both hip pitch -0.05, knees +0.10, ankle pitch -0.05, shoulder pitch -0.15, elbows
+-0.30 rad; shoulder roll +0.15 left / -0.15 right; all others zero. For nonnegative
+`a`, target is `q_ref + a*(q_max-q_ref)`; for negative `a`, it is
+`q_ref + a*(q_ref-q_min)`. Thus the target range covers the **whole effective mechanical
+range**, including asymmetric sides. Examples: knees [0,2.4073], hip pitch
+[-2.704,2.556], elbows [-2.3556,0] rad. Tests also cover reset targets and a candidate
+with knee 1.8, hip pitch -1.2 and elbow -1.4 rad; this is target coverage, not a proof
+of a feasible recovery trajectory. Wrong shape, nonfinite or out-of-range actions
+are rejected before physics; no out-of-range tolerance is applied.
 
-```bash
-source /opt/ros/jazzy/setup.bash
-export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
-.venv/bin/python /usr/bin/colcon --log-base audit-output/step4/final-build/log build \
-  --base-paths src --packages-select x2_recovery --symlink-install \
-  --build-base audit-output/step4/final-build/build --install-base audit-output/step4/final-build/install
-source audit-output/step4/final-build/install/setup.bash
-MUJOCO_GL=osmesa .venv/bin/python -m unittest discover -s src/x2_recovery/test -v
-MUJOCO_GL=osmesa ros2 run x2_recovery runtime_check step4 --output audit-output/step4/verification
-MUJOCO_GL=glfw PYGLFW_LIBRARY_VARIANT=x11 LIBGL_ALWAYS_SOFTWARE=1 \
-  timeout --kill-after=5s 90s ros2 run x2_recovery runtime_check step4-live --repeat 2 --output audit-output/step4/live
-MUJOCO_GL=osmesa timeout --kill-after=5s 180s ros2 run x2_recovery runtime_check step4-record \
-  --repeat 2 --output audit-output/step4/recording
-```
+### Controller
 
-`--repeat 20` watches twenty actual resets; it does not replace headless acceptance.
-Backend variables must be set before import, in separate processes. The live window
-uses supported `mjv_updateScene`/`mjr_render` in a GLFW desktop window with one main
-physics loop. C toggles collision hulls; successive resets begin in normal/collision
-views. Mouse forces and GUI control editing are absent. Camera/graphics do not change
-physics. On-screen phase/reset/seed/time/episode time/torque and measured head q/dq
-are synchronized. Native window readback is saved before swapping that same buffer;
-black images fail explicitly. The observer checks integration and model state.
+| PD group | Kp (N m/rad) | Kd (N m s/rad) |
+| --- | ---: | ---: |
+| Hip, knee | 600 | 16.97056275 |
+| Ankle, waist | 300 | 11.31370850 |
+| Shoulder, elbow | 100 | 4.24264069 |
+| Head, wrist | 10 | 0.42426407 |
 
-Rendering targets 25 FPS without altering the 1 ms physics timestep. Software
-rendering is slower than real time; measured rate is reported, not silently fixed
-by changing physics. Shadows/reflections are off only in the live display. The
-OSMesa GIF is labeled **PHYSICS REPLAY**, rendered on separate visualization data
-from copied states of a single continuous reset-to-actuation run, including initial
-placement. It never feeds state back into physics. No installed H.264 encoder was
-available, so the existing Pillow animated format is used. Reports start incomplete;
-media generation and process exit never automatically grant visual approval.
+`tau_raw=Kp*(target-q)-Kd*dq`; tau is clipped to the verified effective effort interval
+and written through each ctrl address. These direct motors have unit gear/gain;
+measured joint actuator torque equals clipped ctrl. Limits remain the loader's
+0.6–118 N m magnitudes, depending on joint, not the small diagnostic pulse amplitudes. The gains
+are initial candidates retained after bounded supine tests, not optimized recovery
+parameters. Saturation reports distinguish saturated joint/substep pairs divided by
+`31*executed_substeps`, per-joint time fractions, and time with any saturation. Target
+boundary fraction uses joint/policy-action pairs; raw and measured torques are separate.
 
-Final evidence below is under ignored `audit-output/step4/`; no logs/media/assets are
-tracked. The physics report links the independently run live/recording reports and
-records manual inspection with matching source, model, criteria, trajectory and media
-hashes. The CLI's original unreviewed statuses are retained in review metadata.
+`EnvConfig` is the single editable configuration source. `env.resolved_config()` and
+an `env-check` report expose all 31 names, qpos/dof/ctrl addresses, target ranges,
+reference angles, gains, effort limits and success thresholds in actuator order.
+Defaults are **0.001 s physics**, **20 substeps**, **0.020 s control / 50 Hz**, and
+**20.0 s external timeout**. Timeout must be an integer multiple of the physical dt;
+the environment never changes dt. Each substep recomputes PD from current q/dq, runs
+`checked_step` (including state synchronization), measures contacts and updates the
+original tracker. It stops at the first successful, safety-aborted or timed-out
+substep, with success taking priority at the exact deadline. There is no hidden step,
+state clipping, automatic reset, action smoothing or target integration.
 
-| Area | Status | Evidence |
-| --- | --- | --- |
-| RESET | PASS | `verification/run-20260920T091936-386c73/report.json`: 20+20, three same-seed repeats, full dwell/hold and preserved final state |
-| ACTUATION | PASS | Same report: 31 causal joint checks, no clearance fixtures, four grouped sequences |
-| LIVE_VIEWER | PASS | `live/run-20260920T091948-96ae14/report.json`: exit 0, two complete resets/sequences, 19.369 s wall time, 190 frames; normal and collision images actually inspected |
-| RECORDING | PASS | `recording/run-20260920T092545-7e098b/report.json` and `demonstration.gif`: exit 0, generation 84.327 s; actual-state replay inspected and played locally |
+### Episode termination and execution errors
 
-The live backend was GLFW X11 on real desktop `DISPLAY=:0` (Wayland session), using
-already installed llvmpipe LLVM 20.1.2 with process-local `LIBGL_ALWAYS_SOFTWARE=1`.
-Observed rate was **9.81 FPS** while other checks/rendering ran, below the 25 FPS target;
-there is no real-time-performance claim. The 1 ms physics step was unchanged. The GIF
-has 190 frames, 25 nominal FPS and 7.6 s playback; each explicit reset covers simulation
-time 0–3.661 s (7.322 s total). Extra phase-boundary samples explain the small playback
-duration difference. No recorded frames were dropped; trajectory timestamps are saved.
-The existing GTK3/GdkPixbuf native image player mapped a window on `:0` and advanced
-all 190 distinct frames during 10.007 s of playback, exit 0. Local reproduction:
+Successful recovery terminates with `is_success=True`; timeout truncates with
+`time_limit`; normal lying, low height, tilted torso and non-foot contact do not end
+an attempt. Separate task safety guards terminate on floor penetration >30 mm,
+self penetration >15 mm, joint-limit excess >0.05 rad or joint speed >30 rad/s.
+These are engineering guardrails for gross deformation/high-rate stress, **not**
+hardware speed ratings, proof of irrecoverability or relaxed standing criteria.
+They retain contact-rich motion (observed up to 11.90 mm floor penetration and
+0.0320 rad soft limit excess) but stop the tested full-target impulses and severe
+self intersection. Their suitability for useful learned recovery remains unverified.
 
-```bash
-.venv/bin/python audit-output/step4/play_recording.py \
-  "$PWD/audit-output/step4/recording/run-20260920T092545-7e098b/demonstration.gif"
-```
+Nonfinite state/action, numerical warnings, illegal forces, changed model/mapping,
+unexpected state edits, missed samples/time reversal or watchdog expiry invalidate
+the tracker, require reset and raise `EnvExecutionError` with detached diagnostic
+evidence. NaN/Inf are explicitly encoded in that evidence, never repaired as zeros.
+Model identity is checked at policy/reset/render boundaries; lightweight state,
+forces/time/standing checks run every millisecond. Wall budgets are 45 s per reset
+and 5 s per step call; waiting between calls or doing network updates consumes no
+simulation timeout. The environment is the sole owner of normal rollout state;
+these checks are not a general tamper-proof execution certificate.
 
-Fresh `final-build` colcon build passed. The installed entry point uses this `.venv`,
-its new overlay and the current checkout; `final-identity.log` records resolved paths.
-The complete regression suite passed **22 tests in 4.975 s**, including 14 existing
-and eight focused reset tests (`final-tests.log`). These and final physics/live/media
-checks ran on implementation commit `9566fd5`; subsequent closeout changes are README
-only, with implementation hashes rechecked rather than repeating physics mechanically.
+### Rendering and resources
 
-Reproducible bug notes and sources:
+`render_mode=None` creates no graphics resources or sleeps. `rgb_array` renders the
+current state; `human` uses native mjv/mjr + GLFW mechanism without mutable
+viewer panels or mouse perturbation. Rendering cannot advance physics or write controls.
+Select OSMesa versus GLFW **before process start**; close is idempotent. GIF labels
+identify actual env rollout states, not a standing initialization or recovered policy.
 
-- Soft waist limit drift: checked [matching limit-margin documentation](https://github.com/google-deepmind/mujoco/blob/3.13.0/doc/XMLreference.rst)
-  and [soft-constraint model](https://mujoco.readthedocs.io/en/stable/modeling.html).
-  Applied only the conservative early-activation margin; old failures retained.
-- Reset state/geometry: verified installed 3.13.0 headers/API and matching
-  [reset implementation](https://github.com/google-deepmind/mujoco/blob/3.13.0/src/engine/engine_io.c)
-  and [signed-distance implementation](https://github.com/google-deepmind/mujoco/blob/3.13.0/src/engine/engine_support.c).
-  A versioned rendered documentation page was unavailable, so matching source was used.
-- Viewer: an X11 passive smoke test exited cleanly after explicitly joining its
-  background renderer, but this alone did not prove images. Actual X2 framebuffer
-  readback was black on virgl (Apple M5 Pro Compat), even without shadows/meshes in
-  the minimal reproduction. An existing llvmpipe process renders the same scene.
-  The final compact viewer uses main-thread native rendering and clean context
-  destruction. No driver/dependency/global-display changes. Sources:
-  [MuJoCo visualization API](https://mujoco.readthedocs.io/en/stable/programming/visualization.html),
-  [pyGLFW backend selection](https://github.com/FlorianRhiem/pyGLFW),
-  [Mesa process environment](https://docs.mesa3d.org/envvars.html).
-  `gl-clear-probe.log`, `mujoco-gl-probe.log`, `x2-gl-probe.log` and native black frames
-  preserve reproduction evidence; the first high-resolution software run hit its
-  external 40 s timeout. Optimized software rendering completed the full sequence.
-  This is an observed backend-specific workaround; the underlying virgl defect was
-  not patched. A later recording produced complete media but its shell returned 143
-  (termination cause unestablished); that evidence remains in
-  `recording/run-20260920T091949-6bf409`. The separate 180 s bounded recording above
-  exited 0 and produced byte-identical trajectory/GIF, then passed native playback.
+## Reward Design
 
-At Step 4 closeout A2–A6 remained Pending. Step 5 below completes the independent
-success detector; Step 6 completes A2. X2 training is **Not run**, evaluation
-**Not evaluated**; A3–A6 remain Pending.
+Let `H=clip(height/h_ref,0,1)` and
+`U=(1+clip(torso_upright_dot,-1,1))/2`. Gamma is **0.999 per env.step transition**,
+including a shortened final step; later PPO must use the same gamma.
 
-### Step 5: independent recovery-success detector
+| Contribution | Actual weight | Raw term |
+| --- | ---: | --- |
+| Height shaping | 3.0 | `gamma*H(next)-H(previous)` |
+| Upright shaping | 1.0 | `gamma*U(next)-U(previous)` |
+| Qualified standing time | 1.0 | sum of qualifying substep dt, seconds |
+| Torque-square cost | -0.02 | sum of mean `(actual_torque/effort_magnitude)^2 * dt`, seconds |
+| Action-change cost | -0.002 | mean `(adopted_action-previous_action)^2`, once per transition |
+| Recovery completion | 50.0 | 1 only on the first true `recovery_success` transition |
 
-**COMPLETE on Ubuntu 24.04.5 ARM64 / Parallels / MuJoCo 3.13.0**, with the
-unchanged Step 4 effective fingerprint `bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0`.
+Height/upright shaping supplies progress feedback, qualified hold encourages the
+actual target, torque/action costs discourage excessive actuation and abrupt changes,
+and the completion bonus favors finishing. Initial and final weights are identical;
+bounded diagnostics support the wiring, not optimality. Hold uses right-endpoint
+integration of **all** instantaneous and drift checks, with no invalid execution;
+it does not replace or give an extra timestep to the tracker's continuous timer.
+Torque square is not physical energy. `reward_terms_raw` and weighted `reward_terms`
+reconstruct the scalar reward; the total is never clipped nonnegative.
+
+True `terminated` transitions use zero absorbing-state next potential in shaping,
+while keeping the **real observation**. External timeout uses `truncated=True`, the
+real next potential and terminal observation for SB3 bootstrap. This is an external
+sampling limit, not a finite-horizon task requiring a remaining-time observation.
+`Monitor`/`DummyVecEnv` preserve `terminal_observation` and `TimeLimit.truncated`;
+the base environment still returns Gymnasium's five values, without another TimeLimit.
+
+## Success Criteria
+
 `success.py` has no reward, ROS, training, rendering, network or file-output dependency.
 `measure_standing` reads synchronized MuJoCo state; `standing_failures` combines
 necessary predicates; `SuccessTracker` handles continuity, drift, provenance and timeout.
-`step5.py` is only a bounded standing calibration/test fixture and evidence command.
+`success_validation.py` is only a bounded standing calibration/test fixture and evidence command.
 
 Recovery success requires an actual successful `reset_supine` handoff, followed by
 bounded joint actuation and uninterrupted normal physics without external support,
@@ -780,15 +528,258 @@ geometry with 2 mm clearance; only initialization writes q/dq. No base restraint
 gravity compensation, control feedback beyond joint PD, or physics modification is used.
 The predeclared search bound was six candidates, 8 s simulation / 45 s wall each;
 candidate 0 fell, candidate 1 stood, and search stopped. Both traces remain in
-`audit-output/step5/development-103134/`. The 6–8 s stable segment, independently checked
+the [calibration trial records](audit-output/step5/development-103134/). The 6–8 s stable segment, independently checked
 for upright posture, foot-only support and low motion, had pelvis height
 0.67249380–0.67249581 m and tilt 4.86944–4.87325 degrees. Its median became h_ref,
-not the previously reported COM height. Zero non-foot contacts/force supported tightening
+distinct from whole-body COM height. Zero non-foot contacts/force supported tightening
 0.005W to 0.00001W. This is a numerical allowance, not proof of exactly zero support.
 Reference and thresholds are committed as `CALIBRATED_SETTINGS`; model/code/config
 changes invalidate saved acceptance, and physics changes require recalibration.
 
-Frozen, newly initialized verification (no refitting):
+## Training
+
+Recovery training has **not been run**. The intended learner is SB3 PPO with MlpPolicy
+on CPU, using the environment's per-transition gamma **0.999**. Recovery training
+settings, compute budget, checkpoint and reward plot remain to be established.
+A successful dependency smoke test on Pendulum is not an X2 training experiment.
+
+## Evaluation
+
+Formal recovery evaluation is **not evaluated**. It requires five actual episodes
+using an available learned policy or, if training is blocked, a clearly labeled
+scripted recovery baseline. Report successes and failures against the independent
+criteria above; zero successes must be explained. Reasonable hand contact during
+rising is allowed, but final stable standing must have no non-foot support above the
+measurement tolerance. Environment rollouts and directly initialized standing
+fixtures do not count as those five attempts.
+
+## ROS 2 Integration
+
+Recovery and telemetry nodes, their shared launch file and the service-driven recovery
+loop are **not implemented**. The following is the required interface contract, not a
+claim that these endpoints currently perform recovery.
+
+| Interface | Type | Required behavior |
+| --- | --- | --- |
+| `/x2/start_recovery` | `std_srvs/srv/Trigger` | Return `success=true` when accepted, before episode execution; `success=false` when busy. Acceptance does not mean the robot has stood up. |
+| `/x2/recovery_status` | `std_msgs/msg/String` | Publish `IDLE`, `RUNNING`, `SUCCEEDED` or `FAILED`. |
+| `/x2/joint_states` | `sensor_msgs/msg/JointState` | Publish joint names, actual simulator positions and timestamps while running. |
+
+Each accepted request executes exactly one episode. An unsuccessful attempt reaches
+FAILED at its configurable timeout. Keep the required Trigger service and message types.
+The telemetry node subscribes to joint states and recovery status and logs both the
+current status and one joint position. Source: PDF p. 1 ROS; p. 2 IF and VAL.
+
+Final integration must build from a fresh workspace, launch both nodes, accept an
+actual recovery request, reject a concurrent request, publish simulator-derived
+status/joint states and demonstrate unsuccessful timeout to FAILED. Telemetry must
+log status and at least one measured joint. Existing `/x2_smoke/*` endpoints only
+exercise transport and a small MuJoCo hinge scene; Docker is optional.
+
+## Validation and Reproducibility
+
+### Build, imports and regression
+
+Use the existing venv and the overlay built in [Setup](#setup). Output paths for new
+runs use component names. All 73 regression tests passed without skips in the target
+VM, along with a fresh package build. Module/import compatibility was also checked
+against baseline `2958bc1`: default, perturbed-reset and timeout rollouts produced
+byte-identical observations, rewards, info, qpos/qvel, controls, per-substep records
+and configuration. Test assertions and simulation algorithms were not changed.
+
+```bash
+source /opt/ros/jazzy/setup.bash
+source "$VALIDATION_BUILD_DIR/final-install/setup.bash"
+MUJOCO_GL=osmesa timeout --kill-after=5s 180s .venv/bin/python \
+  -m unittest discover -s src/x2_recovery/test -v
+MUJOCO_GL=osmesa timeout --kill-after=5s 30s ros2 run x2_recovery runtime_check model
+MUJOCO_GL=osmesa timeout --kill-after=5s 30s ros2 run x2_recovery runtime_check render \
+  --asset-repo "$X2_ASSET_REPO" --output audit-output/model-render
+```
+
+### Model audit and evidence review
+
+The preserved passive model audit was recorded at implementation `0c627d7`, before
+the conservative waist-margin correction. Its collision/limit and interface checks
+were subsequently rerun for the effective model fingerprint above. Quantitative
+scope and original failures remain distinct from settled-reset and standing criteria.
+
+| Audit area | Result | Measured evidence and scope |
+| --- | --- | --- |
+| Floating base | PASS | root pelvis (body 1), free joint 0; qpos address 0 (7 coordinates), DOF address 0 (6 velocities); nq=38, nv=37, nu=31; no equality, mocap, tendon, gravcomp or callbacks. Contact-free whole-robot COM drops 0.0495405 m in 100 ms, matching semi-implicit Euler gravity; valid independent translation/rotation tested. |
+| Mass/inertia | PASS | 32 dynamic bodies; effective 41.966473 kg; qpos0 COM world `[0.00168761,0.00024727,0.71173956]` m. Positive principal moments and triangle inequalities; full common-frame tensors match URDF within export precision (max mass error 3.8e-5 kg, tensor error 4.65e-7 kg m²). Fixed sensor/base frames add no omitted mass. |
+| Collision coverage | PASS, bounded poses | Back, both forearms, wrist/hand proxies, knee/shin meshes and feet have actual active floor force. Peak individual normal forces: back 448.54 N; forearms L/R 468.11/477.70 N; wrist proxies 77.21/141.48 N; shins 564.27/509.91 N; feet 344.44/386.04 N. Six 180 ms whole-model probes; largest floor penetration 10.99 mm (<15 mm), required-pose self penetration 2.66 mm (<5 mm); no warnings/reset. Four collision-only OSMesa images inspected. |
+| Joint ranges | PASS | 31 coordinate-equivalent revolute joints, no unmatched movable/mimic joints; six restrictions, six stricter source ranges retained, 19 exact agreements. |
+| Actuator semantics | PASS | 155 fresh forward checks: zero, ±40% and ±105% source inputs for every motor; sparse transmission moments, sign and measured actuator/joint forces agree within 1e-10 N m. Raw ctrl remains unclipped in its buffer. |
+| Effective limits | PASS, stated scope | All finite joint bounds enabled. 62 lower/upper probes with 0.1 N m outward input, 80 ms each; explicit named limit constraints and restoring acceleration. Disposable copies disable contact/frictionloss and gravity only. Initial/peak penetration 0.002 rad (<0.005); max final 0.000270 rad (<0.001). Does not certify full-collision reachability of every bound. |
+| Indexing | PASS | 31 unique controlled hinges; distinct nonzero positions/velocities and isolated inputs verified. Head motors occur before arms in ctrl order but after arms in joint traversal. No magic scalar-state slice or joint-ID/ctrl-index assumption. |
+
+Ground penetration below is in **mm**, sampled initially and after every 1 ms step;
+final means 180 ms. All initial states had **0 penetration, no contact pair**, and
+2 mm clearance to the listed nearest floor/robot pair. `0` is the floor geom.
+These are the maxima across all robot-floor contacts, not just the named region.
+
+| Pose | Initial nearest pair (no contact) | Whole-run maximum: mm / pair / time | Final: mm / pair |
+| --- | --- | --- | --- |
+| feet | 0–15 | 1.394 / 0–18 / 40 ms | 0.265 / 0–18 |
+| back | 0–53 | 10.991 / 0–67 / 162 ms | 8.848 / 0–2 |
+| left_arm | 0–67 | 9.863 / 0–22 / 154 ms | 4.324 / 0–24 |
+| right_arm | 0–80 | 10.763 / 0–44 / 155 ms | 4.997 / 0–46 |
+| left_shin | 0–11 | 7.223 / 0–56 / 132 ms | 1.326 / 0–56 |
+| right_shin | 0–34 | 7.246 / 0–69 / 132 ms | 1.373 / 0–69 |
+| left_arm_at_side (FAIL retained) | 0–67 | 10.495 / 0–22 / 171 ms | 9.485 / 0–22 |
+| right_arm_at_side (FAIL retained) | 0–80 | 10.191 / 0–44 / 172 ms | 9.413 / 0–44 |
+
+Geom IDs: 2 pelvis; 11/34 left/right knee-shin mesh; 15/18/22/24 left foot
+sphere proxies; 44/46 right foot sphere proxies; 53 torso; 56/69 left/right shoulder
+pitch hulls; 67/80 left/right wrist-roll hulls. Complete body/local-index labels
+remain in the JSON geom inventory. All **62 joint-limit sides** already recorded
+whole-run and final violations: every maximum is 0.002 rad (the deliberately
+initialized overshoot); largest final violation is **0.000269485464 rad**, left
+wrist yaw lower bound. Individual final values remain in the existing limit table.
+
+The **15 mm** floor threshold is a permissive project screening cutoff for these
+180 ms passive impacts under the unchanged source soft-contact settings. It was
+chosen before the formal suite to bound transient overlap; it is **not derived
+from an official specification, hardware calibration or a proven accuracy bound**.
+It does not establish contact fidelity, zero penetration or settled support, and
+does not apply to the stricter settled-reset criteria. In particular, the back probe's
+8.848 mm final floor penetration means this trajectory is not an accepted resting
+supine reset.
+
+The two original arm-at-side failures start from valid, contact-free states. Their
+wrist/hip-yaw geom pairs **9–67 / 32–80** first contact at **116 / 115 ms**, exceed
+the unchanged 5 mm self-contact threshold at **121 / 120 ms**, and peak at
+**6.214 / 5.937 mm at 125 / 123 ms**. They are reproducible, pose-dependent
+soft-constraint violations during passive limb trapping, not initial intersections
+or numerical resets (finite states and zero warnings). Both remain FAIL in the
+original report and new report's investigation; the arm-forward PASS does not
+replace them. The selected **back diagnostic pose** has no self-contact throughout
+its 180 ms record, so the observed wrist/hip failure is not demonstrated there.
+These short passive probes do not establish an episode-ready supine state. The
+separate settling validation below excludes trapping and applies stricter steady
+penetration criteria.
+
+COM comparison uses the actual `mjINT_EULER` integrator, now explicitly checked:
+with zero initial velocity, N=100 and h=0.001 s,
+`g*h²*N*(N+1)/2 = -0.0495405 m`. The continuous value `g*(N*h)²/2 = -0.04905 m`
+is reported separately and is not used as the discrete acceptance target.
+
+Fresh model-audit command:
+
+```bash
+MUJOCO_GL=osmesa timeout --kill-after=5s 60s ros2 run x2_recovery runtime_check audit \
+  --output audit-output/model-audit
+```
+
+A completed physical audit still exits 1 until its generated images are reviewed.
+For a later rerun, `--image-review-from` may name a reviewed report. Only observations
+with matching image SHA256 **and model/probe context digest** can be reused. The
+context binds compiled physics/mapping, pinned assets, MuJoCo version, probe definitions,
+tolerances and loader/audit hashes. Legacy observations without that digest are
+rejected. The same read/write path is safe: observations are read first, then a new
+incomplete report replaces the old result; numerical PASS is never imported.
+
+On a fresh checkout omit `--image-review-from`: physics and rendering still finish,
+but the command returns nonzero with visual review NOT_TESTED. Inspect all four
+PNGs, then record `image_review` entries keyed by filename with the actual `sha256`,
+the image record's `review_context_sha256` stored as `context_sha256`, and a specific
+`observation` of what was seen. Only record these after actual inspection. A normal
+rerun verifies them; for review-only completion of an already finished run, the
+existing Python `visual_review`/`save_report` helpers can update that report after
+checking current model/probe/code and file hashes, without rerunning physics.
+Missing/stale observations cannot yield COMPLETE.
+No prior numerical PASS or completion verdict is trusted. A failed/incomplete
+current run replaces the old report and exits nonzero; NaN/Infinity becomes a
+failed measurement in strict JSON. Repeated loads, a different cwd and unchanged
+upstream hashes are verified after the probes.
+
+### Supine reset and causal actuation
+
+Recorded reset validation, implementation `9566fd5390ffe0ebb66e586fcf679f043228b229`:
+**20/20 fixed + 20/20 seeds 100–119**, each after
+explicit previous-episode motion/control/force/warm-start contamination. Repeats of
+100, 107, 119 after different contamination matched requested poses, final q/dq,
+metrics and timing exactly here (declared tolerance 1e-10, no cross-platform promise).
+Worst total reset time 1.814 s; whole dwell+hold maximum ground penetration 0.385257 mm,
+transient maximum 3.932839 mm, largest final penetration 0.196431 mm. No eligible
+self penetration, final bound violation, instability warning or time rollback.
+Window worst linear speed 0.005469 m/s, angular speed 0.011068 rad/s, hinge speed
+0.019953 rad/s; drift 0.135136 mm / 0.009658 rad. Worst final hinge speed is
+0.006280 rad/s, retained at handoff. Final ground support is 411.648–411.691 N
+(weight 411.691 N), including 113.401–114.470 N on the torso. Final torso face-up
+angle <=17.698 degrees, pelvis <=0.105 degrees. All initial clearances were 2 mm.
+Per-trial pair/time extrema and sampled traces remain in strict JSON.
+The worst transient was floor/geom 80 (`right_wrist_roll_link`), seed 106 at 0.078 s;
+the worst window value was floor/geom 67 (`left_wrist_roll_link`), seed 110 at 0.144 s;
+the largest final value was floor/geom 80, seed 117 at 1.653 s. Initial penetration
+was zero, with the independently verified 2 mm clearance.
+
+**Preserved failures:** `natural-baseline.json` records slow waist/hip drift;
+`pose-development*.json` and `low-energy-development.json` retain rejected candidates.
+The first real acceptance run, `verification/run-20260920T085519-56c2e7/report.json`,
+failed **0/20 fixed and 0/20 seeded passes** on knee impact exceeding 0.005 rad at
+about 105 ms. The initial pose was then changed to reduce the fall, with no relaxation
+of the acceptance criteria. These are reset experiments, not recovery evaluation episodes.
+
+`simulation_validation.py` performs 31 named joint causal tests. Zero, positive and negative rollouts
+start from `mj_copyData` full integration-state copies of the same accepted reset.
+Inputs are torque in N m (gain=gear=1), not desired angles. A sin-squared 120 ms pulse
+is followed by 120 ms neutral input; effort and q/dq are sampled through the mapping.
+Per-joint ceilings are 4 N m hip/knee, 1.5 ankle/shoulder, 2 waist, 1 elbow, 0.7 wrist,
+0.6 head, further bounded by half the retained effective effort interval. Start at
+half ceiling; escalate once only for insufficient causal motion, never after a safety
+stop. Diagnostic guards: 0.2 rad displacement, 4 rad/s hinge speed, 0.1 mrad bound
+violation, 12/3 mm ground/self penetration. Inputs return to zero even on errors.
+
+All 31 joints passed at the first amplitude in the accepted supine pose; no fixture
+was needed. Maximum sampled causal q differences ranged from 0.00006635 rad (waist
+pitch) to 0.01428 rad (hip yaw). Small displacement includes soft-contact/friction
+compliance; this is input-to-effort/motion evidence, not useful range or recovery
+capability. Four further bounded sequences cover legs, arms/wrists, waist/head and
+all joints together. The live/recorded demo uses longer 350 ms head-yaw pulses plus
+250 ms neutral intervals for visible motion, then the same small grouped sequences.
+Zero torque does not instantaneously stop motion. The causal diagnostic contains no standing controller.
+Measured transmitted-effort error was zero; worst individual-test hinge speed was
+0.258136 rad/s. Grouped tests peaked at 0.036139 rad/s and 0.194557 mm floor penetration,
+with no measured self penetration. The visible head-yaw demonstration reached about
+0.13064 rad and returned towards 0.0338 rad after the negative pulse.
+
+```bash
+MUJOCO_GL=osmesa timeout --kill-after=5s 180s ros2 run x2_recovery runtime_check simulation-check \
+  --output audit-output/simulation-validation
+MUJOCO_GL=glfw PYGLFW_LIBRARY_VARIANT=x11 LIBGL_ALWAYS_SOFTWARE=1 \
+  timeout --kill-after=5s 90s ros2 run x2_recovery runtime_check simulation-live \
+  --repeat 2 --output audit-output/simulation-live
+MUJOCO_GL=osmesa timeout --kill-after=5s 180s ros2 run x2_recovery runtime_check simulation-record \
+  --repeat 2 --output audit-output/simulation-record
+```
+
+Live/recorded views use copied actual simulation states and never feed rendered state
+back into physics. Reports distinguish generated media from inspected media.
+
+| Area | Status | Evidence |
+| --- | --- | --- |
+| RESET | PASS | `verification/run-20260920T091936-386c73/report.json`: 20+20, three same-seed repeats, full dwell/hold and preserved final state |
+| ACTUATION | PASS | Same report: 31 causal joint checks, no clearance fixtures, four grouped sequences |
+| LIVE_VIEWER | PASS | `live/run-20260920T091948-96ae14/report.json`: exit 0, two complete resets/sequences, 19.369 s wall time, 190 frames; normal and collision images actually inspected |
+| RECORDING | PASS | `recording/run-20260920T092545-7e098b/report.json` and `demonstration.gif`: exit 0, generation 84.327 s; actual-state replay inspected and played locally |
+
+These report paths are relative to the [simulation evidence archive](audit-output/step4/).
+
+The live backend was GLFW X11 on real desktop `DISPLAY=:0` (Wayland session), using
+already installed llvmpipe LLVM 20.1.2 with process-local `LIBGL_ALWAYS_SOFTWARE=1`.
+Observed rate was **9.81 FPS** while other checks/rendering ran, below the 25 FPS target;
+there is no real-time-performance claim. The 1 ms physics step was unchanged. The GIF
+has 190 frames, 25 nominal FPS and 7.6 s playback; each explicit reset covers simulation
+time 0–3.661 s (7.322 s total). Extra phase-boundary samples explain the small playback
+duration difference. No recorded frames were dropped; trajectory timestamps are saved.
+The existing GTK3/GdkPixbuf native image player mapped a window on `:0` and advanced
+all 190 distinct frames during 10.007 s of playback, exit 0.
+
+### Standing detector validation
+
+Recorded standing-detector verification, using frozen settings and fresh initialization:
 
 | Evidence layer | Actual result |
 | --- | --- |
@@ -796,7 +787,7 @@ Frozen, newly initialized verification (no refitting):
 | Actual X2 API / handoff tests | 5 PASS: mappings, Jacobian velocities, invalid models/forces, unchanged state, real residual supine handoff |
 | Free-base standing; actual yaw +1.1 rad; independent repeat | 3/3 PASS, each continuous **3.938 s** (t=0.062–4.000); recovery_success always false |
 | Supine, sitting, kneeling, left wrist support, single-foot, airborne, brief standing | 7/7 exercised and rejected; no skipped physical cases |
-| Full existing + new regression | **49 PASS**, no skips; reset/model/actuation tests retained |
+| Regression at the recorded detector validation | **49 PASS**, no skips; reset/model/actuation tests retained |
 | Installed entry point / visual evidence | Fresh isolated colcon build PASS; venv and source paths verified; 18 normal/collision PNGs inspected |
 
 Across positive windows: pelvis 0.671282–0.673721 m, tilt <=7.292 degrees,
@@ -812,200 +803,29 @@ and airborne upright state with low speed but no support. These are transient ne
 witnesses, often failing several predicates; individual necessity is tested logically.
 The brief standing trace holds only 0.938 s. No fixture is a recovery attempt.
 
-Actual commands (from checkout; reuse existing venv, no installation/driver changes):
-
 ```bash
-source /opt/ros/jazzy/setup.bash
-.venv/bin/python /usr/bin/colcon --log-base audit-output/step5/build/log build \
-  --base-paths src --packages-select x2_recovery --symlink-install \
-  --build-base audit-output/step5/build/build --install-base audit-output/step5/build/install
-source audit-output/step5/build/install/setup.bash
-MUJOCO_GL=osmesa .venv/bin/python -m unittest discover -s src/x2_recovery/test -v
-MUJOCO_GL=osmesa timeout --kill-after=5s 180s ros2 run x2_recovery runtime_check step5 \
-  --output audit-output/step5/verification
-# Inspect every image in the newly printed run directory. Write observations.json
-# as {"image-filename.png": "specific observation after actual inspection", ...}.
-ros2 run x2_recovery runtime_check step5-review \
-  --output audit-output/step5/verification/run-20260920T103825-c8b74c \
-  --image-review-from audit-output/step5/verification/run-20260920T103825-c8b74c/visual-observations.json
+MUJOCO_GL=osmesa timeout --kill-after=5s 180s ros2 run x2_recovery runtime_check success-check \
+  --output audit-output/success-validation
+# Set SUCCESS_RUN to the new run directory printed by success-check.
+# Inspect every normal/collision PNG, then write observations.json there:
+# {"image-filename.png": "specific observation after actual inspection", ...}
+ros2 run x2_recovery runtime_check success-review \
+  --output "$SUCCESS_RUN" --image-review-from "$SUCCESS_RUN/observations.json"
 ```
 
-The last path is this run's evidence, not a reusable approval for new images. The physics
-command creates a unique directory, starts INCOMPLETE, and exits **1** for missing/failed
-checks or pending visual review. Inspection closeout exited **0**, verdict COMPLETE.
-Strict `report.json`, every-step `*.jsonl`, copied `snapshots.json`, geometry checks and
-18 labeled **ACTUAL STATE REPLAY** PNGs are in that directory. Rendering uses separate
-data/model and never changes rollout state. `build.log`, `installed-identity.log`,
-`acceptance-first.log`, `review.log`, `final-success-tests.log` and `full-regression-final.log`
-are in `audit-output/step5/`; raw evidence is ignored, not committed.
+The check creates a unique directory, starts INCOMPLETE and exits 1 for missing/failed
+checks or pending visual review. `success-review` performs no new physics: it verifies
+the completed checks, current model/code/config identity, all image hashes and explicit
+observations before returning 0. A new implementation identity requires new evidence;
+old reports are never cosmetically rewritten. Each report retains per-millisecond
+traces, copied actual-state snapshots, geometry checks and labeled replay images.
 
-Targeted references read: HoST's
-[`eval_ground.py` at 58ea00e](https://github.com/InternRobotics/HoST/blob/58ea00e8541911540a5ac53879ad98827c8e9fb5/legged_gym/legged_gym/scripts/eval/eval_ground.py)
-(height-history metrics); dm_control's
-[`humanoid.py` at 87e046b](https://github.com/google-deepmind/dm_control/blob/87e046bfeab1d6c1ffb40f9ee2a7459a38778c74/dm_control/suite/humanoid.py)
-(torso-axis/subtree measurements, reward not acceptance); installed Gymnasium 1.3.0
-`humanoidstandup_v5.py` and [documentation](https://gymnasium.farama.org/environments/mujoco/humanoid_standup/)
-(height reward, no success termination). API semantics were checked against installed
-MuJoCo 3.13.0 headers, [matching engine source](https://github.com/google-deepmind/mujoco/blob/3.13.0/src/engine/engine_core_smooth.c),
-[API](https://mujoco.readthedocs.io/en/stable/APIreference/APIfunctions.html) and
-[simulation synchronization](https://mujoco.readthedocs.io/en/stable/programming/simulation.html).
-No reference framework was installed or another robot's thresholds copied.
-**Training NOT RUN; five-episode recovery evaluation NOT EVALUATED. Standing fixtures
-do not count toward those five episodes; supine-to-standing recovery remains unproved.**
-
-### Step 6: native Gymnasium environment
-
-**COMPLETE / A2 PASS on the existing Ubuntu ARM64 VM.** `env.py` implements
-`X2RecoveryEnv` with independent model/data, RNG, success tracker, controller history
-and lazy rendering resources. It does not import ROS or the audit/standing fixture.
-The effective X2 model, 31-joint mapping and Step 5 calibration above are unchanged.
-The original two-page PDF was read from `/home/lang/Downloads/HRS_Take_Home_Task.pdf`;
-this acceptance covers the environment, not training, a recovery policy or ROS nodes.
-
-```python
-import numpy as np
-from x2_recovery.env import X2RecoveryEnv
-
-with X2RecoveryEnv() as env:
-    observation, info = env.reset(seed=60)
-    observation, reward, terminated, truncated, info = env.step(np.zeros(31, np.float32))
-    # Inspect terminated/truncated; explicitly reset before another episode.
-```
-
-`EnvConfig` is the single editable configuration source. `env.resolved_config()` and
-an `env-check` report expose all 31 names, qpos/dof/ctrl addresses, target ranges,
-reference angles, gains, effort limits and success thresholds in actuator order.
-Defaults are **0.001 s physics**, **20 substeps**, **0.020 s control / 50 Hz**, and
-**20.0 s external timeout**. Timeout must be an integer multiple of the physical dt;
-the environment never changes dt. Each substep recomputes PD from current q/dq, runs
-`checked_step` (including state synchronization), measures contacts and updates the
-original tracker. It stops at the first successful, safety-aborted or timed-out
-substep, with success taking priority at the exact deadline. There is no hidden step,
-state clipping, automatic reset, action smoothing or target integration.
-
-Reset calls Gymnasium's seed initialization and draws an actual reset seed from
-`self.np_random`. `seed=None` continues that RNG sequence. The existing supine reset
-hands over the **same MjData, qpos, residual qvel and nonzero time**; that instant starts
-episode timing and provenance, excluding settling. Default perturbation is zero;
-optional `reset_perturb_rad=0.005` uses the previously validated reset range. Reset
-failure raises without retry. Only absent/empty reset options are supported. Previous
-action is initialized to zero as a “no policy action yet” convention; no standing
-initialization is exposed.
-
-**Action and control.** `Box(-1,1,(31,),float32)` follows `loaded.mapping`, without a
-second joint ordering. Zero means the fixed q_ref target, not zero torque or holding
-the current state. Reference angles match the independent near-straight Step 5 pose:
-both hip pitch -0.05, knees +0.10, ankle pitch -0.05, shoulder pitch -0.15, elbows
--0.30 rad; shoulder roll +0.15 left / -0.15 right; all others zero. For nonnegative
-`a`, target is `q_ref + a*(q_max-q_ref)`; for negative `a`, it is
-`q_ref + a*(q_ref-q_min)`. Thus the target range covers the **whole effective mechanical
-range**, including asymmetric sides. Examples: knees [0,2.4073], hip pitch
-[-2.704,2.556], elbows [-2.3556,0] rad. Tests also cover reset targets and a candidate
-with knee 1.8, hip pitch -1.2 and elbow -1.4 rad; this is target coverage, not a proof
-of a feasible recovery trajectory. Wrong shape, nonfinite or out-of-range actions
-are rejected before physics; no out-of-range tolerance is applied.
-
-| PD group | Kp (N m/rad) | Kd (N m s/rad) |
-| --- | ---: | ---: |
-| Hip, knee | 600 | 16.97056275 |
-| Ankle, waist | 300 | 11.31370850 |
-| Shoulder, elbow | 100 | 4.24264069 |
-| Head, wrist | 10 | 0.42426407 |
-
-`tau_raw=Kp*(target-q)-Kd*dq`; tau is clipped to the verified effective effort interval
-and written through each ctrl address. These direct motors have unit gear/gain;
-measured joint actuator torque equals clipped ctrl. Limits remain the loader's
-0.6–118 N m magnitudes, depending on joint, never Step 4 pulse amplitudes. The gains
-are initial candidates retained after bounded supine tests, not optimized recovery
-parameters. Saturation reports distinguish saturated joint/substep pairs divided by
-`31*executed_substeps`, per-joint time fractions, and time with any saturation. Target
-boundary fraction uses joint/policy-action pairs; raw and measured torques are separate.
-
-**Observation.** Every return is an independent, finite float32 `(117,)` array in
-`Box(-inf,inf)`. q scaling uses the effective mechanical midpoint/half-range; physical
-limit excess is observable, not clipped away. R is pelvis body-to-world rotation.
-
-| Slice | Meaning / scaling |
-| --- | --- |
-| 0:31 | `(q-midpoint)/half_range`, actuator order |
-| 31:62 | joint velocity / 5 rad/s |
-| 62:65 | unit gravity in pelvis frame, `R.T @ [0,0,-1]` |
-| 65:68 | pelvis **origin** linear velocity in pelvis frame / 1 m/s |
-| 68:71 | pelvis angular velocity in pelvis frame / 2 rad/s |
-| 71:72 | pelvis floor-relative height / frozen 0.6724955472220092 m |
-| 72:74 | left/right world vertical foot force / current robot weight |
-| 74:75 | sum of individual non-foot ground force magnitudes / weight |
-| 75:106 | previous actually adopted policy action; current action after step |
-| 106:107 | continuous stable duration / 2.0 s |
-| 107:108 | tracker window valid flag |
-| 108:117 | pelvis/left/right displacement from tracker window start, three vectors |
-
-For the last nine channels, world horizontal displacement `[dx,dy,0]` is rotated by
-`R.T`, then divided by 0.05 m for pelvis or 0.03 m for each fixed foot-body origin.
-Without a valid window, flag, timer and all displacements are zero. References come
-from the existing tracker, with no second window algorithm. MuJoCo free-joint qvel
-translation is world-frame origin velocity, while rotation is already body-local;
-the latter is not rotated twice. A known-yaw test compares the origin velocity with
-`mj_objectVelocity`'s body COM velocity and its angular lever-arm correction. Contact
-channels reuse Step 5 actual constraint forces. Returned info also owns its data.
-These observations use simulation-accessible states/contact forces; hardware
-availability and complete observability have not been established.
-
-**Six reward terms.** Let `H=clip(height/h_ref,0,1)` and
-`U=(1+clip(torso_upright_dot,-1,1))/2`. Gamma is **0.999 per env.step transition**,
-including a shortened final step; later PPO must use the same gamma.
-
-| Contribution | Actual weight | Raw term |
-| --- | ---: | --- |
-| Height shaping | 3.0 | `gamma*H(next)-H(previous)` |
-| Upright shaping | 1.0 | `gamma*U(next)-U(previous)` |
-| Qualified standing time | 1.0 | sum of qualifying substep dt, seconds |
-| Torque-square cost | -0.02 | sum of mean `(actual_torque/effort_magnitude)^2 * dt`, seconds |
-| Action-change cost | -0.002 | mean `(adopted_action-previous_action)^2`, once per transition |
-| Recovery completion | 50.0 | 1 only on the first true `recovery_success` transition |
-
-Height/upright shaping supplies progress feedback, qualified hold encourages the
-actual target, torque/action costs discourage excessive actuation and abrupt changes,
-and the completion bonus favors finishing. Initial and final weights are identical;
-bounded diagnostics support the wiring, not optimality. Hold uses right-endpoint
-integration of **all** instantaneous and drift checks, with no invalid execution;
-it does not replace or give an extra timestep to the tracker's continuous timer.
-Torque square is not physical energy. `reward_terms_raw` and weighted `reward_terms`
-reconstruct the scalar reward; the total is never clipped nonnegative.
-
-True `terminated` transitions use zero absorbing-state next potential in shaping,
-while keeping the **real observation**. External timeout uses `truncated=True`, the
-real next potential and terminal observation for SB3 bootstrap. This is an external
-sampling limit, not a finite-horizon task requiring a remaining-time observation.
-`Monitor`/`DummyVecEnv` preserve `terminal_observation` and `TimeLimit.truncated`;
-the base environment still returns Gymnasium's five values, without another TimeLimit.
-
-Successful recovery terminates with `is_success=True`; timeout truncates with
-`time_limit`; normal lying, low height, tilted torso and non-foot contact do not end
-an attempt. Separate task safety guards terminate on floor penetration >30 mm,
-self penetration >15 mm, joint-limit excess >0.05 rad or joint speed >30 rad/s.
-These are engineering guardrails for gross deformation/high-rate stress, **not**
-hardware speed ratings, proof of irrecoverability or relaxed standing criteria.
-They retain contact-rich motion (observed up to 11.90 mm floor penetration and
-0.0320 rad soft limit excess) but stop the tested full-target impulses and severe
-self intersection. Their suitability for useful learned recovery remains unverified.
-
-Nonfinite state/action, numerical warnings, illegal forces, changed model/mapping,
-unexpected state edits, missed samples/time reversal or watchdog expiry invalidate
-the tracker, require reset and raise `EnvExecutionError` with detached diagnostic
-evidence. NaN/Inf are explicitly encoded in that evidence, never repaired as zeros.
-Model identity is checked at policy/reset/render boundaries; lightweight state,
-forces/time/standing checks run every millisecond. Wall budgets are 45 s per reset
-and 5 s per step call; waiting between calls or doing network updates consumes no
-simulation timeout. The environment is the sole owner of normal rollout state;
-these checks are not a general tamper-proof execution certificate.
-
-**Acceptance on 2026-09-20.** No long training or PPO smoke training was run.
+### Environment integration, rewards and performance
 
 | Evidence | Result |
 | --- | --- |
 | Existing model/reset/success regression | 49 PASS, unchanged physical model and success settings |
-| New test_env.py | 24 PASS: 10 real X2/API/resource tests, 14 synthetic reward/fault/wiring tests; no skips |
+| Environment test suite | 24 PASS: 10 real X2/API/resource tests, 14 synthetic reward/fault/wiring tests; no skips |
 | Gymnasium 1.3.0 / SB3 2.9.0 checkers | PASS; only Gymnasium's two expected infinite-bound warnings; render checked separately |
 | Real reset, seeds, ownership | >=10 reset/step cycles; exact repeated-seed trajectory; independent instances; preserved residual handoff; perturb 0 and 0.005 tested |
 | Control / time / reward | 20 recomputed PD torques and tracker samples per normal step; 23 ms timeout stops at third internal substep; qualified-time/torque integrals and action cost checked |
@@ -1049,28 +869,14 @@ window-interruption case, starting 2 ms before completion, returns
 discounting favors completion even when the longer path collects hold reward.
 No real success trajectory was invented to tune rewards.
 
-`render_mode=None` creates no graphics resources or sleeps. `rgb_array` renders the
-current state; `human` reuses Step 4's native mjv/mjr + GLFW mechanism without mutable
-viewer panels or mouse perturbation. Rendering cannot advance physics or write controls.
-Select OSMesa versus GLFW **before process start**; close is idempotent. GIF labels
-identify actual env rollout states, not a standing initialization or recovered policy.
-
-Actual commands (reuse the venv; fresh build does not complete ROS A4/A6):
-
 ```bash
-source /opt/ros/jazzy/setup.bash
-.venv/bin/python /usr/bin/colcon --log-base audit-output/step6/final-build/log build \
-  --base-paths src --packages-select x2_recovery --symlink-install \
-  --build-base audit-output/step6/final-build/build --install-base audit-output/step6/final-build/install
-source audit-output/step6/final-build/install/setup.bash
-MUJOCO_GL=osmesa timeout --kill-after=5s 180s .venv/bin/python -m unittest discover -s src/x2_recovery/test -v
 MUJOCO_GL=osmesa timeout --kill-after=5s 180s ros2 run x2_recovery runtime_check env-check \
-  --output audit-output/step6/final-verification
+  --output audit-output/environment-validation
 MUJOCO_GL=osmesa timeout --kill-after=5s 120s ros2 run x2_recovery runtime_check env-record \
-  --seconds 2 --output audit-output/step6/recording
+  --seconds 2 --output audit-output/environment-recording
 MUJOCO_GL=glfw PYGLFW_LIBRARY_VARIANT=x11 LIBGL_ALWAYS_SOFTWARE=1 \
   timeout --kill-after=5s 90s ros2 run x2_recovery runtime_check env-live \
-  --seconds 1 --output audit-output/step6/live
+  --seconds 1 --output audit-output/environment-live
 ```
 
 Each diagnostic creates a new run directory and strict report, starting INCOMPLETE;
@@ -1081,16 +887,6 @@ statistics, with per-physics-step traces enabled only for bounded scripted/stres
 cases. Normal environment calls perform no audit I/O. Original failed test logs are
 retained (synthetic timestamp setup and exception-message assertions were corrected).
 
-Final automated report and complete resolved configuration:
-`audit-output/step6/final-verification/run-20260920T115046-8512ac/report.json`.
-Combined closeout: `audit-output/step6/acceptance.json`; regression/build logs live
-alongside it. Actual 2 s recording:
-`audit-output/step6/recording/run-20260920T114224-057043/env-rollout.gif`; native live
-frames: `audit-output/step6/live/run-20260920T114327-515f59/`. Media reports record
-specific image observations and source identities. Playback on DISPLAY=:0 advanced
-250 frames / 51 distinct images in 10.008 wall seconds. All final commands exited 0.
-Raw audit data and media are ignored; configuration and tests are committed.
-
 On the final zero-action episode, after excluding loading, reset, the first five
 policy steps, logging and rendering: **15.022 ms/step**, **1331.4 physics steps/s**,
 **66.57 policy steps/s**, **1.331 simulated seconds/wall-second** over 995 actions.
@@ -1098,6 +894,161 @@ Separate model load was **0.228 s** with warmed asset/filesystem caches; resets 
 nine cases cost **0.550–0.570 s**. Earlier verification measured 1.249–1.283 simulation
 seconds/wall-second. These are local bounded measurements, not a real-time guarantee
 or a prediction of training duration.
+
+### Runtime dependencies and diagnostic ROS transport
+
+The PPO dependency/runtime smoke test uses one Pendulum-v1 environment without rendering,
+seed 42, MlpPolicy, device=cpu, n_steps=128, batch_size=64, n_epochs=2 and 1024 timesteps.
+It checks finite data and parameters, an actual parameter change, checkpoint save/load,
+and 32 deterministic prediction steps. PPO has a 60 s internal deadline and the complete
+runtime command a 120 s external bound. Its temporary checkpoint is removed automatically.
+These are compatibility checks, not X2 hyperparameters, convergence evidence, recovery training,
+or any of the five formal evaluation episodes.
+
+Cross-process communication was checked with matching Fast DDS, domain 42, localhost-only
+discovery and reliable/volatile keep-last-10 topic QoS. No global networking changes:
+
+```bash
+export ROS_DOMAIN_ID=42 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+timeout --kill-after=5s 35s ros2 run x2_recovery runtime_check serve --seconds 20 > "$VALIDATION_BUILD_DIR/server.log" 2>&1 &
+smoke_pid=$!
+trap 'kill "$smoke_pid" 2>/dev/null || true' EXIT
+timeout --kill-after=5s 25s ros2 run x2_recovery runtime_check client --seconds 15
+client_exit=$?
+wait "$smoke_pid"
+server_exit=$?
+trap - EXIT
+cat "$VALIDATION_BUILD_DIR/server.log"
+test "$client_exit" -eq 0 && test "$server_exit" -eq 0
+```
+
+The client waits for discovery and repeated publications, verifies String content,
+JointState names/finite changing positions/timestamps, then checks the Trigger response.
+The server reads `probe_hinge` qpos from the tiny simulated scene. Endpoints are only
+`/x2_smoke/status`, `/x2_smoke/joint_states`, `/x2_smoke/ping`; none implement the final
+recovery interfaces, busy rejection or recovery timeout behavior.
+
+The `runtime` command includes that bounded Pendulum learning smoke test; it is not
+needed to use or validate the X2 environment. To reproduce the dependency check:
+
+```bash
+timeout --kill-after=5s 120s ros2 run x2_recovery runtime_check runtime \
+  --asset-repo "$X2_ASSET_REPO"
+```
+
+| Runtime check | Status | Observed evidence |
+| --- | --- | --- |
+| Complete stack in one process | PASS | Installed ros2-run entry point imports all requested modules from the intended runtime |
+| pip check; NumPy/Torch interop | PASS | No broken requirements; shared-array conversion and finite CPU forward/backward gradients |
+| Fresh ROS package build | PASS | One x2_recovery ament_python package; final fresh build 0.72 s; entry point shebang uses venv |
+| Simple MuJoCo physics | PASS | 100 warm-up + 2000 timed steps; 4.0 simulated s; finite state, no warnings |
+| Simple-scene timing | PASS | Load 0.000776 s; timed stepping 0.001944 s, approximately 1.03 million steps/s; loading/warm-up excluded |
+| Pinned X2 regression | PASS | nq=38, nv=37, nu=31; 100 steps / 0.1 s, finite state, no warnings |
+| PPO dependency/runtime smoke test | PASS | 1024 steps, 16 optimization epochs; 1.305 s setup/learning, 1.329 s including reload/rollout; max parameter change 0.0106144 |
+| Cross-process ROS topics/service | PASS | 3 String and 3 JointState messages received; positions 0.392532, 0.383565, 0.371238 rad; Trigger success=true; both processes exit 0 |
+| OSMesa offscreen frames | PASS | 320x240 simple/X2 PNGs saved and visually inspected: visible hinge/floor and complete robot/floor |
+| Automatic GLFW desktop rendering | FAIL | Image-validity assertion failed; forcing X11 on the selected Wayland library was unsupported |
+| Interactive viewer | FAIL | X11 variant opened for 2 s, but process exited with segmentation fault; software retry hit GLXBadDrawable and 20 s timeout |
+| X2 recovery training/evaluation | NOT RUN | Dependency smoke is not recovery evidence |
+
+The simple-scene throughput is not an X2 training-speed estimate. OSMesa uses the
+existing system library; graphics package/driver configuration was not changed.
+The failed passive viewer route remains separate from the validated native renderer.
+
+### Evidence locations and provenance
+
+Generated audit evidence is intentionally ignored, not shipped as model assets or
+rewritten during source cleanup. Links below retain the original directory names
+because they identify actual runs. Embedded provenance labels, code hashes and past
+command names describe those runs; they are not current component names. In particular,
+the model override's original settling-diagnosis label and the calibration record's
+source directory remain literal provenance. New runs use the semantic commands above.
+
+| Evidence | Original local artifact |
+| --- | --- |
+| Model passive probes and review context | [Model audit](audit-output/step3-closeout/report.json); [original model report](audit-output/step3/report.json) |
+| Repeated reset / causal actuation | [Simulation report](audit-output/step4/verification/run-20260920T091936-386c73/report.json) |
+| Rejected reset attempt | [Original failed batch](audit-output/step4/verification/run-20260920T085519-56c2e7/report.json) |
+| Native live simulation | [Live report](audit-output/step4/live/run-20260920T091948-96ae14/report.json) |
+| Actual-state simulation replay | [Recording](audit-output/step4/recording/run-20260920T092545-7e098b/demonstration.gif) |
+| Standing detector positives/negatives | [Success report](audit-output/step5/verification/run-20260920T103825-c8b74c/report.json) |
+| Environment configuration / results | [Environment report](audit-output/step6/final-verification/run-20260920T115046-8512ac/report.json); [combined verification](audit-output/step6/acceptance.json) |
+| Actual environment motion | [2 s recording](audit-output/step6/recording/run-20260920T114224-057043/env-rollout.gif); [native live frames](audit-output/step6/live/run-20260920T114327-515f59/) |
+| Module/import regression and deterministic environment comparison | [Regression evidence](audit-output/presentation-cleanup/run-20260920-semantic-names/) |
+
+The environment recording was inspected at the start, middle and end; native playback
+on DISPLAY=:0 advanced 250 frames / 51 distinct images in 10.008 seconds. Reports retain
+interpreter/source identity, full resolved configuration, commands, exit codes and
+review observations. Original failed tests and incomplete runs remain available.
+The two-page HRS task PDF was inspected locally; its content is not redistributed.
+Commit history records implementation milestones without squashing or rewriting them.
+
+## Limitations and Future Work
+
+No real supine-to-standing recovery was observed. The bounded scripts exercise the
+environment, not a recovery controller. Remaining work is policy training, five formal
+evaluation episodes, recovery/telemetry nodes and final ROS service-to-simulation
+validation. Neither a fresh package build nor a standing fixture completes that work.
+
+Simulation uses convex collision hulls, spherical foot proxies and soft constraints;
+measured nonzero penetration is not mathematical nonintersection. Finite checks do
+not establish every joint-bound pose's collision-free reachability or whole-action-space
+safety. Full-target actions can terminate almost immediately at the documented safety
+guards. PD gains/reward weights are initial choices; early-abort incentives, learned
+recovery robustness, observations available on hardware and training throughput remain
+unverified. No hardware calibration, GPU capability or real-time training guarantee
+is inferred from the VM tests.
+
+The original arm-at-side contact failures remain relevant to motion planning: wrists
+can become trapped against hip hulls. A safe spread-arm supine reset and successful
+arm-forward probes do not erase those failures.
+
+### Known numerical and rendering issues
+
+- **Soft waist limit drift:** source soft-limit loading produced a steady excess;
+  the conservative activation margin above corrects the reset case. The unchanged
+  [limit-margin semantics](https://github.com/google-deepmind/mujoco/blob/3.13.0/doc/XMLreference.rst)
+  and [soft-constraint model](https://mujoco.readthedocs.io/en/stable/modeling.html)
+  explain why contact/limit penetration is not mathematically zero.
+- **Reset geometry and API compatibility:** installed 3.13.0 headers and matching
+  [reset](https://github.com/google-deepmind/mujoco/blob/3.13.0/src/engine/engine_io.c)/
+  [signed-distance](https://github.com/google-deepmind/mujoco/blob/3.13.0/src/engine/engine_support.c)
+  source were checked when a versioned rendered API page was unavailable.
+- **Desktop graphics:** virgl (Apple M5 Pro Compat) produced black X2 framebuffer
+  readback, including minimal scenes without shadows or meshes. The native renderer
+  works with existing X11 GLFW and process-local `LIBGL_ALWAYS_SOFTWARE=1` (llvmpipe).
+  The virgl defect is not fixed. Passive viewer attempts suffered a segmentation
+  fault, GLXBadDrawable or timeout; opening a window or joining a renderer alone did
+  not establish valid images. Use `simulation-live` or `env-live` for the validated
+  route, not the dependency probe's `viewer` command. No system graphics settings
+  or drivers were changed.
+- **Preserved graphics failures:** `gl-clear-probe.log`, `mujoco-gl-probe.log`,
+  `x2-gl-probe.log` and black frames in the simulation archive retain reproductions.
+  A high-resolution software run hit a 40 s external timeout; the compact native
+  renderer completed its bounded sequence. A recording with complete media exited
+  143 for an unestablished reason
+  ([original report](audit-output/step4/recording/run-20260920T091949-6bf409/report.json));
+  the separately verified recording exited 0 with byte-identical trajectory/GIF and
+  passed native playback. Failed passive probes used X11/GLFW with and without the
+  software-rendering environment flag, bounded by a 20 s timeout.
+
+Rendering references: [MuJoCo visualization API](https://mujoco.readthedocs.io/en/stable/programming/visualization.html),
+[pyGLFW backend selection](https://github.com/FlorianRhiem/pyGLFW),
+[Mesa process environment](https://docs.mesa3d.org/envvars.html).
+
+## References
+
+Targeted references read: HoST's
+[`eval_ground.py` at 58ea00e](https://github.com/InternRobotics/HoST/blob/58ea00e8541911540a5ac53879ad98827c8e9fb5/legged_gym/legged_gym/scripts/eval/eval_ground.py)
+(height-history metrics); dm_control's
+[`humanoid.py` at 87e046b](https://github.com/google-deepmind/dm_control/blob/87e046bfeab1d6c1ffb40f9ee2a7459a38778c74/dm_control/suite/humanoid.py)
+(torso-axis/subtree measurements, reward not acceptance); installed Gymnasium 1.3.0
+`humanoidstandup_v5.py` and [documentation](https://gymnasium.farama.org/environments/mujoco/humanoid_standup/)
+(height reward, no success termination). API semantics were checked against installed
+MuJoCo 3.13.0 headers, [matching engine source](https://github.com/google-deepmind/mujoco/blob/3.13.0/src/engine/engine_core_smooth.c),
+[API](https://mujoco.readthedocs.io/en/stable/APIreference/APIfunctions.html) and
+[simulation synchronization](https://mujoco.readthedocs.io/en/stable/programming/simulation.html).
+No reference framework was installed or another robot's thresholds copied.
 
 References read for mechanisms only: installed Gymnasium **1.3.0** `core.py`,
 `utils/env_checker.py`, `envs/mujoco/humanoidstandup_v5.py`, and
@@ -1115,29 +1066,6 @@ headers and actual velocity/Jacobian tests defined frame semantics (the versione
 web API URL was unavailable). [Ng, Harada and Russell, 1999, Eq. 2/Theorem 1](https://people.eecs.berkeley.edu/~russell/papers/icml99-shaping.pdf)
 informed potential shaping and the telescoping test; this does not assert policy
 invariance for the additional hold/cost/bonus terms or prove full observability.
-
-**No real supine-to-standing recovery was observed.** The bounded scripts test the
-environment, not a recovery controller. Standing fixtures do not count toward the
-five required recovery episodes. A3 training, A4 ROS nodes, A5 evaluation and A6
-end-to-end acceptance remain Pending; recovery training **NOT RUN**, evaluation
-**NOT EVALUATED**. The environment passed within these tested cases; continuous-space
-safety, useful policy learning, reward incentives and hardware transfer remain open.
-
-### Development history
-
-The repository was established before implementation. Preserve meaningful commits and
-record completed work in local commits (PDF p. 2, Commit history). The current
-user instruction overrides the PDF push request: **no remote writes without explicit
-approval of the specific push/PR operation**. At Step 5 intake, local `main` was already at `aeef8d9`, containing Step 4 commits
-`9566fd5` and `aeef8d9`; the working tree was clean. This supersedes the earlier
-Step 4 branch-location narrative. Step 5 preserves that branch/history and records
-a local commit at closeout. The subsequent explicit push request authorized its push.
-Step 6 started from clean `main` at `44e9b4b`, preserving that history. This turn
-explicitly authorizes normal push; environment implementation and acceptance tests
-are separate commits (`1b57c2f`, `2f5cb8f`), followed by documentation. No force push,
-branch reset, merge, model assets or raw audit media are included.
-
-## References
 
 Reviewed README content and GitHub directory trees on 2026-09-20:
 
