@@ -5,14 +5,11 @@
 HRS take-home: design an RL environment for recovery from lying on the back,
 run a training experiment, and integrate recovery and telemetry with ROS 2.
 This repository currently contains only repository setup and requirements capture.
-The pre-existing initial commit and `main` branch are retained.
 Simulation, RL environment, ROS nodes, training and evaluation are **Pending**.
-No recovery rate is available: **Not evaluated**, not 0/5.
+Evaluation: **Not evaluated**.
 
-The supplied two-page `HRS_Take_Home_Task.pdf`, titled *AgiBot X2 Ground Recovery —
-Environment Design and ROS 2 Integration*, was independently read.
-Its requirements agree with the request's transcription; it is the acceptance authority.
-The PDF is not included in Git. References below provide implementation context only.
+The two-page task brief, *AgiBot X2 Ground Recovery — Environment Design and ROS 2
+Integration*, defines acceptance. References below provide implementation context.
 
 ## Target environment
 
@@ -32,8 +29,6 @@ Read-only inspection on 2026-09-20, executed inside the target VM:
 | ROS 2 | `/opt/ros/jazzy/setup.bash` exists; sourced in a child shell; ROS_DISTRO=jazzy |
 | ROS tools | `ros2` and `colcon` found after sourcing; system Python imports `rclpy` from Jazzy |
 | MuJoCo | System Python import failed: `ModuleNotFoundError`; no version established |
-| Git | 2.43.0; existing repository initially clean on main |
-| GitHub CLI | `gh` absent; CLI authentication could not be checked |
 
 This inventory does not establish X2 loading, simulation correctness, ROS communication,
 or GPU capability. Other Python environments were not assessed.
@@ -41,7 +36,7 @@ MuJoCo availability and dependency compatibility remain future environment work.
 
 ## Acceptance criteria
 
-All evidence in this matrix is required for future acceptance, not produced at setup.
+The matrix defines required evidence; Pending items have not passed acceptance.
 Source abbreviations refer to sections of the supplied task PDF:
 **SIM** = p. 1, Simulation and reinforcement learning; **ROS** = p. 1, ROS 2 integration;
 **IF** = p. 2, ROS 2 interfaces; **VAL** = p. 2, Validation;
@@ -85,35 +80,13 @@ make ONNX, legged_control2, ros2_control or a separate simulator bridge dependen
 
 ## Development and verification status
 
-Only README.md and .gitignore are changed in this setup step.
-No dependencies were installed, models downloaded, simulation started, training run,
-or ROS workspace built. No source packages, placeholder directories or results exist.
-Functional commands will be added only after their implementation and verification.
-
-Repository inspection commands actually executed from the project root:
-
-```bash
-git rev-parse --show-toplevel
-git status --short --branch
-git remote -v
-git log -5 --oneline
-git ls-files
-git ls-remote origin refs/heads/main
-```
-
-They confirmed an existing repository with one initial commit, only README.md tracked,
-and matching local/remote main before this documentation update.
-The existing remote is [langchengg/RL-AgiBot-X2](https://github.com/langchengg/RL-AgiBot-X2),
-confirmed public through GitHub's repository API; its name and visibility are preserved.
-Git author identity was configured locally using the user's confirmed identity.
-Commit/push outcomes and local/remote SHAs are reported separately after verification.
+Repository setup and acceptance criteria are documented. Implementation and end-to-end
+verification remain pending. Runnable commands will be added as they are verified.
 
 ### Development history
 
-The GitHub repository already existed at the start of this work, before implementation.
-Preserve its initial history and make meaningful commits and pushes as work is completed,
-as required by PDF p. 2, GitHub repository submission / Commit history.
-Do not assemble the entire solution into one final commit or fabricate development history.
+The repository was established before implementation. Preserve meaningful commits and
+push completed work throughout development (PDF p. 2, Commit history).
 
 ## References
 
@@ -145,6 +118,3 @@ Reviewed README content and GitHub directory trees on 2026-09-20:
   Reading `update_simulation()` confirmed qpos-to-position mapping, timestamps and publishing.
   Its joint indexing has not been validated for X2's floating base.
   Used only as a state-publication reference; no source was copied or executed.
-
-Browser subdirectory requests failed with restricted-URL errors; GitHub API tree reads
-succeeded and supplied the directory evidence above. No upstream install scripts ran.
