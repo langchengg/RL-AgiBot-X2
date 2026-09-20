@@ -4,8 +4,9 @@
 
 HRS take-home: design an RL environment for recovery from lying on the back,
 run a training experiment, and integrate recovery and telemetry with ROS 2.
-**Step 4 COMPLETE** in the target VM: reset, bounded actuation, inspected live MuJoCo
-demonstration and locally played recording all passed. The pinned official model has
+**Step 5 COMPLETE**: an independent, calibrated standing/recovery-success detector now
+passes physical positive/negative tests in the target VM. **Step 4 COMPLETE**: reset,
+bounded actuation, inspected live MuJoCo demonstration and locally played recording all passed. The pinned official model has
 one effective loader, source-consistent pelvis inertia, conservative joint ranges and
 verified state/control mappings. CPU PPO and ROS compatibility were verified in Step 2.
 OSMesa recording works. The Step 4 live window uses native MuJoCo visualization and
@@ -95,7 +96,7 @@ These project choices are separate from the PDF requirements:
   nodes plus one launch file. Only the diagnostic entry point exists now.
 - Recovery will directly use the same environment class as training/evaluation.
 - Simulator torque semantics are verified below. RL actions, controller, reward, X2
-  training budget and success thresholds remain future work.
+  training budget remain future work; independent success thresholds are defined in Step 5.
 
 No simulator bridge, ONNX, ros2_control or alternative simulation framework is required.
 
@@ -706,15 +707,157 @@ Reproducible bug notes and sources:
   exited 0 and produced byte-identical trajectory/GIF, then passed native playback.
 
 A2–A6 remain Pending. X2 training is **Not run**, evaluation **Not evaluated**.
-Next work is environment observation/action/reward design; none is implemented here.
+Step 5 below completes the independent success detector. Environment
+observation/action/reward design remains future work.
+
+### Step 5: independent recovery-success detector
+
+**COMPLETE on Ubuntu 24.04.5 ARM64 / Parallels / MuJoCo 3.13.0**, with the
+unchanged Step 4 effective fingerprint `bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0`.
+`success.py` has no reward, ROS, training, rendering, network or file-output dependency.
+`measure_standing` reads synchronized MuJoCo state; `standing_failures` combines
+necessary predicates; `SuccessTracker` handles continuity, drift, provenance and timeout.
+`step5.py` is only a bounded standing calibration/test fixture and evidence command.
+
+Recovery success requires an actual successful `reset_supine` handoff, followed by
+bounded joint actuation and uninterrupted normal physics without external support,
+teleport, unintended reset or model changes, reaching and holding all standing checks
+for **2.0 simulated seconds** by the configured deadline (tracker default **20 s**).
+`instant_standing_ok` checks the current sample; `standing_held` additionally requires
+continuous duration and drift; `recovery_success` additionally requires a valid origin
+and execution before timeout. Directly initialized standing can only satisfy the first
+two. `reset_from_supine(context, data, reset_result)` checks the actual returned q/dq,
+time and supine state, retains residual velocities, and starts at handoff, excluding
+reset settling. The caller owns stepping, model immutability and the prohibition on
+teleportation; no boolean/hash can prove unseen execution history. It must invalidate
+the attempt on any stepping exception or execution violation.
+
+| Frozen criterion | Value and unit |
+| --- | --- |
+| Pelvis body-origin height / reference | >=0.90; **h_ref=0.6724955472220092 m** |
+| Torso local +Z versus world up | <=15 degrees, signed dot (inversion fails); yaw unrestricted |
+| Each foot world vertical force / W | >=0.05 |
+| Sum of both foot vertical forces / W | 0.80–1.20 |
+| Sum of individual non-foot ground force magnitudes / W | <=0.00001 (about **0.0041169 N**) |
+| Base / whole robot COM 3D linear speed | each <=0.10 m/s |
+| Base / torso angular speed | each <=0.25 rad/s |
+| Maximum absolute controlled-joint speed | <=0.50 rad/s |
+| Maximum horizontal displacement from window start | pelvis <=0.05 m; each fixed foot-body origin <=0.03 m |
+| Steady floor / self penetration; joint-limit excess | <=1 mm / 0.1 mm; <=0.1 mrad |
+| Load-bearing contact positive gap | <=2 micrometres |
+| Continuous hold | >=2.0 s, every 0.001 s physics sample |
+
+`W` is computed from the actual pelvis dynamic subtree and gravity: **411.69110013 N**.
+The verified foot groups are exactly the twelve 5 mm collision spheres on each
+`{left,right}_ankle_roll_link`; visual meshes and other leg geoms do not qualify.
+`mj_contactForce` is transformed by `contact.frame.T`, with the geom1/geom2 sign applied.
+Inactive/zero-force contacts do not support; every nonzero non-foot force is accumulated
+without a small-contact filter or vector cancellation. Self contacts are excluded from
+ground support. All proxy margins/gaps are zero. Contact forces agree with independent
+`mj_rnePostConstraint` force aggregation to <=5.7e-14 N. COM velocity uses the robot
+subtree; body/angular velocities were checked against actual X2 Jacobians and mapping.
+
+Every `checked_step` is followed by a measurement/update. The first qualifying sample
+starts at duration zero. Failed instantaneous conditions or excessive drift clear the
+window; failed rising poses are not invalid episodes. Repeated identical samples add
+no time; changed duplicate samples, time rollback, missing substeps and nonfinite data
+invalidate the attempt. Time comparisons allow only 1e-10 s floating error. At the
+exact deadline a completed hold wins; incomplete holds time out and cannot later succeed.
+External forces, unbounded control, numerical warnings and incompatible models raise
+explicit errors. Static model validation is cached, not repeated at every millisecond.
+
+Calibration used independently specified nearly straight legs (hip -0.05, knee +0.10,
+ankle pitch -0.05 rad), neutral waist/head, shoulders pitch -0.15 and roll +/-0.15,
+elbows -0.30, other joints zero. Exact all-joint targets and gains are saved in the report.
+PD Kp/Kd: hip/knee 600/16.97056, ankle/waist 300/11.31371, shoulders/elbows
+100/4.24264, head/wrists 10/0.424264 (N m/rad, N m s/rad), updated every 1 ms,
+clipped to actual effective actuator limits. Initial placement uses actual hull/proxy
+geometry with 2 mm clearance; only initialization writes q/dq. No base restraint,
+gravity compensation, control feedback beyond joint PD, or physics modification is used.
+The predeclared search bound was six candidates, 8 s simulation / 45 s wall each;
+candidate 0 fell, candidate 1 stood, and search stopped. Both traces remain in
+`audit-output/step5/development-103134/`. The 6–8 s stable segment, independently checked
+for upright posture, foot-only support and low motion, had pelvis height
+0.67249380–0.67249581 m and tilt 4.86944–4.87325 degrees. Its median became h_ref,
+not the previously reported COM height. Zero non-foot contacts/force supported tightening
+0.005W to 0.00001W. This is a numerical allowance, not proof of exactly zero support.
+Reference and thresholds are committed as `CALIBRATED_SETTINGS`; model/code/config
+changes invalidate saved acceptance, and physics changes require recalibration.
+
+Frozen, newly initialized verification (no refitting):
+
+| Evidence layer | Actual result |
+| --- | --- |
+| Constructed logic | 22 tests PASS: boundaries, interruptions, drift, force transform/aggregation, duplicate/gap/timeouts, fixture/origin gates |
+| Actual X2 API / handoff tests | 5 PASS: mappings, Jacobian velocities, invalid models/forces, unchanged state, real residual supine handoff |
+| Free-base standing; actual yaw +1.1 rad; independent repeat | 3/3 PASS, each continuous **3.938 s** (t=0.062–4.000); recovery_success always false |
+| Supine, sitting, kneeling, left wrist support, single-foot, airborne, brief standing | 7/7 exercised and rejected; no skipped physical cases |
+| Full existing + new regression | **49 PASS**, no skips; reset/model/actuation tests retained |
+| Installed entry point / visual evidence | Fresh isolated colcon build PASS; venv and source paths verified; 18 normal/collision PNGs inspected |
+
+Across positive windows: pelvis 0.671282–0.673721 m, tilt <=7.292 degrees,
+left/right loads 0.4780–0.5164W / 0.4764–0.5044W; non-foot force zero; base/COM
+speed <=0.06513/0.07602 m/s; base/torso angular speed <=0.13714/0.17422 rad/s;
+joint speed <=0.32571 rad/s. Maximum pelvis drift 47.565 mm, feet <0.575 mm,
+floor penetration <0.981 mm, no self penetration or joint-limit excess. This has
+limited drift margin and establishes only the tested initializations, not robustness.
+Negative witnesses include pelvis-supported sitting (1983.37 N total non-foot force),
+kneeling with actual distal thigh/knee-cap hull support (1028.87 N; knee joints 2.2 rad),
+left wrist support (38.77 N), right foot 6.180 mm above the floor with zero load,
+and airborne upright state with low speed but no support. These are transient negative
+witnesses, often failing several predicates; individual necessity is tested logically.
+The brief standing trace holds only 0.938 s. No fixture is a recovery attempt.
+
+Actual commands (from checkout; reuse existing venv, no installation/driver changes):
+
+```bash
+source /opt/ros/jazzy/setup.bash
+.venv/bin/python /usr/bin/colcon --log-base audit-output/step5/build/log build \
+  --base-paths src --packages-select x2_recovery --symlink-install \
+  --build-base audit-output/step5/build/build --install-base audit-output/step5/build/install
+source audit-output/step5/build/install/setup.bash
+MUJOCO_GL=osmesa .venv/bin/python -m unittest discover -s src/x2_recovery/test -v
+MUJOCO_GL=osmesa timeout --kill-after=5s 180s ros2 run x2_recovery runtime_check step5 \
+  --output audit-output/step5/verification
+# Inspect every image in the newly printed run directory. Write observations.json
+# as {"image-filename.png": "specific observation after actual inspection", ...}.
+ros2 run x2_recovery runtime_check step5-review \
+  --output audit-output/step5/verification/run-20260920T103825-c8b74c \
+  --image-review-from audit-output/step5/verification/run-20260920T103825-c8b74c/visual-observations.json
+```
+
+The last path is this run's evidence, not a reusable approval for new images. The physics
+command creates a unique directory, starts INCOMPLETE, and exits **1** for missing/failed
+checks or pending visual review. Inspection closeout exited **0**, verdict COMPLETE.
+Strict `report.json`, every-step `*.jsonl`, copied `snapshots.json`, geometry checks and
+18 labeled **ACTUAL STATE REPLAY** PNGs are in that directory. Rendering uses separate
+data/model and never changes rollout state. `build.log`, `installed-identity.log`,
+`acceptance-first.log`, `review.log`, `final-success-tests.log` and `full-regression-final.log`
+are in `audit-output/step5/`; raw evidence is ignored, not committed.
+
+Targeted references read: HoST's
+[`eval_ground.py` at 58ea00e](https://github.com/InternRobotics/HoST/blob/58ea00e8541911540a5ac53879ad98827c8e9fb5/legged_gym/legged_gym/scripts/eval/eval_ground.py)
+(height-history metrics); dm_control's
+[`humanoid.py` at 87e046b](https://github.com/google-deepmind/dm_control/blob/87e046bfeab1d6c1ffb40f9ee2a7459a38778c74/dm_control/suite/humanoid.py)
+(torso-axis/subtree measurements, reward not acceptance); installed Gymnasium 1.3.0
+`humanoidstandup_v5.py` and [documentation](https://gymnasium.farama.org/environments/mujoco/humanoid_standup/)
+(height reward, no success termination). API semantics were checked against installed
+MuJoCo 3.13.0 headers, [matching engine source](https://github.com/google-deepmind/mujoco/blob/3.13.0/src/engine/engine_core_smooth.c),
+[API](https://mujoco.readthedocs.io/en/stable/APIreference/APIfunctions.html) and
+[simulation synchronization](https://mujoco.readthedocs.io/en/stable/programming/simulation.html).
+No reference framework was installed or another robot's thresholds copied.
+**Training NOT RUN; five-episode recovery evaluation NOT EVALUATED. Standing fixtures
+do not count toward those five episodes; supine-to-standing recovery remains unproved.**
 
 ### Development history
 
 The repository was established before implementation. Preserve meaningful commits and
 record completed work in local commits (PDF p. 2, Commit history). The current
 user instruction overrides the PDF push request: **no remote writes without explicit
-approval of the specific push/PR operation**. Step 4 commits remain local on the
-feature branch; `main` remains at the Step 3 base. No automatic merge is performed.
+approval of the specific push/PR operation**. At Step 5 intake, local `main` was already at `aeef8d9`, containing Step 4 commits
+`9566fd5` and `aeef8d9`; the working tree was clean. This supersedes the earlier
+Step 4 branch-location narrative. Step 5 preserves that branch/history and records
+a local commit only. No branch reset, merge or remote write was performed.
 
 ## References
 

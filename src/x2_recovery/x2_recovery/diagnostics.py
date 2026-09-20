@@ -291,7 +291,7 @@ def client(seconds):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=["runtime", "model", "audit", "render", "viewer", "serve", "client",
-                                        "step4", "step4-live", "step4-record"])
+                                        "step4", "step4-live", "step4-record", "step5", "step5-review"])
     parser.add_argument("--repeat", type=int, default=2, help="Step 4 demo reset count, 1..20")
     parser.add_argument("--x2-scene", type=Path, help="Legacy alias: must be the pinned Ultra scene")
     parser.add_argument("--asset-repo", type=Path)
@@ -302,7 +302,7 @@ def main():
     args = parser.parse_args()
     if not 0 < args.seconds <= 60:
         parser.error("--seconds must be in (0, 60]")
-    if args.mode in ("render", "audit", "step4", "step4-live", "step4-record") and args.output is None:
+    if args.mode in ("render", "audit", "step4", "step4-live", "step4-record", "step5", "step5-review") and args.output is None:
         parser.error("--output is required")
     if args.x2_scene is not None:
         scene = args.x2_scene.expanduser().resolve()
@@ -312,6 +312,14 @@ def main():
         if args.asset_repo is not None and candidate != args.asset_repo.expanduser().resolve():
             parser.error("--asset-repo and --x2-scene disagree")
         args.asset_repo = candidate
+    if args.mode == "step5":
+        from .step5 import run
+        return run(args.asset_repo, args.output)
+    if args.mode == "step5-review":
+        if args.image_review_from is None:
+            parser.error("step5-review requires --image-review-from observations.json")
+        from .step5 import review
+        return review(args.output, args.image_review_from)
     if args.mode.startswith("step4"):
         from .step4 import run
         return run(args.mode, args.asset_repo, args.output, args.repeat)
