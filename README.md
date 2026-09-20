@@ -433,6 +433,88 @@ viewer panels or mouse perturbation. Rendering cannot advance physics or write c
 Select OSMesa versus GLFW **before process start**; close is idempotent. GIF labels
 identify actual env rollout states, not a standing initialization or recovered policy.
 
+### Scripted baseline
+
+`baseline.py` runs one real supine recovery attempt without ROS or training libraries.
+It copies the settled reset joint positions once, constructs named targets in the
+verified actuator order, and uses quintic smoothstep interpolation. The stages are
+handover (0–0.4 s), tuck (0.4–3.4 s), brace (3.4–5.4 s), shift (5.4–8.4 s), and extend
+(8.4–12.4 s), followed by indefinite final-target holding. Names describe intent;
+support and standing come from actual measurements. Unspecified joints, including
+head and wrists, inherit the initial/preceding target. Candidate angles, durations,
+any target clamps and initial reference projections are exported in the summary.
+The measured run needed neither clipping nor projection; peak reference speed was
+0.70046 rad/s, which is not a physical speed limit or a hardware specification.
+
+Only `env.action_for_targets()` → `env.step()` controls the episode. The environment
+retains bounded PD, per-physics-step success/safety checks and its simulation timeout.
+The sequence uses relative simulation time, excluding reset settling. Changing the
+timeout does not rescale the sequence, and finishing it does not imply recovery.
+Physics, reset, gains, action mapping and success/safety thresholds are unchanged.
+
+From the repository root, with the existing venv and cached model:
+
+```bash
+PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" \
+  .venv/bin/python -m x2_recovery.baseline \
+  --seed 60 --timeout-s 20 \
+  --output-dir "audit-output/scripted-baseline/$(date -u +%Y%m%dT%H%M%S)-$$"
+```
+
+Default is headless and needs no DISPLAY or network. Omitting `--output-dir` creates
+a unique directory; explicitly supplied existing directories are rejected. Each run
+saves strict `trajectory.jsonl` (real reset, then actual post-step states with action
+intervals, contacts, last-substep torques and environment info) and `summary.json`
+(outcome, reset evidence, resolved configuration, joint order, model/Git identity and
+scoped statistics). Exit 0 means a valid episode ended, including recovery failure;
+check `recovery_success`. Errors, cancellation or evidence-write failures exit nonzero,
+with `execution_completed=false` and `recovery_success=null`; partial evidence is
+retained when writable. Optional `--human` uses the existing
+[GLFW settings](#environment-integration-rewards-and-performance).
+
+Development validation in the Ubuntu ARM64 VM on 2026-09-20, code `ac7867d`, clean at
+run time (these are not the formal five evaluation episodes):
+
+| Run under `audit-output/scripted-baseline/` | Actual simulation / control / physics steps | Result |
+| --- | --- | --- |
+| `main-20260920` | 20.000 s / 1,000 / 20,000 | completed; recovery false; `time_limit` |
+| `timeout-20260920` | 2.003 s / 101 / 2,003 | completed; recovery false; `time_limit`; final call 3 substeps |
+| `repeat-20260920` | 20.000 s / 1,000 / 20,000 | same seed/configuration; all trajectory fields identical |
+
+Seed 60 drew reset seed 374032080; legal settling ended at absolute time 1.661 s.
+**Measured:** joint excursion reached 1.42961 rad, applied torque peaked at 48 N m,
+control-sampled pelvis height peaked at 0.08515 m, and sampled standing dwell stayed
+zero. At timeout, pelvis height was 0.07636 m and torso tilt 73.5896°; left/right
+vertical foot forces were 0.17866/0.17799 body weights, while non-foot force norms
+summed to 0.64335 body weights. Elbow collision contacts really carried load during
+brace (about 80 N each at its endpoint); final support still included pelvis/torso.
+No numerical warnings or safety termination occurred. Substep peak floor penetration
+was 0.5301 mm, self penetration and joint-range excess were zero; 1.3724% of
+joint/substep pairs saturated. **Inference:** this open-loop target sequence changes
+limb posture but does not transfer support into upright standing. **Next experiment:**
+use these contact and torso measurements to revise the support-transfer targets;
+these data do not establish a geometric impossibility or reliable recovery.
+
+The repeat comparison fixed absolute tolerance 1e-10 and relative tolerance zero
+before rerunning; 382,095 floating values across full trajectories and selected
+physical/configuration summary fields had maximum difference zero. Paths, file times
+and Git metadata were excluded. All 14 baseline tests and the full 87-test suite
+passed:
+
+```bash
+PYTHONPATH="$PWD/src/x2_recovery" MUJOCO_GL=osmesa \
+  .venv/bin/python -m unittest discover -s src/x2_recovery/test -v
+```
+
+A fresh isolated venv/colcon build using
+[Setup](#setup) passed; the installed module ran from outside the repository with
+`--timeout-s 2.003`, matching the source trajectory. No console-script addition is
+needed. Logs and comparison details are under `audit-output/scripted-baseline/verification/`.
+Six actual RGB samples from a separate `visual-20260920` episode were inspected;
+its trajectory matched the main run. This was OSMesa observation, not live desktop
+viewer validation. Training has not been run; formal evaluation and ROS integration
+remain separate requirements.
+
 ## Reward Design
 
 Let `H=clip(height/h_ref,0,1)` and
