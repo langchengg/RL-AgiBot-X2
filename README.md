@@ -292,13 +292,99 @@ reset, hardware calibration or recovery trainability is established. **A1-A6 sta
 Pending; evaluation stays Not evaluated.** Next: implement and validate a reusable
 supine reset, without starting training or controller design in this step.
 
+### Step 3 closeout review
+
+The closeout fixed a real evidence-reuse gap: earlier reviews checked only image
+bytes. It also records ground penetration at initialization, every-step maximum
+(with time/pair), and the final coherent state. Previously only the maximum scalar
+and four sparse contact snapshots were saved, so the peak pair was unrecoverable.
+The one requested fresh-directory audit supplied that missing evidence; no extra
+pose search or model/physics changes were made. The effective-model fingerprint
+is unchanged. Four targeted closeout tests passed, including same-path invalidation,
+changed physics/probes with identical pixels, changed pixels, and Euler expectations.
+
+Ground penetration below is in **mm**, sampled initially and after every 1 ms step;
+final means 180 ms. All initial states had **0 penetration, no contact pair**, and
+2 mm clearance to the listed nearest floor/robot pair. `0` is the floor geom.
+These are the maxima across all robot-floor contacts, not just the named region.
+
+| Pose | Initial nearest pair (no contact) | Whole-run maximum: mm / pair / time | Final: mm / pair |
+| --- | --- | --- | --- |
+| feet | 0–15 | 1.394 / 0–18 / 40 ms | 0.265 / 0–18 |
+| back | 0–53 | 10.991 / 0–67 / 162 ms | 8.848 / 0–2 |
+| left_arm | 0–67 | 9.863 / 0–22 / 154 ms | 4.324 / 0–24 |
+| right_arm | 0–80 | 10.763 / 0–44 / 155 ms | 4.997 / 0–46 |
+| left_shin | 0–11 | 7.223 / 0–56 / 132 ms | 1.326 / 0–56 |
+| right_shin | 0–34 | 7.246 / 0–69 / 132 ms | 1.373 / 0–69 |
+| left_arm_at_side (FAIL retained) | 0–67 | 10.495 / 0–22 / 171 ms | 9.485 / 0–22 |
+| right_arm_at_side (FAIL retained) | 0–80 | 10.191 / 0–44 / 172 ms | 9.413 / 0–44 |
+
+Geom IDs: 2 pelvis; 11/34 left/right knee-shin mesh; 15/18/22/24 left foot
+sphere proxies; 44/46 right foot sphere proxies; 53 torso; 56/69 left/right shoulder
+pitch hulls; 67/80 left/right wrist-roll hulls. Complete body/local-index labels
+remain in the JSON geom inventory. All **62 joint-limit sides** already recorded
+whole-run and final violations: every maximum is 0.002 rad (the deliberately
+initialized overshoot); largest final violation is **0.000269485464 rad**, left
+wrist yaw lower bound. Individual final values remain in the existing limit table.
+
+The **15 mm** floor threshold is a permissive project screening cutoff for these
+180 ms passive impacts under the unchanged source soft-contact settings. It was
+chosen before the formal suite to bound transient overlap; it is **not derived
+from an official specification, hardware calibration or a proven accuracy bound**.
+It does not establish contact fidelity, zero penetration or settled support, and
+must not be transferred to future reset acceptance. In particular, the back probe's
+8.848 mm final floor penetration means this trajectory is not an accepted resting
+supine reset.
+
+The two original arm-at-side failures start from valid, contact-free states. Their
+wrist/hip-yaw geom pairs **9–67 / 32–80** first contact at **116 / 115 ms**, exceed
+the unchanged 5 mm self-contact threshold at **121 / 120 ms**, and peak at
+**6.214 / 5.937 mm at 125 / 123 ms**. They are reproducible, pose-dependent
+soft-constraint violations during passive limb trapping, not initial intersections
+or numerical resets (finite states and zero warnings). Both remain FAIL in the
+original report and new report's investigation; the arm-forward PASS does not
+replace them. The selected **back diagnostic pose** has no self-contact throughout
+its 180 ms record, so the observed wrist/hip failure is not demonstrated there.
+Longer settling and an episode-ready supine initial state remain untested; their
+future validation must exclude trapping and assess penetration separately.
+There is no newly unresolved blocker to Step 3's bounded model/interface scope;
+**Step 3 remains COMPLETE**, while A1–A6 and reset acceptance remain Pending.
+
+COM comparison uses the actual `mjINT_EULER` integrator, now explicitly checked:
+with zero initial velocity, N=100 and h=0.001 s,
+`g*h²*N*(N+1)/2 = -0.0495405 m`. The continuous value `g*(N*h)²/2 = -0.04905 m`
+is reported separately and is not used as the discrete acceptance target.
+
+Executed closeout commands (existing symlink-installed package; no rebuild needed):
+
+```bash
+source /opt/ros/jazzy/setup.bash
+source audit-output/step3-build/install/setup.bash
+MUJOCO_GL=osmesa PYTHONPATH=src/x2_recovery/test:$PYTHONPATH .venv/bin/python \
+  -m unittest test_model.CloseoutTests -v
+# This directory did not exist; no --image-review-from or prior report was used.
+MUJOCO_GL=osmesa timeout --kill-after=5s 60s ros2 run x2_recovery runtime_check audit \
+  --output audit-output/step3-closeout
+```
+
+The fresh run finished every physical check and rendered four images, then correctly
+exited **1**, visual review **NOT_TESTED**. After actual inspection, only visual
+review/completion was updated with the existing Python helpers and verified hashes;
+no physical checks were rerun. `audit-output/step3-closeout/report.json` retains
+that initial outcome in `closeout_validation` and the final COMPLETE result.
+The original `audit-output/step3/report.json` is preserved. Future regenerations
+can use `--image-review-from audit-output/step3-closeout/report.json` with matching
+context; context changes require actual image review again.
+
 ### Reproduce Step 3 locally
 
 Reuse the existing venv; do not repeat dependency installation for these checks.
 All outputs below are under the explicitly ignored `audit-output/` directory.
-The build was fresh and used the verified venv interpreter; ten regression tests
-passed, including missing assets, wrong hashes/patch conditions, incompatible
-mapping, wrong expected force, repeated loads and stale/failed-report handling.
+The original Step 3 build was fresh and used the verified venv interpreter; its ten
+regression tests passed, including missing assets, wrong hashes/patch conditions,
+incompatible mapping, wrong expected force, repeated loads and stale/failed-report
+handling. The closeout reused that symlink install and ran only the four targeted
+tests above, plus the one explicitly requested fresh-directory audit.
 
 ```bash
 source /opt/ros/jazzy/setup.bash
@@ -313,17 +399,30 @@ timeout --kill-after=5s 30s ros2 run x2_recovery runtime_check model
 timeout --kill-after=5s 30s ros2 run x2_recovery runtime_check render \
   --x2-scene "$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml" --output audit-output/step3/render
 timeout --kill-after=5s 60s ros2 run x2_recovery runtime_check audit \
-  --output audit-output/step3 --image-review-from audit-output/step3/report.json
+  --output audit-output/step3-closeout --image-review-from audit-output/step3-closeout/report.json
 ```
 
-The last command regenerates `audit-output/step3/report.json` and
+The last command regenerates `audit-output/step3-closeout/report.json` and
 `collision-{back,feet,left_arm,left_shin}.png`. It reuses only prior visual
-observations whose SHA256 matches each **newly rendered** image; all numerical
-checks rerun. On a fresh checkout omit `--image-review-from`: the command deliberately
-returns nonzero with visual review NOT_TESTED. Inspect the four PNGs, then add an
-`image_review` object to the report keyed by each PNG filename, each with the actual
-`sha256` (from its image record) and a specific `observation` describing what was
-seen. Rerun the last command. Missing/stale observations cannot yield COMPLETE.
+observations whose image SHA256 **and model/probe context digest** match the new
+run; all numerical checks rerun. The context binds the compiled physics/mapping
+fingerprint, pinned source identity, MuJoCo version, actual probe definitions and
+tolerances, and loader/audit implementation hashes. Identical pixels alone are
+insufficient. Legacy observations without a context digest are rejected. The
+same read/write report path is safe: observations are read into memory first,
+then the report is replaced with an incomplete current-run record; no old numerical
+PASS or completion status is imported. Validation of all four reviews finishes
+before any individual image is marked reviewed.
+
+On a fresh checkout omit `--image-review-from`: physics and rendering still finish,
+but the command returns nonzero with visual review NOT_TESTED. Inspect all four
+PNGs, then record `image_review` entries keyed by filename with the actual `sha256`,
+the image record's `review_context_sha256` stored as `context_sha256`, and a specific
+`observation` of what was seen. Only record these after actual inspection. A normal
+rerun verifies them; for review-only completion of an already finished run, the
+existing Python `visual_review`/`save_report` helpers can update that report after
+checking current model/probe/code and file hashes, without rerunning physics.
+Missing/stale observations cannot yield COMPLETE.
 No prior numerical PASS or completion verdict is trusted. A failed/incomplete
 current run replaces the old report and exits nonzero; NaN/Infinity becomes a
 failed measurement in strict JSON. Repeated loads, a different cwd and unchanged

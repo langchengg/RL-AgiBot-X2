@@ -403,8 +403,16 @@ def mapping_audit(loaded):
                            "qfrc_actuator": d.qfrc_actuator[r.dof_address]})
 
 
+def freefall_displacement(model, steps):
+    """Zero initial COM velocity, constant gravity: semi-implicit Euler sum."""
+    require(model.opt.integrator == mj.mjtIntegrator.mjINT_EULER,
+            "Freefall expectation is verified only for the actual Euler integrator")
+    return .5 * model.opt.gravity * model.opt.timestep**2 * steps * (steps + 1)
+
+
 def base_audit(loaded):
     m = loaded.model
+    expected_delta = freefall_displacement(m, 100)
     b = m.body('pelvis').id
     j = m.joint('floating_base_joint').id
     callbacks = {name: getattr(mj, name)() is not None for name in dir(mj) if name.startswith('get_mjcb_')}
@@ -425,7 +433,6 @@ def base_audit(loaded):
                 and not np.any(d.xfrc_applied), "Freefall contaminated by support/contact")
         history.append({"time": float(d.time), "com_world_m": d.subtree_com[b].copy(),
                         "com_velocity_world_m_s": d.subtree_linvel[b].copy(), "ncon": d.ncon})
-    expected_delta = .5*m.opt.gravity*d.time*(d.time+m.opt.timestep)  # Euler semi-implicit position
     displacement = d.subtree_com[b]-initial
     pos_error = float(max(abs(displacement-expected_delta)))
     vel_error = float(max(abs(d.subtree_linvel[b]-m.opt.gravity*d.time)))
@@ -466,6 +473,8 @@ def base_audit(loaded):
                   definition={"qpos": q0, "qvel": "zero", "ctrl": "zero", "steps": 100,
                               "wall_limit_s": 10, "gravity": m.opt.gravity.copy(), "model_changes": []},
                   displacement_m=displacement, expected_displacement_m=expected_delta,
+                  expectation="semi-implicit Euler: gravity * timestep^2 * N*(N+1)/2, zero initial COM velocity",
+                  continuous_displacement_m=.5*m.opt.gravity*(100*m.opt.timestep)**2,
                   position_error_m=pos_error, velocity_error_m_s=vel_error, samples=history,
                   frame_probe={"qpos": q, "velocity": dq[:6], "world_object_angular_velocity": world_velocity[:3],
                                "integration_interval_s": dt, "steps": 0})
@@ -661,6 +670,29 @@ def render_collision(loaded, snapshots, output):
     return frames
 
 
+def penetration_sample(contacts, time_s, floor=True):
+    """Maximum signed-distance penetration of this coherent sample, not a force proxy."""
+    worst = min((c for c in contacts if c['floor'] == floor),
+                key=lambda c: c['distance_m'], default=None)
+    return {"time_s": float(time_s),
+            "penetration_m": max(0., -worst['distance_m']) if worst else 0.,
+            "geom_pair": [worst['geom1'], worst['geom2']] if worst else None,
+            "distance_m": worst['distance_m'] if worst else None}
+
+
+def image_review_context(loaded, definitions):
+    """Bind observations to physics and the executed probe configuration as well as pixels."""
+    context = {"model_fingerprint": fingerprint(loaded), "mujoco_version": mj.__version__,
+               "source_commit": COMMIT, "source_sha256": SOURCE_HASHES,
+               "probe_definitions": definitions, "tolerances": TOLERANCES,
+               "implementation_sha256": {
+                   name: hashlib.sha256(Path(__file__).with_name(name).read_bytes()).hexdigest()
+                   for name in ('model.py', 'model_audit.py')}}
+    digest = hashlib.sha256(json.dumps(json_value(context), sort_keys=True,
+                                     allow_nan=False).encode()).hexdigest()
+    return {"sha256": digest, **context}
+
+
 def collision_audit(loaded, spec, output):
     m = loaded.model
     geometry = geometry_inventory(m,spec)
@@ -671,6 +703,14 @@ def collision_audit(loaded, spec, output):
                  'left_arm_at_side','right_arm_at_side'):
         required = not pose.endswith('at_side')
         d, initial = contact_pose(loaded,pose)
+        initial_contacts = contact_samples(m,d)
+        floor_metrics = {"initial": penetration_sample(initial_contacts, 0.)}
+        floor_metrics['initial']['nearest_geom_pair'] = [m.geom('floor').id, initial['initial_lowest_geom']['id']]
+        floor_metrics['initial']['clearance_m'] = lowest_geom_z(m,d,initial['initial_lowest_geom']['id'])
+        floor_metrics['maximum'] = floor_metrics['initial'].copy()
+        self_metrics = {"initial": penetration_sample(initial_contacts, 0., floor=False)}
+        self_metrics['maximum'] = self_metrics['initial'].copy()
+        self_metrics['first_threshold_exceedance'] = None
         deadline = time.monotonic()+15
         peak_floor = peak_self = 0.
         self_pairs = {}
@@ -679,6 +719,14 @@ def collision_audit(loaded, spec, output):
         for k in range(180):
             step(m,d,k,deadline)
             contacts = contact_samples(m,d)
+            for metrics, is_floor in ((floor_metrics, True), (self_metrics, False)):
+                sample = penetration_sample(contacts, d.time, floor=is_floor)
+                metrics['final'] = sample
+                if sample['penetration_m'] > metrics['maximum']['penetration_m']:
+                    metrics['maximum'] = sample
+            if (self_metrics['first_threshold_exceedance'] is None
+                    and self_metrics['final']['penetration_m'] > TOLERANCES['self_penetration_m']):
+                self_metrics['first_threshold_exceedance'] = self_metrics['final'].copy()
             if any(c['floor'] and c['active'] for c in contacts):
                 active_floor_samples += 1
             for c in contacts:
@@ -696,7 +744,9 @@ def collision_audit(loaded, spec, output):
                     peak_self = max(peak_self,-c['distance_m'])
                     key = f"{c['geom1']}:{c['geom2']}"
                     if key not in self_pairs or c['distance_m']<self_pairs[key]['distance_m']:
-                        self_pairs[key] = {**c, "bodies": [m.body(m.geom_bodyid[g]).name for g in (c['geom1'],c['geom2'])]}
+                        first_time = self_pairs.get(key, {}).get('first_time_s', float(d.time))
+                        self_pairs[key] = {**c, "first_time_s": first_time, "peak_time_s": float(d.time),
+                                           "bodies": [m.body(m.geom_bodyid[g]).name for g in (c['geom1'],c['geom2'])]}
             if k in (19,49,99,179):
                 sample_history.append({"time_s": float(d.time), "qpos": d.qpos.copy(), "qvel": d.qvel.copy(),
                                        "qacc_max_abs": float(np.max(abs(d.qacc))), "contacts": contacts})
@@ -711,6 +761,7 @@ def collision_audit(loaded, spec, output):
                              definition={"initial": initial, "steps": 180, "wall_limit_s": 15,
                                          "controls": "all zero", "applied_forces": "all zero", "model_changes": []},
                              max_floor_penetration_m=peak_floor, max_self_penetration_m=peak_self,
+                             floor_penetration=floor_metrics, self_penetration=self_metrics,
                              self_contacts=list(self_pairs.values()),
                              self_contact_classification=("Pelvis/hip-roll contact during passive leg collapse; "
                                  "active self-collision retained, <=5mm. No initial overlap." if expected_self else
@@ -722,7 +773,7 @@ def collision_audit(loaded, spec, output):
     for key,r in coverage.items():
         r['status'] = 'PASS' if r['available'] and r['exercised'] and r['active_force'] else 'FAIL'
     frames = render_collision(loaded,snapshots,output)
-    return result(all(t['status']=='PASS' for t in trials) and all(r['status']=='PASS' for r in coverage.values()),
+    evidence = result(all(t['status']=='PASS' for t in trials) and all(r['status']=='PASS' for r in coverage.values()),
                   "Required anatomical regions exercised with measured active robot-floor forces. "
                   "Bounded transient impacts; not a settled supine reset, hardware contact calibration, or recovery evidence.",
                   geometry=geometry, regions=coverage, trials=trials, images=frames,
@@ -732,6 +783,11 @@ def collision_audit(loaded, spec, output):
                                     "Same 180 steps, physics and tolerances. These impacts do not certify arbitrary poses."},
                   force_convention="mj_contactForce local frame, normal first; frame.T maps force to world, "
                                    "sign chosen for force on robot and verified upward for plane contact")
+    context = image_review_context(loaded, [t['definition'] for t in trials+investigations])
+    evidence['image_review_context'] = context
+    for frame in frames:
+        frame['review_context_sha256'] = context['sha256']
+    return evidence
 
 
 PHYSICS_FIELDS = ('qpos0', 'body_mass', 'body_ipos', 'body_iquat', 'body_inertia', 'body_pos', 'body_quat',
@@ -787,8 +843,14 @@ def visual_review(frames, review):
         entry = review.get(Path(frame['path']).name, {})
         require(entry.get('sha256') == frame['image_sha256'] and bool(entry.get('observation')),
                 f"Missing/stale visual review: {frame['path']}")
+        require(bool(frame.get('review_context_sha256'))
+                and entry.get('context_sha256') == frame['review_context_sha256'],
+                f"Missing/stale model or probe context in visual review: {frame['path']}")
+    # Validate the entire set before marking any individual frame reviewed.
+    for frame in frames:
+        entry = review[Path(frame['path']).name]
         frame['visual_inspection'] = entry['observation']
-    return result(True, "Human/agent visual observations match all four freshly rendered image hashes",
+    return result(True, "Visual observations match current model/probe context and all four freshly rendered image hashes",
                   observations=review)
 
 
