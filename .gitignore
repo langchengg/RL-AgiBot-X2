@@ -1,0 +1,30 @@
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Root colcon workspace outputs
+/build/
+/install/
+/log/
+
+# Local editor and OS artifacts
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Local secrets; keep shareable examples visible
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Task handout, if placed in the workspace
+HRS_Take_Home_Task*.pdf
