@@ -7,7 +7,8 @@ for the HRS take-home task. The floating-base model, resting supine reset, bound
 joint control, independent success detector and environment have been validated in
 an Ubuntu ARM64 Parallels VM. No policy has yet been shown to recover from supine to
 standing. The original two-page task brief defines the remaining training,
-five-episode evaluation and ROS integration requirements.
+five-episode evaluation and ROS integration requirements; the ROS integration is now
+validated with the scripted baseline, while training and formal evaluation remain open.
 
 | Component | Status |
 | --- | --- |
@@ -16,14 +17,14 @@ five-episode evaluation and ROS integration requirements.
 | Gymnasium environment | Validated |
 | PPO recovery training | Not run |
 | Five-episode recovery evaluation | Not evaluated |
-| ROS recovery and telemetry nodes | Pending; diagnostic communication only |
-| Final ROS end-to-end validation | Pending |
+| ROS recovery and telemetry nodes | Validated with real X2 simulation and scripted_baseline |
+| ROS end-to-end integration validation | Passed; scripted baseline did not recover to standing |
 
 ## System Architecture
 
 One `ament_python` package contains the native simulator environment and validation
-utilities. Training, evaluation and eventual ROS recovery control will use the same
-environment. No simulator bridge, ONNX conversion, ros2_control, Gazebo or alternative
+utilities. ROS recovery control uses this environment; future training and evaluation
+will use the same implementation. No simulator bridge, ONNX conversion, ros2_control, Gazebo or alternative
 simulation framework is required.
 
 | Module | Responsibility |
@@ -230,7 +231,7 @@ from +0.2 input. Robot loading does not maintain a pose or implement a controlle
 `env.py` implements `X2RecoveryEnv` with independent model/data, RNG, success tracker, controller history
 and lazy rendering resources. It does not import ROS or the audit/standing fixture.
 It uses the effective X2 model, 31-joint mapping and frozen success calibration.
-A recovery policy and final ROS nodes are separate, unfinished components.
+The ROS nodes below reuse this implementation. A trained recovery policy remains unfinished.
 
 ```python
 import numpy as np
@@ -637,26 +638,173 @@ fixtures do not count as those five attempts.
 
 ## ROS 2 Integration
 
-Recovery and telemetry nodes, their shared launch file and the service-driven recovery
-loop are **not implemented**. The following is the required interface contract, not a
-claim that these endpoints currently perform recovery.
+`recovery_node.py` owns one headless `X2RecoveryEnv`. It loads and validates the model
+before offering the service; startup does not reset or execute an episode.
+`telemetry_node.py` is a separate ROS process that only subscribes, caches valid
+messages and logs the named `left_knee_joint` at 1 Hz. It imports neither MuJoCo nor
+training libraries. `recovery.launch.py` starts both processes.
 
-| Interface | Type | Required behavior |
+| Interface | Type | Meaning |
 | --- | --- | --- |
-| `/x2/start_recovery` | `std_srvs/srv/Trigger` | Return `success=true` when accepted, before episode execution; `success=false` when busy. Acceptance does not mean the robot has stood up. |
-| `/x2/recovery_status` | `std_msgs/msg/String` | Publish `IDLE`, `RUNNING`, `SUCCEEDED` or `FAILED`. |
-| `/x2/joint_states` | `sensor_msgs/msg/JointState` | Publish joint names, actual simulator positions and timestamps while running. |
+| `/x2/start_recovery` | `std_srvs/srv/Trigger` | `true` = accepted; `false` = already running. Acceptance is not recovery success. |
+| `/x2/recovery_status` | `std_msgs/msg/String` | Exactly `IDLE`, `RUNNING`, `SUCCEEDED`, `FAILED`; changes plus 1 Hz heartbeat. |
+| `/x2/joint_states` | `sensor_msgs/msg/JointState` | Actual mapped joint names, measured positions/velocities and acquisition ROS timestamp; effort is empty. |
 
-Each accepted request executes exactly one episode. An unsuccessful attempt reaches
-FAILED at its configurable timeout. Keep the required Trigger service and message types.
-The telemetry node subscribes to joint states and recovery status and logs both the
-current status and one joint position. Source: PDF p. 1 ROS; p. 2 IF and VAL.
+The execution owner is a `SingleThreadedExecutor`. The short Trigger callback sets
+busy (including the pending window) and returns its response. The installed Jazzy
+executor calls standard `send_response` before executing the next timer callback.
+That callback performs one real supine reset and builds keyframes from its actual
+joint state, then returns. Later callbacks each perform at most one
+`scripted_targets` → `env.action_for_targets` → `env.step` → `loaded.read_state`
+transition. The timer period is `env.control_dt` (20 ms). There is no catch-up loop,
+extra PD implementation, simulator bridge or second environment. High-level targets
+are an **open-loop scripted_baseline**; the existing low-level bounded PD uses actual
+joint feedback every physics substep. Physics, reset settling, rewards and success
+thresholds are unchanged.
 
-Final integration must build from a fresh workspace, launch both nodes, accept an
-actual recovery request, reject a concurrent request, publish simulator-derived
-status/joint states and demonstrate unsuccessful timeout to FAILED. Telemetry must
-log status and at least one measured joint. Existing `/x2_smoke/*` endpoints only
-exercise transport and a small MuJoCo hinge scene; Docker is optional.
+Only environment termination with `is_success=true` can produce `SUCCEEDED`.
+Safety termination, simulation truncation, invalid state and execution exceptions
+produce `FAILED`, with the original reason/evidence in logs. Finishing the target
+sequence continues its existing final-target hold, without implying success.
+A terminal state persists; simulation stops advancing and joint samples stop.
+Another explicit request reuses the instance but performs a fresh reset and builds
+fresh keyframes. There is no queue, automatic retry or automatic return to IDLE.
+
+| Startup parameter | Default | Semantics |
+| --- | --- | --- |
+| `seed` | `60` | Nonnegative integer, passed to each explicit reset. |
+| `episode_timeout_s` | `20.0` | Passed to `EnvConfig`; simulation time after settled reset. Must align with the existing physics timestep. |
+| `recovery_timeout_s` | `30.0` | Monotonic wall budget from acceptance, including pending/reset/control. |
+
+Parameters are read-only after startup; invalid values fail startup. Both nodes reject
+`use_sim_time=true`; no `/clock` is provided. Timer scheduling uses a steady clock.
+Baseline progress and standing checks use relative simulation time. JointState uses
+ROS acquisition time, never a monotonic value disguised as a ROS timestamp.
+Wall deadlines are checked before and immediately after reset/step, using `>=`.
+Late environment success remains visible in the log but the ROS outcome is FAILED
+with `recovery_timeout`. Timely results are not invalidated by later logging/DDS delay.
+The timeout is cooperative: it cannot preempt an executing reset/step. The existing
+45 s reset and 5 s step watchdogs remain intact. This is neither hard real time nor
+proof of a safe physical-robot stop. Ctrl+C unwinds execution before closing the
+environment; terminal ROS delivery after context shutdown is only best effort.
+
+Status QoS on both ends is RELIABLE / TRANSIENT_LOCAL / KEEP_LAST / depth 1.
+Joint QoS is RELIABLE / VOLATILE / KEEP_LAST / depth 10; Trigger uses standard service
+QoS. Topic deliveries have no cross-topic transaction or total-order guarantee.
+Telemetry prints `waiting`/`no_sample` before data and `last_sample` plus sample age
+at terminal states. After an observed new RUNNING transition, an older sample is
+explicitly marked as waiting for a current sample. Late subscribers receive retained
+status while the publisher lives, but receive no fabricated joint snapshot.
+
+Build using the existing interpreter (the system colcon shebang is `/usr/bin/python3`):
+
+```bash
+cd /home/lang/RL-AgiBot-X2
+source /opt/ros/jazzy/setup.bash
+export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
+export ROS_DOMAIN_ID=73
+export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+VALIDATION_DIR="$(mktemp -d /tmp/x2-ros-validation.XXXXXX)"
+.venv/bin/python /usr/bin/colcon --log-base "$VALIDATION_DIR/log" build \
+  --base-paths src --packages-select x2_recovery --symlink-install \
+  --build-base "$VALIDATION_DIR/build" --install-base "$VALIDATION_DIR/install"
+source "$VALIDATION_DIR/install/setup.bash"
+ros2 pkg prefix x2_recovery
+ros2 pkg executables x2_recovery
+head -1 "$VALIDATION_DIR/install/x2_recovery/lib/x2_recovery/recovery_node"
+cd /tmp
+ros2 launch x2_recovery recovery.launch.py \
+  seed:=60 episode_timeout_s:=20.0 recovery_timeout_s:=30.0
+```
+
+In another terminal, source the same Jazzy/installation and export the same model,
+domain, discovery and RMW settings. The domain isolates these tests from other nodes;
+Fast DDS was already the working RMW. Actual CLI commands used (bounded echo):
+
+```bash
+ros2 service type /x2/start_recovery
+ros2 topic info /x2/recovery_status --verbose
+ros2 topic info /x2/joint_states --verbose
+ros2 topic echo /x2/recovery_status std_msgs/msg/String \
+  --qos-reliability reliable --qos-durability transient_local --once --timeout 5
+ros2 service call /x2/start_recovery std_srvs/srv/Trigger "{}"
+# Run again while the episode is RUNNING: success=False, Recovery already running
+ros2 service call /x2/start_recovery std_srvs/srv/Trigger "{}"
+ros2 topic echo /x2/joint_states sensor_msgs/msg/JointState --once --timeout 5
+```
+
+The repeatable cross-process probe launches these installed executables from `/tmp`
+without injecting source PYTHONPATH. It has bounded discovery, RPC and process waits,
+failure exit codes, and finally cleanup of only its own processes. A separate
+instrumented real-X2 subprocess wraps standard `send_response`, reset/step and
+`read_state` solely to record server ordering and exact timestamp-matched simulator
+samples. Fault injection is explicitly synthetic and is not a successful recovery.
+
+```bash
+cd /tmp
+MUJOCO_GL=osmesa timeout --signal=INT --kill-after=15s 300s \
+  /home/lang/RL-AgiBot-X2/.venv/bin/python -m unittest discover \
+  -s /home/lang/RL-AgiBot-X2/src/x2_recovery/test -v
+timeout --signal=INT --kill-after=15s 240s \
+  /home/lang/RL-AgiBot-X2/.venv/bin/python \
+  /home/lang/RL-AgiBot-X2/src/x2_recovery/test/test_ros_integration.py \
+  --output-dir /home/lang/RL-AgiBot-X2/audit-output/ros-integration/new-run
+# Independent wall-time scenario used by the probe:
+ros2 launch x2_recovery recovery.launch.py \
+  seed:=60 episode_timeout_s:=20.0 recovery_timeout_s:=3.0
+```
+
+Actual acceptance on 2026-09-21 in the existing Ubuntu 24.04.5 aarch64 Parallels VM,
+Python 3.12.3 / ROS Jazzy / MuJoCo 3.13.0 / Gymnasium 1.3.0:
+
+| Check | Actual result |
+| --- | --- |
+| Fresh build / installed launch | PASS; colcon 0.74 s; prefix `/tmp/x2-ros-validation.s2cp2X/install/x2_recovery`; both executable shebangs use the existing venv; launched from `/tmp`. |
+| CLI / QoS / acceptance | PASS; Trigger type verified, IDLE observed, `success=True` acceptance and concurrent `success=False` rejection. Both topics and the independent Telemetry process had compatible explicit QoS. |
+| Normal baseline | FAILED as expected: environment `time_limit`, 20.000 s simulation, 1,000 control steps, 20.673 s wall; no wall timeout or safety error. |
+| Terminal hold / same-instance repeat | PASS; no extra joint samples after terminal, FAILED remains observable; next request performs reset again: 20.000 s simulation, 1,000 steps, 20.638 s wall, `time_limit`. |
+| Independent wall timeout | PASS; budget 3.0 s, episode limit 20.0 s; 116 steps, 2.320 s simulation, 3.004352 s wall; `FAILED / recovery_timeout`, overshoot 4.352 ms. |
+| Actual telemetry | PASS; 31 mapped joints move; 9 received snapshots matched names/q/dq from that same simulator read at the same ROS timestamp exactly (maximum difference 0). |
+| Busy phases / response ordering | PASS; pending checked in logic tests; real request sent inside recorded reset interval rejected before episode end; normal stepping requests rejected. Standard response-send completion preceded reset entry. |
+| Late Telemetry | PASS; retained FAILED received; VOLATILE joint topic gives `no_sample`, not invented position. |
+| Errors / cleanup | PASS; real invalid-parameter and missing-model startup failures; synthetic reset/action/step/nonfinite/deadline cases; real stepping followed by an injected error, then successful explicit reset/retry; active Ctrl+C unwinds before close. All owned processes and the test-created CLI daemon exited. |
+| Regression | 106 unittest tests passed, 0 failed, 0 skipped; 68 cross-process assertions passed. Missing-dependency injection also exited 1 as expected. Synthetic successful termination tests are not real recoveries. |
+
+The single-thread choice was measured, not inferred from historical timings:
+creation 0.637 s, real reset 0.571 s, 100 headless steps: median 17.55 ms,
+P95 20.84 ms, maximum 22.89 ms. Final warm-client RPC measurements:
+
+| Measurement | Samples | Median / P95 / maximum |
+| --- | ---: | --- |
+| Acceptance RPC | 6 | 0.578 / 1.319 / 1.528 ms |
+| Busy RPC during stepping | 16 | 41.344 / 42.467 / 42.719 ms |
+| Busy RPC sent during reset | 1 | maximum 589.831 ms; no meaningful percentile estimate |
+| Instrumented complete service callback, excluding response send | 6 | 0.218 / 0.233 / 0.235 ms |
+
+Every observed acceptance/busy RPC met the fixed **1.0 s** local headless regression
+budget. This is a project budget, not a PDF metric or ROS real-time guarantee.
+The CLI acceptance/busy processes took 0.590/0.577 s, including interpreter startup
+and discovery; those are not service callback timings. The wall-time budget of 30 s
+was sufficient for the full 20 s simulation on this VM.
+
+**ROS 2 integration and scripted-baseline end-to-end validation: COMPLETE.**
+**ROS integration passed; the scripted baseline did not recover to standing.**
+Both full episodes had `is_success=false`, zero standing dwell, final pelvis height
+0.07636 m and torso tilt 73.59 degrees; non-foot support remained 0.64335 body weights.
+These are ROS integration runs, not the five formal policy evaluations. Training
+has not been run (not declared blocked), and no trained checkpoint exists. This does
+not demonstrate learned recovery or physical-robot control.
+
+Commands, raw CLI outputs, node/client logs, matched samples and strict JSON summaries
+are retained under `audit-output/ros-integration/run-20260921-231426-Xwwi/` (ignored
+raw evidence). The authoritative final run is `integration-acceptance/`; top-level
+`summary.json`, `acceptance-build-and-install.log`, `regression-acceptance.log` and
+`acceptance-code-identity.json` bind the results to the tested code. Base HEAD was
+`559fd0e63e2fff45d650089ab0a71b0c146437f3` with only this integration work uncommitted;
+the per-file SHA-256 manifest identifies the tested implementation independently of
+the subsequent local commit. Earlier attempts remain separately named and unchanged.
+
 
 ## Validation and Reproducibility
 
@@ -1068,9 +1216,10 @@ Commit history records implementation milestones without squashing or rewriting 
 ## Limitations and Future Work
 
 No real supine-to-standing recovery was observed. The bounded scripts exercise the
-environment, not a recovery controller. Remaining work is policy training, five formal
-evaluation episodes, recovery/telemetry nodes and final ROS service-to-simulation
-validation. Neither a fresh package build nor a standing fixture completes that work.
+environment; they have not recovered the robot to standing. ROS service-to-simulation
+integration has passed with this baseline. Remaining work is policy training and five
+formal evaluation episodes. ROS integration and standing fixtures do not complete
+those requirements.
 
 Simulation uses convex collision hulls, spherical foot proxies and soft constraints;
 measured nonzero penetration is not mathematical nonintersection. Finite checks do
