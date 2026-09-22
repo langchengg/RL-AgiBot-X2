@@ -34,3 +34,6 @@ HRS_Take_Home_Task*.pdf
 
 # Local model audit evidence (strict JSON, rendered images, verification logs)
 /audit-output/
+
+# Reproducible PPO runs retain full local evidence, policies and source snapshots.
+/runs/

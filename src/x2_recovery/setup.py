@@ -18,5 +18,6 @@ setup(
         "runtime_check = x2_recovery.diagnostics:main",
         "recovery_node = x2_recovery.recovery_node:main",
         "telemetry_node = x2_recovery.telemetry_node:main",
+        "train_recovery = x2_recovery.train:main",
     ]},
 )

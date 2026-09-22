@@ -8,3 +8,5 @@ torch==2.8.0+cpu
 Pillow==10.2.0
 # Satisfies the inherited Ubuntu PyNaCl requirement in the shared-site venv.
 cffi==2.1.1
+# Headless reward plotting; already available in the target VM.
+matplotlib==3.6.3
