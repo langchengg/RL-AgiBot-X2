@@ -6,16 +6,17 @@ A native MuJoCo and Gymnasium implementation for AgiBot X2 ground recovery, deve
 for the HRS take-home task. The floating-base model, resting supine reset, bounded
 joint control, independent success detector and environment have been validated in
 an Ubuntu ARM64 Parallels VM. No policy has yet been shown to recover from supine to
-standing. The original two-page task brief defines the remaining training,
-five-episode evaluation and ROS integration requirements; the ROS integration is now
-validated with the scripted baseline, while training and formal evaluation remain open.
+standing. Real-X2 PPO sampling, optimization and checkpoint reload now pass a bounded
+engineering smoke test. A larger formal experiment is deferred because training
+episodes consistently abort within one simulated second. Five policy evaluation
+episodes remain NOT_EVALUATED; ROS integration is validated with the scripted baseline.
 
 | Component | Status |
 | --- | --- |
 | MuJoCo model and supine reset | Validated within documented numerical tolerances |
 | Joint control and standing-success detector | Validated |
 | Gymnasium environment | Validated |
-| PPO recovery training | Not run |
+| PPO recovery training | 2048-transition real-X2 smoke passed; formal experiment deferred on sampling quality |
 | Five-episode recovery evaluation | Not evaluated |
 | ROS recovery and telemetry nodes | Validated with real X2 simulation and scripted_baseline |
 | ROS end-to-end integration validation | Passed; scripted baseline did not recover to standing |
@@ -23,8 +24,8 @@ validated with the scripted baseline, while training and formal evaluation remai
 ## System Architecture
 
 One `ament_python` package contains the native simulator environment and validation
-utilities. ROS recovery control uses this environment; future training and evaluation
-will use the same implementation. No simulator bridge, ONNX conversion, ros2_control, Gazebo or alternative
+utilities. ROS recovery control and PPO training use the same environment; evaluation
+will use this implementation as well. No simulator bridge, ONNX conversion, ros2_control, Gazebo or alternative
 simulation framework is required.
 
 | Module | Responsibility |
@@ -33,6 +34,7 @@ simulation framework is required.
 | [reset.py](src/x2_recovery/x2_recovery/reset.py) | Geometric placement, physical supine settling and checked stepping |
 | [success.py](src/x2_recovery/x2_recovery/success.py) | Read-only standing measurements and continuous, reward-independent success tracking |
 | [env.py](src/x2_recovery/x2_recovery/env.py) | Gymnasium reset/step, observations, bounded PD, rewards, lifecycle and lazy rendering |
+| [train.py](src/x2_recovery/x2_recovery/train.py) | Bounded PPO training, sampling diagnostics, optimization evidence, checkpoint reload and reward plots |
 | [model_audit.py](src/x2_recovery/x2_recovery/model_audit.py) | Disposable model/interface probes and evidence validation |
 | [simulation_validation.py](src/x2_recovery/x2_recovery/simulation_validation.py) | Reset batches, causal actuation probes, live observation and actual-state recording |
 | [success_validation.py](src/x2_recovery/x2_recovery/success_validation.py) | Independent standing calibration fixtures and physical positive/negative validation |
@@ -231,7 +233,7 @@ from +0.2 input. Robot loading does not maintain a pose or implement a controlle
 `env.py` implements `X2RecoveryEnv` with independent model/data, RNG, success tracker, controller history
 and lazy rendering resources. It does not import ROS or the audit/standing fixture.
 It uses the effective X2 model, 31-joint mapping and frozen success calibration.
-The ROS nodes below reuse this implementation. A trained recovery policy remains unfinished.
+The ROS nodes below reuse this implementation. PPO has produced an updated checkpoint, but no successful learned recovery has been observed.
 
 ```python
 import numpy as np
@@ -513,14 +515,14 @@ A fresh isolated venv/colcon build using
 needed. Logs and comparison details are under `audit-output/scripted-baseline/verification/`.
 Six actual RGB samples from a separate `visual-20260920` episode were inspected;
 its trajectory matched the main run. This was OSMesa observation, not live desktop
-viewer validation. Training has not been run; formal evaluation and ROS integration
-remain separate requirements.
+viewer validation. This baseline evidence is separate from the PPO training and ROS
+integration results documented below.
 
 ## Reward Design
 
 Let `H=clip(height/h_ref,0,1)` and
 `U=(1+clip(torso_upright_dot,-1,1))/2`. Gamma is **0.999 per env.step transition**,
-including a shortened final step; later PPO must use the same gamma.
+including a shortened final step; PPO explicitly checks and uses the same gamma.
 
 | Contribution | Actual weight | Raw term |
 | --- | ---: | --- |
@@ -621,18 +623,167 @@ changes invalidate saved acceptance, and physics changes require recalibration.
 
 ## Training
 
-Recovery training has **not been run**. The intended learner is SB3 PPO with MlpPolicy
-on CPU, using the environment's per-transition gamma **0.999**. Recovery training
-settings, compute budget, checkpoint and reward plot remain to be established.
-A successful dependency smoke test on Pendulum is not an X2 training experiment.
+`train_recovery` (or `python -m x2_recovery.train`) runs a single real X2 environment
+through Monitor, DummyVecEnv and VecCheckNan. It uses SB3 PPO 2.9.0 on CPU with fixed
+environment observation scaling. No VecNormalize, extra reward/observation clipping,
+rendering, ROS service stepping or scripted actions participate in training.
+
+The initial PPO configuration uses 512 transitions per rollout, batch size 64,
+5 epochs, learning rate 3e-4, gamma **0.999** (checked against shaping gamma),
+GAE lambda 0.95, policy clip 0.2, no value clipping, normalized advantages,
+entropy coefficient 0, value coefficient 0.5, gradient norm 0.5 and target KL 0.03.
+Separate actor/value MLPs have two 128-unit Tanh layers with orthogonal initialization;
+Adam uses epsilon 1e-5 and betas (0.9, 0.999). Exploration starts at log std -1.0;
+the one measured comparison uses -1.5. Torch uses 2 compute threads and 1 interop
+thread on the existing 8-vCPU, approximately 11-GiB ARM64 Parallels VM.
+The complete effective settings, including optimizer defaults, are exported per run.
+
+Commands executed in this VM (existing run directories are deliberately rejected):
+
+```bash
+export PYTHONPATH="$PWD/src/x2_recovery"
+.venv/bin/python -m x2_recovery.train probe --policy zero --seed 220922 \
+  --episodes 2 --max-transitions 128 --max-wall-seconds 180 \
+  --run-dir runs/ppo_supine/probe-zero-20260922
+.venv/bin/python -m x2_recovery.train probe --policy untrained --seed 220922 \
+  --episodes 20 --max-transitions 128 --max-wall-seconds 180 \
+  --run-dir runs/ppo_supine/probe-std-minus1-20260922
+.venv/bin/python -m x2_recovery.train probe --policy untrained --seed 220922 \
+  --log-std-init -1.5 --episodes 20 --max-transitions 256 --max-wall-seconds 180 \
+  --run-dir runs/ppo_supine/probe-std-minus1p5-20260922
+.venv/bin/python -m x2_recovery.train smoke --seed 220923 --log-std-init -1.5 \
+  --total-timesteps 2048 --max-wall-seconds 1200 \
+  --run-dir runs/ppo_supine/smoke-std-minus1p5-20260922
+```
+
+Initial diagnostics are separate from training. At log std -1.0, 17/20 episodes
+ended in safety abort within two transitions; all 20 ended on joint speed.
+At -1.5, that fraction fell to 7/20, with median length 3 and maximum length 15
+(0.290 simulated seconds); 16 ended on joint speed and 4 on joint limits.
+Terminal observations identify left/right hip yaw as the speed offenders.
+Zero actions survived a 128-transition (2.56-second) diagnostic cutoff without
+standing. Zero is a PD reference target, not zero torque. That incomplete trajectory
+is excluded from episode outcome statistics. Reduced exploration improves length
+but these short trajectories remain a substantial learning limitation.
+
+The selected smoke run `smoke-std-minus1p5-20260922` completed on 2026-09-22:
+
+| Measurement | Observed result |
+| --- | --- |
+| Seed / requested / sampled / optimized rollout transitions | 220923 / 2048 / 2048 / 2048 |
+| Complete rollouts / optimization rounds / actual Adam steps | 4 / 4 / 30 (increments 3, 8, 9, 10; KL early stopping) |
+| SB3 epoch-attempt counter | 7; distinct from the 30 optimizer steps |
+| Actor mean / critic / log-std parameter L2 change | 0.246114 / 0.645779 / 0.012161 |
+| `learn()` / end-to-end throughput | 352.862 s / 5.804 transitions/s |
+| Full rollout cycle throughput range | 5.358–6.296 transitions/s |
+| Reset wall time / calls | 315.273 s / 424; 89.35% of `learn()` |
+| Total run wall time, including reload | 374.842 s |
+| Recovery physical steps / simulated time | 37,616 / 37.616 s; excludes reset settling |
+| Complete episodes / median length / maximum length | 423 / 4 / 32 transitions |
+| Safety endings | 363 joint-speed; 60 joint-limit; no training timeouts or successes |
+| Unfinished data | No partial rollout; a final 2-transition partial episode is retained separately |
+| Independent reload | PID 197760; 16 real observations, exact deterministic action agreement; full 1000-transition, 20-second timeout; no standing success |
+
+All seven rollout arrays, 390 backward gradient tensors, every optimizer input,
+updated parameter and Adam-state tensor passed finite checks. Recorded losses are
+update-level SB3 metrics, not a claim to have captured every intermediate loss.
+Monitor and diagnostics agree on episode order/count; maximum return discrepancy
+is 5.25e-7. The final update is present in `progress.csv` and the SB3 log.
+
+The observed maximum control-sampled pelvis height, 0.21975 m, occurred at 92.34°
+tilt, with no foot support; maximum stable duration was zero. Mean episode return
+was -0.99466. Longer episodes accumulated more cost (length/return correlation
+-0.998); return alone would be misleading here. Joint/substep torque saturation
+was 31.10%, despite no clipped-action or target-boundary samples at log std -1.5.
+These measurements do not establish sitting up, rolling over or recovering.
+
+**Formal experiment: NOT_RUN.** All 423 complete episodes ended in safety abort
+within 0.633 seconds (median 0.071 s). Passing the narrow two-transition gate does
+not make this sampling suitable for more compute. The CLI also rejects expansion
+when all 20 recent episodes are subsecond safety aborts; this is a conservative
+resource guard, not proof that the task cannot be learned. A candidate 600-second
+budget at the measured rate gives `512 * floor(0.8 * 600 * 5.803974 / 512) = 2560`
+planned transitions; zero formal transitions were executed. The actual guard
+invocation exited 1 before creating a run directory. Details are retained in
+`audit-output/ppo-validation/budget-decision.json` and the smoke run's
+`sampling_analysis.json`. No physics, action mapping, PD, reset, rewards, safety
+thresholds, success logic, baseline or ROS implementation changed.
+
+Checkpoint: `runs/ppo_supine/smoke-std-minus1p5-20260922/policy_final.zip`, SHA-256
+`e8fa7e642e8ccd8d6dd38aaf9d810eee3c00d39d4188f82702c5b8e6124b213e`.
+
+Each local run under `runs/ppo_supine/` retains its source snapshot/diff, exact
+configuration, manifest, raw transition/episode/Monitor logs, completed rollout
+arrays, update-level `progress.csv`, reward PNG and console log. Optimized runs also
+save `policy_final.zip`, a real-observation `reload_probe.npz`, and a new-process
+`reload_check.json` with a full deterministic recovery attempt. Checkpoint saving
+requires actual actor-mean and critic parameter changes and observed optimizer
+steps. The diagnostic PPO subclass delegates the optimization loop to SB3;
+ordinary `PPO.load(..., device="cpu")` loads its checkpoint.
+
+The reward plot uses raw complete episode returns before timeout bootstrap, with a
+trailing mean only when at least 20 episodes exist. Heights/tilts/holds are sampled
+at control-step boundaries; torque saturation is weighted by actual physical steps.
+A wall cutoff leaves partial rollout samples unoptimized and partial episodes out
+of complete-episode statistics. The 20-episode, 80%-within-two-transitions safety
+gate stops expansion at an update boundary. Longer but still very early failures
+must also be reviewed before allocating a formal budget.
+
+Recheck the saved checkpoint and regenerate its plot without training:
+
+```bash
+.venv/bin/python -m x2_recovery.train reload-check \
+  --run-dir runs/ppo_supine/smoke-std-minus1p5-20260922 \
+  --output runs/ppo_supine/smoke-std-minus1p5-20260922/reload_recheck.json
+.venv/bin/python -m x2_recovery.train plot \
+  --run-dir runs/ppo_supine/smoke-std-minus1p5-20260922
+```
+
+A future formal run requires a passed smoke/reload and acceptable sampling evidence.
+The following command was exercised and **rejected by the sampling guard** (exit 1);
+no formal run directory or policy was created. For an eligible future configuration,
+it initializes a fresh model/seed, reads the saved configuration, and plans whole rollouts
+as `512 * floor(0.8 * budget_seconds * measured_transitions_per_second / 512)`.
+The 0.8 factor is compute headroom, not a learning or statistical guarantee. Use a
+new output directory; the CLI rejects budgets above 3600 seconds and mismatched
+measured configurations. A ten-minute budget does not imply adequate training:
+
+```bash
+.venv/bin/python -m x2_recovery.train train --seed 220924 \
+  --config runs/ppo_supine/smoke-std-minus1p5-20260922/resolved_config.json \
+  --validated-run runs/ppo_supine/smoke-std-minus1p5-20260922 \
+  --max-wall-seconds 600 --run-dir runs/ppo_supine/formal-quality-gated-20260922
+```
+
+Final verification: **125 tests passed, no failures/errors/skips** (60.195 s),
+including 19 training bookkeeping/fault tests; these synthetic tests are not X2
+training evidence. A fresh colcon build in
+`audit-output/ppo-validation/release-{build,install,log}` passed in 0.73 s, and the
+installed CLI ran from `/tmp` with the project venv. `pip check` reported no broken
+requirements. Logs, the earlier corrected ROS-path invocation failure, the formal
+budget rejection, and a real-X2 one-transition budget cutoff (exit 2, zero updates,
+no checkpoint, environment closed) remain in `audit-output/ppo-validation/`.
+The cutoff's 0.01-second cooperative budget actually took 0.884 seconds in `learn()`;
+the existing bounded reset must return before the callback can stop it.
+
+```bash
+source /opt/ros/jazzy/setup.bash
+PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" MUJOCO_GL=osmesa \
+  .venv/bin/python -m unittest discover -s src/x2_recovery/test -v
+.venv/bin/python -m pip check
+```
+
+Five formal policy evaluation episodes remain **NOT_EVALUATED**. Reload validation
+is a separate execution check and does not count toward those five. ROS recovery
+still uses `scripted_baseline`; no trained checkpoint has been connected to the node.
 
 ## Evaluation
 
 Formal recovery evaluation is **not evaluated**. It requires five actual episodes
-using an available learned policy or, if training is blocked, a clearly labeled
-scripted recovery baseline. Report successes and failures against the independent
-criteria above; zero successes must be explained. Reasonable hand contact during
-rising is allowed, but final stable standing must have no non-foot support above the
+using the selected learned checkpoint identified above. Report successes and failures
+against the independent criteria above; a learned policy that fails to recover is a
+valid negative result, not a reason to replace it with the scripted baseline.
+Reasonable hand contact during rising is allowed, but final stable standing must have no non-foot support above the
 measurement tolerance. Environment rollouts and directly initialized standing
 fixtures do not count as those five attempts.
 
@@ -1217,18 +1368,20 @@ Commit history records implementation milestones without squashing or rewriting 
 
 No real supine-to-standing recovery was observed. The bounded scripts exercise the
 environment; they have not recovered the robot to standing. ROS service-to-simulation
-integration has passed with this baseline. Remaining work is policy training and five
-formal evaluation episodes. ROS integration and standing fixtures do not complete
-those requirements.
+integration has passed with this baseline. PPO optimization and reload now pass, but
+poor sampling has deferred the larger formal training experiment. Five formal
+evaluation episodes also remain outstanding; integration and standing fixtures do
+not complete those requirements.
 
 Simulation uses convex collision hulls, spherical foot proxies and soft constraints;
 measured nonzero penetration is not mathematical nonintersection. Finite checks do
 not establish every joint-bound pose's collision-free reachability or whole-action-space
 safety. Full-target actions can terminate almost immediately at the documented safety
-guards. PD gains/reward weights are initial choices; early-abort incentives, learned
-recovery robustness, observations available on hardware and training throughput remain
-unverified. No hardware calibration, GPU capability or real-time training guarantee
-is inferred from the VM tests.
+guards. PD gains/reward weights remain initial choices. PPO throughput is measured
+for the documented configuration; learned recovery robustness, the behavioral effect
+of early-abort returns, and observations available on hardware remain unverified.
+No hardware calibration, GPU capability or real-time training guarantee is inferred
+from the VM tests.
 
 The original arm-at-side contact failures remain relevant to motion planning: wrists
 can become trapped against hip hulls. A safe spread-arm supine reset and successful
