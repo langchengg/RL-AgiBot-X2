@@ -1,0 +1,16 @@
+{
+  "verified_at_utc": "2026-09-23T13:31:21.953112+00:00",
+  "local_commit": "8e14b79c3f6097be44cc5f83ff859e744009b372",
+  "remote_main_commit": "8e14b79c3f6097be44cc5f83ff859e744009b372",
+  "remote_fetched_commit_matches": true,
+  "verified_files_sha256": {
+    "README.md": "b8933aa9b22e831b5c4b5e5c246243d0676f91c6882e947ecfdd61536eee600e",
+    "src/x2_recovery/test/test_ros_integration.py": "63a8bf34409e2a95967074fb81b080e5546ef4d70627a9571d356bc4af8ac0cc",
+    "results/ros-acceptance/publication-manifest.json": "baa77e360963d0f79bcf42279acd94e1add8a9b29f449580aad06d6f17c9be2f",
+    "results/ros-acceptance/20260923T122443Z-patched-v2/summary.json": "47a319c14f1904fb50da715a732b4371fadd045428b1c3dbf25e65bc5d84ab70",
+    "results/ros-acceptance/20260923T125208Z-patched-v3/summary.json": "1dd8d274fd18594d9e44ee222533eb41e364c61dc1be3262ade647e64ccb1236",
+    "results/ros-acceptance/20260923T121422Z-release-71037f7/summary.json": "eedb4ce516d395978141e70567e16da0861cf01794bfb419f3d23f2cdc7a3441"
+  },
+  "git_status": "",
+  "verification_scope": "Remote main ref matches exact acceptance commit at recorded time; freshly fetched commit tree blobs match published README, runner, all three summaries and copy manifest. Publication-receipt commit, if added afterward, is separate."
+}
