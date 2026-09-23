@@ -1168,6 +1168,18 @@ step, learning and optimizer updates, and checks the actual imported module path
 The older `independent_final_audit.py` remains an unchanged historical audit script
 with original machine paths; use `verify_delivery.py` for the portable release check.
 
+Publication checks used a clean local clone of committed tree `438dcc8`: **183 tests
+passed**, zero failures/errors/skips (88.790 s); `pip check`, a new isolated colcon
+build and installed module/CLI checks from outside the repository all passed. Both
+portable input sets loaded with maximum saved-observation action error **0**, and
+both restored five-episode records passed their disk audits. The actual source paths
+pointed into the clean copy. This reused the same Ubuntu ARM64 VM, project venv and
+official model cache, not a new-machine installation. The [validation record](results/publication/20260923/validation.json)
+and its logs identify commands, tested commit, timings and scope. The earlier 101
+targeted tests overlap this full suite. No new training, search or formal evaluation
+was performed for publication; subsequent changes only add these validation records
+and this paragraph.
+
 ### Failure observations and next hypotheses
 
 All five recorded trajectories are identical. Episode 1 provides these locations:

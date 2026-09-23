@@ -1,0 +1,87 @@
+{"python": "/home/lang/RL-AgiBot-X2/.venv/bin/python", "prefix": "/home/lang/RL-AgiBot-X2/.venv", "architecture": "aarch64", "module_paths": {"x2_recovery.env": "/tmp/x2-publication-xp5m5o6p/repository/src/x2_recovery/x2_recovery/env.py", "x2_recovery.train": "/tmp/x2-publication-xp5m5o6p/repository/src/x2_recovery/x2_recovery/train.py", "x2_recovery.evaluate": "/tmp/x2-publication-xp5m5o6p/repository/src/x2_recovery/x2_recovery/evaluate.py", "x2_recovery.motion_search": "/tmp/x2-publication-xp5m5o6p/repository/src/x2_recovery/x2_recovery/motion_search.py"}}
+usage: train.py [-h]
+                {control-block,control-reload,probe,smoke,train,reload-check,plot}
+                ...
+
+Bounded, single-environment SB3 PPO experiments on the frozen X2 environment.
+Instrumentation observes SB3's own rollouts and optimizer. It never changes
+the buffer, reward, actions, gradients, reset semantics or physical
+environment.
+
+positional arguments:
+  {control-block,control-reload,probe,smoke,train,reload-check,plot}
+    control-block       Bounded PPO on an explicitly versioned learning
+                        controller
+    control-reload      One complete deterministic development attempt in this
+                        process
+
+options:
+  -h, --help            show this help message and exit
+usage: train.py control-block [-h] --run-dir RUN_DIR --control-config
+                              CONTROL_CONFIG --total-timesteps TOTAL_TIMESTEPS
+                              --max-wall-seconds MAX_WALL_SECONDS --seed SEED
+                              [--workers {1,2,4}] [--resume-run RESUME_RUN]
+                              [--initial-exploration-std-factor INITIAL_EXPLORATION_STD_FACTOR]
+                              [--use-sde] [--sde-sample-freq SDE_SAMPLE_FREQ]
+                              [--learning-rate LEARNING_RATE]
+                              [--log-std-init LOG_STD_INIT]
+                              [--target-kl TARGET_KL] [--n-epochs N_EPOCHS]
+
+options:
+  -h, --help            show this help message and exit
+  --run-dir RUN_DIR
+  --control-config CONTROL_CONFIG
+  --total-timesteps TOTAL_TIMESTEPS
+  --max-wall-seconds MAX_WALL_SECONDS
+  --seed SEED
+  --workers {1,2,4}
+  --resume-run RESUME_RUN
+  --initial-exploration-std-factor INITIAL_EXPLORATION_STD_FACTOR
+                        One-time post-load std scaling in (0,1]; reductions
+                        require --resume-run
+  --use-sde
+  --sde-sample-freq SDE_SAMPLE_FREQ
+  --learning-rate LEARNING_RATE
+  --log-std-init LOG_STD_INIT
+  --target-kl TARGET_KL
+  --n-epochs N_EPOCHS
+usage: evaluate.py [-h] --training-run TRAINING_RUN --seeds SEEDS SEEDS SEEDS
+                   SEEDS SEEDS --deterministic --output OUTPUT
+                   [--episode-wall-seconds EPISODE_WALL_SECONDS]
+                   [--expected-checkpoint-sha256 EXPECTED_CHECKPOINT_SHA256]
+                   [--reload-validation RELOAD_VALIDATION]
+
+Five frozen, deterministic PPO attempts; no training and no automatic reset.
+The environment owns physics, reset and success. This module records its
+evidence and independently checks the bookkeeping, not a second standing
+criterion.
+
+options:
+  -h, --help            show this help message and exit
+  --training-run TRAINING_RUN
+  --seeds SEEDS SEEDS SEEDS SEEDS SEEDS
+  --deterministic
+  --output OUTPUT
+  --episode-wall-seconds EPISODE_WALL_SECONDS
+                        Cooperative wall watchdog per attempt, including reset
+                        (default: 180).
+  --expected-checkpoint-sha256 EXPECTED_CHECKPOINT_SHA256
+                        Required explicit checkpoint identity for controller
+                        PPO experiments; the legacy smoke identity stays
+                        fixed.
+  --reload-validation RELOAD_VALIDATION
+                        Completed control-reload summary; defaults to portable
+                        reload_validation.json or
+                        development-221020/summary.json.
+usage: motion_search.py [-h] {search,replay} ...
+
+Bounded low-dimensional reference discovery through real supine dynamics.
+Search candidates are diagnostic references, never trained policies. Every
+trial replays its prefix from the original reset; no state restoration is
+used.
+
+positional arguments:
+  {search,replay}
+
+options:
+  -h, --help       show this help message and exit

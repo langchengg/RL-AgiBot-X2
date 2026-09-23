@@ -1,0 +1,144 @@
+{
+  "scope": "Same VM clean committed source and inputs; existing project venv and pinned official model cache reused",
+  "base": "/tmp/x2-publication-xp5m5o6p",
+  "copy": "/tmp/x2-publication-xp5m5o6p/repository",
+  "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+  "checks": [
+    {
+      "label": "clean-clone",
+      "command": "git clone --no-hardlinks /home/lang/RL-AgiBot-X2 /tmp/x2-publication-xp5m5o6p/repository",
+      "cwd": "/tmp/x2-publication-xp5m5o6p",
+      "exit_code": 0,
+      "wall_seconds": 0.1730173329997342,
+      "log": "clean-clone.log",
+      "published_log": null,
+      "log_storage": "Original command log retained locally under audit-output/publication-20260923T115223Z/"
+    },
+    {
+      "label": "clean-restore",
+      "command": "/home/lang/RL-AgiBot-X2/.venv/bin/python - <<'PYCODE'\nimport gzip, hashlib, json, shutil\nfrom pathlib import Path\nfor name in ('ppo-smoke-20260922T044430Z', 'ppo-reference-residual-20260922T212457Z'):\n    directory = Path('results/evaluation') / name\n    path = directory / 'trajectory.jsonl'\n    with gzip.open(path.with_suffix('.jsonl.gz'), 'rb') as src, path.open('xb') as dst:\n        shutil.copyfileobj(src, dst)\n    with path.open('rb') as stream:\n        actual = hashlib.file_digest(stream, 'sha256').hexdigest()\n    expected = json.loads((directory / 'summary.json').read_text())['artifact_sha256'][path.name]\n    if actual != expected:\n        raise ValueError('Restored trajectory hash mismatch: ' + str(path))\n    print(path, actual)\nPYCODE",
+      "cwd": "/tmp/x2-publication-xp5m5o6p/repository",
+      "exit_code": 0,
+      "wall_seconds": 0.44506779199582525,
+      "log": "clean-restore.log",
+      "published_log": null,
+      "log_storage": "Original command log retained locally under audit-output/publication-20260923T115223Z/"
+    },
+    {
+      "label": "clean-delivery",
+      "command": "source /opt/ros/jazzy/setup.bash\n/home/lang/RL-AgiBot-X2/.venv/bin/python results/publication/20260923/verify_delivery.py",
+      "cwd": "/tmp/x2-publication-xp5m5o6p/repository",
+      "exit_code": 0,
+      "wall_seconds": 8.563843546027783,
+      "log": "clean-delivery.log",
+      "published_log": "delivery-check.json"
+    },
+    {
+      "label": "clean-pip-check",
+      "command": "/home/lang/RL-AgiBot-X2/.venv/bin/python -m pip check",
+      "cwd": "/tmp/x2-publication-xp5m5o6p/repository",
+      "exit_code": 0,
+      "wall_seconds": 0.42191862501204014,
+      "log": "clean-pip-check.log",
+      "published_log": null,
+      "log_storage": "Original command log retained locally under audit-output/publication-20260923T115223Z/"
+    },
+    {
+      "label": "clean-regression",
+      "command": "source /opt/ros/jazzy/setup.bash\nPYTHONPATH=\"$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}\" MUJOCO_GL=osmesa /home/lang/RL-AgiBot-X2/.venv/bin/python -m unittest discover -s src/x2_recovery/test -v",
+      "cwd": "/tmp/x2-publication-xp5m5o6p/repository",
+      "exit_code": 0,
+      "wall_seconds": 90.2286279599939,
+      "log": "clean-regression.log",
+      "published_log": "regression.log"
+    },
+    {
+      "label": "clean-build",
+      "command": "source /opt/ros/jazzy/setup.bash\n/home/lang/RL-AgiBot-X2/.venv/bin/python /usr/bin/colcon --log-base /tmp/x2-publication-xp5m5o6p/log build --base-paths src --packages-select x2_recovery --symlink-install --build-base /tmp/x2-publication-xp5m5o6p/build --install-base /tmp/x2-publication-xp5m5o6p/install",
+      "cwd": "/tmp/x2-publication-xp5m5o6p/repository",
+      "exit_code": 0,
+      "wall_seconds": 0.9877974170085508,
+      "log": "clean-build.log",
+      "published_log": "build.log"
+    },
+    {
+      "label": "clean-installed-cli",
+      "command": "unset PYTHONPATH\nsource /opt/ros/jazzy/setup.bash\nsource /tmp/x2-publication-xp5m5o6p/install/setup.bash\n/home/lang/RL-AgiBot-X2/.venv/bin/python - <<'PYCODE'\nimport importlib,json,sys,platform\nfrom pathlib import Path\npaths={}\nfor name in ('x2_recovery.env','x2_recovery.train','x2_recovery.evaluate','x2_recovery.motion_search'):\n p=Path(importlib.import_module(name).__file__).resolve()\n if not p.is_relative_to(Path('/tmp/x2-publication-xp5m5o6p/repository')):raise ValueError('Outside installed copy: '+str(p))\n paths[name]=str(p)\nprint(json.dumps(dict(python=sys.executable,prefix=sys.prefix,architecture=platform.machine(),module_paths=paths)))\nPYCODE\n/home/lang/RL-AgiBot-X2/.venv/bin/python -m x2_recovery.train --help\n/home/lang/RL-AgiBot-X2/.venv/bin/python -m x2_recovery.train control-block --help\n/home/lang/RL-AgiBot-X2/.venv/bin/python -m x2_recovery.evaluate --help\n/home/lang/RL-AgiBot-X2/.venv/bin/python -m x2_recovery.motion_search --help",
+      "cwd": "/tmp/x2-publication-xp5m5o6p",
+      "exit_code": 0,
+      "wall_seconds": 3.9626902519958094,
+      "log": "clean-installed-cli.log",
+      "published_log": "installed-cli.log"
+    },
+    {
+      "label": "clean-final-diff",
+      "command": "git diff --check\ngit status --short --branch",
+      "cwd": "/tmp/x2-publication-xp5m5o6p/repository",
+      "exit_code": 0,
+      "wall_seconds": 0.0035517080104909837,
+      "log": "clean-final-diff.log",
+      "published_log": null,
+      "log_storage": "Original command log retained locally under audit-output/publication-20260923T115223Z/"
+    }
+  ],
+  "tested_commit": "438dcc85095eec64f79ca1fbd2795a50e377a044",
+  "regression": {
+    "tests": 183,
+    "passed": 183,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "test_seconds": 88.79
+  },
+  "final_status": "",
+  "status": "PASS",
+  "targeted_tests": {
+    "tests": 101,
+    "passed": 101,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "overlap_with_full_suite": true,
+    "command": "source /opt/ros/jazzy/setup.bash\nPYTHONPATH=\"$PWD/src/x2_recovery:$PWD/src/x2_recovery/test${PYTHONPATH:+:$PYTHONPATH}\" MUJOCO_GL=osmesa .venv/bin/python -m unittest test_control test_evaluation test_env test_training -v",
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "exit_code": 0,
+    "wall_seconds": 74.60022395200212,
+    "log": "targeted-tests.log"
+  },
+  "sensitive_review": {
+    "files": 96,
+    "bytes": 47881358,
+    "findings": [],
+    "forbidden": [],
+    "large_files": [
+      {
+        "path": "results/evaluation/ppo-smoke-20260922T044430Z/trajectory.jsonl.gz",
+        "bytes": 31051480,
+        "sha256": "4266bd591bd77239ff31782c4737c927d4278d0c168aba9712389adcc7e66634"
+      }
+    ],
+    "scope": "new/modified nonignored files and ZIP members; pattern scan plus manual provenance/path review; no secret values printed"
+  },
+  "frozen_source_match": {
+    "__init__.py": true,
+    "evaluate.py": true,
+    "train.py": true,
+    "env.py": true,
+    "reset.py": true,
+    "success.py": true,
+    "model.py": true,
+    "model_audit.py": true,
+    "baseline.py": true
+  },
+  "published_logs": {
+    "regression.log": "f2181b4f8b93da37149047b038a636aa0fc8d8a06db6b421ca17558f143fefa2",
+    "build.log": "9a6c827b0327c278fec4e5f9c419e1d3003a486b86f1574072df72fa70056e37",
+    "installed-cli.log": "9f80d050fcc0736015cd19bab5245d8cbc369ccdada87ff00867ccacdfaa9378",
+    "delivery-check.json": "33a98b114a8a505db4d296493b7935e8d491b247fb6e6720f89e708549ea9ddb"
+  },
+  "reward_plot_visual_check": "Opened the original PNG: six real episode returns, complete axes/title/legend, not a recovery success curve.",
+  "unchanged_originals": "Frozen manifests, checkpoints, configs and source snapshots retain their pre-publication byte identities; see publication inventory.",
+  "no_new_experiment": true,
+  "tests_scope": "Regression includes synthetic PPO optimization fixtures and bounded physical environment tests; no new recovery-policy training, search or formal evaluation batch.",
+  "model_cache": "Existing official AgiBot X2 cache, same VM; no clean-machine installation claim."
+}

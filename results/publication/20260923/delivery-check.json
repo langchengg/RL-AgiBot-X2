@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "root": "/tmp/x2-publication-xp5m5o6p/repository",
+  "checked_files": 94,
+  "batches": {
+    "ppo-smoke-20260922T044430Z": {
+      "module": "/tmp/x2-publication-xp5m5o6p/repository/results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/evaluate.py",
+      "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+      "action_consistency": {
+        "max_abs_error": 0.0,
+        "atol": 1e-07,
+        "rtol": 1e-06,
+        "observations": 16,
+        "action_shape": [
+          16,
+          31
+        ]
+      },
+      "policy_state_sha256": "94d57e4faa9eaa05911d25a6b82be2de42b0a593df5056ba58333bcb1e9bd8fa",
+      "forbidden_calls": {
+        "reset": 0,
+        "step": 0,
+        "learn": 0,
+        "train": 0,
+        "optimizer": 0
+      },
+      "saved_batch_audit": {
+        "status": "PASS",
+        "valid_completed": 5,
+        "successes_observed": 0,
+        "summary_sha256": "9a1f059d5c793c169e03a256f20b13346e3a6ca40e749737a453bdb3a001d4ba"
+      }
+    },
+    "ppo-reference-residual-20260922T212457Z": {
+      "module": "/tmp/x2-publication-xp5m5o6p/repository/src/x2_recovery/x2_recovery/evaluate.py",
+      "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+      "action_consistency": {
+        "max_abs_error": 0.0,
+        "atol": 1e-07,
+        "rtol": 1e-06,
+        "observations": 16,
+        "action_shape": [
+          16,
+          17
+        ]
+      },
+      "policy_state_sha256": "24a51f6bf7bbcc2741cee197e0ea00667f3178fd6d4de92aceafd43ab61db1e6",
+      "forbidden_calls": {
+        "reset": 0,
+        "step": 0,
+        "learn": 0,
+        "train": 0,
+        "optimizer": 0
+      },
+      "saved_batch_audit": {
+        "status": "PASS",
+        "valid_completed": 5,
+        "successes_observed": 5,
+        "summary_sha256": "6558b67d74af34608c1f8271933832b4d31164cf296dee5d64d2c4f676a9b918"
+      }
+    }
+  },
+  "scope": "Saved evidence and inference; no new episodes"
+}
