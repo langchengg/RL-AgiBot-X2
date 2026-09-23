@@ -1,0 +1,291 @@
+{
+  "schema": "x2-delivery-review-v1",
+  "status": "PASS",
+  "reviewed_at_utc": "2026-09-23T17:31:45.705185+00:00",
+  "starting_commit": "132da79976ece806031437dc692babc413d27825",
+  "branch": "main",
+  "origin": "https://github.com/langchengg/RL-AgiBot-X2.git",
+  "origin_main_checked": "132da79976ece806031437dc692babc413d27825",
+  "initial_worktree_and_index": "clean",
+  "changed_files": [
+    "README.md",
+    "results/delivery-review/20260923T172855Z/review.json"
+  ],
+  "readme": {
+    "before": {
+      "lines": 2125,
+      "bytes": 140606,
+      "sha256": "b8933aa9b22e831b5c4b5e5c246243d0676f91c6882e947ecfdd61536eee600e"
+    },
+    "after": {
+      "lines": 557,
+      "bytes": 33415,
+      "sha256": "e3f1d6381dd31bd3fe7f8b7184229d83faefc3531ea969dc9aaeeacf2519eebc"
+    },
+    "requirements_coverage_sections_and_lines": {
+      "Setup and Quick Start": 10,
+      "Robot Model and Simulation": 110,
+      "Environment Design": 152,
+      "Rewards and Training": 218,
+      "Evaluation and Limitations": 328,
+      "ROS 2 Integration and Validation": 444
+    }
+  },
+  "task_brief": {
+    "read": "/home/lang/Downloads/HRS_Take_Home_Task.pdf",
+    "pages": 2,
+    "sha256": "2503770be75c8be84e6aa98b02c567a0b5fa75c37071fd6a842078739b478ca9",
+    "method": "pdftotext; checked both pages against six README sections; not redistributed"
+  },
+  "candidate": {
+    "kind": "full local Git clone, no hardlinks, not sparse",
+    "path": "/tmp/x2-delivery-review/candidate",
+    "base_commit": "132da79976ece806031437dc692babc413d27825",
+    "all_starting_tracked_files_available": 401,
+    "readme_patch_sha256": "0e1004b36cfad5646a4853effe98c37ea7a4377cef300fe525d64b04906e4d66",
+    "copied_untracked_runtime_files": 0,
+    "reused": "existing Parallels Ubuntu 24.04 ARM64 VM, verified Python dependencies and fixed external model; not a fresh dependency/OS install"
+  },
+  "runtime": {
+    "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "version": "3.12.3",
+    "base_prefix": "/usr",
+    "model_commit": "60c5de582c523cd188f563819e62d34cfdc3d2d0",
+    "model_git_status": "clean",
+    "dependency_pins_checked": [
+      "numpy==1.26.4",
+      "mujoco==3.13.0",
+      "gymnasium==1.3.0",
+      "stable-baselines3==2.9.0",
+      "torch==2.8.0+cpu",
+      "Pillow==10.2.0",
+      "cffi==2.1.1",
+      "matplotlib==3.6.3"
+    ]
+  },
+  "checks": {
+    "markdown": {
+      "status": "PASS",
+      "fenced_blocks": 12,
+      "shell_blocks": 12,
+      "embedded_python_syntax": "PASS",
+      "reference_definitions": 23,
+      "relative_link_targets": 26,
+      "relative_links": "tracked files/directories only",
+      "requirements_sections": [
+        "## Setup and Quick Start",
+        "## Robot Model and Simulation",
+        "## Environment Design",
+        "## Rewards and Training",
+        "## Evaluation and Limitations",
+        "## ROS 2 Integration and Validation"
+      ],
+      "readme_sha256": "e3f1d6381dd31bd3fe7f8b7184229d83faefc3531ea969dc9aaeeacf2519eebc"
+    },
+    "commands": {
+      "status": "PASS",
+      "commands": [
+        {
+          "kind": "control-reload",
+          "writes_to_new_run": true
+        },
+        {
+          "kind": "control-block",
+          "resume": false,
+          "matches_selected_algorithm": true
+        },
+        {
+          "kind": "control-reload",
+          "writes_to_new_run": true
+        },
+        {
+          "kind": "evaluate",
+          "published_inputs": false,
+          "new_output": true
+        },
+        {
+          "kind": "control-block",
+          "resume": true,
+          "matches_selected_algorithm": true
+        },
+        {
+          "kind": "evaluate",
+          "published_inputs": true,
+          "new_output": true
+        }
+      ],
+      "scope": "actual parsers; training config compared with frozen selected config; episode and optimizer functions forbidden/intercepted"
+    },
+    "build": {
+      "status": "PASS",
+      "command": "Existing venv Python /usr/bin/colcon --log-base /tmp/x2-delivery-review/log build --base-paths src --packages-select x2_recovery --symlink-install --build-base /tmp/x2-delivery-review/build --install-base /tmp/x2-delivery-review/install",
+      "cwd": "/tmp/x2-delivery-review/candidate",
+      "duration_seconds": 0.75,
+      "installed_check_cwd": "/tmp",
+      "initial_PYTHONPATH": "unset; sourced Jazzy and candidate overlay only",
+      "production_modules_imported": 14,
+      "all_module_paths_under": "/tmp/x2-delivery-review/candidate/src/x2_recovery",
+      "package_share": "/tmp/x2-delivery-review/install/x2_recovery/share/x2_recovery",
+      "resource_launch_and_node_shebangs": "verified; shebang uses declared reused venv",
+      "console_entries": [
+        "runtime_check",
+        "train_recovery",
+        "recovery_node",
+        "telemetry_node"
+      ],
+      "help_checks": [
+        "train",
+        "control-block",
+        "control-reload",
+        "evaluate",
+        "ros2 launch --show-args"
+      ],
+      "pip_check": "No broken requirements found"
+    },
+    "publication_verifier": {
+      "status": "PASS",
+      "checked_inventory_files": 94,
+      "script": "results/publication/20260923/verify_delivery.py",
+      "scope": "current complete candidate; unchanged script; gzip restored only in candidate; saved records and inference, no new episodes",
+      "includes_current_README": false,
+      "batches": {
+        "ppo-smoke-20260922T044430Z": {
+          "module": "/tmp/x2-delivery-review/candidate/results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/evaluate.py",
+          "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+          "action_consistency": {
+            "max_abs_error": 0.0,
+            "atol": 1e-07,
+            "rtol": 1e-06,
+            "observations": 16,
+            "action_shape": [
+              16,
+              31
+            ]
+          },
+          "policy_state_sha256": "94d57e4faa9eaa05911d25a6b82be2de42b0a593df5056ba58333bcb1e9bd8fa",
+          "forbidden_calls": {
+            "reset": 0,
+            "step": 0,
+            "learn": 0,
+            "train": 0,
+            "optimizer": 0
+          },
+          "saved_batch_audit": {
+            "status": "PASS",
+            "valid_completed": 5,
+            "successes_observed": 0,
+            "summary_sha256": "9a1f059d5c793c169e03a256f20b13346e3a6ca40e749737a453bdb3a001d4ba"
+          }
+        },
+        "ppo-reference-residual-20260922T212457Z": {
+          "module": "/tmp/x2-delivery-review/candidate/src/x2_recovery/x2_recovery/evaluate.py",
+          "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+          "action_consistency": {
+            "max_abs_error": 0.0,
+            "atol": 1e-07,
+            "rtol": 1e-06,
+            "observations": 16,
+            "action_shape": [
+              16,
+              17
+            ]
+          },
+          "policy_state_sha256": "24a51f6bf7bbcc2741cee197e0ea00667f3178fd6d4de92aceafd43ab61db1e6",
+          "forbidden_calls": {
+            "reset": 0,
+            "step": 0,
+            "learn": 0,
+            "train": 0,
+            "optimizer": 0
+          },
+          "saved_batch_audit": {
+            "status": "PASS",
+            "valid_completed": 5,
+            "successes_observed": 5,
+            "summary_sha256": "6558b67d74af34608c1f8271933832b4d31164cf296dee5d64d2c4f676a9b918"
+          }
+        }
+      }
+    },
+    "historical_ros_identity": {
+      "status": "PASS",
+      "checked_at_utc": "2026-09-23T17:18:50.123641+00:00",
+      "tested_base_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+      "tested_patch": "results/ros-acceptance/20260923T125208Z-patched-v3/tested-v3.patch",
+      "tested_patch_sha256": "a94c3a07582fa411c36dde9387f54c722658f7232d64bc2063a3a4b109ba0861",
+      "files_checked_against_source_identity": 31,
+      "tested_readme_sha256": "a65567d4da0d7fde2c43129413c60fa00d8cb468701307f57236d35a7e51db80",
+      "historical_publication_commit": "8e14b79c3f6097be44cc5f83ff859e744009b372",
+      "historical_publication_readme_sha256": "b8933aa9b22e831b5c4b5e5c246243d0676f91c6882e947ecfdd61536eee600e",
+      "starting_commit": "132da79976ece806031437dc692babc413d27825",
+      "starting_readme_equal_to_historical_publication": true,
+      "ros_publication_manifest_has_readme_inventory": false,
+      "ros_publication_manifest_scope": "Byte-for-byte evidence copy verification before commit; Git publication is verified separately",
+      "historical_readme_identity_location": "results/ros-acceptance/20260923T125208Z-patched-v3/source-identity.json and publication-document-identity.json"
+    },
+    "git_diff_check": "PASS"
+  },
+  "invariance": {
+    "status": "PASS",
+    "before_snapshot": "temporary before.json records Git blob, bytes and SHA-256 of all 401 starting tracked files",
+    "unchanged_existing_files": 400,
+    "unchanged_existing_sha256_map_digest": "59470f7ab514cd88c486973b88b81ef65e7fd86633563cb68054105bc26c5d6b",
+    "digest_encoding": "SHA256 of sorted path + NUL + SHA256 + LF entries",
+    "protected_runtime_test_packaging_files": 32,
+    "protected_sha256_map_digest": "d6d895aabdd292fb4027dc0dedf3b5aca4f38a03dc6903fa8b434091a45bd7fa",
+    "production_python_files": 15,
+    "test_files": 10,
+    "existing_results_files": 367,
+    "existing_results_sha256_map_digest": "45995d366f61c7f451ef7ed03b6b7707edd92e7a79ab9242d58a9ae346a4c773",
+    "checkpoint_config_manifest_sha256": {
+      "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/manifest.json": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac",
+      "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/policy_final.zip": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+      "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/resolved_config.json": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+      "results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/manifest.json": "cd1a5b1c5786411b8cdf7c6e85c5ecbe4eef837e8ea0f675bedaeb283b5db647",
+      "results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/policy_final.zip": "e8fa7e642e8ccd8d6dd38aaf9d810eee3c00d39d4188f82702c5b8e6124b213e",
+      "results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/resolved_config.json": "1f65af4b7294956feb9a9d19f80aa337d10c0be8b8bdb26dbbf3deb19be0f648"
+    },
+    "only_changed_existing_file": "README.md",
+    "historical_manifests_rewritten": false
+  },
+  "cleanup": {
+    "deleted_files": [],
+    "deleted_count": 0,
+    "conclusion": "No safely removable candidates found.",
+    "review_scope": [
+      "normal/dynamic imports and path construction",
+      "console_scripts and python -m entry points",
+      "launch, setup data_files, resource marker and tests",
+      "README reproduction commands and historical scripts",
+      "source fingerprints/snapshots and publication inventory",
+      "unique historical evidence and attribution"
+    ],
+    "retention_basis": "All tracked non-results files are runtime, test, packaging or protection files; all existing results are published evidence. train imports model_audit.fingerprint; evaluate snapshots model_audit; diagnostics uses it. Ignored local files were not removed."
+  },
+  "not_executed": [
+    "new training or continuation",
+    "motion search",
+    "policy or baseline episodes",
+    "new formal five-episode evaluation",
+    "183-test regression suite",
+    "85-check ROS cross-process acceptance",
+    "fresh dependency/model installation",
+    "push"
+  ],
+  "historical_validation_only": {
+    "regression_tests": 183,
+    "ros_cross_process_checks": 85,
+    "scope": "prior evidence, distinct overlapping validation scopes, not 268 new recovery tests"
+  },
+  "publication": {
+    "local_commit": "created after this record; identity reported in final response without another receipt commit",
+    "push": "not attempted: final user instruction was no push",
+    "history_rewrite": false
+  },
+  "remaining_limitations": [
+    "5/5 establishes identical fixed-state repeatability only",
+    "reference alone also succeeds; PPO success-rate benefit unproven",
+    "ROS still scripted_baseline",
+    "no hardware or broad initial-state robustness validation"
+  ]
+}
