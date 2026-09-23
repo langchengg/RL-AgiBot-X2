@@ -1,0 +1,3 @@
++ 1790169194.845842 cwd=/tmp cd /tmp
++ 1790169194.845878 cwd=/tmp test '!' -e /tmp/x2-final-ros.z4vmp3sx/evidence/integration
++ 1790169194.845897 cwd=/tmp timeout --signal=INT --kill-after=15s 240s /tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python /tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/test/test_ros_integration.py --output-dir /tmp/x2-final-ros.z4vmp3sx/evidence/integration

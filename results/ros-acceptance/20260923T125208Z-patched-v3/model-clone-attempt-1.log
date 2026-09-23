@@ -1,0 +1,8 @@
++ 1790167928.902860 cwd=/tmp timeout --signal=INT --kill-after=10s 120s git -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1 -c http.lowSpeedTime=30 clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git /tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf
+Cloning into '/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf'...
++ 1790167936.113690 cwd=/tmp timeout --signal=INT --kill-after=10s 120s git -C /tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1 -c http.lowSpeedTime=30 sparse-checkout set X2_URDF-v1.3.0
++ 1790167936.116197 cwd=/tmp timeout --signal=INT --kill-after=10s 120s git -C /tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1 -c http.lowSpeedTime=30 checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0
+HEAD is now at 60c5de5 add X2 EDU robot models, update stl and urdf params
++ 1790167994.539922 cwd=/tmp git -C /tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf rev-parse HEAD
+60c5de582c523cd188f563819e62d34cfdc3d2d0
++ 1790167994.540660 cwd=/tmp git -C /tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf status --short

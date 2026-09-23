@@ -1,0 +1,426 @@
++ 1790167041.065569 cwd=/tmp python3 -
++ 1790167041.078497 cwd=/tmp source /opt/ros/jazzy/setup.bash
+++ 1790167041.078529 cwd=/tmp AMENT_SHELL=bash
+++++ 1790167041.078841 cwd=/tmp dirname /opt/ros/jazzy/setup.bash
++++ 1790167041.079258 cwd=/tmp builtin cd /opt/ros/jazzy
++++ 1790167041.079278 cwd=/opt/ros/jazzy pwd
+++ 1790167041.079352 cwd=/tmp AMENT_CURRENT_PREFIX=/opt/ros/jazzy
+++ 1790167041.079367 cwd=/tmp '[' -n '' ']'
+++ 1790167041.079374 cwd=/tmp . /opt/ros/jazzy/setup.sh
++++ 1790167041.079394 cwd=/tmp : /opt/ros/jazzy
++++ 1790167041.079399 cwd=/tmp : bash
++++ 1790167041.079444 cwd=/tmp _prefix_setup_IFS=' 	
+'
++++ 1790167041.079447 cwd=/tmp IFS='
+'
++++ 1790167041.079451 cwd=/tmp _UNIQUE_PREFIX_PATH=
++++ 1790167041.079476 cwd=/tmp '[' -z SKIP_PARENT_PREFIX_PATH ']'
++++ 1790167041.079483 cwd=/tmp ament_append_unique_value _UNIQUE_PREFIX_PATH /opt/ros/jazzy
++++ 1790167041.079495 cwd=/tmp _listname=_UNIQUE_PREFIX_PATH
++++ 1790167041.079498 cwd=/tmp _value=/opt/ros/jazzy
++++ 1790167041.079501 cwd=/tmp eval '_values=$_UNIQUE_PREFIX_PATH'
+++++ 1790167041.079506 cwd=/tmp _values=
++++ 1790167041.079508 cwd=/tmp _duplicate=
++++ 1790167041.079511 cwd=/tmp _ament_append_unique_value_IFS='
+'
++++ 1790167041.079513 cwd=/tmp IFS=:
++++ 1790167041.079516 cwd=/tmp '[' bash = zsh ']'
++++ 1790167041.079520 cwd=/tmp unset _item
++++ 1790167041.079524 cwd=/tmp '[' -z '' ']'
++++ 1790167041.079527 cwd=/tmp '[' -z '' ']'
++++ 1790167041.079531 cwd=/tmp eval '_UNIQUE_PREFIX_PATH="/opt/ros/jazzy"'
+++++ 1790167041.079535 cwd=/tmp _UNIQUE_PREFIX_PATH=/opt/ros/jazzy
++++ 1790167041.079538 cwd=/tmp IFS='
+'
++++ 1790167041.079540 cwd=/tmp unset _ament_append_unique_value_IFS
++++ 1790167041.079543 cwd=/tmp unset _duplicate
++++ 1790167041.079545 cwd=/tmp unset _values
++++ 1790167041.079548 cwd=/tmp unset _value
++++ 1790167041.079550 cwd=/tmp unset _listname
++++ 1790167041.079555 cwd=/tmp unset AMENT_CURRENT_PREFIX
++++ 1790167041.079559 cwd=/tmp _prefix_setup_AMENT_SHELL=bash
++++ 1790167041.079562 cwd=/tmp IFS=:
++++ 1790167041.079567 cwd=/tmp '[' bash = zsh ']'
++++ 1790167041.079576 cwd=/tmp for _path in $_UNIQUE_PREFIX_PATH
++++ 1790167041.079579 cwd=/tmp '[' -n '' ']'
++++ 1790167041.079583 cwd=/tmp '[' -f /opt/ros/jazzy/local_setup.bash ']'
++++ 1790167041.079588 cwd=/tmp '[' bash = sh ']'
++++ 1790167041.079590 cwd=/tmp IFS=' 	
+'
++++ 1790167041.079594 cwd=/tmp . /opt/ros/jazzy/local_setup.bash
+++++ 1790167041.079600 cwd=/tmp AMENT_SHELL=bash
+++++++ 1790167041.079833 cwd=/tmp dirname /opt/ros/jazzy/local_setup.bash
++++++ 1790167041.080143 cwd=/tmp builtin cd /opt/ros/jazzy
++++++ 1790167041.080157 cwd=/opt/ros/jazzy pwd
+++++ 1790167041.080222 cwd=/tmp AMENT_CURRENT_PREFIX=/opt/ros/jazzy
+++++ 1790167041.080234 cwd=/tmp '[' -n '' ']'
+++++ 1790167041.080239 cwd=/tmp . /opt/ros/jazzy/local_setup.sh
++++++ 1790167041.080254 cwd=/tmp _ament_prefix_sh_AMENT_CURRENT_PREFIX=/opt/ros/jazzy
++++++ 1790167041.080264 cwd=/tmp '[' -z /opt/ros/jazzy ']'
++++++ 1790167041.080267 cwd=/tmp _ament_prefix_sh_AMENT_CURRENT_PREFIX=/opt/ros/jazzy
++++++ 1790167041.080271 cwd=/tmp : bash
++++++ 1790167041.080275 cwd=/tmp _ament_python_executable=/usr/bin/python3
++++++ 1790167041.080279 cwd=/tmp '[' -n '' ']'
++++++ 1790167041.080288 cwd=/tmp '[' '!' -f /usr/bin/python3 ']'
++++++ 1790167041.080327 cwd=/tmp _ament_additional_extension=
++++++ 1790167041.080332 cwd=/tmp '[' bash '!=' sh ']'
++++++ 1790167041.080336 cwd=/tmp _ament_additional_extension=bash
+++++++ 1790167041.080461 cwd=/tmp /usr/bin/python3 /opt/ros/jazzy/_local_setup_util.py sh bash
++++++ 1790167041.115349 cwd=/tmp _ament_ordered_commands='export AMENT_PREFIX_PATH="/opt/ros/jazzy:$AMENT_PREFIX_PATH"
+export PATH="/opt/ros/jazzy/bin:$PATH"
+export PYTHONPATH="/opt/ros/jazzy/lib/python3.12/site-packages:$PYTHONPATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_cmake_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_cmake_vendor:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_utils_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_utils_vendor:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_math_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_math_vendor:$CMAKE_PREFIX_PATH"
+export PYTHONPATH="/opt/ros/jazzy/opt/gz_math_vendor/lib/python:$PYTHONPATH"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/ros2cli/environment/ros2-argcomplete.bash"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/ros_environment/environment/0.ros_distro_check.sh"
+export ROS_AUTOMATIC_DISCOVERY_RANGE="SUBNET"
+export ROS_DISTRO="jazzy"
+export ROS_PYTHON_VERSION="3"
+export ROS_VERSION="2"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/lib/aarch64-linux-gnu:$LD_LIBRARY_PATH"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/rosidl_cli/environment/rosidl-argcomplete.bash"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:$LD_LIBRARY_PATH"
+export AMENT_PREFIX_PATH=${AMENT_PREFIX_PATH#:}
+export AMENT_PREFIX_PATH=${AMENT_PREFIX_PATH%:}
+export PYTHONPATH=${PYTHONPATH#:}
+export PYTHONPATH=${PYTHONPATH%:}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH#:}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH%:}
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH#:}
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH%:}
+export ROS_DISTRO=${ROS_DISTRO#:}
+export ROS_DISTRO=${ROS_DISTRO%:}
+export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION#:}
+export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION%:}
+export ROS_VERSION=${ROS_VERSION#:}
+export ROS_VERSION=${ROS_VERSION%:}'
++++++ 1790167041.115388 cwd=/tmp unset _ament_additional_extension
++++++ 1790167041.115395 cwd=/tmp unset _ament_python_executable
++++++ 1790167041.115409 cwd=/tmp '[' -n '' ']'
++++++ 1790167041.115442 cwd=/tmp eval 'export AMENT_PREFIX_PATH="/opt/ros/jazzy:$AMENT_PREFIX_PATH"
+export PATH="/opt/ros/jazzy/bin:$PATH"
+export PYTHONPATH="/opt/ros/jazzy/lib/python3.12/site-packages:$PYTHONPATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_cmake_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_cmake_vendor:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_utils_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_utils_vendor:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_math_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_math_vendor:$CMAKE_PREFIX_PATH"
+export PYTHONPATH="/opt/ros/jazzy/opt/gz_math_vendor/lib/python:$PYTHONPATH"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/ros2cli/environment/ros2-argcomplete.bash"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/ros_environment/environment/0.ros_distro_check.sh"
+export ROS_AUTOMATIC_DISCOVERY_RANGE="SUBNET"
+export ROS_DISTRO="jazzy"
+export ROS_PYTHON_VERSION="3"
+export ROS_VERSION="2"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/lib/aarch64-linux-gnu:$LD_LIBRARY_PATH"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/rosidl_cli/environment/rosidl-argcomplete.bash"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:$LD_LIBRARY_PATH"
+export AMENT_PREFIX_PATH=${AMENT_PREFIX_PATH#:}
+export AMENT_PREFIX_PATH=${AMENT_PREFIX_PATH%:}
+export PYTHONPATH=${PYTHONPATH#:}
+export PYTHONPATH=${PYTHONPATH%:}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH#:}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH%:}
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH#:}
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH%:}
+export ROS_DISTRO=${ROS_DISTRO#:}
+export ROS_DISTRO=${ROS_DISTRO%:}
+export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION#:}
+export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION%:}
+export ROS_VERSION=${ROS_VERSION#:}
+export ROS_VERSION=${ROS_VERSION%:}'
+++++++ 1790167041.115463 cwd=/tmp export AMENT_PREFIX_PATH=/opt/ros/jazzy:
+++++++ 1790167041.115466 cwd=/tmp AMENT_PREFIX_PATH=/opt/ros/jazzy:
+++++++ 1790167041.115472 cwd=/tmp export PATH=/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++++++ 1790167041.115476 cwd=/tmp PATH=/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++++++ 1790167041.115484 cwd=/tmp export PYTHONPATH=/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790167041.115486 cwd=/tmp PYTHONPATH=/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790167041.115490 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/lib:
+++++++ 1790167041.115492 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/lib:
+++++++ 1790167041.115498 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.115499 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.115504 cwd=/tmp export CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790167041.115506 cwd=/tmp CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790167041.115512 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.115514 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.115520 cwd=/tmp export CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790167041.115522 cwd=/tmp CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790167041.115528 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.115530 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.115536 cwd=/tmp export CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790167041.115538 cwd=/tmp CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790167041.115545 cwd=/tmp export PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790167041.115547 cwd=/tmp PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790167041.115555 cwd=/tmp AMENT_CURRENT_PREFIX=/opt/ros/jazzy
+++++++ 1790167041.115557 cwd=/tmp _ament_prefix_sh_source_script /opt/ros/jazzy/share/ros2cli/environment/ros2-argcomplete.bash
+++++++ 1790167041.115566 cwd=/tmp '[' -f /opt/ros/jazzy/share/ros2cli/environment/ros2-argcomplete.bash ']'
+++++++ 1790167041.115572 cwd=/tmp '[' -n '' ']'
+++++++ 1790167041.115577 cwd=/tmp . /opt/ros/jazzy/share/ros2cli/environment/ros2-argcomplete.bash
++++++++ 1790167041.115596 cwd=/tmp type register-python-argcomplete3
++++++++ 1790167041.115623 cwd=/tmp type register-python-argcomplete
+++++++++ 1790167041.115838 cwd=/tmp register-python-argcomplete ros2
++++++++ 1790167041.131771 cwd=/tmp eval '
+# Run something, muting output or redirecting it to the debug stream
+# depending on the value of _ARC_DEBUG.
+# If ARGCOMPLETE_USE_TEMPFILES is set, use tempfiles for IPC.
+__python_argcomplete_run() {
+    if [[ -z "${ARGCOMPLETE_USE_TEMPFILES-}" ]]; then
+        __python_argcomplete_run_inner "$@"
+        return
+    fi
+    local tmpfile="$(mktemp)"
+    _ARGCOMPLETE_STDOUT_FILENAME="$tmpfile" __python_argcomplete_run_inner "$@"
+    local code=$?
+    cat "$tmpfile"
+    rm "$tmpfile"
+    return $code
+}
+
+__python_argcomplete_run_inner() {
+    if [[ -z "${_ARC_DEBUG-}" ]]; then
+        "$@" 8>&1 9>&2 1>/dev/null 2>&1
+    else
+        "$@" 8>&1 9>&2 1>&9 2>&1
+    fi
+}
+
+_python_argcomplete() {
+    local IFS=$'\''\013'\''
+    local script=""
+    if [[ -n "${ZSH_VERSION-}" ]]; then
+        local completions
+        completions=($(IFS="$IFS" \
+            COMP_LINE="$BUFFER" \
+            COMP_POINT="$CURSOR" \
+            _ARGCOMPLETE=1 \
+            _ARGCOMPLETE_SHELL="zsh" \
+            _ARGCOMPLETE_SUPPRESS_SPACE=1 \
+            __python_argcomplete_run ${script:-${words[1]}}))
+        _describe "${words[1]}" completions -o nosort
+    else
+        local SUPPRESS_SPACE=0
+        if compopt +o nospace 2> /dev/null; then
+            SUPPRESS_SPACE=1
+        fi
+        COMPREPLY=($(IFS="$IFS" \
+            COMP_LINE="$COMP_LINE" \
+            COMP_POINT="$COMP_POINT" \
+            COMP_TYPE="$COMP_TYPE" \
+            _ARGCOMPLETE_COMP_WORDBREAKS="$COMP_WORDBREAKS" \
+            _ARGCOMPLETE=1 \
+            _ARGCOMPLETE_SHELL="bash" \
+            _ARGCOMPLETE_SUPPRESS_SPACE=$SUPPRESS_SPACE \
+            __python_argcomplete_run ${script:-$1}))
+        if [[ $? != 0 ]]; then
+            unset COMPREPLY
+        elif [[ $SUPPRESS_SPACE == 1 ]] && [[ "${COMPREPLY-}" =~ [=/:]$ ]]; then
+            compopt -o nospace
+        fi
+    fi
+}
+if [[ -z "${ZSH_VERSION-}" ]]; then
+    complete -o nospace -o default -o bashdefault -F _python_argcomplete ros2
+else
+    compdef _python_argcomplete ros2
+fi'
+++++++++ 1790167041.131859 cwd=/tmp [[ -z '' ]]
+++++++++ 1790167041.131865 cwd=/tmp complete -o nospace -o default -o bashdefault -F _python_argcomplete ros2
+++++++ 1790167041.131890 cwd=/tmp AMENT_CURRENT_PREFIX=/opt/ros/jazzy
+++++++ 1790167041.131892 cwd=/tmp _ament_prefix_sh_source_script /opt/ros/jazzy/share/ros_environment/environment/0.ros_distro_check.sh
+++++++ 1790167041.131899 cwd=/tmp '[' -f /opt/ros/jazzy/share/ros_environment/environment/0.ros_distro_check.sh ']'
+++++++ 1790167041.131905 cwd=/tmp '[' -n '' ']'
+++++++ 1790167041.131909 cwd=/tmp . /opt/ros/jazzy/share/ros_environment/environment/0.ros_distro_check.sh
++++++++ 1790167041.131921 cwd=/tmp '[' -n '' -a '' '!=' jazzy ']'
+++++++ 1790167041.131930 cwd=/tmp export ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
+++++++ 1790167041.131932 cwd=/tmp ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
+++++++ 1790167041.131936 cwd=/tmp export ROS_DISTRO=jazzy
+++++++ 1790167041.131938 cwd=/tmp ROS_DISTRO=jazzy
+++++++ 1790167041.131942 cwd=/tmp export ROS_PYTHON_VERSION=3
+++++++ 1790167041.131943 cwd=/tmp ROS_PYTHON_VERSION=3
+++++++ 1790167041.131946 cwd=/tmp export ROS_VERSION=2
+++++++ 1790167041.131948 cwd=/tmp ROS_VERSION=2
+++++++ 1790167041.131955 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.131957 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.131965 cwd=/tmp AMENT_CURRENT_PREFIX=/opt/ros/jazzy
+++++++ 1790167041.131967 cwd=/tmp _ament_prefix_sh_source_script /opt/ros/jazzy/share/rosidl_cli/environment/rosidl-argcomplete.bash
+++++++ 1790167041.131971 cwd=/tmp '[' -f /opt/ros/jazzy/share/rosidl_cli/environment/rosidl-argcomplete.bash ']'
+++++++ 1790167041.131976 cwd=/tmp '[' -n '' ']'
+++++++ 1790167041.131979 cwd=/tmp . /opt/ros/jazzy/share/rosidl_cli/environment/rosidl-argcomplete.bash
++++++++ 1790167041.131995 cwd=/tmp type register-python-argcomplete3
++++++++ 1790167041.132016 cwd=/tmp type register-python-argcomplete
+++++++++ 1790167041.132190 cwd=/tmp register-python-argcomplete rosidl
++++++++ 1790167041.148420 cwd=/tmp eval '
+# Run something, muting output or redirecting it to the debug stream
+# depending on the value of _ARC_DEBUG.
+# If ARGCOMPLETE_USE_TEMPFILES is set, use tempfiles for IPC.
+__python_argcomplete_run() {
+    if [[ -z "${ARGCOMPLETE_USE_TEMPFILES-}" ]]; then
+        __python_argcomplete_run_inner "$@"
+        return
+    fi
+    local tmpfile="$(mktemp)"
+    _ARGCOMPLETE_STDOUT_FILENAME="$tmpfile" __python_argcomplete_run_inner "$@"
+    local code=$?
+    cat "$tmpfile"
+    rm "$tmpfile"
+    return $code
+}
+
+__python_argcomplete_run_inner() {
+    if [[ -z "${_ARC_DEBUG-}" ]]; then
+        "$@" 8>&1 9>&2 1>/dev/null 2>&1
+    else
+        "$@" 8>&1 9>&2 1>&9 2>&1
+    fi
+}
+
+_python_argcomplete() {
+    local IFS=$'\''\013'\''
+    local script=""
+    if [[ -n "${ZSH_VERSION-}" ]]; then
+        local completions
+        completions=($(IFS="$IFS" \
+            COMP_LINE="$BUFFER" \
+            COMP_POINT="$CURSOR" \
+            _ARGCOMPLETE=1 \
+            _ARGCOMPLETE_SHELL="zsh" \
+            _ARGCOMPLETE_SUPPRESS_SPACE=1 \
+            __python_argcomplete_run ${script:-${words[1]}}))
+        _describe "${words[1]}" completions -o nosort
+    else
+        local SUPPRESS_SPACE=0
+        if compopt +o nospace 2> /dev/null; then
+            SUPPRESS_SPACE=1
+        fi
+        COMPREPLY=($(IFS="$IFS" \
+            COMP_LINE="$COMP_LINE" \
+            COMP_POINT="$COMP_POINT" \
+            COMP_TYPE="$COMP_TYPE" \
+            _ARGCOMPLETE_COMP_WORDBREAKS="$COMP_WORDBREAKS" \
+            _ARGCOMPLETE=1 \
+            _ARGCOMPLETE_SHELL="bash" \
+            _ARGCOMPLETE_SUPPRESS_SPACE=$SUPPRESS_SPACE \
+            __python_argcomplete_run ${script:-$1}))
+        if [[ $? != 0 ]]; then
+            unset COMPREPLY
+        elif [[ $SUPPRESS_SPACE == 1 ]] && [[ "${COMPREPLY-}" =~ [=/:]$ ]]; then
+            compopt -o nospace
+        fi
+    fi
+}
+if [[ -z "${ZSH_VERSION-}" ]]; then
+    complete -o nospace -o default -o bashdefault -F _python_argcomplete rosidl
+else
+    compdef _python_argcomplete rosidl
+fi'
+++++++++ 1790167041.148512 cwd=/tmp [[ -z '' ]]
+++++++++ 1790167041.148519 cwd=/tmp complete -o nospace -o default -o bashdefault -F _python_argcomplete rosidl
+++++++ 1790167041.148544 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.148548 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.148556 cwd=/tmp export AMENT_PREFIX_PATH=/opt/ros/jazzy:
+++++++ 1790167041.148558 cwd=/tmp AMENT_PREFIX_PATH=/opt/ros/jazzy:
+++++++ 1790167041.148563 cwd=/tmp export AMENT_PREFIX_PATH=/opt/ros/jazzy
+++++++ 1790167041.148565 cwd=/tmp AMENT_PREFIX_PATH=/opt/ros/jazzy
+++++++ 1790167041.148572 cwd=/tmp export PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790167041.148575 cwd=/tmp PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790167041.148580 cwd=/tmp export PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages
+++++++ 1790167041.148582 cwd=/tmp PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages
+++++++ 1790167041.148593 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.148596 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790167041.148602 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib
+++++++ 1790167041.148605 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib
+++++++ 1790167041.148612 cwd=/tmp export CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790167041.148615 cwd=/tmp CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790167041.148621 cwd=/tmp export CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor
+++++++ 1790167041.148623 cwd=/tmp CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor
+++++++ 1790167041.148627 cwd=/tmp export ROS_DISTRO=jazzy
+++++++ 1790167041.148629 cwd=/tmp ROS_DISTRO=jazzy
+++++++ 1790167041.148632 cwd=/tmp export ROS_DISTRO=jazzy
+++++++ 1790167041.148634 cwd=/tmp ROS_DISTRO=jazzy
+++++++ 1790167041.148638 cwd=/tmp export ROS_PYTHON_VERSION=3
+++++++ 1790167041.148639 cwd=/tmp ROS_PYTHON_VERSION=3
+++++++ 1790167041.148643 cwd=/tmp export ROS_PYTHON_VERSION=3
+++++++ 1790167041.148645 cwd=/tmp ROS_PYTHON_VERSION=3
+++++++ 1790167041.148648 cwd=/tmp export ROS_VERSION=2
+++++++ 1790167041.148650 cwd=/tmp ROS_VERSION=2
+++++++ 1790167041.148653 cwd=/tmp export ROS_VERSION=2
+++++++ 1790167041.148655 cwd=/tmp ROS_VERSION=2
++++++ 1790167041.148662 cwd=/tmp unset _ament_ordered_commands
++++++ 1790167041.148667 cwd=/tmp unset _ament_prefix_sh_source_script
++++++ 1790167041.148672 cwd=/tmp unset _ament_prefix_sh_AMENT_CURRENT_PREFIX
++++ 1790167041.148680 cwd=/tmp AMENT_SHELL=bash
++++ 1790167041.148685 cwd=/tmp unset _path
++++ 1790167041.148689 cwd=/tmp IFS=' 	
+'
++++ 1790167041.148692 cwd=/tmp unset _prefix_setup_IFS
++++ 1790167041.148695 cwd=/tmp unset _prefix_setup_AMENT_SHELL
++++ 1790167041.148699 cwd=/tmp unset _UNIQUE_PREFIX_PATH
++++ 1790167041.148702 cwd=/tmp unset AMENT_SHELL
++ 1790167041.148711 cwd=/tmp python3 -
+[
+  {
+    "stage": "clean_before_source",
+    "executable": "/usr/bin/python3",
+    "prefix": "/usr",
+    "sys_path": [
+      "",
+      "/usr/lib/python312.zip",
+      "/usr/lib/python3.12",
+      "/usr/lib/python3.12/lib-dynload",
+      "/usr/local/lib/python3.12/dist-packages",
+      "/usr/lib/python3/dist-packages"
+    ],
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "PYTHONPATH": null,
+      "VIRTUAL_ENV": null,
+      "AMENT_PREFIX_PATH": null,
+      "COLCON_PREFIX_PATH": null,
+      "CMAKE_PREFIX_PATH": null,
+      "LD_LIBRARY_PATH": null,
+      "ROS_DISTRO": null,
+      "X2_ASSET_REPO": null,
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    }
+  },
+  {
+    "stage": "after_ros_source",
+    "executable": "/usr/bin/python3",
+    "prefix": "/usr",
+    "sys_path": [
+      "",
+      "/opt/ros/jazzy/opt/gz_math_vendor/lib/python",
+      "/opt/ros/jazzy/lib/python3.12/site-packages",
+      "/usr/lib/python312.zip",
+      "/usr/lib/python3.12",
+      "/usr/lib/python3.12/lib-dynload",
+      "/usr/local/lib/python3.12/dist-packages",
+      "/usr/lib/python3/dist-packages"
+    ],
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "PYTHONPATH": "/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+      "VIRTUAL_ENV": null,
+      "AMENT_PREFIX_PATH": "/opt/ros/jazzy",
+      "COLCON_PREFIX_PATH": null,
+      "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+      "LD_LIBRARY_PATH": "/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib",
+      "ROS_DISTRO": "jazzy",
+      "X2_ASSET_REPO": null,
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    }
+  }
+]
+

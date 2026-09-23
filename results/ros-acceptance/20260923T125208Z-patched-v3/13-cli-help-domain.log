@@ -1,0 +1,609 @@
++ 1790168299.448254 cwd=/tmp set -eo pipefail
++ 1790168299.448281 cwd=/tmp source /opt/ros/jazzy/setup.bash
+++ 1790168299.448294 cwd=/tmp AMENT_SHELL=bash
+++++ 1790168299.448591 cwd=/tmp dirname /opt/ros/jazzy/setup.bash
++++ 1790168299.448922 cwd=/tmp builtin cd /opt/ros/jazzy
++++ 1790168299.448939 cwd=/opt/ros/jazzy pwd
+++ 1790168299.449016 cwd=/tmp AMENT_CURRENT_PREFIX=/opt/ros/jazzy
+++ 1790168299.449033 cwd=/tmp '[' -n '' ']'
+++ 1790168299.449041 cwd=/tmp . /opt/ros/jazzy/setup.sh
++++ 1790168299.449058 cwd=/tmp : /opt/ros/jazzy
++++ 1790168299.449063 cwd=/tmp : bash
++++ 1790168299.449104 cwd=/tmp _prefix_setup_IFS=' 	
+'
++++ 1790168299.449107 cwd=/tmp IFS='
+'
++++ 1790168299.449110 cwd=/tmp _UNIQUE_PREFIX_PATH=
++++ 1790168299.449136 cwd=/tmp '[' -z SKIP_PARENT_PREFIX_PATH ']'
++++ 1790168299.449144 cwd=/tmp ament_append_unique_value _UNIQUE_PREFIX_PATH /opt/ros/jazzy
++++ 1790168299.449155 cwd=/tmp _listname=_UNIQUE_PREFIX_PATH
++++ 1790168299.449159 cwd=/tmp _value=/opt/ros/jazzy
++++ 1790168299.449162 cwd=/tmp eval '_values=$_UNIQUE_PREFIX_PATH'
+++++ 1790168299.449166 cwd=/tmp _values=
++++ 1790168299.449169 cwd=/tmp _duplicate=
++++ 1790168299.449171 cwd=/tmp _ament_append_unique_value_IFS='
+'
++++ 1790168299.449173 cwd=/tmp IFS=:
++++ 1790168299.449178 cwd=/tmp '[' bash = zsh ']'
++++ 1790168299.449181 cwd=/tmp unset _item
++++ 1790168299.449185 cwd=/tmp '[' -z '' ']'
++++ 1790168299.449188 cwd=/tmp '[' -z '' ']'
++++ 1790168299.449191 cwd=/tmp eval '_UNIQUE_PREFIX_PATH="/opt/ros/jazzy"'
+++++ 1790168299.449195 cwd=/tmp _UNIQUE_PREFIX_PATH=/opt/ros/jazzy
++++ 1790168299.449197 cwd=/tmp IFS='
+'
++++ 1790168299.449200 cwd=/tmp unset _ament_append_unique_value_IFS
++++ 1790168299.449203 cwd=/tmp unset _duplicate
++++ 1790168299.449205 cwd=/tmp unset _values
++++ 1790168299.449208 cwd=/tmp unset _value
++++ 1790168299.449210 cwd=/tmp unset _listname
++++ 1790168299.449216 cwd=/tmp unset AMENT_CURRENT_PREFIX
++++ 1790168299.449220 cwd=/tmp _prefix_setup_AMENT_SHELL=bash
++++ 1790168299.449223 cwd=/tmp IFS=:
++++ 1790168299.449227 cwd=/tmp '[' bash = zsh ']'
++++ 1790168299.449238 cwd=/tmp for _path in $_UNIQUE_PREFIX_PATH
++++ 1790168299.449241 cwd=/tmp '[' -n '' ']'
++++ 1790168299.449245 cwd=/tmp '[' -f /opt/ros/jazzy/local_setup.bash ']'
++++ 1790168299.449250 cwd=/tmp '[' bash = sh ']'
++++ 1790168299.449253 cwd=/tmp IFS=' 	
+'
++++ 1790168299.449256 cwd=/tmp . /opt/ros/jazzy/local_setup.bash
+++++ 1790168299.449261 cwd=/tmp AMENT_SHELL=bash
+++++++ 1790168299.449519 cwd=/tmp dirname /opt/ros/jazzy/local_setup.bash
++++++ 1790168299.449853 cwd=/tmp builtin cd /opt/ros/jazzy
++++++ 1790168299.449871 cwd=/opt/ros/jazzy pwd
+++++ 1790168299.449936 cwd=/tmp AMENT_CURRENT_PREFIX=/opt/ros/jazzy
+++++ 1790168299.449949 cwd=/tmp '[' -n '' ']'
+++++ 1790168299.449954 cwd=/tmp . /opt/ros/jazzy/local_setup.sh
++++++ 1790168299.449968 cwd=/tmp _ament_prefix_sh_AMENT_CURRENT_PREFIX=/opt/ros/jazzy
++++++ 1790168299.449979 cwd=/tmp '[' -z /opt/ros/jazzy ']'
++++++ 1790168299.449983 cwd=/tmp _ament_prefix_sh_AMENT_CURRENT_PREFIX=/opt/ros/jazzy
++++++ 1790168299.449987 cwd=/tmp : bash
++++++ 1790168299.449990 cwd=/tmp _ament_python_executable=/usr/bin/python3
++++++ 1790168299.449995 cwd=/tmp '[' -n '' ']'
++++++ 1790168299.450005 cwd=/tmp '[' '!' -f /usr/bin/python3 ']'
++++++ 1790168299.450043 cwd=/tmp _ament_additional_extension=
++++++ 1790168299.450049 cwd=/tmp '[' bash '!=' sh ']'
++++++ 1790168299.450052 cwd=/tmp _ament_additional_extension=bash
+++++++ 1790168299.450175 cwd=/tmp /usr/bin/python3 /opt/ros/jazzy/_local_setup_util.py sh bash
++++++ 1790168299.483903 cwd=/tmp _ament_ordered_commands='export AMENT_PREFIX_PATH="/opt/ros/jazzy:$AMENT_PREFIX_PATH"
+export PATH="/opt/ros/jazzy/bin:$PATH"
+export PYTHONPATH="/opt/ros/jazzy/lib/python3.12/site-packages:$PYTHONPATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_cmake_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_cmake_vendor:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_utils_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_utils_vendor:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_math_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_math_vendor:$CMAKE_PREFIX_PATH"
+export PYTHONPATH="/opt/ros/jazzy/opt/gz_math_vendor/lib/python:$PYTHONPATH"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/ros2cli/environment/ros2-argcomplete.bash"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/ros_environment/environment/0.ros_distro_check.sh"
+export ROS_AUTOMATIC_DISCOVERY_RANGE="SUBNET"
+export ROS_DISTRO="jazzy"
+export ROS_PYTHON_VERSION="3"
+export ROS_VERSION="2"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/lib/aarch64-linux-gnu:$LD_LIBRARY_PATH"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/rosidl_cli/environment/rosidl-argcomplete.bash"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:$LD_LIBRARY_PATH"
+export AMENT_PREFIX_PATH=${AMENT_PREFIX_PATH#:}
+export AMENT_PREFIX_PATH=${AMENT_PREFIX_PATH%:}
+export PYTHONPATH=${PYTHONPATH#:}
+export PYTHONPATH=${PYTHONPATH%:}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH#:}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH%:}
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH#:}
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH%:}
+export ROS_DISTRO=${ROS_DISTRO#:}
+export ROS_DISTRO=${ROS_DISTRO%:}
+export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION#:}
+export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION%:}
+export ROS_VERSION=${ROS_VERSION#:}
+export ROS_VERSION=${ROS_VERSION%:}'
++++++ 1790168299.483949 cwd=/tmp unset _ament_additional_extension
++++++ 1790168299.483956 cwd=/tmp unset _ament_python_executable
++++++ 1790168299.483971 cwd=/tmp '[' -n '' ']'
++++++ 1790168299.484005 cwd=/tmp eval 'export AMENT_PREFIX_PATH="/opt/ros/jazzy:$AMENT_PREFIX_PATH"
+export PATH="/opt/ros/jazzy/bin:$PATH"
+export PYTHONPATH="/opt/ros/jazzy/lib/python3.12/site-packages:$PYTHONPATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_cmake_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_cmake_vendor:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_utils_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_utils_vendor:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/gz_math_vendor/lib:$LD_LIBRARY_PATH"
+export CMAKE_PREFIX_PATH="/opt/ros/jazzy/opt/gz_math_vendor:$CMAKE_PREFIX_PATH"
+export PYTHONPATH="/opt/ros/jazzy/opt/gz_math_vendor/lib/python:$PYTHONPATH"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/ros2cli/environment/ros2-argcomplete.bash"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/ros_environment/environment/0.ros_distro_check.sh"
+export ROS_AUTOMATIC_DISCOVERY_RANGE="SUBNET"
+export ROS_DISTRO="jazzy"
+export ROS_PYTHON_VERSION="3"
+export ROS_VERSION="2"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/lib/aarch64-linux-gnu:$LD_LIBRARY_PATH"
+AMENT_CURRENT_PREFIX="/opt/ros/jazzy" _ament_prefix_sh_source_script "/opt/ros/jazzy/share/rosidl_cli/environment/rosidl-argcomplete.bash"
+export LD_LIBRARY_PATH="/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:$LD_LIBRARY_PATH"
+export AMENT_PREFIX_PATH=${AMENT_PREFIX_PATH#:}
+export AMENT_PREFIX_PATH=${AMENT_PREFIX_PATH%:}
+export PYTHONPATH=${PYTHONPATH#:}
+export PYTHONPATH=${PYTHONPATH%:}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH#:}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH%:}
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH#:}
+export CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH%:}
+export ROS_DISTRO=${ROS_DISTRO#:}
+export ROS_DISTRO=${ROS_DISTRO%:}
+export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION#:}
+export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION%:}
+export ROS_VERSION=${ROS_VERSION#:}
+export ROS_VERSION=${ROS_VERSION%:}'
+++++++ 1790168299.484019 cwd=/tmp export AMENT_PREFIX_PATH=/opt/ros/jazzy:
+++++++ 1790168299.484021 cwd=/tmp AMENT_PREFIX_PATH=/opt/ros/jazzy:
+++++++ 1790168299.484027 cwd=/tmp export PATH=/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++++++ 1790168299.484030 cwd=/tmp PATH=/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++++++ 1790168299.484036 cwd=/tmp export PYTHONPATH=/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790168299.484038 cwd=/tmp PYTHONPATH=/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790168299.484043 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/lib:
+++++++ 1790168299.484044 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/lib:
+++++++ 1790168299.484049 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.484051 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.484056 cwd=/tmp export CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790168299.484058 cwd=/tmp CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790168299.484064 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.484066 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.484071 cwd=/tmp export CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790168299.484073 cwd=/tmp CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790168299.484080 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.484082 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.484089 cwd=/tmp export CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790168299.484091 cwd=/tmp CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790168299.484097 cwd=/tmp export PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790168299.484099 cwd=/tmp PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790168299.484107 cwd=/tmp AMENT_CURRENT_PREFIX=/opt/ros/jazzy
+++++++ 1790168299.484109 cwd=/tmp _ament_prefix_sh_source_script /opt/ros/jazzy/share/ros2cli/environment/ros2-argcomplete.bash
+++++++ 1790168299.484118 cwd=/tmp '[' -f /opt/ros/jazzy/share/ros2cli/environment/ros2-argcomplete.bash ']'
+++++++ 1790168299.484125 cwd=/tmp '[' -n '' ']'
+++++++ 1790168299.484129 cwd=/tmp . /opt/ros/jazzy/share/ros2cli/environment/ros2-argcomplete.bash
++++++++ 1790168299.484150 cwd=/tmp type register-python-argcomplete3
++++++++ 1790168299.484179 cwd=/tmp type register-python-argcomplete
+++++++++ 1790168299.484413 cwd=/tmp register-python-argcomplete ros2
++++++++ 1790168299.500323 cwd=/tmp eval '
+# Run something, muting output or redirecting it to the debug stream
+# depending on the value of _ARC_DEBUG.
+# If ARGCOMPLETE_USE_TEMPFILES is set, use tempfiles for IPC.
+__python_argcomplete_run() {
+    if [[ -z "${ARGCOMPLETE_USE_TEMPFILES-}" ]]; then
+        __python_argcomplete_run_inner "$@"
+        return
+    fi
+    local tmpfile="$(mktemp)"
+    _ARGCOMPLETE_STDOUT_FILENAME="$tmpfile" __python_argcomplete_run_inner "$@"
+    local code=$?
+    cat "$tmpfile"
+    rm "$tmpfile"
+    return $code
+}
+
+__python_argcomplete_run_inner() {
+    if [[ -z "${_ARC_DEBUG-}" ]]; then
+        "$@" 8>&1 9>&2 1>/dev/null 2>&1
+    else
+        "$@" 8>&1 9>&2 1>&9 2>&1
+    fi
+}
+
+_python_argcomplete() {
+    local IFS=$'\''\013'\''
+    local script=""
+    if [[ -n "${ZSH_VERSION-}" ]]; then
+        local completions
+        completions=($(IFS="$IFS" \
+            COMP_LINE="$BUFFER" \
+            COMP_POINT="$CURSOR" \
+            _ARGCOMPLETE=1 \
+            _ARGCOMPLETE_SHELL="zsh" \
+            _ARGCOMPLETE_SUPPRESS_SPACE=1 \
+            __python_argcomplete_run ${script:-${words[1]}}))
+        _describe "${words[1]}" completions -o nosort
+    else
+        local SUPPRESS_SPACE=0
+        if compopt +o nospace 2> /dev/null; then
+            SUPPRESS_SPACE=1
+        fi
+        COMPREPLY=($(IFS="$IFS" \
+            COMP_LINE="$COMP_LINE" \
+            COMP_POINT="$COMP_POINT" \
+            COMP_TYPE="$COMP_TYPE" \
+            _ARGCOMPLETE_COMP_WORDBREAKS="$COMP_WORDBREAKS" \
+            _ARGCOMPLETE=1 \
+            _ARGCOMPLETE_SHELL="bash" \
+            _ARGCOMPLETE_SUPPRESS_SPACE=$SUPPRESS_SPACE \
+            __python_argcomplete_run ${script:-$1}))
+        if [[ $? != 0 ]]; then
+            unset COMPREPLY
+        elif [[ $SUPPRESS_SPACE == 1 ]] && [[ "${COMPREPLY-}" =~ [=/:]$ ]]; then
+            compopt -o nospace
+        fi
+    fi
+}
+if [[ -z "${ZSH_VERSION-}" ]]; then
+    complete -o nospace -o default -o bashdefault -F _python_argcomplete ros2
+else
+    compdef _python_argcomplete ros2
+fi'
+++++++++ 1790168299.500414 cwd=/tmp [[ -z '' ]]
+++++++++ 1790168299.500421 cwd=/tmp complete -o nospace -o default -o bashdefault -F _python_argcomplete ros2
+++++++ 1790168299.500447 cwd=/tmp AMENT_CURRENT_PREFIX=/opt/ros/jazzy
+++++++ 1790168299.500448 cwd=/tmp _ament_prefix_sh_source_script /opt/ros/jazzy/share/ros_environment/environment/0.ros_distro_check.sh
+++++++ 1790168299.500455 cwd=/tmp '[' -f /opt/ros/jazzy/share/ros_environment/environment/0.ros_distro_check.sh ']'
+++++++ 1790168299.500462 cwd=/tmp '[' -n '' ']'
+++++++ 1790168299.500466 cwd=/tmp . /opt/ros/jazzy/share/ros_environment/environment/0.ros_distro_check.sh
++++++++ 1790168299.500479 cwd=/tmp '[' -n '' -a '' '!=' jazzy ']'
+++++++ 1790168299.500487 cwd=/tmp export ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
+++++++ 1790168299.500490 cwd=/tmp ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
+++++++ 1790168299.500494 cwd=/tmp export ROS_DISTRO=jazzy
+++++++ 1790168299.500496 cwd=/tmp ROS_DISTRO=jazzy
+++++++ 1790168299.500500 cwd=/tmp export ROS_PYTHON_VERSION=3
+++++++ 1790168299.500502 cwd=/tmp ROS_PYTHON_VERSION=3
+++++++ 1790168299.500505 cwd=/tmp export ROS_VERSION=2
+++++++ 1790168299.500507 cwd=/tmp ROS_VERSION=2
+++++++ 1790168299.500514 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.500516 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.500524 cwd=/tmp AMENT_CURRENT_PREFIX=/opt/ros/jazzy
+++++++ 1790168299.500526 cwd=/tmp _ament_prefix_sh_source_script /opt/ros/jazzy/share/rosidl_cli/environment/rosidl-argcomplete.bash
+++++++ 1790168299.500531 cwd=/tmp '[' -f /opt/ros/jazzy/share/rosidl_cli/environment/rosidl-argcomplete.bash ']'
+++++++ 1790168299.500535 cwd=/tmp '[' -n '' ']'
+++++++ 1790168299.500539 cwd=/tmp . /opt/ros/jazzy/share/rosidl_cli/environment/rosidl-argcomplete.bash
++++++++ 1790168299.500554 cwd=/tmp type register-python-argcomplete3
++++++++ 1790168299.500574 cwd=/tmp type register-python-argcomplete
+++++++++ 1790168299.500765 cwd=/tmp register-python-argcomplete rosidl
++++++++ 1790168299.516350 cwd=/tmp eval '
+# Run something, muting output or redirecting it to the debug stream
+# depending on the value of _ARC_DEBUG.
+# If ARGCOMPLETE_USE_TEMPFILES is set, use tempfiles for IPC.
+__python_argcomplete_run() {
+    if [[ -z "${ARGCOMPLETE_USE_TEMPFILES-}" ]]; then
+        __python_argcomplete_run_inner "$@"
+        return
+    fi
+    local tmpfile="$(mktemp)"
+    _ARGCOMPLETE_STDOUT_FILENAME="$tmpfile" __python_argcomplete_run_inner "$@"
+    local code=$?
+    cat "$tmpfile"
+    rm "$tmpfile"
+    return $code
+}
+
+__python_argcomplete_run_inner() {
+    if [[ -z "${_ARC_DEBUG-}" ]]; then
+        "$@" 8>&1 9>&2 1>/dev/null 2>&1
+    else
+        "$@" 8>&1 9>&2 1>&9 2>&1
+    fi
+}
+
+_python_argcomplete() {
+    local IFS=$'\''\013'\''
+    local script=""
+    if [[ -n "${ZSH_VERSION-}" ]]; then
+        local completions
+        completions=($(IFS="$IFS" \
+            COMP_LINE="$BUFFER" \
+            COMP_POINT="$CURSOR" \
+            _ARGCOMPLETE=1 \
+            _ARGCOMPLETE_SHELL="zsh" \
+            _ARGCOMPLETE_SUPPRESS_SPACE=1 \
+            __python_argcomplete_run ${script:-${words[1]}}))
+        _describe "${words[1]}" completions -o nosort
+    else
+        local SUPPRESS_SPACE=0
+        if compopt +o nospace 2> /dev/null; then
+            SUPPRESS_SPACE=1
+        fi
+        COMPREPLY=($(IFS="$IFS" \
+            COMP_LINE="$COMP_LINE" \
+            COMP_POINT="$COMP_POINT" \
+            COMP_TYPE="$COMP_TYPE" \
+            _ARGCOMPLETE_COMP_WORDBREAKS="$COMP_WORDBREAKS" \
+            _ARGCOMPLETE=1 \
+            _ARGCOMPLETE_SHELL="bash" \
+            _ARGCOMPLETE_SUPPRESS_SPACE=$SUPPRESS_SPACE \
+            __python_argcomplete_run ${script:-$1}))
+        if [[ $? != 0 ]]; then
+            unset COMPREPLY
+        elif [[ $SUPPRESS_SPACE == 1 ]] && [[ "${COMPREPLY-}" =~ [=/:]$ ]]; then
+            compopt -o nospace
+        fi
+    fi
+}
+if [[ -z "${ZSH_VERSION-}" ]]; then
+    complete -o nospace -o default -o bashdefault -F _python_argcomplete rosidl
+else
+    compdef _python_argcomplete rosidl
+fi'
+++++++++ 1790168299.516442 cwd=/tmp [[ -z '' ]]
+++++++++ 1790168299.516449 cwd=/tmp complete -o nospace -o default -o bashdefault -F _python_argcomplete rosidl
+++++++ 1790168299.516474 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.516478 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.516486 cwd=/tmp export AMENT_PREFIX_PATH=/opt/ros/jazzy:
+++++++ 1790168299.516488 cwd=/tmp AMENT_PREFIX_PATH=/opt/ros/jazzy:
+++++++ 1790168299.516494 cwd=/tmp export AMENT_PREFIX_PATH=/opt/ros/jazzy
+++++++ 1790168299.516496 cwd=/tmp AMENT_PREFIX_PATH=/opt/ros/jazzy
+++++++ 1790168299.516503 cwd=/tmp export PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790168299.516505 cwd=/tmp PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages:
+++++++ 1790168299.516510 cwd=/tmp export PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages
+++++++ 1790168299.516512 cwd=/tmp PYTHONPATH=/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages
+++++++ 1790168299.516524 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.516527 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib:
+++++++ 1790168299.516533 cwd=/tmp export LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib
+++++++ 1790168299.516536 cwd=/tmp LD_LIBRARY_PATH=/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib
+++++++ 1790168299.516543 cwd=/tmp export CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790168299.516546 cwd=/tmp CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:
+++++++ 1790168299.516552 cwd=/tmp export CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor
+++++++ 1790168299.516554 cwd=/tmp CMAKE_PREFIX_PATH=/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor
+++++++ 1790168299.516558 cwd=/tmp export ROS_DISTRO=jazzy
+++++++ 1790168299.516559 cwd=/tmp ROS_DISTRO=jazzy
+++++++ 1790168299.516563 cwd=/tmp export ROS_DISTRO=jazzy
+++++++ 1790168299.516565 cwd=/tmp ROS_DISTRO=jazzy
+++++++ 1790168299.516569 cwd=/tmp export ROS_PYTHON_VERSION=3
+++++++ 1790168299.516570 cwd=/tmp ROS_PYTHON_VERSION=3
+++++++ 1790168299.516574 cwd=/tmp export ROS_PYTHON_VERSION=3
+++++++ 1790168299.516575 cwd=/tmp ROS_PYTHON_VERSION=3
+++++++ 1790168299.516579 cwd=/tmp export ROS_VERSION=2
+++++++ 1790168299.516580 cwd=/tmp ROS_VERSION=2
+++++++ 1790168299.516584 cwd=/tmp export ROS_VERSION=2
+++++++ 1790168299.516586 cwd=/tmp ROS_VERSION=2
++++++ 1790168299.516592 cwd=/tmp unset _ament_ordered_commands
++++++ 1790168299.516597 cwd=/tmp unset _ament_prefix_sh_source_script
++++++ 1790168299.516603 cwd=/tmp unset _ament_prefix_sh_AMENT_CURRENT_PREFIX
++++ 1790168299.516610 cwd=/tmp AMENT_SHELL=bash
++++ 1790168299.516614 cwd=/tmp unset _path
++++ 1790168299.516618 cwd=/tmp IFS=' 	
+'
++++ 1790168299.516621 cwd=/tmp unset _prefix_setup_IFS
++++ 1790168299.516624 cwd=/tmp unset _prefix_setup_AMENT_SHELL
++++ 1790168299.516627 cwd=/tmp unset _UNIQUE_PREFIX_PATH
++++ 1790168299.516630 cwd=/tmp unset AMENT_SHELL
++ 1790168299.516641 cwd=/tmp export PY=/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python X2_ASSET_REPO=/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf
++ 1790168299.516644 cwd=/tmp PY=/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python
++ 1790168299.516646 cwd=/tmp X2_ASSET_REPO=/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf
++ 1790168299.516651 cwd=/tmp export X2_SCENE=/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml
++ 1790168299.516653 cwd=/tmp X2_SCENE=/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml
++ 1790168299.516659 cwd=/tmp export ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp
++ 1790168299.516661 cwd=/tmp ROS_DOMAIN_ID=86
++ 1790168299.516663 cwd=/tmp ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
++ 1790168299.516665 cwd=/tmp RMW_IMPLEMENTATION=rmw_fastrtps_cpp
++ 1790168299.516669 cwd=/tmp PS4='+ ${EPOCHREALTIME} cwd=${PWD} '
++ 1790168299.516671 cwd=/tmp set -x
++ 1790168299.516677 cwd=/tmp ros2 topic echo --help
+usage: ros2 topic echo [-h] [--spin-time SPIN_TIME] [-s] [--no-daemon]
+                       [--qos-profile {unknown,default,system_default,sensor_data,services_default,parameters,parameter_events,action_status_default,best_available}]
+                       [--qos-depth N]
+                       [--qos-history {system_default,keep_last,keep_all,unknown}]
+                       [--qos-reliability {system_default,reliable,best_effort,unknown,best_available}]
+                       [--qos-durability {system_default,transient_local,volatile,unknown,best_available}]
+                       [--qos-liveliness {system_default,automatic,manual_by_topic,unknown,best_available}]
+                       [--qos-liveliness-lease-duration-seconds QOS_LIVELINESS_LEASE_DURATION_SECONDS]
+                       [--csv] [--field FIELD] [--full-length]
+                       [--truncate-length TRUNCATE_LENGTH] [--no-arr]
+                       [--no-str] [--flow-style] [--no-lost-messages] [--raw]
+                       [--filter FILTER_EXPR] [--once] [--timeout N]
+                       [--include-message-info]
+                       topic_name [message_type]
+
+Output messages from a topic
+
+positional arguments:
+  topic_name            Name of the ROS topic to listen to (e.g. '/chatter')
+  message_type          Type of the ROS message (e.g. 'std_msgs/msg/String')
+
+options:
+  -h, --help            show this help message and exit
+  --spin-time SPIN_TIME
+                        Spin time in seconds to wait for discovery (only
+                        applies when not using an already running daemon)
+  -s, --use-sim-time    Enable ROS simulation time
+  --no-daemon           Do not spawn nor use an already running daemon
+  --qos-profile {unknown,default,system_default,sensor_data,services_default,parameters,parameter_events,action_status_default,best_available}
+                        Quality of service preset profile to subscribe with
+                        (default: sensor_data)
+  --qos-depth N         Queue size setting to subscribe with (overrides depth
+                        value of --qos-profile option)
+  --qos-history {system_default,keep_last,keep_all,unknown}
+                        History of samples setting to subscribe with
+                        (overrides history value of --qos-profile option,
+                        default: keep_last)
+  --qos-reliability {system_default,reliable,best_effort,unknown,best_available}
+                        Quality of service reliability setting to subscribe
+                        with (overrides reliability value of --qos-profile
+                        option, default: Compatible profile with running
+                        endpoints )
+  --qos-durability {system_default,transient_local,volatile,unknown,best_available}
+                        Quality of service durability setting to subscribe
+                        with (overrides durability value of --qos-profile
+                        option, default: Compatible profile with running
+                        endpoints )
+  --qos-liveliness {system_default,automatic,manual_by_topic,unknown,best_available}
+                        Quality of service liveliness setting to subscribe
+                        with (overrides liveliness value of --qos-profile
+                        option
+  --qos-liveliness-lease-duration-seconds QOS_LIVELINESS_LEASE_DURATION_SECONDS
+                        Quality of service liveliness lease duration setting
+                        to subscribe with (overrides liveliness lease duration
+                        value of --qos-profile option
+  --csv                 Output all recursive fields separated by commas (e.g.
+                        for plotting). If --include-message-info is also
+                        passed, the following fields are prepended:
+                        source_timestamp, received_timestamp,
+                        publication_sequence_number,
+                        reception_sequence_number.
+  --field FIELD         Echo a selected field of a message. Use '.' to select
+                        sub-fields. For example, to echo the position field of
+                        a nav_msgs/msg/Odometry message: 'ros2 topic echo
+                        /odom --field pose.pose.position'
+  --full-length, -f     Output all elements for arrays, bytes, and string with
+                        a length > '--truncate-length', by default they are
+                        truncated after '--truncate-length' elements with
+                        '...''
+  --truncate-length TRUNCATE_LENGTH, -l TRUNCATE_LENGTH
+                        The length to truncate arrays, bytes, and string to
+                        (default: 128)
+  --no-arr              Don't print array fields of messages
+  --no-str              Don't print string fields of messages
+  --flow-style          Print collections in the block style (not available
+                        with csv format)
+  --no-lost-messages    Don't report when a message is lost
+  --raw                 Echo the raw binary representation
+  --filter FILTER_EXPR  Python expression to filter messages that are printed.
+                        Expression can use Python builtins as well as m (the
+                        message).
+  --once                Print the first message received and then exit.
+  --timeout N           Set a timeout in seconds for waiting
+  --include-message-info, -i
+                        Shows the associated message info.
++ 1790168299.695543 cwd=/tmp ros2 node list --help
+usage: ros2 node list [-h] [--spin-time SPIN_TIME] [-s] [--no-daemon] [-a]
+                      [-c]
+
+Output a list of available nodes
+
+options:
+  -h, --help            show this help message and exit
+  --spin-time SPIN_TIME
+                        Spin time in seconds to wait for discovery (only
+                        applies when not using an already running daemon)
+  -s, --use-sim-time    Enable ROS simulation time
+  --no-daemon           Do not spawn nor use an already running daemon
+  -a, --all             Display all nodes even hidden ones
+  -c, --count-nodes     Only display the number of nodes discovered
++ 1790168299.861801 cwd=/tmp ros2 service call --help
+usage: ros2 service call [-h] [--stdin] [-r N]
+                         service_name service_type [values]
+
+Call a service
+
+positional arguments:
+  service_name    Name of the ROS service to call to (e.g. '/add_two_ints')
+  service_type    Type of the ROS service (e.g. 'std_srvs/srv/Empty')
+  values          Values to fill the service request with in YAML format (e.g.
+                  '{a: 1, b: 2}'), otherwise the service request will be
+                  published with default values
+
+options:
+  -h, --help      show this help message and exit
+  --stdin         Read values from standard input
+  -r N, --rate N  Repeat the call at a specific rate in Hz
++ 1790168300.033359 cwd=/tmp ros2 service type --help
+usage: ros2 service type [-h] service_name
+
+Output a service's type
+
+positional arguments:
+  service_name  Name of the ROS service to get type (e.g.
+                '/talker/list_parameters')
+
+options:
+  -h, --help    show this help message and exit
++ 1790168300.201122 cwd=/tmp ros2 topic info --help
+usage: ros2 topic info [-h] [--spin-time SPIN_TIME] [-s] [--no-daemon]
+                       [--verbose]
+                       topic_name
+
+Print information about a topic
+
+positional arguments:
+  topic_name            Name of the ROS topic to get info (e.g. '/chatter')
+
+options:
+  -h, --help            show this help message and exit
+  --spin-time SPIN_TIME
+                        Spin time in seconds to wait for discovery (only
+                        applies when not using an already running daemon)
+  -s, --use-sim-time    Enable ROS simulation time
+  --no-daemon           Do not spawn nor use an already running daemon
+  --verbose, -v         Prints detailed information like the node name, node
+                        namespace, topic type, topic type hash, GUID, and QoS
+                        Profile of the publishers and subscribers to this
+                        topic
++ 1790168300.372279 cwd=/tmp ros2 daemon start --help
+usage: ros2 daemon start [-h] [--debug]
+
+Start the daemon if it isn't running
+
+options:
+  -h, --help   show this help message and exit
+  --debug, -d  Print debug messages
++ 1790168300.541296 cwd=/tmp /usr/bin/python3 -
+{
+  "domain": "86",
+  "rmw": "rmw_fastrtps_cpp",
+  "discovery": "LOCALHOST",
+  "daemon_already_running": false,
+  "nodes": [
+    [
+      "x2_domain_preflight",
+      "/"
+    ]
+  ],
+  "services": [
+    [
+      "/x2_domain_preflight/describe_parameters",
+      [
+        "rcl_interfaces/srv/DescribeParameters"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/get_parameter_types",
+      [
+        "rcl_interfaces/srv/GetParameterTypes"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/get_parameters",
+      [
+        "rcl_interfaces/srv/GetParameters"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/get_type_description",
+      [
+        "type_description_interfaces/srv/GetTypeDescription"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/list_parameters",
+      [
+        "rcl_interfaces/srv/ListParameters"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/set_parameters",
+      [
+        "rcl_interfaces/srv/SetParameters"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/set_parameters_atomically",
+      [
+        "rcl_interfaces/srv/SetParametersAtomically"
+      ]
+    ]
+  ],
+  "topics": [
+    [
+      "/parameter_events",
+      [
+        "rcl_interfaces/msg/ParameterEvent"
+      ]
+    ],
+    [
+      "/rosout",
+      [
+        "rcl_interfaces/msg/Log"
+      ]
+    ]
+  ],
+  "status_publishers": 0,
+  "joint_publishers": 0,
+  "conflict": false
+}

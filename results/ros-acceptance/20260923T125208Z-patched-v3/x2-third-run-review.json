@@ -1,0 +1,715 @@
+{
+  "result": "PASS",
+  "scope": "Independent read-only final acceptance audit across raw integration logs, full regression, postflight and top summary. Does not substitute for later Git publication verification.",
+  "root": "/tmp/x2-final-ros.z4vmp3sx",
+  "source_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "runner_sha256": "63a8bf34409e2a95967074fb81b080e5546ef4d70627a9571d356bc4af8ac0cc",
+  "checks": [
+    {
+      "name": "original_runner_finished",
+      "result": "PASS",
+      "total_checks": 85,
+      "driver_wall_s": 71.41317603400012,
+      "watchdog_exit_code": 0
+    },
+    {
+      "name": "fresh_installed_identity",
+      "result": "PASS",
+      "module": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/recovery_node.py",
+      "resolved_module": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/recovery_node.py",
+      "executable": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+      "prefix": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery",
+      "domain": "86",
+      "rmw": "rmw_fastrtps_cpp"
+    },
+    {
+      "name": "production_sources_match_published_release",
+      "result": "PASS",
+      "base_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+      "runner_sha256": "63a8bf34409e2a95967074fb81b080e5546ef4d70627a9571d356bc4af8ac0cc"
+    },
+    {
+      "name": "real_cli_outputs",
+      "result": "PASS",
+      "cli_count": 9
+    },
+    {
+      "name": "actual_cli_qos",
+      "result": "PASS"
+    },
+    {
+      "name": "normal_single_episode_during_busy",
+      "result": "PASS"
+    },
+    {
+      "name": "normal_timeout_and_same_server_retry",
+      "result": "PASS"
+    },
+    {
+      "name": "wall_timeout_has_real_stepping",
+      "result": "PASS",
+      "control_steps": 122,
+      "elapsed_sim_s": 2.4399999999997766,
+      "wall_s": 3.0076086680001026,
+      "overshoot_s": 0.007608668000102625
+    },
+    {
+      "name": "actual_server_send_reset_step_order",
+      "result": "PASS",
+      "send_end": 3932.693347707,
+      "reset_begin": 3932.711251249,
+      "reset_end": 3933.252125166,
+      "first_step_begin": 3933.255069082,
+      "reset_duration_s": 0.5408739170002264
+    },
+    {
+      "name": "qualified_real_supine_reset",
+      "result": "PASS",
+      "reset_seed": 374032080,
+      "settling_end_sim_s": 1.6609999999999279
+    },
+    {
+      "name": "real_reset_busy_nonpreemptive",
+      "result": "PASS",
+      "rpc": {
+        "label": "real-reset-busy",
+        "start_monotonic_s": 3932.718077915,
+        "end_monotonic_s": 3933.269686541,
+        "round_trip_s": 0.5516086259999611,
+        "success": false,
+        "message": "Recovery already running"
+      }
+    },
+    {
+      "name": "busy_callback_state_unchanged",
+      "result": "PASS",
+      "rejected_callbacks": 5
+    },
+    {
+      "name": "busy_processed_inside_same_running_episode",
+      "result": "PASS"
+    },
+    {
+      "name": "direct_physics_step_accounting",
+      "result": "PASS",
+      "actual_control_calls": 101,
+      "actual_physics_steps": 2003
+    },
+    {
+      "name": "all_raw_joint_messages_valid_and_model_ordered",
+      "result": "PASS",
+      "samples": 2247,
+      "controlled_joints": 31
+    },
+    {
+      "name": "same_sample_readback_recomputed",
+      "result": "PASS",
+      "matched_samples": 9,
+      "scalar_values": 558,
+      "max_position_abs_error": 0.0,
+      "max_velocity_abs_error": 0.0
+    },
+    {
+      "name": "no_audited_new_sample_after_terminal",
+      "result": "PASS",
+      "source_created_samples": 102,
+      "terminal_monotonic_s": 3935.256483,
+      "last_created_monotonic_s": 3935.256410541
+    },
+    {
+      "name": "late_status_retained_no_historical_joint",
+      "result": "PASS",
+      "actual_log": "[INFO] [1790169228.189385176] [late_telemetry]: status=FAILED joint=left_knee_joint no_sample"
+    },
+    {
+      "name": "synthetic_fault_and_same_instance_retry",
+      "result": "PASS",
+      "actual_real_steps_before_injection": 3,
+      "actual_elapsed_sim_s": 0.05999999999999339,
+      "node_last_valid_control_steps": 2,
+      "node_last_valid_elapsed_sim_s": 0.039999999999995595
+    },
+    {
+      "name": "actual_startup_error_processes",
+      "result": "PASS",
+      "count": 7,
+      "scope": "Installed recovery_node subprocesses; not launch parent return codes."
+    },
+    {
+      "name": "clean_child_exits_normal-launch.log",
+      "result": "PASS",
+      "children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 39869,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 39870,
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "name": "clean_child_exits_wall-launch.log",
+      "result": "PASS",
+      "children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 40480,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 40481,
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "name": "clean_child_exits_active-shutdown-launch.log",
+      "result": "PASS",
+      "children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 40538,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 40539,
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "name": "original_launch_active_ctrl_c_after_physics",
+      "result": "PASS",
+      "control_steps": 4,
+      "elapsed_sim_s": 0.07999999999999119,
+      "subscriber_last_status": "RUNNING",
+      "scope": "Shutdown publication after ROS context closure is not claimed received."
+    },
+    {
+      "name": "audited_environment_close_after_unwind",
+      "result": "PASS"
+    },
+    {
+      "name": "runner_owned_cleanup",
+      "result": "PASS",
+      "managed_processes": 24,
+      "created_daemon_stopped": true
+    },
+    {
+      "name": "reviewer_readonly_pid_residue_check",
+      "result": "PASS",
+      "checked_pids": [
+        39866,
+        39869,
+        39870,
+        39911,
+        39914,
+        39928,
+        39948,
+        39970,
+        39989,
+        40009,
+        40026,
+        40043,
+        40062,
+        40318,
+        40477,
+        40480,
+        40481,
+        40535,
+        40538,
+        40539,
+        40594,
+        40595,
+        40639,
+        40640,
+        40702,
+        40721,
+        40749,
+        40765,
+        40797,
+        40816,
+        40832
+      ],
+      "remaining": [],
+      "at_utc": "2026-09-23T13:18:16.156261+00:00"
+    },
+    {
+      "name": "scenario_telemetry_count_normal-episode-1",
+      "result": "PASS"
+    },
+    {
+      "name": "scenario_telemetry_count_normal-episode-2",
+      "result": "PASS"
+    },
+    {
+      "name": "scenario_telemetry_count_wall-episode-1",
+      "result": "PASS"
+    },
+    {
+      "name": "scenario_telemetry_count_original-launch-active-shutdown",
+      "result": "PASS"
+    },
+    {
+      "name": "scenario_telemetry_count_readback-episode-1",
+      "result": "PASS"
+    },
+    {
+      "name": "scenario_telemetry_count_synthetic-fault-episode-1",
+      "result": "PASS"
+    },
+    {
+      "name": "scenario_telemetry_count_retry-after-synthetic-fault-episode-2",
+      "result": "PASS"
+    },
+    {
+      "name": "original_discovered_rpc_budget",
+      "result": "PASS",
+      "accepted_min_s": 0.0006217090003701742,
+      "accepted_max_s": 0.0012958750003235764,
+      "stepping_busy_min_s": 0.0003348750001350709,
+      "stepping_busy_max_s": 0.014208292000148504,
+      "reset_busy_s": 0.5516086259999611
+    },
+    {
+      "name": "actual_full_regression",
+      "result": "PASS",
+      "tests": 183,
+      "test_seconds": 83.848,
+      "driver_wall_s": 85.35238991599999
+    },
+    {
+      "name": "logical_pending_busy_and_hash_fixture_executed",
+      "result": "PASS",
+      "scope": "Unit fixtures only; does not reclassify as cross-process physical evidence.",
+      "test_blocks": [
+        {
+          "test": "test_acceptance_pending_busy_no_environment_calls_or_mutation",
+          "passed": true,
+          "actual_log_block": "test_acceptance_pending_busy_no_environment_calls_or_mutation (test_ros_nodes.RecoveryLogicTests.test_acceptance_pending_busy_no_environment_calls_or_mutation) ... [INFO] [1790169390.401544670] [recovery_node]: {\"event\": \"ready\", \"controller\": \"scripted_baseline\", \"episode\": 0, \"create_s\": 0.0, \"executable\": \"/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python\", \"module\": \"/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/recovery_node.py\", \"seed\": 60, \"episode_timeout_s\": 20.0, \"recovery_timeout_s\": 30.0, \"control_dt\": 0.02, \"asset_repo\": \"synthetic\"}\nok"
+        },
+        {
+          "test": "test_missing_path_and_wrong_pin_hash_fail_clearly",
+          "passed": true,
+          "actual_log_block": "test_missing_path_and_wrong_pin_hash_fail_clearly (test_model.ModelTests.test_missing_path_and_wrong_pin_hash_fail_clearly) ... ok"
+        }
+      ]
+    },
+    {
+      "name": "postflight_raw_matches_summary",
+      "result": "PASS"
+    },
+    {
+      "name": "top_summary_matches_run_and_patch",
+      "result": "PASS",
+      "patch": "tested-v3.patch",
+      "patch_sha256": "a94c3a07582fa411c36dde9387f54c722658f7232d64bc2063a3a4b109ba0861"
+    },
+    {
+      "name": "run_id_from_actual_first_command_start",
+      "result": "PASS",
+      "first_command": "source-clone-attempt-1",
+      "first_start": "2026-09-23T12:52:08.819241+00:00",
+      "run_id": "20260923T125208Z-patched-v3"
+    },
+    {
+      "name": "failed_package_attempts_preserved",
+      "result": "PASS",
+      "actual_attempts": [
+        {
+          "label": "requirements-check-freeze-attempt-1",
+          "exit_code": 1,
+          "log": "requirements-check-freeze-attempt-1.log"
+        },
+        {
+          "label": "requirements-check-freeze-attempt-2",
+          "exit_code": 1,
+          "log": "requirements-check-freeze-attempt-2.log"
+        },
+        {
+          "label": "verified-wheel-and-requirements-attempt-3",
+          "exit_code": 0,
+          "log": "verified-wheel-and-requirements-attempt-3.log"
+        }
+      ],
+      "scope": "Successful final setup with two preserved package hash-rejection attempts; not first-try installation."
+    },
+    {
+      "name": "top_metrics_reconcile",
+      "result": "PASS"
+    },
+    {
+      "name": "top_evidence_hashes_match_present_files",
+      "result": "PASS",
+      "count": 120,
+      "mismatches": [],
+      "verified_at_utc": "2026-09-23T13:23:21.632622+00:00",
+      "previous_snapshot_note": "A prior non-final summary preceded the all-production-module-origins command append; main task regenerated the manifest before this verification. The earlier mismatch was not an execution failure."
+    },
+    {
+      "name": "all_15_production_modules_import_from_new_clone_and_match_release",
+      "result": "PASS",
+      "executable": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+      "scope": "Imports only through sourced install; no rclpy.init, ROS node, model load, reset/step, training or evaluation; pyc writing disabled."
+    }
+  ],
+  "independent_check_count": 44,
+  "original_runner_check_count": 85,
+  "driver_command": {
+    "label": "16-integration",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.z4vmp3sx/evidence/16-integration.sh"
+    ],
+    "script": "/tmp/x2-final-ros.z4vmp3sx/evidence/16-integration.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nsource \"$ACCEPT_ROOT/install/setup.bash\"\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd /tmp\ntest ! -e \"$ACCEPT_ROOT/evidence/integration\"\ntimeout --signal=INT --kill-after=15s 240s \"$PY\" \"$WS/src/x2_recovery/test/test_ros_integration.py\" --output-dir \"$ACCEPT_ROOT/evidence/integration\"\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.z4vmp3sx",
+      "WS": "/tmp/x2-final-ros.z4vmp3sx/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T13:13:14.691410+00:00",
+    "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/16-integration.log",
+    "pid": 39833,
+    "exit_code": 0,
+    "end": "2026-09-23T13:14:26.104543+00:00",
+    "wall_s": 71.41317603400012
+  },
+  "launch_processes": [
+    {
+      "log": "normal-launch.log",
+      "pid": 39866,
+      "returncode": 0,
+      "children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 39869,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 39870,
+          "returncode": 0
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "launch_pid",
+          "target": 39866,
+          "sent_utc": "2026-09-23T13:14:09.010175+00:00",
+          "sent_monotonic_s": 3925.908457745
+        }
+      ],
+      "closed": true
+    },
+    {
+      "log": "wall-launch.log",
+      "pid": 40477,
+      "returncode": 0,
+      "children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 40480,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 40481,
+          "returncode": 0
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "launch_pid",
+          "target": 40477,
+          "sent_utc": "2026-09-23T13:14:13.171586+00:00",
+          "sent_monotonic_s": 3930.069866539
+        }
+      ],
+      "closed": true
+    },
+    {
+      "log": "active-shutdown-launch.log",
+      "pid": 40535,
+      "returncode": 0,
+      "children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 40538,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 40539,
+          "returncode": 0
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "launch_pid",
+          "target": 40535,
+          "sent_utc": "2026-09-23T13:14:14.884402+00:00",
+          "sent_monotonic_s": 3931.782683123
+        }
+      ],
+      "closed": true
+    }
+  ],
+  "telemetry_recomputed_from_raw_jsonl": {
+    "normal-episode-1": {
+      "samples": 1001,
+      "acquisition_intervals_s": {
+        "minimum": 0.009254,
+        "median": 0.0198120205,
+        "maximum": 0.029768084
+      },
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 1.4588971582880204,
+      "scope": "Recomputed with integer ROS nanosecond stamps; runner float conversion can differ by under one microsecond."
+    },
+    "normal-episode-2": {
+      "samples": 1001,
+      "acquisition_intervals_s": {
+        "minimum": 0.014459333,
+        "median": 0.019872687,
+        "maximum": 0.026328333
+      },
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 1.4588971582880204,
+      "scope": "Recomputed with integer ROS nanosecond stamps; runner float conversion can differ by under one microsecond."
+    },
+    "wall-episode-1": {
+      "samples": 123,
+      "acquisition_intervals_s": {
+        "minimum": 0.013094708,
+        "median": 0.020105541499999997,
+        "maximum": 0.026946167
+      },
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 0.9218172065125362,
+      "scope": "Recomputed with integer ROS nanosecond stamps; runner float conversion can differ by under one microsecond."
+    },
+    "original-launch-active-shutdown": {
+      "samples": 5,
+      "acquisition_intervals_s": {
+        "minimum": 0.014298458,
+        "median": 0.014722021,
+        "maximum": 0.022019958
+      },
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 0.029997214637894332,
+      "scope": "Recomputed with integer ROS nanosecond stamps; runner float conversion can differ by under one microsecond."
+    },
+    "readback-episode-1": {
+      "samples": 102,
+      "acquisition_intervals_s": {
+        "minimum": 0.010863709,
+        "median": 0.019717958,
+        "maximum": 0.0238795
+      },
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 0.6359725207116255,
+      "scope": "Recomputed with integer ROS nanosecond stamps; runner float conversion can differ by under one microsecond."
+    },
+    "synthetic-fault-episode-1": {
+      "samples": 3,
+      "acquisition_intervals_s": {
+        "minimum": 0.014461958,
+        "median": 0.014677146,
+        "maximum": 0.014892334
+      },
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 0.029996760770334575,
+      "scope": "Recomputed with integer ROS nanosecond stamps; runner float conversion can differ by under one microsecond."
+    },
+    "retry-after-synthetic-fault-episode-2": {
+      "samples": 12,
+      "acquisition_intervals_s": {
+        "minimum": 0.008418959,
+        "median": 0.0190235,
+        "maximum": 0.02240225
+      },
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 0.02999841507482124,
+      "scope": "Recomputed with integer ROS nanosecond stamps; runner float conversion can differ by under one microsecond."
+    }
+  },
+  "accepted_rpc_range_s": [
+    0.0006217090003701742,
+    0.0012958750003235764
+  ],
+  "stepping_busy_rpc_range_s": [
+    0.0003348750001350709,
+    0.014208292000148504
+  ],
+  "reset_busy_rpc_s": 0.5516086259999611,
+  "normal_reset_duration_s": 0.5759665420000601,
+  "wall_reset_duration_s": 0.5638435000000754,
+  "normal_episode1": {
+    "status": "FAILED",
+    "reason": "time_limit",
+    "control_steps": 1000,
+    "elapsed_sim_s": 20.000000000003563,
+    "wall_s": 20.5559810929999,
+    "timeout_overshoot_s": 0.0
+  },
+  "wall_episode": {
+    "status": "FAILED",
+    "reason": "recovery_timeout",
+    "control_steps": 122,
+    "elapsed_sim_s": 2.4399999999997766,
+    "wall_s": 3.0076086680001026,
+    "timeout_overshoot_s": 0.007608668000102625
+  },
+  "clock_scope": {
+    "JointState": "ROS acquisition clock",
+    "episode_elapsed": "MuJoCo relative simulation time excluding reset settling",
+    "deadline": "monotonic from request acceptance, including pending/reset/control"
+  },
+  "reporting_boundaries": [
+    "ROS controller is scripted_baseline; FAILED/time_limit is an expected integration outcome, not policy success.",
+    "Original launch physics cumulative counts are derived from elapsed_sim_s / pinned timestep: normal 20000 and wall 2440; read-only audit directly reports 2003 physics steps.",
+    "Pending busy is a logical unit fixture; actual reset and stepping requests here are cross-process.",
+    "Missing model and invalid parameter errors are real node subprocess failures. Hash mismatch remains a separately labelled existing unit fixture.",
+    "Synthetic step error occurs after real third control call/60 physics substeps while node preserves prior two-step/.04s valid evidence.",
+    "Joint telemetry intervals are measurements, not strict 50Hz. Source sample_created proves terminal no-new-samples only in the read-only audit; original launch has drained no-arrival checks.",
+    "ROS checkpoint-path test is NOT_APPLICABLE; no checkpoint-loading interface exists.",
+    "Full regression 183/183 and postflight PASS are now separately verified; final Git publication must still be verified by main task."
+  ],
+  "evidence_sha256": {
+    "integration/active-shutdown-launch.log": "638149ddd6b4c63f9254d2d2fd6b892e7320b67e2a2e4bd2fa3beab071eda68d",
+    "integration/cli-accept.log": "373643ca9545200ac35fd7de66dc3159ea45a774cf6304e9f75b2f0e139de572",
+    "integration/cli-busy.log": "3958a12ccc3c1d6c931eb03b11c59cf051dd747d50abc86f83c232a55e98cf44",
+    "integration/daemon-start.log": "7a405d03e5d83e985f101e76b311fce2ec80f5f6e4ac383411a64c8c3271b258",
+    "integration/fault-events.jsonl": "99922fb7bdbf9950ddf081f567b16ed88aaf5f8294fe77de24fabff5dcb36381",
+    "integration/fault-injection-recovery.log": "9cd5fd27492b3e258383572bd31c3527b8c3e287c6b163e3d8cb67c2bd31c615",
+    "integration/fault-injection-telemetry.log": "1bce8ad21dc8f68ca7aeab18b5581aa1825e69d8a51365d8273814f2f5353c26",
+    "integration/idle-echo.log": "c8abe273b69e02e6b67844799b3159681b0fc23cf41a5a951da92f1680e800b7",
+    "integration/invalid-startup-0.log": "7eed517148d69a75af526949de6e4a81111378fd73a32855aaa4c3a495e04043",
+    "integration/invalid-startup-1.log": "72da0441fac22d27a83c8109c22de80d1a8166ce72cd4463f5807b94f83aa1e8",
+    "integration/invalid-startup-2.log": "e1ab25c7a3b532aa076a51e5704e4efe5cdcc287f3143caadf652d6aa59f26f3",
+    "integration/invalid-startup-3.log": "8c2197ca7788209de46ffaa8da16790c20be76bf4b29d73ebb92d1487cdeb741",
+    "integration/invalid-startup-4.log": "811a0b34766106778c8981b827faf3ff88925d8b599c93ab0de2664f8107ea8f",
+    "integration/invalid-startup-5.log": "811a0b34766106778c8981b827faf3ff88925d8b599c93ab0de2664f8107ea8f",
+    "integration/joint-echo.log": "b252b562fc2981f918eb5aa982193d238f138a1d126a88e8dc7a7a27db72e922",
+    "integration/joint-qos.log": "dd2a4112bfecf4d71538aeb45afdae4dc5d82e5961080b691f6e90299361a4b7",
+    "integration/late-telemetry.log": "bb4a17d488be9e515fd8b28260b556507b5fcde36af5a90d24906ad2baddf189",
+    "integration/matched-readback.json": "8ce7ca539b01d677970f58643b724c82779c0842203993bc51e9bb8ce0eb6c2e",
+    "integration/missing-model.log": "8a3d41ee57a2e16eaeb0617e49f06cceb263451fcacf76330278bc392fdc31f3",
+    "integration/node-list.log": "3f4328bbee4891d273d48e0759b6461c943b32bb266040e88943a078a6dca8d4",
+    "integration/normal-launch.log": "94f113790a8fbd0727ef6a1f1148d8f6cb5247141459951e7138e05f1b6bf935",
+    "integration/readback-events.jsonl": "8b4abda07fffec2a650c42aa3bb5df222d12c07a685ea1965a77c72fe7c05c65",
+    "integration/readback-recovery.log": "8765b64b0e0b77f61ce9b82191ad60a84c79bb937c72e06c98eb0b2e2d98f3f8",
+    "integration/readback-telemetry.log": "6f4b2be866448a9ca76f71a9628f31e96f4518d91fb183241cbd180a4d2e8eb9",
+    "integration/received-joints.jsonl": "41fcb3ab2f15bf09b2d716673258365bada4208d35ca24bf914510e352b12e52",
+    "integration/received-status.jsonl": "72656bcb34533cfebf280d6bea3b0cf83056641f20f0c5f6c8ff45560b019e1f",
+    "integration/service-type.log": "7b501061e2d206cca2fe9030a8d274e4209f7ab001cd810698192273e5f56dc8",
+    "integration/status-qos.log": "26d98f0ea6552a5c892da3652e1bf63da6487e7d994dffb94d24a6516b90ef93",
+    "integration/summary.json": "0e57ebc4ac06a7cb99c3d57bd250919b0982f6ce3091a1a3701d150beb1a180a",
+    "integration/wall-launch.log": "de8b255b789976c8a7ca9d4864417de03484b5563c7afa2d9d3e660f5f2c6c41"
+  },
+  "regression": {
+    "status": "PASS",
+    "tests": 183,
+    "passed": 183,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "test_seconds": 83.848,
+    "exit_code": 0,
+    "log": "17-regression.log",
+    "scope": "Existing full unittest suite, including bounded physical tests and synthetic PPO optimization fixtures; no successful policy retraining or five-policy evaluation rerun."
+  },
+  "postflight": {
+    "date": "2026-09-23T13:16:55.436246+00:00",
+    "domain": "86",
+    "rmw": "rmw_fastrtps_cpp",
+    "owned_runtime_processes": [],
+    "nodes": [
+      [
+        "x2_final_postflight",
+        "/"
+      ]
+    ],
+    "services": [
+      [
+        "/x2_final_postflight/describe_parameters",
+        [
+          "rcl_interfaces/srv/DescribeParameters"
+        ]
+      ],
+      [
+        "/x2_final_postflight/get_parameter_types",
+        [
+          "rcl_interfaces/srv/GetParameterTypes"
+        ]
+      ],
+      [
+        "/x2_final_postflight/get_parameters",
+        [
+          "rcl_interfaces/srv/GetParameters"
+        ]
+      ],
+      [
+        "/x2_final_postflight/get_type_description",
+        [
+          "type_description_interfaces/srv/GetTypeDescription"
+        ]
+      ],
+      [
+        "/x2_final_postflight/list_parameters",
+        [
+          "rcl_interfaces/srv/ListParameters"
+        ]
+      ],
+      [
+        "/x2_final_postflight/set_parameters",
+        [
+          "rcl_interfaces/srv/SetParameters"
+        ]
+      ],
+      [
+        "/x2_final_postflight/set_parameters_atomically",
+        [
+          "rcl_interfaces/srv/SetParametersAtomically"
+        ]
+      ]
+    ],
+    "status_publishers": 0,
+    "joint_publishers": 0,
+    "daemon_running": false,
+    "no_residual_business_graph": true,
+    "result": "PASS"
+  },
+  "top_summary_crosscheck": {
+    "result": "COMPLETE",
+    "run_id": "20260923T125208Z-patched-v3",
+    "patch": "tested-v3.patch",
+    "patch_sha256": "a94c3a07582fa411c36dde9387f54c722658f7232d64bc2063a3a4b109ba0861",
+    "top_summary_sha256_at_review": "5f935ba607a3424b68c7b07bedb4a332a29a0e28c5d40e647436f9ee75a417d2",
+    "note": "This summary snapshot and all existing referenced hashes were verified. Adding this external review file requires the main task to regenerate the final manifest once more and check copied evidence.",
+    "verified_at_utc": "2026-09-23T13:23:21.632680+00:00"
+  },
+  "frozen_at_utc": "2026-09-23T13:23:21.632683+00:00"
+}

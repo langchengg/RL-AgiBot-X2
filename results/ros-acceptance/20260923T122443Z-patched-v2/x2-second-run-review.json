@@ -1,0 +1,71 @@
+{
+  "result": "FAIL_BEFORE_ANY_RECOVERY_REQUEST",
+  "run_root": "/tmp/x2-final-ros.pukricvy",
+  "checks_total": 4,
+  "checks_pass": 3,
+  "failed_check": "business_nodes_discovered",
+  "empty_actual_node_list": "",
+  "cli_exit_code": 0,
+  "cli_wall_s": 0.8686479579996558,
+  "evidence_business_nodes_were_ready": [
+    "normal-launch.log has both process-start lines",
+    "ready log carries controller scripted_baseline and episode 0",
+    "telemetry reports status=IDLE no_sample",
+    "existing independent integration client satisfied ready() service/subscription predicates before invoking CLI"
+  ],
+  "episodes_started": 0,
+  "signals": [
+    {
+      "signal": "SIGINT",
+      "target_kind": "launch_pid",
+      "target": 30723,
+      "sent_utc": "2026-09-23T12:49:01.763199+00:00",
+      "sent_monotonic_s": 2418.661478068
+    }
+  ],
+  "business_child_exits": [
+    {
+      "name": "recovery_node-1",
+      "pid": 30742,
+      "returncode": 0
+    },
+    {
+      "name": "telemetry_node-2",
+      "pid": 30743,
+      "returncode": 0
+    }
+  ],
+  "cleanup_errors": [],
+  "remaining_owned_group_members": [],
+  "own_cli_daemon_stopped": true,
+  "root_cause_scope": "An independent new CLI observation node did not finish discovery during its default 0.5s wait. Existing runner client readiness does not imply this new observer is ready. daemon_was_running=false; local NodeStrategy starts a daemon then uses DirectNode for the first CLI, so evidence does not prove an already-running daemon cache returned the empty list.",
+  "installed_help_findings": {
+    "ros2 node list": [
+      "--no-daemon",
+      "--spin-time SPIN_TIME"
+    ],
+    "ros2 topic info": [
+      "--no-daemon",
+      "--spin-time SPIN_TIME"
+    ],
+    "ros2 service type": "No --no-daemon or --spin-time options; only service_name. Do not pass unsupported options.",
+    "ros2 service list": [
+      "--no-daemon",
+      "--spin-time SPIN_TIME",
+      "-t / --show-types"
+    ]
+  },
+  "source_evidence": [
+    "/opt/ros/jazzy/lib/python3.12/site-packages/ros2cli/node/strategy.py",
+    "/opt/ros/jazzy/lib/python3.12/site-packages/ros2cli/node/direct.py",
+    "/opt/ros/jazzy/lib/python3.12/site-packages/ros2service/verb/type.py"
+  ],
+  "v2_sigint_fix_result": "Supported by this real startup-only failure: parent-only SIGINT produced both child exits 0, closed environment, no owned-group residuals. This is not yet active-episode Ctrl+C proof.",
+  "evidence_sha256": {
+    "node-list.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normal-launch.log": "faa36e316f198b1524f6d4e91f48b793c04940a1b7f91266fa2dc6f986b391a0",
+    "received-joints.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "received-status.jsonl": "9b1118b44a95654824afb21d9ee4cf2e38e1eeeea4fc0c55031d60c25fd5c8dc",
+    "summary.json": "0b4100236d5ba05ed4670b6baab5ad4ff9ee86ff55a68840e771fa3c98744e1e"
+  }
+}

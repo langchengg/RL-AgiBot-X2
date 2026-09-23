@@ -1,0 +1,81 @@
+[INFO] [launch]: All log files can be found below /tmp/x2-final-ros.z4vmp3sx/home/.ros/log/2026-09-23-21-13-15-219943-lang-39866
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [recovery_node-1]: process started with pid [39869]
+[INFO] [telemetry_node-2]: process started with pid [39870]
+[recovery_node-1] [INFO] [1790169195.932073161] [recovery_node]: {"event": "ready", "controller": "scripted_baseline", "episode": 0, "create_s": 0.45437354100022276, "executable": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python", "module": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/recovery_node.py", "seed": 60, "episode_timeout_s": 20.0, "recovery_timeout_s": 30.0, "control_dt": 0.02, "asset_repo": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf"}
+[telemetry_node-2] [INFO] [1790169196.415152286] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790169197.410427162] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790169198.412779871] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790169199.410650579] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790169200.410311913] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790169201.410290205] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790169202.413094414] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790169203.409695123] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790169204.414289707] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[recovery_node-1] [INFO] [1790169204.958168165] [recovery_node]: {"event": "accepted", "controller": "scripted_baseline", "episode": 1, "accepted_monotonic_s": 3881.855820349, "deadline_monotonic_s": 3911.855820349, "callback_body_s": 0.00022037500002625166}
+[recovery_node-1] [INFO] [1790169204.964356540] [recovery_node]: {"event": "reset_started", "controller": "scripted_baseline", "episode": 1, "monotonic_s": 3881.862390183}
+[telemetry_node-2] [INFO] [1790169205.409614041] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample
+[recovery_node-1] [INFO] [1790169205.540605416] [recovery_node]: {"event": "reset_completed", "controller": "scripted_baseline", "episode": 1, "monotonic_s": 3882.438356725, "duration_s": 0.5759665420000601, "elapsed_sim_s": 0.0, "episode_start_time": 1.6609999999999279, "reset_seed": 374032080}
+[recovery_node-1] [INFO] [1790169205.599138707] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 1.7909997040987946e-06}
+[recovery_node-1] [INFO] [1790169205.600019874] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 7.079997885739431e-07}
+[recovery_node-1] [INFO] [1790169205.600610374] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 3.330001163703855e-07}
+[recovery_node-1] [INFO] [1790169205.603054999] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 6.670002221653704e-07}
+[recovery_node-1] [INFO] [1790169205.603721416] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 4.579997039400041e-07}
+[recovery_node-1] [INFO] [1790169205.618184624] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 7.089997779985424e-07}
+[recovery_node-1] [INFO] [1790169205.619045249] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 5.829997462569736e-07}
+[recovery_node-1] [INFO] [1790169205.619792541] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 5.829997462569736e-07}
+[recovery_node-1] [INFO] [1790169206.058440166] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 8.750002962187864e-07}
+[telemetry_node-2] [INFO] [1790169206.409367624] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.050820 sample_age_s=0.012
+[telemetry_node-2] [INFO] [1790169207.409474042] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.548689 sample_age_s=0.015
+[telemetry_node-2] [INFO] [1790169208.411331750] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.106189 sample_age_s=0.017
+[telemetry_node-2] [INFO] [1790169209.409985126] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.160073 sample_age_s=0.015
+[telemetry_node-2] [INFO] [1790169210.411175710] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.156925 sample_age_s=0.018
+[telemetry_node-2] [INFO] [1790169211.411038085] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.161966 sample_age_s=0.017
+[telemetry_node-2] [INFO] [1790169212.412095877] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.297086 sample_age_s=0.017
+[telemetry_node-2] [INFO] [1790169213.410910128] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.444224 sample_age_s=0.013
+[telemetry_node-2] [INFO] [1790169214.412126962] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.444174 sample_age_s=0.015
+[telemetry_node-2] [INFO] [1790169215.409527212] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.117283 sample_age_s=0.013
+[telemetry_node-2] [INFO] [1790169216.410466004] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.490751 sample_age_s=0.013
+[telemetry_node-2] [INFO] [1790169217.409514046] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.099544 sample_age_s=0.012
+[telemetry_node-2] [INFO] [1790169218.409525213] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068696 sample_age_s=0.013
+[telemetry_node-2] [INFO] [1790169219.411116422] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068744 sample_age_s=0.014
+[telemetry_node-2] [INFO] [1790169220.409618256] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068771 sample_age_s=0.012
+[telemetry_node-2] [INFO] [1790169221.409585048] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068779 sample_age_s=0.012
+[telemetry_node-2] [INFO] [1790169222.409654507] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068781 sample_age_s=0.012
+[telemetry_node-2] [INFO] [1790169223.410260549] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068781 sample_age_s=0.016
+[telemetry_node-2] [INFO] [1790169224.409469050] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068782 sample_age_s=0.014
+[telemetry_node-2] [INFO] [1790169225.410448883] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068782 sample_age_s=0.017
+[recovery_node-1] [INFO] [1790169225.514025467] [recovery_node]: {"event": "finished", "controller": "scripted_baseline", "episode": 1, "status": "FAILED", "reason": "time_limit", "control_steps": 1000, "wall_s": 20.5559810929999, "timeout_overshoot_s": 0.0, "elapsed_sim_s": 20.000000000003563, "environment_result": {"terminated": false, "truncated": true, "is_success": false, "termination_reason": null, "truncation_reason": "time_limit", "elapsed_sim_s": 20.000000000003563, "physics_steps_executed": 20, "stable_duration_s": 0.0, "standing_failures": ["height", "torso_tilt", "feet_total", "other_weight"], "reward_terms_raw": {"height": -0.00011354649408522322, "upright": -0.0006412570251598249, "standing_hold": 0.0, "torque_cost": 0.0008375551328933536, "action_change": 0.0, "success": 0.0}, "reward_terms": {"height": -0.00034063948225566965, "upright": -0.0006412570251598249, "standing_hold": 0.0, "torque_cost": -1.6751102657867073e-05, "action_change": -0.0, "success": 0.0}, "torque_saturation_fraction": 0.03225806451612903, "reset_seed": 374032080, "state": {"pelvis_height_m": 0.07635945753108163, "tilt_deg": 73.58960644417554, "left_weight": 0.1786557248931307, "right_weight": 0.17799334906857756, "other_weight": 0.6433509373786406}, "warnings": [0, 0, 0, 0, 0, 0, 0], "control": {"any_saturation_time_fraction": 1.0, "joint_saturation_time_fraction": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "target_boundary_fraction": 0.0, "raw_torque_abs_max_Nm": 72.97848840706254, "applied_torque_abs_max_Nm": 48.0, "joint_rad_s": 0.00044654764970736066, "joint_limit_rad": 0.0, "floor_penetration_m": 0.0004271031829692932, "self_penetration_m": 0.0}}}
+[telemetry_node-2] [INFO] [1790169226.410086176] [telemetry_node]: status=FAILED joint=left_knee_joint last_sample position_rad=0.068782 sample_age_s=0.896
+[telemetry_node-2] [INFO] [1790169227.409919509] [telemetry_node]: status=FAILED joint=left_knee_joint last_sample position_rad=0.068782 sample_age_s=1.896
+[telemetry_node-2] [INFO] [1790169228.410485343] [telemetry_node]: status=FAILED joint=left_knee_joint last_sample position_rad=0.068782 sample_age_s=2.897
+[recovery_node-1] [INFO] [1790169228.431374177] [recovery_node]: {"event": "accepted", "controller": "scripted_baseline", "episode": 2, "accepted_monotonic_s": 3905.329327319, "deadline_monotonic_s": 3935.329327319, "callback_body_s": 8.416699984081788e-05}
+[recovery_node-1] [INFO] [1790169228.444151260] [recovery_node]: {"event": "reset_started", "controller": "scripted_baseline", "episode": 2, "monotonic_s": 3905.342241819}
+[recovery_node-1] [INFO] [1790169229.006390427] [recovery_node]: {"event": "reset_completed", "controller": "scripted_baseline", "episode": 2, "monotonic_s": 3905.904157444, "duration_s": 0.5619156249999833, "elapsed_sim_s": 0.0, "episode_start_time": 1.6609999999999279, "reset_seed": 374032080}
+[telemetry_node-2] [INFO] [1790169229.413577469] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.030000 sample_age_s=0.016
+[telemetry_node-2] [INFO] [1790169230.411490261] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.239705 sample_age_s=0.016
+[telemetry_node-2] [INFO] [1790169231.409764470] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.898804 sample_age_s=0.015
+[telemetry_node-2] [INFO] [1790169232.416096720] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.159564 sample_age_s=0.021
+[telemetry_node-2] [INFO] [1790169233.412485221] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.158636 sample_age_s=0.019
+[telemetry_node-2] [INFO] [1790169234.411808846] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.156702 sample_age_s=0.018
+[telemetry_node-2] [INFO] [1790169235.414218013] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.212789 sample_age_s=0.017
+[telemetry_node-2] [INFO] [1790169236.411458639] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.389992 sample_age_s=0.014
+[telemetry_node-2] [INFO] [1790169237.410392431] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.458720 sample_age_s=0.016
+[telemetry_node-2] [INFO] [1790169238.413515765] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.332136 sample_age_s=0.017
+[telemetry_node-2] [INFO] [1790169239.410273682] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.798190 sample_age_s=0.013
+[telemetry_node-2] [INFO] [1790169240.411102307] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.226536 sample_age_s=0.017
+[telemetry_node-2] [INFO] [1790169241.410497308] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.069121 sample_age_s=0.016
+[telemetry_node-2] [INFO] [1790169242.409480183] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068714 sample_age_s=0.016
+[telemetry_node-2] [INFO] [1790169243.409572475] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068762 sample_age_s=0.016
+[telemetry_node-2] [INFO] [1790169244.409446393] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068776 sample_age_s=0.015
+[telemetry_node-2] [INFO] [1790169245.410034685] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068780 sample_age_s=0.015
+[telemetry_node-2] [INFO] [1790169246.410627018] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068781 sample_age_s=0.016
+[telemetry_node-2] [INFO] [1790169247.411997477] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068782 sample_age_s=0.017
+[telemetry_node-2] [INFO] [1790169248.409418811] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.068782 sample_age_s=0.013
+[recovery_node-1] [INFO] [1790169248.996684270] [recovery_node]: {"event": "finished", "controller": "scripted_baseline", "episode": 2, "status": "FAILED", "reason": "time_limit", "control_steps": 1000, "wall_s": 20.56522146799989, "timeout_overshoot_s": 0.0, "elapsed_sim_s": 20.000000000003563, "environment_result": {"terminated": false, "truncated": true, "is_success": false, "termination_reason": null, "truncation_reason": "time_limit", "elapsed_sim_s": 20.000000000003563, "physics_steps_executed": 20, "stable_duration_s": 0.0, "standing_failures": ["height", "torso_tilt", "feet_total", "other_weight"], "reward_terms_raw": {"height": -0.00011354649408522322, "upright": -0.0006412570251598249, "standing_hold": 0.0, "torque_cost": 0.0008375551328933536, "action_change": 0.0, "success": 0.0}, "reward_terms": {"height": -0.00034063948225566965, "upright": -0.0006412570251598249, "standing_hold": 0.0, "torque_cost": -1.6751102657867073e-05, "action_change": -0.0, "success": 0.0}, "torque_saturation_fraction": 0.03225806451612903, "reset_seed": 374032080, "state": {"pelvis_height_m": 0.07635945753108163, "tilt_deg": 73.58960644417554, "left_weight": 0.1786557248931307, "right_weight": 0.17799334906857756, "other_weight": 0.6433509373786406}, "warnings": [0, 0, 0, 0, 0, 0, 0], "control": {"any_saturation_time_fraction": 1.0, "joint_saturation_time_fraction": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "target_boundary_fraction": 0.0, "raw_torque_abs_max_Nm": 72.97848840706254, "applied_torque_abs_max_Nm": 48.0, "joint_rad_s": 0.00044654764970736066, "joint_limit_rad": 0.0, "floor_penetration_m": 0.0004271031829692932, "self_penetration_m": 0.0}}}
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [telemetry_node-2]: sending signal 'SIGINT' to process[telemetry_node-2]
+[INFO] [recovery_node-1]: sending signal 'SIGINT' to process[recovery_node-1]
+[recovery_node-1] {"event": "closed", "controller": "scripted_baseline", "episode": 2}
+[INFO] [telemetry_node-2]: process has finished cleanly [pid 39870]
+[INFO] [recovery_node-1]: process has finished cleanly [pid 39869]

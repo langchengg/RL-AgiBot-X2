@@ -1,0 +1,162 @@
++ 1790169447.039896 cwd=/tmp cd /tmp
++ 1790169447.039942 cwd=/tmp /tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python -
+{
+  "recorded_at_utc": "2026-09-23T13:17:27.811618+00:00",
+  "base_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "cwd": "/tmp",
+  "executable": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+  "prefix": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv",
+  "base_prefix": "/usr",
+  "sys_path": [
+    "",
+    "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery",
+    "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages",
+    "/opt/ros/jazzy/opt/gz_math_vendor/lib/python",
+    "/opt/ros/jazzy/lib/python3.12/site-packages",
+    "/usr/lib/python312.zip",
+    "/usr/lib/python3.12",
+    "/usr/lib/python3.12/lib-dynload",
+    "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/lib/python3.12/site-packages",
+    "/usr/local/lib/python3.12/dist-packages",
+    "/usr/lib/python3/dist-packages"
+  ],
+  "scope": "Imports only through sourced install; no rclpy.init, ROS node, model load, reset/step, training or evaluation; pyc writing disabled.",
+  "count": 15,
+  "modules": [
+    {
+      "module": "x2_recovery",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/__init__.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/__init__.py",
+      "sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+      "base_sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.baseline",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/baseline.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/baseline.py",
+      "sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "base_sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.diagnostics",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/diagnostics.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/diagnostics.py",
+      "sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+      "base_sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.env",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/env.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/env.py",
+      "sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "base_sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.evaluate",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/evaluate.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/evaluate.py",
+      "sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "base_sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.model",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/model.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/model.py",
+      "sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "base_sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.model_audit",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/model_audit.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/model_audit.py",
+      "sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+      "base_sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.motion_search",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/motion_search.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/motion_search.py",
+      "sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+      "base_sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.recovery_node",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/recovery_node.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/recovery_node.py",
+      "sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "base_sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.reset",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/reset.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/reset.py",
+      "sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "base_sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.simulation_validation",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/simulation_validation.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/simulation_validation.py",
+      "sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+      "base_sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.success",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/success.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/success.py",
+      "sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "base_sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.success_validation",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/success_validation.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/success_validation.py",
+      "sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+      "base_sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.telemetry_node",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/telemetry_node.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/telemetry_node.py",
+      "sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "base_sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    },
+    {
+      "module": "x2_recovery.train",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/train.py",
+      "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/train.py",
+      "sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+      "base_sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+      "inside_new_source": true,
+      "imported_bytes_match_release": true
+    }
+  ]
+}

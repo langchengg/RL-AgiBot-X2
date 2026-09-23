@@ -1,0 +1,4 @@
++ 1790166320.171293 cwd=/tmp mkdir -p /tmp/x2-final-ros.pukricvy/assets
++ 1790166320.172133 cwd=/tmp git -c http.version=HTTP/1.1 clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf
+Cloning into '/tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf'...
+fatal: unable to access 'https://github.com/AgibotTech/agibot_x2_urdf.git/': gnutls_handshake() failed: The TLS connection was non-properly terminated.

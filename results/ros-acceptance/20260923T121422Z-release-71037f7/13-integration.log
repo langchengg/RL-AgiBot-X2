@@ -1,0 +1,2 @@
++ 1790166598.993461 cwd=/tmp cd /tmp
++ 1790166598.993509 cwd=/tmp timeout --signal=INT --kill-after=15s 240s /tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python /tmp/x2-final-ros.zvwycfdg/repository/src/x2_recovery/test/test_ros_integration.py --output-dir /tmp/x2-final-ros.zvwycfdg/evidence/integration

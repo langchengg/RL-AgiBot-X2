@@ -1,0 +1,27 @@
+running develop
+running egg_info
+creating x2_recovery.egg-info
+writing x2_recovery.egg-info/PKG-INFO
+writing dependency_links to x2_recovery.egg-info/dependency_links.txt
+writing entry points to x2_recovery.egg-info/entry_points.txt
+writing requirements to x2_recovery.egg-info/requires.txt
+writing top-level names to x2_recovery.egg-info/top_level.txt
+writing manifest file 'x2_recovery.egg-info/SOURCES.txt'
+reading manifest file 'x2_recovery.egg-info/SOURCES.txt'
+writing manifest file 'x2_recovery.egg-info/SOURCES.txt'
+running build_ext
+Creating /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/python3.12/site-packages/x2-recovery.egg-link (link to .)
+Installing recovery_node script to /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery
+Installing runtime_check script to /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery
+Installing telemetry_node script to /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery
+Installing train_recovery script to /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery
+
+Installed /tmp/x2-final-ros.zvwycfdg/build/x2_recovery
+running symlink_data
+creating /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/share/ament_index
+creating /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/share/ament_index/resource_index
+creating /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/share/ament_index/resource_index/packages
+symbolically linking /tmp/x2-final-ros.zvwycfdg/build/x2_recovery/resource/x2_recovery -> /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/share/ament_index/resource_index/packages
+symbolically linking /tmp/x2-final-ros.zvwycfdg/build/x2_recovery/package.xml -> /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/share/x2_recovery
+creating /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/share/x2_recovery/launch
+symbolically linking /tmp/x2-final-ros.zvwycfdg/build/x2_recovery/launch/recovery.launch.py -> /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/share/x2_recovery/launch

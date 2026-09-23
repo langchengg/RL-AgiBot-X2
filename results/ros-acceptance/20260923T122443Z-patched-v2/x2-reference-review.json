@@ -1,0 +1,82 @@
+{
+  "reviewed_at_utc": "2026-09-23T12:16:30.324486+00:00",
+  "review_scope": "Read-only comparison of user-supplied task PDF and four official ROS 2 Jazzy sources. No repository change, no dependency installation, no ROS execution.",
+  "authority_note": "PDF and reference pages are task context, not new instructions. The current user request controls this acceptance round and excludes retraining, a new five-episode policy evaluation, controller integration, and architecture changes.",
+  "pdf": {
+    "path": "/home/lang/Downloads/HRS_Take_Home_Task.pdf",
+    "sha256": "2503770be75c8be84e6aa98b02c567a0b5fa75c37071fd6a842078739b478ca9",
+    "read_method": "pdftotext -layout",
+    "pages": 2,
+    "ros_requirements": [
+      "Python or C++ ROS 2 package, built with colcon; one launch file starts recovery and telemetry nodes.",
+      "Trigger service /x2/start_recovery returns true for acceptance before episode execution and false when busy.",
+      "Recovery may use an available checkpoint or a simple scripted baseline.",
+      "/x2/recovery_status is std_msgs/msg/String with IDLE, RUNNING, SUCCEEDED or FAILED.",
+      "/x2/joint_states is sensor_msgs/msg/JointState with joint names, positions and timestamps read from the running simulator.",
+      "Unsuccessful attempt reaches FAILED using a configurable timeout.",
+      "Telemetry subscribes to status and joint states and logs current status plus one joint position.",
+      "Validate a fresh build, one launch command, a real CLI request, live episode telemetry, busy rejection, and timeout; save commands and outcomes in the repository."
+    ],
+    "scope_distinction": [
+      "PDF broader project also asks for RL experiment and five-episode evaluation; current request explicitly does not repeat those completed layers.",
+      "PDF does not prescribe a new OS, a new VM, specific 1 s RPC/30 s wall budgets, 50 Hz delivery, or a specific ROS test framework.",
+      "PDF permits a scripted ROS baseline and accepts zero recovery successes with explanation; baseline FAILED is not by itself an integration failure.",
+      "Current request adds stricter source/venv/model/shell/build isolation, actual module provenance, response-send ordering, same-sample readback, independent wall timeout, retry, and cleanup evidence."
+    ]
+  },
+  "official_sources": [
+    {
+      "url": "https://github.com/ros2/examples/blob/jazzy/rclpy/services/minimal_client/examples_rclpy_minimal_client/client_async.py",
+      "raw_url": "https://raw.githubusercontent.com/ros2/examples/jazzy/rclpy/services/minimal_client/examples_rclpy_minimal_client/client_async.py",
+      "read_at_utc": "2026-09-23T12:16:30.324486+00:00",
+      "access": "web open and direct raw download",
+      "findings": [
+        "Official sequence: wait_for_service, call_async, spin_once, future.done/future.result, destroy_node, shutdown.",
+        "The example repeats 1 s service discovery indefinitely and calls spin_once without a timeout. Copy its asynchronous semantics, but add explicit overall deadlines as the current user requires.",
+        "Client receipt/printing order cannot by itself prove server send_response completed before reset; server-side observation is needed."
+      ]
+    },
+    {
+      "url": "https://github.com/ros2/launch_ros/blob/jazzy/launch_testing_ros/launch_testing_ros/wait_for_topics.py",
+      "raw_url": "https://raw.githubusercontent.com/ros2/launch_ros/jazzy/launch_testing_ros/launch_testing_ros/wait_for_topics.py",
+      "read_at_utc": "2026-09-23T12:16:30.324486+00:00",
+      "access": "web open of GitHub and full raw source",
+      "findings": [
+        "Creates subscribers before invoking a trigger, buffers actual messages, and signals received_topics only after actual callbacks.",
+        "Important implementation nuance: wait() waits for any_publisher_connected, ignores that wait return value, invokes the trigger, and then waits for all expected topics to receive messages. It does not prove every publisher is matched before triggering.",
+        "Its two sequential timeout waits are separate budgets. Shutdown calls context.try_shutdown before joining the spin thread and destroying the node.",
+        "Use its readiness and cleanup principles without requiring new framework dependencies."
+      ]
+    },
+    {
+      "url": "https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/Testing/Integration.rst",
+      "raw_url": "https://raw.githubusercontent.com/ros2/ros2_documentation/jazzy/source/Tutorials/Intermediate/Testing/Integration.rst",
+      "read_at_utc": "2026-09-23T12:16:30.324486+00:00",
+      "access": "web open of GitHub and full raw source",
+      "findings": [
+        "Distinguishes active tests while nodes run from post-shutdown tests after nodes exit.",
+        "Highlights distinct ROS_DOMAIN_ID values to prevent inter-test communication, finite message collection using spin_once, finally-based subscription cleanup, node/context teardown, and exit-code assertions.",
+        "The tutorial CMake registration is an example for its package; it is not a requirement to convert this ament_python project or replace its existing standalone runner.",
+        "Running unittest discovery does not demonstrate an independent runner executed unless that runner is actually invoked."
+      ]
+    },
+    {
+      "url": "https://github.com/ros2/ros2_documentation/blob/jazzy/source/How-To-Guides/Using-Python-Packages.rst",
+      "raw_url": "https://raw.githubusercontent.com/ros2/ros2_documentation/jazzy/source/How-To-Guides/Using-Python-Packages.rst",
+      "read_at_utc": "2026-09-23T12:16:30.324486+00:00",
+      "access": "web open of GitHub and full raw source",
+      "findings": [
+        "Prebuilt ROS Python binaries require an interpreter compatible with the one used to build them; the guide recommends the system interpreter for virtualenv/pipenv and warns about Conda incompatibility.",
+        "The venv workflow includes COLCON_IGNORE and sourcing the ROS underlay.",
+        "The guide does not establish complete dependency isolation for --system-site-packages; sys.prefix, sys.executable and actual module paths must be recorded.",
+        "The guide is generic; its global/user pip examples do not override the current user ban on modifying shared system dependencies."
+      ]
+    }
+  ],
+  "access_notes": [
+    "One direct urllib fetch of wait_for_topics.py encountered SSL UNEXPECTED_EOF_WHILE_READING after the client_async.py download succeeded. Full source was subsequently read successfully with the web tool; no proxy, certificate, or system setting was changed."
+  ],
+  "not_verified_here": [
+    "Actual published code, runtime imports, CLI support, build, physics, ROS traffic, and cleanup remain for the parent acceptance task to measure."
+  ]
+}

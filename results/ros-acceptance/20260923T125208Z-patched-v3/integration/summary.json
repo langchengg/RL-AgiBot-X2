@@ -1,0 +1,3632 @@
+{
+  "controller": "scripted_baseline",
+  "checks": {
+    "installed_outside_checkout": {
+      "result": "PASS"
+    },
+    "single_launch_two_processes": {
+      "result": "PASS"
+    },
+    "daemon-start": {
+      "result": "PASS",
+      "output": "The daemon has been started\n"
+    },
+    "node-list": {
+      "result": "PASS",
+      "output": "/recovery_node\n/ros_integration_client\n/telemetry_node\n"
+    },
+    "business_nodes_discovered": {
+      "result": "PASS"
+    },
+    "service_type_cli_daemon_ready": {
+      "result": "PASS",
+      "start_monotonic_s": 3875.632168888,
+      "deadline_monotonic_s": 3885.632168888,
+      "socket_timeout_cap_s": 5.0,
+      "observations": [
+        {
+          "monotonic_s": 3875.633649638,
+          "types": [
+            [
+              "std_srvs/srv/Trigger"
+            ]
+          ]
+        }
+      ],
+      "end_monotonic_s": 3875.633654221
+    },
+    "service-type": {
+      "result": "PASS",
+      "output": "std_srvs/srv/Trigger\n"
+    },
+    "trigger_service_type": {
+      "result": "PASS"
+    },
+    "status-qos": {
+      "result": "PASS",
+      "output": "Type: std_msgs/msg/String\n\nPublisher count: 1\n\nNode name: recovery_node\nNode namespace: /\nTopic type: std_msgs/msg/String\nTopic type hash: RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18\nEndpoint type: PUBLISHER\nGID: 01.0f.23.c4.bd.9b.fa.5f.00.00.00.00.00.00.13.03\nQoS profile"
+    },
+    "joint-qos": {
+      "result": "PASS",
+      "output": "Type: sensor_msgs/msg/JointState\n\nPublisher count: 1\n\nNode name: recovery_node\nNode namespace: /\nTopic type: sensor_msgs/msg/JointState\nTopic type hash: RIHS01_a13ee3a330e346c9d87b5aa18d24e11690752bd33a0350f11c5882bc9179260e\nEndpoint type: PUBLISHER\nGID: 01.0f.23.c4.bd.9b.fa.5f.00.00.00.00.00.00.14."
+    },
+    "qos-recovery_status": {
+      "result": "PASS"
+    },
+    "type-recovery_status": {
+      "result": "PASS",
+      "expected_type": "std_msgs/msg/String"
+    },
+    "qos-joint_states": {
+      "result": "PASS"
+    },
+    "type-joint_states": {
+      "result": "PASS",
+      "expected_type": "sensor_msgs/msg/JointState"
+    },
+    "idle-echo": {
+      "result": "PASS",
+      "output": "data: IDLE\n---\n"
+    },
+    "idle_observed": {
+      "result": "PASS"
+    },
+    "cli-accept": {
+      "result": "PASS",
+      "output": "waiting for service to become available...\nrequester: making request: std_srvs.srv.Trigger_Request()\n\nresponse:\nstd_srvs.srv.Trigger_Response(success=True, message='Recovery accepted')\n\n"
+    },
+    "cli_accept_true": {
+      "result": "PASS"
+    },
+    "normal-stepping-busy-0": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-0",
+      "start_monotonic_s": 3882.497028475,
+      "end_monotonic_s": 3882.497612016,
+      "round_trip_s": 0.0005835409997416718,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-1": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-1",
+      "start_monotonic_s": 3882.497997808,
+      "end_monotonic_s": 3882.498421641,
+      "round_trip_s": 0.0004238329997861001,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-2": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-2",
+      "start_monotonic_s": 3882.498666891,
+      "end_monotonic_s": 3882.499018266,
+      "round_trip_s": 0.0003513749998091953,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-3": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-3",
+      "start_monotonic_s": 3882.500980641,
+      "end_monotonic_s": 3882.501479641,
+      "round_trip_s": 0.000499000000218075,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-4": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-4",
+      "start_monotonic_s": 3882.501766308,
+      "end_monotonic_s": 3882.502125766,
+      "round_trip_s": 0.000359458000275481,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-5": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-5",
+      "start_monotonic_s": 3882.502377933,
+      "end_monotonic_s": 3882.516586225,
+      "round_trip_s": 0.014208292000148504,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-6": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-6",
+      "start_monotonic_s": 3882.516930391,
+      "end_monotonic_s": 3882.517482016,
+      "round_trip_s": 0.0005516249998436251,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-7": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-7",
+      "start_monotonic_s": 3882.5177731,
+      "end_monotonic_s": 3882.518223058,
+      "round_trip_s": 0.00044995799999014707,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "cli-busy": {
+      "result": "PASS",
+      "output": "waiting for service to become available...\nrequester: making request: std_srvs.srv.Trigger_Request()\n\nresponse:\nstd_srvs.srv.Trigger_Response(success=False, message='Recovery already running')\n\n"
+    },
+    "cli_busy_false": {
+      "result": "PASS"
+    },
+    "joint-echo": {
+      "result": "PASS",
+      "output": "header:\n  stamp:\n    sec: 1790169206\n    nanosec: 937509500\n  frame_id: ''\nname:\n- left_hip_pitch_joint\n- left_hip_roll_joint\n- left_hip_yaw_joint\n- left_knee_joint\n- left_ankle_pitch_joint\n- left_ankle_roll_joint\n- right_hip_pitch_joint\n- right_hip_roll_joint\n- right_hip_yaw_joint\n- right_knee_join"
+    },
+    "simulation_timeout": {
+      "result": "PASS",
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "time_limit",
+      "control_steps": 1000,
+      "wall_s": 20.5559810929999,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 20.000000000003563,
+      "environment_result": {
+        "terminated": false,
+        "truncated": true,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": "time_limit",
+        "elapsed_sim_s": 20.000000000003563,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011354649408522322,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": 0.0008375551328933536,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00034063948225566965,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": -1.6751102657867073e-05,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.03225806451612903,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07635945753108163,
+          "tilt_deg": 73.58960644417554,
+          "left_weight": 0.1786557248931307,
+          "right_weight": 0.17799334906857756,
+          "other_weight": 0.6433509373786406
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 1.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 72.97848840706254,
+          "applied_torque_abs_max_Nm": 48.0,
+          "joint_rad_s": 0.00044654764970736066,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0004271031829692932,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    "actual_moving_telemetry": {
+      "result": "PASS",
+      "samples": 1001
+    },
+    "normal_busy_keeps_episode_and_reset": {
+      "result": "PASS"
+    },
+    "terminal_held_no_more_samples": {
+      "result": "PASS"
+    },
+    "late_subscriber": {
+      "result": "PASS"
+    },
+    "same-instance-accept": {
+      "result": "PASS",
+      "label": "same-instance-accept",
+      "start_monotonic_s": 3905.328982694,
+      "end_monotonic_s": 3905.329914194,
+      "round_trip_s": 0.0009315000002061424,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "same_instance_new_episode": {
+      "result": "PASS"
+    },
+    "normal_cleanup": {
+      "result": "PASS",
+      "children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 39869,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 39870,
+          "returncode": 0
+        }
+      ]
+    },
+    "wall-accept": {
+      "result": "PASS",
+      "label": "wall-accept",
+      "start_monotonic_s": 3927.039230288,
+      "end_monotonic_s": 3927.039866829,
+      "round_trip_s": 0.0006365409999489202,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "wall-stepping-busy-0": {
+      "result": "PASS",
+      "label": "wall-stepping-busy-0",
+      "start_monotonic_s": 3927.69165483,
+      "end_monotonic_s": 3927.692200871,
+      "round_trip_s": 0.0005460409997795068,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "wall-stepping-busy-1": {
+      "result": "PASS",
+      "label": "wall-stepping-busy-1",
+      "start_monotonic_s": 3927.692820621,
+      "end_monotonic_s": 3927.693244663,
+      "round_trip_s": 0.00042404199984957813,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "wall-stepping-busy-2": {
+      "result": "PASS",
+      "label": "wall-stepping-busy-2",
+      "start_monotonic_s": 3927.693738038,
+      "end_monotonic_s": 3927.694072913,
+      "round_trip_s": 0.0003348750001350709,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "wall-stepping-busy-3": {
+      "result": "PASS",
+      "label": "wall-stepping-busy-3",
+      "start_monotonic_s": 3927.696148163,
+      "end_monotonic_s": 3927.696502121,
+      "round_trip_s": 0.0003539579997777764,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "wall_timeout": {
+      "result": "PASS",
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "recovery_timeout",
+      "control_steps": 122,
+      "wall_s": 3.0076086680001026,
+      "timeout_overshoot_s": 0.007608668000102625,
+      "elapsed_sim_s": 2.4399999999997766,
+      "environment_result": {
+        "terminated": false,
+        "truncated": false,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": null,
+        "elapsed_sim_s": 2.4399999999997766,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "left_support",
+          "right_support",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00010303417713976304,
+          "upright": -0.0007491327645691159,
+          "standing_hold": 0.0,
+          "torque_cost": 8.337227169965132e-05,
+          "action_change": 1.8920239715162821e-06,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.0003091025314192891,
+          "upright": -0.0007491327645691159,
+          "standing_hold": 0.0,
+          "torque_cost": -1.6674454339930264e-06,
+          "action_change": -3.784047943032564e-09,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07588176252179134,
+          "tilt_deg": 73.01312689764129,
+          "left_weight": 0.0,
+          "right_weight": 0.015389191470915648,
+          "other_weight": 0.9556486547903394
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 22.05808931741131,
+          "applied_torque_abs_max_Nm": 22.05808931741131,
+          "joint_rad_s": 0.6334973011231967,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.00024260172433555882,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    "wall_cleanup": {
+      "result": "PASS",
+      "children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 40480,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 40481,
+          "returncode": 0
+        }
+      ]
+    },
+    "original-launch-shutdown-accept": {
+      "result": "PASS",
+      "label": "original-launch-shutdown-accept",
+      "start_monotonic_s": 3931.117564998,
+      "end_monotonic_s": 3931.118216915,
+      "round_trip_s": 0.0006519170001411112,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "original_launch_running_before_ctrl_c": {
+      "result": "PASS",
+      "samples": 5
+    },
+    "original_launch_active_ctrl_c_cleanup": {
+      "result": "PASS",
+      "finished": [
+        {
+          "event": "finished",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "status": "FAILED",
+          "reason": "shutdown",
+          "control_steps": 4,
+          "wall_s": 0.6657941670000582,
+          "timeout_overshoot_s": 0.0,
+          "elapsed_sim_s": 0.07999999999999119,
+          "environment_result": {
+            "terminated": false,
+            "truncated": false,
+            "is_success": false,
+            "termination_reason": null,
+            "truncation_reason": null,
+            "elapsed_sim_s": 0.07999999999999119,
+            "physics_steps_executed": 20,
+            "stable_duration_s": 0.0,
+            "standing_failures": [
+              "height",
+              "torso_tilt",
+              "left_support",
+              "right_support",
+              "feet_total",
+              "other_weight"
+            ],
+            "reward_terms_raw": {
+              "height": -0.00011233143308561622,
+              "upright": -0.0006519599198067105,
+              "standing_hold": 0.0,
+              "torque_cost": 1.6634314642848783e-08,
+              "action_change": 0.0,
+              "success": 0.0
+            },
+            "reward_terms": {
+              "height": -0.00033699429925684865,
+              "upright": -0.0006519599198067105,
+              "standing_hold": 0.0,
+              "torque_cost": -3.326862928569757e-10,
+              "action_change": -0.0,
+              "success": 0.0
+            },
+            "torque_saturation_fraction": 0.0,
+            "reset_seed": 374032080,
+            "state": {
+              "pelvis_height_m": 0.07554086756963456,
+              "tilt_deg": 72.30599239115486,
+              "left_weight": 0.012819492639804463,
+              "right_weight": 0.012754225941935366,
+              "other_weight": 0.9744973755285017
+            },
+            "warnings": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "control": {
+              "any_saturation_time_fraction": 0.0,
+              "joint_saturation_time_fraction": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "target_boundary_fraction": 0.0,
+              "raw_torque_abs_max_Nm": 0.023206795670796095,
+              "applied_torque_abs_max_Nm": 0.023206795670796095,
+              "joint_rad_s": 0.006089026977155726,
+              "joint_limit_rad": 0.0,
+              "floor_penetration_m": 0.00019266139740310717,
+              "self_penetration_m": 0.0
+            }
+          }
+        }
+      ],
+      "children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 40538,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 40539,
+          "returncode": 0
+        }
+      ],
+      "subscriber_last_status": "RUNNING",
+      "scope": "Server shutdown/close and child exits; no claim shutdown status reached subscriber"
+    },
+    "readback-accept": {
+      "result": "PASS",
+      "label": "readback-accept",
+      "start_monotonic_s": 3932.692806665,
+      "end_monotonic_s": 3932.693428374,
+      "round_trip_s": 0.0006217090003701742,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "real-reset-busy": {
+      "result": "PASS",
+      "label": "real-reset-busy",
+      "start_monotonic_s": 3932.718077915,
+      "end_monotonic_s": 3933.269686541,
+      "round_trip_s": 0.5516086259999611,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "readback-stepping-busy-0": {
+      "result": "PASS",
+      "label": "readback-stepping-busy-0",
+      "start_monotonic_s": 3933.326518124,
+      "end_monotonic_s": 3933.327058666,
+      "round_trip_s": 0.0005405420001807215,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "readback-stepping-busy-1": {
+      "result": "PASS",
+      "label": "readback-stepping-busy-1",
+      "start_monotonic_s": 3933.328021332,
+      "end_monotonic_s": 3933.328435916,
+      "round_trip_s": 0.0004145840002820478,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "readback-stepping-busy-2": {
+      "result": "PASS",
+      "label": "readback-stepping-busy-2",
+      "start_monotonic_s": 3933.329136499,
+      "end_monotonic_s": 3933.329480749,
+      "round_trip_s": 0.00034425000012561213,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "readback-stepping-busy-3": {
+      "result": "PASS",
+      "label": "readback-stepping-busy-3",
+      "start_monotonic_s": 3933.330171624,
+      "end_monotonic_s": 3933.330514832,
+      "round_trip_s": 0.0003432080002312432,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "acceptance_sent_before_reset": {
+      "result": "PASS"
+    },
+    "response_reset_step_order": {
+      "result": "PASS",
+      "send_end": 3932.693347707,
+      "reset_begin": 3932.711251249,
+      "reset_end": 3933.252125166,
+      "first_step_begin": 3933.255069082
+    },
+    "audited_supine_reset_qualified": {
+      "result": "PASS",
+      "reset_duration_s": 0.5408739170002264,
+      "settled_start_s": 0.16100000000000012
+    },
+    "request_actually_sent_during_reset": {
+      "result": "PASS",
+      "reset_begin": 3932.711251249,
+      "reset_end": 3933.252125166,
+      "label": "real-reset-busy",
+      "start_monotonic_s": 3932.718077915,
+      "end_monotonic_s": 3933.269686541,
+      "round_trip_s": 0.5516086259999611,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "readback-0": {
+      "result": "PASS"
+    },
+    "readback-1": {
+      "result": "PASS"
+    },
+    "readback-2": {
+      "result": "PASS"
+    },
+    "readback-3": {
+      "result": "PASS"
+    },
+    "readback-4": {
+      "result": "PASS"
+    },
+    "readback-25": {
+      "result": "PASS"
+    },
+    "readback-50": {
+      "result": "PASS"
+    },
+    "readback-75": {
+      "result": "PASS"
+    },
+    "readback-100": {
+      "result": "PASS"
+    },
+    "same_snapshot_actual_readback": {
+      "result": "PASS",
+      "matched": 9,
+      "max_absolute_error": 0.0
+    },
+    "busy_during_verified_stepping_interval": {
+      "result": "PASS",
+      "samples": 4
+    },
+    "audited_busy_no_episode_reset_or_step_mutation": {
+      "result": "PASS",
+      "callbacks": 5
+    },
+    "no_new_sampling_after_audited_terminal": {
+      "result": "PASS",
+      "terminal_monotonic_s": 3935.256483,
+      "samples": 102
+    },
+    "shutdown-active-accept": {
+      "result": "PASS",
+      "label": "shutdown-active-accept",
+      "start_monotonic_s": 3935.483138875,
+      "end_monotonic_s": 3935.48443475,
+      "round_trip_s": 0.0012958750003235764,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "active_ctrl_c_cleanup": {
+      "result": "PASS"
+    },
+    "close_after_execution_unwound": {
+      "result": "PASS"
+    },
+    "fault-injection-accept": {
+      "result": "PASS",
+      "label": "fault-injection-accept",
+      "start_monotonic_s": 3936.627262792,
+      "end_monotonic_s": 3936.627902209,
+      "round_trip_s": 0.0006394170000021404,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "synthetic_step_fault_ends_request": {
+      "result": "PASS"
+    },
+    "retry-after-fault-accept": {
+      "result": "PASS",
+      "label": "retry-after-fault-accept",
+      "start_monotonic_s": 3937.247060959,
+      "end_monotonic_s": 3937.247736126,
+      "round_trip_s": 0.0006751669998266152,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "real_reset_after_synthetic_fault": {
+      "result": "PASS"
+    },
+    "invalid-startup-0": {
+      "result": "PASS"
+    },
+    "invalid-startup-1": {
+      "result": "PASS"
+    },
+    "invalid-startup-2": {
+      "result": "PASS"
+    },
+    "invalid-startup-3": {
+      "result": "PASS"
+    },
+    "invalid-startup-4": {
+      "result": "PASS"
+    },
+    "invalid-startup-5": {
+      "result": "PASS"
+    },
+    "model_load_failure": {
+      "result": "PASS"
+    },
+    "startup_failures_no_service": {
+      "result": "PASS"
+    }
+  },
+  "processes": [
+    {
+      "pid": 39866,
+      "process_group": 39866,
+      "command": [
+        "ros2",
+        "launch",
+        "x2_recovery",
+        "recovery.launch.py",
+        "seed:=60",
+        "episode_timeout_s:=20.0",
+        "recovery_timeout_s:=30.0"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:15.105842+00:00",
+      "started_monotonic_s": 3872.004123053,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "returncode": 0,
+      "members_when_ready": [
+        {
+          "pid": 39866,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 39866,
+          "start_ticks": 387200,
+          "command": [
+            "/usr/bin/python3",
+            "/opt/ros/jazzy/bin/ros2",
+            "launch",
+            "x2_recovery",
+            "recovery.launch.py",
+            "seed:=60",
+            "episode_timeout_s:=20.0",
+            "recovery_timeout_s:=30.0"
+          ]
+        },
+        {
+          "pid": 39869,
+          "state": "S",
+          "parent_pid": 39866,
+          "process_group": 39866,
+          "start_ticks": 387214,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_9lia9wi9",
+            "--params-file",
+            "/tmp/launch_params_s0tz8kl5"
+          ]
+        },
+        {
+          "pid": 39870,
+          "state": "S",
+          "parent_pid": 39866,
+          "process_group": 39866,
+          "start_ticks": 387214,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_23y3__vt"
+          ]
+        }
+      ],
+      "members_before_stop": [
+        {
+          "pid": 39866,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 39866,
+          "start_ticks": 387200,
+          "command": [
+            "/usr/bin/python3",
+            "/opt/ros/jazzy/bin/ros2",
+            "launch",
+            "x2_recovery",
+            "recovery.launch.py",
+            "seed:=60",
+            "episode_timeout_s:=20.0",
+            "recovery_timeout_s:=30.0"
+          ]
+        },
+        {
+          "pid": 39869,
+          "state": "S",
+          "parent_pid": 39866,
+          "process_group": 39866,
+          "start_ticks": 387214,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_9lia9wi9",
+            "--params-file",
+            "/tmp/launch_params_s0tz8kl5"
+          ]
+        },
+        {
+          "pid": 39870,
+          "state": "S",
+          "parent_pid": 39866,
+          "process_group": 39866,
+          "start_ticks": 387214,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_23y3__vt"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "launch_pid",
+          "target": 39866,
+          "sent_utc": "2026-09-23T13:14:09.010175+00:00",
+          "sent_monotonic_s": 3925.908457745
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T13:14:09.235902+00:00",
+      "exit_observed_monotonic_s": 3926.134184287,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 39869,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 39870,
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "pid": 39911,
+      "process_group": 39911,
+      "command": [
+        "ros2",
+        "daemon",
+        "start"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:15.949926+00:00",
+      "started_monotonic_s": 3872.848207845,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/daemon-start.log",
+      "returncode": 0,
+      "members_before_stop": [
+        {
+          "pid": 39914,
+          "state": "S",
+          "parent_pid": 1631,
+          "process_group": 39911,
+          "start_ticks": 387300,
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "from ros2cli.daemon.daemonize import main; main()",
+            "--name",
+            "ros2-daemon",
+            "--ros-domain-id",
+            "86",
+            "--rmw-implementation",
+            "rmw_fastrtps_cpp"
+          ]
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T13:13:16.356082+00:00",
+      "exit_observed_monotonic_s": 3873.254363387,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [
+        {
+          "pid": 39914,
+          "state": "S",
+          "parent_pid": 1631,
+          "process_group": 39911,
+          "start_ticks": 387300,
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "from ros2cli.daemon.daemonize import main; main()",
+            "--name",
+            "ros2-daemon",
+            "--ros-domain-id",
+            "86",
+            "--rmw-implementation",
+            "rmw_fastrtps_cpp"
+          ]
+        }
+      ],
+      "launch_children": []
+    },
+    {
+      "pid": 39928,
+      "process_group": 39928,
+      "command": [
+        "ros2",
+        "node",
+        "list",
+        "--no-daemon",
+        "--spin-time",
+        "2"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:16.364757+00:00",
+      "started_monotonic_s": 3873.263035804,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/node-list.log",
+      "returncode": 0,
+      "exit_observed_utc": "2026-09-23T13:13:18.719393+00:00",
+      "exit_observed_monotonic_s": 3875.617676305,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 39948,
+      "process_group": 39948,
+      "command": [
+        "ros2",
+        "service",
+        "type",
+        "/x2/start_recovery"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:18.735592+00:00",
+      "started_monotonic_s": 3875.63387018,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/service-type.log",
+      "returncode": 0,
+      "exit_observed_utc": "2026-09-23T13:13:18.931762+00:00",
+      "exit_observed_monotonic_s": 3875.830046055,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 39970,
+      "process_group": 39970,
+      "command": [
+        "ros2",
+        "topic",
+        "info",
+        "/x2/recovery_status",
+        "--verbose",
+        "--no-daemon",
+        "--spin-time",
+        "2"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:18.941208+00:00",
+      "started_monotonic_s": 3875.839487346,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/status-qos.log",
+      "returncode": 0,
+      "exit_observed_utc": "2026-09-23T13:13:21.279885+00:00",
+      "exit_observed_monotonic_s": 3878.178168056,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 39989,
+      "process_group": 39989,
+      "command": [
+        "ros2",
+        "topic",
+        "info",
+        "/x2/joint_states",
+        "--verbose",
+        "--no-daemon",
+        "--spin-time",
+        "2"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:21.290184+00:00",
+      "started_monotonic_s": 3878.188463598,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/joint-qos.log",
+      "returncode": 0,
+      "exit_observed_utc": "2026-09-23T13:13:23.628533+00:00",
+      "exit_observed_monotonic_s": 3880.526817015,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40009,
+      "process_group": 40009,
+      "command": [
+        "ros2",
+        "topic",
+        "echo",
+        "/x2/recovery_status",
+        "std_msgs/msg/String",
+        "--qos-reliability",
+        "reliable",
+        "--qos-durability",
+        "transient_local",
+        "--once",
+        "--timeout",
+        "5"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:23.641877+00:00",
+      "started_monotonic_s": 3880.54015839,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/idle-echo.log",
+      "returncode": 0,
+      "exit_observed_utc": "2026-09-23T13:13:24.513757+00:00",
+      "exit_observed_monotonic_s": 3881.412041516,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40026,
+      "process_group": 40026,
+      "command": [
+        "ros2",
+        "service",
+        "call",
+        "/x2/start_recovery",
+        "std_srvs/srv/Trigger",
+        "{}"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:24.524322+00:00",
+      "started_monotonic_s": 3881.422601766,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/cli-accept.log",
+      "returncode": 0,
+      "exit_observed_utc": "2026-09-23T13:13:25.123035+00:00",
+      "exit_observed_monotonic_s": 3882.021317099,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40043,
+      "process_group": 40043,
+      "command": [
+        "ros2",
+        "service",
+        "call",
+        "/x2/start_recovery",
+        "std_srvs/srv/Trigger",
+        "{}"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:25.620315+00:00",
+      "started_monotonic_s": 3882.518596683,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/cli-busy.log",
+      "returncode": 0,
+      "exit_observed_utc": "2026-09-23T13:13:26.209710+00:00",
+      "exit_observed_monotonic_s": 3883.107990975,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40062,
+      "process_group": 40062,
+      "command": [
+        "ros2",
+        "topic",
+        "echo",
+        "/x2/joint_states",
+        "sensor_msgs/msg/JointState",
+        "--once",
+        "--timeout",
+        "5"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:26.219251+00:00",
+      "started_monotonic_s": 3883.117531225,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/joint-echo.log",
+      "returncode": 0,
+      "exit_observed_utc": "2026-09-23T13:13:27.086430+00:00",
+      "exit_observed_monotonic_s": 3883.984713059,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40318,
+      "process_group": 40318,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node",
+        "--ros-args",
+        "-r",
+        "__node:=late_telemetry"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:13:46.981695+00:00",
+      "started_monotonic_s": 3903.880033027,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/late-telemetry.log",
+      "returncode": 0,
+      "members_before_stop": [
+        {
+          "pid": 40318,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 40318,
+          "start_ticks": 390388,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "-r",
+            "__node:=late_telemetry"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "owned_process_group",
+          "target": 40318,
+          "sent_utc": "2026-09-23T13:13:48.222788+00:00",
+          "sent_monotonic_s": 3905.12107186
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T13:13:48.418995+00:00",
+      "exit_observed_monotonic_s": 3905.317276861,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40477,
+      "process_group": 40477,
+      "command": [
+        "ros2",
+        "launch",
+        "x2_recovery",
+        "recovery.launch.py",
+        "seed:=60",
+        "episode_timeout_s:=20.0",
+        "recovery_timeout_s:=3.0"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:09.245955+00:00",
+      "started_monotonic_s": 3926.144235287,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/wall-launch.log",
+      "returncode": 0,
+      "members_when_ready": [
+        {
+          "pid": 40477,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 40477,
+          "start_ticks": 392614,
+          "command": [
+            "/usr/bin/python3",
+            "/opt/ros/jazzy/bin/ros2",
+            "launch",
+            "x2_recovery",
+            "recovery.launch.py",
+            "seed:=60",
+            "episode_timeout_s:=20.0",
+            "recovery_timeout_s:=3.0"
+          ]
+        },
+        {
+          "pid": 40480,
+          "state": "S",
+          "parent_pid": 40477,
+          "process_group": 40477,
+          "start_ticks": 392628,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_auortgqx",
+            "--params-file",
+            "/tmp/launch_params_psgd8ei5"
+          ]
+        },
+        {
+          "pid": 40481,
+          "state": "S",
+          "parent_pid": 40477,
+          "process_group": 40477,
+          "start_ticks": 392628,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_7otziaf4"
+          ]
+        }
+      ],
+      "members_before_stop": [
+        {
+          "pid": 40477,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 40477,
+          "start_ticks": 392614,
+          "command": [
+            "/usr/bin/python3",
+            "/opt/ros/jazzy/bin/ros2",
+            "launch",
+            "x2_recovery",
+            "recovery.launch.py",
+            "seed:=60",
+            "episode_timeout_s:=20.0",
+            "recovery_timeout_s:=3.0"
+          ]
+        },
+        {
+          "pid": 40480,
+          "state": "S",
+          "parent_pid": 40477,
+          "process_group": 40477,
+          "start_ticks": 392628,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_auortgqx",
+            "--params-file",
+            "/tmp/launch_params_psgd8ei5"
+          ]
+        },
+        {
+          "pid": 40481,
+          "state": "S",
+          "parent_pid": 40477,
+          "process_group": 40477,
+          "start_ticks": 392628,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_7otziaf4"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "launch_pid",
+          "target": 40477,
+          "sent_utc": "2026-09-23T13:14:13.171586+00:00",
+          "sent_monotonic_s": 3930.069866539
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T13:14:13.398944+00:00",
+      "exit_observed_monotonic_s": 3930.297226747,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 40480,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 40481,
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "pid": 40535,
+      "process_group": 40535,
+      "command": [
+        "ros2",
+        "launch",
+        "x2_recovery",
+        "recovery.launch.py",
+        "seed:=60",
+        "episode_timeout_s:=20.0",
+        "recovery_timeout_s:=30.0"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:13.408937+00:00",
+      "started_monotonic_s": 3930.307216789,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/active-shutdown-launch.log",
+      "returncode": 0,
+      "members_when_ready": [
+        {
+          "pid": 40535,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 40535,
+          "start_ticks": 393030,
+          "command": [
+            "/usr/bin/python3",
+            "/opt/ros/jazzy/bin/ros2",
+            "launch",
+            "x2_recovery",
+            "recovery.launch.py",
+            "seed:=60",
+            "episode_timeout_s:=20.0",
+            "recovery_timeout_s:=30.0"
+          ]
+        },
+        {
+          "pid": 40538,
+          "state": "S",
+          "parent_pid": 40535,
+          "process_group": 40535,
+          "start_ticks": 393044,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_8nf9kmc3",
+            "--params-file",
+            "/tmp/launch_params_ezy487mt"
+          ]
+        },
+        {
+          "pid": 40539,
+          "state": "S",
+          "parent_pid": 40535,
+          "process_group": 40535,
+          "start_ticks": 393044,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params__yf6jjjg"
+          ]
+        }
+      ],
+      "members_before_stop": [
+        {
+          "pid": 40535,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 40535,
+          "start_ticks": 393030,
+          "command": [
+            "/usr/bin/python3",
+            "/opt/ros/jazzy/bin/ros2",
+            "launch",
+            "x2_recovery",
+            "recovery.launch.py",
+            "seed:=60",
+            "episode_timeout_s:=20.0",
+            "recovery_timeout_s:=30.0"
+          ]
+        },
+        {
+          "pid": 40538,
+          "state": "R",
+          "parent_pid": 40535,
+          "process_group": 40535,
+          "start_ticks": 393044,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_8nf9kmc3",
+            "--params-file",
+            "/tmp/launch_params_ezy487mt"
+          ]
+        },
+        {
+          "pid": 40539,
+          "state": "S",
+          "parent_pid": 40535,
+          "process_group": 40535,
+          "start_ticks": 393044,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params__yf6jjjg"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "launch_pid",
+          "target": 40535,
+          "sent_utc": "2026-09-23T13:14:14.884402+00:00",
+          "sent_monotonic_s": 3931.782683123
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T13:14:15.118224+00:00",
+      "exit_observed_monotonic_s": 3932.01650754,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 40538,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 40539,
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "pid": 40594,
+      "process_group": 40594,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+        "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/test/test_ros_integration.py",
+        "--instrumented-node",
+        "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/readback-events.jsonl",
+        "--ros-args",
+        "-p",
+        "episode_timeout_s:=2.003"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:15.128465+00:00",
+      "started_monotonic_s": 3932.026744248,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/readback-recovery.log",
+      "returncode": 0,
+      "members_when_ready": [
+        {
+          "pid": 40594,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 40594,
+          "start_ticks": 393202,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/test/test_ros_integration.py",
+            "--instrumented-node",
+            "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/readback-events.jsonl",
+            "--ros-args",
+            "-p",
+            "episode_timeout_s:=2.003"
+          ]
+        }
+      ],
+      "members_before_stop": [
+        {
+          "pid": 40594,
+          "state": "R",
+          "parent_pid": 39850,
+          "process_group": 40594,
+          "start_ticks": 393202,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/test/test_ros_integration.py",
+            "--instrumented-node",
+            "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/readback-events.jsonl",
+            "--ros-args",
+            "-p",
+            "episode_timeout_s:=2.003"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "owned_process_group",
+          "target": 40594,
+          "sent_utc": "2026-09-23T13:14:18.624123+00:00",
+          "sent_monotonic_s": 3935.522404167
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T13:14:18.860022+00:00",
+      "exit_observed_monotonic_s": 3935.758305167,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40595,
+      "process_group": 40595,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:15.128791+00:00",
+      "started_monotonic_s": 3932.02706929,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/readback-telemetry.log",
+      "returncode": 0,
+      "members_before_stop": [
+        {
+          "pid": 40595,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 40595,
+          "start_ticks": 393202,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "owned_process_group",
+          "target": 40595,
+          "sent_utc": "2026-09-23T13:14:18.885836+00:00",
+          "sent_monotonic_s": 3935.784117542
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T13:14:19.024883+00:00",
+      "exit_observed_monotonic_s": 3935.923167333,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40639,
+      "process_group": 40639,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+        "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/test/test_ros_integration.py",
+        "--instrumented-node",
+        "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/fault-events.jsonl",
+        "--inject-step-error",
+        "--ros-args",
+        "-p",
+        "episode_timeout_s:=0.203"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:19.035538+00:00",
+      "started_monotonic_s": 3935.933816792,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/fault-injection-recovery.log",
+      "returncode": 0,
+      "members_when_ready": [
+        {
+          "pid": 40639,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 40639,
+          "start_ticks": 393593,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/test/test_ros_integration.py",
+            "--instrumented-node",
+            "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/fault-events.jsonl",
+            "--inject-step-error",
+            "--ros-args",
+            "-p",
+            "episode_timeout_s:=0.203"
+          ]
+        }
+      ],
+      "members_before_stop": [
+        {
+          "pid": 40639,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 40639,
+          "start_ticks": 393593,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/test/test_ros_integration.py",
+            "--instrumented-node",
+            "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/fault-events.jsonl",
+            "--inject-step-error",
+            "--ros-args",
+            "-p",
+            "episode_timeout_s:=0.203"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "owned_process_group",
+          "target": 40639,
+          "sent_utc": "2026-09-23T13:14:21.144153+00:00",
+          "sent_monotonic_s": 3938.042432709
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T13:14:21.374982+00:00",
+      "exit_observed_monotonic_s": 3938.273265376,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40640,
+      "process_group": 40640,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:19.035912+00:00",
+      "started_monotonic_s": 3935.93419075,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/fault-injection-telemetry.log",
+      "returncode": 0,
+      "members_before_stop": [
+        {
+          "pid": 40640,
+          "state": "S",
+          "parent_pid": 39850,
+          "process_group": 40640,
+          "start_ticks": 393593,
+          "command": [
+            "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "owned_process_group",
+          "target": 40640,
+          "sent_utc": "2026-09-23T13:14:21.394135+00:00",
+          "sent_monotonic_s": 3938.292417168
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T13:14:21.577270+00:00",
+      "exit_observed_monotonic_s": 3938.475555501,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40702,
+      "process_group": 40702,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "--ros-args",
+        "-p",
+        "seed:=-1"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:21.588417+00:00",
+      "started_monotonic_s": 3938.486696251,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/invalid-startup-0.log",
+      "returncode": 1,
+      "exit_observed_utc": "2026-09-23T13:14:21.972670+00:00",
+      "exit_observed_monotonic_s": 3938.870953752,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40721,
+      "process_group": 40721,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "--ros-args",
+        "-p",
+        "episode_timeout_s:=0.0205"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:21.983306+00:00",
+      "started_monotonic_s": 3938.881586835,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/invalid-startup-1.log",
+      "returncode": 1,
+      "exit_observed_utc": "2026-09-23T13:14:22.786371+00:00",
+      "exit_observed_monotonic_s": 3939.684652835,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40749,
+      "process_group": 40749,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "--ros-args",
+        "-p",
+        "recovery_timeout_s:=0.0"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:22.796655+00:00",
+      "started_monotonic_s": 3939.694933835,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/invalid-startup-2.log",
+      "returncode": 1,
+      "exit_observed_utc": "2026-09-23T13:14:23.178640+00:00",
+      "exit_observed_monotonic_s": 3940.076922335,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40765,
+      "process_group": 40765,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "--ros-args",
+        "-p",
+        "use_sim_time:=true"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:23.189446+00:00",
+      "started_monotonic_s": 3940.087725127,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/invalid-startup-3.log",
+      "returncode": 1,
+      "exit_observed_utc": "2026-09-23T13:14:23.571672+00:00",
+      "exit_observed_monotonic_s": 3940.469954836,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40797,
+      "process_group": 40797,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "--ros-args",
+        "-p",
+        "episode_timeout_s:=0.0"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:23.582072+00:00",
+      "started_monotonic_s": 3940.480351002,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/invalid-startup-4.log",
+      "returncode": 1,
+      "exit_observed_utc": "2026-09-23T13:14:23.963582+00:00",
+      "exit_observed_monotonic_s": 3940.861865877,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40816,
+      "process_group": 40816,
+      "command": [
+        "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "--ros-args",
+        "-p",
+        "episode_timeout_s:=-1.0"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:23.975204+00:00",
+      "started_monotonic_s": 3940.873483627,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/invalid-startup-5.log",
+      "returncode": 1,
+      "exit_observed_utc": "2026-09-23T13:14:24.359259+00:00",
+      "exit_observed_monotonic_s": 3941.257541628,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    },
+    {
+      "pid": 40832,
+      "process_group": 40832,
+      "command": [
+        "env",
+        "X2_ASSET_REPO=/nonexistent/x2-assets",
+        "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T13:14:24.370094+00:00",
+      "started_monotonic_s": 3941.268374503,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.z4vmp3sx/install",
+        "X2_ASSET_REPO": "/nonexistent/x2-assets",
+        "X2_SCENE": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/missing-model.log",
+      "returncode": 1,
+      "exit_observed_utc": "2026-09-23T13:14:24.752867+00:00",
+      "exit_observed_monotonic_s": 3941.651149711,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    }
+  ],
+  "rpc": [
+    {
+      "label": "normal-stepping-busy-0",
+      "start_monotonic_s": 3882.497028475,
+      "end_monotonic_s": 3882.497612016,
+      "round_trip_s": 0.0005835409997416718,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-1",
+      "start_monotonic_s": 3882.497997808,
+      "end_monotonic_s": 3882.498421641,
+      "round_trip_s": 0.0004238329997861001,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-2",
+      "start_monotonic_s": 3882.498666891,
+      "end_monotonic_s": 3882.499018266,
+      "round_trip_s": 0.0003513749998091953,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-3",
+      "start_monotonic_s": 3882.500980641,
+      "end_monotonic_s": 3882.501479641,
+      "round_trip_s": 0.000499000000218075,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-4",
+      "start_monotonic_s": 3882.501766308,
+      "end_monotonic_s": 3882.502125766,
+      "round_trip_s": 0.000359458000275481,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-5",
+      "start_monotonic_s": 3882.502377933,
+      "end_monotonic_s": 3882.516586225,
+      "round_trip_s": 0.014208292000148504,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-6",
+      "start_monotonic_s": 3882.516930391,
+      "end_monotonic_s": 3882.517482016,
+      "round_trip_s": 0.0005516249998436251,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-7",
+      "start_monotonic_s": 3882.5177731,
+      "end_monotonic_s": 3882.518223058,
+      "round_trip_s": 0.00044995799999014707,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "same-instance-accept",
+      "start_monotonic_s": 3905.328982694,
+      "end_monotonic_s": 3905.329914194,
+      "round_trip_s": 0.0009315000002061424,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "wall-accept",
+      "start_monotonic_s": 3927.039230288,
+      "end_monotonic_s": 3927.039866829,
+      "round_trip_s": 0.0006365409999489202,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "wall-stepping-busy-0",
+      "start_monotonic_s": 3927.69165483,
+      "end_monotonic_s": 3927.692200871,
+      "round_trip_s": 0.0005460409997795068,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "wall-stepping-busy-1",
+      "start_monotonic_s": 3927.692820621,
+      "end_monotonic_s": 3927.693244663,
+      "round_trip_s": 0.00042404199984957813,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "wall-stepping-busy-2",
+      "start_monotonic_s": 3927.693738038,
+      "end_monotonic_s": 3927.694072913,
+      "round_trip_s": 0.0003348750001350709,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "wall-stepping-busy-3",
+      "start_monotonic_s": 3927.696148163,
+      "end_monotonic_s": 3927.696502121,
+      "round_trip_s": 0.0003539579997777764,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "original-launch-shutdown-accept",
+      "start_monotonic_s": 3931.117564998,
+      "end_monotonic_s": 3931.118216915,
+      "round_trip_s": 0.0006519170001411112,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "readback-accept",
+      "start_monotonic_s": 3932.692806665,
+      "end_monotonic_s": 3932.693428374,
+      "round_trip_s": 0.0006217090003701742,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "real-reset-busy",
+      "start_monotonic_s": 3932.718077915,
+      "end_monotonic_s": 3933.269686541,
+      "round_trip_s": 0.5516086259999611,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "readback-stepping-busy-0",
+      "start_monotonic_s": 3933.326518124,
+      "end_monotonic_s": 3933.327058666,
+      "round_trip_s": 0.0005405420001807215,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "readback-stepping-busy-1",
+      "start_monotonic_s": 3933.328021332,
+      "end_monotonic_s": 3933.328435916,
+      "round_trip_s": 0.0004145840002820478,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "readback-stepping-busy-2",
+      "start_monotonic_s": 3933.329136499,
+      "end_monotonic_s": 3933.329480749,
+      "round_trip_s": 0.00034425000012561213,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "readback-stepping-busy-3",
+      "start_monotonic_s": 3933.330171624,
+      "end_monotonic_s": 3933.330514832,
+      "round_trip_s": 0.0003432080002312432,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "shutdown-active-accept",
+      "start_monotonic_s": 3935.483138875,
+      "end_monotonic_s": 3935.48443475,
+      "round_trip_s": 0.0012958750003235764,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "fault-injection-accept",
+      "start_monotonic_s": 3936.627262792,
+      "end_monotonic_s": 3936.627902209,
+      "round_trip_s": 0.0006394170000021404,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "retry-after-fault-accept",
+      "start_monotonic_s": 3937.247060959,
+      "end_monotonic_s": 3937.247736126,
+      "round_trip_s": 0.0006751669998266152,
+      "success": true,
+      "message": "Recovery accepted"
+    }
+  ],
+  "cli": [
+    {
+      "command": [
+        "ros2",
+        "daemon",
+        "start"
+      ],
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/daemon-start.log",
+      "exit_code": 0,
+      "process_wall_s": 0.41461945900027786,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "node",
+        "list",
+        "--no-daemon",
+        "--spin-time",
+        "2"
+      ],
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/node-list.log",
+      "exit_code": 0,
+      "process_wall_s": 2.3646400009997706,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "service",
+        "type",
+        "/x2/start_recovery"
+      ],
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/service-type.log",
+      "exit_code": 0,
+      "process_wall_s": 0.2052210830001968,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "topic",
+        "info",
+        "/x2/recovery_status",
+        "--verbose",
+        "--no-daemon",
+        "--spin-time",
+        "2"
+      ],
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/status-qos.log",
+      "exit_code": 0,
+      "process_wall_s": 2.3486577509997915,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "topic",
+        "info",
+        "/x2/joint_states",
+        "--verbose",
+        "--no-daemon",
+        "--spin-time",
+        "2"
+      ],
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/joint-qos.log",
+      "exit_code": 0,
+      "process_wall_s": 2.3480767099999866,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "topic",
+        "echo",
+        "/x2/recovery_status",
+        "std_msgs/msg/String",
+        "--qos-reliability",
+        "reliable",
+        "--qos-durability",
+        "transient_local",
+        "--once",
+        "--timeout",
+        "5"
+      ],
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/idle-echo.log",
+      "exit_code": 0,
+      "process_wall_s": 0.8818547920000128,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "service",
+        "call",
+        "/x2/start_recovery",
+        "std_srvs/srv/Trigger",
+        "{}"
+      ],
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/cli-accept.log",
+      "exit_code": 0,
+      "process_wall_s": 0.6071250830000281,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "service",
+        "call",
+        "/x2/start_recovery",
+        "std_srvs/srv/Trigger",
+        "{}"
+      ],
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/cli-busy.log",
+      "exit_code": 0,
+      "process_wall_s": 0.5982748340002217,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "topic",
+        "echo",
+        "/x2/joint_states",
+        "sensor_msgs/msg/JointState",
+        "--once",
+        "--timeout",
+        "5"
+      ],
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/joint-echo.log",
+      "exit_code": 0,
+      "process_wall_s": 0.8768501250001464,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    }
+  ],
+  "episodes": [
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "time_limit",
+      "control_steps": 1000,
+      "wall_s": 20.5559810929999,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 20.000000000003563,
+      "environment_result": {
+        "terminated": false,
+        "truncated": true,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": "time_limit",
+        "elapsed_sim_s": 20.000000000003563,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011354649408522322,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": 0.0008375551328933536,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00034063948225566965,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": -1.6751102657867073e-05,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.03225806451612903,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07635945753108163,
+          "tilt_deg": 73.58960644417554,
+          "left_weight": 0.1786557248931307,
+          "right_weight": 0.17799334906857756,
+          "other_weight": 0.6433509373786406
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 1.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 72.97848840706254,
+          "applied_torque_abs_max_Nm": 48.0,
+          "joint_rad_s": 0.00044654764970736066,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0004271031829692932,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 2,
+      "status": "FAILED",
+      "reason": "time_limit",
+      "control_steps": 1000,
+      "wall_s": 20.56522146799989,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 20.000000000003563,
+      "environment_result": {
+        "terminated": false,
+        "truncated": true,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": "time_limit",
+        "elapsed_sim_s": 20.000000000003563,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011354649408522322,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": 0.0008375551328933536,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00034063948225566965,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": -1.6751102657867073e-05,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.03225806451612903,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07635945753108163,
+          "tilt_deg": 73.58960644417554,
+          "left_weight": 0.1786557248931307,
+          "right_weight": 0.17799334906857756,
+          "other_weight": 0.6433509373786406
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 1.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 72.97848840706254,
+          "applied_torque_abs_max_Nm": 48.0,
+          "joint_rad_s": 0.00044654764970736066,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0004271031829692932,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "recovery_timeout",
+      "control_steps": 122,
+      "wall_s": 3.0076086680001026,
+      "timeout_overshoot_s": 0.007608668000102625,
+      "elapsed_sim_s": 2.4399999999997766,
+      "environment_result": {
+        "terminated": false,
+        "truncated": false,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": null,
+        "elapsed_sim_s": 2.4399999999997766,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "left_support",
+          "right_support",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00010303417713976304,
+          "upright": -0.0007491327645691159,
+          "standing_hold": 0.0,
+          "torque_cost": 8.337227169965132e-05,
+          "action_change": 1.8920239715162821e-06,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.0003091025314192891,
+          "upright": -0.0007491327645691159,
+          "standing_hold": 0.0,
+          "torque_cost": -1.6674454339930264e-06,
+          "action_change": -3.784047943032564e-09,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07588176252179134,
+          "tilt_deg": 73.01312689764129,
+          "left_weight": 0.0,
+          "right_weight": 0.015389191470915648,
+          "other_weight": 0.9556486547903394
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 22.05808931741131,
+          "applied_torque_abs_max_Nm": 22.05808931741131,
+          "joint_rad_s": 0.6334973011231967,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.00024260172433555882,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "shutdown",
+      "control_steps": 4,
+      "wall_s": 0.6657941670000582,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 0.07999999999999119,
+      "environment_result": {
+        "terminated": false,
+        "truncated": false,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": null,
+        "elapsed_sim_s": 0.07999999999999119,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "left_support",
+          "right_support",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011233143308561622,
+          "upright": -0.0006519599198067105,
+          "standing_hold": 0.0,
+          "torque_cost": 1.6634314642848783e-08,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00033699429925684865,
+          "upright": -0.0006519599198067105,
+          "standing_hold": 0.0,
+          "torque_cost": -3.326862928569757e-10,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07554086756963456,
+          "tilt_deg": 72.30599239115486,
+          "left_weight": 0.012819492639804463,
+          "right_weight": 0.012754225941935366,
+          "other_weight": 0.9744973755285017
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 0.023206795670796095,
+          "applied_torque_abs_max_Nm": 0.023206795670796095,
+          "joint_rad_s": 0.006089026977155726,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.00019266139740310717,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "time_limit",
+      "control_steps": 101,
+      "wall_s": 2.5632035429998723,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 2.00299999999978,
+      "environment_result": {
+        "terminated": false,
+        "truncated": true,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": "time_limit",
+        "elapsed_sim_s": 2.00299999999978,
+        "physics_steps_executed": 3,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "right_support",
+          "feet_total",
+          "other_weight",
+          "joint_rad_s"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011068941196427928,
+          "upright": -0.0006670667716071055,
+          "standing_hold": 0.0,
+          "torque_cost": 7.70004832596394e-06,
+          "action_change": 3.048339300123958e-06,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00033206823589283785,
+          "upright": -0.0006670667716071055,
+          "standing_hold": 0.0,
+          "torque_cost": -1.540009665192788e-07,
+          "action_change": -6.096678600247916e-09,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07571732572126401,
+          "tilt_deg": 72.71364274736777,
+          "left_weight": 0.05429592640137504,
+          "right_weight": 0.0,
+          "other_weight": 1.0402272975278932
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 18.77768923213672,
+          "applied_torque_abs_max_Nm": 18.77768923213672,
+          "joint_rad_s": 0.7191502652967579,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.00022285827799588265,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "step_error",
+      "control_steps": 2,
+      "wall_s": 0.6176878340002077,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 0.039999999999995595,
+      "environment_result": {
+        "terminated": false,
+        "truncated": false,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": null,
+        "elapsed_sim_s": 0.039999999999995595,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "left_support",
+          "right_support",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.0001123324157282779,
+          "upright": -0.0006519588089937134,
+          "standing_hold": 0.0,
+          "torque_cost": 7.115016600855272e-09,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.0003369972471848337,
+          "upright": -0.0006519588089937134,
+          "standing_hold": 0.0,
+          "torque_cost": -1.4230033201710545e-10,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07554087094324256,
+          "tilt_deg": 72.3059940985127,
+          "left_weight": 0.012820719243550991,
+          "right_weight": 0.012753309036814185,
+          "other_weight": 0.9745000402132165
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 0.016464915160496432,
+          "applied_torque_abs_max_Nm": 0.016464915160496432,
+          "joint_rad_s": 0.0061690659499609645,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0001926580319150939,
+          "self_penetration_m": 0.0
+        }
+      },
+      "error": {
+        "type": "RuntimeError",
+        "message": "synthetic one-shot step failure after real physics",
+        "evidence": null
+      },
+      "call_completed_monotonic_s": null
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 2,
+      "status": "FAILED",
+      "reason": "time_limit",
+      "control_steps": 11,
+      "wall_s": 0.7829115419999653,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 0.20299999999997764,
+      "environment_result": {
+        "terminated": false,
+        "truncated": true,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": "time_limit",
+        "elapsed_sim_s": 0.20299999999997764,
+        "physics_steps_executed": 3,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "left_support",
+          "right_support",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011232920043159622,
+          "upright": -0.0006519662314644625,
+          "standing_hold": 0.0,
+          "torque_cost": 1.095234701059321e-08,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00033698760129478866,
+          "upright": -0.0006519662314644625,
+          "standing_hold": 0.0,
+          "torque_cost": -2.190469402118642e-10,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.0755408634427021,
+          "tilt_deg": 72.30598882995778,
+          "left_weight": 0.01281707252460932,
+          "right_weight": 0.012755461750656425,
+          "other_weight": 0.9744917397859023
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 0.04048222646244787,
+          "applied_torque_abs_max_Nm": 0.04048222646244787,
+          "joint_rad_s": 0.005841471142617054,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.00019266002945220184,
+          "self_penetration_m": 0.0
+        }
+      }
+    }
+  ],
+  "identity": {
+    "executable": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+    "cwd": "/tmp",
+    "module": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/recovery_node.py",
+    "prefix": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery",
+    "launch": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/launch/recovery.launch.py",
+    "rmw": "rmw_fastrtps_cpp",
+    "domain": "86",
+    "discovery": "LOCALHOST"
+  },
+  "graph_discovery_protocol": {
+    "previous_default_direct_spin_s": 0.5,
+    "explicit_direct_spin_s": 2.0,
+    "service_type": "Unchanged CLI after bounded daemon graph readiness",
+    "reason": "An independent CLI observer may not be discovered when the integration client is ready",
+    "unchanged_rpc_limit_s": 1.0,
+    "unchanged_runner_budget_s": 210.0
+  },
+  "service_type_daemon_readiness": {
+    "start_monotonic_s": 3875.632168888,
+    "deadline_monotonic_s": 3885.632168888,
+    "socket_timeout_cap_s": 5.0,
+    "observations": [
+      {
+        "monotonic_s": 3875.633649638,
+        "types": [
+          [
+            "std_srvs/srv/Trigger"
+          ]
+        ]
+      }
+    ],
+    "end_monotonic_s": 3875.633654221
+  },
+  "callback_samples_s": [
+    0.0002857920003407344,
+    0.00022099999978308915,
+    0.00023295799974221154,
+    0.00017737500002112938,
+    0.00014529099962601322,
+    0.00014704199975312804
+  ],
+  "audited_execution": {
+    "reset_duration_s": 0.5408739170002264,
+    "actual_completed_control_calls": 101,
+    "actual_physics_steps": 2003,
+    "elapsed_sim_s": 2.00299999999978,
+    "wall_s": 2.5632035429998723,
+    "timeout_overshoot_s": 0.0
+  },
+  "result": "PASS",
+  "daemon_was_running": false,
+  "own_cli_daemon_stopped": true,
+  "all_children_exited": true,
+  "remaining_owned_group_members": [],
+  "telemetry_by_scenario": {
+    "normal-episode-1": {
+      "samples": 1001,
+      "acquisition_intervals": {
+        "count": 1000,
+        "minimum_s": 0.009253978729248047,
+        "median_s": 0.01981198787689209,
+        "maximum_s": 0.02976822853088379
+      },
+      "receipt_intervals": {
+        "count": 1000,
+        "minimum_s": 0.001938999999765656,
+        "median_s": 0.01982164550008747,
+        "maximum_s": 0.04054025000004913
+      },
+      "stamp_semantics": "ROS acquisition clock; not MuJoCo simulation time",
+      "knee_joint": "left_knee_joint",
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 1.4588971582880204,
+      "maximum_age_at_receipt_s": 0.021107125
+    },
+    "normal-episode-2": {
+      "samples": 1001,
+      "acquisition_intervals": {
+        "count": 1000,
+        "minimum_s": 0.014459371566772461,
+        "median_s": 0.019872665405273438,
+        "maximum_s": 0.026328325271606445
+      },
+      "receipt_intervals": {
+        "count": 1000,
+        "minimum_s": 0.01436337499990259,
+        "median_s": 0.019856187499954103,
+        "maximum_s": 0.026432541999838577
+      },
+      "stamp_semantics": "ROS acquisition clock; not MuJoCo simulation time",
+      "knee_joint": "left_knee_joint",
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 1.4588971582880204,
+      "maximum_age_at_receipt_s": 0.000677375
+    },
+    "wall-episode-1": {
+      "samples": 123,
+      "acquisition_intervals": {
+        "count": 122,
+        "minimum_s": 0.013094663619995117,
+        "median_s": 0.020105600357055664,
+        "maximum_s": 0.026946067810058594
+      },
+      "receipt_intervals": {
+        "count": 122,
+        "minimum_s": 0.013056500000402593,
+        "median_s": 0.020087853999939398,
+        "maximum_s": 0.027235874999860243
+      },
+      "stamp_semantics": "ROS acquisition clock; not MuJoCo simulation time",
+      "knee_joint": "left_knee_joint",
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 0.9218172065125362,
+      "maximum_age_at_receipt_s": 0.000933625
+    },
+    "original-launch-active-shutdown": {
+      "samples": 5,
+      "acquisition_intervals": {
+        "count": 4,
+        "minimum_s": 0.014298439025878906,
+        "median_s": 0.014721989631652832,
+        "maximum_s": 0.02202010154724121
+      },
+      "receipt_intervals": {
+        "count": 4,
+        "minimum_s": 0.014315833000182465,
+        "median_s": 0.014599458499787943,
+        "maximum_s": 0.022015625000221917
+      },
+      "stamp_semantics": "ROS acquisition clock; not MuJoCo simulation time",
+      "knee_joint": "left_knee_joint",
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 0.029997214637894332,
+      "maximum_age_at_receipt_s": 0.000545625
+    },
+    "readback-episode-1": {
+      "samples": 102,
+      "acquisition_intervals": {
+        "count": 101,
+        "minimum_s": 0.010863780975341797,
+        "median_s": 0.019717931747436523,
+        "maximum_s": 0.023879528045654297
+      },
+      "receipt_intervals": {
+        "count": 101,
+        "minimum_s": 0.010760208000192506,
+        "median_s": 0.01970445799997833,
+        "maximum_s": 0.023904540999865276
+      },
+      "stamp_semantics": "ROS acquisition clock; not MuJoCo simulation time",
+      "knee_joint": "left_knee_joint",
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 0.6359725207116255,
+      "maximum_age_at_receipt_s": 0.000542875
+    },
+    "synthetic-fault-episode-1": {
+      "samples": 3,
+      "acquisition_intervals": {
+        "count": 2,
+        "minimum_s": 0.014461994171142578,
+        "median_s": 0.014677166938781738,
+        "maximum_s": 0.014892339706420898
+      },
+      "receipt_intervals": {
+        "count": 2,
+        "minimum_s": 0.014456124999924214,
+        "median_s": 0.014601291999952082,
+        "maximum_s": 0.01474645899997995
+      },
+      "stamp_semantics": "ROS acquisition clock; not MuJoCo simulation time",
+      "knee_joint": "left_knee_joint",
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 0.029996760770334575,
+      "maximum_age_at_receipt_s": 0.00051525
+    },
+    "retry-after-synthetic-fault-episode-2": {
+      "samples": 12,
+      "acquisition_intervals": {
+        "count": 11,
+        "minimum_s": 0.008418798446655273,
+        "median_s": 0.019023418426513672,
+        "maximum_s": 0.022402286529541016
+      },
+      "receipt_intervals": {
+        "count": 11,
+        "minimum_s": 0.008442291999926965,
+        "median_s": 0.0189610829997946,
+        "maximum_s": 0.022432042000218644
+      },
+      "stamp_semantics": "ROS acquisition clock; not MuJoCo simulation time",
+      "knee_joint": "left_knee_joint",
+      "knee_min_rad": 0.02999627897890157,
+      "knee_max_rad": 0.02999841507482124,
+      "maximum_age_at_receipt_s": 0.000559083
+    }
+  },
+  "telemetry_terminal_log_lines": [
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169196.415152286] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169197.410427162] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169198.412779871] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169199.410650579] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169200.410311913] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169201.410290205] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169202.413094414] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169203.409695123] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169204.414289707] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169205.409614041] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169226.410086176] [telemetry_node]: status=FAILED joint=left_knee_joint last_sample position_rad=0.068782 sample_age_s=0.896"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169227.409919509] [telemetry_node]: status=FAILED joint=left_knee_joint last_sample position_rad=0.068782 sample_age_s=1.896"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169228.410485343] [telemetry_node]: status=FAILED joint=left_knee_joint last_sample position_rad=0.068782 sample_age_s=2.897"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/late-telemetry.log",
+      "line": "[INFO] [1790169228.189385176] [late_telemetry]: status=FAILED joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/wall-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169250.563211395] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/active-shutdown-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790169254.717063022] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/readback-telemetry.log",
+      "line": "[INFO] [1790169256.302380690] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/fault-injection-telemetry.log",
+      "line": "[INFO] [1790169260.213940817] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/integration/fault-injection-telemetry.log",
+      "line": "[INFO] [1790169261.208060234] [telemetry_node]: status=FAILED joint=left_knee_joint last_sample position_rad=0.029998 sample_age_s=0.076"
+    }
+  ],
+  "cleanup_errors": []
+}

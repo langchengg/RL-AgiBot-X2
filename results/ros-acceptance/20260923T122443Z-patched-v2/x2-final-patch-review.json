@@ -1,0 +1,162 @@
+{
+  "reviewed_at_utc": "2026-09-23T12:44:03.872062+00:00",
+  "review_type": "Read-only static patch review. No simulator, ROS node, new dependency installation, or production test execution performed.",
+  "base_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "reviewed_files": {
+    "runner": {
+      "path": "/tmp/x2-final-ros.pukricvy/repository/src/x2_recovery/test/test_ros_integration.py",
+      "sha256": "7ddbeb227f520d38688e6064b5f0335af639b1d747f3c58bc2add3a81e917b8a"
+    },
+    "readme": {
+      "path": "/tmp/x2-final-ros.pukricvy/repository/README.md",
+      "sha256": "a65567d4da0d7fde2c43129413c60fa00d8cb468701307f57236d35a7e51db80"
+    }
+  },
+  "conclusion": "NO_BLOCKING_STATIC_FINDING: suitable to proceed to the mandatory fresh runtime retest. This is not a PASS result for execution or final acceptance.",
+  "blocking_findings": [],
+  "confirmed_patch_properties": [
+    {
+      "lines": "255-323,428-445,455-468",
+      "finding": "Initial SIGINT targets only the ros2 launch parent PID, allowing Jazzy to forward it once. Group SIGTERM/SIGKILL escalation remains bounded and is treated as a failure. Both named launch business children must have explicit clean exit code 0; parent exit alone cannot satisfy cleanup."
+    },
+    {
+      "lines": "38-64,283-315,589-645",
+      "finding": "Process groups are created by this runner and inspected for remaining live members. CLI daemons are deferred to domain-specific shutdown. Cleanup exceptions/remaining owned processes set final result FAIL and raise; they do not leave a completed PASS summary."
+    },
+    {
+      "lines": "231-253,296-312",
+      "finding": "Spawn records include cwd, expanded command, PID/group, start/end observation times, whitelisted environment, signals, log path and launch-child exit outcomes. Explicit env assignments for the missing-model subprocess are reflected in the recorded whitelist."
+    },
+    {
+      "lines": "67-149",
+      "finding": "Observation wrappers invoke each original reset/step exactly once and leave returned physics data unchanged. send_response completion is logged after the real send method returns. Same _sample read_state results are paired with the exact returned message timestamp; no extra physics operation or later-state comparison was added."
+    },
+    {
+      "lines": "487-522",
+      "finding": "Ordering requires real send_end < reset_begin < reset_end < first step_begin. Rejected callbacks preserve episode/reset-count/control-steps/busy/pending/environment ID. Readback compares names/q/dq exactly before calculating and reporting measured absolute errors; unmatched/no samples cannot fabricate zero error."
+    },
+    {
+      "lines": "523-537",
+      "finding": "sample_created events detect new sampling after the observed terminal event; this is distinct from delayed delivery of already published messages. Actual completed control calls and physics-step counts are retained for the instrumented run."
+    },
+    {
+      "lines": "369-468,566-584",
+      "finding": "Original launch, real CLI calls, graph/type checks, normal and wall timeouts, same-instance retry, active launch Ctrl+C and invalid zero/negative episode timeout startup checks remain real cross-process scenarios. Synthetic step fault is clearly labeled."
+    },
+    {
+      "lines": "192,337-345,370-371,434-435,448-450",
+      "finding": "210 s internal deadline, 1 s discovered-client RPC threshold, normal 20 s simulation/30 s wall budget and 3 s independent wall budget remain unchanged. Extra active-shutdown scenario adds work without silently widening budgets."
+    },
+    {
+      "lines": "README Setup/Model source/ROS Integration",
+      "finding": "README matches the reviewed controlled draft. It declares reused system packages and shared-site venv scope, creates the new venv explicitly, uses a separately downloaded pinned model and unified new build/install/log paths, and removes source-specific absolute paths from current ROS reproduction commands."
+    }
+  ],
+  "nonblocking_caveats": [
+    {
+      "severity": "low",
+      "lines": "623-639",
+      "finding": "Some final evidence aggregation precedes executor/node/context teardown without its own try guard: missing left_knee_joint in otherwise valid messages or a log-file I/O error can raise before later context cleanup and final summary write. Existing fixed model names and readable run-owned logs make this inapplicable to the expected valid run, but an error must not be reported as COMPLETE.",
+      "recommendation": "If encountered, preserve the actual nonzero/incomplete run and perform owned-process cleanup in the outer driver; optional future hardening would isolate aggregation failures and put context/stream cleanup in unconditional finally. No runtime repair is required merely for this hypothetical case."
+    },
+    {
+      "severity": "scope",
+      "lines": "54-57,599-610",
+      "finding": "Ownership inference for the CLI daemon relies on domain isolation and the recorded pre-run daemon state. Final report must still cross-check outer preflight and post-run process inventory; static code review cannot prove the domain was unoccupied."
+    },
+    {
+      "severity": "scope",
+      "lines": "409-415,518-522",
+      "finding": "Pending-before-reset busy rejection is still a logical unit-test claim. The real reset-window request may only be handled after single-threaded reset returns. Report its sent interval and measured response latency accurately, without claiming concurrent preemption."
+    },
+    {
+      "severity": "scope",
+      "lines": "483-537",
+      "finding": "The supplementary readback/order scenario uses the existing 2.003 s simulation timeout. Its observed wrappers prove server ordering and true same-sample state readback; they should not be described as an uninstrumented original launch."
+    },
+    {
+      "severity": "documentation",
+      "lines": "README Final isolated ROS acceptance",
+      "finding": "The tested README intentionally retains an awaiting-results paragraph. Replace it with actual final measurements and evidence links before publication, recording this final reporting-only difference from the tested draft. Preserve all historical values and failed root1 cleanup evidence."
+    }
+  ],
+  "production_source_identity": [
+    {
+      "path": "src/x2_recovery/x2_recovery/__init__.py",
+      "sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/baseline.py",
+      "sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/diagnostics.py",
+      "sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/env.py",
+      "sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/evaluate.py",
+      "sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/model.py",
+      "sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/model_audit.py",
+      "sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/motion_search.py",
+      "sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/recovery_node.py",
+      "sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/reset.py",
+      "sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/simulation_validation.py",
+      "sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/success.py",
+      "sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/success_validation.py",
+      "sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/telemetry_node.py",
+      "sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "matches_original_release_clone": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/train.py",
+      "sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+      "matches_original_release_clone": true
+    }
+  ],
+  "syntax_check": "ast.parse of reviewed runner succeeded without importing ROS or simulation code.",
+  "runtime_gate": "Parent must complete fresh root2 installation, build, explicit runner and regression; inspect actual child exits, watchdog code, final result/cleanup errors and remaining owned process inventory. Static review does not waive any gate."
+}

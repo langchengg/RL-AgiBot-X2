@@ -1,0 +1,79 @@
+++ 1790168828.595013 cwd=/tmp /tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python -c 'import json,os;from pathlib import Path;print(json.loads((Path(os.environ["ACCEPT_ROOT"])/"evidence/mujoco-download-identity.json").read_text())["url"])'
++ 1790168828.606367 cwd=/tmp WHEEL_URL=https://files.pythonhosted.org/packages/eb/82/6e62cc389e67a3527c0feb1dbc56dcd0c6ee6e2d42396da89f1712bccd32/mujoco-3.13.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
++ 1790168828.606396 cwd=/tmp curl --version
+curl 8.5.0 (aarch64-unknown-linux-gnu) libcurl/8.5.0 OpenSSL/3.0.13 zlib/1.3 brotli/1.1.0 zstd/1.5.5 libidn2/2.3.7 libpsl/0.21.2 (+libidn2/2.3.7) libssh/0.10.6/openssl/zlib nghttp2/1.59.0 librtmp/2.3 OpenLDAP/2.6.10
+Release-Date: 2023-12-06, security patched: 8.5.0-2ubuntu10.13
+Protocols: dict file ftp ftps gopher gophers http https imap imaps ldap ldaps mqtt pop3 pop3s rtmp rtsp scp sftp smb smbs smtp smtps telnet tftp
+Features: alt-svc AsynchDNS brotli GSS-API HSTS HTTP2 HTTPS-proxy IDN IPv6 Kerberos Largefile libz NTLM PSL SPNEGO SSL threadsafe TLS-SRP UnixSockets zstd
++ 1790168828.619439 cwd=/tmp curl --http1.1 --fail --location --connect-timeout 15 --max-time 45 --head https://files.pythonhosted.org/packages/eb/82/6e62cc389e67a3527c0feb1dbc56dcd0c6ee6e2d42396da89f1712bccd32/mujoco-3.13.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0 18.2M    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0 18.2M    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0
++ 1790168832.837773 cwd=/tmp cat /tmp/x2-final-ros.z4vmp3sx/evidence/mujoco-official-head.txt
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 19103843
+Last-Modified: Wed, 09 Sep 2026 15:38:50 GMT
+ETag: "c3d275fd2cfd2aab2d007104d2dce99b"
+x-amz-request-id: 4c9d6bb22a59eef6
+x-amz-id-2: aNxRjEjHFNnhmrDGVMOhkYGbGY4IwhDiw
+x-amz-version-id: 4_z179c51e67f11a0ad8f6c0018_f1176ee71bd01b164_d20260909_m153850_c005_v0501033_t0041_u01788968330103
+Content-Type: application/octet-stream
+Cache-Control: max-age=365000000, immutable, public
+Accept-Ranges: bytes
+Age: 1200501
+Date: Wed, 23 Sep 2026 13:07:12 GMT
+X-Served-By: cache-iad-kiad7000181-IAD, cache-lcy-eglc8600029-LCY
+X-Cache: HIT, HIT
+X-Cache-Hits: 28, 0
+X-Timer: S1790168832.341089,VS0,VE1
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Frame-Options: deny
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Permitted-Cross-Domain-Policies: none
+X-Robots-Header: noindex
+x-pypi-file-python-version: cp312
+x-pypi-file-version: 3.13.0
+x-pypi-file-package-type: bdist_wheel
+x-pypi-file-project: mujoco
+
++ 1790168832.839890 cwd=/tmp curl --http1.1 --fail --location --connect-timeout 15 --max-time 45 --range 0-15 --dump-header /tmp/x2-final-ros.z4vmp3sx/evidence/mujoco-range-headers.txt --output /tmp/x2-final-ros.z4vmp3sx/downloads/mujoco-range-probe.bin https://files.pythonhosted.org/packages/eb/82/6e62cc389e67a3527c0feb1dbc56dcd0c6ee6e2d42396da89f1712bccd32/mujoco-3.13.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0100    16  100    16    0     0      4      0  0:00:04  0:00:03  0:00:01     4100    16  100    16    0     0      4      0  0:00:04  0:00:03  0:00:01     4
++ 1790168836.653706 cwd=/tmp cat /tmp/x2-final-ros.z4vmp3sx/evidence/mujoco-range-headers.txt
+HTTP/1.1 206 Partial Content
+Connection: keep-alive
+Content-Length: 16
+Last-Modified: Wed, 09 Sep 2026 15:38:50 GMT
+ETag: "c3d275fd2cfd2aab2d007104d2dce99b"
+x-amz-request-id: 4c9d6bb22a59eef6
+x-amz-id-2: aNxRjEjHFNnhmrDGVMOhkYGbGY4IwhDiw
+x-amz-version-id: 4_z179c51e67f11a0ad8f6c0018_f1176ee71bd01b164_d20260909_m153850_c005_v0501033_t0041_u01788968330103
+Content-Type: application/octet-stream
+Cache-Control: max-age=365000000, immutable, public
+Accept-Ranges: bytes
+Date: Wed, 23 Sep 2026 13:07:16 GMT
+Age: 1200504
+X-Served-By: cache-iad-kiad7000181-IAD, cache-lcy-eglc8600041-LCY
+X-Cache: HIT, HIT
+X-Cache-Hits: 28, 1
+X-Timer: S1790168836.156963,VS0,VE5
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Frame-Options: deny
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Robots-Header: noindex
+Access-Control-Allow-Methods: GET, OPTIONS
+Access-Control-Allow-Headers: Range
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: Content-Length, Content-Range, Accept-Ranges
+x-pypi-file-python-version: cp312
+x-pypi-file-version: 3.13.0
+x-pypi-file-package-type: bdist_wheel
+x-pypi-file-project: mujoco
+Content-Range: bytes 0-15/19103843
+
++ 1790168836.655391 cwd=/tmp wc -c /tmp/x2-final-ros.z4vmp3sx/downloads/mujoco-range-probe.bin
+16 /tmp/x2-final-ros.z4vmp3sx/downloads/mujoco-range-probe.bin

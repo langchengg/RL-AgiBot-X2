@@ -1,0 +1,65 @@
++ 1790166911.015233 cwd=/tmp cd /tmp
++ 1790166911.015273 cwd=/tmp /tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python /tmp/x2-final-ros.zvwycfdg/evidence/postflight.py
+{
+  "date": "2026-09-23T12:35:15.271156+00:00",
+  "domain": "86",
+  "rmw": "rmw_fastrtps_cpp",
+  "owned_runtime_processes": [],
+  "nodes": [
+    [
+      "x2_final_postflight",
+      "/"
+    ]
+  ],
+  "services": [
+    [
+      "/x2_final_postflight/describe_parameters",
+      [
+        "rcl_interfaces/srv/DescribeParameters"
+      ]
+    ],
+    [
+      "/x2_final_postflight/get_parameter_types",
+      [
+        "rcl_interfaces/srv/GetParameterTypes"
+      ]
+    ],
+    [
+      "/x2_final_postflight/get_parameters",
+      [
+        "rcl_interfaces/srv/GetParameters"
+      ]
+    ],
+    [
+      "/x2_final_postflight/get_type_description",
+      [
+        "type_description_interfaces/srv/GetTypeDescription"
+      ]
+    ],
+    [
+      "/x2_final_postflight/list_parameters",
+      [
+        "rcl_interfaces/srv/ListParameters"
+      ]
+    ],
+    [
+      "/x2_final_postflight/set_parameters",
+      [
+        "rcl_interfaces/srv/SetParameters"
+      ]
+    ],
+    [
+      "/x2_final_postflight/set_parameters_atomically",
+      [
+        "rcl_interfaces/srv/SetParametersAtomically"
+      ]
+    ]
+  ],
+  "status_publishers": 0,
+  "joint_publishers": 0,
+  "daemon_running": false,
+  "no_residual_business_graph": true,
+  "result": "PASS"
+}
++ 1790166915.421277 cwd=/tmp git -C /tmp/x2-final-ros.zvwycfdg/repository status --short
++ 1790166915.424540 cwd=/tmp git -C /tmp/x2-final-ros.zvwycfdg/assets/agibot_x2_urdf status --short

@@ -1,0 +1,238 @@
+{"event": "callback_return", "monotonic_s": 1328.703325632, "success": true, "duration_s": 0.0002222910000000411, "episode": 1}
+{"event": "send_begin", "monotonic_s": 1328.703346257, "success": true, "episode": 1}
+{"event": "send_end", "monotonic_s": 1328.703382257, "success": true, "episode": 1}
+{"event": "reset_begin", "monotonic_s": 1328.714031299, "episode": 1}
+{"event": "reset_end", "monotonic_s": 1329.273920674, "episode": 1, "elapsed_sim_s": 0.0}
+{"event": "readback", "monotonic_s": 1329.274216091, "episode": 1, "step": 0, "stamp": [1790166652, 375886948], "names": ["left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint", "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint", "right_hip_pitch_joint", "right_hip_roll_joint", "right_hip_yaw_joint", "right_knee_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint", "waist_yaw_joint", "waist_pitch_joint", "waist_roll_joint", "head_yaw_joint", "head_pitch_joint", "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint", "left_elbow_joint", "left_wrist_yaw_joint", "left_wrist_pitch_joint", "left_wrist_roll_joint", "right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint", "right_elbow_joint", "right_wrist_yaw_joint", "right_wrist_pitch_joint", "right_wrist_roll_joint"], "q": [0.008366704825622883, 0.00012607154969435477, 0.0008931275866724227, 0.02999627897890157, -0.3769197548240949, -0.0014732920735604342, 0.009104793148603645, -0.0003723387034053312, -0.002221485354122693, 0.029264504547663533, -0.3769338122281513, 0.0009010336171899701, -0.001956831826179156, 0.310367726481631, 0.000265240736585561, 0.0004571684728518182, -0.0016799236995460565, 0.4332760474349603, 0.4947994130640553, -0.0023812856892988835, -0.6455283996623565, -0.0006893227359951909, -0.20213901404055004, 0.04369853292964986, 0.43554357163770013, -0.4972300108155352, 0.0031752615259361674, -0.6630401348554702, 0.013862276086800095, -0.19963115489669458, -0.042669444380363825], "dq": [-1.0092758876393767e-05, 6.942563415462473e-05, 0.00029262372663665514, 1.2524317601346717e-05, 6.821717773921441e-07, -0.000944491600220098, 1.3662523641506963e-05, -0.00010645238835677087, -0.0005691760918701608, -1.0656131618591164e-05, -4.4295828969147824e-07, 0.0008379328062939206, 4.030764210353354e-05, 2.8558399618196097e-06, 4.04428368616627e-05, 0.00027687687015035586, -0.0010078307023008177, -0.0001689740163263079, 5.835337609519315e-05, -0.0004586116051115346, 0.00012764697426601916, -0.00048335880342708054, 0.006260553141925424, -0.002892548154083364, 0.0001273929421150356, -0.00012441047648194763, 0.0023182543035453608, -0.0004192792840719156, 0.0034328164355840714, 0.004987286333991611, 0.0030918915602550223], "sim_time_s": 1.6609999999999279}
+{"event": "step_begin", "monotonic_s": 1329.274898091, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.288654882, "episode": 1, "elapsed_sim_s": 0.019999999999997797}
+{"event": "readback", "monotonic_s": 1329.288828674, "episode": 1, "step": 1, "stamp": [1790166652, 390518990], "names": ["left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint", "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint", "right_hip_pitch_joint", "right_hip_roll_joint", "right_hip_yaw_joint", "right_knee_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint", "waist_yaw_joint", "waist_pitch_joint", "waist_roll_joint", "head_yaw_joint", "head_pitch_joint", "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint", "left_elbow_joint", "left_wrist_yaw_joint", "left_wrist_pitch_joint", "left_wrist_roll_joint", "right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint", "right_elbow_joint", "right_wrist_yaw_joint", "right_wrist_pitch_joint", "right_wrist_roll_joint"], "q": [0.00836650247035578, 0.00012714457115939277, 0.000897671665766808, 0.029996523172902162, -0.37691974581510607, -0.0014890193782474562, 0.009105063044746281, -0.00037407219729175876, -0.0022304451777455355, 0.02926429386598972, -0.37693381783580837, 0.0009148618779031376, -0.0019560211172184507, 0.31036778585005775, 0.0002660546511989601, 0.00046265568758653336, -0.0016998968060549522, 0.43327278110500766, 0.4948004937693414, -0.0023897234210744226, -0.645526046594409, -0.0006988888849090745, -0.20201489987597554, 0.043641192932077015, 0.43554617378228605, -0.49723225963616835, 0.0032184859320888676, -0.6630482124369247, 0.013929793435611132, -0.19953226092028248, -0.04260816634366104], "dq": [-1.0182702081459315e-05, 4.487835219026635e-05, 0.0001912069802868942, 1.2040400990238618e-05, 3.502589765434045e-07, -0.0007012898874506442, 1.3401192889686163e-05, -7.55483320938377e-05, -0.0003794252319667386, -1.0486454430404484e-05, -2.221169119640368e-07, 0.0006131094295546251, 4.061578455322021e-05, 2.95544967529198e-06, 4.0798229442232694e-05, 0.000272800053354605, -0.0009929612170079404, -0.00015969357677691047, 5.156149940761697e-05, -0.00040016875117966075, 0.00011117301320686418, -0.0004753860414097862, 0.006171670984616773, -0.002851011176321505, 0.00013176263175400436, -0.00010563349234294615, 0.002067971749454053, -0.00039441537817781427, 0.003339660910984314, 0.00491839801188628, 0.003045607580258197], "sim_time_s": 1.6809999999999257}
+{"event": "callback_return", "monotonic_s": 1329.289239466, "success": false, "duration_s": 0.00019804099997600133, "episode": 1}
+{"event": "send_begin", "monotonic_s": 1329.289247799, "success": false, "episode": 1}
+{"event": "send_end", "monotonic_s": 1329.289285591, "success": false, "episode": 1}
+{"event": "step_begin", "monotonic_s": 1329.292363841, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.306372132, "episode": 1, "elapsed_sim_s": 0.039999999999995595}
+{"event": "readback", "monotonic_s": 1329.306532799, "episode": 1, "step": 2, "stamp": [1790166652, 408227657], "names": ["left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint", "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint", "right_hip_pitch_joint", "right_hip_roll_joint", "right_hip_yaw_joint", "right_knee_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint", "waist_yaw_joint", "waist_pitch_joint", "waist_roll_joint", "head_yaw_joint", "head_pitch_joint", "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint", "left_elbow_joint", "left_wrist_yaw_joint", "left_wrist_pitch_joint", "left_wrist_roll_joint", "right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint", "right_elbow_joint", "right_wrist_yaw_joint", "right_wrist_pitch_joint", "right_wrist_roll_joint"], "q": [0.008366298378068343, 0.00012793581586189757, 0.0009010633253484113, 0.029996760770334575, -0.37691973920310157, -0.0015020389867144326, 0.009105327909566367, -0.0003754456075827269, -0.002237179873128838, 0.02926408506005908, -0.37693382217460153, 0.0009262086454632196, -0.001955202867247026, 0.31036784237277854, 0.00026687138067838645, 0.0004680896808443913, -0.0017196757729710068, 0.43326964103903576, 0.4948014942460524, -0.002397443261337575, -0.6455239208228124, -0.0007083620672459354, -0.20189194608039324, 0.04358439859841093, 0.43554882967874486, -0.4972342845552257, 0.0032586170520787503, -0.6630559615280985, 0.013996068282079407, -0.19943426360226812, -0.042547521821444154], "dq": [-1.0197993652795948e-05, 3.5436677696852586e-05, 0.00015282965874291717, 1.1724765046144126e-05, 3.276167147183692e-07, -0.0006115417543203479, 1.3069631781495681e-05, -6.33097232345106e-05, -0.00030349649860957707, -1.0388877022243777e-05, -2.194338752637904e-07, 0.0005315858214743325, 4.128082563044964e-05, 2.68959393864333e-06, 4.086816585976014e-05, 0.00027080088170318564, -0.000985671985192445, -0.00015478760676493824, 4.881780340344124e-05, -0.00037469910773765824, 0.0001022640480880174, -0.00047233742420886034, 0.006128114972799555, -0.0028305184205502446, 0.00013356167536967875, -9.770218102381445e-05, 0.001957465803576484, -0.00038159866314149167, 0.0032926653209806294, 0.004884706173211854, 0.0030213314686346254], "sim_time_s": 1.7009999999999235}
+{"event": "step_begin", "monotonic_s": 1329.311743924, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.325485799, "episode": 1, "elapsed_sim_s": 0.05999999999999339}
+{"event": "readback", "monotonic_s": 1329.325710007, "episode": 1, "step": 3, "stamp": [1790166652, 427391240], "names": ["left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint", "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint", "right_hip_pitch_joint", "right_hip_roll_joint", "right_hip_yaw_joint", "right_knee_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint", "waist_yaw_joint", "waist_pitch_joint", "waist_roll_joint", "head_yaw_joint", "head_pitch_joint", "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint", "left_elbow_joint", "left_wrist_yaw_joint", "left_wrist_pitch_joint", "left_wrist_roll_joint", "right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint", "right_elbow_joint", "right_wrist_yaw_joint", "right_wrist_pitch_joint", "right_wrist_roll_joint"], "q": [0.008366095337115806, 0.00012856922894460563, 0.0009038160786806746, 0.02999699148803368, -0.3769197324104196, -0.0015135251173820975, 0.009105584607172926, -0.0003766137759390044, -0.0022426468271969724, 0.029263878820011757, -0.3769338267866768, 0.0009361687411310323, -0.001954366420044436, 0.31036789284412636, 0.0002676895397963126, 0.0004734875607523167, -0.0017393231236827512, 0.4332665895162868, 0.49480244775920174, -0.0024047177936516516, -0.6455219554726387, -0.0007177837293325562, -0.20176977840637703, 0.043527973005709396, 0.43555151329808456, -0.49723616799584913, 0.003296807663400411, -0.663063470207117, 0.014061501926129549, -0.19933687597732774, -0.04248731242378319], "dq": [-1.0099245841928403e-05, 2.8492474432586707e-05, 0.00012488109027958708, 1.1359755838476157e-05, 3.5369003608544435e-07, -0.000542298820022048, 1.2611341135527829e-05, -5.4276660768347814e-05, -0.00024807178702880307, -1.0234458579779052e-05, -2.4342286705180635e-07, 0.00046919927887184825, 4.234565711471679e-05, 2.372664895927967e-06, 4.094683898887271e-05, 0.00026908784347525144, -0.0009794303901262986, -0.00015063648454163438, 4.6688451687715636e-05, -0.0003541282077806727, 9.477447002809239e-05, -0.00046997568626918967, 0.006090850668738939, -0.0028130769603440606, 0.0001346675587790427, -9.105898121718066e-05, 0.0018675158135142529, -0.00036988166821500727, 0.003253152659533811, 0.004855756178759875, 0.003000860980804306], "sim_time_s": 1.7209999999999213}
+{"event": "step_begin", "monotonic_s": 1329.334437007, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.348291382, "episode": 1, "elapsed_sim_s": 0.07999999999999119}
+{"event": "readback", "monotonic_s": 1329.348459216, "episode": 1, "step": 4, "stamp": [1790166652, 450150240], "names": ["left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint", "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint", "right_hip_pitch_joint", "right_hip_roll_joint", "right_hip_yaw_joint", "right_knee_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint", "waist_yaw_joint", "waist_pitch_joint", "waist_roll_joint", "head_yaw_joint", "head_pitch_joint", "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint", "left_elbow_joint", "left_wrist_yaw_joint", "left_wrist_pitch_joint", "left_wrist_roll_joint", "right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint", "right_elbow_joint", "right_wrist_yaw_joint", "right_wrist_pitch_joint", "right_wrist_roll_joint"], "q": [0.008365894870207552, 0.000129077022190389, 0.0009060676180484066, 0.029997214637894332, -0.37691972495900267, -0.0015237231147758204, 0.00910583160627396, -0.0003776189063838242, -0.0022471223305169504, 0.029263676157154188, -0.3769338320372882, 0.0009449718597886221, -0.001953507129536323, 0.31036793703409643, 0.0002685094275243826, 0.00047885179152081485, -0.0017588478806784167, 0.4332636175860294, 0.4948033612072355, -0.0024115980399710218, -0.6455201329374579, -0.000727159017653428, -0.20164834233892032, 0.04347188962282121, 0.4355542146793862, -0.497237922918496, 0.0033332690728782328, -0.6630707451686118, 0.014126166903328354, -0.1992400568985635, -0.04242750282789518], "dq": [-9.94869953615444e-06, 2.2743142489488808e-05, 0.00010215317220923373, 1.097225511021133e-05, 3.9014384242467186e-07, -0.0004817708437744015, 1.2109890118876986e-05, -4.683433325161837e-05, -0.0002032250267467405, -1.0035216037540868e-05, -2.816146951269999e-07, 0.00041498747839592077, 4.353369063598108e-05, 2.0646708857073852e-06, 4.103862482027422e-05, 0.00026742202558231276, -0.0009733615314720124, -0.0001467912424220687, 4.478133370910458e-05, -0.0003350369495593335, 8.791025649394466e-05, -0.00046766476613639344, 0.006054647048131175, -0.0027961442663583884, 0.00013537791825041933, -8.479806141927877e-05, 0.0017835613995993626, -0.00035819522663514246, 0.0032154147338352293, 0.004827624871972041, 0.0029811450922229577], "sim_time_s": 1.740999999999919}
+{"event": "callback_return", "monotonic_s": 1329.349202216, "success": false, "duration_s": 0.0002691250001589651, "episode": 1}
+{"event": "send_begin", "monotonic_s": 1329.349210382, "success": false, "episode": 1}
+{"event": "send_end", "monotonic_s": 1329.349241299, "success": false, "episode": 1}
+{"event": "callback_return", "monotonic_s": 1329.350112966, "success": false, "duration_s": 0.0001721249998354324, "episode": 1}
+{"event": "send_begin", "monotonic_s": 1329.350120966, "success": false, "episode": 1}
+{"event": "send_end", "monotonic_s": 1329.350149049, "success": false, "episode": 1}
+{"event": "callback_return", "monotonic_s": 1329.350944466, "success": false, "duration_s": 0.0001659170000039012, "episode": 1}
+{"event": "send_begin", "monotonic_s": 1329.350955007, "success": false, "episode": 1}
+{"event": "send_end", "monotonic_s": 1329.350983466, "success": false, "episode": 1}
+{"event": "step_begin", "monotonic_s": 1329.351550299, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.365723257, "episode": 1, "elapsed_sim_s": 0.09999999999998899}
+{"event": "callback_return", "monotonic_s": 1329.366395591, "success": false, "duration_s": 0.00021245799985081248, "episode": 1}
+{"event": "send_begin", "monotonic_s": 1329.366403882, "success": false, "episode": 1}
+{"event": "send_end", "monotonic_s": 1329.366435049, "success": false, "episode": 1}
+{"event": "step_begin", "monotonic_s": 1329.371869757, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.386021799, "episode": 1, "elapsed_sim_s": 0.11999999999998678}
+{"event": "step_begin", "monotonic_s": 1329.393867382, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.407718632, "episode": 1, "elapsed_sim_s": 0.13999999999998458}
+{"event": "step_begin", "monotonic_s": 1329.412633799, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.426241132, "episode": 1, "elapsed_sim_s": 0.15999999999998238}
+{"event": "step_begin", "monotonic_s": 1329.432640382, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.446426882, "episode": 1, "elapsed_sim_s": 0.17999999999998018}
+{"event": "step_begin", "monotonic_s": 1329.453808674, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.469082091, "episode": 1, "elapsed_sim_s": 0.19999999999997797}
+{"event": "step_begin", "monotonic_s": 1329.472302632, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.486143466, "episode": 1, "elapsed_sim_s": 0.21999999999997577}
+{"event": "step_begin", "monotonic_s": 1329.493968549, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.507933632, "episode": 1, "elapsed_sim_s": 0.23999999999997357}
+{"event": "step_begin", "monotonic_s": 1329.512717716, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.526618716, "episode": 1, "elapsed_sim_s": 0.25999999999997137}
+{"event": "step_begin", "monotonic_s": 1329.533283841, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.547062549, "episode": 1, "elapsed_sim_s": 0.27999999999996916}
+{"event": "step_begin", "monotonic_s": 1329.553279716, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.567219799, "episode": 1, "elapsed_sim_s": 0.29999999999996696}
+{"event": "step_begin", "monotonic_s": 1329.573291882, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.586809424, "episode": 1, "elapsed_sim_s": 0.31999999999996476}
+{"event": "step_begin", "monotonic_s": 1329.593137757, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.606662632, "episode": 1, "elapsed_sim_s": 0.3399999999999628}
+{"event": "step_begin", "monotonic_s": 1329.612539049, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.626765091, "episode": 1, "elapsed_sim_s": 0.3599999999999606}
+{"event": "step_begin", "monotonic_s": 1329.633231424, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.647281924, "episode": 1, "elapsed_sim_s": 0.37999999999995837}
+{"event": "step_begin", "monotonic_s": 1329.653345841, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.667132882, "episode": 1, "elapsed_sim_s": 0.39999999999995617}
+{"event": "step_begin", "monotonic_s": 1329.672426257, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.686639507, "episode": 1, "elapsed_sim_s": 0.41999999999995397}
+{"event": "step_begin", "monotonic_s": 1329.692478882, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.706164216, "episode": 1, "elapsed_sim_s": 0.43999999999995176}
+{"event": "step_begin", "monotonic_s": 1329.712221007, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.726085591, "episode": 1, "elapsed_sim_s": 0.45999999999994956}
+{"event": "step_begin", "monotonic_s": 1329.733812632, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.747327049, "episode": 1, "elapsed_sim_s": 0.47999999999994736}
+{"event": "step_begin", "monotonic_s": 1329.753363007, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.767395132, "episode": 1, "elapsed_sim_s": 0.49999999999994515}
+{"event": "readback", "monotonic_s": 1329.767563299, "episode": 1, "step": 25, "stamp": [1790166652, 869249532], "names": ["left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint", "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint", "right_hip_pitch_joint", "right_hip_roll_joint", "right_hip_yaw_joint", "right_knee_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint", "waist_yaw_joint", "waist_pitch_joint", "waist_roll_joint", "head_yaw_joint", "head_pitch_joint", "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint", "left_elbow_joint", "left_wrist_yaw_joint", "left_wrist_pitch_joint", "left_wrist_roll_joint", "right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint", "right_elbow_joint", "right_wrist_yaw_joint", "right_wrist_pitch_joint", "right_wrist_roll_joint"], "q": [0.00835827818061482, 0.00012911608120637347, 0.0009155896861504575, 0.03000606142765016, -0.3769246535965326, -0.0015990109870174052, 0.009104704711268863, -0.00038527932668555776, -0.0022671881185864656, 0.029266318395916462, -0.3769391643173824, 0.0010079364412523813, -0.0019315508457959853, 0.3103661609928022, 0.0002857124016699677, 0.000584160482831654, -0.0021421270074218324, 0.43321375051322675, 0.49481703667739996, -0.002494222294865317, -0.645501208983911, -0.0009122848255456646, -0.1992573156615479, 0.04236899671857135, 0.43560847824309096, -0.4972540953866656, 0.0038127630291024, -0.663175688347303, 0.015334206048595766, -0.19732964174622805, -0.04125664271095001], "dq": [-0.00016493513504781406, -7.351418149761625e-06, 1.5129370360814912e-06, 0.0002080366625162567, -0.00018641122522490208, -4.32596125690391e-05, -0.00015544345179910728, -8.818845964701035e-06, -5.336822097877511e-06, 0.00019904159632123174, -0.00018704133911261197, 3.305963782770204e-05, 5.5649504842925326e-05, -7.289610916381861e-05, 3.963024409348884e-05, 0.00023483561418002324, -0.0008546336895154673, -9.322705924420424e-05, 2.243485625974417e-05, -0.00010465400835091031, 2.5042237577290572e-05, -0.0004133852121460681, 0.005347384955243918, -0.0024632322096783646, 0.00012106288952850492, -5.1412505430270916e-06, 0.000672260642459008, -0.00016352161050751238, 0.0025842977625300505, 0.0042822568960823645, 0.0026060704148005783], "sim_time_s": 2.160999999999873}
+{"event": "step_begin", "monotonic_s": 1329.773385466, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.787120882, "episode": 1, "elapsed_sim_s": 0.519999999999943}
+{"event": "step_begin", "monotonic_s": 1329.792200424, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.805873216, "episode": 1, "elapsed_sim_s": 0.5399999999999407}
+{"event": "step_begin", "monotonic_s": 1329.813774632, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.827797716, "episode": 1, "elapsed_sim_s": 0.5599999999999385}
+{"event": "step_begin", "monotonic_s": 1329.832727424, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.846456049, "episode": 1, "elapsed_sim_s": 0.5799999999999363}
+{"event": "step_begin", "monotonic_s": 1329.853922924, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.868486799, "episode": 1, "elapsed_sim_s": 0.5999999999999341}
+{"event": "step_begin", "monotonic_s": 1329.872840549, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.886917007, "episode": 1, "elapsed_sim_s": 0.6199999999999319}
+{"event": "step_begin", "monotonic_s": 1329.893539424, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.907356174, "episode": 1, "elapsed_sim_s": 0.6399999999999297}
+{"event": "step_begin", "monotonic_s": 1329.913368966, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.927275091, "episode": 1, "elapsed_sim_s": 0.6599999999999275}
+{"event": "step_begin", "monotonic_s": 1329.933367216, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.946953341, "episode": 1, "elapsed_sim_s": 0.6799999999999253}
+{"event": "step_begin", "monotonic_s": 1329.952421049, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.965117091, "episode": 1, "elapsed_sim_s": 0.6999999999999231}
+{"event": "step_begin", "monotonic_s": 1329.974318758, "episode": 1}
+{"event": "step_end", "monotonic_s": 1329.986652424, "episode": 1, "elapsed_sim_s": 0.7199999999999209}
+{"event": "step_begin", "monotonic_s": 1329.993255966, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.004850633, "episode": 1, "elapsed_sim_s": 0.7399999999999187}
+{"event": "step_begin", "monotonic_s": 1330.014387716, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.026531466, "episode": 1, "elapsed_sim_s": 0.7599999999999165}
+{"event": "step_begin", "monotonic_s": 1330.033914966, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.046115341, "episode": 1, "elapsed_sim_s": 0.7799999999999143}
+{"event": "step_begin", "monotonic_s": 1330.053243674, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.065475216, "episode": 1, "elapsed_sim_s": 0.7999999999999121}
+{"event": "step_begin", "monotonic_s": 1330.073589174, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.085717841, "episode": 1, "elapsed_sim_s": 0.8199999999999099}
+{"event": "step_begin", "monotonic_s": 1330.091872591, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.103746133, "episode": 1, "elapsed_sim_s": 0.8399999999999077}
+{"event": "step_begin", "monotonic_s": 1330.113906174, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.126217633, "episode": 1, "elapsed_sim_s": 0.8599999999999055}
+{"event": "step_begin", "monotonic_s": 1330.133873258, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.146110966, "episode": 1, "elapsed_sim_s": 0.8799999999999033}
+{"event": "step_begin", "monotonic_s": 1330.153012591, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.164063799, "episode": 1, "elapsed_sim_s": 0.8999999999999011}
+{"event": "step_begin", "monotonic_s": 1330.174797133, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.185875466, "episode": 1, "elapsed_sim_s": 0.9199999999998989}
+{"event": "step_begin", "monotonic_s": 1330.192518841, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.203800966, "episode": 1, "elapsed_sim_s": 0.9399999999998967}
+{"event": "step_begin", "monotonic_s": 1330.214467383, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.225457341, "episode": 1, "elapsed_sim_s": 0.9599999999998945}
+{"event": "step_begin", "monotonic_s": 1330.234411341, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.245884383, "episode": 1, "elapsed_sim_s": 0.9799999999998923}
+{"event": "step_begin", "monotonic_s": 1330.252118549, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.263735383, "episode": 1, "elapsed_sim_s": 0.9999999999998901}
+{"event": "readback", "monotonic_s": 1330.263910758, "episode": 1, "step": 50, "stamp": [1790166653, 365600865], "names": ["left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint", "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint", "right_hip_pitch_joint", "right_hip_roll_joint", "right_hip_yaw_joint", "right_knee_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint", "waist_yaw_joint", "waist_pitch_joint", "waist_roll_joint", "head_yaw_joint", "head_pitch_joint", "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint", "left_elbow_joint", "left_wrist_yaw_joint", "left_wrist_pitch_joint", "left_wrist_roll_joint", "right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint", "right_elbow_joint", "right_wrist_yaw_joint", "right_wrist_pitch_joint", "right_wrist_roll_joint"], "q": [-0.015851451858022787, 0.00015467776102066804, 0.0009242709052763551, 0.07716243570793078, -0.38899194437516404, -0.001636876962041494, -0.015140874433361514, -0.000424242995939116, -0.002268147969326787, 0.07648843189903615, -0.3889996167837609, 0.0010298407185769878, -0.0019195746993253254, 0.30965931245131545, 0.0003025697235555841, 0.000692933574055373, -0.0025380295816525194, 0.43349089456926926, 0.49496140274966616, -0.0024632679396160897, -0.645444772191958, -0.0011634710790860011, -0.19671295713061213, 0.04121397636358353, 0.4360104948055392, -0.4973992282220977, 0.003939723850311182, -0.6633683515755573, 0.01656043016767554, -0.19517585008225086, -0.04001783374483928], "dq": [-0.11471981477041632, 0.00012932021023393832, 7.73497547513781e-05, 0.21546831823019102, -0.008474723356200822, -0.00022976065731310086, -0.11478703447382223, -0.00016871791230526004, -4.10415192637859e-05, 0.21560686941702106, -0.008426859469127435, 0.0001608716966069412, 2.202685870430534e-05, -0.0003938506984786051, 3.8111510294813066e-05, 0.0002008321780819974, -0.0007314285901259387, 0.0007751848337805868, 0.0008081260761919164, 0.0003627046406251272, -0.0002619241173084429, -0.000625616737373342, 0.004964050264925654, -0.0021795929812138434, 0.0011185852274077075, -0.0007996011947156033, -7.980196405394228e-05, -0.0006895556111110863, 0.002359513051429976, 0.004582255306945126, 0.0024004898332800244], "sim_time_s": 2.660999999999818}
+{"event": "step_begin", "monotonic_s": 1330.273171091, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.284157424, "episode": 1, "elapsed_sim_s": 1.0199999999998879}
+{"event": "step_begin", "monotonic_s": 1330.293680633, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.304664674, "episode": 1, "elapsed_sim_s": 1.0399999999998857}
+{"event": "step_begin", "monotonic_s": 1330.312575924, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.323781341, "episode": 1, "elapsed_sim_s": 1.0599999999998835}
+{"event": "step_begin", "monotonic_s": 1330.334974174, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.346235549, "episode": 1, "elapsed_sim_s": 1.0799999999998813}
+{"event": "step_begin", "monotonic_s": 1330.353832966, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.365243508, "episode": 1, "elapsed_sim_s": 1.099999999999879}
+{"event": "step_begin", "monotonic_s": 1330.373565424, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.384741008, "episode": 1, "elapsed_sim_s": 1.1199999999998769}
+{"event": "step_begin", "monotonic_s": 1330.392224883, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.402743716, "episode": 1, "elapsed_sim_s": 1.1399999999998747}
+{"event": "step_begin", "monotonic_s": 1330.415461591, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.427053466, "episode": 1, "elapsed_sim_s": 1.1599999999998725}
+{"event": "step_begin", "monotonic_s": 1330.433279924, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.444424799, "episode": 1, "elapsed_sim_s": 1.1799999999998703}
+{"event": "step_begin", "monotonic_s": 1330.454865216, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.466688008, "episode": 1, "elapsed_sim_s": 1.199999999999868}
+{"event": "step_begin", "monotonic_s": 1330.472117424, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.483956549, "episode": 1, "elapsed_sim_s": 1.2199999999998659}
+{"event": "step_begin", "monotonic_s": 1330.494804841, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.506380758, "episode": 1, "elapsed_sim_s": 1.2399999999998637}
+{"event": "step_begin", "monotonic_s": 1330.513932299, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.525110758, "episode": 1, "elapsed_sim_s": 1.2599999999998615}
+{"event": "step_begin", "monotonic_s": 1330.534457258, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.545627924, "episode": 1, "elapsed_sim_s": 1.2799999999998593}
+{"event": "step_begin", "monotonic_s": 1330.553678383, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.565221591, "episode": 1, "elapsed_sim_s": 1.299999999999857}
+{"event": "step_begin", "monotonic_s": 1330.574345299, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.585634383, "episode": 1, "elapsed_sim_s": 1.3199999999998548}
+{"event": "step_begin", "monotonic_s": 1330.592143049, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.603080508, "episode": 1, "elapsed_sim_s": 1.3399999999998526}
+{"event": "step_begin", "monotonic_s": 1330.612365049, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.623519633, "episode": 1, "elapsed_sim_s": 1.3599999999998504}
+{"event": "step_begin", "monotonic_s": 1330.634916758, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.648347008, "episode": 1, "elapsed_sim_s": 1.3799999999998482}
+{"event": "step_begin", "monotonic_s": 1330.652858508, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.664582383, "episode": 1, "elapsed_sim_s": 1.399999999999846}
+{"event": "step_begin", "monotonic_s": 1330.6745108, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.6864918, "episode": 1, "elapsed_sim_s": 1.4199999999998438}
+{"event": "step_begin", "monotonic_s": 1330.6923808, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.703462508, "episode": 1, "elapsed_sim_s": 1.4399999999998416}
+{"event": "step_begin", "monotonic_s": 1330.712851466, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.723807133, "episode": 1, "elapsed_sim_s": 1.4599999999998394}
+{"event": "step_begin", "monotonic_s": 1330.734752008, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.746477633, "episode": 1, "elapsed_sim_s": 1.4799999999998372}
+{"event": "step_begin", "monotonic_s": 1330.75381105, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.765103633, "episode": 1, "elapsed_sim_s": 1.499999999999835}
+{"event": "readback", "monotonic_s": 1330.765274633, "episode": 1, "step": 75, "stamp": [1790166653, 866965491], "names": ["left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint", "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint", "right_hip_pitch_joint", "right_hip_roll_joint", "right_hip_yaw_joint", "right_knee_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint", "waist_yaw_joint", "waist_pitch_joint", "waist_roll_joint", "head_yaw_joint", "head_pitch_joint", "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint", "left_elbow_joint", "left_wrist_yaw_joint", "left_wrist_pitch_joint", "left_wrist_roll_joint", "right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint", "right_elbow_joint", "right_wrist_yaw_joint", "right_wrist_pitch_joint", "right_wrist_roll_joint"], "q": [-0.134292570414616, -0.00018127516720601984, 0.000544646450424535, 0.2962798102422576, -0.40159658094767153, -0.0029096117582679583, -0.13369339480461914, -8.490661218812442e-05, -0.0018813100826256604, 0.29576763603944717, -0.40157088690740494, 0.0023081041138136157, -0.0019349254961003868, 0.30488820474780437, 0.00031237645184279946, 0.0007861578458974893, -0.002876466079943107, 0.4358249350280861, 0.49541177281356813, -0.00234784369909122, -0.6454149390653698, -0.0016246644324814112, -0.19441146521146904, 0.040180536946621166, 0.43846306996919565, -0.49789968275193325, 0.0037586989165831553, -0.6640201713856285, 0.017789298518273437, -0.19300668179017297, -0.03888483745537663], "dq": [-0.26923056116839905, -0.0033898255798685295, -0.0005812548846467362, 0.48648495590144253, -0.004976046353093864, -0.0020738974600167516, -0.26953436320018326, 0.004641725946084295, 0.0007688044954847344, 0.48692920275107066, -0.0051420216968803304, 0.002336325258513757, -0.00043244447845314595, -0.014640359520382819, -5.615616652901969e-05, 0.00017104359456888882, -0.0006534899779778228, 0.0070739348157474015, 0.00040856953316057424, -1.918543482497133e-06, -4.889591712308653e-05, -0.0016604478111016294, 0.004025075787605448, -0.001996782935715598, 0.0070686846795990224, -0.0005795747518655461, -0.0007637116747443111, -0.002007331292911427, 0.0028355763886980193, 0.0036515762667513525, 0.002093189637998304], "sim_time_s": 3.160999999999763}
+{"event": "step_begin", "monotonic_s": 1330.773355341, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.784434383, "episode": 1, "elapsed_sim_s": 1.5199999999998328}
+{"event": "step_begin", "monotonic_s": 1330.792361008, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.802767383, "episode": 1, "elapsed_sim_s": 1.5399999999998306}
+{"event": "step_begin", "monotonic_s": 1330.815243925, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.827256883, "episode": 1, "elapsed_sim_s": 1.5599999999998284}
+{"event": "step_begin", "monotonic_s": 1330.833345341, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.844951008, "episode": 1, "elapsed_sim_s": 1.5799999999998262}
+{"event": "step_begin", "monotonic_s": 1330.854296466, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.866252508, "episode": 1, "elapsed_sim_s": 1.599999999999824}
+{"event": "step_begin", "monotonic_s": 1330.873337591, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.884968633, "episode": 1, "elapsed_sim_s": 1.6199999999998218}
+{"event": "step_begin", "monotonic_s": 1330.891788175, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.903292925, "episode": 1, "elapsed_sim_s": 1.6399999999998196}
+{"event": "step_begin", "monotonic_s": 1330.912505925, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.923865508, "episode": 1, "elapsed_sim_s": 1.6599999999998174}
+{"event": "step_begin", "monotonic_s": 1330.934771841, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.948643966, "episode": 1, "elapsed_sim_s": 1.6799999999998152}
+{"event": "step_begin", "monotonic_s": 1330.952175633, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.964843966, "episode": 1, "elapsed_sim_s": 1.699999999999813}
+{"event": "step_begin", "monotonic_s": 1330.9716663, "episode": 1}
+{"event": "step_end", "monotonic_s": 1330.9827103, "episode": 1, "elapsed_sim_s": 1.7199999999998108}
+{"event": "step_begin", "monotonic_s": 1330.991814175, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.004884758, "episode": 1, "elapsed_sim_s": 1.7399999999998086}
+{"event": "step_begin", "monotonic_s": 1331.011912216, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.022667716, "episode": 1, "elapsed_sim_s": 1.7599999999998064}
+{"event": "step_begin", "monotonic_s": 1331.034448008, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.04614655, "episode": 1, "elapsed_sim_s": 1.7799999999998042}
+{"event": "step_begin", "monotonic_s": 1331.05317105, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.063852925, "episode": 1, "elapsed_sim_s": 1.799999999999802}
+{"event": "step_begin", "monotonic_s": 1331.072870383, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.083484216, "episode": 1, "elapsed_sim_s": 1.8199999999997998}
+{"event": "step_begin", "monotonic_s": 1331.091774675, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.102278258, "episode": 1, "elapsed_sim_s": 1.8399999999997976}
+{"event": "step_begin", "monotonic_s": 1331.112438966, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.122712091, "episode": 1, "elapsed_sim_s": 1.8599999999997954}
+{"event": "step_begin", "monotonic_s": 1331.134370925, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.145105633, "episode": 1, "elapsed_sim_s": 1.8799999999997932}
+{"event": "step_begin", "monotonic_s": 1331.152116716, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.162333758, "episode": 1, "elapsed_sim_s": 1.899999999999791}
+{"event": "step_begin", "monotonic_s": 1331.171918508, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.1829348, "episode": 1, "elapsed_sim_s": 1.9199999999997888}
+{"event": "step_begin", "monotonic_s": 1331.1917463, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.20237105, "episode": 1, "elapsed_sim_s": 1.9399999999997866}
+{"event": "step_begin", "monotonic_s": 1331.212244966, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.222727383, "episode": 1, "elapsed_sim_s": 1.9599999999997844}
+{"event": "step_begin", "monotonic_s": 1331.234020508, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.245369425, "episode": 1, "elapsed_sim_s": 1.9799999999997822}
+{"event": "step_begin", "monotonic_s": 1331.2532333, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.264366258, "episode": 1, "elapsed_sim_s": 1.99999999999978}
+{"event": "readback", "monotonic_s": 1331.264545341, "episode": 1, "step": 100, "stamp": [1790166654, 366236824], "names": ["left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint", "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint", "right_hip_pitch_joint", "right_hip_roll_joint", "right_hip_yaw_joint", "right_knee_joint", "right_ankle_pitch_joint", "right_ankle_roll_joint", "waist_yaw_joint", "waist_pitch_joint", "waist_roll_joint", "head_yaw_joint", "head_pitch_joint", "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint", "left_elbow_joint", "left_wrist_yaw_joint", "left_wrist_pitch_joint", "left_wrist_roll_joint", "right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint", "right_elbow_joint", "right_wrist_yaw_joint", "right_wrist_pitch_joint", "right_wrist_roll_joint"], "q": [-0.32131133820001934, -0.00042204262699300555, 0.0007500659740069637, 0.633860024753689, -0.41966378034169793, -0.0026128002847290027, -0.3208655150228568, 0.0001555498466932037, -0.0020957830654408263, 0.6336467466996665, -0.41963124548573016, 0.002007966256620866, -0.0022029678423477216, 0.28774684400079004, 0.0003884269613352323, 0.0008660326975025749, -0.003168975874050116, 0.4437802869473949, 0.4952725502510278, -0.0021501459812762994, -0.6461886562648562, -0.0032518173351879158, -0.1929079455988927, 0.03922170327313632, 0.4458170069616165, -0.497795787857335, 0.0027984949095754596, -0.6655000493221924, 0.01976031974829979, -0.1914661446464457, -0.037878071449020854], "dq": [-0.3271321693231599, 0.00016584217703737963, 0.0005220643762935568, 0.5928929796742173, 0.00140920267356512, 0.001500497414272778, -0.33085863336884086, -0.00011986350973264474, -0.0011294557680016353, 0.6288329777405212, 0.02178693389539594, -0.0023527781500915015, -0.00015501186493657374, -0.01979034562374007, 0.0009192445951379349, 0.00014733508637915175, -0.0005844024248583206, 0.008719677484809724, -0.0012619096597610343, 0.0002517630754066509, -0.0017856095983270932, -0.004275353823285665, 0.002544615588711983, -0.0018634045937687793, 0.00777497317851106, 0.0013885779304261623, -0.0016815198806618243, -0.000722613406213733, 0.004508402586322966, 0.002689095900723688, 0.0019179857039854848], "sim_time_s": 3.660999999999708}
+{"event": "step_begin", "monotonic_s": 1331.271928716, "episode": 1}
+{"event": "step_end", "monotonic_s": 1331.275230008, "episode": 1, "elapsed_sim_s": 2.00299999999978}
+{"event": "callback_return", "monotonic_s": 1331.286165591, "success": true, "duration_s": 0.00023891699993328075, "episode": 2}
+{"event": "send_begin", "monotonic_s": 1331.286175341, "success": true, "episode": 2}
+{"event": "send_end", "monotonic_s": 1331.28620455, "success": true, "episode": 2}
+{"event": "reset_begin", "monotonic_s": 1331.2918533, "episode": 2}
+{"event": "reset_exception", "monotonic_s": 1331.302797133, "episode": 2, "error": "KeyboardInterrupt"}
+{"event": "close_begin", "monotonic_s": 1331.302861591}
+{"event": "close_end", "monotonic_s": 1331.302865883}

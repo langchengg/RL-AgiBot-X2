@@ -1,0 +1,11 @@
++ 1790166558.936506 cwd=/tmp cd /tmp/x2-final-ros.zvwycfdg/repository
++ 1790166558.936546 cwd=/tmp/x2-final-ros.zvwycfdg/repository test '!' -e /tmp/x2-final-ros.zvwycfdg/build
++ 1790166558.936560 cwd=/tmp/x2-final-ros.zvwycfdg/repository test '!' -e /tmp/x2-final-ros.zvwycfdg/install
++ 1790166558.936566 cwd=/tmp/x2-final-ros.zvwycfdg/repository test '!' -e /tmp/x2-final-ros.zvwycfdg/log
++ 1790166558.936574 cwd=/tmp/x2-final-ros.zvwycfdg/repository /tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python /usr/bin/colcon list --base-paths src
+x2_recovery	src/x2_recovery	(ros.ament_python)
++ 1790166559.083540 cwd=/tmp/x2-final-ros.zvwycfdg/repository /tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python /usr/bin/colcon --log-base /tmp/x2-final-ros.zvwycfdg/log build --base-paths src --packages-select x2_recovery --symlink-install --build-base /tmp/x2-final-ros.zvwycfdg/build --install-base /tmp/x2-final-ros.zvwycfdg/install
+Starting >>> x2_recovery
+Finished <<< x2_recovery [0.67s]
+
+Summary: 1 package finished [0.74s]

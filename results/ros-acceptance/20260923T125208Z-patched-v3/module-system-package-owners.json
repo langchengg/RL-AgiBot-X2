@@ -1,0 +1,80 @@
+{
+  "rclpy": {
+    "path": "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py",
+    "exit_code": 0,
+    "owning_package": "ros-jazzy-rclpy: /opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py",
+    "stderr": ""
+  },
+  "numpy": {
+    "path": "/usr/lib/python3/dist-packages/numpy/__init__.py",
+    "exit_code": 0,
+    "owning_package": "python3-numpy: /usr/lib/python3/dist-packages/numpy/__init__.py",
+    "stderr": ""
+  },
+  "matplotlib": {
+    "path": "/usr/lib/python3/dist-packages/matplotlib/__init__.py",
+    "exit_code": 0,
+    "owning_package": "python3-matplotlib: /usr/lib/python3/dist-packages/matplotlib/__init__.py",
+    "stderr": ""
+  },
+  "PIL": {
+    "path": "/usr/lib/python3/dist-packages/PIL/__init__.py",
+    "exit_code": 0,
+    "owning_package": "python3-pil:arm64: /usr/lib/python3/dist-packages/PIL/__init__.py",
+    "stderr": ""
+  },
+  "setuptools": {
+    "path": "/usr/lib/python3/dist-packages/setuptools/__init__.py",
+    "exit_code": 0,
+    "owning_package": "python3-setuptools: /usr/lib/python3/dist-packages/setuptools/__init__.py",
+    "stderr": ""
+  },
+  "colcon_core": {
+    "path": "/usr/lib/python3/dist-packages/colcon_core/__init__.py",
+    "exit_code": 0,
+    "owning_package": "python3-colcon-core: /usr/lib/python3/dist-packages/colcon_core/__init__.py",
+    "stderr": ""
+  },
+  "ament_package": {
+    "path": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_package/__init__.py",
+    "exit_code": 0,
+    "owning_package": "ros-jazzy-ament-package: /opt/ros/jazzy/lib/python3.12/site-packages/ament_package/__init__.py",
+    "stderr": ""
+  },
+  "ament_index_python": {
+    "path": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_index_python/__init__.py",
+    "exit_code": 0,
+    "owning_package": "ros-jazzy-ament-index-python: /opt/ros/jazzy/lib/python3.12/site-packages/ament_index_python/__init__.py",
+    "stderr": ""
+  },
+  "sensor_msgs": {
+    "path": "/opt/ros/jazzy/lib/python3.12/site-packages/sensor_msgs/__init__.py",
+    "exit_code": 0,
+    "owning_package": "ros-jazzy-sensor-msgs: /opt/ros/jazzy/lib/python3.12/site-packages/sensor_msgs/__init__.py",
+    "stderr": ""
+  },
+  "std_msgs": {
+    "path": "/opt/ros/jazzy/lib/python3.12/site-packages/std_msgs/__init__.py",
+    "exit_code": 0,
+    "owning_package": "ros-jazzy-std-msgs: /opt/ros/jazzy/lib/python3.12/site-packages/std_msgs/__init__.py",
+    "stderr": ""
+  },
+  "std_srvs": {
+    "path": "/opt/ros/jazzy/lib/python3.12/site-packages/std_srvs/__init__.py",
+    "exit_code": 0,
+    "owning_package": "ros-jazzy-std-srvs: /opt/ros/jazzy/lib/python3.12/site-packages/std_srvs/__init__.py",
+    "stderr": ""
+  },
+  "launch": {
+    "path": "/opt/ros/jazzy/lib/python3.12/site-packages/launch/__init__.py",
+    "exit_code": 0,
+    "owning_package": "ros-jazzy-launch: /opt/ros/jazzy/lib/python3.12/site-packages/launch/__init__.py",
+    "stderr": ""
+  },
+  "launch_ros": {
+    "path": "/opt/ros/jazzy/lib/python3.12/site-packages/launch_ros/__init__.py",
+    "exit_code": 0,
+    "owning_package": "ros-jazzy-launch-ros: /opt/ros/jazzy/lib/python3.12/site-packages/launch_ros/__init__.py",
+    "stderr": ""
+  }
+}

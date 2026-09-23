@@ -1,0 +1,17 @@
+{
+  "status": "FROZEN; syntax and applicability check only; no ROS simulation run by subagent",
+  "base_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "runner_sha256": "7ddbeb227f520d38688e6064b5f0335af639b1d747f3c58bc2add3a81e917b8a",
+  "patches": [
+    {
+      "path": "/tmp/x2-final-control/patch-work/runner-evidence-v2.patch",
+      "sha256": "6b823b42fc2d52794188b417d393351c3cf6bcbf20461b112817ee73876e0658"
+    },
+    {
+      "path": "/tmp/x2-final-control/patch-work/runner-evidence-v1-to-v2.patch",
+      "sha256": "cb5f0c4625979b3a9059c7195c0eda92de1e2c3c5067cf9bab5629e78cf3c49e"
+    }
+  ],
+  "preserved_v1_patch_sha256": "5735375fa96986334f13cd7e5842272b43401727f5ece6255ee1ade703f3f023",
+  "reason": "First original-run summary PASS hid noninteractive launch business child exits -2. Group SIGINT hit children directly, then noninteractive launch forwarded another SIGINT during cleanup. Only initial ros2 launch shutdown signal now targets its parent PID; owned-group fallback unchanged. All three original launch scenarios now require both known business children exit 0."
+}

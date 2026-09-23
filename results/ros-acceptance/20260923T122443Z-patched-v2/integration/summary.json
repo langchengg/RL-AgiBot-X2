@@ -1,0 +1,295 @@
+{
+  "controller": "scripted_baseline",
+  "checks": {
+    "installed_outside_checkout": {
+      "result": "PASS"
+    },
+    "single_launch_two_processes": {
+      "result": "PASS"
+    },
+    "node-list": {
+      "result": "PASS",
+      "output": ""
+    },
+    "business_nodes_discovered": {
+      "result": "FAIL"
+    }
+  },
+  "processes": [
+    {
+      "pid": 30723,
+      "process_group": 30723,
+      "command": [
+        "ros2",
+        "launch",
+        "x2_recovery",
+        "recovery.launch.py",
+        "seed:=60",
+        "episode_timeout_s:=20.0",
+        "recovery_timeout_s:=30.0"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T12:48:59.881901+00:00",
+      "started_monotonic_s": 2416.780182984,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.pukricvy/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.pukricvy/build/x2_recovery:/tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.pukricvy/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.pukricvy/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.pukricvy/evidence/integration/normal-launch.log",
+      "returncode": 0,
+      "members_when_ready": [
+        {
+          "pid": 30723,
+          "state": "S",
+          "parent_pid": 30707,
+          "process_group": 30723,
+          "start_ticks": 241678,
+          "command": [
+            "/usr/bin/python3",
+            "/opt/ros/jazzy/bin/ros2",
+            "launch",
+            "x2_recovery",
+            "recovery.launch.py",
+            "seed:=60",
+            "episode_timeout_s:=20.0",
+            "recovery_timeout_s:=30.0"
+          ]
+        },
+        {
+          "pid": 30742,
+          "state": "S",
+          "parent_pid": 30723,
+          "process_group": 30723,
+          "start_ticks": 241691,
+          "command": [
+            "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/x2_recovery/recovery_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_ymu9zvmt",
+            "--params-file",
+            "/tmp/launch_params_jyczb3t5"
+          ]
+        },
+        {
+          "pid": 30743,
+          "state": "S",
+          "parent_pid": 30723,
+          "process_group": 30723,
+          "start_ticks": 241692,
+          "command": [
+            "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_fm13i3yd"
+          ]
+        }
+      ],
+      "members_before_stop": [
+        {
+          "pid": 30723,
+          "state": "S",
+          "parent_pid": 30707,
+          "process_group": 30723,
+          "start_ticks": 241678,
+          "command": [
+            "/usr/bin/python3",
+            "/opt/ros/jazzy/bin/ros2",
+            "launch",
+            "x2_recovery",
+            "recovery.launch.py",
+            "seed:=60",
+            "episode_timeout_s:=20.0",
+            "recovery_timeout_s:=30.0"
+          ]
+        },
+        {
+          "pid": 30742,
+          "state": "S",
+          "parent_pid": 30723,
+          "process_group": 30723,
+          "start_ticks": 241691,
+          "command": [
+            "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/x2_recovery/recovery_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_ymu9zvmt",
+            "--params-file",
+            "/tmp/launch_params_jyczb3t5"
+          ]
+        },
+        {
+          "pid": 30743,
+          "state": "S",
+          "parent_pid": 30723,
+          "process_group": 30723,
+          "start_ticks": 241692,
+          "command": [
+            "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python",
+            "/tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_fm13i3yd"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "launch_pid",
+          "target": 30723,
+          "sent_utc": "2026-09-23T12:49:01.763199+00:00",
+          "sent_monotonic_s": 2418.661478068
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T12:49:01.997471+00:00",
+      "exit_observed_monotonic_s": 2418.895754693,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 30742,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 30743,
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "pid": 30784,
+      "process_group": 30784,
+      "command": [
+        "ros2",
+        "node",
+        "list"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-23T12:49:00.858237+00:00",
+      "started_monotonic_s": 2417.756517901,
+      "environment": {
+        "HOME": "/tmp/x2-final-ros.pukricvy/home",
+        "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PYTHONPATH": "/tmp/x2-final-ros.pukricvy/build/x2_recovery:/tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "86",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.pukricvy/install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.pukricvy/install",
+        "X2_ASSET_REPO": "/tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf",
+        "X2_SCENE": "/tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+        "MUJOCO_GL": null
+      },
+      "log": "/tmp/x2-final-ros.pukricvy/evidence/integration/node-list.log",
+      "returncode": 0,
+      "members_before_stop": [
+        {
+          "pid": 30787,
+          "state": "S",
+          "parent_pid": 1631,
+          "process_group": 30784,
+          "start_ticks": 241790,
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "from ros2cli.daemon.daemonize import main; main()",
+            "--name",
+            "ros2-daemon",
+            "--ros-domain-id",
+            "86",
+            "--rmw-implementation",
+            "rmw_fastrtps_cpp"
+          ]
+        }
+      ],
+      "exit_observed_utc": "2026-09-23T12:49:01.716746+00:00",
+      "exit_observed_monotonic_s": 2418.615029068,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [
+        {
+          "pid": 30787,
+          "state": "S",
+          "parent_pid": 1631,
+          "process_group": 30784,
+          "start_ticks": 241790,
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "from ros2cli.daemon.daemonize import main; main()",
+            "--name",
+            "ros2-daemon",
+            "--ros-domain-id",
+            "86",
+            "--rmw-implementation",
+            "rmw_fastrtps_cpp"
+          ]
+        }
+      ],
+      "launch_children": []
+    }
+  ],
+  "rpc": [],
+  "cli": [
+    {
+      "command": [
+        "ros2",
+        "node",
+        "list"
+      ],
+      "log": "/tmp/x2-final-ros.pukricvy/evidence/integration/node-list.log",
+      "exit_code": 0,
+      "process_wall_s": 0.8686479579996558,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    }
+  ],
+  "episodes": [],
+  "identity": {
+    "executable": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python",
+    "cwd": "/tmp",
+    "module": "/tmp/x2-final-ros.pukricvy/build/x2_recovery/x2_recovery/recovery_node.py",
+    "prefix": "/tmp/x2-final-ros.pukricvy/install/x2_recovery",
+    "launch": "/tmp/x2-final-ros.pukricvy/install/x2_recovery/share/x2_recovery/launch/recovery.launch.py",
+    "rmw": "rmw_fastrtps_cpp",
+    "domain": "86",
+    "discovery": "LOCALHOST"
+  },
+  "result": "FAIL",
+  "error": {
+    "type": "AssertionError",
+    "message": "business_nodes_discovered: {}"
+  },
+  "daemon_was_running": false,
+  "own_cli_daemon_stopped": true,
+  "all_children_exited": true,
+  "remaining_owned_group_members": [],
+  "telemetry_by_scenario": {},
+  "telemetry_terminal_log_lines": [
+    {
+      "log": "/tmp/x2-final-ros.pukricvy/evidence/integration/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790167741.198702384] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    }
+  ],
+  "cleanup_errors": []
+}

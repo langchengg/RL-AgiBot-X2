@@ -1,0 +1,96 @@
+--- a/src/x2_recovery/test/test_ros_integration.py
++++ b/src/x2_recovery/test/test_ros_integration.py
+@@ -254,29 +254,42 @@
+ 
+     def stop(p):
+         entry = next(e for proc, _, e in processes if proc is p)
++        def send(signum, *, launch_parent_only=False):
++            entry.setdefault('signals', []).append(dict(signal=signum.name,
++                target_kind='launch_pid' if launch_parent_only else 'owned_process_group',
++                target=p.pid, sent_utc=utc_now(), sent_monotonic_s=time.monotonic()))
++            if launch_parent_only:
++                try:
++                    p.send_signal(signum)
++                except ProcessLookupError:
++                    pass
++            else:
++                signal_owned_group(p.pid, signum)
+         members = process_group_members(p.pid)
+         if members:
+             entry['members_before_stop'] = members
+         escalated = False
+         if p.poll() is None:
+-            signal_owned_group(p.pid, signal.SIGINT)
++            # Noninteractive Jazzy launch forwards SIGINT to its own children.
++            # A group SIGINT here would hit them twice and interrupt their cleanup.
++            send(signal.SIGINT, launch_parent_only=entry['command'][:2] == ['ros2', 'launch'])
+             try: p.wait(timeout=8.)
+             except subprocess.TimeoutExpired:
+                 escalated = True
+-                signal_owned_group(p.pid, signal.SIGTERM)
++                send(signal.SIGTERM)
+                 try: p.wait(timeout=5.)
+                 except subprocess.TimeoutExpired:
+-                    signal_owned_group(p.pid, signal.SIGKILL); p.wait(timeout=3.)
++                    send(signal.SIGKILL); p.wait(timeout=3.)
+         # A launch parent exiting does not itself prove its business children exited.
+         remaining = [m for m in process_group_members(p.pid) if not is_cli_daemon(m)]
+         if remaining:
+             escalated = True
+-            signal_owned_group(p.pid, signal.SIGTERM)
++            send(signal.SIGTERM)
+             until = time.monotonic()+3.
+             while any(not is_cli_daemon(m) for m in process_group_members(p.pid)) and time.monotonic() < until:
+                 time.sleep(.02)
+             if any(not is_cli_daemon(m) for m in process_group_members(p.pid)):
+-                signal_owned_group(p.pid, signal.SIGKILL)
++                send(signal.SIGKILL)
+                 until = time.monotonic()+2.
+                 while process_group_members(p.pid) and time.monotonic() < until:
+                     time.sleep(.02)
+@@ -301,6 +314,13 @@
+         if escalated or entry['remaining_group_members']:
+             raise AssertionError('Normal SIGINT cleanup required escalation or left group members')
+         return p.returncode
++
++    def clean_launch_children(p):
++        entry = next(e for proc, _, e in processes if proc is p)
++        children = entry['launch_children']
++        return (len(children) == 2 and
++                {c['name'].split('-', 1)[0] for c in children} == {'recovery_node', 'telemetry_node'}
++                and all(c['returncode'] == 0 for c in children))
+ 
+     def cli(args, name, seconds=10.):
+         start = time.monotonic()
+@@ -405,7 +425,9 @@
+         check('same_instance_new_episode', second['episode'] == 2 and second['control_steps'] == 1000
+               and second['reason'] == 'time_limit' and len([r for r in records(log)
+               if r.get('event') == 'reset_completed']) == 2)
+-        check('normal_cleanup', stop(launch) == 0 and '"event": "closed"' in log.read_text())
++        check('normal_cleanup', stop(launch) == 0 and '"event": "closed"' in log.read_text()
++              and clean_launch_children(launch),
++              children=next(e['launch_children'] for p, _, e in processes if p is launch))
+         wait(lambda: not client.service_is_ready(), 5.)
+         statuses.clear(); joints.clear()
+         scenario = 'wall-episode-1'
+@@ -418,7 +440,9 @@
+         check('wall_timeout', result['status'] == 'FAILED' and result['reason'] == 'recovery_timeout'
+               and 0. < result['elapsed_sim_s'] < 20. and result['control_steps'] >= 3
+               and len(joints) >= 4, **result)
+-        check('wall_cleanup', stop(wall) == 0 and '"event": "closed"' in wall_log.read_text())
++        check('wall_cleanup', stop(wall) == 0 and '"event": "closed"' in wall_log.read_text()
++              and clean_launch_children(wall),
++              children=next(e['launch_children'] for p, _, e in processes if p is wall))
+         wait(lambda: not client.service_is_ready(), 5.)
+         statuses.clear(); joints.clear()
+         scenario = 'original-launch-active-shutdown'
+@@ -437,8 +461,7 @@
+               and active_finished[0]['control_steps'] >= 3
+               and active_finished[0]['elapsed_sim_s'] > 0.
+               and '"event": "closed"' in active_log.read_text()
+-              and len(active_process['launch_children']) == 2
+-              and all(c['returncode'] == 0 for c in active_process['launch_children'])
++              and clean_launch_children(active_launch)
+               and not active_process['remaining_group_members'],
+               finished=active_finished, children=active_process['launch_children'],
+               subscriber_last_status=statuses[-1][1],

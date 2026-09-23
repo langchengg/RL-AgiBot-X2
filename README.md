@@ -69,70 +69,136 @@ Runtime observed on 2026-09-20 inside the existing Parallels VM:
 | Rendering libraries | Python glfw 2.10.2; PyOpenGL 3.1.10; libosmesa6 25.1.7 |
 | PyTorch backends | CPU used explicitly; CUDA=false, MPS=false; 2 compute threads, 1 interop thread |
 
-The venv uses system site-packages: NumPy/Pillow come from Ubuntu, rclpy and interface
-modules from Jazzy, and MuJoCo/Gymnasium/SB3/Torch from the venv. The installed diagnostic
-prints module paths and interpreter identity in one process. No system Python packages
+The venv uses system site-packages: NumPy/Pillow/matplotlib come from Ubuntu, rclpy and
+interface modules from Jazzy, and MuJoCo/Gymnasium/SB3/Torch from the venv. The installed
+diagnostic prints module paths and interpreter identity in one process. No system Python packages
 were replaced. Virtual graphics capability does not establish a training GPU.
 
 ## Setup
 
-Run from the repository root. Jazzy and the existing Ubuntu Python/colcon packages are
-prerequisites; do not install rclpy from PyPI. The inspected `/usr/bin/colcon` shebang uses
-system Python, so invoke it explicitly with the venv interpreter.
+The existing Ubuntu 24.04 ARM64 VM must provide these system prerequisites before
+running the commands below. This procedure does not install, upgrade or replace
+shared system packages:
+
+- Ubuntu packages: `git`, `ca-certificates`, `python3`, `python3-venv`, `python3-pip`,
+  `python3-setuptools`, `python3-numpy`, `python3-pil` and `python3-matplotlib`.
+  `libosmesa6` is needed for the `MUJOCO_GL=osmesa` regression/render tests.
+- ROS repository packages: `python3-colcon-common-extensions` and an installed
+  ROS 2 Jazzy underlay, such as `ros-jazzy-ros-base`, with
+  `ros-jazzy-rmw-fastrtps-cpp`. The underlay must include `rclpy`, `rcl_interfaces`,
+  `sensor_msgs`, `std_msgs`, `std_srvs`, `launch`, `launch_ros`, `ament_index_python`
+  and the `ros2` node/topic/service/package/launch CLI extensions.
+- The observed shared-site versions are NumPy 1.26.4, Pillow 10.2.0 and
+  matplotlib 3.6.3 from Ubuntu packages. The existing Ubuntu `python3-nacl`
+  dependency explains the declared cffi compatibility pin. Package versions and
+  actual module locations, including build tools, must be checked on each run.
+
+If a prerequisite is missing, stop and record the package/source and required system
+permission. Do not use `sudo pip`, replace the system interpreter or change dependency
+pins to make installation pass. Do not install `rclpy` from PyPI. A venv made with
+`--system-site-packages` intentionally inherits system Python packages; it is not a
+claim that every Python dependency is newly installed or isolated.
+
+For a new source/venv/model/build acceptance run, start a clean shell. All subsequent
+commands in this Setup and Model source section run inside it. No personal startup
+file, old overlay or old project venv is sourced:
 
 ```bash
-source /opt/ros/jazzy/setup.bash
-# Only if .venv does not already exist:
-# /usr/bin/python3 -m venv --system-site-packages .venv
-touch .venv/COLCON_IGNORE
-.venv/bin/python -m pip install --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu 'torch==2.8.0+cpu'
-.venv/bin/python -m pip install --only-binary=:all: --index-url https://pypi.org/simple -r requirements.txt
-.venv/bin/python -m pip check
-.venv/bin/python /usr/bin/colcon list --base-paths src
-VALIDATION_BUILD_DIR="$(mktemp -d /tmp/hrs-x2-validation.XXXXXX)"
-.venv/bin/python /usr/bin/colcon --log-base "$VALIDATION_BUILD_DIR/final-log" build \
-  --base-paths src --packages-select x2_recovery --symlink-install \
-  --build-base "$VALIDATION_BUILD_DIR/final-build" --install-base "$VALIDATION_BUILD_DIR/final-install"
-source "$VALIDATION_BUILD_DIR/final-install/setup.bash"
-head -1 "$VALIDATION_BUILD_DIR/final-install/x2_recovery/lib/x2_recovery/runtime_check"
+ACCEPT_ROOT="$(mktemp -d /tmp/x2-final-ros.XXXXXX)"
+mkdir -p "$ACCEPT_ROOT/home" "$ACCEPT_ROOT/evidence"
+env -i \
+  HOME="$ACCEPT_ROOT/home" USER="$(id -un)" LOGNAME="$(id -un)" \
+  LANG=C.UTF-8 LC_ALL=C.UTF-8 \
+  PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+  ACCEPT_ROOT="$ACCEPT_ROOT" bash --noprofile --norc
 ```
 
-PyPI metadata and official wheel listings were checked before installation: Gymnasium
-and SB3 have universal wheels; Torch has a cp312 Linux aarch64 CPU wheel. SB3 2.9.0
-accepts Torch >=2.8 and Gymnasium <2.0; these pins retain working MuJoCo/NumPy and avoid
-CUDA packages or source builds. requirements.txt pins direct dependencies and the cffi
-compatibility requirement from inherited PyNaCl; it is not a transitive lockfile.
-No apt/build-tool changes were needed. Build outputs and raw logs stay in the temporary
-directory; colcon discovers only src, and the venv has COLCON_IGNORE.
+```bash
+export WS="$ACCEPT_ROOT/repository"
+export PYTHONNOUSERSITE=1 PIP_CONFIG_FILE=/dev/null
+git -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --no-checkout \
+  https://github.com/langchengg/RL-AgiBot-X2.git "$WS"
+git -C "$WS" sparse-checkout set src
+git -C "$WS" checkout --detach origin/main
+git -C "$WS" rev-parse HEAD
+git -C "$WS" status --short
+cd "$WS"
+source /opt/ros/jazzy/setup.bash
+/usr/bin/python3 -m venv --system-site-packages .venv
+touch .venv/COLCON_IGNORE
+export PY="$WS/.venv/bin/python"
+"$PY" -m pip install --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu 'torch==2.8.0+cpu'
+"$PY" -m pip install --only-binary=:all: --index-url https://pypi.org/simple -r requirements.txt
+"$PY" -m pip check
+"$PY" -m pip freeze --all > "$ACCEPT_ROOT/evidence/python-packages.txt"
+"$PY" /usr/bin/colcon list --base-paths src
+"$PY" /usr/bin/colcon --log-base "$ACCEPT_ROOT/log" build \
+  --base-paths src --packages-select x2_recovery --symlink-install \
+  --build-base "$ACCEPT_ROOT/build" --install-base "$ACCEPT_ROOT/install"
+source "$ACCEPT_ROOT/install/setup.bash"
+ros2 pkg prefix x2_recovery
+ros2 pkg executables x2_recovery
+head -1 "$ACCEPT_ROOT/install/x2_recovery/lib/x2_recovery/recovery_node"
+head -1 "$ACCEPT_ROOT/install/x2_recovery/lib/x2_recovery/telemetry_node"
+```
+
+The shallow partial clone and cone-mode sparse checkout fetch the top-level files
+and the complete `src` tree without downloading historical `results` assets. This
+changes the download scope, not the checked-out source identity. Record the actual
+commit. To reproduce a specific acceptance base rather than current `origin/main`,
+fetch that exact commit with `git -C "$WS" fetch --depth 1 origin COMMIT`, then use
+`git -C "$WS" checkout --detach COMMIT` before installation. Apply only the explicit
+patch identified by that run's evidence, if any; a patched run is not an unmodified
+release test. Historical policy/evaluation workflows elsewhere in this README also
+need their published `results` files and are separate from this ROS acceptance.
+
+The `/usr/bin/colcon` shebang uses system Python, so invoke it explicitly with `"$PY"`.
+Package prefix must resolve under the new `install`; node shebangs must use the new
+project venv. From `/tmp`, check `sys.executable`, `sys.prefix`, `sys.base_prefix`,
+`sys.path`, installed package/share locations and actual module files. Source paths
+inside the new clone are valid for `--symlink-install`; paths into an old project,
+venv or install are not. Keep paths established by sourcing the ROS underlay and new
+overlay; do not inject an old source `PYTHONPATH` to bypass packaging.
+
+PyPI metadata and official wheel listings were checked before the original
+installation: Gymnasium and SB3 have universal wheels; Torch has a cp312 Linux
+aarch64 CPU wheel. SB3 2.9.0 accepts Torch >=2.8 and Gymnasium <2.0. These pins remain
+unchanged. `requirements.txt` pins direct dependencies and the inherited PyNaCl cffi
+compatibility requirement; it is not a transitive lockfile. If pip reports a
+requirement already satisfied by a system package, record that source. Build outputs
+and raw logs stay under the new acceptance root; colcon discovers only `src`, and the
+venv has `COLCON_IGNORE`.
 
 ## Robot Model and Simulation
 
 ### Model source
 
-The existing external checkout is reused, not vendored or modified. Source:
+The official model is downloaded independently for a fresh acceptance run; it is not
+vendored or modified. Source:
 [AgibotTech/agibot_x2_urdf](https://github.com/AgibotTech/agibot_x2_urdf),
 commit `60c5de582c523cd188f563819e62d34cfdc3d2d0`, **X2 Ultra v1.3.0**.
 Reference URDF: `X2_URDF-v1.3.0/x2_ultra.urdf`; robot MJCF:
 `X2_URDF-v1.3.0/x2_ultra.xml`; scene: `X2_URDF-v1.3.0/scene.xml`
-(includes only that robot MJCF). Runtime loading is offline after setup:
+(includes only that robot MJCF). Continue in the clean shell from Setup:
 
 ```bash
-export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
+export X2_ASSET_REPO="$ACCEPT_ROOT/assets/agibot_x2_urdf"
+mkdir -p "$ACCEPT_ROOT/assets"
+git -c http.version=HTTP/1.1 clone --filter=blob:none --no-checkout \
+  https://github.com/AgibotTech/agibot_x2_urdf.git "$X2_ASSET_REPO"
+git -C "$X2_ASSET_REPO" sparse-checkout set X2_URDF-v1.3.0
+git -C "$X2_ASSET_REPO" checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0
 git -C "$X2_ASSET_REPO" rev-parse HEAD
 git -C "$X2_ASSET_REPO" status --short
 export X2_SCENE="$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml"
 ```
 
-Observed revision: `60c5de582c523cd188f563819e62d34cfdc3d2d0`; worktree clean.
-For a new checkout, the previously verified download sequence is:
-
-```bash
-git clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git "$X2_ASSET_REPO"
-git -C "$X2_ASSET_REPO" sparse-checkout set X2_URDF-v1.3.0
-git -C "$X2_ASSET_REPO" checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0
-```
-
-The upstream Mulan PSL v2 license stays with the assets. No project license is granted; ROS package metadata uses UNLICENSED.
+Runtime loading is offline after setup and checks the pinned revision, relevant
+files/license and effective model identity. A failed download or identity check must
+not fall back to a previous personal cache. The upstream Mulan PSL v2 license stays
+with the assets; model assets are not copied into the acceptance evidence. Earlier
+runs documented below reused an external cache and retain that historical scope.
+No project license is granted; ROS package metadata uses UNLICENSED.
 
 ### Model construction and modifications
 
@@ -1272,43 +1338,55 @@ at terminal states. After an observed new RUNNING transition, an older sample is
 explicitly marked as waiting for a current sample. Late subscribers receive retained
 status while the publisher lives, but receive no fabricated joint snapshot.
 
-Build using the existing interpreter (the system colcon shebang is `/usr/bin/python3`):
+Complete [Setup](#setup) and [Model source](#model-source) in the clean shell first.
+Keep `WS`, `PY`, `ACCEPT_ROOT` and `X2_ASSET_REPO` set to this run's paths. Use a domain
+where no conflicting test nodes/services/publishers were observed; 86 below is only
+a candidate. The preflight and all server/client/CLI processes must use the same
+underlay, new overlay, model, domain, discovery and RMW settings:
 
 ```bash
-cd /home/lang/RL-AgiBot-X2
-source /opt/ros/jazzy/setup.bash
-export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
-export ROS_DOMAIN_ID=73
+export ROS_DOMAIN_ID=86
 export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
 export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-VALIDATION_DIR="$(mktemp -d /tmp/x2-ros-validation.XXXXXX)"
-.venv/bin/python /usr/bin/colcon --log-base "$VALIDATION_DIR/log" build \
-  --base-paths src --packages-select x2_recovery --symlink-install \
-  --build-base "$VALIDATION_DIR/build" --install-base "$VALIDATION_DIR/install"
-source "$VALIDATION_DIR/install/setup.bash"
-ros2 pkg prefix x2_recovery
-ros2 pkg executables x2_recovery
-head -1 "$VALIDATION_DIR/install/x2_recovery/lib/x2_recovery/recovery_node"
 cd /tmp
+ros2 launch x2_recovery recovery.launch.py --show-args
 ros2 launch x2_recovery recovery.launch.py \
   seed:=60 episode_timeout_s:=20.0 recovery_timeout_s:=30.0
 ```
 
-In another terminal, source the same Jazzy/installation and export the same model,
-domain, discovery and RMW settings. The domain isolates these tests from other nodes;
-Fast DDS was already the working RMW. Actual CLI commands used (bounded echo):
+In managed child processes or another equally clean shell, source the same Jazzy/new
+installation and use the same recorded variables. The existing integration runner
+below handles discovery, observers, CLI requests and cleanup with bounded waits.
+For manual observation, verify the installed CLI help before using its echo options
+and establish both observers before sending the request:
 
 ```bash
-ros2 service type /x2/start_recovery
-ros2 topic info /x2/recovery_status --verbose
-ros2 topic info /x2/joint_states --verbose
-ros2 topic echo /x2/recovery_status std_msgs/msg/String \
-  --qos-reliability reliable --qos-durability transient_local --once --timeout 5
-ros2 service call /x2/start_recovery std_srvs/srv/Trigger "{}"
-# Run again while the episode is RUNNING: success=False, Recovery already running
-ros2 service call /x2/start_recovery std_srvs/srv/Trigger "{}"
-ros2 topic echo /x2/joint_states sensor_msgs/msg/JointState --once --timeout 5
+timeout --signal=INT --kill-after=5s 10s ros2 node list
+timeout --signal=INT --kill-after=5s 10s ros2 service type /x2/start_recovery
+timeout --signal=INT --kill-after=5s 10s ros2 topic info /x2/recovery_status --verbose
+timeout --signal=INT --kill-after=5s 10s ros2 topic info /x2/joint_states --verbose
+# Start these bounded observers before the service request:
+timeout --signal=INT --kill-after=5s 35s \
+  ros2 topic echo /x2/recovery_status std_msgs/msg/String \
+  --qos-reliability reliable --qos-durability transient_local
+timeout --signal=INT --kill-after=5s 35s \
+  ros2 topic echo /x2/joint_states sensor_msgs/msg/JointState \
+  --qos-reliability reliable --qos-durability volatile
+# From a separate managed process, after communication is ready and IDLE is observed:
+timeout --signal=INT --kill-after=5s 10s \
+  ros2 service call /x2/start_recovery std_srvs/srv/Trigger "{}"
+# While the same episode is still RUNNING: success=False, Recovery already running.
+timeout --signal=INT --kill-after=5s 10s \
+  ros2 service call /x2/start_recovery std_srvs/srv/Trigger "{}"
 ```
+
+These echo commands each occupy their process until the outer bound or Ctrl+C;
+launch them concurrently with the client, not sequentially in one foreground shell.
+An outer timeout ending an observer is not evidence of the node's recovery timeout.
+Do not stop other ROS sessions or a pre-existing CLI daemon. Before starting the
+runner, close the manual run and verify that its two business nodes and observers
+have exited. The runner itself performs the real CLI acceptance/busy/echo scenario,
+so a second manual episode is not required.
 
 The repeatable cross-process probe launches these installed executables from `/tmp`
 without injecting source PYTHONPATH. It has bounded discovery, RPC and process waits,
@@ -1320,12 +1398,10 @@ samples. Fault injection is explicitly synthetic and is not a successful recover
 ```bash
 cd /tmp
 MUJOCO_GL=osmesa timeout --signal=INT --kill-after=15s 300s \
-  /home/lang/RL-AgiBot-X2/.venv/bin/python -m unittest discover \
-  -s /home/lang/RL-AgiBot-X2/src/x2_recovery/test -v
+  "$PY" -m unittest discover -s "$WS/src/x2_recovery/test" -v
 timeout --signal=INT --kill-after=15s 240s \
-  /home/lang/RL-AgiBot-X2/.venv/bin/python \
-  /home/lang/RL-AgiBot-X2/src/x2_recovery/test/test_ros_integration.py \
-  --output-dir /home/lang/RL-AgiBot-X2/audit-output/ros-integration/new-run
+  "$PY" "$WS/src/x2_recovery/test/test_ros_integration.py" \
+  --output-dir "$ACCEPT_ROOT/evidence/integration"
 # Independent wall-time scenario used by the probe:
 ros2 launch x2_recovery recovery.launch.py \
   seed:=60 episode_timeout_s:=20.0 recovery_timeout_s:=3.0
@@ -1383,25 +1459,150 @@ the per-file SHA-256 manifest identifies the tested implementation independently
 the subsequent local commit. Earlier attempts remain separately named and unchanged.
 
 
+### Final isolated ROS acceptance — 2026-09-23
+
+The final run is **COMPLETE**, with a fresh build, 183/183
+regression tests (0 failures, 0 errors, 0 skips), and a separately executed integration
+runner with 85/85 checks and outer watchdog exit 0.
+Evidence: [final summary](results/ros-acceptance/20260923T125208Z-patched-v3/summary.json),
+[environment and module origins](results/ros-acceptance/20260923T125208Z-patched-v3/environment.json),
+[actual commands](results/ros-acceptance/20260923T125208Z-patched-v3/commands.json),
+[integration records](results/ros-acceptance/20260923T125208Z-patched-v3/integration/summary.json).
+The original temporary records remain at `/tmp/x2-final-ros.z4vmp3sx`; paths inside raw logs retain
+that execution identity. Published evidence includes file hashes; the original successful and failed attempt directories are retained.
+
+Scope: **the same Ubuntu ARM64 VM with new source, project venv, independently
+downloaded model, clean shell and build/install products; the declared Ubuntu/ROS
+system dependencies were reused**. This is not a new OS or new-machine installation.
+NumPy/Pillow/matplotlib/setuptools/colcon were inherited from Ubuntu; rclpy and ROS
+interfaces came from `/opt/ros/jazzy`. Simulator/RL packages and cffi came from the new
+venv. No system package was installed, upgraded or replaced, and no old project source,
+venv, overlay or model cache was loaded. The interpreter's `/usr/bin/python3.12`
+realpath is expected; `sys.executable`, `sys.prefix` and both node shebangs identify
+the new project venv. The new installed prefix is `/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery`;
+symlink-installed production modules resolve into this run's new clone.
+
+Code identity: published base `71037f7d5530a65da220345f9037ac4d29f32908` plus the explicit
+[tested patch](results/ros-acceptance/20260923T125208Z-patched-v3/tested-v3.patch)
+(SHA-256 `a94c3a07582fa411c36dde9387f54c722658f7232d64bc2063a3a4b109ba0861`). The patch changes README setup guidance and the existing
+integration runner only. All production modules, launch, package/setup declarations,
+requirements and physics/model/control/success definitions remain byte-identical to
+the release; [source identities](results/ros-acceptance/20260923T125208Z-patched-v3/source-identity.json)
+contain full SHA-256 values. The final result prose was added after testing; it does
+not change the tested commands or runtime/test implementation.
+
+The [unmodified-release attempt](results/ros-acceptance/20260923T121422Z-release-71037f7/summary.json)
+is retained as **FAIL for clean shutdown**, even though its original runner reported
+68 checks passed and exited 0. Its normal/wall launch children exited `-2` during
+cleanup: the noninteractive runner sent SIGINT to the entire group, then Jazzy launch
+forwarded SIGINT again. The runner now signals the launch parent once, lets launch
+forward it, checks both business child exit codes, and records owned process-group
+cleanup. All three final raw launch scenarios have two business children exiting 0.
+The new active-launch case also proves shutdown while real physics is running.
+No production node change was needed.
+
+The [second independent attempt](results/ros-acceptance/20260923T122443Z-patched-v2/summary.json) failed before accepting
+any recovery request. Its new CLI graph observer returned an empty node list within
+the installed default 0.5 s discovery wait, although the runner's existing observer
+and both business nodes were ready. With no prior daemon, Jazzy's NodeStrategy
+starts a daemon and reads through a new DirectNode; the evidence does not establish
+that a daemon cache caused the empty result. The v2 signal fix already gave both
+startup-only business processes exit 0. This partial attempt is not counted as a
+completed ROS acceptance or active-episode shutdown test.
+
+The final v3 runner explicitly uses installed, help-verified `--no-daemon --spin-time 2`
+for node list and verbose topic information. This is a declared discovery-protocol
+change from the default 0.5 s, not a claim that the failed earlier protocol passed.
+Installed `ros2 service type` supports neither option, so its original command is
+retained after starting this run's domain daemon and verifying its service graph
+with a bounded observer. That observer's XMLRPC socket timeout is capped at 5 s and
+the remaining 10 s readiness budget. The original 10 s CLI, 1 s discovered-client RPC,
+30 s normal wall and 210/240 s runner/watchdog budgets are unchanged. Every CLI
+command and actual output, including daemon readiness, is saved in the final records.
+
+The old README commented out venv creation, omitted explicit inherited Ubuntu
+prerequisites and mixed historical paths with fresh-install commands. Setup now
+states and executes those steps. The final v3 attempt is the third independent
+source clone, project venv, model checkout and build tree; all previous attempts remain
+available with their original outcomes. Network and package-download failures are retained with their actual nonzero exits.
+The second environment rejected a truncated Torch wheel. In the third environment,
+two pip transfers produced the same truncated MuJoCo wheel and failed its official
+SHA-256 check. The complete identical wheel was then independently downloaded from
+the official files.pythonhosted.org URL using bounded curl transport, checked against
+PyPI's declared byte length and SHA-256, and installed before repeating the unchanged
+requirements command and pip check. These transport recovery commands are recorded;
+no version, source, or integrity requirement was changed, and no old cache was used.
+The final dependency stage is based on successful installation commands, actual
+module origins and `pip check`, with failed attempts preserved. The
+HTTP/1.1 partial clone checks out top-level files plus all `src`; omitted historical
+`results` assets are a download-scope choice, not a source-code change. No proxy or
+certificate exception was used. This was not an uninterrupted first-try network install.
+
+| Final measured scenario | Result |
+| --- | --- |
+| Original launch, first CLI request and busy CLI request | Both nodes ready; IDLE before request; accepted true, busy false; CLI total 607.125 / 598.275 ms including Python startup and DDS discovery |
+| Discovered-client accepted RPCs / stepping-busy RPCs | 0.622–1.296 ms / 0.335–14.208 ms |
+| Busy request issued during real reset | 551.609 ms; processed after the single-threaded reset returned, without episode/reset mutation |
+| Normal simulation timeout | FAILED / time_limit; 1000 control steps / 20000 physics substeps derived from elapsed time and model timestep; 20.000000000004 s simulation, 20.555981 s wall |
+| Independent 3 s wall timeout | FAILED / recovery_timeout; 122 control steps / 2440 derived physics substeps; 2.440000 s simulation, 3.007608668 s wall; overshoot 7.608668 ms |
+| Original-launch reset durations | Normal 0.575967 s; wall-timeout scenario 0.563844 s; simulation time limits exclude reset settling |
+| Read-only audit | Actual send_response completion < reset begin < reset end < first step; reset 0.540874 s; 101 control calls / 2003 directly observed physics steps |
+| Same-snapshot telemetry | 9 matched timestamped snapshots; names/position/velocity match; actual maximum absolute error 0.0 |
+| Normal first-episode telemetry | 1001 received samples; acquisition interval median 0.019812 s, range 0.009254–0.029768 s |
+| Retry, errors and cleanup | Same-instance new reset after terminal and after synthetic step fault; invalid startup/model failures; active Ctrl+C; all owned processes and created daemon exited |
+
+Raw launch scenarios use the unchanged production launch and native simulator. A
+separate read-only observation wrapper records real reset/step/read_state/send_response
+calls without adding physics operations. Its 2.003 s audit proves same-sample readback
+and server ordering; it is labeled separately from the original launch. The step
+exception is **synthetic fault injection after real physics**, not a naturally observed
+simulator failure. It executes the third physical control call before raising; the
+node retains its last valid two-step summary rather than querying failed dynamics.
+Startup parameter and missing-model failures are actual installed-node child exits,
+not launch-parent return codes. Model-hash mismatch is a separately identified unit
+fixture that changes the expected hash, not the downloaded model. Pending-state busy rejection is separately supported by the logical
+node unit test; reset-window and stepping busy requests are real cross-process RPCs.
+
+JointState stamps are ROS acquisition time; recovery progress is MuJoCo relative time;
+watchdog budgets use monotonic wall time. Sampling intervals are measured, not a
+strict 50 Hz claim. Terminal samples stop; late telemetry receives retained FAILED
+and `no_sample`, and queued network delivery is distinguished from new sampling.
+Shutdown logs prove server cleanup; they do not claim the subscriber received a
+post-context-shutdown terminal message. Wall timeout is cooperative and cannot
+preempt a reset/step; the measured overshoot is retained. The 1 s RPC, 30 s normal
+wall and 210/240 s runner/watchdog budgets are project test settings, not PDF standards.
+
+ROS remains **scripted_baseline**, and the normal baseline episodes did not stand up.
+Expected FAILED/time_limit verifies integration without establishing policy recovery.
+The published reference + PPO residual fixed-supine **5/5** remains an independent
+historical result; neither retraining nor that evaluation was repeated, and the hybrid
+was not connected to ROS. ROS checkpoint-path error testing is **NOT_APPLICABLE**:
+this implementation has no checkpoint/controller loading parameter. The regression's
+bounded synthetic optimization fixtures are not retraining the successful checkpoint.
+
+
 ## Validation and Reproducibility
 
 ### Build, imports and regression
 
-Use the existing venv and the overlay built in [Setup](#setup). Output paths for new
-runs use component names. All 73 regression tests passed without skips in the target
-VM, along with a fresh package build. Module/import compatibility was also checked
+Use the new venv and overlay built in [Setup](#setup). Run the explicit ROS integration
+runner separately as shown above; `unittest discover` does not execute it.
+Output paths for new runs use component names. The following counts describe the
+historical environment-validation stage, not the current suite. All 73 regression tests
+passed without skips in the target VM, along with a fresh package build. Module/import compatibility was also checked
 against baseline `2958bc1`: default, perturbed-reset and timeout rollouts produced
 byte-identical observations, rewards, info, qpos/qvel, controls, per-substep records
 and configuration. Test assertions and simulation algorithms were not changed.
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-source "$VALIDATION_BUILD_DIR/final-install/setup.bash"
-MUJOCO_GL=osmesa timeout --kill-after=5s 180s .venv/bin/python \
-  -m unittest discover -s src/x2_recovery/test -v
+source "$ACCEPT_ROOT/install/setup.bash"
+cd /tmp
+MUJOCO_GL=osmesa timeout --kill-after=5s 300s "$PY" \
+  -m unittest discover -s "$WS/src/x2_recovery/test" -v
 MUJOCO_GL=osmesa timeout --kill-after=5s 30s ros2 run x2_recovery runtime_check model
 MUJOCO_GL=osmesa timeout --kill-after=5s 30s ros2 run x2_recovery runtime_check render \
-  --asset-repo "$X2_ASSET_REPO" --output audit-output/model-render
+  --asset-repo "$X2_ASSET_REPO" --output "$ACCEPT_ROOT/evidence/model-render"
 ```
 
 ### Model audit and evidence review
@@ -1717,7 +1918,7 @@ discovery and reliable/volatile keep-last-10 topic QoS. No global networking cha
 
 ```bash
 export ROS_DOMAIN_ID=42 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-timeout --kill-after=5s 35s ros2 run x2_recovery runtime_check serve --seconds 20 > "$VALIDATION_BUILD_DIR/server.log" 2>&1 &
+timeout --kill-after=5s 35s ros2 run x2_recovery runtime_check serve --seconds 20 > "$ACCEPT_ROOT/evidence/server.log" 2>&1 &
 smoke_pid=$!
 trap 'kill "$smoke_pid" 2>/dev/null || true' EXIT
 timeout --kill-after=5s 25s ros2 run x2_recovery runtime_check client --seconds 15
@@ -1725,7 +1926,7 @@ client_exit=$?
 wait "$smoke_pid"
 server_exit=$?
 trap - EXIT
-cat "$VALIDATION_BUILD_DIR/server.log"
+cat "$ACCEPT_ROOT/evidence/server.log"
 test "$client_exit" -eq 0 && test "$server_exit" -eq 0
 ```
 

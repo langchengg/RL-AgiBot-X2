@@ -1,0 +1,9 @@
++ 1790167739.622694 cwd=/tmp cd /tmp
++ 1790167739.622745 cwd=/tmp timeout --signal=INT --kill-after=15s 240s /tmp/x2-final-ros.pukricvy/repository/.venv/bin/python /tmp/x2-final-ros.pukricvy/repository/src/x2_recovery/test/test_ros_integration.py --output-dir /tmp/x2-final-ros.pukricvy/evidence/integration
+Traceback (most recent call last):
+  File "/tmp/x2-final-ros.pukricvy/repository/src/x2_recovery/test/test_ros_integration.py", line 376, in run
+    check('business_nodes_discovered', '/recovery_node' in nodes and '/telemetry_node' in nodes)
+  File "/tmp/x2-final-ros.pukricvy/repository/src/x2_recovery/test/test_ros_integration.py", line 218, in check
+    if not condition: raise AssertionError(name+': '+str(detail))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: business_nodes_discovered: {}

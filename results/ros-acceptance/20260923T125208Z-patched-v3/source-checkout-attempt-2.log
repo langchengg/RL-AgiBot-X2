@@ -1,0 +1,17 @@
++ 1790167968.505112 cwd=/tmp timeout --signal=INT --kill-after=10s 120s git -C /tmp/x2-final-ros.z4vmp3sx/repository -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1 -c http.lowSpeedTime=30 checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908
+HEAD is now at 71037f7 docs: record clean checkout publication validation
++ 1790167976.905850 cwd=/tmp git -C /tmp/x2-final-ros.z4vmp3sx/repository rev-parse HEAD
+71037f7d5530a65da220345f9037ac4d29f32908
++ 1790167976.906772 cwd=/tmp git -C /tmp/x2-final-ros.z4vmp3sx/repository status --short
++ 1790167976.910112 cwd=/tmp cp /tmp/x2-final-control/readme.patch /tmp/x2-final-ros.z4vmp3sx/evidence/readme-applied.patch
++ 1790167976.911133 cwd=/tmp sha256sum /tmp/x2-final-ros.z4vmp3sx/evidence/readme-applied.patch
+5eef559371d8ccf12ffc0ffd09ecf42b91a62ba078f989cf0b4c5e283255c065  /tmp/x2-final-ros.z4vmp3sx/evidence/readme-applied.patch
++ 1790167976.911979 cwd=/tmp git -C /tmp/x2-final-ros.z4vmp3sx/repository apply --check /tmp/x2-final-ros.z4vmp3sx/evidence/readme-applied.patch
++ 1790167976.913202 cwd=/tmp git -C /tmp/x2-final-ros.z4vmp3sx/repository apply /tmp/x2-final-ros.z4vmp3sx/evidence/readme-applied.patch
++ 1790167976.914298 cwd=/tmp git -C /tmp/x2-final-ros.z4vmp3sx/repository diff --check
++ 1790167976.917780 cwd=/tmp sha256sum /tmp/x2-final-ros.z4vmp3sx/repository/README.md /tmp/x2-final-ros.z4vmp3sx/repository/requirements.txt
+a65567d4da0d7fde2c43129413c60fa00d8cb468701307f57236d35a7e51db80  /tmp/x2-final-ros.z4vmp3sx/repository/README.md
+f5acf34535969d0ab1cf5fd25a83cd6a046b5c61984a18c267e8f20c2080b873  /tmp/x2-final-ros.z4vmp3sx/repository/requirements.txt
++ 1790167976.918576 cwd=/tmp git -C /tmp/x2-final-ros.z4vmp3sx/repository diff --stat
+ README.md | 260 ++++++++++++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 184 insertions(+), 76 deletions(-)

@@ -1,0 +1,14 @@
++ 1790166737.642840 cwd=/tmp cd /tmp/x2-final-ros.pukricvy/repository
++ 1790166737.642869 cwd=/tmp/x2-final-ros.pukricvy/repository git apply --check /tmp/x2-final-ros.pukricvy/evidence/runner-evidence.patch
++ 1790166737.644146 cwd=/tmp/x2-final-ros.pukricvy/repository git apply /tmp/x2-final-ros.pukricvy/evidence/runner-evidence.patch
++ 1790166737.645144 cwd=/tmp/x2-final-ros.pukricvy/repository sha256sum src/x2_recovery/test/test_ros_integration.py /tmp/x2-final-ros.pukricvy/evidence/runner-evidence.patch
+ccf72af848fcd9a5828d0389f070da7eeee4ff30636a55b54156d110daf9c069  src/x2_recovery/test/test_ros_integration.py
+5735375fa96986334f13cd7e5842272b43401727f5ece6255ee1ade703f3f023  /tmp/x2-final-ros.pukricvy/evidence/runner-evidence.patch
++ 1790166737.646039 cwd=/tmp/x2-final-ros.pukricvy/repository git diff --check
++ 1790166737.650107 cwd=/tmp/x2-final-ros.pukricvy/repository git diff --stat
+ README.md                                    | 260 +++++++++++++++++-------
+ src/x2_recovery/test/test_ros_integration.py | 286 +++++++++++++++++++++++++--
+ 2 files changed, 451 insertions(+), 95 deletions(-)
++ 1790166737.653679 cwd=/tmp/x2-final-ros.pukricvy/repository git diff -- README.md src/x2_recovery/test/test_ros_integration.py
++ 1790166737.656204 cwd=/tmp/x2-final-ros.pukricvy/repository sha256sum /tmp/x2-final-ros.pukricvy/evidence/tested.patch
+a9fe6b38c4c4f30a915b9de12338967dcbb640e83b623b4cd8cee0270a2e448e  /tmp/x2-final-ros.pukricvy/evidence/tested.patch

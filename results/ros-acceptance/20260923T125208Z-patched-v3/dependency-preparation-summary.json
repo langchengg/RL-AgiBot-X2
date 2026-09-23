@@ -1,0 +1,278 @@
+{
+  "status": "DEPENDENCY_PREPARATION_COMPLETE",
+  "recorded_at_utc": "2026-09-23T13:13:50.639843+00:00",
+  "root": "/tmp/x2-final-ros.z4vmp3sx",
+  "scope": "New GitHub clone, new project system-site-packages venv, independent fixed model download and clean driver shells. This subtask did not build, launch ROS, load a model or run physics/tests.",
+  "base_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "model_commit": "60c5de582c523cd188f563819e62d34cfdc3d2d0",
+  "pip_check": "No broken requirements found.",
+  "python_packages_path": "/tmp/x2-final-ros.z4vmp3sx/evidence/python-packages.txt",
+  "preparation_stages": [
+    {
+      "label": "source-clone-attempt-1",
+      "start": "2026-09-23T12:52:08.819241+00:00",
+      "end": "2026-09-23T12:52:20.248373+00:00",
+      "wall_s": 11.429158296999958,
+      "exit_code": 128,
+      "pid": 31837,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/source-clone-attempt-1.log"
+    },
+    {
+      "label": "source-checkout-attempt-2",
+      "start": "2026-09-23T12:52:48.431145+00:00",
+      "end": "2026-09-23T12:52:56.923221+00:00",
+      "wall_s": 8.492099794999831,
+      "exit_code": 0,
+      "pid": 32160,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/source-checkout-attempt-2.log"
+    },
+    {
+      "label": "model-clone-attempt-1",
+      "start": "2026-09-23T12:52:08.828624+00:00",
+      "end": "2026-09-23T12:53:14.684298+00:00",
+      "wall_s": 65.85569103100033,
+      "exit_code": 0,
+      "pid": 31843,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/model-clone-attempt-1.log"
+    },
+    {
+      "label": "venv-and-torch-attempt-1",
+      "start": "2026-09-23T12:53:25.569622+00:00",
+      "end": "2026-09-23T12:57:23.262813+00:00",
+      "wall_s": 237.69321415500008,
+      "exit_code": 0,
+      "pid": 32449,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/venv-and-torch-attempt-1.log"
+    },
+    {
+      "label": "requirements-check-freeze-attempt-1",
+      "start": "2026-09-23T12:57:35.489605+00:00",
+      "end": "2026-09-23T13:01:34.613057+00:00",
+      "wall_s": 239.12348828099994,
+      "exit_code": 1,
+      "pid": 33917,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/requirements-check-freeze-attempt-1.log"
+    },
+    {
+      "label": "requirements-check-freeze-attempt-2",
+      "start": "2026-09-23T13:02:26.483536+00:00",
+      "end": "2026-09-23T13:04:57.554377+00:00",
+      "wall_s": 151.07084836400008,
+      "exit_code": 1,
+      "pid": 35884,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/requirements-check-freeze-attempt-2.log"
+    },
+    {
+      "label": "mujoco-metadata-and-pip-resume-help",
+      "start": "2026-09-23T13:06:21.238834+00:00",
+      "end": "2026-09-23T13:06:28.299398+00:00",
+      "wall_s": 7.060569337000288,
+      "exit_code": 0,
+      "pid": 37185,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/mujoco-metadata-and-pip-resume-help.log"
+    },
+    {
+      "label": "mujoco-http-head-range-probe",
+      "start": "2026-09-23T13:07:08.525020+00:00",
+      "end": "2026-09-23T13:07:16.667726+00:00",
+      "wall_s": 8.142741877999924,
+      "exit_code": 0,
+      "pid": 37528,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/mujoco-http-head-range-probe.log"
+    },
+    {
+      "label": "mujoco-curl-download-attempt-1",
+      "start": "2026-09-23T13:07:52.474358+00:00",
+      "end": "2026-09-23T13:09:02.237682+00:00",
+      "wall_s": 69.76333528299983,
+      "exit_code": 0,
+      "pid": 37867,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/mujoco-curl-download-attempt-1.log"
+    },
+    {
+      "label": "verified-wheel-and-requirements-attempt-3",
+      "start": "2026-09-23T13:09:23.052390+00:00",
+      "end": "2026-09-23T13:11:54.987599+00:00",
+      "wall_s": 151.93522644699988,
+      "exit_code": 0,
+      "pid": 38449,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/verified-wheel-and-requirements-attempt-3.log"
+    },
+    {
+      "label": "dependency-module-origins",
+      "start": "2026-09-23T13:13:02.400955+00:00",
+      "end": "2026-09-23T13:13:03.288060+00:00",
+      "wall_s": 0.8871098750000783,
+      "exit_code": 0,
+      "pid": 39728,
+      "log": "/tmp/x2-final-ros.z4vmp3sx/evidence/dependency-module-origins.log"
+    }
+  ],
+  "failures_preserved": [
+    {
+      "stage": "source-clone-attempt-1",
+      "exit_code": 128,
+      "reason": "TLS failure while lazily fetching a checkout blob; explicit checkout attempt 2 succeeded."
+    },
+    {
+      "stage": "requirements-check-freeze-attempt-1",
+      "exit_code": 1,
+      "reason": "MuJoCo wheel received only approximately 3.8/19.1MB; pip rejected hash e5c1246f6a4213a0b80dc51af89194f034a07e93210934870921d8c460998eef instead of ce292cdf888dcadf1d1440c3debfdd38519ea01d8e4376f86d1e7754bfe0b069."
+    },
+    {
+      "stage": "requirements-check-freeze-attempt-2",
+      "exit_code": 1,
+      "reason": "Independent no-cache pip retry reproduced the same rejected incomplete MuJoCo bytes."
+    }
+  ],
+  "transport_recovery": {
+    "pip_version": "24.0",
+    "pip_resume_option_available": false,
+    "curl_version": "8.5.0",
+    "official_metadata_url": "https://pypi.org/pypi/mujoco/3.13.0/json",
+    "independent_curl_download": true,
+    "used_old_cache": false,
+    "used_proxy_or_certificate_exception": false,
+    "used_query_parameter": false,
+    "verified": {
+      "verified_at_utc": "2026-09-23T13:09:02.221079+00:00",
+      "path": "/tmp/x2-final-ros.z4vmp3sx/downloads/mujoco-3.13.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+      "actual_size": 19103843,
+      "actual_sha256": "ce292cdf888dcadf1d1440c3debfdd38519ea01d8e4376f86d1e7754bfe0b069",
+      "expected_size": 19103843,
+      "expected_sha256": "ce292cdf888dcadf1d1440c3debfdd38519ea01d8e4376f86d1e7754bfe0b069",
+      "size_matches": true,
+      "sha256_matches": true
+    },
+    "note": "Same pinned official wheel, full size and official SHA verified before local installation; unchanged requirements then installed from PyPI and pip check passed. Download transport recovery, not a dependency version or hash exemption."
+  },
+  "modules": [
+    {
+      "module": "rclpy",
+      "distribution": "rclpy",
+      "version": "7.1.12",
+      "file": "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py",
+      "source": "reused_ros_jazzy"
+    },
+    {
+      "module": "mujoco",
+      "distribution": "mujoco",
+      "version": "3.13.0",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/lib/python3.12/site-packages/mujoco/__init__.py",
+      "source": "new_project_venv"
+    },
+    {
+      "module": "gymnasium",
+      "distribution": "gymnasium",
+      "version": "1.3.0",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/lib/python3.12/site-packages/gymnasium/__init__.py",
+      "source": "new_project_venv"
+    },
+    {
+      "module": "stable_baselines3",
+      "distribution": "stable-baselines3",
+      "version": "2.9.0",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/lib/python3.12/site-packages/stable_baselines3/__init__.py",
+      "source": "new_project_venv"
+    },
+    {
+      "module": "torch",
+      "distribution": "torch",
+      "version": "2.8.0+cpu",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/lib/python3.12/site-packages/torch/__init__.py",
+      "source": "new_project_venv"
+    },
+    {
+      "module": "numpy",
+      "distribution": "numpy",
+      "version": "1.26.4",
+      "file": "/usr/lib/python3/dist-packages/numpy/__init__.py",
+      "source": "reused_ubuntu_system_python"
+    },
+    {
+      "module": "matplotlib",
+      "distribution": "matplotlib",
+      "version": "3.6.3",
+      "file": "/usr/lib/python3/dist-packages/matplotlib/__init__.py",
+      "source": "reused_ubuntu_system_python"
+    },
+    {
+      "module": "PIL",
+      "distribution": "Pillow",
+      "version": "10.2.0",
+      "file": "/usr/lib/python3/dist-packages/PIL/__init__.py",
+      "source": "reused_ubuntu_system_python"
+    },
+    {
+      "module": "cffi",
+      "distribution": "cffi",
+      "version": "2.1.1",
+      "file": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/lib/python3.12/site-packages/cffi/__init__.py",
+      "source": "new_project_venv"
+    },
+    {
+      "module": "setuptools",
+      "distribution": "setuptools",
+      "version": "68.1.2",
+      "file": "/usr/lib/python3/dist-packages/setuptools/__init__.py",
+      "source": "reused_ubuntu_system_python"
+    },
+    {
+      "module": "colcon_core",
+      "distribution": "colcon-core",
+      "version": "0.21.3",
+      "file": "/usr/lib/python3/dist-packages/colcon_core/__init__.py",
+      "source": "reused_ubuntu_system_python"
+    },
+    {
+      "module": "ament_package",
+      "distribution": "ament-package",
+      "version": "0.16.5",
+      "file": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_package/__init__.py",
+      "source": "reused_ros_jazzy"
+    },
+    {
+      "module": "ament_index_python",
+      "distribution": "ament-index-python",
+      "version": "1.8.4",
+      "file": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_index_python/__init__.py",
+      "source": "reused_ros_jazzy"
+    }
+  ],
+  "system_packages_modified": false,
+  "artifacts_sha256": {
+    "readme-applied.patch": "5eef559371d8ccf12ffc0ffd09ecf42b91a62ba078f989cf0b4c5e283255c065",
+    "python-packages.txt": "d1c6907d9a39592d1c01b08e4143f8934b755c07e2299370a4d6f349183396de",
+    "pyvenv.cfg": "a3c3d5fa716ba79ebff50b846a567fb69453d69a5fea271be11f9dc6cd398f62",
+    "dependency-module-origins.json": "8d8d5a81cc1142436a41189d0c70b3ac9e08c76f0beea851b527e2052a6f85d6",
+    "mujoco-pypi-metadata.json": "7947af743da8cfaee2c734c08378e1ba3c89dee4e864f4767d957942012d6e21",
+    "mujoco-download-identity.json": "942a42c71f58d13410d05cd2178c58d74df60e5ae75c59cdc6af8644ac3b2312",
+    "mujoco-download-verification.json": "57ade2e279a5ca08920be6f7d5f3d4d073688f3819aefc6b7dd8150ddc30e912",
+    "mujoco-official-head.txt": "561830800ba7ce7b12282f61c4cb04b74fb5e5b564d79f890a082be484c48ebe",
+    "mujoco-range-headers.txt": "a00c85356e3b04bcb9e6d673a094e52e139bf13475a22cf2294d4a6fd338a408",
+    "pip-download-help.txt": "eb2ac272b97e2e0b2c26abc3ec8ae3e3bc8568b540a76fcc33bd55558eb7efa0",
+    "source-clone-attempt-1.log": "ff2806a582be8f5b7f720e5516866e66201cabc645b8dc913cfbbbaca21e4bd0",
+    "source-checkout-attempt-2.log": "c564ebe613d205568162c3f185fd15e462edc087442350476905e3c44879728a",
+    "model-clone-attempt-1.log": "5cfa6c3751bcd9add29ed96cf940fa951b29c2551d5dde38ecabd609a04331f4",
+    "venv-and-torch-attempt-1.log": "f265524347c836300ca0248c64e18a1551d01ca442edbc16a14907a371f879ea",
+    "requirements-check-freeze-attempt-1.log": "d5463fd26426147d4ff45bbf428c8aff28f94673cf61672a0302378f4ed7f163",
+    "requirements-check-freeze-attempt-2.log": "d49f26db167ddf03f3ccf6ec9e6d9270bbce9efda11afff9b87292bc40ecf391",
+    "mujoco-metadata-and-pip-resume-help.log": "5c581bd6e895155d59718f48059241cca4bc57ebfb096929647f90d3dd54a308",
+    "mujoco-http-head-range-probe.log": "93214ac1554d99372d62064fc2285ba24b471e6c1c6355f4ef82c643dc4b344d",
+    "mujoco-curl-download-attempt-1.log": "94d78bb4b27d883a6f2384da5ca027d2906f505bd9b23de726f13bc3a8da6529",
+    "verified-wheel-and-requirements-attempt-3.log": "02031a697b060cecc8dcc66926c7be08cbb1d04167501e6c1fe8f32d0d6b0cbd",
+    "dependency-module-origins.log": "e6f4915fb975d72c2f3e209504bfea61fef19c72d91006b806b904cb2dc8f6d7",
+    "source-clone-attempt-1.sh": "0d45c95700d78a9b6e09483b4f2bc389c0fa6583e9d1ab91dbdd5aae0a2d70d9",
+    "source-checkout-attempt-2.sh": "ed6b9558857e0d5172c1f8c041b3d01c98f2f5215a417be94859c2971379ba25",
+    "model-clone-attempt-1.sh": "1dc48d080c3d52114b7adf7d8ae963783f06a7568eb604a73ad18761bb9c4c9f",
+    "venv-and-torch-attempt-1.sh": "b89fb35294ec115858ed67a96f4e5b0cfe08018cfe1a4f806ae3e796fae01308",
+    "requirements-check-freeze-attempt-1.sh": "72ee910dbb0ddd8cddeeeb6f34b10fdb40eaf0f6066aa5588c290376a18571b9",
+    "requirements-check-freeze-attempt-2.sh": "72ee910dbb0ddd8cddeeeb6f34b10fdb40eaf0f6066aa5588c290376a18571b9",
+    "mujoco-metadata-and-pip-resume-help.sh": "a1320aabcfd1da456a829ea242a0a35e11d45731672d75c6e3e799749e78c64d",
+    "mujoco-http-head-range-probe.sh": "5fab0e52ddff9c07703625d2498ca78bf9b92c5117edb186d0f1a2a29f0b0a27",
+    "mujoco-curl-download-attempt-1.sh": "305769fcf6268fcfaa576ccd4c01ddae4cb461814e9ebd51e5d14c0cb356b07d",
+    "verified-wheel-and-requirements-attempt-3.sh": "4cc3f983b1bd7cd6fa134f81ddb78022d3acd63e207aae55bc7f8b52511a39fa",
+    "dependency-module-origins.sh": "39e59eff8247c5af47edd03818107f94226d78c323de4e4ce946c72007939e7f"
+  },
+  "publication_exclusion": "Do not publish root/downloads wheel/range files, model assets or .venv; only evidence metadata/logs are needed."
+}

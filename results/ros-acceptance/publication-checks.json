@@ -1,0 +1,60 @@
+{
+  "verified_at_utc": "2026-09-23T13:27:18.728633+00:00",
+  "checks": [
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--exit-code"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stdout": "71037f7d5530a65da220345f9037ac4d29f32908\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exit_code": 0,
+      "stdout": "main\n",
+      "stderr": ""
+    }
+  ],
+  "staged_readme_runner_match_final_validated_files": true,
+  "all_evidence_hashes_reverified": true,
+  "earlier_whitespace_check": "Captured HTTP headers use CRLF and literal unified patches contain context whitespace; scoped evidence .gitattributes preserves raw bytes. Project source/docs remain under normal checks. No test assertion was bypassed.",
+  "historical_artifacts": "No historical checkpoint, frozen manifest, policy evaluation, model, physics, controller, success criterion, package or requirements file changed."
+}

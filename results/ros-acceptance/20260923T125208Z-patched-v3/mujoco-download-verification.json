@@ -1,0 +1,10 @@
+{
+  "verified_at_utc": "2026-09-23T13:09:02.221079+00:00",
+  "path": "/tmp/x2-final-ros.z4vmp3sx/downloads/mujoco-3.13.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+  "actual_size": 19103843,
+  "actual_sha256": "ce292cdf888dcadf1d1440c3debfdd38519ea01d8e4376f86d1e7754bfe0b069",
+  "expected_size": 19103843,
+  "expected_sha256": "ce292cdf888dcadf1d1440c3debfdd38519ea01d8e4376f86d1e7754bfe0b069",
+  "size_matches": true,
+  "sha256_matches": true
+}

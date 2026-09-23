@@ -1,0 +1,10 @@
+{
+  "source_url": "https://pypi.org/pypi/mujoco/3.13.0/json",
+  "retrieved_at_utc": "2026-09-23T13:06:28.287696+00:00",
+  "metadata_sha256": "7947af743da8cfaee2c734c08378e1ba3c89dee4e864f4767d957942012d6e21",
+  "filename": "mujoco-3.13.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+  "url": "https://files.pythonhosted.org/packages/eb/82/6e62cc389e67a3527c0feb1dbc56dcd0c6ee6e2d42396da89f1712bccd32/mujoco-3.13.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+  "expected_size": 19103843,
+  "expected_sha256": "ce292cdf888dcadf1d1440c3debfdd38519ea01d8e4376f86d1e7754bfe0b069",
+  "transport_scope": "New official artifact download after two pip hash failures; no old cache, pin change or hash bypass."
+}

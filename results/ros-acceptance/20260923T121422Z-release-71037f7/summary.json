@@ -1,0 +1,1168 @@
+{
+  "result": "FAIL",
+  "run_id": "20260923T121422Z-release-71037f7",
+  "run_started_utc": "2026-09-23T12:14:22.133965+00:00",
+  "summary_scope": "ROS acceptance; Git publication is recorded separately after push",
+  "date": "2026-09-23T13:24:42.029810+00:00",
+  "test_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "patch": null,
+  "patch_sha256": null,
+  "production_sources_unchanged": true,
+  "controller": "scripted_baseline",
+  "isolation_scope": "\u540c\u4e00 Ubuntu ARM64 VM \u4e0a\uff0c\u65b0\u7684\u6e90\u7801\u3001\u9879\u76ee\u865a\u62df\u73af\u5883\u3001\u6a21\u578b\u526f\u672c\u3001shell \u548c\u6784\u5efa\u4ea7\u7269\uff1b\u590d\u7528\u5df2\u58f0\u660e\u7684\u7cfb\u7edf ROS/Ubuntu \u4f9d\u8d56\u3002",
+  "environment": "environment.json",
+  "commands": "commands.json",
+  "fresh_dependency_setup": "PASS",
+  "fresh_build": "PASS",
+  "installed_runtime": "PASS",
+  "stage_evidence": {
+    "dependencies": {
+      "status": "PASS",
+      "torch_attempts": [
+        {
+          "label": "09-venv-torch",
+          "exit_code": 0,
+          "log": "09-venv-torch.log"
+        }
+      ],
+      "requirements_attempts": [
+        {
+          "label": "10-requirements",
+          "exit_code": 0,
+          "log": "10-requirements.log"
+        }
+      ],
+      "pip_check_no_broken_requirements": true
+    },
+    "build": {
+      "status": "PASS",
+      "commands": [
+        {
+          "label": "11-build",
+          "exit_code": 0,
+          "log": "11-build.log"
+        }
+      ]
+    },
+    "installed_runtime": {
+      "status": "PASS",
+      "commands": [
+        {
+          "label": "12-runtime-identity",
+          "exit_code": 0,
+          "log": "12-runtime-identity.log"
+        }
+      ],
+      "forbidden_path_matches": []
+    }
+  },
+  "source_identity": "source-identity.json",
+  "production_source_hashes": {
+    "requirements.txt": "f5acf34535969d0ab1cf5fd25a83cd6a046b5c61984a18c267e8f20c2080b873",
+    "src/x2_recovery/package.xml": "4769a4a56b575b66841bebd7f6171db46c69908b52a1a0f4ab51e966d79cb498",
+    "src/x2_recovery/setup.py": "e151a450c3ae92125c8c00d47cd842aee904a7d6586e0e656e5219f62d478487",
+    "src/x2_recovery/setup.cfg": "af674713baa24aa025fccc920551711fb15264587916217f8cfed98006e0929f",
+    "src/x2_recovery/launch/recovery.launch.py": "45fdce7472ffe4438573fd17c67b87e156e66b644944c9fdd9005009f21b6283",
+    "src/x2_recovery/x2_recovery/simulation_validation.py": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+    "src/x2_recovery/x2_recovery/telemetry_node.py": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+    "src/x2_recovery/x2_recovery/train.py": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+    "src/x2_recovery/x2_recovery/model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "src/x2_recovery/x2_recovery/success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "src/x2_recovery/x2_recovery/evaluate.py": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+    "src/x2_recovery/x2_recovery/env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "src/x2_recovery/x2_recovery/reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "src/x2_recovery/x2_recovery/motion_search.py": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+    "src/x2_recovery/x2_recovery/model_audit.py": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+    "src/x2_recovery/x2_recovery/success_validation.py": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+    "src/x2_recovery/x2_recovery/baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+    "src/x2_recovery/x2_recovery/recovery_node.py": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+    "src/x2_recovery/x2_recovery/diagnostics.py": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+    "src/x2_recovery/x2_recovery/__init__.py": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532"
+  },
+  "modified_source_files": [],
+  "regression": {
+    "status": "PASS",
+    "tests": 183,
+    "passed": 183,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "test_seconds": 84.818,
+    "exit_code": 0,
+    "log": "14-regression.log",
+    "scope": "Existing full unittest suite, including bounded physical tests and synthetic PPO optimization fixtures; no successful policy retraining or five-policy evaluation rerun."
+  },
+  "integration": {
+    "explicit_runner_executed": true,
+    "raw_runner_result": "PASS",
+    "checks": 68,
+    "passed": 68,
+    "watchdog_exit_code": 0,
+    "runner_completed": true,
+    "all_required_scenarios_passed": true,
+    "required_scenarios": {
+      "single_launch_two_processes": "PASS",
+      "idle_observed": "PASS",
+      "cli_accept_true": "PASS",
+      "cli_busy_false": "PASS",
+      "same_instance_new_episode": "PASS",
+      "simulation_timeout": "PASS",
+      "wall_timeout": "PASS",
+      "same_snapshot_actual_readback": "PASS",
+      "request_actually_sent_during_reset": "PASS",
+      "busy_during_verified_stepping_interval": "PASS",
+      "late_subscriber": "PASS",
+      "terminal_held_no_more_samples": "PASS",
+      "synthetic_step_fault_ends_request": "PASS",
+      "real_reset_after_synthetic_fault": "PASS",
+      "startup_failures_no_service": "PASS",
+      "model_load_failure": "PASS",
+      "active_ctrl_c_cleanup": "PASS",
+      "close_after_execution_unwound": "PASS"
+    },
+    "summary": "integration/summary.json",
+    "launch_business_child_exits": [
+      {
+        "log": "integration/normal-launch.log",
+        "children": [
+          {
+            "name": "recovery_node-1",
+            "pid": 15076,
+            "returncode": -2
+          },
+          {
+            "name": "telemetry_node-2",
+            "pid": 15077,
+            "returncode": -2
+          }
+        ]
+      },
+      {
+        "log": "integration/wall-launch.log",
+        "children": [
+          {
+            "name": "recovery_node-1",
+            "pid": 15614,
+            "returncode": -2
+          },
+          {
+            "name": "telemetry_node-2",
+            "pid": 15615,
+            "returncode": -2
+          }
+        ]
+      }
+    ],
+    "all_business_child_exit_codes_zero": false,
+    "cleanup": {
+      "date": "2026-09-23T12:35:15.271156+00:00",
+      "domain": "86",
+      "rmw": "rmw_fastrtps_cpp",
+      "owned_runtime_processes": [],
+      "nodes": [
+        [
+          "x2_final_postflight",
+          "/"
+        ]
+      ],
+      "services": [
+        [
+          "/x2_final_postflight/describe_parameters",
+          [
+            "rcl_interfaces/srv/DescribeParameters"
+          ]
+        ],
+        [
+          "/x2_final_postflight/get_parameter_types",
+          [
+            "rcl_interfaces/srv/GetParameterTypes"
+          ]
+        ],
+        [
+          "/x2_final_postflight/get_parameters",
+          [
+            "rcl_interfaces/srv/GetParameters"
+          ]
+        ],
+        [
+          "/x2_final_postflight/get_type_description",
+          [
+            "type_description_interfaces/srv/GetTypeDescription"
+          ]
+        ],
+        [
+          "/x2_final_postflight/list_parameters",
+          [
+            "rcl_interfaces/srv/ListParameters"
+          ]
+        ],
+        [
+          "/x2_final_postflight/set_parameters",
+          [
+            "rcl_interfaces/srv/SetParameters"
+          ]
+        ],
+        [
+          "/x2_final_postflight/set_parameters_atomically",
+          [
+            "rcl_interfaces/srv/SetParametersAtomically"
+          ]
+        ]
+      ],
+      "status_publishers": 0,
+      "joint_publishers": 0,
+      "daemon_running": false,
+      "no_residual_business_graph": true,
+      "result": "PASS"
+    },
+    "success": true
+  },
+  "metrics": {
+    "rpc": [
+      {
+        "label": "normal-stepping-busy-0",
+        "start_monotonic_s": 1280.668631276,
+        "end_monotonic_s": 1280.669214859,
+        "round_trip_s": 0.000583582999979626,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "normal-stepping-busy-1",
+        "start_monotonic_s": 1280.669465026,
+        "end_monotonic_s": 1280.669861192,
+        "round_trip_s": 0.0003961660002005374,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "normal-stepping-busy-2",
+        "start_monotonic_s": 1280.670031317,
+        "end_monotonic_s": 1280.670419442,
+        "round_trip_s": 0.00038812499997220584,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "normal-stepping-busy-3",
+        "start_monotonic_s": 1280.670559734,
+        "end_monotonic_s": 1280.670917776,
+        "round_trip_s": 0.00035804199978883844,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "normal-stepping-busy-4",
+        "start_monotonic_s": 1280.671074692,
+        "end_monotonic_s": 1280.671388026,
+        "round_trip_s": 0.00031333399988398014,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "normal-stepping-busy-5",
+        "start_monotonic_s": 1280.671511067,
+        "end_monotonic_s": 1280.671852651,
+        "round_trip_s": 0.00034158400012529455,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "normal-stepping-busy-6",
+        "start_monotonic_s": 1280.672031067,
+        "end_monotonic_s": 1280.672406317,
+        "round_trip_s": 0.0003752499999336578,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "normal-stepping-busy-7",
+        "start_monotonic_s": 1280.672554567,
+        "end_monotonic_s": 1280.672887984,
+        "round_trip_s": 0.0003334170000925951,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "same-instance-accept",
+        "start_monotonic_s": 1303.41247162,
+        "end_monotonic_s": 1303.413691995,
+        "round_trip_s": 0.0012203750000026048,
+        "success": true,
+        "message": "Recovery accepted"
+      },
+      {
+        "label": "wall-accept",
+        "start_monotonic_s": 1324.911212422,
+        "end_monotonic_s": 1324.911856838,
+        "round_trip_s": 0.0006444159998864052,
+        "success": true,
+        "message": "Recovery accepted"
+      },
+      {
+        "label": "wall-stepping-busy-0",
+        "start_monotonic_s": 1325.574747047,
+        "end_monotonic_s": 1325.575430172,
+        "round_trip_s": 0.0006831250000232103,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "wall-stepping-busy-1",
+        "start_monotonic_s": 1325.575849714,
+        "end_monotonic_s": 1325.576228797,
+        "round_trip_s": 0.00037908300009803497,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "wall-stepping-busy-2",
+        "start_monotonic_s": 1325.576546714,
+        "end_monotonic_s": 1325.576856047,
+        "round_trip_s": 0.00030933300013202825,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "wall-stepping-busy-3",
+        "start_monotonic_s": 1325.57878738,
+        "end_monotonic_s": 1325.593273797,
+        "round_trip_s": 0.014486416999943685,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "readback-accept",
+        "start_monotonic_s": 1328.702914465,
+        "end_monotonic_s": 1328.703496715,
+        "round_trip_s": 0.0005822499999794672,
+        "success": true,
+        "message": "Recovery accepted"
+      },
+      {
+        "label": "real-reset-busy",
+        "start_monotonic_s": 1328.717172965,
+        "end_monotonic_s": 1329.289392757,
+        "round_trip_s": 0.572219792000169,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "readback-stepping-busy-0",
+        "start_monotonic_s": 1329.348783507,
+        "end_monotonic_s": 1329.349329882,
+        "round_trip_s": 0.0005463749998853018,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "readback-stepping-busy-1",
+        "start_monotonic_s": 1329.349844549,
+        "end_monotonic_s": 1329.350252841,
+        "round_trip_s": 0.0004082919999746082,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "readback-stepping-busy-2",
+        "start_monotonic_s": 1329.350661716,
+        "end_monotonic_s": 1329.351062299,
+        "round_trip_s": 0.00040058299987322243,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "readback-stepping-busy-3",
+        "start_monotonic_s": 1329.351434549,
+        "end_monotonic_s": 1329.366522257,
+        "round_trip_s": 0.015087708000010025,
+        "success": false,
+        "message": "Recovery already running"
+      },
+      {
+        "label": "shutdown-active-accept",
+        "start_monotonic_s": 1331.2857543,
+        "end_monotonic_s": 1331.286298133,
+        "round_trip_s": 0.0005438329999378766,
+        "success": true,
+        "message": "Recovery accepted"
+      },
+      {
+        "label": "fault-injection-accept",
+        "start_monotonic_s": 1332.317832842,
+        "end_monotonic_s": 1332.318351134,
+        "round_trip_s": 0.0005182920001516322,
+        "success": true,
+        "message": "Recovery accepted"
+      },
+      {
+        "label": "retry-after-fault-accept",
+        "start_monotonic_s": 1332.942689634,
+        "end_monotonic_s": 1332.943208634,
+        "round_trip_s": 0.0005189999999402062,
+        "success": true,
+        "message": "Recovery accepted"
+      }
+    ],
+    "cli": [
+      {
+        "command": [
+          "ros2",
+          "service",
+          "type",
+          "/x2/start_recovery"
+        ],
+        "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/service-type.log",
+        "exit_code": 0,
+        "process_wall_s": 1.099561666999989,
+        "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+      },
+      {
+        "command": [
+          "ros2",
+          "topic",
+          "info",
+          "/x2/recovery_status",
+          "--verbose"
+        ],
+        "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/status-qos.log",
+        "exit_code": 0,
+        "process_wall_s": 0.38598979199991845,
+        "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+      },
+      {
+        "command": [
+          "ros2",
+          "topic",
+          "info",
+          "/x2/joint_states",
+          "--verbose"
+        ],
+        "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/joint-qos.log",
+        "exit_code": 0,
+        "process_wall_s": 0.18725429200003418,
+        "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+      },
+      {
+        "command": [
+          "ros2",
+          "topic",
+          "echo",
+          "/x2/recovery_status",
+          "std_msgs/msg/String",
+          "--qos-reliability",
+          "reliable",
+          "--qos-durability",
+          "transient_local",
+          "--once",
+          "--timeout",
+          "5"
+        ],
+        "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/idle-echo.log",
+        "exit_code": 0,
+        "process_wall_s": 0.8663217090002036,
+        "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+      },
+      {
+        "command": [
+          "ros2",
+          "service",
+          "call",
+          "/x2/start_recovery",
+          "std_srvs/srv/Trigger",
+          "{}"
+        ],
+        "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/cli-accept.log",
+        "exit_code": 0,
+        "process_wall_s": 0.5972034579999672,
+        "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+      },
+      {
+        "command": [
+          "ros2",
+          "service",
+          "call",
+          "/x2/start_recovery",
+          "std_srvs/srv/Trigger",
+          "{}"
+        ],
+        "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/cli-busy.log",
+        "exit_code": 0,
+        "process_wall_s": 0.5659090010001364,
+        "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+      },
+      {
+        "command": [
+          "ros2",
+          "topic",
+          "echo",
+          "/x2/joint_states",
+          "sensor_msgs/msg/JointState",
+          "--once",
+          "--timeout",
+          "5"
+        ],
+        "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/joint-echo.log",
+        "exit_code": 0,
+        "process_wall_s": 0.8581110420000186,
+        "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+      }
+    ],
+    "matched_readback_samples": 9,
+    "matched_readback_identity_ok": true,
+    "matched_readback_scalar_values": 558,
+    "maximum_actual_readback_absolute_error": 0.0,
+    "telemetry_by_scenario": null,
+    "audited_execution": null,
+    "response_reset_step_order": null,
+    "graph_discovery_protocol": null,
+    "service_type_daemon_readiness": null,
+    "episodes": [
+      {
+        "episode": 1,
+        "controller": "scripted_baseline",
+        "status": "FAILED",
+        "reason": "time_limit",
+        "control_steps": 101,
+        "wall_s": 2.5721485840001606,
+        "elapsed_sim_s": 2.00299999999978,
+        "timeout_overshoot_s": 0.0,
+        "error": null,
+        "log": "integration/readback-recovery.log",
+        "accepted": {
+          "event": "accepted",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "accepted_monotonic_s": 1328.703102924,
+          "deadline_monotonic_s": 1358.703102924,
+          "callback_body_s": 3.6832999967373325e-05
+        },
+        "reset_completed": {
+          "event": "reset_completed",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "monotonic_s": 1329.273951882,
+          "duration_s": 0.5601226669998596,
+          "elapsed_sim_s": 0.0,
+          "episode_start_time": 1.6609999999999279,
+          "reset_seed": 374032080
+        },
+        "reset_started": {
+          "event": "reset_started",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "monotonic_s": 1328.713829215
+        },
+        "physics_steps_derived_from_elapsed_sim": 2003,
+        "physics_count_scope": "Derived from real elapsed simulation time / pinned 0.001 s timestep; direct env._physics_steps counts are separately saved in instrumented audit events.",
+        "completion_monotonic_s_derived": 1331.275251508
+      },
+      {
+        "episode": 2,
+        "controller": "scripted_baseline",
+        "status": "FAILED",
+        "reason": "shutdown",
+        "control_steps": 0,
+        "wall_s": 0.01691608299984182,
+        "elapsed_sim_s": null,
+        "timeout_overshoot_s": 0.0,
+        "error": null,
+        "log": "integration/readback-recovery.log",
+        "accepted": {
+          "event": "accepted",
+          "controller": "scripted_baseline",
+          "episode": 2,
+          "accepted_monotonic_s": 1331.285926425,
+          "deadline_monotonic_s": 1361.285926425,
+          "callback_body_s": 4.1165999846271006e-05
+        },
+        "reset_completed": null,
+        "reset_started": {
+          "event": "reset_started",
+          "controller": "scripted_baseline",
+          "episode": 2,
+          "monotonic_s": 1331.291658008
+        },
+        "completion_monotonic_s_derived": 1331.302842508
+      },
+      {
+        "episode": 1,
+        "controller": "scripted_baseline",
+        "status": "FAILED",
+        "reason": "time_limit",
+        "control_steps": 1000,
+        "wall_s": 20.570571384999994,
+        "elapsed_sim_s": 20.000000000003563,
+        "timeout_overshoot_s": 0.0,
+        "error": null,
+        "log": "integration/normal-launch.log",
+        "accepted": {
+          "event": "accepted",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "accepted_monotonic_s": 1280.01299365,
+          "deadline_monotonic_s": 1310.01299365,
+          "callback_body_s": 0.0001946249999491556
+        },
+        "reset_completed": {
+          "event": "reset_completed",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "monotonic_s": 1280.603743151,
+          "duration_s": 0.5899018339998747,
+          "elapsed_sim_s": 0.0,
+          "episode_start_time": 1.6609999999999279,
+          "reset_seed": 374032080
+        },
+        "reset_started": {
+          "event": "reset_started",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "monotonic_s": 1280.013841317
+        },
+        "physics_steps_derived_from_elapsed_sim": 20000,
+        "physics_count_scope": "Derived from real elapsed simulation time / pinned 0.001 s timestep; direct env._physics_steps counts are separately saved in instrumented audit events.",
+        "completion_monotonic_s_derived": 1300.583565035
+      },
+      {
+        "episode": 2,
+        "controller": "scripted_baseline",
+        "status": "FAILED",
+        "reason": "time_limit",
+        "control_steps": 1000,
+        "wall_s": 20.57370980099995,
+        "elapsed_sim_s": 20.000000000003563,
+        "timeout_overshoot_s": 0.0,
+        "error": null,
+        "log": "integration/normal-launch.log",
+        "accepted": {
+          "event": "accepted",
+          "controller": "scripted_baseline",
+          "episode": 2,
+          "accepted_monotonic_s": 1303.412823287,
+          "deadline_monotonic_s": 1333.412823287,
+          "callback_body_s": 0.00014062499985811883
+        },
+        "reset_completed": {
+          "event": "reset_completed",
+          "controller": "scripted_baseline",
+          "episode": 2,
+          "monotonic_s": 1303.993394537,
+          "duration_s": 0.5797447500001454,
+          "elapsed_sim_s": 0.0,
+          "episode_start_time": 1.6609999999999279,
+          "reset_seed": 374032080
+        },
+        "reset_started": {
+          "event": "reset_started",
+          "controller": "scripted_baseline",
+          "episode": 2,
+          "monotonic_s": 1303.413649787
+        },
+        "physics_steps_derived_from_elapsed_sim": 20000,
+        "physics_count_scope": "Derived from real elapsed simulation time / pinned 0.001 s timestep; direct env._physics_steps counts are separately saved in instrumented audit events.",
+        "completion_monotonic_s_derived": 1323.986533088
+      },
+      {
+        "episode": 1,
+        "controller": "scripted_baseline",
+        "status": "FAILED",
+        "reason": "recovery_timeout",
+        "control_steps": 121,
+        "wall_s": 3.000238085000092,
+        "elapsed_sim_s": 2.41999999999977,
+        "timeout_overshoot_s": 0.00023808500009181444,
+        "error": null,
+        "log": "integration/wall-launch.log",
+        "accepted": {
+          "event": "accepted",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "accepted_monotonic_s": 1324.91146063,
+          "deadline_monotonic_s": 1327.91146063,
+          "callback_body_s": 5.1375000111875124e-05
+        },
+        "reset_completed": {
+          "event": "reset_completed",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "monotonic_s": 1325.50882963,
+          "duration_s": 0.5907348329999422,
+          "elapsed_sim_s": 0.0,
+          "episode_start_time": 1.6609999999999279,
+          "reset_seed": 374032080
+        },
+        "reset_started": {
+          "event": "reset_started",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "monotonic_s": 1324.918094797
+        },
+        "physics_steps_derived_from_elapsed_sim": 2420,
+        "physics_count_scope": "Derived from real elapsed simulation time / pinned 0.001 s timestep; direct env._physics_steps counts are separately saved in instrumented audit events.",
+        "completion_monotonic_s_derived": 1327.911698715
+      },
+      {
+        "episode": 1,
+        "controller": "scripted_baseline",
+        "status": "FAILED",
+        "reason": "step_error",
+        "control_steps": 2,
+        "wall_s": 0.623429458000146,
+        "elapsed_sim_s": 0.039999999999995595,
+        "timeout_overshoot_s": 0.0,
+        "error": {
+          "type": "RuntimeError",
+          "message": "synthetic one-shot step failure after real physics",
+          "evidence": null
+        },
+        "log": "integration/fault-injection-recovery.log",
+        "accepted": {
+          "event": "accepted",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "accepted_monotonic_s": 1332.317986634,
+          "deadline_monotonic_s": 1362.317986634,
+          "callback_body_s": 4.8458000037499005e-05
+        },
+        "reset_completed": {
+          "event": "reset_completed",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "monotonic_s": 1332.889232676,
+          "duration_s": 0.5621240009998019,
+          "elapsed_sim_s": 0.0,
+          "episode_start_time": 1.6609999999999279,
+          "reset_seed": 374032080
+        },
+        "reset_started": {
+          "event": "reset_started",
+          "controller": "scripted_baseline",
+          "episode": 1,
+          "monotonic_s": 1332.327108675
+        },
+        "completion_monotonic_s_derived": 1332.941416092
+      },
+      {
+        "episode": 2,
+        "controller": "scripted_baseline",
+        "status": "FAILED",
+        "reason": "time_limit",
+        "control_steps": 11,
+        "wall_s": 0.7477219170000353,
+        "elapsed_sim_s": 0.20299999999997764,
+        "timeout_overshoot_s": 0.0,
+        "error": null,
+        "log": "integration/fault-injection-recovery.log",
+        "accepted": {
+          "event": "accepted",
+          "controller": "scripted_baseline",
+          "episode": 2,
+          "accepted_monotonic_s": 1332.942841384,
+          "deadline_monotonic_s": 1362.942841384,
+          "callback_body_s": 3.8291999999273685e-05
+        },
+        "reset_completed": {
+          "event": "reset_completed",
+          "controller": "scripted_baseline",
+          "episode": 2,
+          "monotonic_s": 1333.493781468,
+          "duration_s": 0.5483197089999976,
+          "elapsed_sim_s": 0.0,
+          "episode_start_time": 1.6609999999999279,
+          "reset_seed": 374032080
+        },
+        "reset_started": {
+          "event": "reset_started",
+          "controller": "scripted_baseline",
+          "episode": 2,
+          "monotonic_s": 1332.945461759
+        },
+        "physics_steps_derived_from_elapsed_sim": 203,
+        "physics_count_scope": "Derived from real elapsed simulation time / pinned 0.001 s timestep; direct env._physics_steps counts are separately saved in instrumented audit events.",
+        "completion_monotonic_s_derived": 1333.690563301
+      }
+    ],
+    "synthetic_fault_accounting": {
+      "real_completed_step_calls": 3,
+      "actual_last_elapsed_sim_s": 0.05999999999999339,
+      "direct_physics_steps": null,
+      "last_valid_node_control_steps": 2,
+      "last_valid_node_elapsed_sim_s": 0.039999999999995595,
+      "scope": "Synthetic exception is injected after the third real step returns but before RecoveryNode accounts/publishes it. Node retains the last valid two-step evidence rather than requerying failed dynamics."
+    },
+    "startup_error_children": [
+      {
+        "pid": 15771,
+        "command": [
+          "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node",
+          "--ros-args",
+          "-p",
+          "seed:=-1"
+        ],
+        "returncode": 1,
+        "log": "integration/invalid-startup-0.log",
+        "diagnostic": "Recovery startup/execution failed: ValueError: seed must be a nonnegative integer",
+        "scope": "Installed recovery_node process, not a ros2 launch parent return code"
+      },
+      {
+        "pid": 15790,
+        "command": [
+          "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node",
+          "--ros-args",
+          "-p",
+          "episode_timeout_s:=0.0205"
+        ],
+        "returncode": 1,
+        "log": "integration/invalid-startup-1.log",
+        "diagnostic": "Recovery startup/execution failed: ValueError: Timeout must align to physics timestep",
+        "scope": "Installed recovery_node process, not a ros2 launch parent return code"
+      },
+      {
+        "pid": 15812,
+        "command": [
+          "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node",
+          "--ros-args",
+          "-p",
+          "recovery_timeout_s:=0.0"
+        ],
+        "returncode": 1,
+        "log": "integration/invalid-startup-2.log",
+        "diagnostic": "Recovery startup/execution failed: ValueError: recovery_timeout_s must be finite and positive",
+        "scope": "Installed recovery_node process, not a ros2 launch parent return code"
+      },
+      {
+        "pid": 15831,
+        "command": [
+          "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node",
+          "--ros-args",
+          "-p",
+          "use_sim_time:=true"
+        ],
+        "returncode": 1,
+        "log": "integration/invalid-startup-3.log",
+        "diagnostic": "Recovery startup/execution failed: ValueError: use_sim_time=true is unsupported; no /clock is published",
+        "scope": "Installed recovery_node process, not a ros2 launch parent return code"
+      },
+      {
+        "pid": 15847,
+        "command": [
+          "env",
+          "X2_ASSET_REPO=/nonexistent/x2-assets",
+          "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node"
+        ],
+        "returncode": 1,
+        "log": "integration/missing-model.log",
+        "diagnostic": "Recovery startup/execution failed: ValueError: Missing asset repository: /nonexistent/x2-assets; set X2_ASSET_REPO",
+        "scope": "Installed recovery_node process, not a ros2 launch parent return code"
+      }
+    ]
+  },
+  "not_applicable": {
+    "ROS_checkpoint_path_error": "No checkpoint/controller parameter or ROS policy-loading entry point exists."
+  },
+  "logical_validation": {
+    "pending_busy": "test_ros_nodes.RecoveryLogicTests.test_acceptance_pending_busy_no_environment_calls_or_mutation in regression.log; logical fixture, not a cross-process reset window",
+    "model_hash_mismatch": "test_model.ModelTests.test_missing_path_and_wrong_pin_hash_fail_clearly; synthetic expected-hash mismatch. Missing model path is also tested in a real child process."
+  },
+  "validation_layers": {
+    "original_launch": "Unmodified recovery.launch.py starts real recovery_node + telemetry_node. CLI and both timeout scenarios use real native simulation.",
+    "read_only_audit": "A separate subprocess wraps real send_response/reset/step/read_state and samples without extra physics; proves server ordering and same-stamp actual state.",
+    "synthetic_fault": "An explicit one-shot exception after a real physics step; tests error handling/retry, not natural simulator failure.",
+    "unit_tests": "Logical node fixture tests plus bounded real physics and synthetic optimizer fixtures.",
+    "startup_errors": "Illegal parameters and missing model run installed recovery_node child processes with actual nonzero process exits. They do not claim nonzero ros2 launch parent exits."
+  },
+  "limits": [
+    "Same existing VM, not a new OS or separate machine installation.",
+    "--system-site-packages intentionally inherits declared Ubuntu and ROS packages.",
+    "ROS scripted baseline did not recover; terminal FAILED is expected for these integration scenarios.",
+    "Standalone reference + PPO residual frozen fixed-supine 5/5 is historical and not rerun or wired into ROS.",
+    "Cooperative wall timeout cannot preempt reset/step; measured overshoot is reported.",
+    "Terminal network delivery can lag creation; closing a ROS context does not guarantee subscriber delivery of shutdown status.",
+    "Acquisition timestamps use ROS clock; simulation progress uses MuJoCo time; budgets use monotonic wall time. No /clock is published.",
+    "Reported process exit times are parent observation times, not exact kernel exit instants.",
+    "Original launch cumulative physics counts are derived from elapsed simulation time and model timestep; separate audited env._physics_steps counts are directly observed.",
+    "Scenario labels record receiver phase; ROS acquisition stamps distinguish queued deliveries from newly created samples."
+  ],
+  "failures_or_incomplete": [
+    {
+      "issue": "Original runner false-positive cleanup summary",
+      "detail": "Noninteractive launch received group SIGINT and forwarded another SIGINT to its children; both normal/wall children exited -2 during cleanup. Raw runner PASS is preserved but this final acceptance attempt is FAIL.",
+      "fix": "Retest in a fresh independent environment with explicit runner patch: signal launch parent once, inspect business child exits, record group cleanup."
+    }
+  ],
+  "nonzero_preparation_attempts": [
+    {
+      "label": "01-clone",
+      "exit_code": 128,
+      "log": "01-clone.log"
+    },
+    {
+      "label": "02-prerequisites",
+      "exit_code": 1,
+      "log": "02-prerequisites.log"
+    },
+    {
+      "label": "04-clone-retry-shallow",
+      "exit_code": 128,
+      "log": "04-clone-retry-shallow.log"
+    },
+    {
+      "label": "06-clone-retry-filtered",
+      "exit_code": 128,
+      "log": "06-clone-retry-filtered.log"
+    }
+  ],
+  "package_integrity_rejections": [],
+  "preparation_retry_notes": [
+    "Git transfer/TLS failures retained; explicit HTTP/1.1 sparse clone retry tested identical source commit.",
+    "The missing python3-cffi apt inventory name was not a missing project prerequisite: requirements installs cffi in the venv; system python3-cffi-backend was separately recorded.",
+    "This attempt's failed command list and stage_evidence retain actual chronology. Stage PASS requires the final explicit dependency command to exit 0 plus pip check and runtime identity; it never means an uninterrupted first attempt."
+  ],
+  "environment_notes": [
+    "NumPy/Pillow/matplotlib/setuptools/colcon come from declared system packages; simulator/RL packages and cffi installed in the new venv.",
+    "Python executable realpath /usr/bin/python3.12 is expected: executable and sys.prefix point to the new venv.",
+    "torch.classes/torch.ops __file__ values are synthetic relative labels; implementations are torch._classes/torch._ops inside the new venv. Ubuntu sitecustomize is a system apport hook, not a user startup file."
+  ],
+  "module_origins": {
+    "rclpy": {
+      "version": "7.1.12",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py"
+    },
+    "mujoco": {
+      "version": "3.13.0",
+      "path": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/mujoco/__init__.py",
+      "realpath": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/mujoco/__init__.py"
+    },
+    "gymnasium": {
+      "version": "1.3.0",
+      "path": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/gymnasium/__init__.py",
+      "realpath": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/gymnasium/__init__.py"
+    },
+    "stable_baselines3": {
+      "version": "2.9.0",
+      "path": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/stable_baselines3/__init__.py",
+      "realpath": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/stable_baselines3/__init__.py"
+    },
+    "torch": {
+      "version": "2.8.0+cpu",
+      "path": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/torch/__init__.py",
+      "realpath": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/torch/__init__.py"
+    },
+    "numpy": {
+      "version": "1.26.4",
+      "path": "/usr/lib/python3/dist-packages/numpy/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/numpy/__init__.py"
+    },
+    "matplotlib": {
+      "version": "3.6.3",
+      "path": "/usr/lib/python3/dist-packages/matplotlib/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/matplotlib/__init__.py"
+    },
+    "PIL": {
+      "version": "10.2.0",
+      "path": "/usr/lib/python3/dist-packages/PIL/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/PIL/__init__.py"
+    },
+    "cffi": {
+      "version": "2.1.1",
+      "path": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/cffi/__init__.py",
+      "realpath": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/cffi/__init__.py"
+    },
+    "setuptools": {
+      "version": "68.1.2",
+      "path": "/usr/lib/python3/dist-packages/setuptools/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+    },
+    "pip": {
+      "version": "24.0",
+      "path": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/pip/__init__.py",
+      "realpath": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/lib/python3.12/site-packages/pip/__init__.py"
+    },
+    "colcon_core": {
+      "version": "0.21.3",
+      "path": "/usr/lib/python3/dist-packages/colcon_core/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/colcon_core/__init__.py"
+    },
+    "ament_package": {
+      "version": "0.16.5",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_package/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_package/__init__.py"
+    },
+    "ament_index_python": {
+      "version": "1.8.4",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_index_python/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_index_python/__init__.py"
+    },
+    "sensor_msgs": {
+      "version": "5.3.8",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/sensor_msgs/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/sensor_msgs/__init__.py"
+    },
+    "std_msgs": {
+      "version": "5.3.8",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/std_msgs/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/std_msgs/__init__.py"
+    },
+    "std_srvs": {
+      "version": "5.3.8",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/std_srvs/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/std_srvs/__init__.py"
+    },
+    "launch": {
+      "version": "3.4.11",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/launch/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/launch/__init__.py"
+    },
+    "launch_ros": {
+      "version": "0.26.12",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/launch_ros/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/launch_ros/__init__.py"
+    },
+    "x2_recovery.recovery_node": {
+      "version": "0.1.0",
+      "path": "/tmp/x2-final-ros.zvwycfdg/build/x2_recovery/x2_recovery/recovery_node.py",
+      "realpath": "/tmp/x2-final-ros.zvwycfdg/repository/src/x2_recovery/x2_recovery/recovery_node.py"
+    },
+    "x2_recovery.telemetry_node": {
+      "version": "0.1.0",
+      "path": "/tmp/x2-final-ros.zvwycfdg/build/x2_recovery/x2_recovery/telemetry_node.py",
+      "realpath": "/tmp/x2-final-ros.zvwycfdg/repository/src/x2_recovery/x2_recovery/telemetry_node.py"
+    }
+  },
+  "model_identity": {
+    "repository": "https://github.com/AgibotTech/agibot_x2_urdf",
+    "commit": "60c5de582c523cd188f563819e62d34cfdc3d2d0",
+    "asset_repo": "/tmp/x2-final-ros.zvwycfdg/assets/agibot_x2_urdf",
+    "fingerprint": "bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0",
+    "source_sha256": {
+      "LICENSE": "d5777bea50dc2cd111845d8a9c51ab990d188ce343b843e5ad3e653b5fa8fdab",
+      "X2_URDF-v1.3.0/x2_ultra.urdf": "f628a969aaf3d5785b8c8901611a85f358d7eb62a8b06b1216dc42291a72944e",
+      "X2_URDF-v1.3.0/x2_ultra.xml": "3be016eaa127c79ac547754d6e25c0930887efcf9577af33e9f5bb4ff4ed90d4",
+      "X2_URDF-v1.3.0/scene.xml": "7e067253f0e4b0e023614d63a6f15b9c7b9108d7a4bf63bb9cee5cf2b5f24439"
+    },
+    "license_present": true,
+    "joint_names": [
+      "left_hip_pitch_joint",
+      "left_hip_roll_joint",
+      "left_hip_yaw_joint",
+      "left_knee_joint",
+      "left_ankle_pitch_joint",
+      "left_ankle_roll_joint",
+      "right_hip_pitch_joint",
+      "right_hip_roll_joint",
+      "right_hip_yaw_joint",
+      "right_knee_joint",
+      "right_ankle_pitch_joint",
+      "right_ankle_roll_joint",
+      "waist_yaw_joint",
+      "waist_pitch_joint",
+      "waist_roll_joint",
+      "head_yaw_joint",
+      "head_pitch_joint",
+      "left_shoulder_pitch_joint",
+      "left_shoulder_roll_joint",
+      "left_shoulder_yaw_joint",
+      "left_elbow_joint",
+      "left_wrist_yaw_joint",
+      "left_wrist_pitch_joint",
+      "left_wrist_roll_joint",
+      "right_shoulder_pitch_joint",
+      "right_shoulder_roll_joint",
+      "right_shoulder_yaw_joint",
+      "right_elbow_joint",
+      "right_wrist_yaw_joint",
+      "right_wrist_pitch_joint",
+      "right_wrist_roll_joint"
+    ],
+    "physics_timestep_s": 0.001
+  },
+  "validation_layer_results": {
+    "original_launch": "PASS",
+    "read_only_audit": "PASS",
+    "synthetic_fault": "PASS",
+    "unit_tests": "PASS"
+  },
+  "logical_validation_execution": "PASS",
+  "evidence_sha256": {
+    "01-clone.log": "78e9442e2b4f850ca09da44be5260acb0c88593fbaca786aac1402c7737bcf36",
+    "01-clone.sh": "839ebc3440d87664c10212791a68aafed0ab7c27b0c1b73406d8e13985c706d7",
+    "02-prerequisites.log": "f62069c61bd9d31921a8f050aa50dc41b8463ce2ee4cc62654fa73764a4d0c41",
+    "02-prerequisites.sh": "808a936dcef1487ed7102bc2f9e78dc0376d3dd4dd9badc6ab9ebf3bbc11e28b",
+    "03-model-download.log": "861f194bfb782de0671dcf340021eefc31aa741e2463653e11637b38321526b6",
+    "03-model-download.sh": "90ff66defa089e3ef4e02203754a9b6a532aa1a0f6c5b64a709f76eb5b97e007",
+    "04-clone-retry-shallow.log": "a95d2c41f48346b62947dcb8016e61d5e0afcefe62bc6689d12f753cb716d540",
+    "04-clone-retry-shallow.sh": "1db6bb4d3eaa8b733c8b1828edcb36062e4302790a1f8dd928e617dc14cda25f",
+    "05-system-origins.log": "32104477be7e4b2fc861559045bdf4a443b9dd15677766fc02b431cb2a60852b",
+    "05-system-origins.sh": "e202e456dafc2a9fe0abf191eed7b77a226463ff3f684221cfb946814da5fcc2",
+    "06-clone-retry-filtered.log": "84f45e020e348f9fe9572090a33588a10e8cacbb7f5591cbd05029ff725cea1d",
+    "06-clone-retry-filtered.sh": "75e9680e085ebc8c294bfb97b87ad1bcbd4141b8b98d9fb6c5a2720dd61a0159",
+    "07-clone-retry-http1.log": "e31e9e4ae201136f337ee25176a5f08fcbbc9429a4a433b93624c37c1e036d85",
+    "07-clone-retry-http1.sh": "2ddf355e768d5f40d0d4acfbe084c41621867a0b27e1706965f473c78205395a",
+    "08-cli-help-domain.log": "31e1dd95b9080616d869fd05a88e5a60b780e65653c6a37734ee19d464a1e66c",
+    "08-cli-help-domain.sh": "76081842c3f1ec4a90a1c97732a50dba3d062395e567aaa8853fc59870da8562",
+    "09-venv-torch.log": "8f41d8e9dca36569c280b1754059d67ce4d3dc26c4c7ebb2d29ea0d515c742c3",
+    "09-venv-torch.sh": "bf44ff0dc22e448f34cfcfb9866e5e8532d07eacca6d49de9b1a5e4c5bc25b73",
+    "10-requirements.log": "7d1ab7bd0c8ca8406f34d4e9ba4bba01f630a52018cfed931cac33a162d67ee2",
+    "10-requirements.sh": "1c427c5352078fd873c0853c90380d44f8021b5af8fe6dbffaa8fc1143fb0e51",
+    "11-build.log": "516fe46034da1169bc7e1d961f9c40c21285486ed08628cf41f102f2e387f53f",
+    "11-build.sh": "478ca3514536ba43616bf5f207371f72789988029478dbfc7d7433b2f86c2473",
+    "12-runtime-identity.log": "4c512a0c8a8b4a29fe9c03ab87de052941365392ad54c7de118dc4c2e27dfd73",
+    "12-runtime-identity.sh": "21e9da6355433a9461725f11c6580be3d07e5a36bf645b115f2cffa315c1e34d",
+    "13-integration.log": "01673d4262f7657d5a42592e3067c1bd981d82e80ddf13e6bcc9c1409fcb53ef",
+    "13-integration.sh": "dce4d299d8e1339dc76184559b59753bfa1ba78daa20b4ce9b7ce34c2aa6494d",
+    "14-regression.log": "d3d0706a344a1968667a251a0771db6f266b41c5e534e8dbfde1847d3173c8e0",
+    "14-regression.sh": "211420e3be65d77110f5658fb39c25edeba9a6f1da5dbdda9386692582485bf7",
+    "15-postflight.log": "801c069715e558149d970e14d1e9c033e73870d18cdffc8133ca74da09432a2b",
+    "15-postflight.sh": "6933a2b1589790186a55c0e483117ffaebb1d5aea75937c2c2ead8ffea103263",
+    "capture-identity.py": "709a84c6512eabac7eae96478b6e329664673338b2d56af8ed697d5814f2a358",
+    "colcon-build/events.log": "0d40c4c7f6024a739168c9fe3b0d2adc01f80ac0e7aacd581e6ebc70f6ae5dfc",
+    "colcon-build/logger_all.log": "cdce599e5c9a3f30e49b91edd49ab8e528ab7347f52c85dbc572ee061409ddc1",
+    "colcon-build/x2_recovery/command.log": "22980e388b23363a95c447370ab26f6ec4884e9bf13fd74a12a19cd3894f6c75",
+    "colcon-build/x2_recovery/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "colcon-build/x2_recovery/stdout.log": "582a0051ff34abbecdca904daa12d39a60d7baee56876e8bed6390d144004991",
+    "colcon-build/x2_recovery/stdout_stderr.log": "582a0051ff34abbecdca904daa12d39a60d7baee56876e8bed6390d144004991",
+    "colcon-build/x2_recovery/streams.log": "d8587ca0927830886d5876a7298df875f393c80728d5e4751cc97d466b01e295",
+    "commands.json": "9c963079f292ee3dde39e96f6e7c5a7b6014da412e17120d0557bfc820f287d6",
+    "commands.jsonl": "e6409adcadfccc2660bad4fea9d47c6053ac8d83f569aeeea467346ca311ef1c",
+    "domain-preflight.json": "e3792f7ac02a8ad76b461e521047492959db1d601ca4a3c874f52c329ef3742b",
+    "environment.json": "402b80e278c56c31bc55ccaed31ca70361a20f2963c553660ac0eb64c718ee36",
+    "integration/cli-accept.log": "373643ca9545200ac35fd7de66dc3159ea45a774cf6304e9f75b2f0e139de572",
+    "integration/cli-busy.log": "3958a12ccc3c1d6c931eb03b11c59cf051dd747d50abc86f83c232a55e98cf44",
+    "integration/fault-events.jsonl": "130d881b9c0a18ccf392cb2a91d655b7373ea83099d2b3277e5118b271b64934",
+    "integration/fault-injection-recovery.log": "ddc3c61790ca3311f6f8c5f3b448e4d7d4a1778f8f8ccf36e51b782cac6ea688",
+    "integration/fault-injection-telemetry.log": "9ebe00fe55230900d07abb93a4d8d748c13185f8e196e9771c692e2b37f6a8a7",
+    "integration/idle-echo.log": "c8abe273b69e02e6b67844799b3159681b0fc23cf41a5a951da92f1680e800b7",
+    "integration/invalid-startup-0.log": "7eed517148d69a75af526949de6e4a81111378fd73a32855aaa4c3a495e04043",
+    "integration/invalid-startup-1.log": "72da0441fac22d27a83c8109c22de80d1a8166ce72cd4463f5807b94f83aa1e8",
+    "integration/invalid-startup-2.log": "e1ab25c7a3b532aa076a51e5704e4efe5cdcc287f3143caadf652d6aa59f26f3",
+    "integration/invalid-startup-3.log": "8c2197ca7788209de46ffaa8da16790c20be76bf4b29d73ebb92d1487cdeb741",
+    "integration/joint-echo.log": "e4643ac508ed073735a50288fd52f90fb28255277b16b2e2b5757dbcf817e073",
+    "integration/joint-qos.log": "f398608df7390d356908620b1e49a76be82f2e2f0b90ebe792805da5bb048885",
+    "integration/late-telemetry.log": "c60567d3c718cd6ea3d16347a1f1c608aaffabbc0e152d53e7ab9f8e1add4877",
+    "integration/matched-readback.json": "86b6a793a3ff09d26166cf926d3408e50662a4e3a1ea290befe5f1b9280672d7",
+    "integration/missing-model.log": "8a3d41ee57a2e16eaeb0617e49f06cceb263451fcacf76330278bc392fdc31f3",
+    "integration/normal-launch.log": "7a3acc712a70ea8a92984c89d4faa1881eab12afe6d857a25b9a354e8422ef24",
+    "integration/readback-events.jsonl": "7f40f4a9c6253bcab10a1c07daaae4f8a5b0507c4d25c1eca234a2bbe209f4ed",
+    "integration/readback-recovery.log": "dab3cda934c7e6f0a8bf465538cfa3b69f241ae438ef6ab1fa85c8b8bf2105fb",
+    "integration/readback-telemetry.log": "b0788dcef1a73a0d22e86406bcbf45eb0f73513b0294048b3cb2664a1e00ebf0",
+    "integration/service-type.log": "7b501061e2d206cca2fe9030a8d274e4209f7ab001cd810698192273e5f56dc8",
+    "integration/status-qos.log": "13f8a04e27d0ca20caef68ebd8e3e282a44586453eae48b6bc3cdb9e8e369d54",
+    "integration/summary.json": "e76eb0bb382c29c6866d8a7f08ae7e6fc2968f90f7a7b0de95de25e3e6432c95",
+    "integration/wall-launch.log": "b33610636015d7e85637b3c239c6eb1efa5278938a4dcd2636fdca0677036390",
+    "launch-signal-semantics.json": "10ecb133d9a3b10bd586e7e0be2cbbb33722f7d33b090c3b70111de492757910",
+    "module-system-package-owners.json": "51e47db36f7419b7c30b0a16563b4de7312813d277dde75230d2b3b5ad280aa2",
+    "original-workspace-before.json": "e9721a3054cb27571c5f498cbccaf38ed55146648d62cb4363a7b288b2d5e7e1",
+    "postflight.json": "9374bf631418ba9582d9d96e211dd0192771bc1ce19432862e63ddad38a11adc",
+    "postflight.py": "8dba73ecb05156900a4c3e4e8e0a71270e751d23676a5ce384d709572054ee3e",
+    "python-packages.txt": "a6ee29b064ed620d78856795c1227583769efd3650ab0602e1299273d34841d0",
+    "reference-review.json": "fbca59ac316638f8a20de9d73129c8753ff7da828a1281fae2f0739653fcbd45",
+    "source-identity.json": "d56077f75fc78e682a3c0f90e71d8440cf506489a11f82aedd6fea0e92f377b7",
+    "x2-first-run-review.json": "1e892d5c8c2983b186ced28064d4363a526ba97f5b62c9a17d8034a1acef1bbc",
+    "x2-readme-review.json": "c0cfaf352c464fdf119dcca44a846f6c4bf87dc5fb817b640298ae7a16c115e3",
+    "x2-runner-review.json": "b5bb12d19c7d2eb011962967e1544a2e6b27fc264d05e1b871c9eff88dad672c"
+  }
+}

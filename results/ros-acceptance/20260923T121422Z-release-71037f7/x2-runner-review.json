@@ -1,0 +1,93 @@
+{
+  "source_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "scope": "Read published code in fresh GitHub clone; controlled runner-only patch; no edits to original workspace or first acceptance clone.",
+  "source_identities": [
+    {
+      "path": "src/x2_recovery/test/test_ros_integration.py",
+      "clone_sha256": "2ff405540db1297e6607807edb57a2163ee6d666864b3eaf5bb37e0a02df6b9e",
+      "original_workspace_sha256": "2ff405540db1297e6607807edb57a2163ee6d666864b3eaf5bb37e0a02df6b9e",
+      "identical": true
+    },
+    {
+      "path": "src/x2_recovery/test/test_ros_nodes.py",
+      "clone_sha256": "5237206e5cc6b2d3446c887e3e3b65605c1db4af0686e953700e8fb36ee9c532",
+      "original_workspace_sha256": "5237206e5cc6b2d3446c887e3e3b65605c1db4af0686e953700e8fb36ee9c532",
+      "identical": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/recovery_node.py",
+      "clone_sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "original_workspace_sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "identical": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/telemetry_node.py",
+      "clone_sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "original_workspace_sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "identical": true
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/model.py",
+      "clone_sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "original_workspace_sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "identical": true
+    }
+  ],
+  "patch_file": "/tmp/x2-final-control/patch-work/runner-evidence.patch",
+  "patch_sha256": "5735375fa96986334f13cd7e5842272b43401727f5ece6255ee1ade703f3f023",
+  "patched_runner_sha256": "ccf72af848fcd9a5828d0389f070da7eeee4ff30636a55b54156d110daf9c069",
+  "patch_status": "FROZEN; syntax compiled, helper process-group sanity passed and git apply --check passed. Not yet ROS-executed; root will apply to a new complete acceptance root.",
+  "budget_preserved": {
+    "runner_seconds": 210,
+    "outer_watchdog_seconds": 240,
+    "rpc_assert_seconds": 1,
+    "rpc_wait_seconds": 2,
+    "normal_episode_sim_seconds": 20,
+    "normal_wall_seconds": 30,
+    "wall_test_seconds": 3
+  },
+  "existing_real_coverage": [
+    "Original single launch starts recovery and telemetry; CLI Trigger acceptance and busy rejection; 8 normal and 4 wall discovered-client busy RPCs.",
+    "Normal simulation time_limit and same-instance episode 2 retry.",
+    "Independent recovery_timeout after reset and physical steps.",
+    "Read-only wrapper of actual send_response, reset, step and same _sample read_state; reset-window RPC; stepping RPCs.",
+    "Synthetic exception only after three genuine physical control calls; same-instance retry.",
+    "Late status retention/no joint history; terminal cessation; Ctrl+C unwinds before close.",
+    "Invalid seed, unaligned simulation timeout, nonpositive wall timeout, unsupported use_sim_time and missing model directory."
+  ],
+  "supplemented_evidence": [
+    "Persist every received status and valid JointState in scenario-labelled JSONL; summarize real acquisition/arrival interval min/median/max, ROS age and name-indexed knee range.",
+    "Record process command/cwd/PID/process group/start UTC and monotonic/exit-observation UTC and monotonic/whitelisted effective env/log/returncode. Record live command snapshots and launch child exit codes parsed from actual launch logs.",
+    "Inspect only owned groups for surviving non-daemon children; preserve own Jazzy daemon for domain-specific shutdown; cleanup errors force summary FAIL.",
+    "Actually run node list and assert both business nodes; assert service and endpoint message types.",
+    "Assert actual send_end < reset_begin < reset_end < first_step; retain exact event timestamps.",
+    "Assert busy callbacks have identical before/after episode/reset/control counters and environment identity; original normal rejects all remain episode 1 with one reset before retry.",
+    "Persist same-sample creation timestamps for every audited sample; ensure none newly created after audited terminal; compare selected readback samples exactly and compute rather than prefill maximum error.",
+    "Capture detached real reset_evidence and read-only cumulative env._physics_steps; assert qualified supine reset.",
+    "Add nonpositive episode timeouts to existing startup loop; require understandable actual diagnostics.",
+    "Additional unmodified single-launch active Ctrl+C scenario: accept, at least 5 real JointStates, RUNNING before SIGINT, then verify shutdown result with >=3 actual control steps, closed environment, both original business children exit 0 and no live group members. Do not claim shutdown status was delivered after ROS context shutdown."
+  ],
+  "reporting_limits": [
+    "Pending busy remains unit-level synthetic logic validation via test_acceptance_pending_busy_no_environment_calls_or_mutation; do not label cross-process physical test.",
+    "Reset-window request is sent during reset but single-threaded executor processes after reset returns; report actual RPC wait.",
+    "Original normal/wall logs expose control_steps and per-last-step physics_steps_executed, not cumulative physics count. Total physical substeps for original launch can be explicitly derived from elapsed_sim_s / locked physics_dt; only audited scenario env._physics_steps is directly observed. Do not silently label derived totals directly measured.",
+    "Process end times are observation times, because arbitrary process exit cannot be timestamped exactly by a polling parent.",
+    "No ROS checkpoint/controller parameter exists: checkpoint-path test NOT_APPLICABLE.",
+    "New raw telemetry data records receiver observations; source sampling time is header ROS stamp. Terminal wrapper evidence distinguishes new samples from delayed delivery."
+  ],
+  "unit_identity_error_evidence": "test_model.py tests non-Git path and tampered expected scene digest; these are logic-level failure tests. Existing ROS missing-model test is actual child-process startup failure.",
+  "production_changes": [],
+  "syntax_check": {
+    "command": [
+      "python3",
+      "-m",
+      "py_compile",
+      "/tmp/x2-final-control/patch-work/src/x2_recovery/test/test_ros_integration.py"
+    ],
+    "exit_code": 0
+  },
+  "helper_sanity_check": {
+    "scope": "Own disposable /usr/bin/python3 sleep subprocess only; no ROS or model operations",
+    "exit_code": 0
+  }
+}

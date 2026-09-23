@@ -1,0 +1,9 @@
+# Preserve captured process output, executed scripts and literal patches byte for byte.
+# Project source and documentation retain normal whitespace checks.
+*.log -whitespace
+*.patch -whitespace
+*.sh -whitespace
+*.headers -whitespace
+pip-download-help.txt -whitespace
+mujoco-official-head.txt -whitespace
+mujoco-range-headers.txt -whitespace

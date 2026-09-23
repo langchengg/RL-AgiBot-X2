@@ -1,0 +1,48 @@
++ 1790166238.807833 cwd=/tmp cd /tmp/x2-final-ros.zvwycfdg/repository
++ 1790166238.807867 cwd=/tmp/x2-final-ros.zvwycfdg/repository /usr/bin/python3 -m venv --system-site-packages .venv
++ 1790166239.938849 cwd=/tmp/x2-final-ros.zvwycfdg/repository touch .venv/COLCON_IGNORE
++ 1790166239.939514 cwd=/tmp/x2-final-ros.zvwycfdg/repository cat .venv/pyvenv.cfg
+home = /usr/bin
+include-system-site-packages = true
+version = 3.12.3
+executable = /usr/bin/python3.12
+command = /usr/bin/python3 -m venv --system-site-packages /tmp/x2-final-ros.zvwycfdg/repository/.venv
++ 1790166239.940088 cwd=/tmp/x2-final-ros.zvwycfdg/repository /tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python -m pip install --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu torch==2.8.0+cpu
+Looking in indexes: https://download.pytorch.org/whl/cpu
+Collecting torch==2.8.0+cpu
+  Downloading https://download-r2.pytorch.org/whl/cpu/torch-2.8.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl.metadata (29 kB)
+Collecting filelock (from torch==2.8.0+cpu)
+  Downloading filelock-3.32.3-py3-none-any.whl.metadata (2.0 kB)
+Requirement already satisfied: typing-extensions>=4.10.0 in /usr/lib/python3/dist-packages (from torch==2.8.0+cpu) (4.10.0)
+Requirement already satisfied: setuptools in /usr/lib/python3/dist-packages (from torch==2.8.0+cpu) (68.1.2)
+Collecting sympy>=1.13.3 (from torch==2.8.0+cpu)
+  Downloading sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+Collecting networkx (from torch==2.8.0+cpu)
+  Downloading networkx-3.6.1-py3-none-any.whl.metadata (6.8 kB)
+Requirement already satisfied: jinja2 in /usr/lib/python3/dist-packages (from torch==2.8.0+cpu) (3.1.2)
+Collecting fsspec (from torch==2.8.0+cpu)
+  Downloading fsspec-2026.7.0-py3-none-any.whl.metadata (10 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch==2.8.0+cpu)
+  Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Downloading https://download-r2.pytorch.org/whl/cpu/torch-2.8.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl (101.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 101.9/101.9 MB 1.7 MB/s eta 0:00:00
+Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 303.5 kB/s eta 0:00:00
+Downloading filelock-3.32.3-py3-none-any.whl (98 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.9/98.9 kB 186.8 kB/s eta 0:00:00
+Downloading fsspec-2026.7.0-py3-none-any.whl (206 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 206.6/206.6 kB 542.1 kB/s eta 0:00:00
+Downloading networkx-3.6.1-py3-none-any.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 215.6 kB/s eta 0:00:00
+Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 190.0 kB/s eta 0:00:00
+Installing collected packages: mpmath, sympy, networkx, fsspec, filelock, torch
+  Attempting uninstall: mpmath
+    Found existing installation: mpmath 0.0.0
+    Not uninstalling mpmath at /usr/lib/python3/dist-packages, outside environment /tmp/x2-final-ros.zvwycfdg/repository/.venv
+    Can't uninstall 'mpmath'. No files were found to uninstall.
+  Attempting uninstall: sympy
+    Found existing installation: sympy 1.12
+    Not uninstalling sympy at /usr/lib/python3/dist-packages, outside environment /tmp/x2-final-ros.zvwycfdg/repository/.venv
+    Can't uninstall 'sympy'. No files were found to uninstall.
+Successfully installed filelock-3.32.3 fsspec-2026.7.0 mpmath-1.3.0 networkx-3.6.1 sympy-1.14.0 torch-2.8.0+cpu

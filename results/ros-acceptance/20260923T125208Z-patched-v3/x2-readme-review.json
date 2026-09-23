@@ -1,0 +1,320 @@
+{
+  "reviewed_at_utc": "2026-09-23T12:24:04.068278+00:00",
+  "requested_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "mode": "Read-only review; no file edited in either repository, no dependency installed, no runtime claim.",
+  "source_identity": {
+    "README.md": {
+      "sha256": "b24540c000efd1aed55d8aafb017b36ecca0d30f4aff3600a1e02cf9b3b349ae",
+      "matches_requested_commit": true,
+      "reviewed_path": "/home/lang/RL-AgiBot-X2/README.md",
+      "new_clone_available": true,
+      "new_clone_sha256": "b24540c000efd1aed55d8aafb017b36ecca0d30f4aff3600a1e02cf9b3b349ae",
+      "new_clone_matches_reviewed_sha256": true
+    },
+    "requirements.txt": {
+      "sha256": "f5acf34535969d0ab1cf5fd25a83cd6a046b5c61984a18c267e8f20c2080b873",
+      "matches_requested_commit": true,
+      "reviewed_path": "/home/lang/RL-AgiBot-X2/requirements.txt",
+      "new_clone_available": true,
+      "new_clone_sha256": "f5acf34535969d0ab1cf5fd25a83cd6a046b5c61984a18c267e8f20c2080b873",
+      "new_clone_matches_reviewed_sha256": true
+    },
+    "src/x2_recovery/package.xml": {
+      "sha256": "4769a4a56b575b66841bebd7f6171db46c69908b52a1a0f4ab51e966d79cb498",
+      "matches_requested_commit": true,
+      "reviewed_path": "/home/lang/RL-AgiBot-X2/src/x2_recovery/package.xml",
+      "new_clone_available": true,
+      "new_clone_sha256": "4769a4a56b575b66841bebd7f6171db46c69908b52a1a0f4ab51e966d79cb498",
+      "new_clone_matches_reviewed_sha256": true
+    },
+    "src/x2_recovery/setup.py": {
+      "sha256": "e151a450c3ae92125c8c00d47cd842aee904a7d6586e0e656e5219f62d478487",
+      "matches_requested_commit": true,
+      "reviewed_path": "/home/lang/RL-AgiBot-X2/src/x2_recovery/setup.py",
+      "new_clone_available": true,
+      "new_clone_sha256": "e151a450c3ae92125c8c00d47cd842aee904a7d6586e0e656e5219f62d478487",
+      "new_clone_matches_reviewed_sha256": true
+    },
+    "src/x2_recovery/setup.cfg": {
+      "sha256": "af674713baa24aa025fccc920551711fb15264587916217f8cfed98006e0929f",
+      "matches_requested_commit": true,
+      "reviewed_path": "/home/lang/RL-AgiBot-X2/src/x2_recovery/setup.cfg",
+      "new_clone_available": true,
+      "new_clone_sha256": "af674713baa24aa025fccc920551711fb15264587916217f8cfed98006e0929f",
+      "new_clone_matches_reviewed_sha256": true
+    },
+    "src/x2_recovery/test/test_ros_integration.py": {
+      "sha256": "2ff405540db1297e6607807edb57a2163ee6d666864b3eaf5bb37e0a02df6b9e",
+      "matches_requested_commit": true,
+      "reviewed_path": "/home/lang/RL-AgiBot-X2/src/x2_recovery/test/test_ros_integration.py",
+      "new_clone_available": true,
+      "new_clone_sha256": "2ff405540db1297e6607807edb57a2163ee6d666864b3eaf5bb37e0a02df6b9e",
+      "new_clone_matches_reviewed_sha256": true
+    }
+  },
+  "clone_comparison_status": "New GitHub clone files now available: all six reviewed files have SHA-256 values identical to reviewed original-workspace files and requested commit.",
+  "findings": [
+    {
+      "location": "README.md:79-106",
+      "finding": "Setup assumes the existing project venv; the only venv creation command is commented. A new reader copying the block reaches touch .venv/COLCON_IGNORE before creating .venv.",
+      "minimal_update": "Give an executable /usr/bin/python3 -m venv --system-site-packages .venv step for a new clone, then touch COLCON_IGNORE. Keep pinned binary-only pip commands and explicit venv Python for /usr/bin/colcon.",
+      "scope": "Document gap; actual new installation must be measured by parent, not marked failed or passed by this review."
+    },
+    {
+      "location": "README.md:79; requirements.txt:1-12",
+      "finding": "Ubuntu Python/colcon prerequisites are unnamed. NumPy, Pillow and matplotlib fixed versions are inherited system dependencies on this VM; the README module-source paragraph omits matplotlib.",
+      "minimal_update": "Name preinstalled Ubuntu packages, record versions and origins, explicitly distinguish inherited requirements from newly downloaded venv packages. Do not promise complete transitive locking or fresh installation of inherited packages."
+    },
+    {
+      "location": "README.md:93-97, 1399; test_ros_integration.py:216",
+      "finding": "General Setup builds final-install but existing integration runner literally asserts that executable prefix contains /install/. ROS-specific block uses install correctly.",
+      "minimal_update": "Standardize new reproducible build command on ACCEPT_ROOT/build, ACCEPT_ROOT/install and ACCEPT_ROOT/log; keep historical log paths unchanged. Runner path check is its existing assumption, not a PDF requirement."
+    },
+    {
+      "location": "README.md:112-134",
+      "finding": "Model instructions lead with existing personal cache, although correct pinned clone instructions appear later.",
+      "minimal_update": "For fresh acceptance place X2_ASSET_REPO under ACCEPT_ROOT/assets, create assets directory, independently clone sparse version and checkout pinned commit; retain license and record effective model identity. Do not borrow default personal cache."
+    },
+    {
+      "location": "README.md:1275-1328",
+      "finding": "ROS reproduction uses original absolute source/venv paths and a fixed domain 73 without checking occupancy. It observes joints only after CLI requests.",
+      "minimal_update": "Use WS and PY variables, source the new install, execute from /tmp, select and record an unoccupied domain, use identical whitelist environment for all processes, establish status and joint observers before triggering. Use existing runner for managed actual CLI scenes."
+    },
+    {
+      "location": "README.md:1313-1328",
+      "finding": "Existing text correctly separates explicit cross-process runner from unittest, but output path is an old local ignored audit-output location.",
+      "minimal_update": "Publish this round under results/ros-acceptance/<run-id>; retain the runner actual filenames and separately record explicit runner exit code and regression results. Use a fresh output directory for every attempt."
+    },
+    {
+      "location": "README.md:1334-1383 and 1171-1181",
+      "finding": "Historical ROS acceptance reused the prior venv; the publication check reused the original venv and model cache. Their metrics must remain historical.",
+      "minimal_update": "Add dated current isolated acceptance scope and links without changing historical metrics: same Ubuntu ARM64 VM, new source/venv/model/shell/build/install; declared system ROS/Ubuntu dependencies reused. Report only newly measured results."
+    },
+    {
+      "location": "README.md:1215-1273; src/x2_recovery/package.xml; setup.py; setup.cfg",
+      "finding": "ROS behavior, topic/service types, QoS and three actual startup parameters are already clearly documented. package.xml declares runtime ROS imports; setup.py installs launch and three runtime node/diagnostic entry points plus training entry; setup.cfg uses normal lib/package layout.",
+      "minimal_update": "No architecture or dependency-pin change is justified by this static review. Add checkpoint-path NOT_APPLICABLE because ROS has no checkpoint/controller loading parameter. Keep scripted_baseline separate from historical reference+PPO 5/5."
+    },
+    {
+      "location": "README.md:465, 512, 653, 786, 1046, 1075",
+      "finding": "Source-PYTHONPATH commands elsewhere are historical or optional standalone training/evaluation workflows, not the installed ROS acceptance procedure.",
+      "minimal_update": "Do not run or copy those source-path workarounds into this round. State that the new acceptance uses only source-generated ROS underlay/overlay paths; avoid rewriting unrelated historical evidence."
+    }
+  ],
+  "system_prerequisites_to_name": {
+    "ubuntu_archive": [
+      "git",
+      "ca-certificates",
+      "python3",
+      "python3-venv (and python3.12-venv)",
+      "python3-pip",
+      "python3-setuptools",
+      "python3-numpy",
+      "python3-pil",
+      "python3-matplotlib",
+      "libosmesa6 for MUJOCO_GL=osmesa regression/render tests"
+    ],
+    "ros_repository": [
+      "python3-colcon-common-extensions (includes colcon-core, colcon-ros, python-setup-py, package-information/list, package-selection)",
+      "ROS 2 Jazzy under /opt/ros/jazzy, e.g. ros-jazzy-ros-base",
+      "ros-jazzy-rmw-fastrtps-cpp",
+      "ROS CLI extensions, rclpy, interfaces, launch/launch_ros and ament_index_python listed in observed package inventory"
+    ],
+    "inherited_compatibility_note": "python3-nacl is an existing shared-site package whose cffi requirement motivates the declared cffi pin; do not silently call it a newly installed project requirement.",
+    "package_name_corrections": [
+      "There is no installed/matching ros-jazzy-ament-python or python3-colcon-list. ament_python is the package build type handled by colcon; the list verb belongs to python3-colcon-package-information."
+    ],
+    "permission_note": "Packages are read-only prerequisites during this task. Missing system packages would require authorized apt installation; do not auto-upgrade/install, sudo pip, or replace shared packages."
+  },
+  "observed_packages": [
+    {
+      "package": "ca-certificates",
+      "version": "20260601~24.04.1",
+      "status": "install ok installed"
+    },
+    {
+      "package": "git",
+      "version": "1:2.43.0-1ubuntu7.3",
+      "status": "install ok installed"
+    },
+    {
+      "package": "libosmesa6:arm64",
+      "version": "25.1.7-1ubuntu2~24.04.2",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3",
+      "version": "3.12.3-0ubuntu2.1",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-colcon-common-extensions",
+      "version": "0.3.0-100",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-colcon-core",
+      "version": "0.21.3+upstream-1",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-colcon-package-information",
+      "version": "0.4.1+upstream-1",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-colcon-package-selection",
+      "version": "0.2.10-100",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-colcon-python-setup-py",
+      "version": "0.2.9-100",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-colcon-ros",
+      "version": "0.5.0+upstream-1",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-matplotlib",
+      "version": "3.6.3-1ubuntu5",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-nacl",
+      "version": "1.5.0-4build1",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-numpy",
+      "version": "1:1.26.4+ds-6ubuntu1",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-pil:arm64",
+      "version": "10.2.0-1ubuntu1.3",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-pip",
+      "version": "24.0+dfsg-1ubuntu1.3",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-setuptools",
+      "version": "68.1.2-2ubuntu1.2",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3-venv",
+      "version": "3.12.3-0ubuntu2.1",
+      "status": "install ok installed"
+    },
+    {
+      "package": "python3.12-venv",
+      "version": "3.12.3-1ubuntu0.17",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-ament-index-python",
+      "version": "1.8.4-1noble.20260519.010838",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-launch",
+      "version": "3.4.11-1noble.20260603.145505",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-launch-ros",
+      "version": "0.26.12-1noble.20260902.154014",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-rcl-interfaces",
+      "version": "2.0.4-1noble.20260902.020605",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-rclpy",
+      "version": "7.1.12-1noble.20260902.143245",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-rmw-fastrtps-cpp",
+      "version": "8.4.4-1noble.20260902.140744",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-ros-base",
+      "version": "0.11.0-1noble.20260903.024458",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-ros2cli",
+      "version": "0.32.12-1noble.20260902.144000",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-ros2launch",
+      "version": "0.26.12-1noble.20260902.193429",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-ros2node",
+      "version": "0.32.12-1noble.20260902.144125",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-ros2pkg",
+      "version": "0.32.12-1noble.20260902.145820",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-ros2service",
+      "version": "0.32.12-1noble.20260902.145934",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-ros2topic",
+      "version": "0.32.12-1noble.20260902.145823",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-sensor-msgs",
+      "version": "5.3.8-1noble.20260902.133401",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-std-msgs",
+      "version": "5.3.8-1noble.20260902.021305",
+      "status": "install ok installed"
+    },
+    {
+      "package": "ros-jazzy-std-srvs",
+      "version": "5.3.8-1noble.20260902.131258",
+      "status": "install ok installed"
+    }
+  ],
+  "observed_sources": {
+    "python3-numpy": "http://ports.ubuntu.com/ubuntu-ports noble/main",
+    "python3-pil": "http://ports.ubuntu.com/ubuntu-ports noble-updates/main or noble-security/main",
+    "python3-matplotlib": "http://ports.ubuntu.com/ubuntu-ports noble/universe",
+    "libosmesa6": "http://ports.ubuntu.com/ubuntu-ports noble-updates/main or noble-security/main",
+    "python3-colcon-common-extensions": "http://packages.ros.org/ros2/ubuntu noble/main",
+    "ros-jazzy-rclpy": "http://packages.ros.org/ros2/ubuntu noble/main",
+    "caveat": "apt-cache policy records current package-source metadata, not a fresh system install or all package origins."
+  },
+  "recommended_fresh_setup_shape": [
+    "mktemp new ACCEPT_ROOT; create its home/evidence and enter env -i bash --noprofile --norc with whitelist fields.",
+    "git clone GitHub project into ACCEPT_ROOT/repository; detached checkout exact requested commit; capture status/hash.",
+    "Set WS, PYTHONNOUSERSITE=1, PIP_CONFIG_FILE=/dev/null; source /opt/ros/jazzy/setup.bash; create project .venv using /usr/bin/python3 --system-site-packages.",
+    "Install exact README Torch CPU pin and requirements using binary-only package indexes; pip check and provenance capture.",
+    "Set X2_ASSET_REPO under ACCEPT_ROOT/assets; git clone --filter=blob:none --no-checkout official model; sparse-checkout X2_URDF-v1.3.0; detach 60c5de582c523cd188f563819e62d34cfdc3d2d0.",
+    "Use PY to invoke /usr/bin/colcon with new build/install/log; source install/setup.bash; verify shebang, modules and ament prefix from /tmp.",
+    "Run separate regression and explicit existing cross-process runner with fresh evidence paths and real command exit codes."
+  ],
+  "retest_requirement": "If documentation/declaration fixes change the setup protocol, preserve first attempt and run corrected instructions in another new directory and venv, recording base commit plus patch identity; do not claim original README passed verbatim."
+}

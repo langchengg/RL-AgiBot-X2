@@ -1,0 +1,4 @@
++ 1790166083.238388 cwd=/tmp git clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git /tmp/x2-final-ros.zvwycfdg/repository
+Cloning into '/tmp/x2-final-ros.zvwycfdg/repository'...
+error: RPC failed; curl 35 GnuTLS recv error (-110): The TLS connection was non-properly terminated.
+fatal: expected 'packfile'

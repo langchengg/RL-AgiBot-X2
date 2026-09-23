@@ -1,0 +1,737 @@
+[
+  {
+    "label": "01-clone",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/01-clone.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/01-clone.sh",
+    "script_text": "set -eo pipefail\ngit clone https://github.com/langchengg/RL-AgiBot-X2.git \"$WS\"\ncd \"$WS\"\ngit checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908\ngit rev-parse HEAD\ngit rev-parse origin/main\ngit status --short\nuname -a\ncat /etc/os-release\nsystemd-detect-virt\ndf -h /tmp\nfree -h\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:14:22.133965+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/01-clone.log",
+    "pid": 8651,
+    "exit_code": 128,
+    "end": "2026-09-23T12:15:59.422873+00:00",
+    "wall_s": 97.28891517200003,
+    "shell_steps": [],
+    "evidence_log": "01-clone.log"
+  },
+  {
+    "label": "02-prerequisites",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/02-prerequisites.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/02-prerequisites.sh",
+    "script_text": "set -eo pipefail\npython3 - <<'INNER'\nimport os,sys,json,platform\nfields=['PATH','PYTHONPATH','VIRTUAL_ENV','AMENT_PREFIX_PATH','COLCON_PREFIX_PATH','CMAKE_PREFIX_PATH','LD_LIBRARY_PATH','PYTHONNOUSERSITE','PIP_CONFIG_FILE','ROS_DISTRO','ROS_DOMAIN_ID','RMW_IMPLEMENTATION','X2_ASSET_REPO']\nprint(json.dumps({'stage':'before_source','executable':sys.executable,'prefix':sys.prefix,'base_prefix':sys.base_prefix,'sys_path':sys.path,'environment':{k:os.environ.get(k) for k in fields}},indent=2))\nINNER\nsource /opt/ros/jazzy/setup.bash\npython3 - <<'INNER'\nimport os,sys,json,importlib.metadata,importlib\nfields=['PATH','PYTHONPATH','VIRTUAL_ENV','AMENT_PREFIX_PATH','COLCON_PREFIX_PATH','CMAKE_PREFIX_PATH','LD_LIBRARY_PATH','PYTHONNOUSERSITE','PIP_CONFIG_FILE','ROS_DISTRO','ROS_DOMAIN_ID','RMW_IMPLEMENTATION','X2_ASSET_REPO']\nprint(json.dumps({'stage':'after_ros_source','executable':sys.executable,'prefix':sys.prefix,'base_prefix':sys.base_prefix,'sys_path':sys.path,'environment':{k:os.environ.get(k) for k in fields}},indent=2))\nfor name in ['rclpy','numpy','PIL','matplotlib','setuptools','colcon_core','ament_package','venv','pip']:\n try:\n  m=importlib.import_module(name);print(name,getattr(m,'__version__',None),m.__file__)\n except Exception as e: print(name,type(e).__name__,str(e))\nINNER\ndpkg-query -W -f='${binary:Package} ${Version} ${Architecture} ${db:Status-Status}\\n' python3 python3-venv python3-pip python3-setuptools python3-colcon-common-extensions python3-numpy python3-pil python3-matplotlib python3-cffi python3-nacl libosmesa6 ros-jazzy-ros-base ros-jazzy-rclpy ros-jazzy-sensor-msgs ros-jazzy-std-msgs ros-jazzy-std-srvs ros-jazzy-launch-ros ros-jazzy-rmw-fastrtps-cpp\napt-cache policy python3 python3-venv python3-pip python3-setuptools python3-colcon-common-extensions python3-numpy python3-pil python3-matplotlib libosmesa6 ros-jazzy-rclpy ros-jazzy-rmw-fastrtps-cpp\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:15:14.255897+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/02-prerequisites.log",
+    "pid": 8981,
+    "exit_code": 1,
+    "end": "2026-09-23T12:15:14.579745+00:00",
+    "wall_s": 0.323849207999956,
+    "shell_steps": [],
+    "evidence_log": "02-prerequisites.log"
+  },
+  {
+    "label": "03-model-download",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/03-model-download.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/03-model-download.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nmkdir -p \"$ACCEPT_ROOT/assets\"\ngit clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git \"$X2_ASSET_REPO\"\ngit -C \"$X2_ASSET_REPO\" sparse-checkout set X2_URDF-v1.3.0\ngit -C \"$X2_ASSET_REPO\" checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0\ngit -C \"$X2_ASSET_REPO\" rev-parse HEAD\ngit -C \"$X2_ASSET_REPO\" status --short\nfind \"$X2_ASSET_REPO\" -maxdepth 2 -iname '*license*' -print\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:16:04.606794+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/03-model-download.log",
+    "pid": 9335,
+    "exit_code": 0,
+    "end": "2026-09-23T12:17:21.968303+00:00",
+    "wall_s": 77.36150503599998,
+    "shell_steps": [],
+    "evidence_log": "03-model-download.log"
+  },
+  {
+    "label": "04-clone-retry-shallow",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/04-clone-retry-shallow.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/04-clone-retry-shallow.sh",
+    "script_text": "set -eo pipefail\ngit clone --depth 1 https://github.com/langchengg/RL-AgiBot-X2.git \"$WS\"\ncd \"$WS\"\ngit checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908\ngit rev-parse HEAD\ngit rev-parse origin/main\ngit status --short\nuname -a\ncat /etc/os-release\nsystemd-detect-virt\ndf -h /tmp\nfree -h\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:16:43.747207+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/04-clone-retry-shallow.log",
+    "pid": 9559,
+    "exit_code": 128,
+    "end": "2026-09-23T12:20:32.447048+00:00",
+    "wall_s": 228.69985673399998,
+    "shell_steps": [],
+    "evidence_log": "04-clone-retry-shallow.log"
+  },
+  {
+    "label": "05-system-origins",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/05-system-origins.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/05-system-origins.sh",
+    "script_text": "set -eo pipefail\napt-cache policy python3 python3-venv python3-pip python3-setuptools python3-colcon-common-extensions python3-numpy python3-pil python3-matplotlib libosmesa6 ros-jazzy-rclpy ros-jazzy-rmw-fastrtps-cpp\n# python3-cffi was an inventory query, not a required apt package: requirements installs cffi in the venv.\ndpkg-query -W -f='${binary:Package} ${Version} ${Architecture} ${db:Status-Status}\\n' python3-cffi-backend python3-colcon-core python3-colcon-python-setup-py python3-colcon-ros ros-jazzy-ament-package ros-jazzy-ament-index-python ros-jazzy-rcl-interfaces\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:17:36.103293+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/05-system-origins.log",
+    "pid": 10059,
+    "exit_code": 0,
+    "end": "2026-09-23T12:17:36.140321+00:00",
+    "wall_s": 0.03702995900005135,
+    "shell_steps": [],
+    "evidence_log": "05-system-origins.log"
+  },
+  {
+    "label": "06-clone-retry-filtered",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/06-clone-retry-filtered.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/06-clone-retry-filtered.sh",
+    "script_text": "set -eo pipefail\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ngit clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git \"$WS\"\ngit -C \"$WS\" sparse-checkout set src\ngit -C \"$WS\" checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908\ncd \"$WS\"\ngit rev-parse HEAD\ngit rev-parse origin/main\ngit status --short\ngit sparse-checkout list\nuname -a\ncat /etc/os-release\nsystemd-detect-virt\ndf -h /tmp\nfree -h\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:21:23.237585+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/06-clone-retry-filtered.log",
+    "pid": 11639,
+    "exit_code": 128,
+    "end": "2026-09-23T12:21:30.174970+00:00",
+    "wall_s": 6.937406753000005,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166083.238388,
+        "cwd": "/tmp",
+        "expanded_command": "git clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git /tmp/x2-final-ros.zvwycfdg/repository"
+      }
+    ],
+    "evidence_log": "06-clone-retry-filtered.log"
+  },
+  {
+    "label": "07-clone-retry-http1",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/07-clone-retry-http1.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/07-clone-retry-http1.sh",
+    "script_text": "set -eo pipefail\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ngit -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git \"$WS\"\ngit -C \"$WS\" -c http.version=HTTP/1.1 sparse-checkout set src\ngit -C \"$WS\" -c http.version=HTTP/1.1 checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908\ncd \"$WS\"\ngit rev-parse HEAD\ngit rev-parse origin/main\ngit status --short\ngit sparse-checkout list\nuname -a\ncat /etc/os-release\nsystemd-detect-virt\ndf -h /tmp\nfree -h\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:23:01.769372+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/07-clone-retry-http1.log",
+    "pid": 12172,
+    "exit_code": 0,
+    "end": "2026-09-23T12:23:16.314908+00:00",
+    "wall_s": 14.545543589999966,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166181.770302,
+        "cwd": "/tmp",
+        "expanded_command": "git -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git /tmp/x2-final-ros.zvwycfdg/repository"
+      },
+      {
+        "unix_time_s": 1790166189.106622,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.zvwycfdg/repository -c http.version=HTTP/1.1 sparse-checkout set src"
+      },
+      {
+        "unix_time_s": 1790166189.10812,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.zvwycfdg/repository -c http.version=HTTP/1.1 checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908"
+      },
+      {
+        "unix_time_s": 1790166196.304245,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.zvwycfdg/repository"
+      },
+      {
+        "unix_time_s": 1790166196.304277,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "git rev-parse HEAD"
+      },
+      {
+        "unix_time_s": 1790166196.305203,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "git rev-parse origin/main"
+      },
+      {
+        "unix_time_s": 1790166196.305967,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "git status --short"
+      },
+      {
+        "unix_time_s": 1790166196.30931,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "git sparse-checkout list"
+      },
+      {
+        "unix_time_s": 1790166196.31011,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "uname -a"
+      },
+      {
+        "unix_time_s": 1790166196.310632,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "cat /etc/os-release"
+      },
+      {
+        "unix_time_s": 1790166196.311216,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "systemd-detect-virt"
+      },
+      {
+        "unix_time_s": 1790166196.31325,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "df -h /tmp"
+      },
+      {
+        "unix_time_s": 1790166196.313913,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "free -h"
+      }
+    ],
+    "evidence_log": "07-clone-retry-http1.log"
+  },
+  {
+    "label": "08-cli-help-domain",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/08-cli-help-domain.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/08-cli-help-domain.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\nros2 topic echo --help\nros2 node list --help\nros2 service call --help\n/usr/bin/python3 - <<'INNER'\nimport json,os,time,rclpy\nfrom rclpy.utilities import get_rmw_implementation_identifier\nfrom ros2cli.node.daemon import is_daemon_running\nfrom types import SimpleNamespace\nfrom pathlib import Path\nreport={'domain':os.environ['ROS_DOMAIN_ID'],'rmw':get_rmw_implementation_identifier(),'discovery':os.environ['ROS_AUTOMATIC_DISCOVERY_RANGE'],'daemon_already_running':is_daemon_running(SimpleNamespace())}\nrclpy.init();node=rclpy.create_node('x2_domain_preflight')\ntry:\n end=time.monotonic()+4\n while time.monotonic()<end:rclpy.spin_once(node,timeout_sec=.1)\n report['nodes']=node.get_node_names_and_namespaces();report['services']=node.get_service_names_and_types();report['topics']=node.get_topic_names_and_types()\n report['status_publishers']=len(node.get_publishers_info_by_topic('/x2/recovery_status'));report['joint_publishers']=len(node.get_publishers_info_by_topic('/x2/joint_states'))\n report['conflict']=any(n in ['recovery_node','telemetry_node'] for n,_ in report['nodes']) or any(n=='/x2/start_recovery' for n,_ in report['services']) or report['status_publishers']>0 or report['joint_publishers']>0\n Path(os.environ['ACCEPT_ROOT'],'evidence','domain-preflight.json').write_text(json.dumps(report,indent=2)+'\\n')\n print(json.dumps(report,indent=2));assert not report['conflict']\nfinally:node.destroy_node();rclpy.shutdown()\nINNER\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:23:41.886264+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/08-cli-help-domain.log",
+    "pid": 12364,
+    "exit_code": 0,
+    "end": "2026-09-23T12:23:46.970175+00:00",
+    "wall_s": 5.083927585999959,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166221.956189,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 topic echo --help"
+      },
+      {
+        "unix_time_s": 1790166222.24911,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 node list --help"
+      },
+      {
+        "unix_time_s": 1790166222.42333,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 service call --help"
+      },
+      {
+        "unix_time_s": 1790166222.597568,
+        "cwd": "/tmp",
+        "expanded_command": "/usr/bin/python3 -"
+      }
+    ],
+    "evidence_log": "08-cli-help-domain.log"
+  },
+  {
+    "label": "09-venv-torch",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/09-venv-torch.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/09-venv-torch.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd \"$WS\"\n/usr/bin/python3 -m venv --system-site-packages .venv\ntouch .venv/COLCON_IGNORE\ncat .venv/pyvenv.cfg\n\"$PY\" -m pip install --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu 'torch==2.8.0+cpu'\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:23:58.740548+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/09-venv-torch.log",
+    "pid": 12515,
+    "exit_code": 0,
+    "end": "2026-09-23T12:26:33.297411+00:00",
+    "wall_s": 154.55686615699994,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166238.807833,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.zvwycfdg/repository"
+      },
+      {
+        "unix_time_s": 1790166238.807867,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "/usr/bin/python3 -m venv --system-site-packages .venv"
+      },
+      {
+        "unix_time_s": 1790166239.938849,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "touch .venv/COLCON_IGNORE"
+      },
+      {
+        "unix_time_s": 1790166239.939514,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "cat .venv/pyvenv.cfg"
+      },
+      {
+        "unix_time_s": 1790166239.940088,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python -m pip install --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu torch==2.8.0+cpu"
+      }
+    ],
+    "evidence_log": "09-venv-torch.log"
+  },
+  {
+    "label": "10-requirements",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/10-requirements.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/10-requirements.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd \"$WS\"\n\"$PY\" -m pip install --only-binary=:all: --index-url https://pypi.org/simple -r requirements.txt\n\"$PY\" -m pip check\n\"$PY\" -m pip freeze --all > \"$ACCEPT_ROOT/evidence/python-packages.txt\"\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:27:02.991677+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/10-requirements.log",
+    "pid": 13763,
+    "exit_code": 0,
+    "end": "2026-09-23T12:29:07.059192+00:00",
+    "wall_s": 124.06752147600014,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166423.059443,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.zvwycfdg/repository"
+      },
+      {
+        "unix_time_s": 1790166423.059483,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python -m pip install --only-binary=:all: --index-url https://pypi.org/simple -r requirements.txt"
+      },
+      {
+        "unix_time_s": 1790166546.410801,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python -m pip check"
+      },
+      {
+        "unix_time_s": 1790166546.811854,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python -m pip freeze --all"
+      }
+    ],
+    "evidence_log": "10-requirements.log"
+  },
+  {
+    "label": "11-build",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/11-build.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/11-build.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd \"$WS\"\ntest ! -e \"$ACCEPT_ROOT/build\"\ntest ! -e \"$ACCEPT_ROOT/install\"\ntest ! -e \"$ACCEPT_ROOT/log\"\n\"$PY\" /usr/bin/colcon list --base-paths src\n\"$PY\" /usr/bin/colcon --log-base \"$ACCEPT_ROOT/log\" build --base-paths src --packages-select x2_recovery --symlink-install --build-base \"$ACCEPT_ROOT/build\" --install-base \"$ACCEPT_ROOT/install\"\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:29:18.868753+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/11-build.log",
+    "pid": 14658,
+    "exit_code": 0,
+    "end": "2026-09-23T12:29:19.954267+00:00",
+    "wall_s": 1.0855177509999976,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166558.936506,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.zvwycfdg/repository"
+      },
+      {
+        "unix_time_s": 1790166558.936546,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "test '!' -e /tmp/x2-final-ros.zvwycfdg/build"
+      },
+      {
+        "unix_time_s": 1790166558.93656,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "test '!' -e /tmp/x2-final-ros.zvwycfdg/install"
+      },
+      {
+        "unix_time_s": 1790166558.936566,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "test '!' -e /tmp/x2-final-ros.zvwycfdg/log"
+      },
+      {
+        "unix_time_s": 1790166558.936574,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python /usr/bin/colcon list --base-paths src"
+      },
+      {
+        "unix_time_s": 1790166559.08354,
+        "cwd": "/tmp/x2-final-ros.zvwycfdg/repository",
+        "expanded_command": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python /usr/bin/colcon --log-base /tmp/x2-final-ros.zvwycfdg/log build --base-paths src --packages-select x2_recovery --symlink-install --build-base /tmp/x2-final-ros.zvwycfdg/build --install-base /tmp/x2-final-ros.zvwycfdg/install"
+      }
+    ],
+    "evidence_log": "11-build.log"
+  },
+  {
+    "label": "12-runtime-identity",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/12-runtime-identity.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/12-runtime-identity.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nsource \"$ACCEPT_ROOT/install/setup.bash\"\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd /tmp\nros2 pkg prefix x2_recovery\nros2 pkg executables x2_recovery\nhead -1 \"$ACCEPT_ROOT/install/x2_recovery/lib/x2_recovery/recovery_node\"\nhead -1 \"$ACCEPT_ROOT/install/x2_recovery/lib/x2_recovery/telemetry_node\"\n\"$PY\" \"$ACCEPT_ROOT/evidence/capture-identity.py\"\nros2 launch x2_recovery recovery.launch.py --show-args\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:29:34.152837+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/12-runtime-identity.log",
+    "pid": 14780,
+    "exit_code": 0,
+    "end": "2026-09-23T12:29:36.835464+00:00",
+    "wall_s": 2.6826571260000946,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166574.303474,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp"
+      },
+      {
+        "unix_time_s": 1790166574.303503,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 pkg prefix x2_recovery"
+      },
+      {
+        "unix_time_s": 1790166574.409553,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 pkg executables x2_recovery"
+      },
+      {
+        "unix_time_s": 1790166574.509802,
+        "cwd": "/tmp",
+        "expanded_command": "head -1 /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node"
+      },
+      {
+        "unix_time_s": 1790166574.510426,
+        "cwd": "/tmp",
+        "expanded_command": "head -1 /tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/telemetry_node"
+      },
+      {
+        "unix_time_s": 1790166574.511029,
+        "cwd": "/tmp",
+        "expanded_command": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python /tmp/x2-final-ros.zvwycfdg/evidence/capture-identity.py"
+      },
+      {
+        "unix_time_s": 1790166576.645305,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 launch x2_recovery recovery.launch.py --show-args"
+      }
+    ],
+    "evidence_log": "12-runtime-identity.log"
+  },
+  {
+    "label": "13-integration",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/13-integration.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/13-integration.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nsource \"$ACCEPT_ROOT/install/setup.bash\"\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd /tmp\ntimeout --signal=INT --kill-after=15s 240s \"$PY\" \"$WS/src/x2_recovery/test/test_ros_integration.py\" --output-dir \"$ACCEPT_ROOT/evidence/integration\"\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:29:58.826794+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/13-integration.log",
+    "pid": 15040,
+    "exit_code": 0,
+    "end": "2026-09-23T12:30:59.563276+00:00",
+    "wall_s": 60.73649852900007,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166598.993461,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp"
+      },
+      {
+        "unix_time_s": 1790166598.993509,
+        "cwd": "/tmp",
+        "expanded_command": "timeout --signal=INT --kill-after=15s 240s /tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python /tmp/x2-final-ros.zvwycfdg/repository/src/x2_recovery/test/test_ros_integration.py --output-dir /tmp/x2-final-ros.zvwycfdg/evidence/integration"
+      }
+    ],
+    "evidence_log": "13-integration.log"
+  },
+  {
+    "label": "14-regression",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/14-regression.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/14-regression.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nsource \"$ACCEPT_ROOT/install/setup.bash\"\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd /tmp\nMUJOCO_GL=osmesa timeout --signal=INT --kill-after=15s 300s \"$PY\" -m unittest discover -s \"$WS/src/x2_recovery/test\" -v\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:32:16.463660+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/14-regression.log",
+    "pid": 16299,
+    "exit_code": 0,
+    "end": "2026-09-23T12:33:42.865796+00:00",
+    "wall_s": 86.40219199900002,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166736.61632,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp"
+      },
+      {
+        "unix_time_s": 1790166736.616363,
+        "cwd": "/tmp",
+        "expanded_command": "MUJOCO_GL=osmesa"
+      },
+      {
+        "unix_time_s": 1790166736.616366,
+        "cwd": "/tmp",
+        "expanded_command": "timeout --signal=INT --kill-after=15s 300s /tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python -m unittest discover -s /tmp/x2-final-ros.zvwycfdg/repository/src/x2_recovery/test -v"
+      }
+    ],
+    "evidence_log": "14-regression.log"
+  },
+  {
+    "label": "15-postflight",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.zvwycfdg/evidence/15-postflight.sh"
+    ],
+    "script": "/tmp/x2-final-ros.zvwycfdg/evidence/15-postflight.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nsource \"$ACCEPT_ROOT/install/setup.bash\"\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd /tmp\n\"$PY\" \"$ACCEPT_ROOT/evidence/postflight.py\"\ngit -C \"$WS\" status --short\ngit -C \"$X2_ASSET_REPO\" status --short\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.zvwycfdg/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.zvwycfdg",
+      "WS": "/tmp/x2-final-ros.zvwycfdg/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:35:10.828897+00:00",
+    "log": "/tmp/x2-final-ros.zvwycfdg/evidence/15-postflight.log",
+    "pid": 26309,
+    "exit_code": 0,
+    "end": "2026-09-23T12:35:15.474610+00:00",
+    "wall_s": 4.645726460999867,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166911.015233,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp"
+      },
+      {
+        "unix_time_s": 1790166911.015273,
+        "cwd": "/tmp",
+        "expanded_command": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python /tmp/x2-final-ros.zvwycfdg/evidence/postflight.py"
+      },
+      {
+        "unix_time_s": 1790166915.421277,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.zvwycfdg/repository status --short"
+      },
+      {
+        "unix_time_s": 1790166915.42454,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.zvwycfdg/assets/agibot_x2_urdf status --short"
+      }
+    ],
+    "evidence_log": "15-postflight.log"
+  }
+]

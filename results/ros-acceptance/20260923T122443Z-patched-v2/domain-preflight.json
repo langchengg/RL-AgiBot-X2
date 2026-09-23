@@ -1,0 +1,73 @@
+{
+  "domain": "86",
+  "rmw": "rmw_fastrtps_cpp",
+  "discovery": "LOCALHOST",
+  "daemon_already_running": false,
+  "nodes": [
+    [
+      "x2_domain_preflight",
+      "/"
+    ]
+  ],
+  "services": [
+    [
+      "/x2_domain_preflight/describe_parameters",
+      [
+        "rcl_interfaces/srv/DescribeParameters"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/get_parameter_types",
+      [
+        "rcl_interfaces/srv/GetParameterTypes"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/get_parameters",
+      [
+        "rcl_interfaces/srv/GetParameters"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/get_type_description",
+      [
+        "type_description_interfaces/srv/GetTypeDescription"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/list_parameters",
+      [
+        "rcl_interfaces/srv/ListParameters"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/set_parameters",
+      [
+        "rcl_interfaces/srv/SetParameters"
+      ]
+    ],
+    [
+      "/x2_domain_preflight/set_parameters_atomically",
+      [
+        "rcl_interfaces/srv/SetParametersAtomically"
+      ]
+    ]
+  ],
+  "topics": [
+    [
+      "/parameter_events",
+      [
+        "rcl_interfaces/msg/ParameterEvent"
+      ]
+    ],
+    [
+      "/rosout",
+      [
+        "rcl_interfaces/msg/Log"
+      ]
+    ]
+  ],
+  "status_publishers": 0,
+  "joint_publishers": 0,
+  "conflict": false
+}

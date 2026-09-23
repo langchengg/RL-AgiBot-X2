@@ -1,0 +1,11 @@
++ 1790166541.956503 cwd=/tmp timeout --signal=INT --kill-after=10s 120s git -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1024 -c http.lowSpeedTime=30 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git /tmp/x2-final-ros.pukricvy/repository
+Cloning into '/tmp/x2-final-ros.pukricvy/repository'...
++ 1790166548.449263 cwd=/tmp git -C /tmp/x2-final-ros.pukricvy/repository sparse-checkout set src
++ 1790166548.450963 cwd=/tmp timeout --signal=INT --kill-after=10s 120s git -C /tmp/x2-final-ros.pukricvy/repository -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1024 -c http.lowSpeedTime=30 checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908
+HEAD is now at 71037f7 docs: record clean checkout publication validation
++ 1790166555.430856 cwd=/tmp cd /tmp/x2-final-ros.pukricvy/repository
++ 1790166555.430884 cwd=/tmp/x2-final-ros.pukricvy/repository git rev-parse HEAD
+71037f7d5530a65da220345f9037ac4d29f32908
++ 1790166555.431823 cwd=/tmp/x2-final-ros.pukricvy/repository git rev-parse origin/main
+71037f7d5530a65da220345f9037ac4d29f32908
++ 1790166555.432535 cwd=/tmp/x2-final-ros.pukricvy/repository git status --short

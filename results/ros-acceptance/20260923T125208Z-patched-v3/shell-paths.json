@@ -1,0 +1,58 @@
+[
+  {
+    "stage": "clean_before_source",
+    "executable": "/usr/bin/python3",
+    "prefix": "/usr",
+    "sys_path": [
+      "",
+      "/usr/lib/python312.zip",
+      "/usr/lib/python3.12",
+      "/usr/lib/python3.12/lib-dynload",
+      "/usr/local/lib/python3.12/dist-packages",
+      "/usr/lib/python3/dist-packages"
+    ],
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "PYTHONPATH": null,
+      "VIRTUAL_ENV": null,
+      "AMENT_PREFIX_PATH": null,
+      "COLCON_PREFIX_PATH": null,
+      "CMAKE_PREFIX_PATH": null,
+      "LD_LIBRARY_PATH": null,
+      "ROS_DISTRO": null,
+      "X2_ASSET_REPO": null,
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    }
+  },
+  {
+    "stage": "after_ros_source",
+    "executable": "/usr/bin/python3",
+    "prefix": "/usr",
+    "sys_path": [
+      "",
+      "/opt/ros/jazzy/opt/gz_math_vendor/lib/python",
+      "/opt/ros/jazzy/lib/python3.12/site-packages",
+      "/usr/lib/python312.zip",
+      "/usr/lib/python3.12",
+      "/usr/lib/python3.12/lib-dynload",
+      "/usr/local/lib/python3.12/dist-packages",
+      "/usr/lib/python3/dist-packages"
+    ],
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.z4vmp3sx/home",
+      "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "PYTHONPATH": "/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+      "VIRTUAL_ENV": null,
+      "AMENT_PREFIX_PATH": "/opt/ros/jazzy",
+      "COLCON_PREFIX_PATH": null,
+      "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+      "LD_LIBRARY_PATH": "/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib",
+      "ROS_DISTRO": "jazzy",
+      "X2_ASSET_REPO": null,
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    }
+  }
+]

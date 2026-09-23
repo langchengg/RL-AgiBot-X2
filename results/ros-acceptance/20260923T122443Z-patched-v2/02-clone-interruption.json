@@ -1,0 +1,6 @@
+{
+  "action": "SIGINT owned download process group",
+  "pgid": 13032,
+  "time_unix_s": 1790166527.320265,
+  "reason": "No pack transfer progress after over 180 seconds; retain attempt and use bounded network retry"
+}

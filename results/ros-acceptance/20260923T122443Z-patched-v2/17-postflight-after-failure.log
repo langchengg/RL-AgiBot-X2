@@ -1,0 +1,67 @@
++ 1790167879.852320 cwd=/tmp cd /tmp
++ 1790167879.852370 cwd=/tmp /tmp/x2-final-ros.pukricvy/repository/.venv/bin/python /tmp/x2-final-ros.pukricvy/evidence/postflight.py
+{
+  "date": "2026-09-23T12:51:24.027797+00:00",
+  "domain": "86",
+  "rmw": "rmw_fastrtps_cpp",
+  "owned_runtime_processes": [],
+  "nodes": [
+    [
+      "x2_final_postflight",
+      "/"
+    ]
+  ],
+  "services": [
+    [
+      "/x2_final_postflight/describe_parameters",
+      [
+        "rcl_interfaces/srv/DescribeParameters"
+      ]
+    ],
+    [
+      "/x2_final_postflight/get_parameter_types",
+      [
+        "rcl_interfaces/srv/GetParameterTypes"
+      ]
+    ],
+    [
+      "/x2_final_postflight/get_parameters",
+      [
+        "rcl_interfaces/srv/GetParameters"
+      ]
+    ],
+    [
+      "/x2_final_postflight/get_type_description",
+      [
+        "type_description_interfaces/srv/GetTypeDescription"
+      ]
+    ],
+    [
+      "/x2_final_postflight/list_parameters",
+      [
+        "rcl_interfaces/srv/ListParameters"
+      ]
+    ],
+    [
+      "/x2_final_postflight/set_parameters",
+      [
+        "rcl_interfaces/srv/SetParameters"
+      ]
+    ],
+    [
+      "/x2_final_postflight/set_parameters_atomically",
+      [
+        "rcl_interfaces/srv/SetParametersAtomically"
+      ]
+    ]
+  ],
+  "status_publishers": 0,
+  "joint_publishers": 0,
+  "daemon_running": false,
+  "no_residual_business_graph": true,
+  "result": "PASS"
+}
++ 1790167884.155534 cwd=/tmp git -C /tmp/x2-final-ros.pukricvy/repository status --short
+ M README.md
+ M src/x2_recovery/test/test_ros_integration.py
++ 1790167884.156944 cwd=/tmp git -C /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf status --short

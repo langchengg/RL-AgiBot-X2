@@ -1,0 +1,6 @@
++ 1790167928.894427 cwd=/tmp timeout --signal=INT --kill-after=10s 120s git -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1 -c http.lowSpeedTime=30 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git /tmp/x2-final-ros.z4vmp3sx/repository
+Cloning into '/tmp/x2-final-ros.z4vmp3sx/repository'...
++ 1790167934.484793 cwd=/tmp timeout --signal=INT --kill-after=10s 120s git -C /tmp/x2-final-ros.z4vmp3sx/repository -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1 -c http.lowSpeedTime=30 sparse-checkout set src
++ 1790167934.487442 cwd=/tmp timeout --signal=INT --kill-after=10s 120s git -C /tmp/x2-final-ros.z4vmp3sx/repository -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1 -c http.lowSpeedTime=30 checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908
+fatal: unable to access 'https://github.com/langchengg/RL-AgiBot-X2.git/': gnutls_handshake() failed: The TLS connection was non-properly terminated.
+fatal: could not fetch ed550856c976eeb64810b144a1897381c490dc1a from promisor remote

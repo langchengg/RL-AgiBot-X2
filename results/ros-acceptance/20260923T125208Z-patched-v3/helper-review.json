@@ -1,0 +1,279 @@
+{
+  "scope": "Executed summarizer against complete root1/root2 logs with all writes intercepted in memory; no evidence or README files changed; writer only py_compile checked.",
+  "results": [
+    {
+      "run_id": "20260923T121422Z-release-71037f7",
+      "result": "FAIL",
+      "fresh_dependency_setup": "PASS",
+      "fresh_build": "PASS",
+      "installed_runtime": "PASS",
+      "production_sources_unchanged": true,
+      "regression": {
+        "status": "PASS",
+        "tests": 183,
+        "passed": 183,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "test_seconds": 84.818,
+        "exit_code": 0,
+        "log": "14-regression.log",
+        "scope": "Existing full unittest suite, including bounded physical tests and synthetic PPO optimization fixtures; no successful policy retraining or five-policy evaluation rerun."
+      },
+      "integration": {
+        "explicit_runner_executed": true,
+        "raw_runner_result": "PASS",
+        "checks": 68,
+        "passed": 68,
+        "watchdog_exit_code": 0,
+        "runner_completed": true,
+        "all_required_scenarios_passed": true,
+        "required_scenarios": {
+          "single_launch_two_processes": "PASS",
+          "idle_observed": "PASS",
+          "cli_accept_true": "PASS",
+          "cli_busy_false": "PASS",
+          "same_instance_new_episode": "PASS",
+          "simulation_timeout": "PASS",
+          "wall_timeout": "PASS",
+          "same_snapshot_actual_readback": "PASS",
+          "request_actually_sent_during_reset": "PASS",
+          "busy_during_verified_stepping_interval": "PASS",
+          "late_subscriber": "PASS",
+          "terminal_held_no_more_samples": "PASS",
+          "synthetic_step_fault_ends_request": "PASS",
+          "real_reset_after_synthetic_fault": "PASS",
+          "startup_failures_no_service": "PASS",
+          "model_load_failure": "PASS",
+          "active_ctrl_c_cleanup": "PASS",
+          "close_after_execution_unwound": "PASS"
+        },
+        "summary": "integration/summary.json",
+        "launch_business_child_exits": [
+          {
+            "log": "integration/normal-launch.log",
+            "children": [
+              {
+                "name": "recovery_node-1",
+                "pid": 15076,
+                "returncode": -2
+              },
+              {
+                "name": "telemetry_node-2",
+                "pid": 15077,
+                "returncode": -2
+              }
+            ]
+          },
+          {
+            "log": "integration/wall-launch.log",
+            "children": [
+              {
+                "name": "recovery_node-1",
+                "pid": 15614,
+                "returncode": -2
+              },
+              {
+                "name": "telemetry_node-2",
+                "pid": 15615,
+                "returncode": -2
+              }
+            ]
+          }
+        ],
+        "all_business_child_exit_codes_zero": false,
+        "cleanup": {
+          "date": "2026-09-23T12:35:15.271156+00:00",
+          "domain": "86",
+          "rmw": "rmw_fastrtps_cpp",
+          "owned_runtime_processes": [],
+          "nodes": [
+            [
+              "x2_final_postflight",
+              "/"
+            ]
+          ],
+          "services": [
+            [
+              "/x2_final_postflight/describe_parameters",
+              [
+                "rcl_interfaces/srv/DescribeParameters"
+              ]
+            ],
+            [
+              "/x2_final_postflight/get_parameter_types",
+              [
+                "rcl_interfaces/srv/GetParameterTypes"
+              ]
+            ],
+            [
+              "/x2_final_postflight/get_parameters",
+              [
+                "rcl_interfaces/srv/GetParameters"
+              ]
+            ],
+            [
+              "/x2_final_postflight/get_type_description",
+              [
+                "type_description_interfaces/srv/GetTypeDescription"
+              ]
+            ],
+            [
+              "/x2_final_postflight/list_parameters",
+              [
+                "rcl_interfaces/srv/ListParameters"
+              ]
+            ],
+            [
+              "/x2_final_postflight/set_parameters",
+              [
+                "rcl_interfaces/srv/SetParameters"
+              ]
+            ],
+            [
+              "/x2_final_postflight/set_parameters_atomically",
+              [
+                "rcl_interfaces/srv/SetParametersAtomically"
+              ]
+            ]
+          ],
+          "status_publishers": 0,
+          "joint_publishers": 0,
+          "daemon_running": false,
+          "no_residual_business_graph": true,
+          "result": "PASS"
+        },
+        "success": true
+      }
+    },
+    {
+      "run_id": "20260923T122443Z-patched-v2",
+      "result": "FAIL",
+      "fresh_dependency_setup": "PASS",
+      "fresh_build": "PASS",
+      "installed_runtime": "PASS",
+      "production_sources_unchanged": true,
+      "regression": {
+        "status": "NOT_RUN",
+        "reason": "Cross-process runner failed early; this attempt is not a completed acceptance."
+      },
+      "integration": {
+        "explicit_runner_executed": true,
+        "raw_runner_result": "FAIL",
+        "checks": 4,
+        "passed": 3,
+        "watchdog_exit_code": 1,
+        "runner_completed": true,
+        "all_required_scenarios_passed": false,
+        "required_scenarios": {
+          "single_launch_two_processes": "PASS",
+          "idle_observed": "NOT_RUN",
+          "cli_accept_true": "NOT_RUN",
+          "cli_busy_false": "NOT_RUN",
+          "same_instance_new_episode": "NOT_RUN",
+          "simulation_timeout": "NOT_RUN",
+          "wall_timeout": "NOT_RUN",
+          "same_snapshot_actual_readback": "NOT_RUN",
+          "request_actually_sent_during_reset": "NOT_RUN",
+          "busy_during_verified_stepping_interval": "NOT_RUN",
+          "late_subscriber": "NOT_RUN",
+          "terminal_held_no_more_samples": "NOT_RUN",
+          "synthetic_step_fault_ends_request": "NOT_RUN",
+          "real_reset_after_synthetic_fault": "NOT_RUN",
+          "startup_failures_no_service": "NOT_RUN",
+          "model_load_failure": "NOT_RUN",
+          "active_ctrl_c_cleanup": "NOT_RUN",
+          "close_after_execution_unwound": "NOT_RUN",
+          "business_nodes_discovered": "FAIL",
+          "response_reset_step_order": "NOT_RUN",
+          "audited_busy_no_episode_reset_or_step_mutation": "NOT_RUN",
+          "no_new_sampling_after_audited_terminal": "NOT_RUN",
+          "original_launch_active_ctrl_c_cleanup": "NOT_RUN"
+        },
+        "summary": "integration/summary.json",
+        "launch_business_child_exits": [
+          {
+            "log": "integration/normal-launch.log",
+            "children": [
+              {
+                "name": "recovery_node-1",
+                "pid": 30742,
+                "returncode": 0
+              },
+              {
+                "name": "telemetry_node-2",
+                "pid": 30743,
+                "returncode": 0
+              }
+            ]
+          }
+        ],
+        "all_business_child_exit_codes_zero": true,
+        "cleanup": {
+          "date": "2026-09-23T12:51:24.027797+00:00",
+          "domain": "86",
+          "rmw": "rmw_fastrtps_cpp",
+          "owned_runtime_processes": [],
+          "nodes": [
+            [
+              "x2_final_postflight",
+              "/"
+            ]
+          ],
+          "services": [
+            [
+              "/x2_final_postflight/describe_parameters",
+              [
+                "rcl_interfaces/srv/DescribeParameters"
+              ]
+            ],
+            [
+              "/x2_final_postflight/get_parameter_types",
+              [
+                "rcl_interfaces/srv/GetParameterTypes"
+              ]
+            ],
+            [
+              "/x2_final_postflight/get_parameters",
+              [
+                "rcl_interfaces/srv/GetParameters"
+              ]
+            ],
+            [
+              "/x2_final_postflight/get_type_description",
+              [
+                "type_description_interfaces/srv/GetTypeDescription"
+              ]
+            ],
+            [
+              "/x2_final_postflight/list_parameters",
+              [
+                "rcl_interfaces/srv/ListParameters"
+              ]
+            ],
+            [
+              "/x2_final_postflight/set_parameters",
+              [
+                "rcl_interfaces/srv/SetParameters"
+              ]
+            ],
+            [
+              "/x2_final_postflight/set_parameters_atomically",
+              [
+                "rcl_interfaces/srv/SetParametersAtomically"
+              ]
+            ]
+          ],
+          "status_publishers": 0,
+          "joint_publishers": 0,
+          "daemon_running": false,
+          "no_residual_business_graph": true,
+          "result": "PASS"
+        },
+        "success": false
+      }
+    }
+  ]
+}

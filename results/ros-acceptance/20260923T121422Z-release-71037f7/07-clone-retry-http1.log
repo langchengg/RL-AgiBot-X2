@@ -1,0 +1,38 @@
++ 1790166181.770302 cwd=/tmp git -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git /tmp/x2-final-ros.zvwycfdg/repository
+Cloning into '/tmp/x2-final-ros.zvwycfdg/repository'...
++ 1790166189.106622 cwd=/tmp git -C /tmp/x2-final-ros.zvwycfdg/repository -c http.version=HTTP/1.1 sparse-checkout set src
++ 1790166189.108120 cwd=/tmp git -C /tmp/x2-final-ros.zvwycfdg/repository -c http.version=HTTP/1.1 checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908
+HEAD is now at 71037f7 docs: record clean checkout publication validation
++ 1790166196.304245 cwd=/tmp cd /tmp/x2-final-ros.zvwycfdg/repository
++ 1790166196.304277 cwd=/tmp/x2-final-ros.zvwycfdg/repository git rev-parse HEAD
+71037f7d5530a65da220345f9037ac4d29f32908
++ 1790166196.305203 cwd=/tmp/x2-final-ros.zvwycfdg/repository git rev-parse origin/main
+71037f7d5530a65da220345f9037ac4d29f32908
++ 1790166196.305967 cwd=/tmp/x2-final-ros.zvwycfdg/repository git status --short
++ 1790166196.309310 cwd=/tmp/x2-final-ros.zvwycfdg/repository git sparse-checkout list
+src
++ 1790166196.310110 cwd=/tmp/x2-final-ros.zvwycfdg/repository uname -a
+Linux lang 7.0.0-31-generic #31~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 10 09:27:00 UTC 2 aarch64 aarch64 aarch64 GNU/Linux
++ 1790166196.310632 cwd=/tmp/x2-final-ros.zvwycfdg/repository cat /etc/os-release
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.5 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
++ 1790166196.311216 cwd=/tmp/x2-final-ros.zvwycfdg/repository systemd-detect-virt
+parallels
++ 1790166196.313250 cwd=/tmp/x2-final-ros.zvwycfdg/repository df -h /tmp
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2        62G   29G   30G  49% /
++ 1790166196.313913 cwd=/tmp/x2-final-ros.zvwycfdg/repository free -h
+               total        used        free      shared  buff/cache   available
+Mem:            11Gi       3.0Gi       6.5Gi       205Mi       2.5Gi       8.6Gi
+Swap:          4.0Gi          0B       4.0Gi

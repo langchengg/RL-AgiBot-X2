@@ -1,0 +1,105 @@
+[0.038s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', '--log-base', '/tmp/x2-final-ros.z4vmp3sx/log', 'build', '--base-paths', 'src', '--packages-select', 'x2_recovery', '--symlink-install', '--build-base', '/tmp/x2-final-ros.z4vmp3sx/build', '--install-base', '/tmp/x2-final-ros.z4vmp3sx/install']
+[0.038s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base='/tmp/x2-final-ros.z4vmp3sx/log', log_level=None, verb_name='build', build_base='/tmp/x2-final-ros.z4vmp3sx/build', install_base='/tmp/x2-final-ros.z4vmp3sx/install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['src'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['x2_recovery'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0xf3516859c500>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xf35168642e70>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xf35168642e70>>, mixin_verb=('build',))
+[0.052s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.052s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.052s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.052s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.052s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.053s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/tmp/x2-final-ros.z4vmp3sx/repository/src'
+[0.053s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.053s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.053s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.053s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.053s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.053s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.053s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.053s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.053s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src/x2_recovery) by extensions ['ignore', 'ignore_ament_install']
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src/x2_recovery) by extension 'ignore'
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src/x2_recovery) by extension 'ignore_ament_install'
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src/x2_recovery) by extensions ['colcon_pkg']
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src/x2_recovery) by extension 'colcon_pkg'
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src/x2_recovery) by extensions ['colcon_meta']
+[0.062s] Level 1:colcon.colcon_core.package_identification:_identify(src/x2_recovery) by extension 'colcon_meta'
+[0.063s] Level 1:colcon.colcon_core.package_identification:_identify(src/x2_recovery) by extensions ['ros']
+[0.063s] Level 1:colcon.colcon_core.package_identification:_identify(src/x2_recovery) by extension 'ros'
+[0.063s] DEBUG:colcon.colcon_core.package_identification:Package 'src/x2_recovery' with type 'ros.ament_python' and name 'x2_recovery'
+[0.063s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.070s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.070s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.071s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 287 installed packages in /opt/ros/jazzy
+[0.071s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.091s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_args' from command line to 'None'
+[0.091s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_target' from command line to 'None'
+[0.091s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.092s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_clean_cache' from command line to 'False'
+[0.092s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_clean_first' from command line to 'False'
+[0.092s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_force_configure' from command line to 'False'
+[0.092s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'ament_cmake_args' from command line to 'None'
+[0.092s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'catkin_cmake_args' from command line to 'None'
+[0.092s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.092s] DEBUG:colcon.colcon_core.verb:Building package 'x2_recovery' with the following arguments: {'ament_cmake_args': None, 'build_base': '/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery', 'merge_install': False, 'path': '/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery', 'symlink_install': True, 'test_result_base': None}
+[0.092s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.092s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.092s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery' with build type 'ament_python'
+[0.092s] Level 1:colcon.colcon_core.shell:create_environment_hook('x2_recovery', 'ament_prefix_path')
+[0.093s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.093s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/hook/ament_prefix_path.ps1'
+[0.094s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/hook/ament_prefix_path.dsv'
+[0.094s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/hook/ament_prefix_path.sh'
+[0.094s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.094s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.170s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery'
+[0.170s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.171s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.378s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: sdist, build_scripts, easy_install, install_data, symlink_data, test, setopt, dist_info, update_catalog, rotate, upload_docs, build_ext, install_headers, bdist_dumb, upload, install, register, develop, build_clib, install_scripts, install_egg_info, bdist_wheel, clean, bdist, install_lib, build, alias, saveopts, editable_wheel, compile_catalog, init_catalog, build_py, egg_info, check, extract_messages, bdist_rpm, bdist_egg
+[0.497s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools 'develop' options: --egg-path, --verbose, --site-dirs, --install-dir, --help, --uninstall, --multi-version, --dry-run, --always-copy, --zip-ok, --record, --quiet, --force-installation-into-system-dir, --install-layout, --version, --allow-hosts, --optimize, --upgrade, --prefix, --editable, --user, --no-find-links, --local-snapshots-ok, --no-deps, --script-dir, --no-user-cfg, --always-unzip, --build-directory, --index-url, --find-links, --exclude-scripts
+[0.498s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery': PYTHONPATH=/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:${PYTHONPATH} /tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/build --no-deps symlink_data
+[0.710s] Level 1:colcon.colcon_core.shell:create_environment_hook('x2_recovery', 'pythonpath_develop')
+[0.710s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/share/x2_recovery/hook/pythonpath_develop.ps1'
+[0.710s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery' returned '0': PYTHONPATH=/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:${PYTHONPATH} /tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/build --no-deps symlink_data
+[0.711s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/share/x2_recovery/hook/pythonpath_develop.dsv'
+[0.711s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/share/x2_recovery/hook/pythonpath_develop.sh'
+[0.712s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery' for CMake module files
+[0.712s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery' for CMake config files
+[0.712s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib'
+[0.712s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/bin'
+[0.712s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/pkgconfig/x2_recovery.pc'
+[0.712s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages'
+[0.712s] Level 1:colcon.colcon_core.shell:create_environment_hook('x2_recovery', 'pythonpath')
+[0.712s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/hook/pythonpath.ps1'
+[0.712s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/hook/pythonpath.dsv'
+[0.712s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/hook/pythonpath.sh'
+[0.713s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/bin'
+[0.713s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(x2_recovery)
+[0.713s] INFO:colcon.colcon_core.shell:Creating package script '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/package.ps1'
+[0.713s] INFO:colcon.colcon_core.shell:Creating package descriptor '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/package.dsv'
+[0.713s] INFO:colcon.colcon_core.shell:Creating package script '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/package.sh'
+[0.714s] INFO:colcon.colcon_core.shell:Creating package script '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/package.bash'
+[0.714s] INFO:colcon.colcon_core.shell:Creating package script '/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/package.zsh'
+[0.714s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/colcon-core/packages/x2_recovery)
+[0.714s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[0.714s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[0.714s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[0.714s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[0.717s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[0.717s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[0.717s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[0.717s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.NotSupported: Unable to autolaunch a dbus-daemon without a $DISPLAY for X11
+[0.717s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[0.717s] INFO:colcon.colcon_core.shell:Creating prefix script '/tmp/x2-final-ros.z4vmp3sx/install/local_setup.ps1'
+[0.717s] INFO:colcon.colcon_core.shell:Creating prefix util module '/tmp/x2-final-ros.z4vmp3sx/install/_local_setup_util_ps1.py'
+[0.717s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/tmp/x2-final-ros.z4vmp3sx/install/setup.ps1'
+[0.718s] INFO:colcon.colcon_core.shell:Creating prefix script '/tmp/x2-final-ros.z4vmp3sx/install/local_setup.sh'
+[0.718s] INFO:colcon.colcon_core.shell:Creating prefix util module '/tmp/x2-final-ros.z4vmp3sx/install/_local_setup_util_sh.py'
+[0.718s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/tmp/x2-final-ros.z4vmp3sx/install/setup.sh'
+[0.718s] INFO:colcon.colcon_core.shell:Creating prefix script '/tmp/x2-final-ros.z4vmp3sx/install/local_setup.bash'
+[0.718s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/tmp/x2-final-ros.z4vmp3sx/install/setup.bash'
+[0.719s] INFO:colcon.colcon_core.shell:Creating prefix script '/tmp/x2-final-ros.z4vmp3sx/install/local_setup.zsh'
+[0.719s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/tmp/x2-final-ros.z4vmp3sx/install/setup.zsh'

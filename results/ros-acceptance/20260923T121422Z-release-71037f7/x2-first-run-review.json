@@ -1,0 +1,332 @@
+{
+  "review_status": "FAIL_CLEAN_SHUTDOWN_REQUIREMENT_UNDER_ORIGINAL_HARNESS",
+  "scope": "Independent read-only review of first actual published-commit run. No simulation run by reviewer. Raw original logs/summary preserved unchanged.",
+  "source_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "source_patches": [],
+  "original_runner_result": "PASS",
+  "original_runner_assertions": {
+    "total": 68,
+    "pass": 68,
+    "fail": 0
+  },
+  "outer_watchdog_exit_code": 0,
+  "driver_wall_s": 60.73649852900007,
+  "driver_start": "2026-09-23T12:29:58.826794+00:00",
+  "driver_end": "2026-09-23T12:30:59.563276+00:00",
+  "identity": {
+    "executable": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python",
+    "cwd": "/tmp",
+    "module": "/tmp/x2-final-ros.zvwycfdg/build/x2_recovery/x2_recovery/recovery_node.py",
+    "prefix": "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery",
+    "launch": "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/share/x2_recovery/launch/recovery.launch.py",
+    "rmw": "rmw_fastrtps_cpp",
+    "domain": "86",
+    "discovery": "LOCALHOST"
+  },
+  "environment_forbidden_path_matches": [],
+  "controller": "scripted_baseline",
+  "cli": {
+    "accept": {
+      "success": true,
+      "process_wall_s": 0.5972034579999672,
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/cli-accept.log"
+    },
+    "busy": {
+      "success": false,
+      "process_wall_s": 0.5659090010001364,
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/cli-busy.log"
+    },
+    "timing_scope": "CLI total includes interpreter startup and DDS discovery; not RPC/body duration."
+  },
+  "rpc": {
+    "accepted": {
+      "count": 6,
+      "minimum_s": 0.0005182920001516322,
+      "median_s": 0.0005630414999586719,
+      "maximum_s": 0.0012203750000026048
+    },
+    "stepping_busy": {
+      "count": 16,
+      "minimum_s": 0.00030933300013202825,
+      "median_s": 0.0003921455000863716,
+      "maximum_s": 0.015087708000010025
+    },
+    "reset_window_busy": {
+      "label": "real-reset-busy",
+      "start_monotonic_s": 1328.717172965,
+      "end_monotonic_s": 1329.289392757,
+      "round_trip_s": 0.572219792000169,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "all_within_original_1s_budget": true
+  },
+  "normal_episode_1": {
+    "episode": 1,
+    "status": "FAILED",
+    "reason": "time_limit",
+    "control_steps": 1000,
+    "elapsed_sim_s": 20.000000000003563,
+    "wall_s": 20.570571384999994,
+    "timeout_overshoot_s": 0.0,
+    "accepted_monotonic_s": 1280.01299365,
+    "deadline_monotonic_s": 1310.01299365,
+    "reset_started_monotonic_s": 1280.013841317,
+    "reset_completed_monotonic_s": 1280.603743151,
+    "reset_duration_s": 0.5899018339998747,
+    "settling_sim_s": 1.6609999999999279,
+    "reset_seed": 374032080,
+    "derived_physics_substeps": 20000,
+    "physics_substeps_scope": "Derived from actual elapsed_sim_s / locked physics_dt 0.001; published node does not directly log cumulative physics count."
+  },
+  "normal_same_instance_episode_2": {
+    "episode": 2,
+    "status": "FAILED",
+    "reason": "time_limit",
+    "control_steps": 1000,
+    "elapsed_sim_s": 20.000000000003563,
+    "wall_s": 20.57370980099995,
+    "timeout_overshoot_s": 0.0,
+    "accepted_monotonic_s": 1303.412823287,
+    "deadline_monotonic_s": 1333.412823287,
+    "reset_started_monotonic_s": 1303.413649787,
+    "reset_completed_monotonic_s": 1303.993394537,
+    "reset_duration_s": 0.5797447500001454,
+    "settling_sim_s": 1.6609999999999279,
+    "reset_seed": 374032080,
+    "derived_physics_substeps": 20000,
+    "physics_substeps_scope": "Derived from actual elapsed_sim_s / locked physics_dt 0.001; published node does not directly log cumulative physics count."
+  },
+  "wall_episode_1": {
+    "episode": 1,
+    "status": "FAILED",
+    "reason": "recovery_timeout",
+    "control_steps": 121,
+    "elapsed_sim_s": 2.41999999999977,
+    "wall_s": 3.000238085000092,
+    "timeout_overshoot_s": 0.00023808500009181444,
+    "accepted_monotonic_s": 1324.91146063,
+    "deadline_monotonic_s": 1327.91146063,
+    "reset_started_monotonic_s": 1324.918094797,
+    "reset_completed_monotonic_s": 1325.50882963,
+    "reset_duration_s": 0.5907348329999422,
+    "settling_sim_s": 1.6609999999999279,
+    "reset_seed": 374032080,
+    "derived_physics_substeps": 2420,
+    "physics_substeps_scope": "Derived from actual elapsed_sim_s / locked physics_dt 0.001; published node does not directly log cumulative physics count."
+  },
+  "response_execution_order": {
+    "result": "PASS_RECOMPUTED_FROM_RAW_EVENTS",
+    "send_end": 1328.703382257,
+    "reset_begin": 1328.714031299,
+    "reset_end": 1329.273920674,
+    "first_step_begin": 1329.274898091,
+    "strictly_increasing": true,
+    "scope": "Read-only observation wrapper over genuine service send/reset/step; not original launch log order."
+  },
+  "normal_busy_trace": {
+    "reject_count": 9,
+    "reject_episode_ids": [
+      1
+    ],
+    "reject_statuses": [
+      "RUNNING"
+    ],
+    "reset_count_by_episode": {
+      "1": 1,
+      "2": 1
+    },
+    "scope": "Before explicit retry, one accepted episode and one reset; nine rejects belong to episode 1 RUNNING. Original wrapper did not snapshot state before/after callbacks."
+  },
+  "telemetry": {
+    "normal_episode1_received_samples": 1001,
+    "matched_samples": 9,
+    "matched_control_steps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      25,
+      50,
+      75,
+      100
+    ],
+    "joint_count": 31,
+    "same_timestamp_and_order": true,
+    "recomputed_position_max_abs_error": 0.0,
+    "recomputed_velocity_max_abs_error": 0.0,
+    "scalar_values_compared": 558,
+    "audit_first_five_contiguous_acquisition_intervals_s": [
+      0.014632042,
+      0.017708667,
+      0.019163583,
+      0.022759
+    ],
+    "whole_scenario_intervals_available": false,
+    "wall_received_sample_count_available": false,
+    "scope": "Original runner keeps normal count and 9 matched audited samples, but discards full received arrays. Cannot claim complete actual 50Hz timing or wall sample count. Patched rerun persists every received sample."
+  },
+  "synthetic_fault": {
+    "type": "post-real-step RuntimeError injection",
+    "actual_real_step_end_events_before_injection": 3,
+    "actual_last_observed_sim_s": 0.05999999999999339,
+    "node_reported_completed_steps": 2,
+    "node_last_valid_elapsed_sim_s": 0.039999999999995595,
+    "explanation": "Exception is raised by the observer after actual third step completes, before RecoveryNode accounts/publishes it. The node truthfully retains previous two-step valid evidence. Not a natural simulator fault or successful recovery.",
+    "retry_episode": 2,
+    "retry_reason": "time_limit",
+    "retry_control_steps": 11
+  },
+  "startup_errors": [
+    {
+      "log": "invalid-startup-0.log",
+      "diagnostic": "Recovery startup/execution failed: ValueError: seed must be a nonnegative integer"
+    },
+    {
+      "log": "invalid-startup-1.log",
+      "diagnostic": "Recovery startup/execution failed: ValueError: Timeout must align to physics timestep"
+    },
+    {
+      "log": "invalid-startup-2.log",
+      "diagnostic": "Recovery startup/execution failed: ValueError: recovery_timeout_s must be finite and positive"
+    },
+    {
+      "log": "invalid-startup-3.log",
+      "diagnostic": "Recovery startup/execution failed: ValueError: use_sim_time=true is unsupported; no /clock is published"
+    },
+    {
+      "log": "missing-model.log",
+      "diagnostic": "Recovery startup/execution failed: ValueError: Missing asset repository: /nonexistent/x2-assets; set X2_ASSET_REPO"
+    }
+  ],
+  "cleanup": {
+    "summary_claim_all_children_exited": true,
+    "direct_managed_process_count": 19,
+    "direct_managed_remaining_returncodes": [],
+    "launch_child_exit_codes": [
+      {
+        "log": "normal-launch.log",
+        "node": "recovery_node-1",
+        "pid": 15076,
+        "exit_code": -2
+      },
+      {
+        "log": "normal-launch.log",
+        "node": "telemetry_node-2",
+        "pid": 15077,
+        "exit_code": -2
+      },
+      {
+        "log": "wall-launch.log",
+        "node": "recovery_node-1",
+        "pid": 15614,
+        "exit_code": -2
+      },
+      {
+        "log": "wall-launch.log",
+        "node": "telemetry_node-2",
+        "pid": 15615,
+        "exit_code": -2
+      }
+    ],
+    "environment_closed_in_normal_and_wall": true,
+    "daemon_was_running": false,
+    "own_cli_daemon_stopped": true,
+    "raw_summary_cleanup_errors": [],
+    "review_finding": "Both normal and wall business children exited -2 with KeyboardInterrupt during executor.shutdown or destroy_node, despite outer launch exit 0 and prior environment closed. Original checks only asserted outer launch code plus closed, so its 68 PASS summary is insufficient for final clean-exit requirement.",
+    "root_cause": "Harness killpg(SIGINT) directly signals launch plus its children. Noninteractive Jazzy launch also forwards SIGINT to its children, interrupting their cleanup on the second signal.",
+    "local_official_source_evidence": [
+      {
+        "file": "/opt/ros/jazzy/lib/python3.12/site-packages/launch/actions/execute_local.py",
+        "lines": [
+          445,
+          448
+        ],
+        "condition": "send_sigint=not due_to_sigint or context.noninteractive"
+      },
+      {
+        "file": "/opt/ros/jazzy/lib/python3.12/site-packages/ros2launch/command/launch.py",
+        "line": 77,
+        "condition": "noninteractive defaults to not sys.stdin.isatty()"
+      }
+    ],
+    "reviewer_pid_snapshot": {
+      "at_utc": "2026-09-23T12:39:31.512650+00:00",
+      "checked_pids": [
+        15073,
+        15118,
+        15153,
+        15156,
+        15159,
+        15192,
+        15212,
+        15229,
+        15395,
+        15611,
+        15661,
+        15662,
+        15726,
+        15727,
+        15771,
+        15790,
+        15812,
+        15831,
+        15847,
+        15076,
+        15077,
+        15614,
+        15615
+      ],
+      "still_existing_pid_records": [],
+      "scope": "Read-only observation of all 19 managed process PIDs and four business child PIDs after first run; no signals sent."
+    }
+  },
+  "required_rerun": "Use new root with published commit plus explicit v2 runner-only patch; fresh build and full integration must succeed. Do not rewrite original PASS file or erase child -2 logs.",
+  "other_boundaries": [
+    "Pending busy remains synthetic node unit-test logic; it is not physical cross-process evidence.",
+    "Reset request was emitted during reset and waited 0.5722 seconds; actual service send occurred after reset and one physical control step. It did not preempt reset.",
+    "Original active Ctrl+C audit interrupted episode 2 while reset was running (control_steps=0); production closed afterward. New runner separately tests original two-node launch active after real steps.",
+    "Late subscriber saw FAILED with no_sample; no fabricated historic JointState.",
+    "State terminal persistence and no further received samples passed original checks, but new sample-creation timestamps are only in supplemented runner.",
+    "No checkpoint/controller parameter exists in ROS; checkpoint-path test is NOT_APPLICABLE.",
+    "No successful PPO/controller evaluation was rerun; baseline time_limit is expected ROS outcome, independent from published hybrid policy 5/5."
+  ],
+  "frozen_patch_review": {
+    "v1_has_known_launch_sigint_issue": true,
+    "v2_addresses_it": "Parent-only first SIGINT for ros2 launch; explicit node exit0 checks in all original-launch scenarios; fallback remains owned-group; actual signal targets recorded.",
+    "remaining_blocking_static_findings": [],
+    "remaining_reporting_caveats": [
+      "Process exit timestamps are observed by the parent, not exact kernel exit instants.",
+      "Scenario labels identify receiver phase; delayed delivery is distinguished by the original ROS header stamp, not phase label alone.",
+      "Audit directly logs cumulative physics steps; original launches still require expressly labelled derivation from elapsed simulation time.",
+      "Post-terminal sample_created check exists only for audit episode 1; normal launch termination is supported by no received samples after drain and production state machine/unit tests."
+    ],
+    "verification": "Static review and syntax/applicability checks only. v2 must be evaluated by fresh-root actual run."
+  },
+  "evidence_sha256": {
+    "integration/cli-accept.log": "373643ca9545200ac35fd7de66dc3159ea45a774cf6304e9f75b2f0e139de572",
+    "integration/cli-busy.log": "3958a12ccc3c1d6c931eb03b11c59cf051dd747d50abc86f83c232a55e98cf44",
+    "integration/fault-events.jsonl": "130d881b9c0a18ccf392cb2a91d655b7373ea83099d2b3277e5118b271b64934",
+    "integration/fault-injection-recovery.log": "ddc3c61790ca3311f6f8c5f3b448e4d7d4a1778f8f8ccf36e51b782cac6ea688",
+    "integration/fault-injection-telemetry.log": "9ebe00fe55230900d07abb93a4d8d748c13185f8e196e9771c692e2b37f6a8a7",
+    "integration/idle-echo.log": "c8abe273b69e02e6b67844799b3159681b0fc23cf41a5a951da92f1680e800b7",
+    "integration/invalid-startup-0.log": "7eed517148d69a75af526949de6e4a81111378fd73a32855aaa4c3a495e04043",
+    "integration/invalid-startup-1.log": "72da0441fac22d27a83c8109c22de80d1a8166ce72cd4463f5807b94f83aa1e8",
+    "integration/invalid-startup-2.log": "e1ab25c7a3b532aa076a51e5704e4efe5cdcc287f3143caadf652d6aa59f26f3",
+    "integration/invalid-startup-3.log": "8c2197ca7788209de46ffaa8da16790c20be76bf4b29d73ebb92d1487cdeb741",
+    "integration/joint-echo.log": "e4643ac508ed073735a50288fd52f90fb28255277b16b2e2b5757dbcf817e073",
+    "integration/joint-qos.log": "f398608df7390d356908620b1e49a76be82f2e2f0b90ebe792805da5bb048885",
+    "integration/late-telemetry.log": "c60567d3c718cd6ea3d16347a1f1c608aaffabbc0e152d53e7ab9f8e1add4877",
+    "integration/matched-readback.json": "86b6a793a3ff09d26166cf926d3408e50662a4e3a1ea290befe5f1b9280672d7",
+    "integration/missing-model.log": "8a3d41ee57a2e16eaeb0617e49f06cceb263451fcacf76330278bc392fdc31f3",
+    "integration/normal-launch.log": "7a3acc712a70ea8a92984c89d4faa1881eab12afe6d857a25b9a354e8422ef24",
+    "integration/readback-events.jsonl": "7f40f4a9c6253bcab10a1c07daaae4f8a5b0507c4d25c1eca234a2bbe209f4ed",
+    "integration/readback-recovery.log": "dab3cda934c7e6f0a8bf465538cfa3b69f241ae438ef6ab1fa85c8b8bf2105fb",
+    "integration/readback-telemetry.log": "b0788dcef1a73a0d22e86406bcbf45eb0f73513b0294048b3cb2664a1e00ebf0",
+    "integration/service-type.log": "7b501061e2d206cca2fe9030a8d274e4209f7ab001cd810698192273e5f56dc8",
+    "integration/status-qos.log": "13f8a04e27d0ca20caef68ebd8e3e282a44586453eae48b6bc3cdb9e8e369d54",
+    "integration/summary.json": "e76eb0bb382c29c6866d8a7f08ae7e6fc2968f90f7a7b0de95de25e3e6432c95",
+    "integration/wall-launch.log": "b33610636015d7e85637b3c239c6eb1efa5278938a4dcd2636fdca0677036390"
+  }
+}

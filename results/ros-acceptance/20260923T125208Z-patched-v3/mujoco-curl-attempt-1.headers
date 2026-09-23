@@ -1,0 +1,31 @@
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 19103843
+Last-Modified: Wed, 09 Sep 2026 15:38:50 GMT
+ETag: "c3d275fd2cfd2aab2d007104d2dce99b"
+x-amz-request-id: 4c9d6bb22a59eef6
+x-amz-id-2: aNxRjEjHFNnhmrDGVMOhkYGbGY4IwhDiw
+x-amz-version-id: 4_z179c51e67f11a0ad8f6c0018_f1176ee71bd01b164_d20260909_m153850_c005_v0501033_t0041_u01788968330103
+Content-Type: application/octet-stream
+Cache-Control: max-age=365000000, immutable, public
+Accept-Ranges: bytes
+Date: Wed, 23 Sep 2026 13:07:55 GMT
+Age: 1200544
+X-Served-By: cache-iad-kiad7000181-IAD, cache-lcy-eglc8600068-LCY
+X-Cache: HIT, HIT
+X-Cache-Hits: 28, 1
+X-Timer: S1790168876.931655,VS0,VE3
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Frame-Options: deny
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Robots-Header: noindex
+Access-Control-Allow-Methods: GET, OPTIONS
+Access-Control-Allow-Headers: Range
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: Content-Length, Content-Range, Accept-Ranges
+x-pypi-file-python-version: cp312
+x-pypi-file-version: 3.13.0
+x-pypi-file-package-type: bdist_wheel
+x-pypi-file-project: mujoco
+

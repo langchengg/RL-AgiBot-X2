@@ -1,0 +1,29 @@
+[0.406s] Invoking command in '/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery': PYTHONPATH=/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:${PYTHONPATH} /tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/build --no-deps symlink_data
+[0.515s] running develop
+[0.579s] running egg_info
+[0.579s] creating x2_recovery.egg-info
+[0.585s] writing x2_recovery.egg-info/PKG-INFO
+[0.585s] writing dependency_links to x2_recovery.egg-info/dependency_links.txt
+[0.586s] writing entry points to x2_recovery.egg-info/entry_points.txt
+[0.586s] writing requirements to x2_recovery.egg-info/requires.txt
+[0.586s] writing top-level names to x2_recovery.egg-info/top_level.txt
+[0.586s] writing manifest file 'x2_recovery.egg-info/SOURCES.txt'
+[0.598s] reading manifest file 'x2_recovery.egg-info/SOURCES.txt'
+[0.598s] writing manifest file 'x2_recovery.egg-info/SOURCES.txt'
+[0.605s] running build_ext
+[0.605s] Creating /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages/x2-recovery.egg-link (link to .)
+[0.605s] Installing recovery_node script to /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery
+[0.605s] Installing runtime_check script to /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery
+[0.605s] Installing telemetry_node script to /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery
+[0.605s] Installing train_recovery script to /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery
+[0.605s] 
+[0.606s] Installed /tmp/x2-final-ros.z4vmp3sx/build/x2_recovery
+[0.606s] running symlink_data
+[0.606s] creating /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/ament_index
+[0.606s] creating /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/ament_index/resource_index
+[0.606s] creating /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/ament_index/resource_index/packages
+[0.606s] symbolically linking /tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/resource/x2_recovery -> /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/ament_index/resource_index/packages
+[0.606s] symbolically linking /tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/package.xml -> /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery
+[0.606s] creating /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/launch
+[0.606s] symbolically linking /tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/launch/recovery.launch.py -> /tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery/launch
+[0.618s] Invoked command in '/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery' returned '0': PYTHONPATH=/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/python3.12/site-packages:${PYTHONPATH} /tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/build --no-deps symlink_data

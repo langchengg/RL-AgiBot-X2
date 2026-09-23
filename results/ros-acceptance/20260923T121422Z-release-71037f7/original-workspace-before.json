@@ -1,0 +1,73 @@
+[
+  {
+    "argv": [
+      "pwd"
+    ],
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "date": "2026-09-23T12:16:44.915240+00:00",
+    "exit_code": 0,
+    "stdout": "/home/lang/RL-AgiBot-X2\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "status",
+      "--porcelain=v1"
+    ],
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "date": "2026-09-23T12:16:44.916712+00:00",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "date": "2026-09-23T12:16:44.917400+00:00",
+    "exit_code": 0,
+    "stdout": "71037f7d5530a65da220345f9037ac4d29f32908\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "branch",
+      "--show-current"
+    ],
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "date": "2026-09-23T12:16:44.918141+00:00",
+    "exit_code": 0,
+    "stdout": "main\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "remote",
+      "-v"
+    ],
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "date": "2026-09-23T12:16:44.918749+00:00",
+    "exit_code": 0,
+    "stdout": "origin\thttps://github.com/langchengg/RL-AgiBot-X2.git (fetch)\norigin\thttps://github.com/langchengg/RL-AgiBot-X2.git (push)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "ls-remote",
+      "origin",
+      "refs/heads/main"
+    ],
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "date": "2026-09-23T12:16:48.695957+00:00",
+    "exit_code": 0,
+    "stdout": "71037f7d5530a65da220345f9037ac4d29f32908\trefs/heads/main\n",
+    "stderr": ""
+  }
+]

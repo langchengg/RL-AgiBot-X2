@@ -1,0 +1,45 @@
+[INFO] [launch]: All log files can be found below /tmp/x2-final-ros.zvwycfdg/home/.ros/log/2026-09-23-20-30-47-325702-lang-15611
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [recovery_node-1]: process started with pid [15614]
+[INFO] [telemetry_node-2]: process started with pid [15615]
+[recovery_node-1] [INFO] [1790166648.007689863] [recovery_node]: {"event": "ready", "controller": "scripted_baseline", "episode": 0, "create_s": 0.4236110419999477, "executable": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python", "module": "/tmp/x2-final-ros.zvwycfdg/build/x2_recovery/x2_recovery/recovery_node.py", "seed": 60, "episode_timeout_s": 20.0, "recovery_timeout_s": 3.0, "control_dt": 0.02, "asset_repo": "/tmp/x2-final-ros.zvwycfdg/assets/agibot_x2_urdf"}
+[recovery_node-1] [INFO] [1790166648.013431029] [recovery_node]: {"event": "accepted", "controller": "scripted_baseline", "episode": 1, "accepted_monotonic_s": 1324.91146063, "deadline_monotonic_s": 1327.91146063, "callback_body_s": 5.1375000111875124e-05}
+[recovery_node-1] [INFO] [1790166648.019975071] [recovery_node]: {"event": "reset_started", "controller": "scripted_baseline", "episode": 1, "monotonic_s": 1324.918094797}
+[telemetry_node-2] [INFO] [1790166648.528856738] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample
+[recovery_node-1] [INFO] [1790166648.611079321] [recovery_node]: {"event": "reset_completed", "controller": "scripted_baseline", "episode": 1, "monotonic_s": 1325.50882963, "duration_s": 0.5907348329999422, "elapsed_sim_s": 0.0, "episode_start_time": 1.6609999999999279, "reset_seed": 374032080}
+[recovery_node-1] [INFO] [1790166648.676977405] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 1.5830000847927295e-06}
+[recovery_node-1] [INFO] [1790166648.677822780] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 7.500000265281415e-07}
+[recovery_node-1] [INFO] [1790166648.678478196] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 3.3299988899671007e-07}
+[recovery_node-1] [INFO] [1790166648.694859863] [recovery_node]: {"event": "rejected", "controller": "scripted_baseline", "episode": 1, "status": "RUNNING", "callback_body_s": 7.090000053722179e-07}
+[telemetry_node-2] [INFO] [1790166649.519028238] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.058393 sample_age_s=0.005
+[telemetry_node-2] [INFO] [1790166650.519605239] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.577023 sample_age_s=0.006
+[recovery_node-1] [INFO] [1790166651.014015864] [recovery_node]: {"event": "finished", "controller": "scripted_baseline", "episode": 1, "status": "FAILED", "reason": "recovery_timeout", "control_steps": 121, "wall_s": 3.000238085000092, "timeout_overshoot_s": 0.00023808500009181444, "elapsed_sim_s": 2.41999999999977, "environment_result": {"terminated": false, "truncated": false, "is_success": false, "termination_reason": null, "truncation_reason": null, "elapsed_sim_s": 2.41999999999977, "physics_steps_executed": 20, "stable_duration_s": 0.0, "standing_failures": ["height", "torso_tilt", "left_support", "right_support", "feet_total", "other_weight"], "reward_terms_raw": {"height": -0.00010280750299666852, "upright": -0.0007504918087539725, "standing_hold": 0.0, "torque_cost": 8.136107080903668e-05, "action_change": 1.9692481307269495e-06, "success": 0.0}, "reward_terms": {"height": -0.00030842250899000556, "upright": -0.0007504918087539725, "standing_hold": 0.0, "torque_cost": -1.6272214161807336e-06, "action_change": -3.938496261453899e-09, "success": 0.0}, "torque_saturation_fraction": 0.0, "reset_seed": 374032080, "state": {"pelvis_height_m": 0.07587517078460772, "tilt_deg": 73.00077836245612, "left_weight": 0.0, "right_weight": 0.015959344748633152, "other_weight": 0.9544754540331467}, "warnings": [0, 0, 0, 0, 0, 0, 0], "control": {"any_saturation_time_fraction": 0.0, "joint_saturation_time_fraction": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "target_boundary_fraction": 0.0, "raw_torque_abs_max_Nm": 21.840977280957578, "applied_torque_abs_max_Nm": 21.840977280957578, "joint_rad_s": 0.6185151573856212, "joint_limit_rad": 0.0, "floor_penetration_m": 0.0002418207423313945, "self_penetration_m": 0.0}}}
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [telemetry_node-2]: sending signal 'SIGINT' to process[telemetry_node-2]
+[INFO] [recovery_node-1]: sending signal 'SIGINT' to process[recovery_node-1]
+[recovery_node-1] {"event": "closed", "controller": "scripted_baseline", "episode": 1}
+[telemetry_node-2] Traceback (most recent call last):
+[telemetry_node-2]   File "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/telemetry_node", line 33, in <module>
+[telemetry_node-2]     sys.exit(load_entry_point('x2-recovery', 'console_scripts', 'telemetry_node')())
+[telemetry_node-2]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[telemetry_node-2]   File "/tmp/x2-final-ros.zvwycfdg/build/x2_recovery/x2_recovery/telemetry_node.py", line 128, in main
+[telemetry_node-2]     node.destroy_node()
+[telemetry_node-2]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1958, in destroy_node
+[telemetry_node-2]     self.destroy_subscription(self._subscriptions[0])
+[telemetry_node-2]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1854, in destroy_subscription
+[telemetry_node-2]     subscription.destroy()
+[telemetry_node-2]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/subscription.py", line 101, in destroy
+[telemetry_node-2]     self.handle.destroy_when_not_in_use()
+[telemetry_node-2] KeyboardInterrupt
+[recovery_node-1] Traceback (most recent call last):
+[recovery_node-1]   File "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node", line 33, in <module>
+[recovery_node-1]     sys.exit(load_entry_point('x2-recovery', 'console_scripts', 'recovery_node')())
+[recovery_node-1]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[recovery_node-1]   File "/tmp/x2-final-ros.zvwycfdg/build/x2_recovery/x2_recovery/recovery_node.py", line 247, in main
+[recovery_node-1]     executor.shutdown()
+[recovery_node-1]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 270, in shutdown
+[recovery_node-1]     def shutdown(self, timeout_sec: Optional[float] = None) -> bool:
+[recovery_node-1] 
+[recovery_node-1] KeyboardInterrupt
+[ERROR] [telemetry_node-2]: process has died [pid 15615, exit code -2, cmd '/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/telemetry_node --ros-args --params-file /tmp/launch_params_zi4kha7m'].
+[ERROR] [recovery_node-1]: process has died [pid 15614, exit code -2, cmd '/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node --ros-args --params-file /tmp/launch_params_ogt0hhvo --params-file /tmp/launch_params_ixya7qfy'].

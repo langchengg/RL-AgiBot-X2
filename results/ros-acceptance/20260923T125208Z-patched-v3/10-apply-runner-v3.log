@@ -1,0 +1,12 @@
++ 1790168299.202362 cwd=/tmp cd /tmp/x2-final-ros.z4vmp3sx/repository
++ 1790168299.202391 cwd=/tmp/x2-final-ros.z4vmp3sx/repository git apply --check /tmp/x2-final-ros.z4vmp3sx/evidence/runner-evidence-v3.patch
++ 1790168299.203392 cwd=/tmp/x2-final-ros.z4vmp3sx/repository git apply /tmp/x2-final-ros.z4vmp3sx/evidence/runner-evidence-v3.patch
++ 1790168299.204214 cwd=/tmp/x2-final-ros.z4vmp3sx/repository git diff --check
++ 1790168299.207396 cwd=/tmp/x2-final-ros.z4vmp3sx/repository git diff -- README.md src/x2_recovery/test/test_ros_integration.py
++ 1790168299.209330 cwd=/tmp/x2-final-ros.z4vmp3sx/repository sha256sum README.md src/x2_recovery/test/test_ros_integration.py /tmp/x2-final-ros.z4vmp3sx/evidence/tested-v3.patch
+a65567d4da0d7fde2c43129413c60fa00d8cb468701307f57236d35a7e51db80  README.md
+63a8bf34409e2a95967074fb81b080e5546ef4d70627a9571d356bc4af8ac0cc  src/x2_recovery/test/test_ros_integration.py
+a94c3a07582fa411c36dde9387f54c722658f7232d64bc2063a3a4b109ba0861  /tmp/x2-final-ros.z4vmp3sx/evidence/tested-v3.patch
++ 1790168299.210072 cwd=/tmp/x2-final-ros.z4vmp3sx/repository git status --short
+ M README.md
+ M src/x2_recovery/test/test_ros_integration.py

@@ -1,0 +1,14 @@
+{
+  "/opt/ros/jazzy/lib/python3.12/site-packages/launch/actions/execute_local.py": {
+    "sha256": "9f06793bbdf400bdedda011f45125404321aa032d01b11e9a8e63e850f8793f5",
+    "first_line": 438,
+    "last_line": 449,
+    "excerpt": "\n        for line in self.__stderr_buffer:\n            self.__stderr_logger.info(\n                self.__output_format.format(line=line, this=self)\n            )\n\n    def __on_shutdown(self, event: Event, context: LaunchContext) -> Optional[SomeEntitiesType]:\n        due_to_sigint = cast(Shutdown, event).due_to_sigint\n        return self._shutdown_process(\n            context,\n            send_sigint=not due_to_sigint or context.noninteractive,\n        )"
+  },
+  "/opt/ros/jazzy/lib/python3.12/site-packages/ros2launch/command/launch.py": {
+    "sha256": "2d3aacab0eb1495334fb1fda631ef0bef92084251ded88a6f7a307498d966755",
+    "first_line": 71,
+    "last_line": 80,
+    "excerpt": "class LaunchCommand(CommandExtension):\n    \"\"\"Run a launch file.\"\"\"\n\n    def add_arguments(self, parser, cli_name):\n        \"\"\"Add arguments to argparse.\"\"\"\n        parser.add_argument(\n            '-n', '--noninteractive', default=not sys.stdin.isatty(), action='store_true',\n            help='Run the launch system non-interactively, with no terminal associated')\n        parser.add_argument(\n            '-d', '--debug', default=False, action='store_true',"
+  }
+}

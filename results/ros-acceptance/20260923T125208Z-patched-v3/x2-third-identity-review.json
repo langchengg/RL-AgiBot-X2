@@ -1,0 +1,581 @@
+{
+  "reviewed_at_utc": "2026-09-23T13:22:10.317690+00:00",
+  "status": "IDENTITY_REVIEW_PASS",
+  "root": "/tmp/x2-final-ros.z4vmp3sx",
+  "scope": "Independent file/metadata/hash and installed import-path review only. No ROS context or node started, no model loaded, no simulation/learning/evaluation executed by this review.",
+  "safe_claim": "All 15 production Python modules, launch, package/setup declarations and requirements are byte-identical to published 71037f7d5530a65da220345f9037ac4d29f32908 and load through the new installation into the new clone. The acceptance runner and README carry explicit recorded patches.",
+  "forbidden_claim": "Do not call root3 a wholly unmodified-release test or a new-machine/fully isolated-system-dependency test.",
+  "base_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "source_checks": [
+    {
+      "path": "README.md",
+      "current_sha256": "b8933aa9b22e831b5c4b5e5c246243d0676f91c6882e947ecfdd61536eee600e",
+      "recorded_tested_sha256": "a65567d4da0d7fde2c43129413c60fa00d8cb468701307f57236d35a7e51db80",
+      "base_sha256": "b24540c000efd1aed55d8aafb017b36ecca0d30f4aff3600a1e02cf9b3b349ae",
+      "base_matches_record": true,
+      "current_matches_tested": false,
+      "current_matches_release": false,
+      "changed_after_testing_as_documented": true
+    },
+    {
+      "path": "requirements.txt",
+      "current_sha256": "f5acf34535969d0ab1cf5fd25a83cd6a046b5c61984a18c267e8f20c2080b873",
+      "recorded_tested_sha256": "f5acf34535969d0ab1cf5fd25a83cd6a046b5c61984a18c267e8f20c2080b873",
+      "base_sha256": "f5acf34535969d0ab1cf5fd25a83cd6a046b5c61984a18c267e8f20c2080b873",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/package.xml",
+      "current_sha256": "4769a4a56b575b66841bebd7f6171db46c69908b52a1a0f4ab51e966d79cb498",
+      "recorded_tested_sha256": "4769a4a56b575b66841bebd7f6171db46c69908b52a1a0f4ab51e966d79cb498",
+      "base_sha256": "4769a4a56b575b66841bebd7f6171db46c69908b52a1a0f4ab51e966d79cb498",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/setup.py",
+      "current_sha256": "e151a450c3ae92125c8c00d47cd842aee904a7d6586e0e656e5219f62d478487",
+      "recorded_tested_sha256": "e151a450c3ae92125c8c00d47cd842aee904a7d6586e0e656e5219f62d478487",
+      "base_sha256": "e151a450c3ae92125c8c00d47cd842aee904a7d6586e0e656e5219f62d478487",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/setup.cfg",
+      "current_sha256": "af674713baa24aa025fccc920551711fb15264587916217f8cfed98006e0929f",
+      "recorded_tested_sha256": "af674713baa24aa025fccc920551711fb15264587916217f8cfed98006e0929f",
+      "base_sha256": "af674713baa24aa025fccc920551711fb15264587916217f8cfed98006e0929f",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/launch/recovery.launch.py",
+      "current_sha256": "45fdce7472ffe4438573fd17c67b87e156e66b644944c9fdd9005009f21b6283",
+      "recorded_tested_sha256": "45fdce7472ffe4438573fd17c67b87e156e66b644944c9fdd9005009f21b6283",
+      "base_sha256": "45fdce7472ffe4438573fd17c67b87e156e66b644944c9fdd9005009f21b6283",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/simulation_validation.py",
+      "current_sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+      "recorded_tested_sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+      "base_sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/telemetry_node.py",
+      "current_sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "recorded_tested_sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "base_sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/train.py",
+      "current_sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+      "recorded_tested_sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+      "base_sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/model.py",
+      "current_sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "recorded_tested_sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "base_sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/success.py",
+      "current_sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "recorded_tested_sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "base_sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/evaluate.py",
+      "current_sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "recorded_tested_sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "base_sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/env.py",
+      "current_sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "recorded_tested_sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "base_sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/reset.py",
+      "current_sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "recorded_tested_sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "base_sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/motion_search.py",
+      "current_sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+      "recorded_tested_sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+      "base_sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/model_audit.py",
+      "current_sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+      "recorded_tested_sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+      "base_sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/success_validation.py",
+      "current_sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+      "recorded_tested_sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+      "base_sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/baseline.py",
+      "current_sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "recorded_tested_sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "base_sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/recovery_node.py",
+      "current_sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "recorded_tested_sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "base_sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/diagnostics.py",
+      "current_sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+      "recorded_tested_sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+      "base_sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/__init__.py",
+      "current_sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+      "recorded_tested_sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+      "base_sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/test/test_reset.py",
+      "current_sha256": "c57101a3ef63ef5d87fdd4e44d16787ba4c4fdee275c8a12ecd25d946093cc2f",
+      "recorded_tested_sha256": "c57101a3ef63ef5d87fdd4e44d16787ba4c4fdee275c8a12ecd25d946093cc2f",
+      "base_sha256": "c57101a3ef63ef5d87fdd4e44d16787ba4c4fdee275c8a12ecd25d946093cc2f",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/test/test_env.py",
+      "current_sha256": "8f86ddd6311571512949097bcb80711915f8741927fae8b1346a6e18b3ed5cb9",
+      "recorded_tested_sha256": "8f86ddd6311571512949097bcb80711915f8741927fae8b1346a6e18b3ed5cb9",
+      "base_sha256": "8f86ddd6311571512949097bcb80711915f8741927fae8b1346a6e18b3ed5cb9",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/test/test_model.py",
+      "current_sha256": "d9b960aae2b86f90bcea8ff5860726db349b2acf0068c91deb9307fe9714cd5d",
+      "recorded_tested_sha256": "d9b960aae2b86f90bcea8ff5860726db349b2acf0068c91deb9307fe9714cd5d",
+      "base_sha256": "d9b960aae2b86f90bcea8ff5860726db349b2acf0068c91deb9307fe9714cd5d",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/test/test_training.py",
+      "current_sha256": "dd9369460e8cd33d95510673888c98b2ee27196d503614c27a4c52adba454c1e",
+      "recorded_tested_sha256": "dd9369460e8cd33d95510673888c98b2ee27196d503614c27a4c52adba454c1e",
+      "base_sha256": "dd9369460e8cd33d95510673888c98b2ee27196d503614c27a4c52adba454c1e",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/test/test_ros_integration.py",
+      "current_sha256": "63a8bf34409e2a95967074fb81b080e5546ef4d70627a9571d356bc4af8ac0cc",
+      "recorded_tested_sha256": "63a8bf34409e2a95967074fb81b080e5546ef4d70627a9571d356bc4af8ac0cc",
+      "base_sha256": "2ff405540db1297e6607807edb57a2163ee6d666864b3eaf5bb37e0a02df6b9e",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": false,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/test/test_evaluation.py",
+      "current_sha256": "c68c912062afacb6781b919652c00bff17d96cf6d74c45a8ad72a95fa0f4f519",
+      "recorded_tested_sha256": "c68c912062afacb6781b919652c00bff17d96cf6d74c45a8ad72a95fa0f4f519",
+      "base_sha256": "c68c912062afacb6781b919652c00bff17d96cf6d74c45a8ad72a95fa0f4f519",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/test/test_control.py",
+      "current_sha256": "cece331cacd8e0f91483e9f7aba6d085c5bfbb5ef80177047a5afbf3e754840f",
+      "recorded_tested_sha256": "cece331cacd8e0f91483e9f7aba6d085c5bfbb5ef80177047a5afbf3e754840f",
+      "base_sha256": "cece331cacd8e0f91483e9f7aba6d085c5bfbb5ef80177047a5afbf3e754840f",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/test/test_ros_nodes.py",
+      "current_sha256": "5237206e5cc6b2d3446c887e3e3b65605c1db4af0686e953700e8fb36ee9c532",
+      "recorded_tested_sha256": "5237206e5cc6b2d3446c887e3e3b65605c1db4af0686e953700e8fb36ee9c532",
+      "base_sha256": "5237206e5cc6b2d3446c887e3e3b65605c1db4af0686e953700e8fb36ee9c532",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/test/test_success.py",
+      "current_sha256": "be901f9eaf4e47d69d678148a291319696c7c0ae3a01062f6e3f9760f65711d1",
+      "recorded_tested_sha256": "be901f9eaf4e47d69d678148a291319696c7c0ae3a01062f6e3f9760f65711d1",
+      "base_sha256": "be901f9eaf4e47d69d678148a291319696c7c0ae3a01062f6e3f9760f65711d1",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    },
+    {
+      "path": "src/x2_recovery/test/test_baseline.py",
+      "current_sha256": "6c13f36def03716078aad1496a9d79fcc3c22508ea55eb3d0a6dd761d60c0748",
+      "recorded_tested_sha256": "6c13f36def03716078aad1496a9d79fcc3c22508ea55eb3d0a6dd761d60c0748",
+      "base_sha256": "6c13f36def03716078aad1496a9d79fcc3c22508ea55eb3d0a6dd761d60c0748",
+      "base_matches_record": true,
+      "current_matches_tested": true,
+      "current_matches_release": true,
+      "changed_after_testing_as_documented": false
+    }
+  ],
+  "production_modules": {
+    "count": 15,
+    "all_real_imports_inside_new_source": true,
+    "all_imported_bytes_match_release": true,
+    "modules": [
+      {
+        "module": "x2_recovery",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/__init__.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/__init__.py",
+        "sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+        "base_sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.baseline",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/baseline.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/baseline.py",
+        "sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+        "base_sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.diagnostics",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/diagnostics.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/diagnostics.py",
+        "sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+        "base_sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.env",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/env.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/env.py",
+        "sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+        "base_sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.evaluate",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/evaluate.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/evaluate.py",
+        "sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+        "base_sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.model",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/model.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/model.py",
+        "sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+        "base_sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.model_audit",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/model_audit.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/model_audit.py",
+        "sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+        "base_sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.motion_search",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/motion_search.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/motion_search.py",
+        "sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+        "base_sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.recovery_node",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/recovery_node.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/recovery_node.py",
+        "sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+        "base_sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.reset",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/reset.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/reset.py",
+        "sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+        "base_sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.simulation_validation",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/simulation_validation.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/simulation_validation.py",
+        "sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+        "base_sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.success",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/success.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/success.py",
+        "sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+        "base_sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.success_validation",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/success_validation.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/success_validation.py",
+        "sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+        "base_sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.telemetry_node",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/telemetry_node.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/telemetry_node.py",
+        "sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+        "base_sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      },
+      {
+        "module": "x2_recovery.train",
+        "file": "/tmp/x2-final-ros.z4vmp3sx/build/x2_recovery/x2_recovery/train.py",
+        "realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/x2_recovery/train.py",
+        "sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+        "base_sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+        "inside_new_source": true,
+        "imported_bytes_match_release": true
+      }
+    ],
+    "evidence": "all-production-module-origins.json"
+  },
+  "installed_runtime": {
+    "executable": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+    "prefix": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv",
+    "base_prefix": "/usr",
+    "real_executable": "/usr/bin/python3.12",
+    "package_prefix": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery",
+    "package_share": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/share/x2_recovery",
+    "entrypoints": [
+      {
+        "name": "recovery_node",
+        "path": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "shebang": "#!/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+        "uses_new_venv": true
+      },
+      {
+        "name": "telemetry_node",
+        "path": "/tmp/x2-final-ros.z4vmp3sx/install/x2_recovery/lib/x2_recovery/telemetry_node",
+        "shebang": "#!/tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python",
+        "uses_new_venv": true
+      }
+    ],
+    "installed_launch_realpath": "/tmp/x2-final-ros.z4vmp3sx/repository/src/x2_recovery/launch/recovery.launch.py",
+    "installed_launch_sha256": "45fdce7472ffe4438573fd17c67b87e156e66b644944c9fdd9005009f21b6283"
+  },
+  "recorded_loaded_modules": {
+    "total": 1715,
+    "path_classifications": {
+      "system_python": 544,
+      "new_run_evidence_or_artifact": 2,
+      "new_venv": 804,
+      "declared_system_ros": 353,
+      "ubuntu_sitecustomize": 1,
+      "synthetic_torch_relative_label": 2,
+      "new_source": 9
+    },
+    "exceptions": [
+      {
+        "module": "torch.classes",
+        "recorded_path": "/tmp/_classes.py",
+        "explanation": {
+          "raw_file": "_classes.py",
+          "exists_as_file": false,
+          "implementation_source": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/lib/python3.12/site-packages/torch/_classes.py"
+        }
+      },
+      {
+        "module": "torch.ops",
+        "recorded_path": "/tmp/_ops.py",
+        "explanation": {
+          "raw_file": "_ops.py",
+          "exists_as_file": false,
+          "implementation_source": "/tmp/x2-final-ros.z4vmp3sx/repository/.venv/lib/python3.12/site-packages/torch/_ops.py"
+        }
+      }
+    ],
+    "forbidden_path_matches": [],
+    "interpretation": "Two torch.classes/torch.ops relative __file__ labels normalize to nonexistent /tmp names; their documented implementation files are inside the new venv. Ubuntu sitecustomize is a declared system file, not a personal shell script."
+  },
+  "model": {
+    "commit": "60c5de582c523cd188f563819e62d34cfdc3d2d0",
+    "status": "",
+    "asset_repo": "/tmp/x2-final-ros.z4vmp3sx/assets/agibot_x2_urdf",
+    "license_present": true,
+    "raw_identity_hash_checks": {
+      "LICENSE": true,
+      "X2_URDF-v1.3.0/x2_ultra.urdf": true,
+      "X2_URDF-v1.3.0/x2_ultra.xml": true,
+      "X2_URDF-v1.3.0/scene.xml": true
+    },
+    "effective_fingerprint_recorded_by_actual_runtime": "bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0",
+    "effective_fingerprint_matches_published_readme": true,
+    "interpretation": "Fingerprint is the actual prior identity-capture result and agrees with the release; this review does not reload/recompile the model."
+  },
+  "readme": {
+    "tested_sha256": "a65567d4da0d7fde2c43129413c60fa00d8cb468701307f57236d35a7e51db80",
+    "final_sha256": "b8933aa9b22e831b5c4b5e5c246243d0676f91c6882e947ecfdd61536eee600e",
+    "bash_blocks": 27,
+    "all_bash_blocks_byte_identical": true,
+    "setup_section_byte_identical": true,
+    "only_changed_span": "Final isolated ROS acceptance results/provenance prose",
+    "reported_after_test_difference": "The tested source-identity correctly preserves a65567...; publication-document-identity binds final b8933... to the later report prose. This documented README-only difference is not a production/runtime mismatch."
+  },
+  "runner": {
+    "current_sha256": "63a8bf34409e2a95967074fb81b080e5546ef4d70627a9571d356bc4af8ac0cc",
+    "recorded_sha256": "63a8bf34409e2a95967074fb81b080e5546ef4d70627a9571d356bc4af8ac0cc",
+    "release_sha256": "2ff405540db1297e6607807edb57a2163ee6d666864b3eaf5bb37e0a02df6b9e",
+    "recorded_patch": "runner-evidence-v3.patch",
+    "reverse_apply_check_exit_code": 0
+  },
+  "network_recovery": {
+    "preparation_artifact_hash_mismatches": [],
+    "verified_wheel_still_matches_official_size_and_sha256": true,
+    "official_size": 19103843,
+    "official_sha256": "ce292cdf888dcadf1d1440c3debfdd38519ea01d8e4376f86d1e7754bfe0b069",
+    "pip_resume_option": false,
+    "curl_package": "curl 8.5.0-2ubuntu10.13",
+    "pin_changed": false,
+    "hash_check_bypassed": false,
+    "old_cache_used": false,
+    "pip_check_final": "No broken requirements found.",
+    "scope": "Two failed pip MuJoCo transfers and one Git checkout TLS failure remain recorded. The complete same-version artifact came independently from the official files.pythonhosted.org URL, passed official size/SHA validation, then unchanged requirements passed. The final README explicitly describes transport recovery and does not claim a first-try network install.",
+    "freeze_note": "pip freeze records mujoco with its verified new-root file URL and SHA; this is provenance, not a portable replacement for pinned requirements.txt."
+  },
+  "pending": "Parent still owns final acceptance/publication judgment and final aggregate evidence manifest regeneration. Recheck aggregate JSON hashes after all evidence and prose are finalized.",
+  "inspected_evidence_sha256": {
+    "environment.json": "07fc31634b04ec3aec1cab556dc79a5fb21430bf509dbc33b5306f90f7a997bd",
+    "source-identity.json": "4068f7db4e448388d1399c417f319dff53a393d36fdbfd9cee8709094b6bf4b1",
+    "all-production-module-origins.json": "8d1bbfa57d30911c3206fb82c24f8ecde890a4d95fdc1b60620367191e5f1935",
+    "dependency-module-origins.json": "8d8d5a81cc1142436a41189d0c70b3ac9e08c76f0beea851b527e2052a6f85d6",
+    "dependency-preparation-summary.json": "9df160b301a6ff9a0e378c5f8076197deaf8961c830daa16be767661b2540eb9",
+    "publication-document-identity.json": "db23e341623d423f505da7c46ccdf4f5f278d55717c0603e3d2822699f4c5ebf",
+    "mujoco-download-identity.json": "942a42c71f58d13410d05cd2178c58d74df60e5ae75c59cdc6af8644ac3b2312",
+    "mujoco-download-verification.json": "57ade2e279a5ca08920be6f7d5f3d4d073688f3819aefc6b7dd8150ddc30e912",
+    "tested-v3.patch": "a94c3a07582fa411c36dde9387f54c722658f7232d64bc2063a3a4b109ba0861",
+    "runner-evidence-v3.patch": "1e9fd59567b521bf1679cc7e49e90999344a3447552e4cce4ac78510d5a1fe4a",
+    "readme-applied.patch": "5eef559371d8ccf12ffc0ffd09ecf42b91a62ba078f989cf0b4c5e283255c065"
+  }
+}

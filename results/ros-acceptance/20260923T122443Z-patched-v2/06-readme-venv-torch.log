@@ -1,0 +1,48 @@
++ 1790166639.822775 cwd=/tmp cd /tmp/x2-final-ros.pukricvy/repository
++ 1790166639.822812 cwd=/tmp/x2-final-ros.pukricvy/repository git apply --check /tmp/x2-final-ros.pukricvy/evidence/readme-setup.patch
++ 1790166639.824062 cwd=/tmp/x2-final-ros.pukricvy/repository git apply /tmp/x2-final-ros.pukricvy/evidence/readme-setup.patch
++ 1790166639.825234 cwd=/tmp/x2-final-ros.pukricvy/repository sha256sum README.md /tmp/x2-final-ros.pukricvy/evidence/readme-setup.patch
+a65567d4da0d7fde2c43129413c60fa00d8cb468701307f57236d35a7e51db80  README.md
+5eef559371d8ccf12ffc0ffd09ecf42b91a62ba078f989cf0b4c5e283255c065  /tmp/x2-final-ros.pukricvy/evidence/readme-setup.patch
++ 1790166639.825971 cwd=/tmp/x2-final-ros.pukricvy/repository /usr/bin/python3 -m venv --system-site-packages .venv
++ 1790166640.985131 cwd=/tmp/x2-final-ros.pukricvy/repository touch .venv/COLCON_IGNORE
++ 1790166640.985787 cwd=/tmp/x2-final-ros.pukricvy/repository cat .venv/pyvenv.cfg
+home = /usr/bin
+include-system-site-packages = true
+version = 3.12.3
+executable = /usr/bin/python3.12
+command = /usr/bin/python3 -m venv --system-site-packages /tmp/x2-final-ros.pukricvy/repository/.venv
++ 1790166640.986199 cwd=/tmp/x2-final-ros.pukricvy/repository /tmp/x2-final-ros.pukricvy/repository/.venv/bin/python -m pip install --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu torch==2.8.0+cpu
+Looking in indexes: https://download.pytorch.org/whl/cpu
+Collecting torch==2.8.0+cpu
+  Downloading https://download-r2.pytorch.org/whl/cpu/torch-2.8.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl.metadata (29 kB)
+Collecting filelock (from torch==2.8.0+cpu)
+  Downloading filelock-3.32.3-py3-none-any.whl.metadata (2.0 kB)
+Requirement already satisfied: typing-extensions>=4.10.0 in /usr/lib/python3/dist-packages (from torch==2.8.0+cpu) (4.10.0)
+Requirement already satisfied: setuptools in /usr/lib/python3/dist-packages (from torch==2.8.0+cpu) (68.1.2)
+Collecting sympy>=1.13.3 (from torch==2.8.0+cpu)
+  Downloading sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+Collecting networkx (from torch==2.8.0+cpu)
+  Downloading networkx-3.6.1-py3-none-any.whl.metadata (6.8 kB)
+Requirement already satisfied: jinja2 in /usr/lib/python3/dist-packages (from torch==2.8.0+cpu) (3.1.2)
+Collecting fsspec (from torch==2.8.0+cpu)
+  Downloading fsspec-2026.7.0-py3-none-any.whl.metadata (10 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch==2.8.0+cpu)
+  Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Downloading https://download-r2.pytorch.org/whl/cpu/torch-2.8.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl (101.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━                   56.4/101.9 MB 445.4 kB/s eta 0:01:43
+Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 553.2 kB/s eta 0:00:00
+Downloading filelock-3.32.3-py3-none-any.whl (98 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.9/98.9 kB 492.1 kB/s eta 0:00:00
+Downloading fsspec-2026.7.0-py3-none-any.whl (206 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 206.6/206.6 kB 1.4 MB/s eta 0:00:00
+Downloading networkx-3.6.1-py3-none-any.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 985.3 kB/s eta 0:00:00
+Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 192.1 kB/s eta 0:00:00
+ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE. If you have updated the package versions, please update the hashes. Otherwise, examine the package contents carefully; someone may have tampered with them.
+    unknown package:
+        Expected sha256 610f600c102386e581327d5efc18c0d6edecb9820b4140d26163354a99cd800d
+             Got        da3dac7aee9ef2ea71d0e16d32af28ab9cf5c7ae22baaed62b7d9e6dedc55676
+

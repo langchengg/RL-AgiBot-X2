@@ -1,0 +1,492 @@
+--- a/src/x2_recovery/test/test_ros_integration.py
++++ b/src/x2_recovery/test/test_ros_integration.py
+@@ -7,10 +7,13 @@
+ No source PYTHONPATH, extra simulator step, state edits or alternative environment.
+ """
+ import argparse
++from datetime import datetime, timezone
+ import json
+ import os
+ from pathlib import Path
++import re
+ import signal
++import statistics
+ import subprocess
+ import sys
+ import time
+@@ -21,17 +24,59 @@
+     Path(path).write_text(json.dumps(value, indent=2, allow_nan=False)+'\n')
+ 
+ 
++def utc_now():
++    return datetime.now(timezone.utc).isoformat()
++
++
++def json_value(value):
++    # Read-only reset evidence contains detached NumPy arrays/scalars.
++    if hasattr(value, 'tolist'):
++        return value.tolist()
++    raise TypeError(type(value).__name__)
++
++
++def process_group_members(group):
++    """Inspect only this runner's new process group; never signal unrelated ROS."""
++    members = []
++    for path in Path('/proc').glob('[0-9]*/stat'):
++        try:
++            fields = path.read_text().rsplit(')', 1)[1].split()
++            if int(fields[2]) == group and fields[0] != 'Z':
++                members.append(dict(pid=int(path.parent.name), state=fields[0],
++                    parent_pid=int(fields[1]), process_group=int(fields[2]),
++                    start_ticks=int(fields[19]),
++                    command=(path.parent/'cmdline').read_bytes().decode(errors='replace').split('\0')[:-1]))
++        except (FileNotFoundError, ProcessLookupError, PermissionError):
++            pass
++    return members
++
++
++def is_cli_daemon(member):
++    command = member['command']
++    return ('ros2-daemon' in command and '--ros-domain-id' in command
++            and command[command.index('--ros-domain-id')+1] == os.environ.get('ROS_DOMAIN_ID', '0'))
++
++
++def signal_owned_group(group, signum):
++    try:
++        os.killpg(group, signum)
++    except ProcessLookupError:
++        pass  # The owned process/group exited between inspection and signaling.
++
++
+ def instrumented_node(events_path, inject_step_error=False):
+     from unittest.mock import patch
+     from x2_recovery import recovery_node as rn
+     stream = open(events_path, 'x', buffering=1)
+ 
+     def event(kind, **fields):
+-        stream.write(json.dumps(dict(event=kind, monotonic_s=time.monotonic(), **fields), allow_nan=False)+'\n')
++        stream.write(json.dumps(dict(event=kind, monotonic_s=time.monotonic(), **fields),
++                                default=json_value, allow_nan=False)+'\n')
+ 
+     class RecordedRecovery(rn.RecoveryNode):
+         def __init__(self, **kwargs):
+             super().__init__(**kwargs)
++            self.audit_reset_count = 0
+             send = self.service.send_response
+             def sending(response, header):
+                 event('send_begin', success=response.success, episode=self.episode)
+@@ -42,10 +87,14 @@
+             for operation in ('reset', 'step'):
+                 original = getattr(self.env, operation)
+                 def call(*args, _op=operation, _original=original, **kw):
+-                    event(_op+'_begin', episode=self.episode)
++                    if _op == 'reset':
++                        self.audit_reset_count += 1
++                    event(_op+'_begin', episode=self.episode, reset_count=self.audit_reset_count)
+                     try:
+                         result = _original(*args, **kw)
+-                        event(_op+'_end', episode=self.episode, elapsed_sim_s=result[-1]['elapsed_sim_s'])
++                        event(_op+'_end', episode=self.episode, elapsed_sim_s=result[-1]['elapsed_sim_s'],
++                              physics_steps=self.env._physics_steps,
++                              reset_evidence=self.env.reset_evidence if _op == 'reset' else None)
+                         if inject_step_error and self.episode == 1 and _op == 'step' and self.control_steps == 2:
+                             event('fault_injection', fault_type='step_error', episode=self.episode)
+                             raise RuntimeError('synthetic one-shot step failure after real physics')
+@@ -59,11 +108,21 @@
+                 event('close_begin'); original_close(); event('close_end')
+             self.env.close = close
+ 
++        def _log(self, kind, **fields):
++            event('node_event', name=kind, episode=self.episode, fields=fields)
++            return super()._log(kind, **fields)
++
+         def _start(self, request, response):
+             begin = time.monotonic()
++            before = dict(episode=self.episode, reset_count=self.audit_reset_count,
++                          control_steps=self.control_steps, busy=self.busy, pending=self.pending,
++                          environment_id=id(self.env))
+             result = super()._start(request, response)
+             event('callback_return', success=result.success, duration_s=time.monotonic()-begin,
+-                  episode=self.episode)
++                  episode=self.episode, before=before,
++                  after=dict(episode=self.episode, reset_count=self.audit_reset_count,
++                             control_steps=self.control_steps, busy=self.busy, pending=self.pending,
++                             environment_id=id(self.env)))
+             return result
+ 
+         def _sample(self):
+@@ -76,6 +135,8 @@
+                 return q, dq
+             with patch.object(self.env.loaded, 'read_state', side_effect=readback):
+                 message = super()._sample()
++            event('sample_created', episode=self.episode, step=self.control_steps,
++                  stamp=[message.header.stamp.sec, message.header.stamp.nanosec])
+             if self.control_steps < 5 or self.control_steps % 25 == 0:
+                 assert len(captured) == 1
+                 event('readback', episode=self.episode, step=self.control_steps,
+@@ -124,18 +185,30 @@
+                                 domain=os.environ.get('ROS_DOMAIN_ID'),
+                                 discovery=os.environ.get('ROS_AUTOMATIC_DISCOVERY_RANGE')))
+     processes = []
++    scenario = 'startup'
++    received_joints = []
++    status_stream = (output/'received-status.jsonl').open('x', buffering=1)
++    joint_stream = (output/'received-joints.jsonl').open('x', buffering=1)
+     deadline = time.monotonic()+210.
+     rclpy.init()
+     node = Node('ros_integration_client')
+     executor = SingleThreadedExecutor(); executor.add_node(node)
+     statuses, joints = [], []
+-    node.create_subscription(String, '/x2/recovery_status', lambda m: statuses.append((time.monotonic(), m.data)), STATUS_QOS)
++    def status(message):
++        received = time.monotonic()
++        statuses.append((received, message.data))
++        status_stream.write(json.dumps(dict(scenario=scenario, received_monotonic_s=received,
++                                            status=message.data), allow_nan=False)+'\n')
++    node.create_subscription(String, '/x2/recovery_status', status, STATUS_QOS)
+     def joint(message):
+         validate_joint_state(message)
+-        joints.append(dict(received_monotonic_s=time.monotonic(),
++        item = dict(scenario=scenario, received_monotonic_s=time.monotonic(),
++                           received_ros_ns=node.get_clock().now().nanoseconds,
+                            stamp=[message.header.stamp.sec, message.header.stamp.nanosec],
+                            names=message.name, q=list(message.position), dq=list(message.velocity),
+-                           effort=list(message.effort), frame_id=message.header.frame_id))
++                           effort=list(message.effort), frame_id=message.header.frame_id)
++        joints.append(item); received_joints.append(item)
++        joint_stream.write(json.dumps(item, allow_nan=False)+'\n')
+     node.create_subscription(JointState, '/x2/joint_states', joint, JOINT_QOS)
+     client = node.create_client(Trigger, '/x2/start_recovery')
+ 
+@@ -158,29 +231,82 @@
+     def spawn(command, name):
+         log = output/(name+'.log')
+         handle = log.open('x')
++        started_utc, started = utc_now(), time.monotonic()
+         p = subprocess.Popen(command, stdout=handle, stderr=subprocess.STDOUT, cwd='/tmp',
+                              start_new_session=True)
+-        entry = dict(pid=p.pid, command=command, log=str(log), returncode=None)
++        entry = dict(pid=p.pid, process_group=p.pid, command=command, cwd='/tmp',
++                     started_utc=started_utc, started_monotonic_s=started,
++                     environment={key: os.environ.get(key) for key in (
++                         'HOME','PATH','PYTHONPATH','PYTHONNOUSERSITE','VIRTUAL_ENV','ROS_DISTRO',
++                         'ROS_DOMAIN_ID','ROS_AUTOMATIC_DISCOVERY_RANGE','RMW_IMPLEMENTATION',
++                         'AMENT_PREFIX_PATH','CMAKE_PREFIX_PATH','COLCON_PREFIX_PATH',
++                         'X2_ASSET_REPO','X2_SCENE','MUJOCO_GL')},
++                     log=str(log), returncode=None)
++        if command[0] == 'env':
++            for assignment in command[1:]:
++                if '=' not in assignment:
++                    break
++                key, value = assignment.split('=', 1)
++                if key in entry['environment']:
++                    entry['environment'][key] = value
+         processes.append((p, handle, entry)); report['processes'].append(entry)
+         return p, log
+ 
+     def stop(p):
++        entry = next(e for proc, _, e in processes if proc is p)
++        members = process_group_members(p.pid)
++        if members:
++            entry['members_before_stop'] = members
++        escalated = False
+         if p.poll() is None:
+-            os.killpg(p.pid, signal.SIGINT)
++            signal_owned_group(p.pid, signal.SIGINT)
+             try: p.wait(timeout=8.)
+             except subprocess.TimeoutExpired:
+-                os.killpg(p.pid, signal.SIGTERM)
+-                p.wait(timeout=5.)
+-                raise AssertionError('Normal SIGINT cleanup exceeded 8s')
++                escalated = True
++                signal_owned_group(p.pid, signal.SIGTERM)
++                try: p.wait(timeout=5.)
++                except subprocess.TimeoutExpired:
++                    signal_owned_group(p.pid, signal.SIGKILL); p.wait(timeout=3.)
++        # A launch parent exiting does not itself prove its business children exited.
++        remaining = [m for m in process_group_members(p.pid) if not is_cli_daemon(m)]
++        if remaining:
++            escalated = True
++            signal_owned_group(p.pid, signal.SIGTERM)
++            until = time.monotonic()+3.
++            while any(not is_cli_daemon(m) for m in process_group_members(p.pid)) and time.monotonic() < until:
++                time.sleep(.02)
++            if any(not is_cli_daemon(m) for m in process_group_members(p.pid)):
++                signal_owned_group(p.pid, signal.SIGKILL)
++                until = time.monotonic()+2.
++                while process_group_members(p.pid) and time.monotonic() < until:
++                    time.sleep(.02)
+         for proc, handle, entry in processes:
+             if proc is p:
+                 entry['returncode'] = p.returncode; handle.flush()
++                entry.setdefault('exit_observed_utc', utc_now())
++                entry.setdefault('exit_observed_monotonic_s', time.monotonic())
++                # Jazzy CLI daemon inherits its spawning CLI's process group.
++                # Leave it to the existing domain-specific shutdown_daemon below.
++                current_members = process_group_members(p.pid)
++                entry['remaining_group_members'] = [m for m in current_members if not is_cli_daemon(m)]
++                entry['deferred_cli_daemon_members'] = [m for m in current_members if is_cli_daemon(m)]
++                text = Path(entry['log']).read_text()
++                entry['launch_children'] = []
++                for name, pid in re.findall(r'\[([^\]]+)\]: process started with pid \[(\d+)\]', text):
++                    clean = f'process has finished cleanly [pid {pid}]' in text
++                    failure = re.search(r'process has died \[pid '+pid+r', exit code (-?\d+)', text)
++                    entry['launch_children'].append(dict(name=name, pid=int(pid),
++                        returncode=0 if clean else int(failure.group(1)) if failure else None))
++                break
++        if escalated or entry['remaining_group_members']:
++            raise AssertionError('Normal SIGINT cleanup required escalation or left group members')
+         return p.returncode
+ 
+     def cli(args, name, seconds=10.):
+         start = time.monotonic()
+         p, log = spawn(['ros2', *args], name)
+         wait(lambda: p.poll() is not None, seconds)
++        stop(p)
+         text = log.read_text()
+         report['cli'].append(dict(command=['ros2', *args], log=str(log), exit_code=p.returncode,
+                                   process_wall_s=time.monotonic()-start,
+@@ -203,6 +329,9 @@
+         wait(lambda: client.service_is_ready() and any(r.get('event') == 'ready' for r in records(log))
+              and any(s == 'IDLE' for _, s in statuses), 15.)
+         wait(lambda: len(node.get_subscriptions_info_by_topic('/x2/joint_states')) >= 2)
++        for p, _, entry in processes:
++            if entry['log'] == str(log):
++                entry['members_when_ready'] = process_group_members(p.pid)
+ 
+     def finished(log, n):
+         wait(lambda: len([r for r in records(log) if r.get('event') == 'finished']) >= n, 40.)
+@@ -217,12 +346,16 @@
+               and Path(report['identity']['launch']).exists()
+               and Path(prefix/'recovery_node').read_text().splitlines()[0] == '#!'+sys.executable)
+         statuses.clear(); joints.clear()
++        scenario = 'normal-episode-1'
+         launch, log = spawn(['ros2', 'launch', 'x2_recovery', 'recovery.launch.py',
+                               'seed:=60', 'episode_timeout_s:=20.0', 'recovery_timeout_s:=30.0'], 'normal-launch')
+         ready(log)
+         check('single_launch_two_processes', 'process started with pid' in log.read_text()
+               and 'telemetry_node-' in log.read_text() and 'recovery_node-' in log.read_text())
+-        cli(['service', 'type', '/x2/start_recovery'], 'service-type')
++        nodes = cli(['node', 'list'], 'node-list')
++        check('business_nodes_discovered', '/recovery_node' in nodes and '/telemetry_node' in nodes)
++        service_type = cli(['service', 'type', '/x2/start_recovery'], 'service-type')
++        check('trigger_service_type', service_type.strip() == 'std_srvs/srv/Trigger')
+         cli(['topic', 'info', '/x2/recovery_status', '--verbose'], 'status-qos')
+         cli(['topic', 'info', '/x2/joint_states', '--verbose'], 'joint-qos')
+         for topic, wanted in [('/x2/recovery_status', STATUS_QOS), ('/x2/joint_states', JOINT_QOS)]:
+@@ -231,6 +364,9 @@
+             check('qos-'+topic.rsplit('/',1)[1], len(pubs) == 1 and all(
+                 p.qos_profile.reliability == wanted.reliability and p.qos_profile.durability == wanted.durability
+                 for p in pubs+subs))
++            expected_type = 'std_msgs/msg/String' if topic.endswith('recovery_status') else 'sensor_msgs/msg/JointState'
++            check('type-'+topic.rsplit('/',1)[1], all(p.topic_type == expected_type for p in pubs+subs),
++                  expected_type=expected_type)
+         text = cli(['topic','echo','/x2/recovery_status','std_msgs/msg/String',
+                     '--qos-reliability','reliable','--qos-durability','transient_local','--once','--timeout','5'], 'idle-echo')
+         check('idle_observed', 'IDLE' in text and not joints)
+@@ -249,12 +385,21 @@
+               max(abs(a-b) for a,b in zip(joints[0]['q'], joints[-1]['q'])) > .1
+               and all(len(j['names']) == 31 and not j['effort'] and not j['frame_id'] for j in joints)
+               and 'position_rad=' in log.read_text(), samples=len(joints))
++        normal_records = records(log)
++        check('normal_busy_keeps_episode_and_reset',
++              len([r for r in normal_records if r.get('event') == 'accepted']) == 1
++              and len([r for r in normal_records if r.get('event') == 'reset_started']) == 1
++              and len([r for r in normal_records if r.get('event') == 'reset_completed']) == 1
++              and all(r['episode'] == 1 and r['status'] == 'RUNNING' for r in normal_records
++                      if r.get('event') == 'rejected')
++              and len([r for r in normal_records if r.get('event') == 'rejected']) == 9)
+         pump(.25); count = len(joints); pump(1.2)
+         check('terminal_held_no_more_samples', len(joints) == count and statuses[-1][1] == 'FAILED')
+         late, late_log = spawn([str(prefix/'telemetry_node'), '--ros-args', '-r', '__node:=late_telemetry'], 'late-telemetry')
+         wait(lambda: 'status=FAILED' in late_log.read_text() and 'no_sample' in late_log.read_text(), 5.)
+         check('late_subscriber', 'position_rad=' not in late_log.read_text())
+         stop(late)
++        scenario = 'normal-episode-2'
+         rpc('same-instance-accept', True)
+         second = finished(log, 2)
+         check('same_instance_new_episode', second['episode'] == 2 and second['control_steps'] == 1000
+@@ -263,6 +408,7 @@
+         check('normal_cleanup', stop(launch) == 0 and '"event": "closed"' in log.read_text())
+         wait(lambda: not client.service_is_ready(), 5.)
+         statuses.clear(); joints.clear()
++        scenario = 'wall-episode-1'
+         wall, wall_log = spawn(['ros2','launch','x2_recovery','recovery.launch.py',
+                                 'seed:=60','episode_timeout_s:=20.0','recovery_timeout_s:=3.0'], 'wall-launch')
+         ready(wall_log); rpc('wall-accept', True)
+@@ -275,6 +421,31 @@
+         check('wall_cleanup', stop(wall) == 0 and '"event": "closed"' in wall_log.read_text())
+         wait(lambda: not client.service_is_ready(), 5.)
+         statuses.clear(); joints.clear()
++        scenario = 'original-launch-active-shutdown'
++        active_launch, active_log = spawn(['ros2','launch','x2_recovery','recovery.launch.py',
++            'seed:=60','episode_timeout_s:=20.0','recovery_timeout_s:=30.0'], 'active-shutdown-launch')
++        ready(active_log); rpc('original-launch-shutdown-accept', True)
++        wait(lambda: len(joints) >= 5)
++        check('original_launch_running_before_ctrl_c', statuses[-1][1] == 'RUNNING'
++              and not any(r.get('event') == 'finished' for r in records(active_log)), samples=len(joints))
++        active_code = stop(active_launch)
++        active_finished = [r for r in records(active_log) if r.get('event') == 'finished']
++        report['episodes'].extend(active_finished)
++        active_process = next(e for p, _, e in processes if p is active_launch)
++        check('original_launch_active_ctrl_c_cleanup', active_code == 0
++              and len(active_finished) == 1 and active_finished[0]['reason'] == 'shutdown'
++              and active_finished[0]['control_steps'] >= 3
++              and active_finished[0]['elapsed_sim_s'] > 0.
++              and '"event": "closed"' in active_log.read_text()
++              and len(active_process['launch_children']) == 2
++              and all(c['returncode'] == 0 for c in active_process['launch_children'])
++              and not active_process['remaining_group_members'],
++              finished=active_finished, children=active_process['launch_children'],
++              subscriber_last_status=statuses[-1][1],
++              scope='Server shutdown/close and child exits; no claim shutdown status reached subscriber')
++        wait(lambda: not client.service_is_ready(), 5.)
++        statuses.clear(); joints.clear()
++        scenario = 'readback-episode-1'
+         events_path = output/'readback-events.jsonl'
+         audited, audit_log = spawn([sys.executable, str(Path(__file__).resolve()),
+                                     '--instrumented-node', str(events_path), '--ros-args',
+@@ -292,6 +463,14 @@
+         end = next(e for e in events if e['event'] == 'reset_end')
+         sent = next(e for e in events if e['event'] == 'send_end' and e['success'])
+         check('acceptance_sent_before_reset', sent['monotonic_s'] < begin['monotonic_s'])
++        first_step = next(e for e in events if e['event'] == 'step_begin')
++        check('response_reset_step_order', sent['monotonic_s'] < begin['monotonic_s']
++              < end['monotonic_s'] < first_step['monotonic_s'], send_end=sent['monotonic_s'],
++              reset_begin=begin['monotonic_s'], reset_end=end['monotonic_s'],
++              first_step_begin=first_step['monotonic_s'])
++        check('audited_supine_reset_qualified', end['reset_evidence']['status'] == 'PASS',
++              reset_duration_s=end['monotonic_s']-begin['monotonic_s'],
++              settled_start_s=end['reset_evidence']['settled_start_s'])
+         check('request_actually_sent_during_reset', begin['monotonic_s'] <= busy_reset['start_monotonic_s']
+               < end['monotonic_s'] and busy_reset['end_monotonic_s'] < next(
+                   e['monotonic_s'] for e in reversed(events) if e['event'] == 'step_end'),
+@@ -305,12 +484,35 @@
+                       read['q'] == msg['q'] and read['dq'] == msg['dq'])
+                 compared.append(dict(simulator=read, received=msg))
+         dump(output/'matched-readback.json', compared)
+-        check('same_snapshot_actual_readback', len(compared) >= 4, matched=len(compared), max_absolute_error=0.)
++        errors = [abs(a-b) for pair in compared for field, key in [('q','q'),('dq','dq')]
++                  for a,b in zip(pair['simulator'][field], pair['received'][key])]
++        check('same_snapshot_actual_readback', len(compared) >= 4, matched=len(compared),
++              max_absolute_error=max(errors) if errors else None)
+         stepping = [r for r in report['rpc'] if r['label'].startswith('readback-stepping-busy')]
+         last_step = max(e['monotonic_s'] for e in events if e['event'] == 'step_end')
+         check('busy_during_verified_stepping_interval', all(end['monotonic_s'] < r['start_monotonic_s']
+               < r['end_monotonic_s'] < last_step for r in stepping), samples=len(stepping))
++        rejected = [e for e in events if e['event'] == 'callback_return' and not e['success']]
++        check('audited_busy_no_episode_reset_or_step_mutation', len(rejected) == 5 and
++              all(e['before'] == e['after'] and e['episode'] == 1 for e in rejected)
++              and len([e for e in events if e['event'] == 'reset_begin']) == 1,
++              callbacks=len(rejected))
++        finished_at = next(e['monotonic_s'] for e in events if e['event'] == 'node_event'
++                           and e['name'] == 'finished')
++        pump(.2)
++        terminal_events = records(events_path)
++        check('no_new_sampling_after_audited_terminal', all(e['monotonic_s'] <= finished_at
++              for e in terminal_events if e['event'] == 'sample_created'),
++              terminal_monotonic_s=finished_at,
++              samples=len([e for e in terminal_events if e['event'] == 'sample_created']))
+         report['callback_samples_s'] = [e['duration_s'] for e in events if e['event'] == 'callback_return']
++        report['audited_execution'] = dict(
++            reset_duration_s=end['monotonic_s']-begin['monotonic_s'],
++            actual_completed_control_calls=len([e for e in events if e['event'] == 'step_end']),
++            actual_physics_steps=max(e['physics_steps'] for e in events if e['event'] == 'step_end'),
++            elapsed_sim_s=result['elapsed_sim_s'], wall_s=result['wall_s'],
++            timeout_overshoot_s=result['timeout_overshoot_s'])
++        scenario = 'readback-active-shutdown-episode-2'
+         rpc('shutdown-active-accept', True)
+         wait(lambda: any(e['event'] == 'reset_begin' and e['episode'] == 2 for e in records(events_path)))
+         check('active_ctrl_c_cleanup', stop(audited) == 0 and
+@@ -322,6 +524,7 @@
+         stop(telemetry)
+         wait(lambda: not client.service_is_ready(), 5.)
+         statuses.clear(); joints.clear()
++        scenario = 'synthetic-fault-episode-1'
+         faulty, fault_log = spawn([sys.executable, str(Path(__file__).resolve()),
+                                   '--instrumented-node', str(output/'fault-events.jsonl'), '--inject-step-error',
+                                   '--ros-args', '-p', 'episode_timeout_s:=0.203'], 'fault-injection-recovery')
+@@ -330,6 +533,7 @@
+         failed = finished(fault_log, 1)
+         check('synthetic_step_fault_ends_request', failed['status'] == 'FAILED' and
+               failed['reason'] == 'step_error' and 'synthetic one-shot' in failed['error']['message'])
++        scenario = 'retry-after-synthetic-fault-episode-2'
+         rpc('retry-after-fault-accept', True)
+         retry = finished(fault_log, 2)
+         check('real_reset_after_synthetic_fault', retry['reason'] == 'time_limit' and
+@@ -338,14 +542,20 @@
+         wait(lambda: not client.service_is_ready(), 5.)
+         for index, args in enumerate([
+             ['-p','seed:=-1'], ['-p','episode_timeout_s:=0.0205'],
+-            ['-p','recovery_timeout_s:=0.0'], ['-p','use_sim_time:=true']]):
++            ['-p','recovery_timeout_s:=0.0'], ['-p','use_sim_time:=true'],
++            ['-p','episode_timeout_s:=0.0'], ['-p','episode_timeout_s:=-1.0']]):
++            scenario = f'invalid-startup-{index}'
+             bad, bad_log = spawn([str(prefix/'recovery_node'),'--ros-args',*args], f'invalid-startup-{index}')
+             wait(lambda: bad.poll() is not None, 10.)
+-            check(f'invalid-startup-{index}', bad.returncode != 0 and '"event": "ready"' not in bad_log.read_text())
++            stop(bad)
++            check(f'invalid-startup-{index}', bad.returncode != 0 and '"event": "ready"' not in bad_log.read_text()
++                  and 'Recovery startup/execution failed:' in bad_log.read_text())
+         # Missing assets are a real startup fault, isolated to this child process.
+         bad, bad_log = spawn(['env','X2_ASSET_REPO=/nonexistent/x2-assets',str(prefix/'recovery_node')], 'missing-model')
+         wait(lambda: bad.poll() is not None, 10.)
+-        check('model_load_failure', bad.returncode != 0 and '"event": "ready"' not in bad_log.read_text())
++        stop(bad)
++        check('model_load_failure', bad.returncode != 0 and '"event": "ready"' not in bad_log.read_text()
++              and 'Missing asset repository:' in bad_log.read_text())
+         check('startup_failures_no_service', not client.service_is_ready())
+         report['result'] = 'PASS'
+         return 0
+@@ -365,11 +575,49 @@
+             report['daemon_was_running'] = daemon_was_running
+             if not daemon_was_running:
+                 report['own_cli_daemon_stopped'] = shutdown_daemon(daemon_args, timeout=5.)
++                if is_daemon_running(daemon_args):
++                    cleanup_errors.append('Runner-created CLI daemon is still running')
+         except Exception as exc:
+             cleanup_errors.append('CLI daemon cleanup: '+str(exc))
++        report['all_children_exited'] = all(p.poll() is not None for p,_,_ in processes)
++        until = time.monotonic()+2.
++        while any(process_group_members(p.pid) for p, _, _ in processes) and time.monotonic() < until:
++            time.sleep(.02)
++        report['remaining_owned_group_members'] = [member for p, _, _ in processes
++                                                    for member in process_group_members(p.pid)]
++        if not report['all_children_exited'] or report['remaining_owned_group_members']:
++            cleanup_errors.append('Runner-owned processes remain')
++        report['telemetry_by_scenario'] = {}
++        for label in dict.fromkeys(j['scenario'] for j in received_joints):
++            samples = [j for j in received_joints if j['scenario'] == label]
++            stamps = [j['stamp'][0]+j['stamp'][1]/1e9 for j in samples]
++            arrivals = [j['received_monotonic_s'] for j in samples]
++            def intervals(values):
++                differences = [b-a for a,b in zip(values, values[1:])]
++                return dict(count=len(differences), minimum_s=min(differences) if differences else None,
++                            median_s=statistics.median(differences) if differences else None,
++                            maximum_s=max(differences) if differences else None)
++            knee = [j['q'][j['names'].index('left_knee_joint')] for j in samples]
++            report['telemetry_by_scenario'][label] = dict(samples=len(samples),
++                acquisition_intervals=intervals(stamps), receipt_intervals=intervals(arrivals),
++                stamp_semantics='ROS acquisition clock; not MuJoCo simulation time',
++                knee_joint='left_knee_joint', knee_min_rad=min(knee), knee_max_rad=max(knee),
++                maximum_age_at_receipt_s=max((j['received_ros_ns']-(j['stamp'][0]*10**9+j['stamp'][1]))/1e9
++                                             for j in samples))
++        report['telemetry_terminal_log_lines'] = [dict(log=entry['log'], line=line)
++            for _, _, entry in processes for line in Path(entry['log']).read_text().splitlines()
++            if ('last_sample' in line or 'no_sample' in line or 'waiting_for_current_sample' in line)]
++        for name, cleanup in [('executor', executor.shutdown), ('client_node', node.destroy_node),
++                              ('ros_context', rclpy.shutdown)]:
++            try:
++                cleanup()
++            except BaseException as exc:
++                cleanup_errors.append(name+': '+str(exc))
++        status_stream.close(); joint_stream.close()
+         report['cleanup_errors'] = cleanup_errors
+-        report['all_children_exited'] = all(p.poll() is not None for p,_,_ in processes)
+-        executor.shutdown(); node.destroy_node(); rclpy.shutdown()
++        if cleanup_errors:
++            report['result'] = 'FAIL'
++            report['cleanup_incomplete'] = True
+         dump(output/'summary.json', report)
+         if cleanup_errors: raise RuntimeError('; '.join(cleanup_errors))
+ 

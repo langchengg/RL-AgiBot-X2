@@ -1,0 +1,569 @@
+{
+  "result": "FAIL",
+  "run_id": "20260923T122443Z-patched-v2",
+  "run_started_utc": "2026-09-23T12:24:43.337350+00:00",
+  "summary_scope": "ROS acceptance; Git publication is recorded separately after push",
+  "date": "2026-09-23T13:24:42.050584+00:00",
+  "test_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "patch": "tested-v2.patch",
+  "patch_sha256": "42e74c5e247709dab3fc09330b7ae8fe506c4eeab268a3b8bc8640b32912f22b",
+  "production_sources_unchanged": true,
+  "controller": "scripted_baseline",
+  "isolation_scope": "\u540c\u4e00 Ubuntu ARM64 VM \u4e0a\uff0c\u65b0\u7684\u6e90\u7801\u3001\u9879\u76ee\u865a\u62df\u73af\u5883\u3001\u6a21\u578b\u526f\u672c\u3001shell \u548c\u6784\u5efa\u4ea7\u7269\uff1b\u590d\u7528\u5df2\u58f0\u660e\u7684\u7cfb\u7edf ROS/Ubuntu \u4f9d\u8d56\u3002",
+  "environment": "environment.json",
+  "commands": "commands.json",
+  "fresh_dependency_setup": "PASS",
+  "fresh_build": "PASS",
+  "installed_runtime": "PASS",
+  "stage_evidence": {
+    "dependencies": {
+      "status": "PASS",
+      "torch_attempts": [
+        {
+          "label": "06-readme-venv-torch",
+          "exit_code": 1,
+          "log": "06-readme-venv-torch.log"
+        },
+        {
+          "label": "11-torch-network-retry",
+          "exit_code": 0,
+          "log": "11-torch-network-retry.log"
+        }
+      ],
+      "requirements_attempts": [
+        {
+          "label": "12-requirements",
+          "exit_code": 0,
+          "log": "12-requirements.log"
+        }
+      ],
+      "pip_check_no_broken_requirements": true
+    },
+    "build": {
+      "status": "PASS",
+      "commands": [
+        {
+          "label": "14-build",
+          "exit_code": 0,
+          "log": "14-build.log"
+        }
+      ]
+    },
+    "installed_runtime": {
+      "status": "PASS",
+      "commands": [
+        {
+          "label": "15-runtime-identity",
+          "exit_code": 0,
+          "log": "15-runtime-identity.log"
+        }
+      ],
+      "forbidden_path_matches": []
+    }
+  },
+  "source_identity": "source-identity.json",
+  "production_source_hashes": {
+    "requirements.txt": "f5acf34535969d0ab1cf5fd25a83cd6a046b5c61984a18c267e8f20c2080b873",
+    "src/x2_recovery/package.xml": "4769a4a56b575b66841bebd7f6171db46c69908b52a1a0f4ab51e966d79cb498",
+    "src/x2_recovery/setup.py": "e151a450c3ae92125c8c00d47cd842aee904a7d6586e0e656e5219f62d478487",
+    "src/x2_recovery/setup.cfg": "af674713baa24aa025fccc920551711fb15264587916217f8cfed98006e0929f",
+    "src/x2_recovery/launch/recovery.launch.py": "45fdce7472ffe4438573fd17c67b87e156e66b644944c9fdd9005009f21b6283",
+    "src/x2_recovery/x2_recovery/simulation_validation.py": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+    "src/x2_recovery/x2_recovery/telemetry_node.py": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+    "src/x2_recovery/x2_recovery/train.py": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+    "src/x2_recovery/x2_recovery/model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "src/x2_recovery/x2_recovery/success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "src/x2_recovery/x2_recovery/evaluate.py": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+    "src/x2_recovery/x2_recovery/env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "src/x2_recovery/x2_recovery/reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "src/x2_recovery/x2_recovery/motion_search.py": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+    "src/x2_recovery/x2_recovery/model_audit.py": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+    "src/x2_recovery/x2_recovery/success_validation.py": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+    "src/x2_recovery/x2_recovery/baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+    "src/x2_recovery/x2_recovery/recovery_node.py": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+    "src/x2_recovery/x2_recovery/diagnostics.py": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+    "src/x2_recovery/x2_recovery/__init__.py": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532"
+  },
+  "modified_source_files": [
+    "README.md",
+    "src/x2_recovery/test/test_ros_integration.py"
+  ],
+  "regression": {
+    "status": "NOT_RUN",
+    "reason": "Cross-process runner failed early; this attempt is not a completed acceptance."
+  },
+  "integration": {
+    "explicit_runner_executed": true,
+    "raw_runner_result": "FAIL",
+    "checks": 4,
+    "passed": 3,
+    "watchdog_exit_code": 1,
+    "runner_completed": true,
+    "all_required_scenarios_passed": false,
+    "required_scenarios": {
+      "single_launch_two_processes": "PASS",
+      "idle_observed": "NOT_RUN",
+      "cli_accept_true": "NOT_RUN",
+      "cli_busy_false": "NOT_RUN",
+      "same_instance_new_episode": "NOT_RUN",
+      "simulation_timeout": "NOT_RUN",
+      "wall_timeout": "NOT_RUN",
+      "same_snapshot_actual_readback": "NOT_RUN",
+      "request_actually_sent_during_reset": "NOT_RUN",
+      "busy_during_verified_stepping_interval": "NOT_RUN",
+      "late_subscriber": "NOT_RUN",
+      "terminal_held_no_more_samples": "NOT_RUN",
+      "synthetic_step_fault_ends_request": "NOT_RUN",
+      "real_reset_after_synthetic_fault": "NOT_RUN",
+      "startup_failures_no_service": "NOT_RUN",
+      "model_load_failure": "NOT_RUN",
+      "active_ctrl_c_cleanup": "NOT_RUN",
+      "close_after_execution_unwound": "NOT_RUN",
+      "business_nodes_discovered": "FAIL",
+      "response_reset_step_order": "NOT_RUN",
+      "audited_busy_no_episode_reset_or_step_mutation": "NOT_RUN",
+      "no_new_sampling_after_audited_terminal": "NOT_RUN",
+      "original_launch_active_ctrl_c_cleanup": "NOT_RUN"
+    },
+    "summary": "integration/summary.json",
+    "launch_business_child_exits": [
+      {
+        "log": "integration/normal-launch.log",
+        "children": [
+          {
+            "name": "recovery_node-1",
+            "pid": 30742,
+            "returncode": 0
+          },
+          {
+            "name": "telemetry_node-2",
+            "pid": 30743,
+            "returncode": 0
+          }
+        ]
+      }
+    ],
+    "all_business_child_exit_codes_zero": true,
+    "cleanup": {
+      "date": "2026-09-23T12:51:24.027797+00:00",
+      "domain": "86",
+      "rmw": "rmw_fastrtps_cpp",
+      "owned_runtime_processes": [],
+      "nodes": [
+        [
+          "x2_final_postflight",
+          "/"
+        ]
+      ],
+      "services": [
+        [
+          "/x2_final_postflight/describe_parameters",
+          [
+            "rcl_interfaces/srv/DescribeParameters"
+          ]
+        ],
+        [
+          "/x2_final_postflight/get_parameter_types",
+          [
+            "rcl_interfaces/srv/GetParameterTypes"
+          ]
+        ],
+        [
+          "/x2_final_postflight/get_parameters",
+          [
+            "rcl_interfaces/srv/GetParameters"
+          ]
+        ],
+        [
+          "/x2_final_postflight/get_type_description",
+          [
+            "type_description_interfaces/srv/GetTypeDescription"
+          ]
+        ],
+        [
+          "/x2_final_postflight/list_parameters",
+          [
+            "rcl_interfaces/srv/ListParameters"
+          ]
+        ],
+        [
+          "/x2_final_postflight/set_parameters",
+          [
+            "rcl_interfaces/srv/SetParameters"
+          ]
+        ],
+        [
+          "/x2_final_postflight/set_parameters_atomically",
+          [
+            "rcl_interfaces/srv/SetParametersAtomically"
+          ]
+        ]
+      ],
+      "status_publishers": 0,
+      "joint_publishers": 0,
+      "daemon_running": false,
+      "no_residual_business_graph": true,
+      "result": "PASS"
+    },
+    "success": false
+  },
+  "metrics": {
+    "rpc": [],
+    "cli": [
+      {
+        "command": [
+          "ros2",
+          "node",
+          "list"
+        ],
+        "log": "/tmp/x2-final-ros.pukricvy/evidence/integration/node-list.log",
+        "exit_code": 0,
+        "process_wall_s": 0.8686479579996558,
+        "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+      }
+    ],
+    "matched_readback_samples": 0,
+    "matched_readback_identity_ok": false,
+    "matched_readback_scalar_values": 0,
+    "maximum_actual_readback_absolute_error": null,
+    "telemetry_by_scenario": {},
+    "audited_execution": null,
+    "response_reset_step_order": null,
+    "graph_discovery_protocol": null,
+    "service_type_daemon_readiness": null,
+    "joint_message_integrity": {
+      "samples": 0,
+      "status": "NOT_OBSERVED"
+    },
+    "episodes": [],
+    "startup_error_children": []
+  },
+  "not_applicable": {
+    "ROS_checkpoint_path_error": "No checkpoint/controller parameter or ROS policy-loading entry point exists."
+  },
+  "logical_validation": {
+    "pending_busy": "test_ros_nodes.RecoveryLogicTests.test_acceptance_pending_busy_no_environment_calls_or_mutation in regression.log; logical fixture, not a cross-process reset window",
+    "model_hash_mismatch": "test_model.ModelTests.test_missing_path_and_wrong_pin_hash_fail_clearly; synthetic expected-hash mismatch. Missing model path is also tested in a real child process."
+  },
+  "validation_layers": {
+    "original_launch": "Unmodified recovery.launch.py starts real recovery_node + telemetry_node. CLI and both timeout scenarios use real native simulation.",
+    "read_only_audit": "A separate subprocess wraps real send_response/reset/step/read_state and samples without extra physics; proves server ordering and same-stamp actual state.",
+    "synthetic_fault": "An explicit one-shot exception after a real physics step; tests error handling/retry, not natural simulator failure.",
+    "unit_tests": "Logical node fixture tests plus bounded real physics and synthetic optimizer fixtures.",
+    "startup_errors": "Illegal parameters and missing model run installed recovery_node child processes with actual nonzero process exits. They do not claim nonzero ros2 launch parent exits."
+  },
+  "limits": [
+    "Same existing VM, not a new OS or separate machine installation.",
+    "--system-site-packages intentionally inherits declared Ubuntu and ROS packages.",
+    "ROS scripted baseline did not recover; terminal FAILED is expected for these integration scenarios.",
+    "Standalone reference + PPO residual frozen fixed-supine 5/5 is historical and not rerun or wired into ROS.",
+    "Cooperative wall timeout cannot preempt reset/step; measured overshoot is reported.",
+    "Terminal network delivery can lag creation; closing a ROS context does not guarantee subscriber delivery of shutdown status.",
+    "Acquisition timestamps use ROS clock; simulation progress uses MuJoCo time; budgets use monotonic wall time. No /clock is published.",
+    "Reported process exit times are parent observation times, not exact kernel exit instants.",
+    "Original launch cumulative physics counts are derived from elapsed simulation time and model timestep; separate audited env._physics_steps counts are directly observed.",
+    "Scenario labels record receiver phase; ROS acquisition stamps distinguish queued deliveries from newly created samples."
+  ],
+  "failures_or_incomplete": [
+    {
+      "issue": "Cross-process runner failure",
+      "error": {
+        "type": "AssertionError",
+        "message": "business_nodes_discovered: {}"
+      },
+      "failed_checks": {
+        "business_nodes_discovered": {
+          "result": "FAIL"
+        }
+      },
+      "detail": "The first independent CLI DirectNode observer returned an empty graph within its default 0.5 s discovery wait, although the integration client and two business nodes were ready. No daemon preexisted, so the installed NodeStrategy spawned one and read through a new DirectNode; daemon-cache causation is not established. This attempt accepted no request. The third fresh run explicitly changes supported direct discovery waits to 2 s and bounds daemon graph readiness for unchanged service-type CLI; 10 s CLI, 1 s discovered-client RPC and 210 s runner budgets remain unchanged."
+    },
+    {
+      "issue": "Full regression incomplete or failed",
+      "detail": {
+        "status": "NOT_RUN",
+        "reason": "Cross-process runner failed early; this attempt is not a completed acceptance."
+      }
+    },
+    {
+      "issue": "No complete same-stamp readback identity evidence in this attempt"
+    },
+    {
+      "issue": "Complete valid raw JointState stream not observed in this attempt"
+    }
+  ],
+  "nonzero_preparation_attempts": [
+    {
+      "label": "01-clone",
+      "exit_code": 128,
+      "log": "01-clone.log"
+    },
+    {
+      "label": "02-clone-retry",
+      "exit_code": -2,
+      "log": "02-clone-retry.log"
+    },
+    {
+      "label": "03-model-download",
+      "exit_code": 128,
+      "log": "03-model-download.log"
+    },
+    {
+      "label": "06-readme-venv-torch",
+      "exit_code": 1,
+      "log": "06-readme-venv-torch.log"
+    }
+  ],
+  "package_integrity_rejections": [
+    {
+      "label": "06-readme-venv-torch",
+      "exit_code": 1,
+      "log": "06-readme-venv-torch.log"
+    }
+  ],
+  "preparation_retry_notes": [
+    "All network retries are explicit commands with separate logs; no assertion budget was relaxed.",
+    "Root1 full/shallow Git clones and one filtered handshake failed; HTTP/1.1 sparse clone succeeded at the exact base commit.",
+    "Root1 python3-cffi apt query returned nonzero because that optional inventory name was absent; declared cffi was installed in the venv, and python3-cffi-backend system package was recorded.",
+    "Root2 had Git TLS failures and one manually bounded interrupted stalled download. Its first Torch transfer was truncated (56.4/101.9 MB) and rejected by the official hash; a --no-cache-dir retry kept the same source, version and integrity check.",
+    "This attempt's failed command list and stage_evidence retain actual chronology. Stage PASS requires the final explicit dependency command to exit 0 plus pip check and runtime identity; it never means an uninterrupted first attempt."
+  ],
+  "environment_notes": [
+    "NumPy/Pillow/matplotlib/setuptools/colcon come from declared system packages; simulator/RL packages and cffi installed in the new venv.",
+    "Python executable realpath /usr/bin/python3.12 is expected: executable and sys.prefix point to the new venv.",
+    "torch.classes/torch.ops __file__ values are synthetic relative labels; implementations are torch._classes/torch._ops inside the new venv. Ubuntu sitecustomize is a system apport hook, not a user startup file."
+  ],
+  "module_origins": {
+    "rclpy": {
+      "version": "7.1.12",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py"
+    },
+    "mujoco": {
+      "version": "3.13.0",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/mujoco/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/mujoco/__init__.py"
+    },
+    "gymnasium": {
+      "version": "1.3.0",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/gymnasium/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/gymnasium/__init__.py"
+    },
+    "stable_baselines3": {
+      "version": "2.9.0",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/stable_baselines3/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/stable_baselines3/__init__.py"
+    },
+    "torch": {
+      "version": "2.8.0+cpu",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/torch/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/torch/__init__.py"
+    },
+    "numpy": {
+      "version": "1.26.4",
+      "path": "/usr/lib/python3/dist-packages/numpy/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/numpy/__init__.py"
+    },
+    "matplotlib": {
+      "version": "3.6.3",
+      "path": "/usr/lib/python3/dist-packages/matplotlib/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/matplotlib/__init__.py"
+    },
+    "PIL": {
+      "version": "10.2.0",
+      "path": "/usr/lib/python3/dist-packages/PIL/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/PIL/__init__.py"
+    },
+    "cffi": {
+      "version": "2.1.1",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/cffi/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/cffi/__init__.py"
+    },
+    "setuptools": {
+      "version": "68.1.2",
+      "path": "/usr/lib/python3/dist-packages/setuptools/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+    },
+    "pip": {
+      "version": "24.0",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/pip/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/pip/__init__.py"
+    },
+    "colcon_core": {
+      "version": "0.21.3",
+      "path": "/usr/lib/python3/dist-packages/colcon_core/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/colcon_core/__init__.py"
+    },
+    "ament_package": {
+      "version": "0.16.5",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_package/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_package/__init__.py"
+    },
+    "ament_index_python": {
+      "version": "1.8.4",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_index_python/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_index_python/__init__.py"
+    },
+    "sensor_msgs": {
+      "version": "5.3.8",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/sensor_msgs/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/sensor_msgs/__init__.py"
+    },
+    "std_msgs": {
+      "version": "5.3.8",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/std_msgs/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/std_msgs/__init__.py"
+    },
+    "std_srvs": {
+      "version": "5.3.8",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/std_srvs/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/std_srvs/__init__.py"
+    },
+    "launch": {
+      "version": "3.4.11",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/launch/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/launch/__init__.py"
+    },
+    "launch_ros": {
+      "version": "0.26.12",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/launch_ros/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/launch_ros/__init__.py"
+    },
+    "x2_recovery.recovery_node": {
+      "version": "0.1.0",
+      "path": "/tmp/x2-final-ros.pukricvy/build/x2_recovery/x2_recovery/recovery_node.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/src/x2_recovery/x2_recovery/recovery_node.py"
+    },
+    "x2_recovery.telemetry_node": {
+      "version": "0.1.0",
+      "path": "/tmp/x2-final-ros.pukricvy/build/x2_recovery/x2_recovery/telemetry_node.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/src/x2_recovery/x2_recovery/telemetry_node.py"
+    }
+  },
+  "model_identity": {
+    "repository": "https://github.com/AgibotTech/agibot_x2_urdf",
+    "commit": "60c5de582c523cd188f563819e62d34cfdc3d2d0",
+    "asset_repo": "/tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf",
+    "fingerprint": "bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0",
+    "source_sha256": {
+      "LICENSE": "d5777bea50dc2cd111845d8a9c51ab990d188ce343b843e5ad3e653b5fa8fdab",
+      "X2_URDF-v1.3.0/x2_ultra.urdf": "f628a969aaf3d5785b8c8901611a85f358d7eb62a8b06b1216dc42291a72944e",
+      "X2_URDF-v1.3.0/x2_ultra.xml": "3be016eaa127c79ac547754d6e25c0930887efcf9577af33e9f5bb4ff4ed90d4",
+      "X2_URDF-v1.3.0/scene.xml": "7e067253f0e4b0e023614d63a6f15b9c7b9108d7a4bf63bb9cee5cf2b5f24439"
+    },
+    "license_present": true,
+    "joint_names": [
+      "left_hip_pitch_joint",
+      "left_hip_roll_joint",
+      "left_hip_yaw_joint",
+      "left_knee_joint",
+      "left_ankle_pitch_joint",
+      "left_ankle_roll_joint",
+      "right_hip_pitch_joint",
+      "right_hip_roll_joint",
+      "right_hip_yaw_joint",
+      "right_knee_joint",
+      "right_ankle_pitch_joint",
+      "right_ankle_roll_joint",
+      "waist_yaw_joint",
+      "waist_pitch_joint",
+      "waist_roll_joint",
+      "head_yaw_joint",
+      "head_pitch_joint",
+      "left_shoulder_pitch_joint",
+      "left_shoulder_roll_joint",
+      "left_shoulder_yaw_joint",
+      "left_elbow_joint",
+      "left_wrist_yaw_joint",
+      "left_wrist_pitch_joint",
+      "left_wrist_roll_joint",
+      "right_shoulder_pitch_joint",
+      "right_shoulder_roll_joint",
+      "right_shoulder_yaw_joint",
+      "right_elbow_joint",
+      "right_wrist_yaw_joint",
+      "right_wrist_pitch_joint",
+      "right_wrist_roll_joint"
+    ],
+    "physics_timestep_s": 0.001
+  },
+  "validation_layer_results": {
+    "original_launch": "PARTIAL",
+    "read_only_audit": "NOT_RUN",
+    "synthetic_fault": "NOT_RUN",
+    "unit_tests": "NOT_RUN"
+  },
+  "logical_validation_execution": "NOT_ESTABLISHED_BY_THIS_ATTEMPT",
+  "evidence_sha256": {
+    "01-clone.log": "40fc81d3ec8486e901e0c87ca60da03e896934b560fea0dad567224b3d7ad40d",
+    "01-clone.sh": "6c81f938ffb04046d1b66c6c5edc631dab6e755c1fd9f9a2643bc4f298c9bf4a",
+    "02-clone-interruption.json": "79d1297c81ecf2d3f934969e1f2d25571efd28827007e45673f8243f7fa8f190",
+    "02-clone-retry.log": "7aacfbd2c394b2d6bdbf5e297686f7dbd85692e35f215fb62e981a4b13c96381",
+    "02-clone-retry.sh": "6c81f938ffb04046d1b66c6c5edc631dab6e755c1fd9f9a2643bc4f298c9bf4a",
+    "03-model-download.log": "1d069c5b89ec61a292824f45018008e8ffe4ef47ef0118e7cac8b97d81f666ad",
+    "03-model-download.sh": "bb7244a2c54ed802dc2033bcc2fdd945f1a6f6a731224e845bc53db3bf7f966b",
+    "04-model-download-retry.log": "c4fa3fa5eb8ffed4c9c9b062dc7ab2a09a056932989ab493e5208b5235015582",
+    "04-model-download-retry.sh": "bcdf36a7e1f5e774861c4e8b2211a32ed524f93adcc902b0922d4f9c11a86dc8",
+    "05-clone-bounded-retry.log": "b590e64390a75feaeec24842c9e53ebabfb65d28aff547dc8f701a69ce748d16",
+    "05-clone-bounded-retry.sh": "673a787e8180be41f6f3f8305777a621aa15457d3fe1fc4f9b27473db568e64e",
+    "06-readme-venv-torch.log": "f808350f5608f82a6e6dd10d785fcd8097215bf013722cbe16d329abaf37f685",
+    "06-readme-venv-torch.sh": "30a86247854d5a07e1716ce9fae2cc611c8e73d0afc452ab74685b6cd22a8051",
+    "07-apply-runner-patch.log": "d497537ecb9662628278e1f6a8f56a21cdd59b6eef204cd6d4b121ea5b9a001d",
+    "07-apply-runner-patch.sh": "4d390cbf14cd1bc91117d17c0b39f98ab1bd2864394234e05b797a8bf814938b",
+    "08-system-inventory.log": "7e5bc660ca4a18acc589e9eade436b060d5c8f40344a0a3c73ae827c99458616",
+    "08-system-inventory.sh": "d12b241fead8529d2f9be4b99cbdbb8f494ca5bb6a40ca582a83e3c79a7b1a13",
+    "09-launch-signal-fix.log": "fb6c1b46a528ded4f7f139b7aa1333c5e4fdc3c855d506f2e8e41b192e7db828",
+    "09-launch-signal-fix.sh": "d5b834606a39ba7ede4a847a364de94464c944678ef7fe5fd2a502a987518975",
+    "10-shell-paths.log": "06ce9a96fef2e7c44306b48abb9544607f8d81a24ff83f4e59c4a28751434176",
+    "10-shell-paths.sh": "511414a94f45eccea256f6bb31d5d0e67e01046f4863cee67d2bc23ecd9f8c3c",
+    "11-torch-network-retry.log": "f55e73ff3b5b92d6715acff9be55bf8ca21d8a8371b0135860823b9e23de37b1",
+    "11-torch-network-retry.sh": "9cab0007bd2cbdaab8c66a60f15d7de14664e7b913613f4408120508d4a70477",
+    "12-requirements.log": "348aac1a3d57877ac71c863edc42e11975e36409107bb5375c7c7ac0a4c29b54",
+    "12-requirements.sh": "1c427c5352078fd873c0853c90380d44f8021b5af8fe6dbffaa8fc1143fb0e51",
+    "13-cli-help-domain.log": "aaf3157f2ad2ecd6be04e989297c266ed2e02f1b5bda32c648fef56400a4b876",
+    "13-cli-help-domain.sh": "eaef0f83a838beed42efe9a06a8e3d0667dc8f95b1c41a723b14d074e351dfad",
+    "14-build.log": "e7ff1c3e2aa500bf2cec9b800970714213b4b0d25719330b207e3cd2c6005542",
+    "14-build.sh": "478ca3514536ba43616bf5f207371f72789988029478dbfc7d7433b2f86c2473",
+    "15-runtime-identity.log": "a6760da03664926cffacc52c58975c64760d81c54b847cfa191012299da768c8",
+    "15-runtime-identity.sh": "21e9da6355433a9461725f11c6580be3d07e5a36bf645b115f2cffa315c1e34d",
+    "16-integration.log": "7e2ca1bc2473ad282324b747b7e1de40320bfa570860eac33888c20c447a62fa",
+    "16-integration.sh": "dce4d299d8e1339dc76184559b59753bfa1ba78daa20b4ce9b7ce34c2aa6494d",
+    "17-postflight-after-failure.log": "2975dc18b08c38912299317c348e2137a1f77755fa6b41d801cd37eb2635ede0",
+    "17-postflight-after-failure.sh": "6933a2b1589790186a55c0e483117ffaebb1d5aea75937c2c2ead8ffea103263",
+    "capture-identity.py": "4174ca016a428b8fc73a74a71d197315def3ca6df824665163f81952f01bf41c",
+    "colcon-build/events.log": "d57459df57118fcfad6017bdf45b3ced9544ff109836b36ab171c05a3494d5e7",
+    "colcon-build/logger_all.log": "43d91666d3cc0ee9c03678ad8c254c33a0cdad5c3ab5261e854b77430362403b",
+    "colcon-build/x2_recovery/command.log": "d735658560797e049d496af99abc551d42b70a5efe2d64fd927b69a22034a245",
+    "colcon-build/x2_recovery/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "colcon-build/x2_recovery/stdout.log": "1412a44d55be78f3641ff58667e046e19e3325fe18ecde6bac655455c150967a",
+    "colcon-build/x2_recovery/stdout_stderr.log": "1412a44d55be78f3641ff58667e046e19e3325fe18ecde6bac655455c150967a",
+    "colcon-build/x2_recovery/streams.log": "c9042349b5599d8892f0e8be601d9fadbd37113ee946591a0993b7c2f1b54f6c",
+    "commands.json": "e6616419c3f4689d4a6e2a5fb76f8b2cb53958bc6ea5a363d435f3cac3ab2bc9",
+    "commands.jsonl": "68f6e8fe4dd864a6bfa1bd28e62e7262b0d1f95c88f128dfafb9df3f4efdce12",
+    "domain-preflight.json": "e3792f7ac02a8ad76b461e521047492959db1d601ca4a3c874f52c329ef3742b",
+    "environment.json": "55fc759888da3ff576458b6e715ea8a522bd6e6e1238e5ef357d3216e8e9ae9b",
+    "integration/node-list.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "integration/normal-launch.log": "faa36e316f198b1524f6d4e91f48b793c04940a1b7f91266fa2dc6f986b391a0",
+    "integration/received-joints.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "integration/received-status.jsonl": "9b1118b44a95654824afb21d9ee4cf2e38e1eeeea4fc0c55031d60c25fd5c8dc",
+    "integration/summary.json": "0b4100236d5ba05ed4670b6baab5ad4ff9ee86ff55a68840e771fa3c98744e1e",
+    "launch-signal-semantics.json": "10ecb133d9a3b10bd586e7e0be2cbbb33722f7d33b090c3b70111de492757910",
+    "module-system-package-owners.json": "51e47db36f7419b7c30b0a16563b4de7312813d277dde75230d2b3b5ad280aa2",
+    "postflight.json": "b275be4d868cdd2daea7eeed93c977c8a1b1e6e72741e61e84c44b99c24941df",
+    "postflight.py": "8dba73ecb05156900a4c3e4e8e0a71270e751d23676a5ce384d709572054ee3e",
+    "python-packages.txt": "a6ee29b064ed620d78856795c1227583769efd3650ab0602e1299273d34841d0",
+    "readme-setup.patch": "5eef559371d8ccf12ffc0ffd09ecf42b91a62ba078f989cf0b4c5e283255c065",
+    "runner-evidence-v1-to-v2.patch": "cb5f0c4625979b3a9059c7195c0eda92de1e2c3c5067cf9bab5629e78cf3c49e",
+    "runner-evidence-v2-manifest.json": "edd0734eb0ea5ac052ad8ea0741ec7f975317485b2f4b1455bc4de994ab685e2",
+    "runner-evidence-v2.patch": "6b823b42fc2d52794188b417d393351c3cf6bcbf20461b112817ee73876e0658",
+    "runner-evidence.patch": "5735375fa96986334f13cd7e5842272b43401727f5ece6255ee1ade703f3f023",
+    "shell-paths.json": "0343592d189427962f9dca180c1e01f13255dccabba412886501a453becf242b",
+    "source-identity.json": "d4dc7add380a8660bd199f68d5bb6a8ab734d337b9fb2f9c4ac99098aedc786f",
+    "tested-v2.patch": "42e74c5e247709dab3fc09330b7ae8fe506c4eeab268a3b8bc8640b32912f22b",
+    "tested.patch": "a9fe6b38c4c4f30a915b9de12338967dcbb640e83b623b4cd8cee0270a2e448e",
+    "x2-final-patch-review.json": "842d1cb35003f3eef4d092a8d027fbd9bc1fdff430ae4aa314cd90ee37f408f6",
+    "x2-readme-review.json": "c0cfaf352c464fdf119dcca44a846f6c4bf87dc5fb817b640298ae7a16c115e3",
+    "x2-reference-review.json": "fbca59ac316638f8a20de9d73129c8753ff7da828a1281fae2f0739653fcbd45",
+    "x2-second-run-review.json": "72b6c498e13cfeb8901bcedb2ddb231d92bbf7f7aab22167670ce1f854a3dd26"
+  }
+}

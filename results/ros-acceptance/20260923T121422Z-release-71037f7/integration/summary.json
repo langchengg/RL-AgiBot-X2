@@ -1,0 +1,1760 @@
+{
+  "controller": "scripted_baseline",
+  "checks": {
+    "installed_outside_checkout": {
+      "result": "PASS"
+    },
+    "single_launch_two_processes": {
+      "result": "PASS"
+    },
+    "service-type": {
+      "result": "PASS",
+      "output": "std_srvs/srv/Trigger\n"
+    },
+    "status-qos": {
+      "result": "PASS",
+      "output": "Type: std_msgs/msg/String\n\nPublisher count: 1\n\nNode name: recovery_node\nNode namespace: /\nTopic type: std_msgs/msg/String\nTopic type hash: RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18\nEndpoint type: PUBLISHER\nGID: 01.0f.23.c4.e4.3a.8a.c3.00.00.00.00.00.00.13.03\nQoS profile"
+    },
+    "joint-qos": {
+      "result": "PASS",
+      "output": "Type: sensor_msgs/msg/JointState\n\nPublisher count: 1\n\nNode name: recovery_node\nNode namespace: /\nTopic type: sensor_msgs/msg/JointState\nTopic type hash: RIHS01_a13ee3a330e346c9d87b5aa18d24e11690752bd33a0350f11c5882bc9179260e\nEndpoint type: PUBLISHER\nGID: 01.0f.23.c4.e4.3a.8a.c3.00.00.00.00.00.00.14."
+    },
+    "qos-recovery_status": {
+      "result": "PASS"
+    },
+    "qos-joint_states": {
+      "result": "PASS"
+    },
+    "idle-echo": {
+      "result": "PASS",
+      "output": "data: IDLE\n---\n"
+    },
+    "idle_observed": {
+      "result": "PASS"
+    },
+    "cli-accept": {
+      "result": "PASS",
+      "output": "waiting for service to become available...\nrequester: making request: std_srvs.srv.Trigger_Request()\n\nresponse:\nstd_srvs.srv.Trigger_Response(success=True, message='Recovery accepted')\n\n"
+    },
+    "cli_accept_true": {
+      "result": "PASS"
+    },
+    "normal-stepping-busy-0": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-0",
+      "start_monotonic_s": 1280.668631276,
+      "end_monotonic_s": 1280.669214859,
+      "round_trip_s": 0.000583582999979626,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-1": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-1",
+      "start_monotonic_s": 1280.669465026,
+      "end_monotonic_s": 1280.669861192,
+      "round_trip_s": 0.0003961660002005374,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-2": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-2",
+      "start_monotonic_s": 1280.670031317,
+      "end_monotonic_s": 1280.670419442,
+      "round_trip_s": 0.00038812499997220584,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-3": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-3",
+      "start_monotonic_s": 1280.670559734,
+      "end_monotonic_s": 1280.670917776,
+      "round_trip_s": 0.00035804199978883844,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-4": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-4",
+      "start_monotonic_s": 1280.671074692,
+      "end_monotonic_s": 1280.671388026,
+      "round_trip_s": 0.00031333399988398014,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-5": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-5",
+      "start_monotonic_s": 1280.671511067,
+      "end_monotonic_s": 1280.671852651,
+      "round_trip_s": 0.00034158400012529455,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-6": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-6",
+      "start_monotonic_s": 1280.672031067,
+      "end_monotonic_s": 1280.672406317,
+      "round_trip_s": 0.0003752499999336578,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "normal-stepping-busy-7": {
+      "result": "PASS",
+      "label": "normal-stepping-busy-7",
+      "start_monotonic_s": 1280.672554567,
+      "end_monotonic_s": 1280.672887984,
+      "round_trip_s": 0.0003334170000925951,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "cli-busy": {
+      "result": "PASS",
+      "output": "waiting for service to become available...\nrequester: making request: std_srvs.srv.Trigger_Request()\n\nresponse:\nstd_srvs.srv.Trigger_Response(success=False, message='Recovery already running')\n\n"
+    },
+    "cli_busy_false": {
+      "result": "PASS"
+    },
+    "joint-echo": {
+      "result": "PASS",
+      "output": "header:\n  stamp:\n    sec: 1790166605\n    nanosec: 67103592\n  frame_id: ''\nname:\n- left_hip_pitch_joint\n- left_hip_roll_joint\n- left_hip_yaw_joint\n- left_knee_joint\n- left_ankle_pitch_joint\n- left_ankle_roll_joint\n- right_hip_pitch_joint\n- right_hip_roll_joint\n- right_hip_yaw_joint\n- right_knee_joint"
+    },
+    "simulation_timeout": {
+      "result": "PASS",
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "time_limit",
+      "control_steps": 1000,
+      "wall_s": 20.570571384999994,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 20.000000000003563,
+      "environment_result": {
+        "terminated": false,
+        "truncated": true,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": "time_limit",
+        "elapsed_sim_s": 20.000000000003563,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011354649408522322,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": 0.0008375551328933536,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00034063948225566965,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": -1.6751102657867073e-05,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.03225806451612903,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07635945753108163,
+          "tilt_deg": 73.58960644417554,
+          "left_weight": 0.1786557248931307,
+          "right_weight": 0.17799334906857756,
+          "other_weight": 0.6433509373786406
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 1.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 72.97848840706254,
+          "applied_torque_abs_max_Nm": 48.0,
+          "joint_rad_s": 0.00044654764970736066,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0004271031829692932,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    "actual_moving_telemetry": {
+      "result": "PASS",
+      "samples": 1001
+    },
+    "terminal_held_no_more_samples": {
+      "result": "PASS"
+    },
+    "late_subscriber": {
+      "result": "PASS"
+    },
+    "same-instance-accept": {
+      "result": "PASS",
+      "label": "same-instance-accept",
+      "start_monotonic_s": 1303.41247162,
+      "end_monotonic_s": 1303.413691995,
+      "round_trip_s": 0.0012203750000026048,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "same_instance_new_episode": {
+      "result": "PASS"
+    },
+    "normal_cleanup": {
+      "result": "PASS"
+    },
+    "wall-accept": {
+      "result": "PASS",
+      "label": "wall-accept",
+      "start_monotonic_s": 1324.911212422,
+      "end_monotonic_s": 1324.911856838,
+      "round_trip_s": 0.0006444159998864052,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "wall-stepping-busy-0": {
+      "result": "PASS",
+      "label": "wall-stepping-busy-0",
+      "start_monotonic_s": 1325.574747047,
+      "end_monotonic_s": 1325.575430172,
+      "round_trip_s": 0.0006831250000232103,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "wall-stepping-busy-1": {
+      "result": "PASS",
+      "label": "wall-stepping-busy-1",
+      "start_monotonic_s": 1325.575849714,
+      "end_monotonic_s": 1325.576228797,
+      "round_trip_s": 0.00037908300009803497,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "wall-stepping-busy-2": {
+      "result": "PASS",
+      "label": "wall-stepping-busy-2",
+      "start_monotonic_s": 1325.576546714,
+      "end_monotonic_s": 1325.576856047,
+      "round_trip_s": 0.00030933300013202825,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "wall-stepping-busy-3": {
+      "result": "PASS",
+      "label": "wall-stepping-busy-3",
+      "start_monotonic_s": 1325.57878738,
+      "end_monotonic_s": 1325.593273797,
+      "round_trip_s": 0.014486416999943685,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "wall_timeout": {
+      "result": "PASS",
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "recovery_timeout",
+      "control_steps": 121,
+      "wall_s": 3.000238085000092,
+      "timeout_overshoot_s": 0.00023808500009181444,
+      "elapsed_sim_s": 2.41999999999977,
+      "environment_result": {
+        "terminated": false,
+        "truncated": false,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": null,
+        "elapsed_sim_s": 2.41999999999977,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "left_support",
+          "right_support",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00010280750299666852,
+          "upright": -0.0007504918087539725,
+          "standing_hold": 0.0,
+          "torque_cost": 8.136107080903668e-05,
+          "action_change": 1.9692481307269495e-06,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00030842250899000556,
+          "upright": -0.0007504918087539725,
+          "standing_hold": 0.0,
+          "torque_cost": -1.6272214161807336e-06,
+          "action_change": -3.938496261453899e-09,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07587517078460772,
+          "tilt_deg": 73.00077836245612,
+          "left_weight": 0.0,
+          "right_weight": 0.015959344748633152,
+          "other_weight": 0.9544754540331467
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 21.840977280957578,
+          "applied_torque_abs_max_Nm": 21.840977280957578,
+          "joint_rad_s": 0.6185151573856212,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0002418207423313945,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    "wall_cleanup": {
+      "result": "PASS"
+    },
+    "readback-accept": {
+      "result": "PASS",
+      "label": "readback-accept",
+      "start_monotonic_s": 1328.702914465,
+      "end_monotonic_s": 1328.703496715,
+      "round_trip_s": 0.0005822499999794672,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "real-reset-busy": {
+      "result": "PASS",
+      "label": "real-reset-busy",
+      "start_monotonic_s": 1328.717172965,
+      "end_monotonic_s": 1329.289392757,
+      "round_trip_s": 0.572219792000169,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "readback-stepping-busy-0": {
+      "result": "PASS",
+      "label": "readback-stepping-busy-0",
+      "start_monotonic_s": 1329.348783507,
+      "end_monotonic_s": 1329.349329882,
+      "round_trip_s": 0.0005463749998853018,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "readback-stepping-busy-1": {
+      "result": "PASS",
+      "label": "readback-stepping-busy-1",
+      "start_monotonic_s": 1329.349844549,
+      "end_monotonic_s": 1329.350252841,
+      "round_trip_s": 0.0004082919999746082,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "readback-stepping-busy-2": {
+      "result": "PASS",
+      "label": "readback-stepping-busy-2",
+      "start_monotonic_s": 1329.350661716,
+      "end_monotonic_s": 1329.351062299,
+      "round_trip_s": 0.00040058299987322243,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "readback-stepping-busy-3": {
+      "result": "PASS",
+      "label": "readback-stepping-busy-3",
+      "start_monotonic_s": 1329.351434549,
+      "end_monotonic_s": 1329.366522257,
+      "round_trip_s": 0.015087708000010025,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "acceptance_sent_before_reset": {
+      "result": "PASS"
+    },
+    "request_actually_sent_during_reset": {
+      "result": "PASS",
+      "reset_begin": 1328.714031299,
+      "reset_end": 1329.273920674,
+      "label": "real-reset-busy",
+      "start_monotonic_s": 1328.717172965,
+      "end_monotonic_s": 1329.289392757,
+      "round_trip_s": 0.572219792000169,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    "readback-0": {
+      "result": "PASS"
+    },
+    "readback-1": {
+      "result": "PASS"
+    },
+    "readback-2": {
+      "result": "PASS"
+    },
+    "readback-3": {
+      "result": "PASS"
+    },
+    "readback-4": {
+      "result": "PASS"
+    },
+    "readback-25": {
+      "result": "PASS"
+    },
+    "readback-50": {
+      "result": "PASS"
+    },
+    "readback-75": {
+      "result": "PASS"
+    },
+    "readback-100": {
+      "result": "PASS"
+    },
+    "same_snapshot_actual_readback": {
+      "result": "PASS",
+      "matched": 9,
+      "max_absolute_error": 0.0
+    },
+    "busy_during_verified_stepping_interval": {
+      "result": "PASS",
+      "samples": 4
+    },
+    "shutdown-active-accept": {
+      "result": "PASS",
+      "label": "shutdown-active-accept",
+      "start_monotonic_s": 1331.2857543,
+      "end_monotonic_s": 1331.286298133,
+      "round_trip_s": 0.0005438329999378766,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "active_ctrl_c_cleanup": {
+      "result": "PASS"
+    },
+    "close_after_execution_unwound": {
+      "result": "PASS"
+    },
+    "fault-injection-accept": {
+      "result": "PASS",
+      "label": "fault-injection-accept",
+      "start_monotonic_s": 1332.317832842,
+      "end_monotonic_s": 1332.318351134,
+      "round_trip_s": 0.0005182920001516322,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "synthetic_step_fault_ends_request": {
+      "result": "PASS"
+    },
+    "retry-after-fault-accept": {
+      "result": "PASS",
+      "label": "retry-after-fault-accept",
+      "start_monotonic_s": 1332.942689634,
+      "end_monotonic_s": 1332.943208634,
+      "round_trip_s": 0.0005189999999402062,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    "real_reset_after_synthetic_fault": {
+      "result": "PASS"
+    },
+    "invalid-startup-0": {
+      "result": "PASS"
+    },
+    "invalid-startup-1": {
+      "result": "PASS"
+    },
+    "invalid-startup-2": {
+      "result": "PASS"
+    },
+    "invalid-startup-3": {
+      "result": "PASS"
+    },
+    "model_load_failure": {
+      "result": "PASS"
+    },
+    "startup_failures_no_service": {
+      "result": "PASS"
+    }
+  },
+  "processes": [
+    {
+      "pid": 15073,
+      "command": [
+        "ros2",
+        "launch",
+        "x2_recovery",
+        "recovery.launch.py",
+        "seed:=60",
+        "episode_timeout_s:=20.0",
+        "recovery_timeout_s:=30.0"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/normal-launch.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15118,
+      "command": [
+        "ros2",
+        "service",
+        "type",
+        "/x2/start_recovery"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/service-type.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15153,
+      "command": [
+        "ros2",
+        "topic",
+        "info",
+        "/x2/recovery_status",
+        "--verbose"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/status-qos.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15156,
+      "command": [
+        "ros2",
+        "topic",
+        "info",
+        "/x2/joint_states",
+        "--verbose"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/joint-qos.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15159,
+      "command": [
+        "ros2",
+        "topic",
+        "echo",
+        "/x2/recovery_status",
+        "std_msgs/msg/String",
+        "--qos-reliability",
+        "reliable",
+        "--qos-durability",
+        "transient_local",
+        "--once",
+        "--timeout",
+        "5"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/idle-echo.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15192,
+      "command": [
+        "ros2",
+        "service",
+        "call",
+        "/x2/start_recovery",
+        "std_srvs/srv/Trigger",
+        "{}"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/cli-accept.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15212,
+      "command": [
+        "ros2",
+        "service",
+        "call",
+        "/x2/start_recovery",
+        "std_srvs/srv/Trigger",
+        "{}"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/cli-busy.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15229,
+      "command": [
+        "ros2",
+        "topic",
+        "echo",
+        "/x2/joint_states",
+        "sensor_msgs/msg/JointState",
+        "--once",
+        "--timeout",
+        "5"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/joint-echo.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15395,
+      "command": [
+        "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/telemetry_node",
+        "--ros-args",
+        "-r",
+        "__node:=late_telemetry"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/late-telemetry.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15611,
+      "command": [
+        "ros2",
+        "launch",
+        "x2_recovery",
+        "recovery.launch.py",
+        "seed:=60",
+        "episode_timeout_s:=20.0",
+        "recovery_timeout_s:=3.0"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/wall-launch.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15661,
+      "command": [
+        "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python",
+        "/tmp/x2-final-ros.zvwycfdg/repository/src/x2_recovery/test/test_ros_integration.py",
+        "--instrumented-node",
+        "/tmp/x2-final-ros.zvwycfdg/evidence/integration/readback-events.jsonl",
+        "--ros-args",
+        "-p",
+        "episode_timeout_s:=2.003"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/readback-recovery.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15662,
+      "command": [
+        "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/telemetry_node"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/readback-telemetry.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15726,
+      "command": [
+        "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python",
+        "/tmp/x2-final-ros.zvwycfdg/repository/src/x2_recovery/test/test_ros_integration.py",
+        "--instrumented-node",
+        "/tmp/x2-final-ros.zvwycfdg/evidence/integration/fault-events.jsonl",
+        "--inject-step-error",
+        "--ros-args",
+        "-p",
+        "episode_timeout_s:=0.203"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/fault-injection-recovery.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15727,
+      "command": [
+        "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/telemetry_node"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/fault-injection-telemetry.log",
+      "returncode": 0
+    },
+    {
+      "pid": 15771,
+      "command": [
+        "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "--ros-args",
+        "-p",
+        "seed:=-1"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/invalid-startup-0.log",
+      "returncode": 1
+    },
+    {
+      "pid": 15790,
+      "command": [
+        "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "--ros-args",
+        "-p",
+        "episode_timeout_s:=0.0205"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/invalid-startup-1.log",
+      "returncode": 1
+    },
+    {
+      "pid": 15812,
+      "command": [
+        "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "--ros-args",
+        "-p",
+        "recovery_timeout_s:=0.0"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/invalid-startup-2.log",
+      "returncode": 1
+    },
+    {
+      "pid": 15831,
+      "command": [
+        "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node",
+        "--ros-args",
+        "-p",
+        "use_sim_time:=true"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/invalid-startup-3.log",
+      "returncode": 1
+    },
+    {
+      "pid": 15847,
+      "command": [
+        "env",
+        "X2_ASSET_REPO=/nonexistent/x2-assets",
+        "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/lib/x2_recovery/recovery_node"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/missing-model.log",
+      "returncode": 1
+    }
+  ],
+  "rpc": [
+    {
+      "label": "normal-stepping-busy-0",
+      "start_monotonic_s": 1280.668631276,
+      "end_monotonic_s": 1280.669214859,
+      "round_trip_s": 0.000583582999979626,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-1",
+      "start_monotonic_s": 1280.669465026,
+      "end_monotonic_s": 1280.669861192,
+      "round_trip_s": 0.0003961660002005374,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-2",
+      "start_monotonic_s": 1280.670031317,
+      "end_monotonic_s": 1280.670419442,
+      "round_trip_s": 0.00038812499997220584,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-3",
+      "start_monotonic_s": 1280.670559734,
+      "end_monotonic_s": 1280.670917776,
+      "round_trip_s": 0.00035804199978883844,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-4",
+      "start_monotonic_s": 1280.671074692,
+      "end_monotonic_s": 1280.671388026,
+      "round_trip_s": 0.00031333399988398014,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-5",
+      "start_monotonic_s": 1280.671511067,
+      "end_monotonic_s": 1280.671852651,
+      "round_trip_s": 0.00034158400012529455,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-6",
+      "start_monotonic_s": 1280.672031067,
+      "end_monotonic_s": 1280.672406317,
+      "round_trip_s": 0.0003752499999336578,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "normal-stepping-busy-7",
+      "start_monotonic_s": 1280.672554567,
+      "end_monotonic_s": 1280.672887984,
+      "round_trip_s": 0.0003334170000925951,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "same-instance-accept",
+      "start_monotonic_s": 1303.41247162,
+      "end_monotonic_s": 1303.413691995,
+      "round_trip_s": 0.0012203750000026048,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "wall-accept",
+      "start_monotonic_s": 1324.911212422,
+      "end_monotonic_s": 1324.911856838,
+      "round_trip_s": 0.0006444159998864052,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "wall-stepping-busy-0",
+      "start_monotonic_s": 1325.574747047,
+      "end_monotonic_s": 1325.575430172,
+      "round_trip_s": 0.0006831250000232103,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "wall-stepping-busy-1",
+      "start_monotonic_s": 1325.575849714,
+      "end_monotonic_s": 1325.576228797,
+      "round_trip_s": 0.00037908300009803497,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "wall-stepping-busy-2",
+      "start_monotonic_s": 1325.576546714,
+      "end_monotonic_s": 1325.576856047,
+      "round_trip_s": 0.00030933300013202825,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "wall-stepping-busy-3",
+      "start_monotonic_s": 1325.57878738,
+      "end_monotonic_s": 1325.593273797,
+      "round_trip_s": 0.014486416999943685,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "readback-accept",
+      "start_monotonic_s": 1328.702914465,
+      "end_monotonic_s": 1328.703496715,
+      "round_trip_s": 0.0005822499999794672,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "real-reset-busy",
+      "start_monotonic_s": 1328.717172965,
+      "end_monotonic_s": 1329.289392757,
+      "round_trip_s": 0.572219792000169,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "readback-stepping-busy-0",
+      "start_monotonic_s": 1329.348783507,
+      "end_monotonic_s": 1329.349329882,
+      "round_trip_s": 0.0005463749998853018,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "readback-stepping-busy-1",
+      "start_monotonic_s": 1329.349844549,
+      "end_monotonic_s": 1329.350252841,
+      "round_trip_s": 0.0004082919999746082,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "readback-stepping-busy-2",
+      "start_monotonic_s": 1329.350661716,
+      "end_monotonic_s": 1329.351062299,
+      "round_trip_s": 0.00040058299987322243,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "readback-stepping-busy-3",
+      "start_monotonic_s": 1329.351434549,
+      "end_monotonic_s": 1329.366522257,
+      "round_trip_s": 0.015087708000010025,
+      "success": false,
+      "message": "Recovery already running"
+    },
+    {
+      "label": "shutdown-active-accept",
+      "start_monotonic_s": 1331.2857543,
+      "end_monotonic_s": 1331.286298133,
+      "round_trip_s": 0.0005438329999378766,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "fault-injection-accept",
+      "start_monotonic_s": 1332.317832842,
+      "end_monotonic_s": 1332.318351134,
+      "round_trip_s": 0.0005182920001516322,
+      "success": true,
+      "message": "Recovery accepted"
+    },
+    {
+      "label": "retry-after-fault-accept",
+      "start_monotonic_s": 1332.942689634,
+      "end_monotonic_s": 1332.943208634,
+      "round_trip_s": 0.0005189999999402062,
+      "success": true,
+      "message": "Recovery accepted"
+    }
+  ],
+  "cli": [
+    {
+      "command": [
+        "ros2",
+        "service",
+        "type",
+        "/x2/start_recovery"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/service-type.log",
+      "exit_code": 0,
+      "process_wall_s": 1.099561666999989,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "topic",
+        "info",
+        "/x2/recovery_status",
+        "--verbose"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/status-qos.log",
+      "exit_code": 0,
+      "process_wall_s": 0.38598979199991845,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "topic",
+        "info",
+        "/x2/joint_states",
+        "--verbose"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/joint-qos.log",
+      "exit_code": 0,
+      "process_wall_s": 0.18725429200003418,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "topic",
+        "echo",
+        "/x2/recovery_status",
+        "std_msgs/msg/String",
+        "--qos-reliability",
+        "reliable",
+        "--qos-durability",
+        "transient_local",
+        "--once",
+        "--timeout",
+        "5"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/idle-echo.log",
+      "exit_code": 0,
+      "process_wall_s": 0.8663217090002036,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "service",
+        "call",
+        "/x2/start_recovery",
+        "std_srvs/srv/Trigger",
+        "{}"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/cli-accept.log",
+      "exit_code": 0,
+      "process_wall_s": 0.5972034579999672,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "service",
+        "call",
+        "/x2/start_recovery",
+        "std_srvs/srv/Trigger",
+        "{}"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/cli-busy.log",
+      "exit_code": 0,
+      "process_wall_s": 0.5659090010001364,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "topic",
+        "echo",
+        "/x2/joint_states",
+        "sensor_msgs/msg/JointState",
+        "--once",
+        "--timeout",
+        "5"
+      ],
+      "log": "/tmp/x2-final-ros.zvwycfdg/evidence/integration/joint-echo.log",
+      "exit_code": 0,
+      "process_wall_s": 0.8581110420000186,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    }
+  ],
+  "episodes": [
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "time_limit",
+      "control_steps": 1000,
+      "wall_s": 20.570571384999994,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 20.000000000003563,
+      "environment_result": {
+        "terminated": false,
+        "truncated": true,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": "time_limit",
+        "elapsed_sim_s": 20.000000000003563,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011354649408522322,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": 0.0008375551328933536,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00034063948225566965,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": -1.6751102657867073e-05,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.03225806451612903,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07635945753108163,
+          "tilt_deg": 73.58960644417554,
+          "left_weight": 0.1786557248931307,
+          "right_weight": 0.17799334906857756,
+          "other_weight": 0.6433509373786406
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 1.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 72.97848840706254,
+          "applied_torque_abs_max_Nm": 48.0,
+          "joint_rad_s": 0.00044654764970736066,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0004271031829692932,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 2,
+      "status": "FAILED",
+      "reason": "time_limit",
+      "control_steps": 1000,
+      "wall_s": 20.57370980099995,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 20.000000000003563,
+      "environment_result": {
+        "terminated": false,
+        "truncated": true,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": "time_limit",
+        "elapsed_sim_s": 20.000000000003563,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011354649408522322,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": 0.0008375551328933536,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00034063948225566965,
+          "upright": -0.0006412570251598249,
+          "standing_hold": 0.0,
+          "torque_cost": -1.6751102657867073e-05,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.03225806451612903,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07635945753108163,
+          "tilt_deg": 73.58960644417554,
+          "left_weight": 0.1786557248931307,
+          "right_weight": 0.17799334906857756,
+          "other_weight": 0.6433509373786406
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 1.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 72.97848840706254,
+          "applied_torque_abs_max_Nm": 48.0,
+          "joint_rad_s": 0.00044654764970736066,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0004271031829692932,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "recovery_timeout",
+      "control_steps": 121,
+      "wall_s": 3.000238085000092,
+      "timeout_overshoot_s": 0.00023808500009181444,
+      "elapsed_sim_s": 2.41999999999977,
+      "environment_result": {
+        "terminated": false,
+        "truncated": false,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": null,
+        "elapsed_sim_s": 2.41999999999977,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "left_support",
+          "right_support",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00010280750299666852,
+          "upright": -0.0007504918087539725,
+          "standing_hold": 0.0,
+          "torque_cost": 8.136107080903668e-05,
+          "action_change": 1.9692481307269495e-06,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00030842250899000556,
+          "upright": -0.0007504918087539725,
+          "standing_hold": 0.0,
+          "torque_cost": -1.6272214161807336e-06,
+          "action_change": -3.938496261453899e-09,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07587517078460772,
+          "tilt_deg": 73.00077836245612,
+          "left_weight": 0.0,
+          "right_weight": 0.015959344748633152,
+          "other_weight": 0.9544754540331467
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 21.840977280957578,
+          "applied_torque_abs_max_Nm": 21.840977280957578,
+          "joint_rad_s": 0.6185151573856212,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0002418207423313945,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "time_limit",
+      "control_steps": 101,
+      "wall_s": 2.5721485840001606,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 2.00299999999978,
+      "environment_result": {
+        "terminated": false,
+        "truncated": true,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": "time_limit",
+        "elapsed_sim_s": 2.00299999999978,
+        "physics_steps_executed": 3,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "right_support",
+          "feet_total",
+          "other_weight",
+          "joint_rad_s"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011068941196427928,
+          "upright": -0.0006670667716071055,
+          "standing_hold": 0.0,
+          "torque_cost": 7.70004832596394e-06,
+          "action_change": 3.048339300123958e-06,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00033206823589283785,
+          "upright": -0.0006670667716071055,
+          "standing_hold": 0.0,
+          "torque_cost": -1.540009665192788e-07,
+          "action_change": -6.096678600247916e-09,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07571732572126401,
+          "tilt_deg": 72.71364274736777,
+          "left_weight": 0.05429592640137504,
+          "right_weight": 0.0,
+          "other_weight": 1.0402272975278932
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 18.77768923213672,
+          "applied_torque_abs_max_Nm": 18.77768923213672,
+          "joint_rad_s": 0.7191502652967579,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.00022285827799588265,
+          "self_penetration_m": 0.0
+        }
+      }
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 1,
+      "status": "FAILED",
+      "reason": "step_error",
+      "control_steps": 2,
+      "wall_s": 0.623429458000146,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 0.039999999999995595,
+      "environment_result": {
+        "terminated": false,
+        "truncated": false,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": null,
+        "elapsed_sim_s": 0.039999999999995595,
+        "physics_steps_executed": 20,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "left_support",
+          "right_support",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.0001123324157282779,
+          "upright": -0.0006519588089937134,
+          "standing_hold": 0.0,
+          "torque_cost": 7.115016600855272e-09,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.0003369972471848337,
+          "upright": -0.0006519588089937134,
+          "standing_hold": 0.0,
+          "torque_cost": -1.4230033201710545e-10,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.07554087094324256,
+          "tilt_deg": 72.3059940985127,
+          "left_weight": 0.012820719243550991,
+          "right_weight": 0.012753309036814185,
+          "other_weight": 0.9745000402132165
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 0.016464915160496432,
+          "applied_torque_abs_max_Nm": 0.016464915160496432,
+          "joint_rad_s": 0.0061690659499609645,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0001926580319150939,
+          "self_penetration_m": 0.0
+        }
+      },
+      "error": {
+        "type": "RuntimeError",
+        "message": "synthetic one-shot step failure after real physics",
+        "evidence": null
+      },
+      "call_completed_monotonic_s": null
+    },
+    {
+      "event": "finished",
+      "controller": "scripted_baseline",
+      "episode": 2,
+      "status": "FAILED",
+      "reason": "time_limit",
+      "control_steps": 11,
+      "wall_s": 0.7477219170000353,
+      "timeout_overshoot_s": 0.0,
+      "elapsed_sim_s": 0.20299999999997764,
+      "environment_result": {
+        "terminated": false,
+        "truncated": true,
+        "is_success": false,
+        "termination_reason": null,
+        "truncation_reason": "time_limit",
+        "elapsed_sim_s": 0.20299999999997764,
+        "physics_steps_executed": 3,
+        "stable_duration_s": 0.0,
+        "standing_failures": [
+          "height",
+          "torso_tilt",
+          "left_support",
+          "right_support",
+          "feet_total",
+          "other_weight"
+        ],
+        "reward_terms_raw": {
+          "height": -0.00011232920043159622,
+          "upright": -0.0006519662314644625,
+          "standing_hold": 0.0,
+          "torque_cost": 1.095234701059321e-08,
+          "action_change": 0.0,
+          "success": 0.0
+        },
+        "reward_terms": {
+          "height": -0.00033698760129478866,
+          "upright": -0.0006519662314644625,
+          "standing_hold": 0.0,
+          "torque_cost": -2.190469402118642e-10,
+          "action_change": -0.0,
+          "success": 0.0
+        },
+        "torque_saturation_fraction": 0.0,
+        "reset_seed": 374032080,
+        "state": {
+          "pelvis_height_m": 0.0755408634427021,
+          "tilt_deg": 72.30598882995778,
+          "left_weight": 0.01281707252460932,
+          "right_weight": 0.012755461750656425,
+          "other_weight": 0.9744917397859023
+        },
+        "warnings": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "control": {
+          "any_saturation_time_fraction": 0.0,
+          "joint_saturation_time_fraction": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "target_boundary_fraction": 0.0,
+          "raw_torque_abs_max_Nm": 0.04048222646244787,
+          "applied_torque_abs_max_Nm": 0.04048222646244787,
+          "joint_rad_s": 0.005841471142617054,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.00019266002945220184,
+          "self_penetration_m": 0.0
+        }
+      }
+    }
+  ],
+  "identity": {
+    "executable": "/tmp/x2-final-ros.zvwycfdg/repository/.venv/bin/python",
+    "cwd": "/tmp",
+    "module": "/tmp/x2-final-ros.zvwycfdg/build/x2_recovery/x2_recovery/recovery_node.py",
+    "prefix": "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery",
+    "launch": "/tmp/x2-final-ros.zvwycfdg/install/x2_recovery/share/x2_recovery/launch/recovery.launch.py",
+    "rmw": "rmw_fastrtps_cpp",
+    "domain": "86",
+    "discovery": "LOCALHOST"
+  },
+  "callback_samples_s": [
+    0.0002222910000000411,
+    0.00019804099997600133,
+    0.0002691250001589651,
+    0.0001721249998354324,
+    0.0001659170000039012,
+    0.00021245799985081248
+  ],
+  "result": "PASS",
+  "daemon_was_running": false,
+  "own_cli_daemon_stopped": true,
+  "cleanup_errors": [],
+  "all_children_exited": true
+}

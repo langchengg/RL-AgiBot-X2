@@ -1,0 +1,161 @@
+{
+  "date": "2026-09-23T12:48:46.760118+00:00",
+  "base_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "files": {
+    "README.md": {
+      "sha256": "a65567d4da0d7fde2c43129413c60fa00d8cb468701307f57236d35a7e51db80",
+      "base_sha256": "b24540c000efd1aed55d8aafb017b36ecca0d30f4aff3600a1e02cf9b3b349ae",
+      "identical_to_release": false
+    },
+    "requirements.txt": {
+      "sha256": "f5acf34535969d0ab1cf5fd25a83cd6a046b5c61984a18c267e8f20c2080b873",
+      "base_sha256": "f5acf34535969d0ab1cf5fd25a83cd6a046b5c61984a18c267e8f20c2080b873",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/package.xml": {
+      "sha256": "4769a4a56b575b66841bebd7f6171db46c69908b52a1a0f4ab51e966d79cb498",
+      "base_sha256": "4769a4a56b575b66841bebd7f6171db46c69908b52a1a0f4ab51e966d79cb498",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/setup.py": {
+      "sha256": "e151a450c3ae92125c8c00d47cd842aee904a7d6586e0e656e5219f62d478487",
+      "base_sha256": "e151a450c3ae92125c8c00d47cd842aee904a7d6586e0e656e5219f62d478487",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/setup.cfg": {
+      "sha256": "af674713baa24aa025fccc920551711fb15264587916217f8cfed98006e0929f",
+      "base_sha256": "af674713baa24aa025fccc920551711fb15264587916217f8cfed98006e0929f",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/launch/recovery.launch.py": {
+      "sha256": "45fdce7472ffe4438573fd17c67b87e156e66b644944c9fdd9005009f21b6283",
+      "base_sha256": "45fdce7472ffe4438573fd17c67b87e156e66b644944c9fdd9005009f21b6283",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/simulation_validation.py": {
+      "sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+      "base_sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/telemetry_node.py": {
+      "sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "base_sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/train.py": {
+      "sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+      "base_sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/model.py": {
+      "sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "base_sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/success.py": {
+      "sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "base_sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/evaluate.py": {
+      "sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "base_sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/env.py": {
+      "sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "base_sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/reset.py": {
+      "sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "base_sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/motion_search.py": {
+      "sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+      "base_sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/model_audit.py": {
+      "sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+      "base_sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/success_validation.py": {
+      "sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+      "base_sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/baseline.py": {
+      "sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "base_sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/recovery_node.py": {
+      "sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "base_sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/diagnostics.py": {
+      "sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+      "base_sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/x2_recovery/__init__.py": {
+      "sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+      "base_sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/test/test_reset.py": {
+      "sha256": "c57101a3ef63ef5d87fdd4e44d16787ba4c4fdee275c8a12ecd25d946093cc2f",
+      "base_sha256": "c57101a3ef63ef5d87fdd4e44d16787ba4c4fdee275c8a12ecd25d946093cc2f",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/test/test_env.py": {
+      "sha256": "8f86ddd6311571512949097bcb80711915f8741927fae8b1346a6e18b3ed5cb9",
+      "base_sha256": "8f86ddd6311571512949097bcb80711915f8741927fae8b1346a6e18b3ed5cb9",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/test/test_model.py": {
+      "sha256": "d9b960aae2b86f90bcea8ff5860726db349b2acf0068c91deb9307fe9714cd5d",
+      "base_sha256": "d9b960aae2b86f90bcea8ff5860726db349b2acf0068c91deb9307fe9714cd5d",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/test/test_training.py": {
+      "sha256": "dd9369460e8cd33d95510673888c98b2ee27196d503614c27a4c52adba454c1e",
+      "base_sha256": "dd9369460e8cd33d95510673888c98b2ee27196d503614c27a4c52adba454c1e",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/test/test_ros_integration.py": {
+      "sha256": "7ddbeb227f520d38688e6064b5f0335af639b1d747f3c58bc2add3a81e917b8a",
+      "base_sha256": "2ff405540db1297e6607807edb57a2163ee6d666864b3eaf5bb37e0a02df6b9e",
+      "identical_to_release": false
+    },
+    "src/x2_recovery/test/test_evaluation.py": {
+      "sha256": "c68c912062afacb6781b919652c00bff17d96cf6d74c45a8ad72a95fa0f4f519",
+      "base_sha256": "c68c912062afacb6781b919652c00bff17d96cf6d74c45a8ad72a95fa0f4f519",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/test/test_control.py": {
+      "sha256": "cece331cacd8e0f91483e9f7aba6d085c5bfbb5ef80177047a5afbf3e754840f",
+      "base_sha256": "cece331cacd8e0f91483e9f7aba6d085c5bfbb5ef80177047a5afbf3e754840f",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/test/test_ros_nodes.py": {
+      "sha256": "5237206e5cc6b2d3446c887e3e3b65605c1db4af0686e953700e8fb36ee9c532",
+      "base_sha256": "5237206e5cc6b2d3446c887e3e3b65605c1db4af0686e953700e8fb36ee9c532",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/test/test_success.py": {
+      "sha256": "be901f9eaf4e47d69d678148a291319696c7c0ae3a01062f6e3f9760f65711d1",
+      "base_sha256": "be901f9eaf4e47d69d678148a291319696c7c0ae3a01062f6e3f9760f65711d1",
+      "identical_to_release": true
+    },
+    "src/x2_recovery/test/test_baseline.py": {
+      "sha256": "6c13f36def03716078aad1496a9d79fcc3c22508ea55eb3d0a6dd761d60c0748",
+      "base_sha256": "6c13f36def03716078aad1496a9d79fcc3c22508ea55eb3d0a6dd761d60c0748",
+      "identical_to_release": true
+    }
+  }
+}

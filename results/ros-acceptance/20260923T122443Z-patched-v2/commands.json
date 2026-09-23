@@ -1,0 +1,958 @@
+[
+  {
+    "label": "01-clone",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/01-clone.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/01-clone.sh",
+    "script_text": "set -eo pipefail\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ngit -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git \"$WS\"\ngit -C \"$WS\" -c http.version=HTTP/1.1 sparse-checkout set src\ngit -C \"$WS\" -c http.version=HTTP/1.1 checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908\ncd \"$WS\"\ngit rev-parse HEAD\ngit rev-parse origin/main\ngit status --short\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:24:43.337350+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/01-clone.log",
+    "pid": 12813,
+    "exit_code": 128,
+    "end": "2026-09-23T12:24:49.362621+00:00",
+    "wall_s": 6.025275253000018,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166283.338065,
+        "cwd": "/tmp",
+        "expanded_command": "git -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git /tmp/x2-final-ros.pukricvy/repository"
+      }
+    ],
+    "evidence_log": "01-clone.log"
+  },
+  {
+    "label": "02-clone-retry",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/02-clone-retry.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/02-clone-retry.sh",
+    "script_text": "set -eo pipefail\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ngit -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git \"$WS\"\ngit -C \"$WS\" -c http.version=HTTP/1.1 sparse-checkout set src\ngit -C \"$WS\" -c http.version=HTTP/1.1 checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908\ncd \"$WS\"\ngit rev-parse HEAD\ngit rev-parse origin/main\ngit status --short\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:25:18.919904+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/02-clone-retry.log",
+    "pid": 13032,
+    "exit_code": -2,
+    "end": "2026-09-23T12:28:47.321277+00:00",
+    "wall_s": 208.40140205699993,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166318.920623,
+        "cwd": "/tmp",
+        "expanded_command": "git -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git /tmp/x2-final-ros.pukricvy/repository"
+      }
+    ],
+    "evidence_log": "02-clone-retry.log"
+  },
+  {
+    "label": "03-model-download",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/03-model-download.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/03-model-download.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\nmkdir -p \"$ACCEPT_ROOT/assets\"\ngit -c http.version=HTTP/1.1 clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git \"$X2_ASSET_REPO\"\ngit -C \"$X2_ASSET_REPO\" -c http.version=HTTP/1.1 sparse-checkout set X2_URDF-v1.3.0\ngit -C \"$X2_ASSET_REPO\" -c http.version=HTTP/1.1 checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0\ngit -C \"$X2_ASSET_REPO\" rev-parse HEAD\ngit -C \"$X2_ASSET_REPO\" status --short\nfind \"$X2_ASSET_REPO\" -maxdepth 2 -iname '*license*' -print\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:25:20.102941+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/03-model-download.log",
+    "pid": 13059,
+    "exit_code": 128,
+    "end": "2026-09-23T12:25:25.573926+00:00",
+    "wall_s": 5.471000543999935,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166320.171293,
+        "cwd": "/tmp",
+        "expanded_command": "mkdir -p /tmp/x2-final-ros.pukricvy/assets"
+      },
+      {
+        "unix_time_s": 1790166320.172133,
+        "cwd": "/tmp",
+        "expanded_command": "git -c http.version=HTTP/1.1 clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf"
+      }
+    ],
+    "evidence_log": "03-model-download.log"
+  },
+  {
+    "label": "04-model-download-retry",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/04-model-download-retry.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/04-model-download-retry.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ngit -c http.version=HTTP/1.1 clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git \"$X2_ASSET_REPO\"\ngit -C \"$X2_ASSET_REPO\" -c http.version=HTTP/1.1 sparse-checkout set X2_URDF-v1.3.0\ngit -C \"$X2_ASSET_REPO\" -c http.version=HTTP/1.1 checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0\ngit -C \"$X2_ASSET_REPO\" rev-parse HEAD\ngit -C \"$X2_ASSET_REPO\" status --short\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:27:16.220162+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/04-model-download-retry.log",
+    "pid": 13866,
+    "exit_code": 0,
+    "end": "2026-09-23T12:28:20.001643+00:00",
+    "wall_s": 63.78148419699983,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166436.28924,
+        "cwd": "/tmp",
+        "expanded_command": "git -c http.version=HTTP/1.1 clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf"
+      },
+      {
+        "unix_time_s": 1790166442.886493,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf -c http.version=HTTP/1.1 sparse-checkout set X2_URDF-v1.3.0"
+      },
+      {
+        "unix_time_s": 1790166442.888334,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf -c http.version=HTTP/1.1 checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0"
+      },
+      {
+        "unix_time_s": 1790166499.851632,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf rev-parse HEAD"
+      },
+      {
+        "unix_time_s": 1790166499.852384,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf status --short"
+      }
+    ],
+    "evidence_log": "04-model-download-retry.log"
+  },
+  {
+    "label": "05-clone-bounded-retry",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/05-clone-bounded-retry.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/05-clone-bounded-retry.sh",
+    "script_text": "set -eo pipefail\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ntimeout --signal=INT --kill-after=10s 120s git -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1024 -c http.lowSpeedTime=30 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git \"$WS\"\ngit -C \"$WS\" sparse-checkout set src\ntimeout --signal=INT --kill-after=10s 120s git -C \"$WS\" -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1024 -c http.lowSpeedTime=30 checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908\ncd \"$WS\"\ngit rev-parse HEAD\ngit rev-parse origin/main\ngit status --short\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:29:01.955675+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/05-clone-bounded-retry.log",
+    "pid": 14523,
+    "exit_code": 0,
+    "end": "2026-09-23T12:29:15.466187+00:00",
+    "wall_s": 13.510520547999931,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166541.956503,
+        "cwd": "/tmp",
+        "expanded_command": "timeout --signal=INT --kill-after=10s 120s git -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1024 -c http.lowSpeedTime=30 clone --depth 1 --filter=blob:none --no-checkout https://github.com/langchengg/RL-AgiBot-X2.git /tmp/x2-final-ros.pukricvy/repository"
+      },
+      {
+        "unix_time_s": 1790166548.449263,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.pukricvy/repository sparse-checkout set src"
+      },
+      {
+        "unix_time_s": 1790166548.450963,
+        "cwd": "/tmp",
+        "expanded_command": "timeout --signal=INT --kill-after=10s 120s git -C /tmp/x2-final-ros.pukricvy/repository -c http.version=HTTP/1.1 -c http.lowSpeedLimit=1024 -c http.lowSpeedTime=30 checkout --detach 71037f7d5530a65da220345f9037ac4d29f32908"
+      },
+      {
+        "unix_time_s": 1790166555.430856,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.pukricvy/repository"
+      },
+      {
+        "unix_time_s": 1790166555.430884,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git rev-parse HEAD"
+      },
+      {
+        "unix_time_s": 1790166555.431823,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git rev-parse origin/main"
+      },
+      {
+        "unix_time_s": 1790166555.432535,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git status --short"
+      }
+    ],
+    "evidence_log": "05-clone-bounded-retry.log"
+  },
+  {
+    "label": "06-readme-venv-torch",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/06-readme-venv-torch.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/06-readme-venv-torch.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd \"$WS\"\ngit apply --check \"$ACCEPT_ROOT/evidence/readme-setup.patch\"\ngit apply \"$ACCEPT_ROOT/evidence/readme-setup.patch\"\nsha256sum README.md \"$ACCEPT_ROOT/evidence/readme-setup.patch\"\n/usr/bin/python3 -m venv --system-site-packages .venv\ntouch .venv/COLCON_IGNORE\ncat .venv/pyvenv.cfg\n\"$PY\" -m pip install --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu 'torch==2.8.0+cpu'\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:30:39.753109+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/06-readme-venv-torch.log",
+    "pid": 15519,
+    "exit_code": 1,
+    "end": "2026-09-23T12:38:13.484305+00:00",
+    "wall_s": 453.7312318830002,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166639.822775,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.pukricvy/repository"
+      },
+      {
+        "unix_time_s": 1790166639.822812,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git apply --check /tmp/x2-final-ros.pukricvy/evidence/readme-setup.patch"
+      },
+      {
+        "unix_time_s": 1790166639.824062,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git apply /tmp/x2-final-ros.pukricvy/evidence/readme-setup.patch"
+      },
+      {
+        "unix_time_s": 1790166639.825234,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "sha256sum README.md /tmp/x2-final-ros.pukricvy/evidence/readme-setup.patch"
+      },
+      {
+        "unix_time_s": 1790166639.825971,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "/usr/bin/python3 -m venv --system-site-packages .venv"
+      },
+      {
+        "unix_time_s": 1790166640.985131,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "touch .venv/COLCON_IGNORE"
+      },
+      {
+        "unix_time_s": 1790166640.985787,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "cat .venv/pyvenv.cfg"
+      },
+      {
+        "unix_time_s": 1790166640.986199,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python -m pip install --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu torch==2.8.0+cpu"
+      }
+    ],
+    "evidence_log": "06-readme-venv-torch.log"
+  },
+  {
+    "label": "07-apply-runner-patch",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/07-apply-runner-patch.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/07-apply-runner-patch.sh",
+    "script_text": "set -eo pipefail\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd \"$WS\"\ngit apply --check \"$ACCEPT_ROOT/evidence/runner-evidence.patch\"\ngit apply \"$ACCEPT_ROOT/evidence/runner-evidence.patch\"\nsha256sum src/x2_recovery/test/test_ros_integration.py \"$ACCEPT_ROOT/evidence/runner-evidence.patch\"\ngit diff --check\ngit diff --stat\ngit diff -- README.md src/x2_recovery/test/test_ros_integration.py > \"$ACCEPT_ROOT/evidence/tested.patch\"\nsha256sum \"$ACCEPT_ROOT/evidence/tested.patch\"\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:32:17.641911+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/07-apply-runner-patch.log",
+    "pid": 16331,
+    "exit_code": 0,
+    "end": "2026-09-23T12:32:17.658180+00:00",
+    "wall_s": 0.016271041999971203,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166737.64284,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.pukricvy/repository"
+      },
+      {
+        "unix_time_s": 1790166737.642869,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git apply --check /tmp/x2-final-ros.pukricvy/evidence/runner-evidence.patch"
+      },
+      {
+        "unix_time_s": 1790166737.644146,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git apply /tmp/x2-final-ros.pukricvy/evidence/runner-evidence.patch"
+      },
+      {
+        "unix_time_s": 1790166737.645144,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "sha256sum src/x2_recovery/test/test_ros_integration.py /tmp/x2-final-ros.pukricvy/evidence/runner-evidence.patch"
+      },
+      {
+        "unix_time_s": 1790166737.646039,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git diff --check"
+      },
+      {
+        "unix_time_s": 1790166737.650107,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git diff --stat"
+      },
+      {
+        "unix_time_s": 1790166737.653679,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git diff -- README.md src/x2_recovery/test/test_ros_integration.py"
+      },
+      {
+        "unix_time_s": 1790166737.656204,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "sha256sum /tmp/x2-final-ros.pukricvy/evidence/tested.patch"
+      }
+    ],
+    "evidence_log": "07-apply-runner-patch.log"
+  },
+  {
+    "label": "08-system-inventory",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/08-system-inventory.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/08-system-inventory.sh",
+    "script_text": "set -eo pipefail\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\nuname -a\ncat /etc/os-release\nsystemd-detect-virt\ndf -h /tmp\nfree -h\ndpkg-query -W -f='${binary:Package} ${Version} ${Architecture} ${db:Status-Status}\\n' git ca-certificates python3 python3-minimal python3-venv python3-pip python3-setuptools python3-colcon-common-extensions python3-colcon-core python3-colcon-python-setup-py python3-colcon-ros python3-colcon-package-information python3-numpy python3-pil python3-matplotlib python3-cffi-backend python3-nacl libosmesa6 ros-jazzy-ros-base ros-jazzy-rclpy ros-jazzy-sensor-msgs ros-jazzy-std-msgs ros-jazzy-std-srvs ros-jazzy-launch ros-jazzy-launch-ros ros-jazzy-rmw-fastrtps-cpp ros-jazzy-ament-index-python ros-jazzy-ament-package ros-jazzy-rcl-interfaces\napt-cache policy python3 python3-numpy python3-pil python3-matplotlib libosmesa6 python3-colcon-common-extensions ros-jazzy-rclpy ros-jazzy-rmw-fastrtps-cpp\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:36:37.818186+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/08-system-inventory.log",
+    "pid": 26784,
+    "exit_code": 0,
+    "end": "2026-09-23T12:36:37.884326+00:00",
+    "wall_s": 0.06614029100001062,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790166997.81935,
+        "cwd": "/tmp",
+        "expanded_command": "uname -a"
+      },
+      {
+        "unix_time_s": 1790166997.819804,
+        "cwd": "/tmp",
+        "expanded_command": "cat /etc/os-release"
+      },
+      {
+        "unix_time_s": 1790166997.820134,
+        "cwd": "/tmp",
+        "expanded_command": "systemd-detect-virt"
+      },
+      {
+        "unix_time_s": 1790166997.821779,
+        "cwd": "/tmp",
+        "expanded_command": "df -h /tmp"
+      },
+      {
+        "unix_time_s": 1790166997.82236,
+        "cwd": "/tmp",
+        "expanded_command": "free -h"
+      },
+      {
+        "unix_time_s": 1790166997.823302,
+        "cwd": "/tmp",
+        "expanded_command": "dpkg-query -W '-f=${binary:Package} ${Version} ${Architecture} ${db:Status-Status}\\n' git ca-certificates python3 python3-minimal python3-venv python3-pip python3-setuptools python3-colcon-common-extensions python3-colcon-core python3-colcon-python-setup-py python3-colcon-ros python3-colcon-package-information python3-numpy python3-pil python3-matplotlib python3-cffi-backend python3-nacl libosmesa6 ros-jazzy-ros-base ros-jazzy-rclpy ros-jazzy-sensor-msgs ros-jazzy-std-msgs ros-jazzy-std-srvs ros-jazzy-launch ros-jazzy-launch-ros ros-jazzy-rmw-fastrtps-cpp ros-jazzy-ament-index-python ros-jazzy-ament-package ros-jazzy-rcl-interfaces"
+      },
+      {
+        "unix_time_s": 1790166997.836072,
+        "cwd": "/tmp",
+        "expanded_command": "apt-cache policy python3 python3-numpy python3-pil python3-matplotlib libosmesa6 python3-colcon-common-extensions ros-jazzy-rclpy ros-jazzy-rmw-fastrtps-cpp"
+      }
+    ],
+    "evidence_log": "08-system-inventory.log"
+  },
+  {
+    "label": "09-launch-signal-fix",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/09-launch-signal-fix.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/09-launch-signal-fix.sh",
+    "script_text": "set -eo pipefail\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd \"$WS\"\ngit apply --check \"$ACCEPT_ROOT/evidence/runner-evidence-v1-to-v2.patch\"\ngit apply \"$ACCEPT_ROOT/evidence/runner-evidence-v1-to-v2.patch\"\nsha256sum src/x2_recovery/test/test_ros_integration.py\ngit diff --check\ngit diff -- README.md src/x2_recovery/test/test_ros_integration.py > \"$ACCEPT_ROOT/evidence/tested-v2.patch\"\nsha256sum \"$ACCEPT_ROOT/evidence/tested-v2.patch\"\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:36:57.589565+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/09-launch-signal-fix.log",
+    "pid": 26906,
+    "exit_code": 0,
+    "end": "2026-09-23T12:36:57.606835+00:00",
+    "wall_s": 0.017272999999931926,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790167017.590341,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.pukricvy/repository"
+      },
+      {
+        "unix_time_s": 1790167017.59037,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git apply --check /tmp/x2-final-ros.pukricvy/evidence/runner-evidence-v1-to-v2.patch"
+      },
+      {
+        "unix_time_s": 1790167017.591633,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git apply /tmp/x2-final-ros.pukricvy/evidence/runner-evidence-v1-to-v2.patch"
+      },
+      {
+        "unix_time_s": 1790167017.592616,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "sha256sum src/x2_recovery/test/test_ros_integration.py"
+      },
+      {
+        "unix_time_s": 1790167017.593214,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git diff --check"
+      },
+      {
+        "unix_time_s": 1790167017.596711,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "git diff -- README.md src/x2_recovery/test/test_ros_integration.py"
+      },
+      {
+        "unix_time_s": 1790167017.59869,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "sha256sum /tmp/x2-final-ros.pukricvy/evidence/tested-v2.patch"
+      }
+    ],
+    "evidence_log": "09-launch-signal-fix.log"
+  },
+  {
+    "label": "10-shell-paths",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/10-shell-paths.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/10-shell-paths.sh",
+    "script_text": "set -eo pipefail\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\npython3 - <<'INNER'\nimport os,sys,json,pathlib\nfields=['HOME','PATH','PYTHONPATH','VIRTUAL_ENV','AMENT_PREFIX_PATH','COLCON_PREFIX_PATH','CMAKE_PREFIX_PATH','LD_LIBRARY_PATH','ROS_DISTRO','X2_ASSET_REPO','PYTHONNOUSERSITE','PIP_CONFIG_FILE']\nr=[dict(stage='clean_before_source',executable=sys.executable,prefix=sys.prefix,sys_path=sys.path,environment={k:os.environ.get(k) for k in fields})]\npathlib.Path(os.environ['ACCEPT_ROOT'],'evidence/shell-paths.json').write_text(json.dumps(r,indent=2)+'\\n')\nINNER\nsource /opt/ros/jazzy/setup.bash\npython3 - <<'INNER'\nimport os,sys,json,pathlib\np=pathlib.Path(os.environ['ACCEPT_ROOT'],'evidence/shell-paths.json');r=json.loads(p.read_text());fields=list(r[0]['environment'])\nr.append(dict(stage='after_ros_source',executable=sys.executable,prefix=sys.prefix,sys_path=sys.path,environment={k:os.environ.get(k) for k in fields}))\np.write_text(json.dumps(r,indent=2)+'\\n');print(p.read_text())\nINNER\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:37:21.064828+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/10-shell-paths.log",
+    "pid": 27026,
+    "exit_code": 0,
+    "end": "2026-09-23T12:37:21.183147+00:00",
+    "wall_s": 0.11832449999997152,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790167041.065569,
+        "cwd": "/tmp",
+        "expanded_command": "python3 -"
+      },
+      {
+        "unix_time_s": 1790167041.078497,
+        "cwd": "/tmp",
+        "expanded_command": "source /opt/ros/jazzy/setup.bash"
+      },
+      {
+        "unix_time_s": 1790167041.148711,
+        "cwd": "/tmp",
+        "expanded_command": "python3 -"
+      }
+    ],
+    "evidence_log": "10-shell-paths.log"
+  },
+  {
+    "label": "11-torch-network-retry",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/11-torch-network-retry.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/11-torch-network-retry.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd \"$WS\"\n\"$PY\" -c \"import importlib.util; spec=importlib.util.find_spec('torch'); print('torch_before_retry=', spec); assert spec is None\"\n\"$PY\" -m pip install --no-cache-dir --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu 'torch==2.8.0+cpu'\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:40:13.758633+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/11-torch-network-retry.log",
+    "pid": 27918,
+    "exit_code": 0,
+    "end": "2026-09-23T12:43:55.837226+00:00",
+    "wall_s": 222.07861710500015,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790167213.843444,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.pukricvy/repository"
+      },
+      {
+        "unix_time_s": 1790167213.843479,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python -c 'import importlib.util; spec=importlib.util.find_spec('\\''torch'\\''); print('\\''torch_before_retry='\\'', spec); assert spec is None'"
+      },
+      {
+        "unix_time_s": 1790167213.850923,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python -m pip install --no-cache-dir --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu torch==2.8.0+cpu"
+      }
+    ],
+    "evidence_log": "11-torch-network-retry.log"
+  },
+  {
+    "label": "12-requirements",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/12-requirements.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/12-requirements.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd \"$WS\"\n\"$PY\" -m pip install --only-binary=:all: --index-url https://pypi.org/simple -r requirements.txt\n\"$PY\" -m pip check\n\"$PY\" -m pip freeze --all > \"$ACCEPT_ROOT/evidence/python-packages.txt\"\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:44:14.608936+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/12-requirements.log",
+    "pid": 29247,
+    "exit_code": 0,
+    "end": "2026-09-23T12:46:31.457721+00:00",
+    "wall_s": 136.8488247739997,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790167454.676638,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.pukricvy/repository"
+      },
+      {
+        "unix_time_s": 1790167454.676681,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python -m pip install --only-binary=:all: --index-url https://pypi.org/simple -r requirements.txt"
+      },
+      {
+        "unix_time_s": 1790167590.769652,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python -m pip check"
+      },
+      {
+        "unix_time_s": 1790167591.18457,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python -m pip freeze --all"
+      }
+    ],
+    "evidence_log": "12-requirements.log"
+  },
+  {
+    "label": "13-cli-help-domain",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/13-cli-help-domain.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/13-cli-help-domain.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\nros2 topic echo --help\nros2 node list --help\nros2 service call --help\n/usr/bin/python3 - <<'INNER'\nimport json,os,time,rclpy\nfrom rclpy.utilities import get_rmw_implementation_identifier\nfrom ros2cli.node.daemon import is_daemon_running\nfrom types import SimpleNamespace\nfrom pathlib import Path\nreport={'domain':os.environ['ROS_DOMAIN_ID'],'rmw':get_rmw_implementation_identifier(),'discovery':os.environ['ROS_AUTOMATIC_DISCOVERY_RANGE'],'daemon_already_running':is_daemon_running(SimpleNamespace())}\nrclpy.init();node=rclpy.create_node('x2_domain_preflight')\ntry:\n end=time.monotonic()+4\n while time.monotonic()<end:rclpy.spin_once(node,timeout_sec=.1)\n report['nodes']=node.get_node_names_and_namespaces();report['services']=node.get_service_names_and_types();report['topics']=node.get_topic_names_and_types()\n report['status_publishers']=len(node.get_publishers_info_by_topic('/x2/recovery_status'));report['joint_publishers']=len(node.get_publishers_info_by_topic('/x2/joint_states'))\n report['conflict']=any(n in ['recovery_node','telemetry_node'] for n,_ in report['nodes']) or any(n=='/x2/start_recovery' for n,_ in report['services']) or report['status_publishers']>0 or report['joint_publishers']>0\n Path(os.environ['ACCEPT_ROOT'],'evidence','domain-preflight.json').write_text(json.dumps(report,indent=2)+'\\n')\n print(json.dumps(report,indent=2));assert not report['conflict']\nfinally:node.destroy_node();rclpy.shutdown()\nINNER\n\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:45:52.731904+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/13-cli-help-domain.log",
+    "pid": 29777,
+    "exit_code": 0,
+    "end": "2026-09-23T12:45:57.732218+00:00",
+    "wall_s": 5.000349752999682,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790167552.805112,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 topic echo --help"
+      },
+      {
+        "unix_time_s": 1790167552.997418,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 node list --help"
+      },
+      {
+        "unix_time_s": 1790167553.167204,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 service call --help"
+      },
+      {
+        "unix_time_s": 1790167553.336277,
+        "cwd": "/tmp",
+        "expanded_command": "/usr/bin/python3 -"
+      }
+    ],
+    "evidence_log": "13-cli-help-domain.log"
+  },
+  {
+    "label": "14-build",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/14-build.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/14-build.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd \"$WS\"\ntest ! -e \"$ACCEPT_ROOT/build\"\ntest ! -e \"$ACCEPT_ROOT/install\"\ntest ! -e \"$ACCEPT_ROOT/log\"\n\"$PY\" /usr/bin/colcon list --base-paths src\n\"$PY\" /usr/bin/colcon --log-base \"$ACCEPT_ROOT/log\" build --base-paths src --packages-select x2_recovery --symlink-install --build-base \"$ACCEPT_ROOT/build\" --install-base \"$ACCEPT_ROOT/install\"\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:48:13.893924+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/14-build.log",
+    "pid": 30378,
+    "exit_code": 0,
+    "end": "2026-09-23T12:48:14.875187+00:00",
+    "wall_s": 0.9812634589998197,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790167693.968187,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp/x2-final-ros.pukricvy/repository"
+      },
+      {
+        "unix_time_s": 1790167693.968226,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "test '!' -e /tmp/x2-final-ros.pukricvy/build"
+      },
+      {
+        "unix_time_s": 1790167693.968248,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "test '!' -e /tmp/x2-final-ros.pukricvy/install"
+      },
+      {
+        "unix_time_s": 1790167693.968264,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "test '!' -e /tmp/x2-final-ros.pukricvy/log"
+      },
+      {
+        "unix_time_s": 1790167693.968272,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python /usr/bin/colcon list --base-paths src"
+      },
+      {
+        "unix_time_s": 1790167694.091259,
+        "cwd": "/tmp/x2-final-ros.pukricvy/repository",
+        "expanded_command": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python /usr/bin/colcon --log-base /tmp/x2-final-ros.pukricvy/log build --base-paths src --packages-select x2_recovery --symlink-install --build-base /tmp/x2-final-ros.pukricvy/build --install-base /tmp/x2-final-ros.pukricvy/install"
+      }
+    ],
+    "evidence_log": "14-build.log"
+  },
+  {
+    "label": "15-runtime-identity",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/15-runtime-identity.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/15-runtime-identity.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nsource \"$ACCEPT_ROOT/install/setup.bash\"\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd /tmp\nros2 pkg prefix x2_recovery\nros2 pkg executables x2_recovery\nhead -1 \"$ACCEPT_ROOT/install/x2_recovery/lib/x2_recovery/recovery_node\"\nhead -1 \"$ACCEPT_ROOT/install/x2_recovery/lib/x2_recovery/telemetry_node\"\n\"$PY\" \"$ACCEPT_ROOT/evidence/capture-identity.py\"\nros2 launch x2_recovery recovery.launch.py --show-args\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:48:27.546292+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/15-runtime-identity.log",
+    "pid": 30462,
+    "exit_code": 0,
+    "end": "2026-09-23T12:48:29.879223+00:00",
+    "wall_s": 2.332936167999833,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790167707.699883,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp"
+      },
+      {
+        "unix_time_s": 1790167707.699912,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 pkg prefix x2_recovery"
+      },
+      {
+        "unix_time_s": 1790167707.802483,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 pkg executables x2_recovery"
+      },
+      {
+        "unix_time_s": 1790167707.902907,
+        "cwd": "/tmp",
+        "expanded_command": "head -1 /tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/x2_recovery/recovery_node"
+      },
+      {
+        "unix_time_s": 1790167707.903549,
+        "cwd": "/tmp",
+        "expanded_command": "head -1 /tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/x2_recovery/telemetry_node"
+      },
+      {
+        "unix_time_s": 1790167707.903959,
+        "cwd": "/tmp",
+        "expanded_command": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python /tmp/x2-final-ros.pukricvy/evidence/capture-identity.py"
+      },
+      {
+        "unix_time_s": 1790167709.721652,
+        "cwd": "/tmp",
+        "expanded_command": "ros2 launch x2_recovery recovery.launch.py --show-args"
+      }
+    ],
+    "evidence_log": "15-runtime-identity.log"
+  },
+  {
+    "label": "16-integration",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/16-integration.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/16-integration.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nsource \"$ACCEPT_ROOT/install/setup.bash\"\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd /tmp\ntimeout --signal=INT --kill-after=15s 240s \"$PY\" \"$WS/src/x2_recovery/test/test_ros_integration.py\" --output-dir \"$ACCEPT_ROOT/evidence/integration\"\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:48:59.467559+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/16-integration.log",
+    "pid": 30690,
+    "exit_code": 1,
+    "end": "2026-09-23T12:49:02.332321+00:00",
+    "wall_s": 2.8647670849995848,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790167739.622694,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp"
+      },
+      {
+        "unix_time_s": 1790167739.622745,
+        "cwd": "/tmp",
+        "expanded_command": "timeout --signal=INT --kill-after=15s 240s /tmp/x2-final-ros.pukricvy/repository/.venv/bin/python /tmp/x2-final-ros.pukricvy/repository/src/x2_recovery/test/test_ros_integration.py --output-dir /tmp/x2-final-ros.pukricvy/evidence/integration"
+      }
+    ],
+    "evidence_log": "16-integration.log"
+  },
+  {
+    "label": "17-postflight-after-failure",
+    "cwd": "/tmp",
+    "argv": [
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/tmp/x2-final-ros.pukricvy/evidence/17-postflight-after-failure.sh"
+    ],
+    "script": "/tmp/x2-final-ros.pukricvy/evidence/17-postflight-after-failure.sh",
+    "script_text": "set -eo pipefail\nsource /opt/ros/jazzy/setup.bash\nsource \"$ACCEPT_ROOT/install/setup.bash\"\nexport PY=\"$WS/.venv/bin/python\" X2_ASSET_REPO=\"$ACCEPT_ROOT/assets/agibot_x2_urdf\"\nexport X2_SCENE=\"$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml\"\nexport ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp\nPS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x\ncd /tmp\n\"$PY\" \"$ACCEPT_ROOT/evidence/postflight.py\"\ngit -C \"$WS\" status --short\ngit -C \"$X2_ASSET_REPO\" status --short\n\n",
+    "environment": {
+      "HOME": "/tmp/x2-final-ros.pukricvy/home",
+      "USER": "lang",
+      "LOGNAME": "lang",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "ACCEPT_ROOT": "/tmp/x2-final-ros.pukricvy",
+      "WS": "/tmp/x2-final-ros.pukricvy/repository",
+      "PYTHONNOUSERSITE": "1",
+      "PIP_CONFIG_FILE": "/dev/null"
+    },
+    "start": "2026-09-23T12:51:19.692074+00:00",
+    "log": "/tmp/x2-final-ros.pukricvy/evidence/17-postflight-after-failure.log",
+    "pid": 31504,
+    "exit_code": 0,
+    "end": "2026-09-23T12:51:24.196189+00:00",
+    "wall_s": 4.504122959999677,
+    "shell_steps": [
+      {
+        "unix_time_s": 1790167879.85232,
+        "cwd": "/tmp",
+        "expanded_command": "cd /tmp"
+      },
+      {
+        "unix_time_s": 1790167879.85237,
+        "cwd": "/tmp",
+        "expanded_command": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python /tmp/x2-final-ros.pukricvy/evidence/postflight.py"
+      },
+      {
+        "unix_time_s": 1790167884.155534,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.pukricvy/repository status --short"
+      },
+      {
+        "unix_time_s": 1790167884.156944,
+        "cwd": "/tmp",
+        "expanded_command": "git -C /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf status --short"
+      }
+    ],
+    "evidence_log": "17-postflight-after-failure.log"
+  }
+]

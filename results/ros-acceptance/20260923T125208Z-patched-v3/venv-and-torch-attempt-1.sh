@@ -1,0 +1,12 @@
+set -eo pipefail
+source /opt/ros/jazzy/setup.bash
+export PY="$WS/.venv/bin/python" X2_ASSET_REPO="$ACCEPT_ROOT/assets/agibot_x2_urdf"
+export X2_SCENE="$X2_ASSET_REPO/X2_URDF-v1.3.0/scene.xml"
+export ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+PS4='+ ${EPOCHREALTIME} cwd=${PWD} '; set -x
+cd "$WS"
+/usr/bin/python3 -m venv --system-site-packages .venv
+touch .venv/COLCON_IGNORE
+cat .venv/pyvenv.cfg
+"$PY" -c 'import sys,json;print(json.dumps(dict(executable=sys.executable,prefix=sys.prefix,base_prefix=sys.base_prefix,path=sys.path),indent=2))'
+"$PY" -m pip install --no-cache-dir --only-binary=:all: --index-url https://download.pytorch.org/whl/cpu 'torch==2.8.0+cpu'

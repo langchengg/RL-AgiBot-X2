@@ -1,0 +1,84 @@
+--- a/src/x2_recovery/test/test_ros_integration.py
++++ b/src/x2_recovery/test/test_ros_integration.py
+@@ -171,8 +171,10 @@
+     from ament_index_python.packages import get_package_prefix, get_package_share_directory
+     from x2_recovery.telemetry_node import STATUS_QOS, JOINT_QOS, validate_joint_state
+     from x2_recovery import recovery_node
+-    from ros2cli.node.daemon import is_daemon_running, shutdown_daemon
++    from ros2cli.node.daemon import DaemonNode, is_daemon_running, shutdown_daemon
++    from ros2cli.daemon import get_xmlrpc_server_url
+     from types import SimpleNamespace
++    from xmlrpc.client import ServerProxy, Transport
+ 
+     daemon_args = SimpleNamespace()
+     daemon_was_running = is_daemon_running(daemon_args)
+@@ -184,6 +186,10 @@
+                                 rmw=get_rmw_implementation_identifier(),
+                                 domain=os.environ.get('ROS_DOMAIN_ID'),
+                                 discovery=os.environ.get('ROS_AUTOMATIC_DISCOVERY_RANGE')))
++    report['graph_discovery_protocol'] = dict(previous_default_direct_spin_s=.5,
++        explicit_direct_spin_s=2., service_type='Unchanged CLI after bounded daemon graph readiness',
++        reason='An independent CLI observer may not be discovered when the integration client is ready',
++        unchanged_rpc_limit_s=1., unchanged_runner_budget_s=210.)
+     processes = []
+     scenario = 'startup'
+     received_joints = []
+@@ -345,6 +351,40 @@
+         check(label, response.success is expected and finished-started <= 1., **item)
+         return item
+ 
++    def service_type_daemon_ready():
++        # Jazzy `service type` lacks --no-daemon/--spin-time. Verify its actual
++        # observer before invoking that unchanged CLI; do not assume our client
++        # or a different CLI participant's discovery implies daemon readiness.
++        started = time.monotonic()
++        until = min(deadline, started+10.)
++        evidence = dict(start_monotonic_s=started, deadline_monotonic_s=until,
++                        socket_timeout_cap_s=5., observations=[])
++        report['service_type_daemon_readiness'] = evidence
++
++        class BoundedTransport(Transport):
++            def make_connection(self, host):
++                connection = super().make_connection(host)
++                timeout = max(.001, min(5., until-time.monotonic()))
++                connection.timeout = timeout
++                if connection.sock is not None:
++                    connection.sock.settimeout(timeout)
++                return connection
++
++        # DaemonNode has no timeout parameter in installed Jazzy. Replace only
++        # this observer's initially unconnected proxy with a bounded transport.
++        with DaemonNode(daemon_args) as graph:
++            graph._proxy = ServerProxy(get_xmlrpc_server_url(), allow_none=True,
++                                       transport=BoundedTransport())
++            def discovered():
++                services = graph.get_service_names_and_types()
++                types = [types for name, types in services if name == '/x2/start_recovery']
++                evidence['observations'].append(dict(monotonic_s=time.monotonic(), types=types))
++                return types == [['std_srvs/srv/Trigger']]
++            wait(discovered, max(.001, until-time.monotonic()))
++        evidence['end_monotonic_s'] = time.monotonic()
++        check('service_type_cli_daemon_ready', bool(evidence['observations']) and
++              evidence['observations'][-1]['types'] == [['std_srvs/srv/Trigger']], **evidence)
++
+     def ready(log):
+         wait(lambda: client.service_is_ready() and any(r.get('event') == 'ready' for r in records(log))
+              and any(s == 'IDLE' for _, s in statuses), 15.)
+@@ -372,12 +412,14 @@
+         ready(log)
+         check('single_launch_two_processes', 'process started with pid' in log.read_text()
+               and 'telemetry_node-' in log.read_text() and 'recovery_node-' in log.read_text())
+-        nodes = cli(['node', 'list'], 'node-list')
++        cli(['daemon', 'start'], 'daemon-start')
++        nodes = cli(['node', 'list', '--no-daemon', '--spin-time', '2'], 'node-list')
+         check('business_nodes_discovered', '/recovery_node' in nodes and '/telemetry_node' in nodes)
++        service_type_daemon_ready()
+         service_type = cli(['service', 'type', '/x2/start_recovery'], 'service-type')
+         check('trigger_service_type', service_type.strip() == 'std_srvs/srv/Trigger')
+-        cli(['topic', 'info', '/x2/recovery_status', '--verbose'], 'status-qos')
+-        cli(['topic', 'info', '/x2/joint_states', '--verbose'], 'joint-qos')
++        cli(['topic', 'info', '/x2/recovery_status', '--verbose', '--no-daemon', '--spin-time', '2'], 'status-qos')
++        cli(['topic', 'info', '/x2/joint_states', '--verbose', '--no-daemon', '--spin-time', '2'], 'joint-qos')
+         for topic, wanted in [('/x2/recovery_status', STATUS_QOS), ('/x2/joint_states', JOINT_QOS)]:
+             pubs = node.get_publishers_info_by_topic(topic)
+             subs = node.get_subscriptions_info_by_topic(topic)

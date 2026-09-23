@@ -1,0 +1,38 @@
+{
+  "status": "FROZEN; syntax/applicability checks and real installed CLI --help only; no launch or simulation executed by subagent",
+  "base_commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "runner_sha256": "63a8bf34409e2a95967074fb81b080e5546ef4d70627a9571d356bc4af8ac0cc",
+  "patches": [
+    {
+      "path": "/tmp/x2-final-control/patch-work/runner-evidence-v3.patch",
+      "sha256": "1e9fd59567b521bf1679cc7e49e90999344a3447552e4cce4ac78510d5a1fe4a"
+    },
+    {
+      "path": "/tmp/x2-final-control/patch-work/runner-evidence-v2-to-v3.patch",
+      "sha256": "b9a3ab288a2edd637f64acd2905cd50550086e8756ffd944e3d04fec93ee49af"
+    }
+  ],
+  "preserved_v1_patch_sha256": "5735375fa96986334f13cd7e5842272b43401727f5ece6255ee1ade703f3f023",
+  "preserved_v2_patch_sha256": "6b823b42fc2d52794188b417d393351c3cf6bcbf20461b112817ee73876e0658",
+  "reason": "Root2 independent CLI graph observer returned empty within default 0.5s discovery, although existing integration observer and two business nodes were ready. Because no daemon preexisted, installed NodeStrategy starts a daemon and reads via its new DirectNode; cannot prove daemon cache caused the empty list.",
+  "protocol_change": {
+    "previous_default_direct_spin_s": 0.5,
+    "new_explicit_direct_spin_s": 2.0,
+    "applies_to": [
+      "ros2 node list",
+      "ros2 topic info /x2/recovery_status --verbose",
+      "ros2 topic info /x2/joint_states --verbose"
+    ],
+    "service_type": "No unsupported flags: actually start domain daemon, require its service graph ready with original wait <=10s, then unchanged ros2 service type command.",
+    "daemon_xmlrpc_timeout": "Installed DaemonNode has no timeout parameter. Only this observer gets bounded xmlrpc Transport; socket connect/read timeout <=5s and <=remaining readiness budget, including already connected sockets. CLI command remains externally bounded at 10s.",
+    "unchanged": [
+      "runner 210s",
+      "outer watchdog 240s",
+      "CLI wait 10s",
+      "discovered-client RPC assertion 1s",
+      "all physical simulation/reset/control parameters and controllers"
+    ]
+  },
+  "real_help_evidence_directory": "/tmp/x2-final-control/patch-work/v3-cli-help",
+  "root2_failure_review": "/tmp/x2-second-run-review.json"
+}

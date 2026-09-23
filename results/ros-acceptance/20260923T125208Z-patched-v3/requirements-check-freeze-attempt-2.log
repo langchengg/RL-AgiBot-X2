@@ -1,0 +1,64 @@
++ 1790168546.553379 cwd=/tmp cd /tmp/x2-final-ros.z4vmp3sx/repository
++ 1790168546.553427 cwd=/tmp/x2-final-ros.z4vmp3sx/repository /tmp/x2-final-ros.z4vmp3sx/repository/.venv/bin/python -m pip install --no-cache-dir --only-binary=:all: --index-url https://pypi.org/simple -r requirements.txt
+Requirement already satisfied: numpy==1.26.4 in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (1.26.4)
+Collecting mujoco==3.13.0 (from -r requirements.txt (line 4))
+  Downloading mujoco-3.13.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl.metadata (232 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 232.8/232.8 kB 77.5 kB/s eta 0:00:00
+Collecting gymnasium==1.3.0 (from -r requirements.txt (line 5))
+  Downloading gymnasium-1.3.0-py3-none-any.whl.metadata (10 kB)
+Collecting stable-baselines3==2.9.0 (from -r requirements.txt (line 6))
+  Downloading stable_baselines3-2.9.0-py3-none-any.whl.metadata (5.0 kB)
+Requirement already satisfied: torch==2.8.0+cpu in ./.venv/lib/python3.12/site-packages (from -r requirements.txt (line 7)) (2.8.0+cpu)
+Requirement already satisfied: Pillow==10.2.0 in /usr/lib/python3/dist-packages (from -r requirements.txt (line 8)) (10.2.0)
+Collecting cffi==2.1.1 (from -r requirements.txt (line 10))
+  Downloading cffi-2.1.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl.metadata (2.5 kB)
+Requirement already satisfied: matplotlib==3.6.3 in /usr/lib/python3/dist-packages (from -r requirements.txt (line 12)) (3.6.3)
+Collecting absl-py (from mujoco==3.13.0->-r requirements.txt (line 4))
+  Downloading absl_py-2.5.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting etils[epath] (from mujoco==3.13.0->-r requirements.txt (line 4))
+  Downloading etils-1.14.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting glfw (from mujoco==3.13.0->-r requirements.txt (line 4))
+  Downloading glfw-2.10.2-py2.py3-none-manylinux_2_28_aarch64.whl.metadata (5.5 kB)
+Collecting pyopengl (from mujoco==3.13.0->-r requirements.txt (line 4))
+  Downloading pyopengl-3.1.10-py3-none-any.whl.metadata (3.3 kB)
+Collecting cloudpickle>=1.2.0 (from gymnasium==1.3.0->-r requirements.txt (line 5))
+  Downloading cloudpickle-3.1.2-py3-none-any.whl.metadata (7.1 kB)
+Requirement already satisfied: typing-extensions>=4.3.0 in /usr/lib/python3/dist-packages (from gymnasium==1.3.0->-r requirements.txt (line 5)) (4.10.0)
+Collecting farama-notifications>=0.0.1 (from gymnasium==1.3.0->-r requirements.txt (line 5))
+  Downloading farama_notifications-0.0.6-py3-none-any.whl.metadata (729 bytes)
+Requirement already satisfied: filelock in ./.venv/lib/python3.12/site-packages (from torch==2.8.0+cpu->-r requirements.txt (line 7)) (3.32.3)
+Requirement already satisfied: setuptools in /usr/lib/python3/dist-packages (from torch==2.8.0+cpu->-r requirements.txt (line 7)) (68.1.2)
+Requirement already satisfied: sympy>=1.13.3 in ./.venv/lib/python3.12/site-packages (from torch==2.8.0+cpu->-r requirements.txt (line 7)) (1.14.0)
+Requirement already satisfied: networkx in ./.venv/lib/python3.12/site-packages (from torch==2.8.0+cpu->-r requirements.txt (line 7)) (3.6.1)
+Requirement already satisfied: jinja2 in /usr/lib/python3/dist-packages (from torch==2.8.0+cpu->-r requirements.txt (line 7)) (3.1.2)
+Requirement already satisfied: fsspec in ./.venv/lib/python3.12/site-packages (from torch==2.8.0+cpu->-r requirements.txt (line 7)) (2026.7.0)
+Collecting pycparser (from cffi==2.1.1->-r requirements.txt (line 10))
+  Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in ./.venv/lib/python3.12/site-packages (from sympy>=1.13.3->torch==2.8.0+cpu->-r requirements.txt (line 7)) (1.3.0)
+Requirement already satisfied: zipp in /usr/lib/python3/dist-packages (from etils[epath]->mujoco==3.13.0->-r requirements.txt (line 4)) (1.0.0)
+Requirement already satisfied: more-itertools in /usr/lib/python3/dist-packages (from zipp->etils[epath]->mujoco==3.13.0->-r requirements.txt (line 4)) (10.2.0)
+Downloading mujoco-3.13.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl (19.1 MB)
+   ━━━━━━━╸                                 3.8/19.1 MB 88.7 kB/s eta 0:02:53
+Downloading gymnasium-1.3.0-py3-none-any.whl (953 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 953.9/953.9 kB 233.4 kB/s eta 0:00:00
+Downloading stable_baselines3-2.9.0-py3-none-any.whl (187 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 187.6/187.6 kB 230.1 kB/s eta 0:00:00
+Downloading cffi-2.1.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (222 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 222.4/222.4 kB 87.7 kB/s eta 0:00:00
+Downloading cloudpickle-3.1.2-py3-none-any.whl (22 kB)
+Downloading farama_notifications-0.0.6-py3-none-any.whl (2.9 kB)
+Downloading absl_py-2.5.0-py3-none-any.whl (137 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 137.4/137.4 kB 116.8 kB/s eta 0:00:00
+Downloading glfw-2.10.2-py2.py3-none-manylinux_2_28_aarch64.whl (236 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 236.0/236.0 kB 361.9 kB/s eta 0:00:00
+Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.2/48.2 kB 273.9 kB/s eta 0:00:00
+Downloading pyopengl-3.1.10-py3-none-any.whl (3.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 260.4 kB/s eta 0:00:00
+Downloading etils-1.14.0-py3-none-any.whl (172 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 172.9/172.9 kB 272.6 kB/s eta 0:00:00
+ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE. If you have updated the package versions, please update the hashes. Otherwise, examine the package contents carefully; someone may have tampered with them.
+    unknown package:
+        Expected sha256 ce292cdf888dcadf1d1440c3debfdd38519ea01d8e4376f86d1e7754bfe0b069
+             Got        e5c1246f6a4213a0b80dc51af89194f034a07e93210934870921d8c460998eef
+

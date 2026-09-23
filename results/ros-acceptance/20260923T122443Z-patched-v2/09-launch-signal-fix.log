@@ -1,0 +1,9 @@
++ 1790167017.590341 cwd=/tmp cd /tmp/x2-final-ros.pukricvy/repository
++ 1790167017.590370 cwd=/tmp/x2-final-ros.pukricvy/repository git apply --check /tmp/x2-final-ros.pukricvy/evidence/runner-evidence-v1-to-v2.patch
++ 1790167017.591633 cwd=/tmp/x2-final-ros.pukricvy/repository git apply /tmp/x2-final-ros.pukricvy/evidence/runner-evidence-v1-to-v2.patch
++ 1790167017.592616 cwd=/tmp/x2-final-ros.pukricvy/repository sha256sum src/x2_recovery/test/test_ros_integration.py
+7ddbeb227f520d38688e6064b5f0335af639b1d747f3c58bc2add3a81e917b8a  src/x2_recovery/test/test_ros_integration.py
++ 1790167017.593214 cwd=/tmp/x2-final-ros.pukricvy/repository git diff --check
++ 1790167017.596711 cwd=/tmp/x2-final-ros.pukricvy/repository git diff -- README.md src/x2_recovery/test/test_ros_integration.py
++ 1790167017.598690 cwd=/tmp/x2-final-ros.pukricvy/repository sha256sum /tmp/x2-final-ros.pukricvy/evidence/tested-v2.patch
+42e74c5e247709dab3fc09330b7ae8fe506c4eeab268a3b8bc8640b32912f22b  /tmp/x2-final-ros.pukricvy/evidence/tested-v2.patch

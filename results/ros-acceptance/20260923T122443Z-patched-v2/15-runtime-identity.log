@@ -1,0 +1,262 @@
++ 1790167707.699883 cwd=/tmp cd /tmp
++ 1790167707.699912 cwd=/tmp ros2 pkg prefix x2_recovery
+/tmp/x2-final-ros.pukricvy/install/x2_recovery
++ 1790167707.802483 cwd=/tmp ros2 pkg executables x2_recovery
+x2_recovery recovery_node
+x2_recovery runtime_check
+x2_recovery telemetry_node
+x2_recovery train_recovery
++ 1790167707.902907 cwd=/tmp head -1 /tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/x2_recovery/recovery_node
+#!/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python
++ 1790167707.903549 cwd=/tmp head -1 /tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/x2_recovery/telemetry_node
+#!/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python
++ 1790167707.903959 cwd=/tmp /tmp/x2-final-ros.pukricvy/repository/.venv/bin/python /tmp/x2-final-ros.pukricvy/evidence/capture-identity.py
+{
+  "date": "2026-09-23T12:48:27.928064+00:00",
+  "isolation_scope": "\u540c\u4e00 Ubuntu ARM64 VM \u4e0a\uff0c\u65b0\u7684\u6e90\u7801\u3001\u9879\u76ee\u865a\u62df\u73af\u5883\u3001\u6a21\u578b\u526f\u672c\u3001shell \u548c\u6784\u5efa\u4ea7\u7269\uff1b\u590d\u7528\u5df2\u58f0\u660e\u7684\u7cfb\u7edf ROS/Ubuntu \u4f9d\u8d56\u3002",
+  "new": [
+    "GitHub partial/sparse clone: root files and complete src; historical results not checked out",
+    "project .venv with system-site-packages",
+    "independently downloaded pinned model",
+    "env -i equivalent subprocess, bash --noprofile --norc, new HOME",
+    "build/install/log/evidence"
+  ],
+  "reused": [
+    "existing Parallels Ubuntu 24.04 ARM64 VM",
+    "/usr/bin/python3",
+    "/opt/ros/jazzy",
+    "declared Ubuntu/ROS packages in system inventory"
+  ],
+  "executable": "/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python",
+  "real_executable": "/usr/bin/python3.12",
+  "prefix": "/tmp/x2-final-ros.pukricvy/repository/.venv",
+  "base_prefix": "/usr",
+  "sys_path": [
+    "/tmp/x2-final-ros.pukricvy/evidence",
+    "/tmp/x2-final-ros.pukricvy/build/x2_recovery",
+    "/tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/python3.12/site-packages",
+    "/opt/ros/jazzy/opt/gz_math_vendor/lib/python",
+    "/opt/ros/jazzy/lib/python3.12/site-packages",
+    "/usr/lib/python312.zip",
+    "/usr/lib/python3.12",
+    "/usr/lib/python3.12/lib-dynload",
+    "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages",
+    "/usr/local/lib/python3.12/dist-packages",
+    "/usr/lib/python3/dist-packages"
+  ],
+  "platform": "Linux-7.0.0-31-generic-aarch64-with-glibc2.39",
+  "machine": "aarch64",
+  "os_release": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n",
+  "environment": {
+    "HOME": "/tmp/x2-final-ros.pukricvy/home",
+    "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "PYTHONPATH": "/tmp/x2-final-ros.pukricvy/build/x2_recovery:/tmp/x2-final-ros.pukricvy/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+    "VIRTUAL_ENV": null,
+    "AMENT_PREFIX_PATH": "/tmp/x2-final-ros.pukricvy/install/x2_recovery:/opt/ros/jazzy",
+    "COLCON_PREFIX_PATH": "/tmp/x2-final-ros.pukricvy/install",
+    "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+    "LD_LIBRARY_PATH": "/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib",
+    "PYTHONNOUSERSITE": "1",
+    "PIP_CONFIG_FILE": "/dev/null",
+    "ROS_DISTRO": "jazzy",
+    "ROS_DOMAIN_ID": "86",
+    "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+    "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+    "X2_ASSET_REPO": "/tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf",
+    "X2_SCENE": "/tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf/X2_URDF-v1.3.0/scene.xml",
+    "MUJOCO_GL": null
+  },
+  "pyvenv_cfg": "home = /usr/bin\ninclude-system-site-packages = true\nversion = 3.12.3\nexecutable = /usr/bin/python3.12\ncommand = /usr/bin/python3 -m venv --system-site-packages /tmp/x2-final-ros.pukricvy/repository/.venv\n",
+  "modules": {
+    "rclpy": {
+      "version": "7.1.12",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py"
+    },
+    "mujoco": {
+      "version": "3.13.0",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/mujoco/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/mujoco/__init__.py"
+    },
+    "gymnasium": {
+      "version": "1.3.0",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/gymnasium/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/gymnasium/__init__.py"
+    },
+    "stable_baselines3": {
+      "version": "2.9.0",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/stable_baselines3/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/stable_baselines3/__init__.py"
+    },
+    "torch": {
+      "version": "2.8.0+cpu",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/torch/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/torch/__init__.py"
+    },
+    "numpy": {
+      "version": "1.26.4",
+      "path": "/usr/lib/python3/dist-packages/numpy/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/numpy/__init__.py"
+    },
+    "matplotlib": {
+      "version": "3.6.3",
+      "path": "/usr/lib/python3/dist-packages/matplotlib/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/matplotlib/__init__.py"
+    },
+    "PIL": {
+      "version": "10.2.0",
+      "path": "/usr/lib/python3/dist-packages/PIL/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/PIL/__init__.py"
+    },
+    "cffi": {
+      "version": "2.1.1",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/cffi/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/cffi/__init__.py"
+    },
+    "setuptools": {
+      "version": "68.1.2",
+      "path": "/usr/lib/python3/dist-packages/setuptools/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/setuptools/__init__.py"
+    },
+    "pip": {
+      "version": "24.0",
+      "path": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/pip/__init__.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/pip/__init__.py"
+    },
+    "colcon_core": {
+      "version": "0.21.3",
+      "path": "/usr/lib/python3/dist-packages/colcon_core/__init__.py",
+      "realpath": "/usr/lib/python3/dist-packages/colcon_core/__init__.py"
+    },
+    "ament_package": {
+      "version": "0.16.5",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_package/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_package/__init__.py"
+    },
+    "ament_index_python": {
+      "version": "1.8.4",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_index_python/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/ament_index_python/__init__.py"
+    },
+    "sensor_msgs": {
+      "version": "5.3.8",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/sensor_msgs/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/sensor_msgs/__init__.py"
+    },
+    "std_msgs": {
+      "version": "5.3.8",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/std_msgs/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/std_msgs/__init__.py"
+    },
+    "std_srvs": {
+      "version": "5.3.8",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/std_srvs/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/std_srvs/__init__.py"
+    },
+    "launch": {
+      "version": "3.4.11",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/launch/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/launch/__init__.py"
+    },
+    "launch_ros": {
+      "version": "0.26.12",
+      "path": "/opt/ros/jazzy/lib/python3.12/site-packages/launch_ros/__init__.py",
+      "realpath": "/opt/ros/jazzy/lib/python3.12/site-packages/launch_ros/__init__.py"
+    },
+    "x2_recovery.recovery_node": {
+      "version": "0.1.0",
+      "path": "/tmp/x2-final-ros.pukricvy/build/x2_recovery/x2_recovery/recovery_node.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/src/x2_recovery/x2_recovery/recovery_node.py"
+    },
+    "x2_recovery.telemetry_node": {
+      "version": "0.1.0",
+      "path": "/tmp/x2-final-ros.pukricvy/build/x2_recovery/x2_recovery/telemetry_node.py",
+      "realpath": "/tmp/x2-final-ros.pukricvy/repository/src/x2_recovery/x2_recovery/telemetry_node.py"
+    }
+  },
+  "package_prefix": "/tmp/x2-final-ros.pukricvy/install/x2_recovery",
+  "package_share": "/tmp/x2-final-ros.pukricvy/install/x2_recovery/share/x2_recovery",
+  "entrypoints": {
+    "recovery_node": "#!/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python",
+    "telemetry_node": "#!/tmp/x2-final-ros.pukricvy/repository/.venv/bin/python"
+  },
+  "launch_sha256": "45fdce7472ffe4438573fd17c67b87e156e66b644944c9fdd9005009f21b6283",
+  "commit": "71037f7d5530a65da220345f9037ac4d29f32908",
+  "status": "M README.md\n M src/x2_recovery/test/test_ros_integration.py",
+  "diff": "README.md                                    | 260 +++++++++++++++-------\n src/x2_recovery/test/test_ros_integration.py | 313 +++++++++++++++++++++++++--\n 2 files changed, 476 insertions(+), 97 deletions(-)",
+  "model": {
+    "repository": "https://github.com/AgibotTech/agibot_x2_urdf",
+    "commit": "60c5de582c523cd188f563819e62d34cfdc3d2d0",
+    "asset_repo": "/tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf",
+    "fingerprint": "bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0",
+    "source_sha256": {
+      "LICENSE": "d5777bea50dc2cd111845d8a9c51ab990d188ce343b843e5ad3e653b5fa8fdab",
+      "X2_URDF-v1.3.0/x2_ultra.urdf": "f628a969aaf3d5785b8c8901611a85f358d7eb62a8b06b1216dc42291a72944e",
+      "X2_URDF-v1.3.0/x2_ultra.xml": "3be016eaa127c79ac547754d6e25c0930887efcf9577af33e9f5bb4ff4ed90d4",
+      "X2_URDF-v1.3.0/scene.xml": "7e067253f0e4b0e023614d63a6f15b9c7b9108d7a4bf63bb9cee5cf2b5f24439"
+    },
+    "license_present": true,
+    "joint_names": [
+      "left_hip_pitch_joint",
+      "left_hip_roll_joint",
+      "left_hip_yaw_joint",
+      "left_knee_joint",
+      "left_ankle_pitch_joint",
+      "left_ankle_roll_joint",
+      "right_hip_pitch_joint",
+      "right_hip_roll_joint",
+      "right_hip_yaw_joint",
+      "right_knee_joint",
+      "right_ankle_pitch_joint",
+      "right_ankle_roll_joint",
+      "waist_yaw_joint",
+      "waist_pitch_joint",
+      "waist_roll_joint",
+      "head_yaw_joint",
+      "head_pitch_joint",
+      "left_shoulder_pitch_joint",
+      "left_shoulder_roll_joint",
+      "left_shoulder_yaw_joint",
+      "left_elbow_joint",
+      "left_wrist_yaw_joint",
+      "left_wrist_pitch_joint",
+      "left_wrist_roll_joint",
+      "right_shoulder_pitch_joint",
+      "right_shoulder_roll_joint",
+      "right_shoulder_yaw_joint",
+      "right_elbow_joint",
+      "right_wrist_yaw_joint",
+      "right_wrist_pitch_joint",
+      "right_wrist_roll_joint"
+    ],
+    "physics_timestep_s": 0.001
+  },
+  "relative_module_file_labels": {
+    "torch.classes": {
+      "raw_file": "_classes.py",
+      "exists_as_file": false,
+      "implementation_source": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/torch/_classes.py"
+    },
+    "torch.ops": {
+      "raw_file": "_ops.py",
+      "exists_as_file": false,
+      "implementation_source": "/tmp/x2-final-ros.pukricvy/repository/.venv/lib/python3.12/site-packages/torch/_ops.py"
+    }
+  },
+  "system_sitecustomize_note": "Ubuntu /etc/python3.12/sitecustomize.py installs apport hook if available; not a personal startup file. torch.classes and torch.ops expose synthetic relative __file__ labels; implementation is in the new venv.",
+  "forbidden_path_matches": []
+}
++ 1790167709.721652 cwd=/tmp ros2 launch x2_recovery recovery.launch.py --show-args
+Arguments (pass arguments as '<name>:=<value>'):
+
+    'seed':
+        no description given
+        (default: '60')
+
+    'episode_timeout_s':
+        no description given
+        (default: '20.0')
+
+    'recovery_timeout_s':
+        no description given
+        (default: '30.0')

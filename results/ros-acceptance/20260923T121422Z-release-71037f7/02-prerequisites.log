@@ -1,0 +1,87 @@
+{
+  "stage": "before_source",
+  "executable": "/usr/bin/python3",
+  "prefix": "/usr",
+  "base_prefix": "/usr",
+  "sys_path": [
+    "",
+    "/usr/lib/python312.zip",
+    "/usr/lib/python3.12",
+    "/usr/lib/python3.12/lib-dynload",
+    "/usr/local/lib/python3.12/dist-packages",
+    "/usr/lib/python3/dist-packages"
+  ],
+  "environment": {
+    "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "PYTHONPATH": null,
+    "VIRTUAL_ENV": null,
+    "AMENT_PREFIX_PATH": null,
+    "COLCON_PREFIX_PATH": null,
+    "CMAKE_PREFIX_PATH": null,
+    "LD_LIBRARY_PATH": null,
+    "PYTHONNOUSERSITE": "1",
+    "PIP_CONFIG_FILE": "/dev/null",
+    "ROS_DISTRO": null,
+    "ROS_DOMAIN_ID": null,
+    "RMW_IMPLEMENTATION": null,
+    "X2_ASSET_REPO": null
+  }
+}
+{
+  "stage": "after_ros_source",
+  "executable": "/usr/bin/python3",
+  "prefix": "/usr",
+  "base_prefix": "/usr",
+  "sys_path": [
+    "",
+    "/opt/ros/jazzy/opt/gz_math_vendor/lib/python",
+    "/opt/ros/jazzy/lib/python3.12/site-packages",
+    "/usr/lib/python312.zip",
+    "/usr/lib/python3.12",
+    "/usr/lib/python3.12/lib-dynload",
+    "/usr/local/lib/python3.12/dist-packages",
+    "/usr/lib/python3/dist-packages"
+  ],
+  "environment": {
+    "PATH": "/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "PYTHONPATH": "/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+    "VIRTUAL_ENV": null,
+    "AMENT_PREFIX_PATH": "/opt/ros/jazzy",
+    "COLCON_PREFIX_PATH": null,
+    "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+    "LD_LIBRARY_PATH": "/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib",
+    "PYTHONNOUSERSITE": "1",
+    "PIP_CONFIG_FILE": "/dev/null",
+    "ROS_DISTRO": "jazzy",
+    "ROS_DOMAIN_ID": null,
+    "RMW_IMPLEMENTATION": null,
+    "X2_ASSET_REPO": null
+  }
+}
+rclpy None /opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py
+numpy 1.26.4 /usr/lib/python3/dist-packages/numpy/__init__.py
+PIL 10.2.0 /usr/lib/python3/dist-packages/PIL/__init__.py
+matplotlib 3.6.3 /usr/lib/python3/dist-packages/matplotlib/__init__.py
+setuptools 68.1.2 /usr/lib/python3/dist-packages/setuptools/__init__.py
+colcon_core 0.21.3 /usr/lib/python3/dist-packages/colcon_core/__init__.py
+ament_package 0.16.5 /opt/ros/jazzy/lib/python3.12/site-packages/ament_package/__init__.py
+venv None /usr/lib/python3.12/venv/__init__.py
+pip 24.0 /usr/lib/python3/dist-packages/pip/__init__.py
+dpkg-query: no packages found matching python3-cffi
+libosmesa6:arm64 25.1.7-1ubuntu2~24.04.2 arm64 installed
+python3 3.12.3-0ubuntu2.1 arm64 installed
+python3-colcon-common-extensions 0.3.0-100 all installed
+python3-matplotlib 3.6.3-1ubuntu5 arm64 installed
+python3-nacl 1.5.0-4build1 arm64 installed
+python3-numpy 1:1.26.4+ds-6ubuntu1 arm64 installed
+python3-pil:arm64 10.2.0-1ubuntu1.3 arm64 installed
+python3-pip 24.0+dfsg-1ubuntu1.3 all installed
+python3-setuptools 68.1.2-2ubuntu1.2 all installed
+python3-venv 3.12.3-0ubuntu2.1 arm64 installed
+ros-jazzy-launch-ros 0.26.12-1noble.20260902.154014 arm64 installed
+ros-jazzy-rclpy 7.1.12-1noble.20260902.143245 arm64 installed
+ros-jazzy-rmw-fastrtps-cpp 8.4.4-1noble.20260902.140744 arm64 installed
+ros-jazzy-ros-base 0.11.0-1noble.20260903.024458 arm64 installed
+ros-jazzy-sensor-msgs 5.3.8-1noble.20260902.133401 arm64 installed
+ros-jazzy-std-msgs 5.3.8-1noble.20260902.021305 arm64 installed
+ros-jazzy-std-srvs 5.3.8-1noble.20260902.131258 arm64 installed

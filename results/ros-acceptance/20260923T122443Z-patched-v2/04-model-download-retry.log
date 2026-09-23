@@ -1,0 +1,8 @@
++ 1790166436.289240 cwd=/tmp git -c http.version=HTTP/1.1 clone --filter=blob:none --no-checkout https://github.com/AgibotTech/agibot_x2_urdf.git /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf
+Cloning into '/tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf'...
++ 1790166442.886493 cwd=/tmp git -C /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf -c http.version=HTTP/1.1 sparse-checkout set X2_URDF-v1.3.0
++ 1790166442.888334 cwd=/tmp git -C /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf -c http.version=HTTP/1.1 checkout --detach 60c5de582c523cd188f563819e62d34cfdc3d2d0
+HEAD is now at 60c5de5 add X2 EDU robot models, update stl and urdf params
++ 1790166499.851632 cwd=/tmp git -C /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf rev-parse HEAD
+60c5de582c523cd188f563819e62d34cfdc3d2d0
++ 1790166499.852384 cwd=/tmp git -C /tmp/x2-final-ros.pukricvy/assets/agibot_x2_urdf status --short
