@@ -1,0 +1,1456 @@
+{
+  "audit_created_utc": "2026-09-22T21:29:46.618292+00:00",
+  "status": "COMPLETE_FINAL_BOUNDED_AUDIT",
+  "previous_audit": "runs/recovery_discovery/20260922T072024Z/experiment_totals.json",
+  "previous_audit_sha256": "f2ca6c5d1e3873bb1a0ef55083392ff05a9fc398c43e0622e7e9f5595ed10ac5",
+  "scope": "Previous22 verifiedtraining states plus final4 complete blocks, original interrupted states countedonce. No further training declared by root. Formal evaluation is separate.",
+  "completed_training_blocks": {
+    "blocks": 24,
+    "verified_new_transitions": 449536,
+    "trained_rollout_transitions": 449536,
+    "optimizer_steps": 12808,
+    "completed_rollouts": 878,
+    "known_partial_rollout_transitions": 0,
+    "summed_complete_block_learn_seconds": 3829.685386951969
+  },
+  "interrupted_recovered_last_complete_updates": {
+    "blocks": 2,
+    "verified_new_transitions": 1024,
+    "trained_rollout_transitions": 1024,
+    "optimizer_steps": 30,
+    "completed_rollouts": 2,
+    "known_partial_rollout_transitions": 0,
+    "summed_complete_block_learn_seconds": 0
+  },
+  "combined_verified_training": {
+    "blocks": 26,
+    "verified_new_transitions": 450560,
+    "trained_rollout_transitions": 450560,
+    "optimizer_steps": 12838,
+    "completed_rollouts": 880,
+    "known_partial_rollout_transitions": 0,
+    "summed_complete_block_learn_seconds": 3829.685386951969
+  },
+  "final_four_blocks": {
+    "blocks": 4,
+    "verified_new_transitions": 24576,
+    "trained_rollout_transitions": 24576,
+    "optimizer_steps": 364,
+    "completed_rollouts": 48,
+    "known_partial_rollout_transitions": 0,
+    "summed_complete_block_learn_seconds": 257.7595491639804
+  },
+  "actual_total_sampled_transitions_exact": null,
+  "actual_total_sampled_note": "450560 is verified unique newly collected transitions represented by complete rollouts/checkpoints. Two interrupted originalattempts may contain extra unpersisted partialrollout samples; no estimate added.",
+  "learn_wall_accounting": {
+    "sum_complete_blocks_seconds": 3829.685386951969,
+    "additional_verified_learn_until_interrupted_last_updates_seconds": 17.377705633000005,
+    "sum_verified_learn_intervals_seconds": 3847.063092584969,
+    "scope": "Sum of measured learn intervals across runs, may overlap concurrent process wallclock; not elapsed projecttime. Extra unpersisted execution in interrupted attempts unknown."
+  },
+  "runs": [
+    {
+      "run_id": "ppo-bridge-gated-balance-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-bridge-gated-balance-16k/manifest.json",
+      "manifest_sha256": "f032d244b2656a7f2115275a522d1c80b6cdbabc480b7ac624b76a4f44f56551",
+      "resolved_config_sha256": "71a8abe130703046df50a9bc6a0279cec932a1a059e83d4caa396aeec60d3374",
+      "checkpoint_sha256": "cb1ee23d84cb0bbb1abb71e1e920d4576923e6758696a4596a75db99da197e34",
+      "newly_sampled_transitions": 16384,
+      "trained_rollout_transitions": 16384,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 32,
+      "actual_block_optimizer_steps": 489,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 489,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 118.263023306994,
+      "physics_steps": 327680,
+      "progress_rows": 32,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-bridge-gated-head-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-bridge-gated-head-16k/manifest.json",
+      "manifest_sha256": "e2e63a81c7c7ee3a1fa382a2b7743021c7221fd895b6aa313e5f8328c30f6e57",
+      "resolved_config_sha256": "f26cbc070a95a397e587196202e3557ef397666cf573fc9270c077551f75abcc",
+      "checkpoint_sha256": "76964fa444e3b0432e56044312bb738abe216f0a2f93dbfecd4f85a6ddcd656b",
+      "newly_sampled_transitions": 16384,
+      "trained_rollout_transitions": 16384,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 32,
+      "actual_block_optimizer_steps": 451,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 451,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 124.74427122599445,
+      "physics_steps": 327674,
+      "progress_rows": 32,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-bridge-head-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-bridge-head-16k/manifest.json",
+      "manifest_sha256": "47c663cdc803f4a120f7b796efaafeba27109d7340484805588bf2cfa0e02b19",
+      "resolved_config_sha256": "39ba4f161647129fa144eb1a2397b5ebe2f974ab5b335c8a73a875013b0e0ecf",
+      "checkpoint_sha256": "62dc7f046cee7c51e4fccacc0f83ffc105b99d0bc3e33df8a1cf3daa911e8465",
+      "newly_sampled_transitions": 16384,
+      "trained_rollout_transitions": 16384,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 32,
+      "actual_block_optimizer_steps": 607,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 607,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 137.15623098200012,
+      "physics_steps": 327600,
+      "progress_rows": 32,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-bridge-independent-balance-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-bridge-independent-balance-16k/manifest.json",
+      "manifest_sha256": "3b7ce3092d5b49148d97a983de54bff9d47e6348419e520f1a6cfcfeb905cb8a",
+      "resolved_config_sha256": "7445b0ea494c58d6d2ba1f3cdb9177227451d33e8a850f297cfc00ff9b2d506c",
+      "checkpoint_sha256": "890df39563e4b9a47d9927495f93e80c631bee88c8ce4efcd195a2e419722bf3",
+      "newly_sampled_transitions": 16384,
+      "trained_rollout_transitions": 16384,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 32,
+      "actual_block_optimizer_steps": 368,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 368,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 122.89087439200375,
+      "physics_steps": 327677,
+      "progress_rows": 32,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-humanup-bilateral-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-humanup-bilateral-16k/manifest.json",
+      "manifest_sha256": "7d70235a21511908a65fa689aaa168e06a44dcb174ccac0751fb75f1545a752d",
+      "resolved_config_sha256": "9fe5e5bf04a506a3fe31e8b9fe6e8e27726ac63391cc0d2e67e9369ee693e74e",
+      "checkpoint_sha256": "d64835be7a4e65b6506edb2efd65c1db08376da89096bfd4670cabb51725f0a9",
+      "newly_sampled_transitions": 16384,
+      "trained_rollout_transitions": 16384,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 32,
+      "actual_block_optimizer_steps": 638,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 638,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 118.9573352229927,
+      "physics_steps": 327658,
+      "progress_rows": 32,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-humanup-head-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-humanup-head-16k/manifest.json",
+      "manifest_sha256": "b59210704a2f21318dbd753f97729a2868e4128eeeaaa882c0de65ffd933d907",
+      "resolved_config_sha256": "1ee3bd5baac244c97bc84621d70254d35450910dc3422676a80e6316161491ab",
+      "checkpoint_sha256": "d88f054aaf88cd9b3bffded5ceebd5f20cec29128fa867141d8e1a46c9fcbd6f",
+      "newly_sampled_transitions": 16384,
+      "trained_rollout_transitions": 16384,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 32,
+      "actual_block_optimizer_steps": 564,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 564,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 124.15263651800342,
+      "physics_steps": 327647,
+      "progress_rows": 32,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-humanup-head-65k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": "ppo-humanup-head-16k",
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-humanup-head-65k/manifest.json",
+      "manifest_sha256": "bc134ed1b09f3a48db2d5b0a5164ad38004121a6173ecf7ca56d3f39ff3e02b3",
+      "resolved_config_sha256": "1a00d733dab9ce9c95e797e27e69f480dd77b21fcb08d3e3d322bca359e89cbb",
+      "checkpoint_sha256": "706fed61b3f6afa56876224b8c60fa5f0d496a6d26db70f6ea397df0f6c44734",
+      "newly_sampled_transitions": 49152,
+      "trained_rollout_transitions": 49152,
+      "inherited_timesteps": 16384,
+      "cumulative_timesteps": 65536,
+      "completed_rollouts": 96,
+      "actual_block_optimizer_steps": 2069,
+      "inherited_adam_steps": 564,
+      "cumulative_adam_steps": 2633,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 371.40418513499026,
+      "physics_steps": 982991,
+      "progress_rows": 96,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-humanup-head-refine-32k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": "ppo-humanup-head-16k",
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-humanup-head-refine-32k/manifest.json",
+      "manifest_sha256": "a834dffcc17eba6e3642c0479b04925c50fd8bb6152354baabc877fdbcc16f7e",
+      "resolved_config_sha256": "cf3910351f342a692c5959a4ea1cc9982c77280ca52769610e7af2a1cf0c13bc",
+      "checkpoint_sha256": "1148a1babc45db9407ff969dba73350e22c81a5e2e96d78372b0f5b1eb074e00",
+      "newly_sampled_transitions": 16384,
+      "trained_rollout_transitions": 16384,
+      "inherited_timesteps": 16384,
+      "cumulative_timesteps": 32768,
+      "completed_rollouts": 32,
+      "actual_block_optimizer_steps": 188,
+      "inherited_adam_steps": 564,
+      "cumulative_adam_steps": 752,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 155.19742894900264,
+      "physics_steps": 327304,
+      "progress_rows": 32,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-rate-original-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": "ppo-rate-original-benchmark",
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-rate-original-16k/manifest.json",
+      "manifest_sha256": "dae3bfeb3d9db0c796047005931bda74c24ecfb084908862cd82f6f5418f9562",
+      "resolved_config_sha256": "ed5472aed0034da6bee5420d9dcb3012876f868680fb4ce002ce5a85e0e44673",
+      "checkpoint_sha256": "a33bde7139201a822f6b22a0ad24c6f7e01d5c9832b98b8d2e74bc2ad0e40d6d",
+      "newly_sampled_transitions": 15360,
+      "trained_rollout_transitions": 15360,
+      "inherited_timesteps": 1024,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 30,
+      "actual_block_optimizer_steps": 620,
+      "inherited_adam_steps": 40,
+      "cumulative_adam_steps": 660,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 210.1849178919947,
+      "physics_steps": 306952,
+      "progress_rows": 30,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-rate-original-benchmark",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-rate-original-benchmark/manifest.json",
+      "manifest_sha256": "de91df4af9a790df283adcf178276a89f2389fbb2ee59a4c0dac5ca4133715b9",
+      "resolved_config_sha256": "00b867286e2f95c5448ff114ed1b8a444a49fc91c5ef54d8055438999c8ac55a",
+      "checkpoint_sha256": "7393d6c23daf47caf91831ca515bc6ee7d033345ecb6cb37817c74254fae15ea",
+      "newly_sampled_transitions": 1024,
+      "trained_rollout_transitions": 1024,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 1024,
+      "completed_rollouts": 2,
+      "actual_block_optimizer_steps": 40,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 40,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 12.141446214001917,
+      "physics_steps": 20480,
+      "progress_rows": 2,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-rate-support-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": "ppo-rate-support-benchmark",
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-rate-support-16k/manifest.json",
+      "manifest_sha256": "e85c5c6ff72d7155e2102b7575ed1cd474da195b88797bb8c7fdd647d1c075be",
+      "resolved_config_sha256": "fc7f3f624e9a884d0b45035fa34a70d17f87ab92d92a8015542ff3a177a2127f",
+      "checkpoint_sha256": "07ed666712b339b41e85af0130edc144d886afd39a15260a3490c3cd66ffb45e",
+      "newly_sampled_transitions": 15360,
+      "trained_rollout_transitions": 15360,
+      "inherited_timesteps": 1024,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 30,
+      "actual_block_optimizer_steps": 624,
+      "inherited_adam_steps": 46,
+      "cumulative_adam_steps": 670,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 121.66343101600069,
+      "physics_steps": 306937,
+      "progress_rows": 30,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-rate-support-benchmark",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-rate-support-benchmark/manifest.json",
+      "manifest_sha256": "ab5f8b2989e140e154daa5b83948669e115d6ce50290c3e30a899007bbfdc78e",
+      "resolved_config_sha256": "b99379933aa805f8cc23701a9e70f880348095444b5c7559d6387374846ea363",
+      "checkpoint_sha256": "1d3a99ec798965001e18cd376cbe88fd96d59c5cf94095fb11ef3c4e67b7119c",
+      "newly_sampled_transitions": 1024,
+      "trained_rollout_transitions": 1024,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 1024,
+      "completed_rollouts": 2,
+      "actual_block_optimizer_steps": 46,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 46,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 10.224405130000378,
+      "physics_steps": 20455,
+      "progress_rows": 2,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-rate-support-small-noise-16k-recovered",
+      "status": "INTERRUPTED",
+      "kind": "recovered_complete_update",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-rate-support-small-noise-16k-recovered/manifest.json",
+      "manifest_sha256": "44b476e05a033d91b8720c84a94eb59fd6ab745826c512228ac50827a5fd65fc",
+      "resolved_config_sha256": "6e231ca40b55d49d9932a8ee3dcdbe57c4cdb41efe9a0564029ce73f673bae7f",
+      "checkpoint_sha256": "5a86c1e2ccb85b045866c8857cac6151c25c7ec5b01fb80dac18c1bd93a207b0",
+      "newly_sampled_transitions": 512,
+      "trained_rollout_transitions": 512,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 512,
+      "completed_rollouts": 1,
+      "actual_block_optimizer_steps": 10,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 10,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": null,
+      "physics_steps": null,
+      "progress_rows": null,
+      "recovered_interruption": {
+        "original_attempt": "runs/recovery_discovery/20260922T072024Z/ppo-rate-support-small-noise-16k",
+        "original_checkpoint_sha256": "5a86c1e2ccb85b045866c8857cac6151c25c7ec5b01fb80dac18c1bd93a207b0",
+        "original_attempt_actual_total_sampled_transitions": null,
+        "unpersisted_partial_rollout_transitions": null,
+        "scope": "Only512 transitions and completed optimizer update evidenced by last_valid_update/checkpoint are counted, once; additional unpersisted sampling is unknown. Recovery directory is a copy of that state, not another training block."
+      },
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-rate-support-small-noise-resumed-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": "ppo-rate-support-small-noise-16k-recovered",
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-rate-support-small-noise-resumed-16k/manifest.json",
+      "manifest_sha256": "98d3ede1414ee18338f16401ab9e0de5d9e7b6752418e76e016b91e3700058b1",
+      "resolved_config_sha256": "8cbb1318459dcf48974585b77147dd2ebd8c31c004c74396d7219f1dec5ede82",
+      "checkpoint_sha256": "45d60e9c06adb502ac63199a660a27b5c62cd0bf4fcd633a68c82dda2db2c848",
+      "newly_sampled_transitions": 15872,
+      "trained_rollout_transitions": 15872,
+      "inherited_timesteps": 512,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 31,
+      "actual_block_optimizer_steps": 350,
+      "inherited_adam_steps": 10,
+      "cumulative_adam_steps": 360,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 138.130358023991,
+      "physics_steps": 317332,
+      "progress_rows": 31,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-rate-upright-16k-recovered",
+      "status": "INTERRUPTED",
+      "kind": "recovered_complete_update",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-rate-upright-16k-recovered/manifest.json",
+      "manifest_sha256": "ccb151d0b88315f79332985dd73fac6ffdd8b56212eeb3e50fb5c8c56d2c68c5",
+      "resolved_config_sha256": "d69ba1d20635d204d87f23c2c7ee72df0581eb25411757d0a61bdfcfb073b07b",
+      "checkpoint_sha256": "7326349baddfeffb7b02741be5d505aba36d9e6df33fb54282c6fb11b4d6feae",
+      "newly_sampled_transitions": 512,
+      "trained_rollout_transitions": 512,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 512,
+      "completed_rollouts": 1,
+      "actual_block_optimizer_steps": 20,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 20,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": null,
+      "physics_steps": null,
+      "progress_rows": null,
+      "recovered_interruption": {
+        "original_attempt": "runs/recovery_discovery/20260922T072024Z/ppo-rate-upright-16k",
+        "original_checkpoint_sha256": "7326349baddfeffb7b02741be5d505aba36d9e6df33fb54282c6fb11b4d6feae",
+        "original_attempt_actual_total_sampled_transitions": null,
+        "unpersisted_partial_rollout_transitions": null,
+        "scope": "Only512 transitions and completed optimizer update evidenced by last_valid_update/checkpoint are counted, once; additional unpersisted sampling is unknown. Recovery directory is a copy of that state, not another training block."
+      },
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-rate-upright-resumed-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": "ppo-rate-upright-16k-recovered",
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-rate-upright-resumed-16k/manifest.json",
+      "manifest_sha256": "e54b952689a02789fe741afefb28d17a5fee3dcc58a806a18345225ca2e0d572",
+      "resolved_config_sha256": "98d5f026407a5447991b8676b262f750e2431f21887e87655c8b782bcd0690ff",
+      "checkpoint_sha256": "36c7cf70f406c48be245e5224cf8cf6d77e5a5daaaff724cda3a2a445656cf67",
+      "newly_sampled_transitions": 15872,
+      "trained_rollout_transitions": 15872,
+      "inherited_timesteps": 512,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 31,
+      "actual_block_optimizer_steps": 606,
+      "inherited_adam_steps": 20,
+      "cumulative_adam_steps": 626,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 157.23461753300217,
+      "physics_steps": 317154,
+      "progress_rows": 31,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-reference-bilateral-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-reference-bilateral-16k/manifest.json",
+      "manifest_sha256": "17bc0dc104338b4e23a31d41922ea572f23cb14d7e24ed04754a39efcba63b23",
+      "resolved_config_sha256": "d1c585d16f411980a4f6dda625c481aa5b6984a15f0c8cb112d8be211410952b",
+      "checkpoint_sha256": "bfc53a556c69e25893dcc8d0c578527f51510601f3643230f7df2f842c451359",
+      "newly_sampled_transitions": 16384,
+      "trained_rollout_transitions": 16384,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 32,
+      "actual_block_optimizer_steps": 586,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 586,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 131.88439764700888,
+      "physics_steps": 327549,
+      "progress_rows": 32,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-reference-bilateral-65k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": "ppo-reference-bilateral-16k",
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-reference-bilateral-65k/manifest.json",
+      "manifest_sha256": "04bd5c1454644a476c48aeb34b90cff5f182626ba20ca78200f190273c376879",
+      "resolved_config_sha256": "bab7bd39bd8264a0010c0ad3efc3a47f2ebe3f3b6762ee0dc60a898aeb4b387e",
+      "checkpoint_sha256": "a305396205410ec1d057918c1749597e8dffb543b093820549071e9652a230e1",
+      "newly_sampled_transitions": 49152,
+      "trained_rollout_transitions": 49152,
+      "inherited_timesteps": 16384,
+      "cumulative_timesteps": 65536,
+      "completed_rollouts": 96,
+      "actual_block_optimizer_steps": 1700,
+      "inherited_adam_steps": 586,
+      "cumulative_adam_steps": 2286,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 389.6958137699985,
+      "physics_steps": 982841,
+      "progress_rows": 96,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-reference-joint-caps-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-reference-joint-caps-16k/manifest.json",
+      "manifest_sha256": "f99acebbd1022065ce8b42bb37709136582f300c39223160284bbff8e86a77e3",
+      "resolved_config_sha256": "9e792df1a39172760821038c2d2bb9982a2fb220f3e0211c718a74edfb6f345e",
+      "checkpoint_sha256": "5a72d5f6765bd38c6dc0456a43b830edbe4a9a600c0f6e6a17197f3048aab1b8",
+      "newly_sampled_transitions": 16384,
+      "trained_rollout_transitions": 16384,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 32,
+      "actual_block_optimizer_steps": 305,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 305,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 143.13767427700805,
+      "physics_steps": 327487,
+      "progress_rows": 32,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-reference-joint-caps-65k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": "ppo-reference-joint-caps-16k",
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-reference-joint-caps-65k/manifest.json",
+      "manifest_sha256": "ec69655ed71ff51efaa711d27a4651363be56591cc4fb3f5e6ec7e49adcc1b71",
+      "resolved_config_sha256": "02a78e2d39298a911bf9978daac0c3b2e304ed1f1e5330f082476f4c8bad938a",
+      "checkpoint_sha256": "7f3ed7640bb02a4c9078eb39684c61f363138eb953074255e1fb3d03e2cf4415",
+      "newly_sampled_transitions": 49152,
+      "trained_rollout_transitions": 49152,
+      "inherited_timesteps": 16384,
+      "cumulative_timesteps": 65536,
+      "completed_rollouts": 96,
+      "actual_block_optimizer_steps": 893,
+      "inherited_adam_steps": 305,
+      "cumulative_adam_steps": 1198,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 398.6710041900078,
+      "physics_steps": 982650,
+      "progress_rows": 96,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-reference-residual-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-reference-residual-16k/manifest.json",
+      "manifest_sha256": "7f4c0aac0b8327dbdd66ce0f6ac489bbc11dfee4a4051f27b39ac0b240cd18c9",
+      "resolved_config_sha256": "88b464749cd4b84d800d0ff47e54dbf21934100ad02405fdfd0f30d2abc732a9",
+      "checkpoint_sha256": "2eec93d66316c13d0e1607ea766e065e8428bbe87fff18fed34e78b6442df345",
+      "newly_sampled_transitions": 16384,
+      "trained_rollout_transitions": 16384,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 32,
+      "actual_block_optimizer_steps": 365,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 365,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 138.23087606599438,
+      "physics_steps": 327399,
+      "progress_rows": 32,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-reference-residual-65k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": "ppo-reference-residual-16k",
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-reference-residual-65k/manifest.json",
+      "manifest_sha256": "6f6cb69e209ce7f20a21b83a3bb2d6ba1853540401fee99df42ce971c35e26fa",
+      "resolved_config_sha256": "7f1c3e3fe5b31dc23bad6fbb5ac114f89683b15445f51382b0e80132d010874e",
+      "checkpoint_sha256": "b2810d7b158e9e55478073d805bda3c99ae92df8b0c6971a8f3ee2d5bf013dd9",
+      "newly_sampled_transitions": 49152,
+      "trained_rollout_transitions": 49152,
+      "inherited_timesteps": 16384,
+      "cumulative_timesteps": 65536,
+      "completed_rollouts": 96,
+      "actual_block_optimizer_steps": 935,
+      "inherited_adam_steps": 365,
+      "cumulative_adam_steps": 1300,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 447.9609102969989,
+      "physics_steps": 981757,
+      "progress_rows": 96,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true
+    },
+    {
+      "run_id": "ppo-success-reference-broad-4k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-broad-4k/manifest.json",
+      "manifest_sha256": "e1cd14a90ad966bb9a28fb3495620257939b34d2539f271cac88f65132cc3677",
+      "resolved_config_sha256": "014541cf54168431fce042dc31a3260f74f55ee08932339b121afcd470541359",
+      "checkpoint_sha256": "ecb2daca258ae2d56d11f37a83bf4bb3f3b82f6843e4e83926d879f0fad14c24",
+      "newly_sampled_transitions": 4096,
+      "trained_rollout_transitions": 4096,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 4096,
+      "completed_rollouts": 8,
+      "actual_block_optimizer_steps": 104,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 104,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 34.959996017001686,
+      "physics_steps": 81878,
+      "progress_rows": 8,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true,
+      "parameter_changes": {
+        "actor_mean": {
+          "l2": 0.3017630958229083,
+          "max_abs": 0.007454979233443737
+        },
+        "critic": {
+          "l2": 0.6971851424596972,
+          "max_abs": 0.008664444088935852
+        },
+        "log_std": {
+          "l2": 0.11013447955244689,
+          "max_abs": 0.006583452224731445
+        }
+      },
+      "complete_training_episodes": 5,
+      "training_successes_observed": 0,
+      "training_termination_reasons": {
+        "safety_abort:floor_penetration_m": 1,
+        "time_limit": 2,
+        "safety_abort:joint_limit_rad": 2
+      },
+      "configuration_group_sha256": "d27bab61e9655568d98120714261760e34a0e6d4e0e53e9c30261f88d48c292f",
+      "development_reload": {
+        "path": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-broad-4k/development-222600/summary.json",
+        "sha256": "3e40a68528995ba66d1bcfa320a92decbc0de15b53ddacb9e5a6b2a682ede784",
+        "status": "COMPLETE",
+        "seed": 222600,
+        "success": false,
+        "reason": "time_limit",
+        "sim_duration_s": 20.000000000003563,
+        "transitions": 1000,
+        "physics_steps": 20000,
+        "max_stable_seconds": 0.2210000000000738,
+        "action_consistency": {
+          "max_abs_error": 0.0,
+          "atol": 1e-07,
+          "rtol": 1e-06
+        },
+        "policy_state_unchanged": true
+      }
+    },
+    {
+      "run_id": "ppo-success-reference-small-4k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/manifest.json",
+      "manifest_sha256": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac",
+      "resolved_config_sha256": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+      "checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+      "newly_sampled_transitions": 4096,
+      "trained_rollout_transitions": 4096,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 4096,
+      "completed_rollouts": 8,
+      "actual_block_optimizer_steps": 138,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 138,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 38.45832793498994,
+      "physics_steps": 81891,
+      "progress_rows": 8,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true,
+      "parameter_changes": {
+        "actor_mean": {
+          "l2": 0.2911195072889336,
+          "max_abs": 0.007409419398754835
+        },
+        "critic": {
+          "l2": 1.9639009822466242,
+          "max_abs": 0.019189361482858658
+        },
+        "log_std": {
+          "l2": 0.11407239829908856,
+          "max_abs": 0.008557558059692383
+        }
+      },
+      "complete_training_episodes": 6,
+      "training_successes_observed": 0,
+      "training_termination_reasons": {
+        "safety_abort:joint_limit_rad": 5,
+        "time_limit": 1
+      },
+      "configuration_group_sha256": "cb0459125ba698a9554bf7c8b3d0b97f56b2e6c7be3ac820681afb80b25eb1d1",
+      "development_reload": {
+        "path": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/development-222610/summary.json",
+        "sha256": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175",
+        "status": "COMPLETE",
+        "seed": 222610,
+        "success": true,
+        "reason": "success",
+        "sim_duration_s": 4.856000000000583,
+        "transitions": 243,
+        "physics_steps": 4856,
+        "max_stable_seconds": 2.000000000000668,
+        "action_consistency": {
+          "max_abs_error": 0.0,
+          "atol": 1e-07,
+          "rtol": 1e-06
+        },
+        "policy_state_unchanged": true
+      }
+    },
+    {
+      "run_id": "ppo-success-reference-low-noise-4k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": null,
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-low-noise-4k/manifest.json",
+      "manifest_sha256": "cbe39d94b46beeea7e681e28fe91b2cd6612c6f673ee9ab5dbe4457ccf5bb4a5",
+      "resolved_config_sha256": "def4a9aa23ffd99650cf4047d179d621bbfc1891016516e8ab3aabadc6e738ce",
+      "checkpoint_sha256": "68f0549078214b96d5c533c1b2017141037a130d33d0825827fddea51841138c",
+      "newly_sampled_transitions": 4096,
+      "trained_rollout_transitions": 4096,
+      "inherited_timesteps": 0,
+      "cumulative_timesteps": 4096,
+      "completed_rollouts": 8,
+      "actual_block_optimizer_steps": 24,
+      "inherited_adam_steps": 0,
+      "cumulative_adam_steps": 24,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 46.531219187992974,
+      "physics_steps": 81756,
+      "progress_rows": 8,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true,
+      "parameter_changes": {
+        "actor_mean": {
+          "l2": 0.07594281220063254,
+          "max_abs": 0.001591486157849431
+        },
+        "critic": {
+          "l2": 0.37822006243891015,
+          "max_abs": 0.0024789199233055115
+        },
+        "log_std": {
+          "l2": 0.01876060218632497,
+          "max_abs": 0.0012464523315429688
+        }
+      },
+      "complete_training_episodes": 15,
+      "training_successes_observed": 13,
+      "training_termination_reasons": {
+        "success": 13,
+        "safety_abort:joint_limit_rad": 2
+      },
+      "configuration_group_sha256": "416bb20955962453042ff3f6f97cc28ce91038f804ccdb6930cfda2d9f7f73f6",
+      "development_reload": {
+        "path": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-low-noise-4k/development-222620/summary.json",
+        "sha256": "c28e7b89071f371c17412abe67692783d5adfcc40bc8cfffe3f60905a5473939",
+        "status": "COMPLETE",
+        "seed": 222620,
+        "success": true,
+        "reason": "success",
+        "sim_duration_s": 4.894000000000596,
+        "transitions": 245,
+        "physics_steps": 4894,
+        "max_stable_seconds": 2.000000000000668,
+        "action_consistency": {
+          "max_abs_error": 0.0,
+          "atol": 1e-07,
+          "rtol": 1e-06
+        },
+        "policy_state_unchanged": true
+      }
+    },
+    {
+      "run_id": "ppo-success-reference-low-noise-16k",
+      "status": "COMPLETE",
+      "kind": "controller_ppo_block",
+      "parent": "ppo-success-reference-low-noise-4k",
+      "manifest": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-low-noise-16k/manifest.json",
+      "manifest_sha256": "ef99435380ead4db1eb7c048cde126c01c060c6691781a111df292dc8bdd1c78",
+      "resolved_config_sha256": "5ae3f632d59d0c108286d0bce67a63d1021e9b36e299bba6ccb7eef8fda36947",
+      "checkpoint_sha256": "a081770e2966bad7f44e9dbf32f3e4d48b60b14356127de36519efe269bb6473",
+      "newly_sampled_transitions": 12288,
+      "trained_rollout_transitions": 12288,
+      "inherited_timesteps": 4096,
+      "cumulative_timesteps": 16384,
+      "completed_rollouts": 24,
+      "actual_block_optimizer_steps": 98,
+      "inherited_adam_steps": 24,
+      "cumulative_adam_steps": 122,
+      "partial_rollout_transitions_recorded": 0,
+      "learn_seconds": 137.8100060239958,
+      "physics_steps": 245411,
+      "progress_rows": 24,
+      "recovered_interruption": null,
+      "native_identity_equal_old_smoke": true,
+      "parameter_changes": {
+        "actor_mean": {
+          "l2": 0.16737462445331563,
+          "max_abs": 0.004200256895273924
+        },
+        "critic": {
+          "l2": 1.2321870747750383,
+          "max_abs": 0.011994119733572006
+        },
+        "log_std": {
+          "l2": 0.04480114208989479,
+          "max_abs": 0.0028700828552246094
+        }
+      },
+      "complete_training_episodes": 42,
+      "training_successes_observed": 18,
+      "training_termination_reasons": {
+        "success": 18,
+        "safety_abort:joint_limit_rad": 24
+      },
+      "configuration_group_sha256": "416bb20955962453042ff3f6f97cc28ce91038f804ccdb6930cfda2d9f7f73f6",
+      "development_reload": {
+        "path": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-low-noise-16k/development-222621/summary.json",
+        "sha256": "5572382e4154664885f3de9dac59d4b9308d0309b53607bc3be6be5d517f5a1c",
+        "status": "COMPLETE",
+        "seed": 222621,
+        "success": false,
+        "reason": "safety_abort:joint_limit_rad",
+        "sim_duration_s": 5.850000000000915,
+        "transitions": 293,
+        "physics_steps": 5850,
+        "max_stable_seconds": 0.56900000000019,
+        "action_consistency": {
+          "max_abs_error": 0.0,
+          "atol": 1e-07,
+          "rtol": 1e-06
+        },
+        "policy_state_unchanged": true
+      }
+    }
+  ],
+  "chains": [
+    {
+      "root": "ppo-bridge-gated-balance-16k",
+      "runs": [
+        "ppo-bridge-gated-balance-16k"
+      ],
+      "leaf_runs": [
+        "ppo-bridge-gated-balance-16k"
+      ],
+      "unique_new_transitions": 16384,
+      "actual_optimizer_steps": 489,
+      "sum_available_learn_seconds": 118.263023306994
+    },
+    {
+      "root": "ppo-bridge-gated-head-16k",
+      "runs": [
+        "ppo-bridge-gated-head-16k"
+      ],
+      "leaf_runs": [
+        "ppo-bridge-gated-head-16k"
+      ],
+      "unique_new_transitions": 16384,
+      "actual_optimizer_steps": 451,
+      "sum_available_learn_seconds": 124.74427122599445
+    },
+    {
+      "root": "ppo-bridge-head-16k",
+      "runs": [
+        "ppo-bridge-head-16k"
+      ],
+      "leaf_runs": [
+        "ppo-bridge-head-16k"
+      ],
+      "unique_new_transitions": 16384,
+      "actual_optimizer_steps": 607,
+      "sum_available_learn_seconds": 137.15623098200012
+    },
+    {
+      "root": "ppo-bridge-independent-balance-16k",
+      "runs": [
+        "ppo-bridge-independent-balance-16k"
+      ],
+      "leaf_runs": [
+        "ppo-bridge-independent-balance-16k"
+      ],
+      "unique_new_transitions": 16384,
+      "actual_optimizer_steps": 368,
+      "sum_available_learn_seconds": 122.89087439200375
+    },
+    {
+      "root": "ppo-humanup-bilateral-16k",
+      "runs": [
+        "ppo-humanup-bilateral-16k"
+      ],
+      "leaf_runs": [
+        "ppo-humanup-bilateral-16k"
+      ],
+      "unique_new_transitions": 16384,
+      "actual_optimizer_steps": 638,
+      "sum_available_learn_seconds": 118.9573352229927
+    },
+    {
+      "root": "ppo-humanup-head-16k",
+      "runs": [
+        "ppo-humanup-head-16k",
+        "ppo-humanup-head-65k",
+        "ppo-humanup-head-refine-32k"
+      ],
+      "leaf_runs": [
+        "ppo-humanup-head-65k",
+        "ppo-humanup-head-refine-32k"
+      ],
+      "unique_new_transitions": 81920,
+      "actual_optimizer_steps": 2821,
+      "sum_available_learn_seconds": 650.7542506019963
+    },
+    {
+      "root": "ppo-rate-original-benchmark",
+      "runs": [
+        "ppo-rate-original-benchmark",
+        "ppo-rate-original-16k"
+      ],
+      "leaf_runs": [
+        "ppo-rate-original-16k"
+      ],
+      "unique_new_transitions": 16384,
+      "actual_optimizer_steps": 660,
+      "sum_available_learn_seconds": 222.32636410599662
+    },
+    {
+      "root": "ppo-rate-support-benchmark",
+      "runs": [
+        "ppo-rate-support-benchmark",
+        "ppo-rate-support-16k"
+      ],
+      "leaf_runs": [
+        "ppo-rate-support-16k"
+      ],
+      "unique_new_transitions": 16384,
+      "actual_optimizer_steps": 670,
+      "sum_available_learn_seconds": 131.88783614600106
+    },
+    {
+      "root": "ppo-rate-support-small-noise-16k-recovered",
+      "runs": [
+        "ppo-rate-support-small-noise-16k-recovered",
+        "ppo-rate-support-small-noise-resumed-16k"
+      ],
+      "leaf_runs": [
+        "ppo-rate-support-small-noise-resumed-16k"
+      ],
+      "unique_new_transitions": 16384,
+      "actual_optimizer_steps": 360,
+      "sum_available_learn_seconds": 138.130358023991
+    },
+    {
+      "root": "ppo-rate-upright-16k-recovered",
+      "runs": [
+        "ppo-rate-upright-16k-recovered",
+        "ppo-rate-upright-resumed-16k"
+      ],
+      "leaf_runs": [
+        "ppo-rate-upright-resumed-16k"
+      ],
+      "unique_new_transitions": 16384,
+      "actual_optimizer_steps": 626,
+      "sum_available_learn_seconds": 157.23461753300217
+    },
+    {
+      "root": "ppo-reference-bilateral-16k",
+      "runs": [
+        "ppo-reference-bilateral-16k",
+        "ppo-reference-bilateral-65k"
+      ],
+      "leaf_runs": [
+        "ppo-reference-bilateral-65k"
+      ],
+      "unique_new_transitions": 65536,
+      "actual_optimizer_steps": 2286,
+      "sum_available_learn_seconds": 521.5802114170074
+    },
+    {
+      "root": "ppo-reference-joint-caps-16k",
+      "runs": [
+        "ppo-reference-joint-caps-16k",
+        "ppo-reference-joint-caps-65k"
+      ],
+      "leaf_runs": [
+        "ppo-reference-joint-caps-65k"
+      ],
+      "unique_new_transitions": 65536,
+      "actual_optimizer_steps": 1198,
+      "sum_available_learn_seconds": 541.8086784670159
+    },
+    {
+      "root": "ppo-reference-residual-16k",
+      "runs": [
+        "ppo-reference-residual-16k",
+        "ppo-reference-residual-65k"
+      ],
+      "leaf_runs": [
+        "ppo-reference-residual-65k"
+      ],
+      "unique_new_transitions": 65536,
+      "actual_optimizer_steps": 1300,
+      "sum_available_learn_seconds": 586.1917863629933
+    },
+    {
+      "root": "ppo-success-reference-broad-4k",
+      "runs": [
+        "ppo-success-reference-broad-4k"
+      ],
+      "leaf_runs": [
+        "ppo-success-reference-broad-4k"
+      ],
+      "unique_new_transitions": 4096,
+      "actual_optimizer_steps": 104,
+      "sum_available_learn_seconds": 34.959996017001686
+    },
+    {
+      "root": "ppo-success-reference-small-4k",
+      "runs": [
+        "ppo-success-reference-small-4k"
+      ],
+      "leaf_runs": [
+        "ppo-success-reference-small-4k"
+      ],
+      "unique_new_transitions": 4096,
+      "actual_optimizer_steps": 138,
+      "sum_available_learn_seconds": 38.45832793498994
+    },
+    {
+      "root": "ppo-success-reference-low-noise-4k",
+      "runs": [
+        "ppo-success-reference-low-noise-4k",
+        "ppo-success-reference-low-noise-16k"
+      ],
+      "leaf_runs": [
+        "ppo-success-reference-low-noise-16k"
+      ],
+      "unique_new_transitions": 16384,
+      "actual_optimizer_steps": 122,
+      "sum_available_learn_seconds": 184.34122521198879
+    }
+  ],
+  "final_configuration_groups": [
+    {
+      "configuration_group_sha256": "d27bab61e9655568d98120714261760e34a0e6d4e0e53e9c30261f88d48c292f",
+      "runs": [
+        "ppo-success-reference-broad-4k"
+      ],
+      "totals": {
+        "blocks": 1,
+        "verified_new_transitions": 4096,
+        "trained_rollout_transitions": 4096,
+        "optimizer_steps": 104,
+        "completed_rollouts": 8,
+        "known_partial_rollout_transitions": 0,
+        "summed_complete_block_learn_seconds": 34.959996017001686
+      }
+    },
+    {
+      "configuration_group_sha256": "cb0459125ba698a9554bf7c8b3d0b97f56b2e6c7be3ac820681afb80b25eb1d1",
+      "runs": [
+        "ppo-success-reference-small-4k"
+      ],
+      "totals": {
+        "blocks": 1,
+        "verified_new_transitions": 4096,
+        "trained_rollout_transitions": 4096,
+        "optimizer_steps": 138,
+        "completed_rollouts": 8,
+        "known_partial_rollout_transitions": 0,
+        "summed_complete_block_learn_seconds": 38.45832793498994
+      }
+    },
+    {
+      "configuration_group_sha256": "416bb20955962453042ff3f6f97cc28ce91038f804ccdb6930cfda2d9f7f73f6",
+      "runs": [
+        "ppo-success-reference-low-noise-4k",
+        "ppo-success-reference-low-noise-16k"
+      ],
+      "totals": {
+        "blocks": 2,
+        "verified_new_transitions": 16384,
+        "trained_rollout_transitions": 16384,
+        "optimizer_steps": 122,
+        "completed_rollouts": 32,
+        "known_partial_rollout_transitions": 0,
+        "summed_complete_block_learn_seconds": 184.34122521198879
+      }
+    }
+  ],
+  "selected_candidate": {
+    "run_id": "ppo-success-reference-small-4k",
+    "checkpoint": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/policy_final.zip",
+    "checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+    "training_new_transitions": 4096,
+    "training_optimizer_steps": 138,
+    "parameter_changes": {
+      "actor_mean": {
+        "l2": 0.2911195072889336,
+        "max_abs": 0.007409419398754835
+      },
+      "critic": {
+        "l2": 1.9639009822466242,
+        "max_abs": 0.019189361482858658
+      },
+      "log_std": {
+        "l2": 0.11407239829908856,
+        "max_abs": 0.008557558059692383
+      }
+    },
+    "training_complete_episodes": 6,
+    "training_successes_observed": 0,
+    "development_reload": {
+      "path": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/development-222610/summary.json",
+      "sha256": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175",
+      "status": "COMPLETE",
+      "seed": 222610,
+      "success": true,
+      "reason": "success",
+      "sim_duration_s": 4.856000000000583,
+      "transitions": 243,
+      "physics_steps": 4856,
+      "max_stable_seconds": 2.000000000000668,
+      "action_consistency": {
+        "max_abs_error": 0.0,
+        "atol": 1e-07,
+        "rtol": 1e-06
+      },
+      "policy_state_unchanged": true
+    }
+  },
+  "proven_search_candidate_trials": 307,
+  "searches": [
+    {
+      "run_id": "bridge-balance-tail-search",
+      "source": "runs/recovery_discovery/20260922T072024Z/bridge-balance-tail-search/candidates.jsonl",
+      "source_sha256": "48b5d6ef2dfcf6d338cb11e2565286bea9131840283e91f89a63e83160e822da",
+      "actual_candidate_trials": 48,
+      "batch_status": "COMPLETE_DIAGNOSTICS",
+      "stop_reason": null,
+      "sampled_transitions": 14400,
+      "physics_steps": 288000,
+      "valid_complete_native_episodes": 0,
+      "diagnostic_cutoffs": 48,
+      "reason_counts": {
+        "diagnostic_cutoff": 48
+      },
+      "native_successes": 0,
+      "scope": "One persisted execution row per candidate; saved best copies/full replays excluded. Rows can be bounded diagnostics rather than complete20s episodes.",
+      "interruption_note": null
+    },
+    {
+      "run_id": "bridge-late-hold-ankle-search",
+      "source": "runs/recovery_discovery/20260922T072024Z/bridge-late-hold-ankle-search/candidates.jsonl",
+      "source_sha256": "3c49de9dfa17861eda81839d1cc49432c64c7c72fed092b46cee4cebe7e8e737",
+      "actual_candidate_trials": 13,
+      "batch_status": "COMPLETE_DIAGNOSTICS",
+      "stop_reason": "first_native_reference_success",
+      "sampled_transitions": 3437,
+      "physics_steps": 68579,
+      "valid_complete_native_episodes": 13,
+      "diagnostic_cutoffs": 0,
+      "reason_counts": {
+        "safety_abort:joint_limit_rad": 12,
+        "success": 1
+      },
+      "native_successes": 1,
+      "scope": "One persisted execution row per candidate; saved best copies/full replays excluded. Rows can be bounded diagnostics rather than complete20s episodes.",
+      "interruption_note": null
+    },
+    {
+      "run_id": "bridge-static-timing-search-01",
+      "source": "runs/recovery_discovery/20260922T072024Z/bridge-static-timing-search-01/candidates.jsonl",
+      "source_sha256": "3ae36b91bb3b51f311cfeed41d247e7b64e77c60889d00d919785137d3d86d57",
+      "actual_candidate_trials": 32,
+      "batch_status": "COMPLETE_DIAGNOSTIC_SEARCH",
+      "stop_reason": null,
+      "sampled_transitions": 6364,
+      "physics_steps": 127018,
+      "valid_complete_native_episodes": 19,
+      "diagnostic_cutoffs": 13,
+      "reason_counts": {
+        "safety_abort:joint_limit_rad": 19,
+        "diagnostic_cutoff": 13
+      },
+      "native_successes": 0,
+      "scope": "One persisted execution row per candidate; saved best copies/full replays excluded. Rows can be bounded diagnostics rather than complete20s episodes.",
+      "interruption_note": null
+    },
+    {
+      "run_id": "bridge-transfer-search-1",
+      "source": "runs/recovery_discovery/20260922T072024Z/bridge-transfer-search-1/candidates.jsonl",
+      "source_sha256": "68c215665795cec25d7bf480e7884314d8248fe5935e6d687f64975b922a1ee7",
+      "actual_candidate_trials": 48,
+      "batch_status": "COMPLETE_BOUNDED_SEARCH",
+      "stop_reason": null,
+      "sampled_transitions": 8154,
+      "physics_steps": 163042,
+      "valid_complete_native_episodes": 5,
+      "diagnostic_cutoffs": 43,
+      "reason_counts": {
+        "diagnostic_cutoff": 43,
+        "safety_abort:floor_penetration_m": 1,
+        "safety_abort:joint_limit_rad": 4
+      },
+      "native_successes": 0,
+      "scope": "One persisted execution row per candidate; saved best copies/full replays excluded. Rows can be bounded diagnostics rather than complete20s episodes.",
+      "interruption_note": null
+    },
+    {
+      "run_id": "foot-transfer-search-01",
+      "source": "runs/recovery_discovery/20260922T072024Z/foot-transfer-search-01/candidates.jsonl",
+      "source_sha256": "fef9905a0b041bab86ff64e71e82aa3cf81b2a83c5fc27e705f42630b6949063",
+      "actual_candidate_trials": 22,
+      "batch_status": "NO_FINAL_SUMMARY",
+      "stop_reason": null,
+      "sampled_transitions": 18700,
+      "physics_steps": 374000,
+      "valid_complete_native_episodes": 0,
+      "diagnostic_cutoffs": 22,
+      "reason_counts": {
+        "diagnostic_cutoff": 22
+      },
+      "native_successes": 0,
+      "scope": "One persisted execution row per candidate; saved best copies/full replays excluded. Rows can be bounded diagnostics rather than complete20s episodes.",
+      "interruption_note": "22 persisted candidate rows only; no final summary, additional unpersisted execution unknown."
+    },
+    {
+      "run_id": "symmetric-search-01",
+      "source": "runs/recovery_discovery/20260922T072024Z/symmetric-search-01/candidates.jsonl",
+      "source_sha256": "0e719ef034649c7452da8f1cf61cf4880334550d161756f11876c6c814610fda",
+      "actual_candidate_trials": 48,
+      "batch_status": "COMPLETE",
+      "stop_reason": null,
+      "sampled_transitions": 19200,
+      "physics_steps": 384000,
+      "valid_complete_native_episodes": 0,
+      "diagnostic_cutoffs": 48,
+      "reason_counts": {
+        "diagnostic_cutoff": 48
+      },
+      "native_successes": 0,
+      "scope": "One persisted execution row per candidate; saved best copies/full replays excluded. Rows can be bounded diagnostics rather than complete20s episodes.",
+      "interruption_note": null
+    },
+    {
+      "run_id": "unload-arms-search-01",
+      "source": "runs/recovery_discovery/20260922T072024Z/unload-arms-search-01/candidates.jsonl",
+      "source_sha256": "2c3eb11272355a539acbd08c6f5d2a2a17d62591da291e5502eb7b61d02eeb2f",
+      "actual_candidate_trials": 48,
+      "batch_status": "COMPLETE",
+      "stop_reason": null,
+      "sampled_transitions": 28800,
+      "physics_steps": 576000,
+      "valid_complete_native_episodes": 0,
+      "diagnostic_cutoffs": 48,
+      "reason_counts": {
+        "diagnostic_cutoff": 48
+      },
+      "native_successes": 0,
+      "scope": "One persisted execution row per candidate; saved best copies/full replays excluded. Rows can be bounded diagnostics rather than complete20s episodes.",
+      "interruption_note": null
+    },
+    {
+      "run_id": "wide-rise-search-01",
+      "source": "runs/recovery_discovery/20260922T072024Z/wide-rise-search-01/candidates.jsonl",
+      "source_sha256": "a368563b1d799ac9f66fe0309cf22ad44de456a4999efa2d0b9ee60382764e88",
+      "actual_candidate_trials": 48,
+      "batch_status": "COMPLETE",
+      "stop_reason": null,
+      "sampled_transitions": 47602,
+      "physics_steps": 952028,
+      "valid_complete_native_episodes": 48,
+      "diagnostic_cutoffs": 0,
+      "reason_counts": {
+        "time_limit": 47,
+        "safety_abort:joint_limit_rad": 1
+      },
+      "native_successes": 0,
+      "scope": "One persisted execution row per candidate; saved best copies/full replays excluded. Rows can be bounded diagnostics rather than complete20s episodes.",
+      "interruption_note": null
+    }
+  ],
+  "search_scope": "307 executed candidate trials evidenced by eight explicit candidate logs, NOT an exhaustive count of all small control probes, preflights, reloads, render replays or all task episodes. No preflight, duplicate savedbest or full replay counted as new candidate.",
+  "formal_evaluation": {
+    "category": "frozen_evaluation_not_training_not_search",
+    "directory": "results/evaluation/ppo-reference-residual-20260922T212457Z",
+    "manifest_sha256": "0224b05ad31f58dfe1d846bd53bc70c1da9f789112b5f4e1f01ed766d9e16c71",
+    "summary_sha256": "6558b67d74af34608c1f8271933832b4d31164cf296dee5d64d2c4f676a9b918",
+    "status": "COMPLETE",
+    "planned": 5,
+    "attempted": 5,
+    "valid_completed": 5,
+    "successes_observed": 5,
+    "seeds": [
+      221030,
+      221031,
+      221032,
+      221033,
+      221034
+    ],
+    "episodes": [
+      {
+        "episode": 1,
+        "seed": 221030,
+        "reset_seed": 1232936377,
+        "controller": "ppo_reference_residual",
+        "success": 1,
+        "sim_duration_s": 4.856000000000583,
+        "max_pelvis_height_m": 0.6315388406049972,
+        "max_stable_hold_s": 2.000000000000668,
+        "terminated": 1,
+        "truncated": 0,
+        "termination_reason": "success"
+      },
+      {
+        "episode": 2,
+        "seed": 221031,
+        "reset_seed": 820366694,
+        "controller": "ppo_reference_residual",
+        "success": 1,
+        "sim_duration_s": 4.856000000000583,
+        "max_pelvis_height_m": 0.6315388406049972,
+        "max_stable_hold_s": 2.000000000000668,
+        "terminated": 1,
+        "truncated": 0,
+        "termination_reason": "success"
+      },
+      {
+        "episode": 3,
+        "seed": 221032,
+        "reset_seed": 564952530,
+        "controller": "ppo_reference_residual",
+        "success": 1,
+        "sim_duration_s": 4.856000000000583,
+        "max_pelvis_height_m": 0.6315388406049972,
+        "max_stable_hold_s": 2.000000000000668,
+        "terminated": 1,
+        "truncated": 0,
+        "termination_reason": "success"
+      },
+      {
+        "episode": 4,
+        "seed": 221033,
+        "reset_seed": 701763276,
+        "controller": "ppo_reference_residual",
+        "success": 1,
+        "sim_duration_s": 4.856000000000583,
+        "max_pelvis_height_m": 0.6315388406049972,
+        "max_stable_hold_s": 2.000000000000668,
+        "terminated": 1,
+        "truncated": 0,
+        "termination_reason": "success"
+      },
+      {
+        "episode": 5,
+        "seed": 221034,
+        "reset_seed": 1414725255,
+        "controller": "ppo_reference_residual",
+        "success": 1,
+        "sim_duration_s": 4.856000000000583,
+        "max_pelvis_height_m": 0.6315388406049972,
+        "max_stable_hold_s": 2.000000000000668,
+        "terminated": 1,
+        "truncated": 0,
+        "termination_reason": "success"
+      }
+    ],
+    "transitions": 1215,
+    "physics_steps": 24280,
+    "simulated_seconds": 24.280000000002918,
+    "wall_seconds": 31.028818765000324,
+    "all_initial_states_equal": true,
+    "all_physical_transitions_identical": true,
+    "policy_state_unchanged": true,
+    "scope": "Five fixed-supine-state deterministic repetitions; identical physical initialstates/trajectories, not broad robustness evidence.",
+    "selected_training_run": "ppo-success-reference-small-4k",
+    "checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+    "controller": "ppo_reference_residual",
+    "artifact_sha256": {
+      "manifest.json": "0224b05ad31f58dfe1d846bd53bc70c1da9f789112b5f4e1f01ed766d9e16c71",
+      "episodes.csv": "a2c06cc95d64efedaafcb5759f7a729ecb35c522109324ff58e49a3ef2afdfeb",
+      "trajectory.jsonl": "8fe2978965a49e63bd24ea5b38c37a15b600c47036f505c683433956c4f85443"
+    }
+  },
+  "invariants": {
+    "selected_reference_manifest": "runs/recovery_discovery/20260922T072024Z/bridge-late-hold-ankle-search/manifest.json",
+    "selected_manifest_sha256": "dd0f60a602ae0cf882a81090ffdf07d909aebd95f3e146ee46feaacfbcb43f5d",
+    "old_smoke_manifest": "runs/ppo_supine/smoke-std-minus1p5-20260922/manifest.json",
+    "native_resolved_configuration_equal_old_smoke": true,
+    "model_fingerprint": "bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0",
+    "model_fingerprint_equal_old_smoke": true,
+    "all_audited_training_native_resolved_equal_old_smoke": true,
+    "verified_resolved_fields": [
+      "config",
+      "physics_dt",
+      "control_dt",
+      "success_settings",
+      "mapping",
+      "q_ref_rad",
+      "q_min_rad",
+      "q_max_rad",
+      "scale_positive_rad",
+      "scale_negative_rad",
+      "kp_Nm_rad",
+      "kd_Nm_s_rad",
+      "effort_limits_Nm"
+    ],
+    "source_fields": {
+      "model.py": {
+        "current_sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+        "equals_old_smoke": true,
+        "equals_selected_success": true,
+        "working_bytes_equal_git_HEAD": true
+      },
+      "reset.py": {
+        "current_sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+        "equals_old_smoke": true,
+        "equals_selected_success": true,
+        "working_bytes_equal_git_HEAD": true
+      },
+      "success.py": {
+        "current_sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+        "equals_old_smoke": true,
+        "equals_selected_success": true,
+        "working_bytes_equal_git_HEAD": true
+      },
+      "baseline.py": {
+        "current_sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+        "equals_old_smoke": true,
+        "equals_selected_success": true,
+        "working_bytes_equal_git_HEAD": true
+      }
+    },
+    "scope": "Native physics/control/reset/success configuration and effective-model identity match originalsmoke exactly; wrapper action/observation/reward versions intentionally differ and are not asserted identical."
+  },
+  "final_four_native_identities_equal_old_smoke": true,
+  "mechanism_evidence": {
+    "path": "runs/recovery_discovery/20260922T072024Z/bridge-late-hold-ankle-search/mechanism.json",
+    "sha256": "0e04c4b9d9db6ee3587c37d0326523a5b9c93c4d080b763e8f82ea921dc9d164"
+  },
+  "exclusions": {
+    "historic_oldsmoke": "2048 transitions/30updates from runs/ppo_supine excluded because outside this discovery session.",
+    "preflight_reload_render_and_savedbest_not_training": true,
+    "formal_evaluation_excluded_from_training": true,
+    "no_new_physics_or_training_in_audit": true
+  }
+}

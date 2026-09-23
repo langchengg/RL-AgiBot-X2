@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "pid": 1057091,
+  "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+  "episode": {
+    "episode": 1,
+    "seed": 222603,
+    "reset_seed": 1890868118,
+    "controller": "reference_plus_trained_PPO_residual",
+    "success": 1,
+    "sim_duration_s": 4.856000000000583,
+    "max_pelvis_height_m": 0.6315388406049972,
+    "max_stable_hold_s": 2.000000000000668,
+    "terminated": 1,
+    "truncated": 0,
+    "termination_reason": "success"
+  },
+  "transitions": 243,
+  "physics_steps": 4856,
+  "wall_seconds": 28.996907431006548,
+  "video": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/trained-hybrid-success-video-reproduction/trained-recovery-reproduction.mp4",
+  "video_sha256": "f37e91fae16ce93f0b16f72d9cda971f2a5ba47798ac82c70d90db670aed5fd3",
+  "decoded_frames": 50,
+  "policy_state_unchanged": true,
+  "optimizer_state_unchanged": true,
+  "observed_optimizer_steps": 0,
+  "checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+  "max_applied_policy_action_abs": 0.18744049966335297,
+  "max_actual_residual_rad": 0.005623214989900589,
+  "source_hashes_after": {
+    "env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+  },
+  "scope": "Actual new-process reproduction of trained reference-residual controller; not originalfirst-success footage or formal evaluation. Existing EpisodeMetrics checked the complete original native success result."
+}

@@ -5,27 +5,29 @@
 A native MuJoCo and Gymnasium implementation for AgiBot X2 ground recovery, developed
 for the HRS take-home task. The floating-base model, resting supine reset, bounded
 joint control, independent success detector and environment have been validated in
-an Ubuntu ARM64 Parallels VM. No policy has yet been shown to recover from supine to
-standing. Real-X2 PPO sampling, optimization and checkpoint reload now pass a bounded
-engineering smoke test. A larger formal experiment is deferred because training
-episodes consistently abort within one simulated second. Five policy evaluation
-episodes remain NOT_EVALUATED; ROS integration is validated with the scripted baseline.
+an Ubuntu ARM64 Parallels VM. A dynamically discovered reference with a trained PPO
+residual now recovers from the legal supine reset and satisfies the original two-second
+standing criterion. Independent checkpoint loading and five frozen deterministic
+episodes passed (5/5), with identical initial states and trajectories. The reference
+also succeeds without the network; a learned success-rate improvement is not established.
+The earlier pure-PPO smoke checkpoint and its 0/5 evaluation remain preserved.
+ROS integration is still validated separately with `scripted_baseline`.
 
 | Component | Status |
 | --- | --- |
 | MuJoCo model and supine reset | Validated within documented numerical tolerances |
 | Joint control and standing-success detector | Validated |
 | Gymnasium environment | Validated |
-| PPO recovery training | 2048-transition real-X2 smoke passed; formal experiment deferred on sampling quality |
-| Five-episode recovery evaluation | Not evaluated |
+| PPO recovery training | Selected reference + PPO residual: 4096 transitions, 138 Adam steps; actor and critic updated |
+| Five-episode recovery evaluation | Selected hybrid: 5/5 fixed-supine repetitions; original pure-PPO smoke: 0/5 |
 | ROS recovery and telemetry nodes | Validated with real X2 simulation and scripted_baseline |
 | ROS end-to-end integration validation | Passed; scripted baseline did not recover to standing |
 
 ## System Architecture
 
 One `ament_python` package contains the native simulator environment and validation
-utilities. ROS recovery control and PPO training use the same environment; evaluation
-will use this implementation as well. No simulator bridge, ONNX conversion, ros2_control, Gazebo or alternative
+utilities. ROS recovery control, PPO training and evaluation use the same native
+physical environment. No simulator bridge, ONNX conversion, ros2_control, Gazebo or alternative
 simulation framework is required.
 
 | Module | Responsibility |
@@ -233,7 +235,9 @@ from +0.2 input. Robot loading does not maintain a pose or implement a controlle
 `env.py` implements `X2RecoveryEnv` with independent model/data, RNG, success tracker, controller history
 and lazy rendering resources. It does not import ROS or the audit/standing fixture.
 It uses the effective X2 model, 31-joint mapping and frozen success calibration.
-The ROS nodes below reuse this implementation. PPO has produced an updated checkpoint, but no successful learned recovery has been observed.
+The ROS nodes reuse this native implementation. The versioned learning wrapper adds
+target generation and reference residuals; its selected trained hybrid has recovered
+successfully in standalone evaluation, while ROS still runs the scripted baseline.
 
 ```python
 import numpy as np
@@ -623,6 +627,11 @@ changes invalidate saved acceptance, and physics changes require recalibration.
 
 ## Training
 
+### Original smoke experiment
+
+This original experiment is retained for comparison. The later reference-guided
+controller and its separate training runs are described below.
+
 `train_recovery` (or `python -m x2_recovery.train`) runs a single real X2 environment
 through Monitor, DummyVecEnv and VecCheckNan. It uses SB3 PPO 2.9.0 on CPU with fixed
 environment observation scaling. No VecNormalize, extra reward/observation clipping,
@@ -697,7 +706,7 @@ was -0.99466. Longer episodes accumulated more cost (length/return correlation
 was 31.10%, despite no clipped-action or target-boundary samples at log std -1.5.
 These measurements do not establish sitting up, rolling over or recovering.
 
-**Formal experiment: NOT_RUN.** All 423 complete episodes ended in safety abort
+**Expansion of the original smoke configuration: NOT_RUN.** All 423 complete episodes ended in safety abort
 within 0.633 seconds (median 0.071 s). Passing the narrow two-transition gate does
 not make this sampling suitable for more compute. The CLI also rejects expansion
 when all 20 recent episodes are subsecond safety aborts; this is a conservative
@@ -729,19 +738,24 @@ of complete-episode statistics. The 20-episode, 80%-within-two-transitions safet
 gate stops expansion at an update boundary. Longer but still very early failures
 must also be reviewed before allocating a formal budget.
 
-Recheck the saved checkpoint and regenerate its plot without training:
+Recheck the saved smoke checkpoint and regenerate its plot without training, using
+its historical source snapshot so the original core identity is preserved:
 
 ```bash
-.venv/bin/python -m x2_recovery.train reload-check \
+PYTHONPATH="$PWD/runs/ppo_supine/smoke-std-minus1p5-20260922/source/src/x2_recovery" \
+  .venv/bin/python -m x2_recovery.train reload-check \
   --run-dir runs/ppo_supine/smoke-std-minus1p5-20260922 \
   --output runs/ppo_supine/smoke-std-minus1p5-20260922/reload_recheck.json
-.venv/bin/python -m x2_recovery.train plot \
+PYTHONPATH="$PWD/runs/ppo_supine/smoke-std-minus1p5-20260922/source/src/x2_recovery" \
+  .venv/bin/python -m x2_recovery.train plot \
   --run-dir runs/ppo_supine/smoke-std-minus1p5-20260922
 ```
 
 A future formal run requires a passed smoke/reload and acceptable sampling evidence.
-The following command was exercised and **rejected by the sampling guard** (exit 1);
-no formal run directory or policy was created. For an eligible future configuration,
+The original invocation was **rejected by the sampling guard** (exit 1);
+no formal run directory or policy was created. The reproduction below explicitly
+selects its historical source and was not rerun during recovery discovery.
+For an eligible future configuration,
 it initializes a fresh model/seed, reads the saved configuration, and plans whole rollouts
 as `512 * floor(0.8 * budget_seconds * measured_transitions_per_second / 512)`.
 The 0.8 factor is compute headroom, not a learning or statistical guarantee. Use a
@@ -749,13 +763,14 @@ new output directory; the CLI rejects budgets above 3600 seconds and mismatched
 measured configurations. A ten-minute budget does not imply adequate training:
 
 ```bash
-.venv/bin/python -m x2_recovery.train train --seed 220924 \
+PYTHONPATH="$PWD/runs/ppo_supine/smoke-std-minus1p5-20260922/source/src/x2_recovery" \
+  .venv/bin/python -m x2_recovery.train train --seed 220924 \
   --config runs/ppo_supine/smoke-std-minus1p5-20260922/resolved_config.json \
   --validated-run runs/ppo_supine/smoke-std-minus1p5-20260922 \
   --max-wall-seconds 600 --run-dir runs/ppo_supine/formal-quality-gated-20260922
 ```
 
-Final verification: **125 tests passed, no failures/errors/skips** (60.195 s),
+Verification at the smoke stage: **125 tests passed, no failures/errors/skips** (60.195 s),
 including 19 training bookkeeping/fault tests; these synthetic tests are not X2
 training evidence. A fresh colcon build in
 `audit-output/ppo-validation/release-{build,install,log}` passed in 0.73 s, and the
@@ -773,19 +788,417 @@ PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" MUJOCO_GL=osmesa \
 .venv/bin/python -m pip check
 ```
 
-Five formal policy evaluation episodes remain **NOT_EVALUATED**. Reload validation
-is a separate execution check and does not count toward those five. ROS recovery
-still uses `scripted_baseline`; no trained checkpoint has been connected to the node.
+The original smoke artifacts retain their historical **NOT_EVALUATED** status.
+The separate five-episode PPO batch below is now complete. Reload validation is an
+execution check, not one of those five attempts. ROS recovery still uses
+`scripted_baseline`; no trained checkpoint has been connected to the node.
+
+### Reference-guided recovery
+
+The later experiments use `ControlledRecoveryEnv` ahead of the unchanged native
+`X2RecoveryEnv.step()`, limited PD and MuJoCo physics. Versioned rate-limited targets,
+current-angle offsets and reference residuals were compared; failed runs remain in
+`runs/recovery_discovery/20260922T072024Z/`. The selected `targets-v5` controller has
+17 actions: independent six-joint legs and five bilateral upper-body coordinates.
+Its 149 observations include adopted targets and elapsed phase. The reference is
+sampled at 50 Hz with linear interpolation and legal target-rate limits. Residuals
+start at 2.25 s with a 0.2 s quintic ramp; full-scale corrections are 0.03 rad for
+hips/knees, 0.02 rad for ankles/shoulders/elbows and 0.01 rad for waist pitch.
+The network remains active throughout the final standing window. All targets pass
+through original limits and PD; no external force or recovery-state assignment is used.
+
+Reference discovery combined a locally retargeted HumanUP motion, low-dimensional
+dynamic searches, offline foot/stance geometry and actual supine-to-standing trials.
+The final ankle refinement found its first valid two-second hold on candidate 12
+of 13 executed candidates, followed by a successful fresh-reset replay. The original
+model, physics, effort limits, reset, safety guards and success benchmark stayed fixed.
+Selected PD gains are original; separately labeled gain diagnostics were rejected.
+`research.json` records checked upstream versions, exclusions and attribution; no
+HoST/HumanUP training framework, auxiliary force or external policy was imported.
+The external motion asset's redistribution license was not independently established;
+source assets remain local research inputs, not claimed as newly licensed project data.
+The published reference is embedded in the X2 controller configuration; its
+[provenance and attribution](results/publication/20260923/THIRD_PARTY_NOTICES.md)
+identify the upstream source and the subsequent local modifications.
+
+The selected PPO run used two CPU workers, 256 steps each, batch 64, five epochs,
+learning rate 1e-4, gamma 0.999, target KL 0.03, Tanh 128×128 actor/value networks,
+gSDE with log std -2.5 and resampling every 25 control steps. `reference-balance-v1`
+is an explicitly new objective combining reference tracking, posture/support/velocity
+terms and original success evidence; its return is not comparable with the old smoke
+reward. PPO retains its raw sampled action/log-probability pairs. There is no BC
+pretraining, VecNormalize, extra action noise or hidden controller substitution.
+
+Historical selected training command (its original `runs/` directory is local only):
+
+```bash
+PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" \
+  .venv/bin/python -m x2_recovery.train control-block \
+  --run-dir runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k \
+  --control-config runs/recovery_discovery/20260922T072024Z/configs/successful-reference-small-authority-v1/control_config.json \
+  --total-timesteps 4096 --max-wall-seconds 180 --seed 221900 --workers 2 \
+  --use-sde --sde-sample-freq 25 --learning-rate 0.0001 --log-std-init -2.5 \
+  --target-kl 0.03 --n-epochs 5
+```
+
+All 4096 transitions entered eight complete rollout updates, with **138 actual Adam
+steps**. Actor-mean/critic parameter L2 changes were 0.291120/1.963901; numerical
+checks passed. `learn()` took **38.458 s**, or **106.505 transitions/s**, including
+sampling, resets, inference, updates and training logging/checkpointing. Six complete
+stochastic episodes ended in five joint-limit aborts and one timeout; the subsequently
+loaded deterministic mean policy succeeded. Thus the training reward plot is not a
+success curve. A separate lower-noise branch genuinely continued from 4096 to 16384
+transitions (24 + 98 Adam steps); its final deterministic policy failed after 0.569 s
+qualified hold. That branch was retained and rejected before formal selection.
+
+The selected run retains raw episode/worker logs, progress, reward PNG, per-update
+checkpoints, RNG state, source snapshots and the full configuration. These commands
+were executed successfully; use a different seed/output directory for another reload:
+
+```bash
+PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" \
+  .venv/bin/python -m x2_recovery.train control-reload \
+  --run-dir runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k \
+  --seed 222610 --max-wall-seconds 180
+PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" \
+  .venv/bin/python -m x2_recovery.train plot \
+  --run-dir runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k
+```
+
+For a future bounded continuation, repeat the selected `control-block` command with
+a **new** run directory, add `--resume-run` pointing to the selected full training
+run, and specify the additional rollout-aligned timestep budget. This preserves
+weights, Adam state/counters and saved global RNG, but starts fresh legal supine
+episodes; it does not promise bitwise restoration of simulator/worker RNG state.
+No further continuation of this selected checkpoint was performed.
+
+Before freezing the successful batch, **183 tests passed** with zero failures/errors/
+skips (91.620 s). `pip check`, a fresh isolated colcon build and installed CLI imports/
+help from `/tmp` all exited 0. Records are in
+`audit-output/recovery-candidate-20260922T211201Z/`; the fresh build is
+`/tmp/x2-recovery-candidate-yog7dzw5/{build,install,log}`.
+Synthetic tests validate bookkeeping and controller semantics, not recovery success.
 
 ## Evaluation
 
-Formal recovery evaluation is **not evaluated**. It requires five actual episodes
-using the selected learned checkpoint identified above. Report successes and failures
-against the independent criteria above; a learned policy that fails to recover is a
-valid negative result, not a reason to replace it with the scripted baseline.
-Reasonable hand contact during rising is allowed, but final stable standing must have no non-foot support above the
-measurement tolerance. Environment rollouts and directly initialized standing
-fixtures do not count as those five attempts.
+### Reference + trained PPO residual
+
+The frozen batch [ppo-reference-residual-20260922T212457Z](results/evaluation/ppo-reference-residual-20260922T212457Z/summary.json)
+completed **5/5**, using the checkpoint selected before the batch from
+`runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/`.
+Its SHA-256 is `11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64`.
+The [manifest](results/evaluation/ppo-reference-residual-20260922T212457Z/manifest.json)
+freezes the full reference, controller, model, success settings, code and inference;
+the [CSV](results/evaluation/ppo-reference-residual-20260922T212457Z/episodes.csv)
+and [compressed trajectory](results/evaluation/ppo-reference-residual-20260922T212457Z/trajectory.jsonl.gz)
+retain every reset and physical-step measurement.
+
+Seeds **221030, 221031, 221032, 221033, 221034** each ended with `success=1`,
+`terminated=1`, `truncated=0`, at **4.856 s**, after **2.000 s** continuous qualified
+standing. Each used 243 control transitions and 4856 physical steps. Maximum pelvis
+height was **0.631539 m**, reached during the earlier airborne phase, not during the
+stable window. Reset perturbations remain zero; all five physical initial states
+and recorded trajectories are identical. This is fixed-state repeatability, not
+robustness across different fallen poses. The batch took 31.029 s of wall time.
+
+The executed command was:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" \
+  .venv/bin/python -m x2_recovery.evaluate \
+  --training-run runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k \
+  --expected-checkpoint-sha256 11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64 \
+  --reload-validation runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/development-222610/summary.json \
+  --seeds 221030 221031 221032 221033 221034 --deterministic \
+  --output results/evaluation/ppo-reference-residual-20260922T212457Z
+```
+
+A real-file input copy, including the checkpoint and complete embedded reference,
+is in this batch's `inputs/training-run/`. For a **new reproduction**, use that input
+directory, its `reload_validation.json`, the same expected hash, and a new output
+directory. Use `PYTHONPATH="$PWD/results/evaluation/ppo-reference-residual-20260922T212457Z/source"`
+to select the frozen implementation. Existing output directories are rejected.
+Pinned model assets and the project venv are still required. The checkpoint, embedded
+reference, configuration, loading inputs and frozen source are included in this
+repository; see the copyable commands below. Historical absolute paths in evidence
+remain provenance and are not required download locations.
+Supplemental copies of the raw training episode CSV, original reward plot and RNG
+state are also included, with hashes in `supporting_artifacts.json`; they were archived
+after execution without changing the frozen manifest or original results.
+The [reward plot](results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/training_reward.png)
+contains six raw complete episode returns, with no invented smoothing samples.
+
+The [video](results/evaluation/ppo-reference-residual-20260922T212457Z/demonstration/trained-recovery-reproduction.mp4)
+is a separately executed, labeled new-process reproduction, not footage of the five
+formal episodes. In a matched development comparison, trained residual and zero
+residual both succeeded (4.856 versus 4.887 s). The network changed actual targets by
+up to 0.005623 rad across 130 transitions; parameters and optimizer remained unchanged
+during inference. This establishes an active trained hybrid controller, not that PPO
+created the recovery or improved success rate.
+
+### Original smoke checkpoint
+
+**Five formal PPO episodes completed; no successful recovery was observed (0/5).**
+The selected checkpoint comes from the small smoke experiment
+`smoke-std-minus1p5-20260922`: 2048 sampled/optimized-rollout transitions, four
+rollout updates and 30 actual Adam steps. Expansion of that configuration was deferred on
+sampling quality. Evaluation performs no further training and does not use the
+scripted baseline, which remains the separately validated ROS controller.
+
+Checkpoint: `runs/ppo_supine/smoke-std-minus1p5-20260922/policy_final.zip`.
+SHA-256:
+
+```text
+e8fa7e642e8ccd8d6dd38aaf9d810eee3c00d39d4188f82702c5b8e6124b213e
+```
+
+The [frozen manifest](results/evaluation/ppo-smoke-20260922T044430Z/manifest.json)
+records complete saved environment and success settings, per-joint action ranges,
+reference angles, PD gains, limits, model identity, runtime and source snapshot.
+The existing Parallels Ubuntu ARM64 venv uses Python 3.12.3, MuJoCo 3.13.0,
+Gymnasium 1.3.0, SB3 2.9.0 and PyTorch 2.8.0+cpu, with two compute threads and
+one interop thread. Ordinary CPU `PPO.load` runs in inference mode; deterministic
+`predict` actions pass directly to the native environment with fixed observation
+scaling and no additional action transform.
+
+This command was executed from `/home/lang/RL-AgiBot-X2`, with exit code **0**:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" \
+  .venv/bin/python -m x2_recovery.evaluate \
+  --training-run runs/ppo_supine/smoke-std-minus1p5-20260922 \
+  --seeds 220930 220931 220932 220933 220934 \
+  --deterministic \
+  --output results/evaluation/ppo-smoke-20260922T044430Z
+```
+
+The complete process took **119.72 s**, including preparation and disk verification.
+The batch through its first disk verification took 113.74 s. The saved simulation
+limit remains 20 s per episode; the separate cooperative 180 s wall watchdog did
+not fire. Existing output directories, duplicate seeds and non-five-seed requests
+are rejected. Execution/recording exceptions stop the batch without replacement
+attempts or invented results.
+
+| Episode | Seed | Derived reset seed | Success | Simulated seconds | Maximum pelvis height (m) | Maximum stable hold (s) | End reason |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 220930 | 1017846051 | 0 | 20.000 | 0.078812763 | 0 | time_limit |
+| 2 | 220931 | 836606913 | 0 | 20.000 | 0.078812763 | 0 | time_limit |
+| 3 | 220932 | 843402311 | 0 | 20.000 | 0.078812763 | 0 | time_limit |
+| 4 | 220933 | 1012369386 | 0 | 20.000 | 0.078812763 | 0 | time_limit |
+| 5 | 220934 | 1653814788 | 0 | 20.000 | 0.078812763 | 0 | time_limit |
+
+Every row has `terminated=0`, `truncated=1`, 1000 control transitions and 20000
+physical steps. Duration excludes settling. Height includes handoff and every
+1 ms physical sample; hold is the maximum existing tracker window, not a sum.
+Success retains all calibrated predicates, including two continuous seconds,
+15-degree torso tilt and non-foot support at most 0.00001 body weights.
+Non-foot contact during an attempted rise is allowed.
+
+The saved reset perturbation is **zero**. Five handoff qpos/qvel/observations are
+exactly equal, as are recorded physical transitions after seed metadata is excluded.
+This is a fixed-supine repeatability check, not broad initial-state robustness.
+
+### Evidence and reproduction
+
+The batch's [episodes.csv](results/evaluation/ppo-smoke-20260922T044430Z/episodes.csv),
+[compressed trajectory](results/evaluation/ppo-smoke-20260922T044430Z/trajectory.jsonl.gz) and
+[summary.json](results/evaluation/ppo-smoke-20260922T044430Z/summary.json) retain reset
+provenance, initial states, actions, targets, substep measurements and tracker outputs.
+Full joint/control vectors are sampled at the last substep of each transition:
+q/dq/raw PD output precede integration, while measured state and actuator torque
+follow it. The timestamps explicitly distinguish them.
+
+A [separate-process disk audit](results/evaluation/ppo-smoke-20260922T044430Z/verification.json)
+confirmed five resets/terminal records, CSV/trajectory/summary agreement, physical
+durations and unchanged identities. Policy parameters **and buffers** remained
+exactly unchanged at every episode boundary. The checkpoint hash was unchanged.
+The 16 saved real observations reproduced expected actions with maximum error **0**,
+using the original `atol=1e-7`, `rtol=1e-6`.
+
+A hash-verified, real-file input copy is included in the repository at
+`results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/`:
+checkpoint, resolved configuration, training manifest, update CSV, reload check and
+observation/action probe. Its loading was verified without another reset. For a
+**new reproduction run**, substitute this directory for `--training-run` above and
+choose a new `--output`. This additional five-episode command was not executed.
+Since the current learning wrapper has evolved, also select this historical batch's
+implementation with `PYTHONPATH="$PWD/results/evaluation/ppo-smoke-20260922T044430Z/source"`.
+Current code deliberately rejects old source identities rather than silently treating
+them as the same experiment.
+The existing pinned model assets and original license described under Setup remain
+required; neither the assets nor venv are duplicated. Runtime source and evaluation
+tests that were uncommitted at the time are preserved under the batch's `source/`.
+
+Before freezing, **125 existing tests plus 13 synthetic evaluator tests** passed,
+with zero failures, errors or skips. A fresh isolated colcon build passed, installed
+`--help` worked from `/tmp`, and `pip check` passed. Existing training regression
+fixtures use synthetic environments, not this checkpoint. One separate seed-220929
+wiring check stopped after one transition and remains a partial diagnostic.
+[Validation records](results/evaluation/ppo-smoke-20260922T044430Z/validation/checks.json)
+link commands/logs, also retained in `audit-output/ppo-evaluation-validation-20260922/`.
+
+Current test commands for reproduction:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" MUJOCO_GL=osmesa \
+  .venv/bin/python -m unittest discover -s src/x2_recovery/test -v
+.venv/bin/python -m pip check
+```
+
+### Published inputs and reproducible commands
+
+Both the historical 0/5 and selected 5/5 batches are included, with all five episodes
+in each compressed trajectory. The [publication inventory](results/publication/20260923/manifest.json)
+records sizes, SHA-256 identities and the correspondence between current runtime
+files and the successful frozen snapshot. Historical manifests, statuses and absolute
+paths have not been rewritten to describe this later publication.
+Git attributes preserve the evidence bytes, including CSV CRLF endings and unified
+patch context whitespace; these are historical data, not formatting corrections.
+
+`runs/`, `audit-output/`, raw uncompressed trajectory originals, per-update checkpoints
+and bulk search logs remain local and ignored. They are not required to load the
+published controller, repeat its evaluation, or audit either published batch.
+The selected training input includes optimizer/RNG state and its actual reward curve;
+only the selected and original smoke checkpoints are distributed. The official
+pinned model cache is still required separately, as described under Setup.
+
+From the repository root, after the existing Setup instructions:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+EVAL_RUN=results/evaluation/ppo-reference-residual-20260922T212457Z
+INPUT="$EVAL_RUN/inputs/training-run"
+POLICY_SHA=11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64
+export PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}"
+printf '%s  %s\n' "$POLICY_SHA" "$INPUT/policy_final.zip" | sha256sum --check
+
+# Read-only load and inference check against saved real observations; no reset/step.
+.venv/bin/python - "$INPUT" "$POLICY_SHA" <<'PYCODE'
+import sys
+from x2_recovery.evaluate import prepare
+from x2_recovery.train import json_value
+import json
+env, model, original, prepared = prepare(
+    sys.argv[1], expected_checkpoint_sha256=sys.argv[2])
+try:
+    print(json.dumps(json_value(prepared['consistency']), allow_nan=False))
+finally:
+    env.close()
+PYCODE
+```
+
+The following are **optional future executions**, not additional evaluations or
+training performed for publication. Each creates a new output. Loading the complete
+controller requires the configuration's reference and target state, not just `PPO.load`.
+
+```bash
+# One independent loaded-policy simulation; preserve the published inputs unchanged.
+REPLAY_RUN="runs/published-replay-$(date -u +%Y%m%dT%H%M%SZ)"
+test ! -e "$REPLAY_RUN"
+mkdir -p runs
+cp -R "$INPUT" "$REPLAY_RUN"
+.venv/bin/python -m x2_recovery.train control-reload \
+  --run-dir "$REPLAY_RUN" --seed 222611 --max-wall-seconds 180
+# Regenerate the raw training reward curve only in this disposable input copy.
+.venv/bin/python -m x2_recovery.train plot --run-dir "$REPLAY_RUN"
+
+# Repeat the registered fixed-state protocol as a new batch, not a new robustness test.
+.venv/bin/python -m x2_recovery.evaluate \
+  --training-run "$INPUT" --expected-checkpoint-sha256 "$POLICY_SHA" \
+  --seeds 221030 221031 221032 221033 221034 --deterministic \
+  --output "results/evaluation/reproduction-$(date -u +%Y%m%dT%H%M%SZ)"
+
+# A new bounded training experiment with the selected controller and PPO settings.
+.venv/bin/python -m x2_recovery.train control-block \
+  --run-dir "runs/reference-ppo-reproduction-$(date -u +%Y%m%dT%H%M%SZ)" \
+  --control-config "$INPUT/resolved_config.json" \
+  --total-timesteps 4096 --max-wall-seconds 180 --seed 221900 --workers 2 \
+  --use-sde --sde-sample-freq 25 --learning-rate 0.0001 --log-std-init -2.5 \
+  --target-kl 0.03 --n-epochs 5
+```
+
+Adding `--resume-run "$INPUT"` to the final command continues the selected checkpoint
+with compatible weights, optimizer, counters and saved global RNG. It still starts
+fresh supine episodes and does not claim exact worker/simulator RNG restoration.
+A new training execution is not guaranteed to reproduce the published outcome.
+For the original smoke policy, use its own input directory **and** frozen `source/`
+implementation described above; its source identity intentionally differs.
+
+Restore the complete evidence after cloning (approximately 188 MiB uncompressed).
+The exclusive file open refuses to overwrite any existing local originals. Gzip
+copies remain in place, and the hashes below are the original frozen summary hashes:
+
+```bash
+.venv/bin/python - <<'PYCODE'
+import gzip, hashlib, json, shutil
+from pathlib import Path
+for name in ('ppo-smoke-20260922T044430Z', 'ppo-reference-residual-20260922T212457Z'):
+    directory = Path('results/evaluation') / name
+    path = directory / 'trajectory.jsonl'
+    with gzip.open(path.with_suffix('.jsonl.gz'), 'rb') as src, path.open('xb') as dst:
+        shutil.copyfileobj(src, dst)
+    with path.open('rb') as stream:
+        actual = hashlib.file_digest(stream, 'sha256').hexdigest()
+    expected = json.loads((directory / 'summary.json').read_text())['artifact_sha256'][path.name]
+    if actual != expected:
+        raise ValueError('Restored trajectory hash mismatch: ' + str(path))
+    print(path, actual)
+PYCODE
+
+# Read-only audits of existing evidence; neither command executes a new episode.
+PYTHONPATH="$PWD/$EVAL_RUN/source" .venv/bin/python -c \
+  "from x2_recovery.evaluate import audit_saved; print(audit_saved('$EVAL_RUN'))"
+OLD_EVAL=results/evaluation/ppo-smoke-20260922T044430Z
+PYTHONPATH="$PWD/$OLD_EVAL/source" .venv/bin/python -c \
+  "from x2_recovery.evaluate import audit_saved; print(audit_saved('$OLD_EVAL'))"
+```
+
+The older trajectory gzip is approximately 29.6 MiB. It is retained despite the
+20 MiB publication review threshold because it contains the complete five-episode
+failure record, not a substituted representative episode. Both compression round
+trips were byte-verified; the original manifests and hashes are unchanged.
+
+After restoration, `.venv/bin/python results/publication/20260923/verify_delivery.py`
+checks the publication inventory, both historical batches and both checkpoints in
+separate processes against saved real observations. It explicitly forbids reset,
+step, learning and optimizer updates, and checks the actual imported module paths.
+The older `independent_final_audit.py` remains an unchanged historical audit script
+with original machine paths; use `verify_delivery.py` for the portable release check.
+
+### Failure observations and next hypotheses
+
+All five recorded trajectories are identical. Episode 1 provides these locations:
+
+- **No qualified standing sample:** height, tilt and non-foot support fail on all
+  20000 substeps. Peak height at `t=0.057 s` (control step 3, substep index 16) has
+  tilt 72.46 degrees and left/right/other support 0/0.17637/0.57097 body weights.
+  At timeout, height is 0.077321 m, tilt 73.26 degrees, feet total 0.35663 and other
+  support 0.64337. See `diagnostics[].peak_height_sample`, predicate counts and the
+  final transition. These measurements do not establish sitting up or standing.
+- **Initial movement then nearly static targets:** shoulder-pitch ranges sampled
+  at control boundaries are 0.6154 rad right and 0.5176 rad left. Maximum action
+  magnitude is 0.078572 with no action/target boundary hits. During 10–20 s the
+  largest per-joint target range is only 0.00003084 rad. A low-height equilibrium
+  is a hypothesis. A separately labeled diagnostic could hold the policy's action
+  constant after 1 s, changing only late feedback. Similar final posture/support
+  would support that explanation; substantial divergence would weaken it. Such a
+  diagnostic must not replace these five PPO results.
+- **Persistent waist error:** at timeout, waist pitch target/actual are
+  0.005293/0.267526 rad, with -48 N m control at its limit. Waist saturation is
+  100% of physical steps; across all joint-by-substep samples it is 3.2363%.
+  Contact loading may explain this error but is not proven. A separate replay
+  could change only telemetry, recording waist generalized constraint, bias,
+  passive and actuator forces plus acceleration. A balanced opposing load would
+  support the hypothesis; an unexplained force residual would weaken it. These
+  observations do not justify increasing torque limits.
+
+Each raw return is -1.006367842, with zero standing-hold/success contribution.
+Peak joint speed is 8.5900 rad/s, below the 30 rad/s safety threshold. These are
+ordinary timeouts, not safety aborts, simulator errors or evidence of deliberate
+failure seeking. No new training or control experiment was performed here.
 
 ## ROS 2 Integration
 
@@ -943,9 +1356,10 @@ was sufficient for the full 20 s simulation on this VM.
 **ROS integration passed; the scripted baseline did not recover to standing.**
 Both full episodes had `is_success=false`, zero standing dwell, final pelvis height
 0.07636 m and torso tilt 73.59 degrees; non-foot support remained 0.64335 body weights.
-These are ROS integration runs, not the five formal policy evaluations. Training
-has not been run (not declared blocked), and no trained checkpoint exists. This does
-not demonstrate learned recovery or physical-robot control.
+These are ROS integration runs, separate from the five formal PPO evaluations above.
+At the time of these ROS runs, training had not yet run; the later PPO smoke checkpoint
+was not connected to ROS. Neither result demonstrates successful learned recovery
+or physical-robot control.
 
 Commands, raw CLI outputs, node/client logs, matched samples and strict JSON summaries
 are retained under `audit-output/ros-integration/run-20260921-231426-Xwwi/` (ignored
@@ -1366,18 +1780,30 @@ Commit history records implementation milestones without squashing or rewriting 
 
 ## Limitations and Future Work
 
-No real supine-to-standing recovery was observed. The bounded scripts exercise the
-environment; they have not recovered the robot to standing. ROS service-to-simulation
-integration has passed with this baseline. PPO optimization and reload now pass, but
-poor sampling has deferred the larger formal training experiment. Five formal
-evaluation episodes also remain outstanding; integration and standing fixtures do
-not complete those requirements.
+The selected reference + trained PPO residual has completed real supine-to-standing
+recovery under the original simulator criteria, including independent checkpoint
+loading and five fixed-state repetitions. The successful reference alone also recovers;
+the learned contribution has not been shown to improve success rate. The original
+pure-PPO smoke evaluation remains 0/5. ROS service-to-simulation validation still uses
+the older scripted baseline, which did not recover; the selected hybrid has not been
+integrated into or validated through ROS.
+
+The current motion is dynamic: about 0.215 s without ground support precedes landing,
+whose peak foot load is about 3.96 body weights. Peak transient floor penetration is
+9.05 mm (below the unchanged 30 mm safety guard), and the largest soft joint-limit
+excursion is 0.04519 rad, close to the 0.05 rad guard. During the successful learned
+holding window, maximum floor penetration is 0.998651 mm against the original 1 mm
+standing threshold. These narrow margins and the unchanged initial state limit the
+result. A next experiment should separately reduce launch/landing impulse while
+preserving the original criteria, then test registered reset perturbations; neither
+was performed in the frozen batch. No hardware safety or broad robustness is inferred.
 
 Simulation uses convex collision hulls, spherical foot proxies and soft constraints;
 measured nonzero penetration is not mathematical nonintersection. Finite checks do
 not establish every joint-bound pose's collision-free reachability or whole-action-space
 safety. Full-target actions can terminate almost immediately at the documented safety
-guards. PD gains/reward weights remain initial choices. PPO throughput is measured
+guards. Selected PD gains remain original; learning rewards are explicitly versioned.
+PPO throughput is measured
 for the documented configuration; learned recovery robustness, the behavioral effect
 of early-abort returns, and observations available on hardware remain unverified.
 No hardware calibration, GPU capability or real-time training guarantee is inferred

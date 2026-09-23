@@ -1,0 +1,77 @@
+{
+  "started_utc": "2026-09-22T21:12:06.190760+00:00",
+  "audit": "/home/lang/RL-AgiBot-X2/audit-output/recovery-candidate-20260922T211201Z",
+  "build_root": "/tmp/x2-recovery-candidate-yog7dzw5",
+  "source_hashes_before": {
+    "src/x2_recovery/x2_recovery/simulation_validation.py": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+    "src/x2_recovery/x2_recovery/telemetry_node.py": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+    "src/x2_recovery/x2_recovery/train.py": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+    "src/x2_recovery/x2_recovery/model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "src/x2_recovery/x2_recovery/success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "src/x2_recovery/x2_recovery/evaluate.py": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+    "src/x2_recovery/x2_recovery/env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "src/x2_recovery/x2_recovery/reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "src/x2_recovery/x2_recovery/motion_search.py": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+    "src/x2_recovery/x2_recovery/model_audit.py": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+    "src/x2_recovery/x2_recovery/success_validation.py": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+    "src/x2_recovery/x2_recovery/baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+    "src/x2_recovery/x2_recovery/recovery_node.py": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+    "src/x2_recovery/x2_recovery/diagnostics.py": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+    "src/x2_recovery/x2_recovery/__init__.py": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532"
+  },
+  "commands": [
+    {
+      "label": "regression",
+      "exit_code": 0,
+      "wall_seconds": 93.3266762530111
+    },
+    {
+      "label": "pip-check",
+      "exit_code": 0,
+      "wall_seconds": 0.6754829999990761
+    },
+    {
+      "label": "fresh-build",
+      "exit_code": 0,
+      "wall_seconds": 1.0374417090060888
+    },
+    {
+      "label": "outside-import-help",
+      "exit_code": 0,
+      "wall_seconds": 3.1900778349954635
+    },
+    {
+      "label": "diff-check",
+      "exit_code": 0,
+      "wall_seconds": 0.0035134999925503507
+    }
+  ],
+  "status": "PASS",
+  "source_hashes_after": {
+    "src/x2_recovery/x2_recovery/simulation_validation.py": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+    "src/x2_recovery/x2_recovery/telemetry_node.py": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+    "src/x2_recovery/x2_recovery/train.py": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+    "src/x2_recovery/x2_recovery/model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "src/x2_recovery/x2_recovery/success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "src/x2_recovery/x2_recovery/evaluate.py": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+    "src/x2_recovery/x2_recovery/env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "src/x2_recovery/x2_recovery/reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "src/x2_recovery/x2_recovery/motion_search.py": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+    "src/x2_recovery/x2_recovery/model_audit.py": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+    "src/x2_recovery/x2_recovery/success_validation.py": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+    "src/x2_recovery/x2_recovery/baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+    "src/x2_recovery/x2_recovery/recovery_node.py": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+    "src/x2_recovery/x2_recovery/diagnostics.py": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+    "src/x2_recovery/x2_recovery/__init__.py": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532"
+  },
+  "sources_unchanged": true,
+  "ended_utc": "2026-09-22T21:13:44.426447+00:00",
+  "regression_result": {
+    "tests": 183,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "reported_test_seconds": 91.62,
+    "exit_code": 0
+  }
+}

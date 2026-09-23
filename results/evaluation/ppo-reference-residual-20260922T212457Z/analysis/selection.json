@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-09-22T21:24:08.782319+00:00",
+  "status": "SELECTED_BEFORE_FORMAL_EVALUATION",
+  "method": "successful dynamics-validated reference + trained PPO residual; no proven success-rate benefit over reference",
+  "training_run": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k",
+  "checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+  "config_sha256": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+  "reload_validation": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/development-222610/summary.json",
+  "training_transitions": 4096,
+  "optimizer_steps": 138,
+  "selection_rule": "Original deterministic recovery success before all secondary metrics; among successful developmentcandidates thiscompletedfasterwithslightlygreaterobservedpenetrationmargin. Fixedinitialstate only, notstatisticalconfidence.",
+  "development_candidates": [
+    {
+      "run": "ppo-success-reference-broad-4k",
+      "success": false,
+      "hold_s": 0.221
+    },
+    {
+      "run": "ppo-success-reference-small-4k",
+      "success": true,
+      "time_s": 4.856,
+      "qualified_max_floor_m": 0.0009986508271115037
+    },
+    {
+      "run": "ppo-success-reference-low-noise-4k",
+      "success": true,
+      "time_s": 4.894,
+      "qualified_max_floor_m": 0.0009994040764179047
+    },
+    {
+      "run": "ppo-success-reference-low-noise-16k",
+      "success": false,
+      "hold_s": 0.569,
+      "terminal": "joint_limit_rad",
+      "time_s": 5.85
+    }
+  ],
+  "formal_seeds": [
+    221030,
+    221031,
+    221032,
+    221033,
+    221034
+  ],
+  "formal_seed_prior_use_audit": {
+    "execution_json_records_inspected": 507,
+    "matches": []
+  },
+  "formal_evaluation": "NOT_EVALUATED",
+  "checkpoint_learning_contribution": "Actual actor/critic updates andnonzeroappliedresidual verified; sameinitialstatezeroresidualalso succeeds. No causalclaimthatRLcreatedrecovery.",
+  "tests": "audit-output/recovery-candidate-20260922T211201Z:183PASS,pipcheck/freshbuild/outsidehelp0"
+}

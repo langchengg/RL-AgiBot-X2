@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "src/x2_recovery/test",
+    "-p",
+    "test_evaluation.py",
+    "-v"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 0.9145890839936328
+}

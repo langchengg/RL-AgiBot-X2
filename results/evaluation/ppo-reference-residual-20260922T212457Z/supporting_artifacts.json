@@ -1,0 +1,110 @@
+{
+  "created_utc": "2026-09-22T21:31:32.397836+00:00",
+  "scope": "Supplementary local delivery copies added after completed frozen execution; manifest.json and original evaluation inputs/results were not modified.",
+  "artifacts": {
+    "inputs/training-run/rng_state.pt": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/rng_state.pt",
+      "sha256": "98b50d4fa2a694c2062214ae645f1a545209e5573a99799fe87dc989d97c45d4",
+      "bytes": 14455
+    },
+    "inputs/training-run/episode_diagnostics.csv": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/episode_diagnostics.csv",
+      "sha256": "fb31135941f4b0eb00823c62c6803591142614d518ad6e015795925f41c2b19d",
+      "bytes": 3953
+    },
+    "inputs/training-run/training_reward.png": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/training_reward.png",
+      "sha256": "92640b31ecc25eba8a02c78ee36bae699328aa45955589def0119df23156d201",
+      "bytes": 52440
+    },
+    "demonstration/trained-recovery-reproduction.mp4": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/trained-hybrid-success-video-reproduction/trained-recovery-reproduction.mp4",
+      "sha256": "f37e91fae16ce93f0b16f72d9cda971f2a5ba47798ac82c70d90db670aed5fd3",
+      "bytes": 532522
+    },
+    "demonstration/manifest.json": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/trained-hybrid-success-video-reproduction/manifest.json",
+      "sha256": "ee748bb7d423ebfae94e6a02532bb1146fd3b22241acda0addd3ad1b4ed6fafd",
+      "bytes": 263320
+    },
+    "demonstration/summary.json": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/trained-hybrid-success-video-reproduction/summary.json",
+      "sha256": "ddffd5b22b293fae422b19e1a656c01dcf78def01a4dee2e1958a3f6776e0e99",
+      "bytes": 1796
+    },
+    "demonstration/visual_check.json": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/trained-hybrid-success-video-reproduction/visual_check.json",
+      "sha256": "8d1519a5064d379444ee7cbe0a97a9617537c11dfd7a0db8a06cb38a2b8c8490",
+      "bytes": 1133
+    },
+    "analysis/selection.json": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/final_candidate.json",
+      "sha256": "4f916151d274b21776e2a2b9926e73c414420f813b18c05e3fe6e9bf3f7aaa52",
+      "bytes": 2132
+    },
+    "analysis/experiment_totals.json": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/experiment_totals_final.json",
+      "sha256": "6fb80c9899a6f597beb2a472b5b345c36aea0d0d357001aa033f2df77d22eab4",
+      "bytes": 59034
+    },
+    "analysis/research.json": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/research.json",
+      "sha256": "64ffe979a3f78b4f043dc170f1503a902d617ff5832b8f3ff634f269bf6c03ab",
+      "bytes": 2222
+    },
+    "analysis/network_ablation.json": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/success-small4k-network-ablation/summary.json",
+      "sha256": "37dc62cee486c17f6915815accb13bc5f07316e32df300e0fb1b802ad825539a",
+      "bytes": 3763
+    },
+    "analysis/hold_comparison.json": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/success-small4k-network-ablation/success_window_comparison.json",
+      "sha256": "33da478c1aeda8d05921e8cb18cbd7ff4a4f83d61b0f18d2e97a37470f1821d9",
+      "bytes": 4489
+    },
+    "analysis/reference_mechanism.json": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/bridge-late-hold-ankle-search/mechanism.json",
+      "sha256": "0e04c4b9d9db6ee3587c37d0326523a5b9c93c4d080b763e8f82ea921dc9d164",
+      "bytes": 94145
+    },
+    "analysis/independent_development_audit.json": {
+      "source": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/independent-recovery-audit.json",
+      "sha256": "416ac424ec7b68777c7635826d4619879c8a353dcc56e2da076172a3d025ec75",
+      "bytes": 9418
+    },
+    "validation/summary.json": {
+      "source": "/home/lang/RL-AgiBot-X2/audit-output/recovery-candidate-20260922T211201Z/summary.json",
+      "sha256": "eb965af3788f18505d5489aa73ad1660d3763b10efb7589653f890e02728d147",
+      "bytes": 4583
+    },
+    "validation/commands.json": {
+      "source": "/home/lang/RL-AgiBot-X2/audit-output/recovery-candidate-20260922T211201Z/commands.json",
+      "sha256": "c578f035b510c88923562d63a6eb872331144a253aab8177c8effc8515c7f5d6",
+      "bytes": 1881
+    },
+    "validation/regression.log": {
+      "source": "/home/lang/RL-AgiBot-X2/audit-output/recovery-candidate-20260922T211201Z/regression.log",
+      "sha256": "db6f447765cb7b4167a3fa1741678c5ddc202aecaaf8f72b914acdb49544fa52",
+      "bytes": 40906
+    },
+    "validation/fresh-build.log": {
+      "source": "/home/lang/RL-AgiBot-X2/audit-output/recovery-candidate-20260922T211201Z/fresh-build.log",
+      "sha256": "f9aa730753964e6036325e385a790f9464693a9cbcd647b3a0dbf418ef62c837",
+      "bytes": 95
+    },
+    "validation/pip-check.log": {
+      "source": "/home/lang/RL-AgiBot-X2/audit-output/recovery-candidate-20260922T211201Z/pip-check.log",
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+      "bytes": 30
+    },
+    "validation/outside-import-help.log": {
+      "source": "/home/lang/RL-AgiBot-X2/audit-output/recovery-candidate-20260922T211201Z/outside-import-help.log",
+      "sha256": "52c191b0588c57c2eabad33e62b8c45f7a3e58bea9b0a7a241398e42c220a9d8",
+      "bytes": 3717
+    }
+  },
+  "video": "Separately executed deterministic checkpoint reproduction, not original formalbatch footage.",
+  "continuation": "Portable training inputs now also contain hash-checked original RNG state; simulator/worker state not checkpointed. Full original run and logs retained.",
+  "large_original_logs": "runs/recovery_discovery/20260922T072024Z/",
+  "not_pushed": true
+}

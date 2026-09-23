@@ -1,0 +1,59 @@
+{
+  "status": "COMPLETE_FOR_FIXED_SUPINE_PROTOCOL",
+  "first_valid_recovery": "PASS_reference_then_trained_hybrid",
+  "checkpoint_recovery_verified": "PASS",
+  "frozen_evaluation": "PASS_5_of_5",
+  "completed_utc": "2026-09-22T21:35:45.081061+00:00",
+  "additional_authorized_window_elapsed_seconds": 13650.081061,
+  "additional_authorized_window_limit_seconds": 21600,
+  "selected_training_run": "runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k",
+  "formal_output": "results/evaluation/ppo-reference-residual-20260922T212457Z",
+  "checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+  "config_sha256": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+  "formal_manifest_sha256": "0224b05ad31f58dfe1d846bd53bc70c1da9f789112b5f4e1f01ed766d9e16c71",
+  "selected_method": "Successful reference plus trained PPO residual; reference-alone also succeeds. No demonstrated success-rate benefit from RL.",
+  "verified_training_transitions_lower_bound": 450560,
+  "verified_optimizer_steps": 12838,
+  "registered_search_candidates_in_eight_logs": 307,
+  "unknown": "Unpersisted partialsampling in two interrupted attempts; smallprobe totals are separate from the eight searchcandidate logs.",
+  "regression": {
+    "tests": 183,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "fresh_build": "/tmp/x2-recovery-candidate-yog7dzw5",
+  "git": {
+    "branch": "main",
+    "head": "f3dcdcd361254d1c447b5a7a8901567ab8de68d4",
+    "status": "M README.md\n M src/x2_recovery/test/test_env.py\n M src/x2_recovery/test/test_training.py\n M src/x2_recovery/x2_recovery/env.py\n M src/x2_recovery/x2_recovery/train.py\n?? results/\n?? src/x2_recovery/test/test_control.py\n?? src/x2_recovery/test/test_evaluation.py\n?? src/x2_recovery/x2_recovery/evaluate.py\n?? src/x2_recovery/x2_recovery/motion_search.py",
+    "no_commit": true,
+    "no_push": true
+  },
+  "runtime_source_sha256": {
+    "simulation_validation.py": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+    "telemetry_node.py": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+    "train.py": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+    "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "evaluate.py": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+    "env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "motion_search.py": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+    "model_audit.py": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+    "success_validation.py": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+    "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+    "recovery_node.py": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+    "diagnostics.py": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+    "__init__.py": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532"
+  },
+  "readme_sha256": "f494c8745b64b80c14817c370d814835aec13f0400aa776b21bac80b963e8b20",
+  "task_training_evaluation_processes_remaining": [],
+  "limits": [
+    "Fixedzero-perturbationsupineonly",
+    "Dynamicflight/impactbeforehold",
+    "~1.35micrometreholdingpenetrationmargin",
+    "ROSstilloldscriptedbaseline",
+    "No hardware reliability claim"
+  ]
+}

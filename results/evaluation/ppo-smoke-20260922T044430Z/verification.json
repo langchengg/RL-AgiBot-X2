@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "valid_completed": 5,
+  "successes_observed": 0,
+  "summary_sha256": "9a1f059d5c793c169e03a256f20b13346e3a6ca40e749737a453bdb3a001d4ba",
+  "portable_inputs_preflight": "PASS (no reset or step)",
+  "portable_action_consistency": {
+    "max_abs_error": 0.0,
+    "atol": 1e-07,
+    "rtol": 1e-06,
+    "observations": 16,
+    "action_shape": [
+      16,
+      31
+    ]
+  },
+  "current_and_snapshot_sources": "unchanged",
+  "original_and_copied_training_inputs": "unchanged",
+  "policy_state_sha256": "94d57e4faa9eaa05911d25a6b82be2de42b0a593df5056ba58333bcb1e9bd8fa",
+  "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+  "pid": 377430,
+  "formal_resets": 5,
+  "formal_terminal_records": 5
+}

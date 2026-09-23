@@ -1,0 +1,157 @@
+{
+  "scope": "Saved physical-substep evidence: exact native2s success windows per controller, not a replacement success test. Different window start/end times reflect native qualification. Two deterministic attempts at one identical physical state cannot establish robustness or statistically supported improvement.",
+  "results": [
+    {
+      "controller": "trained_network",
+      "window_start_elapsed_s": 2.8559999999999155,
+      "window_end_elapsed_s": 4.856000000000583,
+      "window_samples": 2001,
+      "all_original_predicates_pass": true,
+      "measurement_ranges": {
+        "pelvis_height_m": [
+          0.61558819343626,
+          0.6171801947326976
+        ],
+        "tilt_deg": [
+          0.4754929467768515,
+          1.867363458940001
+        ],
+        "left_weight": [
+          0.4105704597351283,
+          0.5699125483173175
+        ],
+        "right_weight": [
+          0.4231965387922551,
+          0.5804799782798158
+        ],
+        "other_weight": [
+          0.0,
+          0.0
+        ],
+        "base_linear_m_s": [
+          0.002007417642625985,
+          0.05263922057307397
+        ],
+        "com_linear_m_s": [
+          0.0018767944437571558,
+          0.06852062614467908
+        ],
+        "base_angular_rad_s": [
+          0.004703515586474418,
+          0.15999230330775233
+        ],
+        "torso_angular_rad_s": [
+          0.004543655870273215,
+          0.1906250573367258
+        ],
+        "joint_rad_s": [
+          0.005666660955511396,
+          0.19831130795477214
+        ],
+        "floor_penetration_m": [
+          0.0006748793289171424,
+          0.0009986508271115037
+        ],
+        "self_penetration_m": [
+          0.0,
+          0.0
+        ]
+      },
+      "max_applied_policy_action_abs": 0.18744049966335297,
+      "peak_actual_residual_joint": "right_hip_yaw_joint",
+      "peak_actual_residual_rad": -0.005623214989900589,
+      "peak_residual_time_s": 3.1400000000000103,
+      "nonzero_residual_transitions": 130,
+      "final_tracker": {
+        "instant_standing_ok": true,
+        "standing_held": true,
+        "recovery_success": true,
+        "stable_duration_s": 2.000000000000668,
+        "failures": [],
+        "invalid_reason": null,
+        "drift_m": {
+          "pelvis": 0.015904238548691958,
+          "left": 0.007088023050686455,
+          "right": 0.015450396252435702
+        },
+        "timed_out": false
+      }
+    },
+    {
+      "controller": "zero_residual",
+      "window_start_elapsed_s": 2.886999999999926,
+      "window_end_elapsed_s": 4.887000000000594,
+      "window_samples": 2001,
+      "all_original_predicates_pass": true,
+      "measurement_ranges": {
+        "pelvis_height_m": [
+          0.6162852428293539,
+          0.6192178463999066
+        ],
+        "tilt_deg": [
+          0.9864572140282444,
+          2.748944568020194
+        ],
+        "left_weight": [
+          0.43294447675852993,
+          0.5725137473052551
+        ],
+        "right_weight": [
+          0.42358299023835994,
+          0.5605649985562001
+        ],
+        "other_weight": [
+          0.0,
+          0.0
+        ],
+        "base_linear_m_s": [
+          0.0034213547060645156,
+          0.05395860312422294
+        ],
+        "com_linear_m_s": [
+          0.0019120541918214173,
+          0.06847626212892692
+        ],
+        "base_angular_rad_s": [
+          0.007000564644488333,
+          0.15319231058969898
+        ],
+        "torso_angular_rad_s": [
+          0.005766640570437178,
+          0.1818506000839889
+        ],
+        "joint_rad_s": [
+          0.01034149921570943,
+          0.20055421024555276
+        ],
+        "floor_penetration_m": [
+          0.0007184986076863254,
+          0.0009989494001247752
+        ],
+        "self_penetration_m": [
+          0.0,
+          0.0
+        ]
+      },
+      "max_applied_policy_action_abs": 0.0,
+      "peak_actual_residual_joint": "left_hip_pitch_joint",
+      "peak_actual_residual_rad": 0.0,
+      "peak_residual_time_s": 0.019999999999997797,
+      "nonzero_residual_transitions": 0,
+      "final_tracker": {
+        "instant_standing_ok": true,
+        "standing_held": true,
+        "recovery_success": true,
+        "stable_duration_s": 2.000000000000668,
+        "failures": [],
+        "invalid_reason": null,
+        "drift_m": {
+          "pelvis": 0.009853890205080122,
+          "left": 0.005911420011141153,
+          "right": 0.01484327822947223
+        },
+        "timed_out": false
+      }
+    }
+  ]
+}

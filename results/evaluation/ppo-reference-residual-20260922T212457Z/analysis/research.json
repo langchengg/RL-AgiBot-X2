@@ -1,0 +1,64 @@
+{
+  "checked_utc": "2026-09-22T07:41:44.219584+00:00",
+  "sources": [
+    {
+      "name": "HoST",
+      "commit": "70bb580949a336a920833700e4b5dc3bf7fe87ce",
+      "license": "MIT",
+      "url": "https://github.com/InternRobotics/HoST",
+      "files": [
+        "host_ground.py",
+        "g1_config_ground.py",
+        "eval_ground.py"
+      ],
+      "adopt": "Investigate current-q offset semantics; actual code recomputes every physics substep.",
+      "exclude": "G1 scales, auxiliary forces, multicritic GPU framework"
+    },
+    {
+      "name": "HumanUP",
+      "commit": "7516e0f27e6f4d1e7365cf64ea577a78247bd8cb",
+      "license": "Apache-2.0",
+      "url": "https://github.com/RunpeiDong/HumanUP",
+      "files": [
+        "legged_robot.py",
+        "g1waist_up.py",
+        "g1waist_track.py"
+      ],
+      "adopt": "Discovery before tracking",
+      "exclude": "Simplified collisions, weak limits, standing resets"
+    },
+    {
+      "name": "unified-humanoid-getup",
+      "commit": "2d64e11c7b720e7b73da50a4f07ba8bac69eb62c",
+      "license": "MIT",
+      "url": "https://github.com/utra-robosoccer/unified-humanoid-getup",
+      "files": [
+        "standup_env.py",
+        "simulator.py",
+        "train_sbx.py"
+      ],
+      "adopt": "Low-dimensional sagittal coordination; previous-target integration observes control state",
+      "exclude": "Different robot, head-only success, SBX/JAX installation"
+    },
+    {
+      "name": "Residual RL",
+      "version": "1812.03201v2",
+      "url": "https://arxiv.org/html/1812.03201v2",
+      "adopt": "Reference plus trainable correction, require zero-residual comparison",
+      "exclude": "Not X2 recovery evidence"
+    },
+    {
+      "name": "SB3",
+      "version": "2.9.0",
+      "url": "https://stable-baselines3.readthedocs.io/en/v2.9.0/modules/ppo.html",
+      "files": [
+        "installed ppo.py",
+        "on_policy_algorithm.py",
+        "base_class.py"
+      ],
+      "adopt": "gSDE atregisteredresamplefrequency, rawactions/logprob kept, Adam andcounts resume",
+      "exclude": "No external action noise in PPO sampler"
+    }
+  ],
+  "implementation": "No external implementation code copied; compact new target wrapper and CEM written locally."
+}

@@ -1,0 +1,6 @@
+{"episode":1,"seed":220930,"reset_seed":1017846051,"controller":"ppo","success":0,"sim_duration_s":20.000000000003563,"max_pelvis_height_m":0.07881276291885894,"max_stable_hold_s":0.0,"terminated":0,"truncated":1,"termination_reason":"time_limit"}
+{"episode":2,"seed":220931,"reset_seed":836606913,"controller":"ppo","success":0,"sim_duration_s":20.000000000003563,"max_pelvis_height_m":0.07881276291885894,"max_stable_hold_s":0.0,"terminated":0,"truncated":1,"termination_reason":"time_limit"}
+{"episode":3,"seed":220932,"reset_seed":843402311,"controller":"ppo","success":0,"sim_duration_s":20.000000000003563,"max_pelvis_height_m":0.07881276291885894,"max_stable_hold_s":0.0,"terminated":0,"truncated":1,"termination_reason":"time_limit"}
+{"episode":4,"seed":220933,"reset_seed":1012369386,"controller":"ppo","success":0,"sim_duration_s":20.000000000003563,"max_pelvis_height_m":0.07881276291885894,"max_stable_hold_s":0.0,"terminated":0,"truncated":1,"termination_reason":"time_limit"}
+{"episode":5,"seed":220934,"reset_seed":1653814788,"controller":"ppo","success":0,"sim_duration_s":20.000000000003563,"max_pelvis_height_m":0.07881276291885894,"max_stable_hold_s":0.0,"terminated":0,"truncated":1,"termination_reason":"time_limit"}
+{"status":"COMPLETE","result":"0/5","output":"/home/lang/RL-AgiBot-X2/results/evaluation/ppo-smoke-20260922T044430Z"}

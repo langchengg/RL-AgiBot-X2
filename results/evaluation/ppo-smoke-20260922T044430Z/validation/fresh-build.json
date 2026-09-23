@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "/usr/bin/colcon",
+    "--log-base",
+    "/home/lang/RL-AgiBot-X2/audit-output/ppo-evaluation-validation-20260922/fresh-package/log",
+    "build",
+    "--base-paths",
+    "src",
+    "--packages-select",
+    "x2_recovery",
+    "--symlink-install",
+    "--build-base",
+    "/home/lang/RL-AgiBot-X2/audit-output/ppo-evaluation-validation-20260922/fresh-package/build",
+    "--install-base",
+    "/home/lang/RL-AgiBot-X2/audit-output/ppo-evaluation-validation-20260922/fresh-package/install"
+  ],
+  "cwd": "/home/lang/RL-AgiBot-X2",
+  "exit_code": 0,
+  "wall_seconds": 0.889197458003764
+}

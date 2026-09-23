@@ -1,0 +1,32 @@
+[
+  {
+    "label": "regression",
+    "command": "source /opt/ros/jazzy/setup.bash\nPYTHONPATH=\"/home/lang/RL-AgiBot-X2/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}\" MUJOCO_GL=osmesa \"/home/lang/RL-AgiBot-X2/.venv/bin/python\" -m unittest discover -s \"/home/lang/RL-AgiBot-X2/src/x2_recovery/test\" -v",
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "timeout_s": 300
+  },
+  {
+    "label": "pip-check",
+    "command": "\"/home/lang/RL-AgiBot-X2/.venv/bin/python\" -m pip check",
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "timeout_s": 60
+  },
+  {
+    "label": "fresh-build",
+    "command": "source /opt/ros/jazzy/setup.bash\n\"/home/lang/RL-AgiBot-X2/.venv/bin/python\" /usr/bin/colcon --log-base \"/tmp/x2-recovery-candidate-yog7dzw5/log\" build --base-paths src --packages-select x2_recovery --symlink-install --build-base \"/tmp/x2-recovery-candidate-yog7dzw5/build\" --install-base \"/tmp/x2-recovery-candidate-yog7dzw5/install\"",
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "timeout_s": 120
+  },
+  {
+    "label": "outside-import-help",
+    "command": "source /opt/ros/jazzy/setup.bash\nsource \"/tmp/x2-recovery-candidate-yog7dzw5/install/setup.bash\"\n\"/home/lang/RL-AgiBot-X2/.venv/bin/python\" -c 'import sys,x2_recovery.env,x2_recovery.train,x2_recovery.evaluate;print(\"python\",sys.executable);print(\"prefix\",sys.prefix);print(\"env\",x2_recovery.env.__file__);print(\"train\",x2_recovery.train.__file__);print(\"evaluate\",x2_recovery.evaluate.__file__)'\n\"/home/lang/RL-AgiBot-X2/.venv/bin/python\" -m x2_recovery.train --help\n\"/home/lang/RL-AgiBot-X2/.venv/bin/python\" -m x2_recovery.train control-block --help\n\"/home/lang/RL-AgiBot-X2/.venv/bin/python\" -m x2_recovery.evaluate --help\n",
+    "cwd": "/tmp",
+    "timeout_s": 90
+  },
+  {
+    "label": "diff-check",
+    "command": "git diff --check",
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "timeout_s": 30
+  }
+]

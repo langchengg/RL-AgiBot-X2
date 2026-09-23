@@ -1,0 +1,205 @@
+{
+  "status": "PASS",
+  "created_utc": "2026-09-22T21:28:07.854078+00:00",
+  "script_sha256": "631318bc0c3fa051055e0c6f7039cec941df4f90aba980bc71cf2fb08c587d20",
+  "planned": 5,
+  "attempted": 5,
+  "valid_completed": 5,
+  "successes_observed": 5,
+  "result": "5/5",
+  "rows": [
+    {
+      "episode": 1,
+      "seed": 221030,
+      "reset_seed": 1232936377,
+      "transitions": 243,
+      "physics_steps": 4856,
+      "sim_duration_s": 4.856000000000583,
+      "last_transition_physics_steps": 16,
+      "native_hold_s": 2.000000000000668,
+      "native_hold_samples": 2001,
+      "native_hold_start_s": 2.8559999999999155,
+      "native_hold_end_s": 4.856000000000583,
+      "hold_pelvis_min_m": 0.61558819343626,
+      "hold_pelvis_max_m": 0.6171801947326976,
+      "hold_tilt_max_deg": 1.867363458940001,
+      "hold_other_weight_max": 0.0,
+      "hold_floor_penetration_max_m": 0.0009986508271115037,
+      "success": true,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "success"
+    },
+    {
+      "episode": 2,
+      "seed": 221031,
+      "reset_seed": 820366694,
+      "transitions": 243,
+      "physics_steps": 4856,
+      "sim_duration_s": 4.856000000000583,
+      "last_transition_physics_steps": 16,
+      "native_hold_s": 2.000000000000668,
+      "native_hold_samples": 2001,
+      "native_hold_start_s": 2.8559999999999155,
+      "native_hold_end_s": 4.856000000000583,
+      "hold_pelvis_min_m": 0.61558819343626,
+      "hold_pelvis_max_m": 0.6171801947326976,
+      "hold_tilt_max_deg": 1.867363458940001,
+      "hold_other_weight_max": 0.0,
+      "hold_floor_penetration_max_m": 0.0009986508271115037,
+      "success": true,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "success"
+    },
+    {
+      "episode": 3,
+      "seed": 221032,
+      "reset_seed": 564952530,
+      "transitions": 243,
+      "physics_steps": 4856,
+      "sim_duration_s": 4.856000000000583,
+      "last_transition_physics_steps": 16,
+      "native_hold_s": 2.000000000000668,
+      "native_hold_samples": 2001,
+      "native_hold_start_s": 2.8559999999999155,
+      "native_hold_end_s": 4.856000000000583,
+      "hold_pelvis_min_m": 0.61558819343626,
+      "hold_pelvis_max_m": 0.6171801947326976,
+      "hold_tilt_max_deg": 1.867363458940001,
+      "hold_other_weight_max": 0.0,
+      "hold_floor_penetration_max_m": 0.0009986508271115037,
+      "success": true,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "success"
+    },
+    {
+      "episode": 4,
+      "seed": 221033,
+      "reset_seed": 701763276,
+      "transitions": 243,
+      "physics_steps": 4856,
+      "sim_duration_s": 4.856000000000583,
+      "last_transition_physics_steps": 16,
+      "native_hold_s": 2.000000000000668,
+      "native_hold_samples": 2001,
+      "native_hold_start_s": 2.8559999999999155,
+      "native_hold_end_s": 4.856000000000583,
+      "hold_pelvis_min_m": 0.61558819343626,
+      "hold_pelvis_max_m": 0.6171801947326976,
+      "hold_tilt_max_deg": 1.867363458940001,
+      "hold_other_weight_max": 0.0,
+      "hold_floor_penetration_max_m": 0.0009986508271115037,
+      "success": true,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "success"
+    },
+    {
+      "episode": 5,
+      "seed": 221034,
+      "reset_seed": 1414725255,
+      "transitions": 243,
+      "physics_steps": 4856,
+      "sim_duration_s": 4.856000000000583,
+      "last_transition_physics_steps": 16,
+      "native_hold_s": 2.000000000000668,
+      "native_hold_samples": 2001,
+      "native_hold_start_s": 2.8559999999999155,
+      "native_hold_end_s": 4.856000000000583,
+      "hold_pelvis_min_m": 0.61558819343626,
+      "hold_pelvis_max_m": 0.6171801947326976,
+      "hold_tilt_max_deg": 1.867363458940001,
+      "hold_other_weight_max": 0.0,
+      "hold_floor_penetration_max_m": 0.0009986508271115037,
+      "success": true,
+      "terminated": true,
+      "truncated": false,
+      "termination_reason": "success"
+    }
+  ],
+  "counts": {
+    "resets": 5,
+    "terminals": 5,
+    "transitions": 1215,
+    "physics_steps": 24280
+  },
+  "existing_EpisodeMetrics_disk_audit": {
+    "status": "PASS",
+    "valid_completed": 5,
+    "successes_observed": 5,
+    "summary_sha256": "6558b67d74af34608c1f8271933832b4d31164cf296dee5d64d2c4f676a9b918"
+  },
+  "original_tracker_replay": "EXACT_ALL_FIELDS_FOR_EVERY_PHYSICS_SAMPLE",
+  "formal_deterministic_actions_max_abs_error": 0.0,
+  "pd_aligned_last_substep_max_abs_error_Nm": 0.0,
+  "state_comparison_errors": [
+    {
+      "qpos": 0.0,
+      "qvel": 0.0,
+      "observation": 0.0
+    },
+    {
+      "qpos": 0.0,
+      "qvel": 0.0,
+      "observation": 0.0
+    },
+    {
+      "qpos": 0.0,
+      "qvel": 0.0,
+      "observation": 0.0
+    },
+    {
+      "qpos": 0.0,
+      "qvel": 0.0,
+      "observation": 0.0
+    },
+    {
+      "qpos": 0.0,
+      "qvel": 0.0,
+      "observation": 0.0
+    }
+  ],
+  "recorded_physical_transitions_identical": true,
+  "frozen_manifest_mode": "0o444",
+  "existing_artifact_hashes_unchanged": {
+    "manifest.json": "0224b05ad31f58dfe1d846bd53bc70c1da9f789112b5f4e1f01ed766d9e16c71",
+    "summary.json": "6558b67d74af34608c1f8271933832b4d31164cf296dee5d64d2c4f676a9b918",
+    "episodes.csv": "a2c06cc95d64efedaafcb5759f7a729ecb35c522109324ff58e49a3ef2afdfeb",
+    "trajectory.jsonl": "8fe2978965a49e63bd24ea5b38c37a15b600c47036f505c683433956c4f85443"
+  },
+  "physical_configuration_equal_to_original_smoke": true,
+  "original_smoke_configuration_sha256": "1f65af4b7294956feb9a9d19f80aa337d10c0be8b8bdb26dbbf3deb19be0f648",
+  "model_fingerprint": "bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0",
+  "portable_input_prepare": {
+    "status": "PASS",
+    "pid": 1085259,
+    "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "loaded_evaluator": "/home/lang/RL-AgiBot-X2/src/x2_recovery/x2_recovery/evaluate.py",
+    "loaded_checkpoint": "/home/lang/RL-AgiBot-X2/results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/policy_final.zip",
+    "action_consistency": {
+      "max_abs_error": 0.0,
+      "atol": 1e-07,
+      "rtol": 1e-06,
+      "observations": 16,
+      "action_shape": [
+        16,
+        17
+      ]
+    },
+    "controller_identity_equal": true,
+    "policy_state_sha256": "24a51f6bf7bbcc2741cee197e0ea00667f3178fd6d4de92aceafd43ab61db1e6",
+    "optimizer_state_unchanged": true,
+    "reset_calls": 0,
+    "step_calls": 0
+  },
+  "environment_closed": true,
+  "scope": "Five completed frozen trained reference+PPO residual episodes. Audit uses saved observations/measurements; no new recovery trials.",
+  "limitations": [
+    "Five seeds produced identical physical/controller initial states and recorded trajectories: fixed-initial-state repeatability, not broad robustness.",
+    "Network predictions match all1215 executed actions exactly. Reference-only ablation also succeeds; no claim that PPO created recovery ability.",
+    "Original PD checked from aligned full vectors at every control transition final physical substep; scalar success measurements cover all24280 physical substeps.",
+    "Portable input files are real copied files. The separately sourced model asset remains required at its recorded fixed version."
+  ]
+}

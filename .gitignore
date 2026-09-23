@@ -37,3 +37,8 @@ HRS_Take_Home_Task*.pdf
 
 # Reproducible PPO runs retain full local evidence, policies and source snapshots.
 /runs/
+
+# Byte-identical gzip copies of these complete historical traces are published.
+# Keep the original local JSONL files; see README for restoration and SHA-256 checks.
+/results/evaluation/ppo-smoke-20260922T044430Z/trajectory.jsonl
+/results/evaluation/ppo-reference-residual-20260922T212457Z/trajectory.jsonl

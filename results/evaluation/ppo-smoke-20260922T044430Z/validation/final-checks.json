@@ -1,0 +1,88 @@
+{
+  "os_release": {
+    "NAME": "Ubuntu",
+    "ID": "ubuntu",
+    "PRETTY_NAME": "Ubuntu 24.04.5 LTS",
+    "VERSION_ID": "24.04",
+    "VERSION": "24.04.5 LTS (Noble Numbat)",
+    "VERSION_CODENAME": "noble",
+    "ID_LIKE": "debian",
+    "HOME_URL": "https://www.ubuntu.com/",
+    "SUPPORT_URL": "https://help.ubuntu.com/",
+    "BUG_REPORT_URL": "https://bugs.launchpad.net/ubuntu/",
+    "PRIVACY_POLICY_URL": "https://www.ubuntu.com/legal/terms-and-policies/privacy-policy",
+    "UBUNTU_CODENAME": "noble",
+    "LOGO": "ubuntu-logo"
+  },
+  "architecture": "aarch64",
+  "virtualization": "parallels",
+  "ros_distro": "jazzy",
+  "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+  "prefix": "/home/lang/RL-AgiBot-X2/.venv",
+  "core_and_evaluator_sources_unchanged": {
+    "__init__.py": true,
+    "evaluate.py": true,
+    "train.py": true,
+    "env.py": true,
+    "reset.py": true,
+    "success.py": true,
+    "model.py": true,
+    "model_audit.py": true,
+    "baseline.py": true
+  },
+  "checkpoint_sha256": "e8fa7e642e8ccd8d6dd38aaf9d810eee3c00d39d4188f82702c5b8e6124b213e",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "exit_code": 0,
+      "stdout": " M README.md\n?? results/\n?? src/x2_recovery/test/test_evaluation.py\n?? src/x2_recovery/x2_recovery/evaluate.py\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stdout": "f3dcdcd361254d1c447b5a7a8901567ab8de68d4\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--stat"
+      ],
+      "exit_code": 0,
+      "stdout": " README.md | 177 +++++++++++++++++++++++++++++++++++++++++++++++++++++++-------\n 1 file changed, 158 insertions(+), 19 deletions(-)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "stdout": "No broken requirements found.\n",
+      "stderr": ""
+    }
+  ],
+  "no_commit_or_push": true
+}

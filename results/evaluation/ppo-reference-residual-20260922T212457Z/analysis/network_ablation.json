@@ -1,0 +1,109 @@
+{
+  "status": "COMPLETE_DEVELOPMENT_ABLATION",
+  "planned": 2,
+  "valid_completed": 2,
+  "cases": {
+    "trained_network": {
+      "episode": {
+        "episode": 1,
+        "seed": 222601,
+        "reset_seed": 1771390471,
+        "controller": "trained_network",
+        "success": 1,
+        "sim_duration_s": 4.856000000000583,
+        "max_pelvis_height_m": 0.6315388406049972,
+        "max_stable_hold_s": 2.000000000000668,
+        "terminated": 1,
+        "truncated": 0,
+        "termination_reason": "success"
+      },
+      "transitions": 243,
+      "physics_steps": 4856,
+      "max_actual_residual_rad": 0.005623214989900589,
+      "bilateral_only_support_seconds": 3.041999999999776,
+      "trajectory_sha256": "d22176104e4c8a53dd4c56c7e0304a92152eb96bca8a5f75841c3b324876211f"
+    },
+    "zero_residual": {
+      "episode": {
+        "episode": 1,
+        "seed": 222601,
+        "reset_seed": 1771390471,
+        "controller": "zero_residual",
+        "success": 1,
+        "sim_duration_s": 4.887000000000594,
+        "max_pelvis_height_m": 0.6315388406049972,
+        "max_stable_hold_s": 2.000000000000668,
+        "terminated": 1,
+        "truncated": 0,
+        "termination_reason": "success"
+      },
+      "transitions": 245,
+      "physics_steps": 4887,
+      "max_actual_residual_rad": 0.0,
+      "bilateral_only_support_seconds": 3.0719999999997727,
+      "trajectory_sha256": "b109224a0bf4512a5381b4b3cac59b6240c8720df261abe9f9c148690bae4747"
+    }
+  },
+  "same_initial_state_max_abs_error": {
+    "qpos": 0.0,
+    "qvel": 0.0,
+    "observation": 0.0
+  },
+  "same_reset_seed": true,
+  "matched_transition_pairs": 242,
+  "max_adopted_target_difference": {
+    "time_s": 3.1400000000000103,
+    "max_adopted_target_difference_rad": 0.005623214989900593,
+    "adopted_target_difference_rad": [
+      0.005112285465002087,
+      0.0002152124466374486,
+      -0.0019234829396009567,
+      0.002244868576526615,
+      -0.0026736208796500627,
+      -0.0011799432337284144,
+      0.003130646198987952,
+      0.0020902048051357203,
+      -0.005623214989900593,
+      -0.001653550118207947,
+      -0.00025678988546132264,
+      -0.002732071578502665,
+      0.0,
+      0.00020785519853233625,
+      0.0,
+      0.0,
+      0.0,
+      0.0007064016163349507,
+      -0.00036309435963632897,
+      0.0017898991703987127,
+      0.002074018269777267,
+      0.0,
+      0.0,
+      0.0,
+      0.0007064016163349507,
+      0.00036309435963632897,
+      -0.0017898991703987118,
+      0.002074018269777267,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "max_requested_target_difference_rad": 0.005623214989900593,
+    "max_actual_q_difference_rad": 0.005680861159824913
+  },
+  "learned_actions_change_targets": true,
+  "formal_evaluation": "NOT_EVALUATED",
+  "interpretation": "Two controlled development attempts at the same initial state. Nonzero learned outputs prove control influence, not improved recovery; outcome and quality comparison must be reported separately. A successful zero residual demonstrates the contribution of the frozen reference.",
+  "attempted": 2,
+  "wall_seconds": 11.534325879998505,
+  "policy_state_unchanged": true,
+  "optimizer_state_unchanged": true,
+  "observed_optimizer_steps": 0,
+  "checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+  "source_hashes_after": {
+    "env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+  }
+}

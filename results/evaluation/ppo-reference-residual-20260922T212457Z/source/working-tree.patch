@@ -1,0 +1,1875 @@
+diff --git a/README.md b/README.md
+index b17b1ec..db8e0f1 100644
+--- a/README.md
++++ b/README.md
+@@ -8,8 +8,9 @@ joint control, independent success detector and environment have been validated
+ an Ubuntu ARM64 Parallels VM. No policy has yet been shown to recover from supine to
+ standing. Real-X2 PPO sampling, optimization and checkpoint reload now pass a bounded
+ engineering smoke test. A larger formal experiment is deferred because training
+-episodes consistently abort within one simulated second. Five policy evaluation
+-episodes remain NOT_EVALUATED; ROS integration is validated with the scripted baseline.
++episodes consistently abort within one simulated second. Five deterministic PPO
++evaluation episodes are complete: 0/5 recoveries from the same fixed supine state.
++ROS integration is validated separately with the scripted baseline.
+ 
+ | Component | Status |
+ | --- | --- |
+@@ -17,7 +18,7 @@ episodes remain NOT_EVALUATED; ROS integration is validated with the scripted ba
+ | Joint control and standing-success detector | Validated |
+ | Gymnasium environment | Validated |
+ | PPO recovery training | 2048-transition real-X2 smoke passed; formal experiment deferred on sampling quality |
+-| Five-episode recovery evaluation | Not evaluated |
++| Five-episode recovery evaluation | Complete: 0/5; five identical fixed-supine deterministic trajectories |
+ | ROS recovery and telemetry nodes | Validated with real X2 simulation and scripted_baseline |
+ | ROS end-to-end integration validation | Passed; scripted baseline did not recover to standing |
+ 
+@@ -773,19 +774,155 @@ PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" MUJOCO_GL=osmesa \
+ .venv/bin/python -m pip check
+ ```
+ 
+-Five formal policy evaluation episodes remain **NOT_EVALUATED**. Reload validation
+-is a separate execution check and does not count toward those five. ROS recovery
+-still uses `scripted_baseline`; no trained checkpoint has been connected to the node.
++The original smoke artifacts retain their historical **NOT_EVALUATED** status.
++The separate five-episode PPO batch below is now complete. Reload validation is an
++execution check, not one of those five attempts. ROS recovery still uses
++`scripted_baseline`; no trained checkpoint has been connected to the node.
+ 
+ ## Evaluation
+ 
+-Formal recovery evaluation is **not evaluated**. It requires five actual episodes
+-using the selected learned checkpoint identified above. Report successes and failures
+-against the independent criteria above; a learned policy that fails to recover is a
+-valid negative result, not a reason to replace it with the scripted baseline.
+-Reasonable hand contact during rising is allowed, but final stable standing must have no non-foot support above the
+-measurement tolerance. Environment rollouts and directly initialized standing
+-fixtures do not count as those five attempts.
++**Five formal PPO episodes completed; no successful recovery was observed (0/5).**
++The selected checkpoint comes from the small smoke experiment
++`smoke-std-minus1p5-20260922`: 2048 sampled/optimized-rollout transitions, four
++rollout updates and 30 actual Adam steps. Larger training remains deferred on
++sampling quality. Evaluation performs no further training and does not use the
++scripted baseline, which remains the separately validated ROS controller.
++
++Checkpoint: `runs/ppo_supine/smoke-std-minus1p5-20260922/policy_final.zip`.
++SHA-256:
++
++```text
++e8fa7e642e8ccd8d6dd38aaf9d810eee3c00d39d4188f82702c5b8e6124b213e
++```
++
++The [frozen manifest](results/evaluation/ppo-smoke-20260922T044430Z/manifest.json)
++records complete saved environment and success settings, per-joint action ranges,
++reference angles, PD gains, limits, model identity, runtime and source snapshot.
++The existing Parallels Ubuntu ARM64 venv uses Python 3.12.3, MuJoCo 3.13.0,
++Gymnasium 1.3.0, SB3 2.9.0 and PyTorch 2.8.0+cpu, with two compute threads and
++one interop thread. Ordinary CPU `PPO.load` runs in inference mode; deterministic
++`predict` actions pass directly to the native environment with fixed observation
++scaling and no additional action transform.
++
++This command was executed from `/home/lang/RL-AgiBot-X2`, with exit code **0**:
++
++```bash
++source /opt/ros/jazzy/setup.bash
++PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" \
++  .venv/bin/python -m x2_recovery.evaluate \
++  --training-run runs/ppo_supine/smoke-std-minus1p5-20260922 \
++  --seeds 220930 220931 220932 220933 220934 \
++  --deterministic \
++  --output results/evaluation/ppo-smoke-20260922T044430Z
++```
++
++The complete process took **119.72 s**, including preparation and disk verification.
++The batch through its first disk verification took 113.74 s. The saved simulation
++limit remains 20 s per episode; the separate cooperative 180 s wall watchdog did
++not fire. Existing output directories, duplicate seeds and non-five-seed requests
++are rejected. Execution/recording exceptions stop the batch without replacement
++attempts or invented results.
++
++| Episode | Seed | Derived reset seed | Success | Simulated seconds | Maximum pelvis height (m) | Maximum stable hold (s) | End reason |
++| --- | --- | --- | --- | --- | --- | --- | --- |
++| 1 | 220930 | 1017846051 | 0 | 20.000 | 0.078812763 | 0 | time_limit |
++| 2 | 220931 | 836606913 | 0 | 20.000 | 0.078812763 | 0 | time_limit |
++| 3 | 220932 | 843402311 | 0 | 20.000 | 0.078812763 | 0 | time_limit |
++| 4 | 220933 | 1012369386 | 0 | 20.000 | 0.078812763 | 0 | time_limit |
++| 5 | 220934 | 1653814788 | 0 | 20.000 | 0.078812763 | 0 | time_limit |
++
++Every row has `terminated=0`, `truncated=1`, 1000 control transitions and 20000
++physical steps. Duration excludes settling. Height includes handoff and every
++1 ms physical sample; hold is the maximum existing tracker window, not a sum.
++Success retains all calibrated predicates, including two continuous seconds,
++15-degree torso tilt and non-foot support at most 0.00001 body weights.
++Non-foot contact during an attempted rise is allowed.
++
++The saved reset perturbation is **zero**. Five handoff qpos/qvel/observations are
++exactly equal, as are recorded physical transitions after seed metadata is excluded.
++This is a fixed-supine repeatability check, not broad initial-state robustness.
++
++### Evidence and reproduction
++
++The batch's [episodes.csv](results/evaluation/ppo-smoke-20260922T044430Z/episodes.csv),
++[trajectory.jsonl](results/evaluation/ppo-smoke-20260922T044430Z/trajectory.jsonl) and
++[summary.json](results/evaluation/ppo-smoke-20260922T044430Z/summary.json) retain reset
++provenance, initial states, actions, targets, substep measurements and tracker outputs.
++Full joint/control vectors are sampled at the last substep of each transition:
++q/dq/raw PD output precede integration, while measured state and actuator torque
++follow it. The timestamps explicitly distinguish them.
++
++A [separate-process disk audit](results/evaluation/ppo-smoke-20260922T044430Z/verification.json)
++confirmed five resets/terminal records, CSV/trajectory/summary agreement, physical
++durations and unchanged identities. Policy parameters **and buffers** remained
++exactly unchanged at every episode boundary. The checkpoint hash was unchanged.
++The 16 saved real observations reproduced expected actions with maximum error **0**,
++using the original `atol=1e-7`, `rtol=1e-6`.
++
++A hash-verified, real-file input copy is available locally in
++`results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/`:
++checkpoint, resolved configuration, training manifest, update CSV, reload check and
++observation/action probe. Its loading was verified without another reset. For a
++**new reproduction run**, substitute this directory for `--training-run` above and
++choose a new `--output`. This additional five-episode command was not executed.
++The existing pinned model assets and original license described under Setup remain
++required; neither the assets nor venv are duplicated. Uncommitted runtime source
++and evaluation tests are preserved under the batch's `source/`.
++
++Before freezing, **125 existing tests plus 13 synthetic evaluator tests** passed,
++with zero failures, errors or skips. A fresh isolated colcon build passed, installed
++`--help` worked from `/tmp`, and `pip check` passed. Existing training regression
++fixtures use synthetic environments, not this checkpoint. One separate seed-220929
++wiring check stopped after one transition and remains a partial diagnostic.
++[Validation records](results/evaluation/ppo-smoke-20260922T044430Z/validation/checks.json)
++link commands/logs, also retained in `audit-output/ppo-evaluation-validation-20260922/`.
++
++Current test commands for reproduction:
++
++```bash
++source /opt/ros/jazzy/setup.bash
++PYTHONPATH="$PWD/src/x2_recovery${PYTHONPATH:+:$PYTHONPATH}" MUJOCO_GL=osmesa \
++  .venv/bin/python -m unittest discover -s src/x2_recovery/test -v
++.venv/bin/python -m pip check
++```
++
++New code, results and input copies are **local, uncommitted and not pushed**.
++`runs/` and `audit-output/` remain ignored; `results/evaluation/` is untracked and
++includes the substantial raw trajectory. A later authorized submission should
++select code, documentation, small results/provenance and required inputs deliberately,
++while retaining full local evidence. The checkpoint is not yet hosted on GitHub.
++
++### Failure observations and next hypotheses
++
++All five recorded trajectories are identical. Episode 1 provides these locations:
++
++- **No qualified standing sample:** height, tilt and non-foot support fail on all
++  20000 substeps. Peak height at `t=0.057 s` (control step 3, substep index 16) has
++  tilt 72.46 degrees and left/right/other support 0/0.17637/0.57097 body weights.
++  At timeout, height is 0.077321 m, tilt 73.26 degrees, feet total 0.35663 and other
++  support 0.64337. See `diagnostics[].peak_height_sample`, predicate counts and the
++  final transition. These measurements do not establish sitting up or standing.
++- **Initial movement then nearly static targets:** shoulder-pitch ranges sampled
++  at control boundaries are 0.6154 rad right and 0.5176 rad left. Maximum action
++  magnitude is 0.078572 with no action/target boundary hits. During 10–20 s the
++  largest per-joint target range is only 0.00003084 rad. A low-height equilibrium
++  is a hypothesis. A separately labeled diagnostic could hold the policy's action
++  constant after 1 s, changing only late feedback. Similar final posture/support
++  would support that explanation; substantial divergence would weaken it. Such a
++  diagnostic must not replace these five PPO results.
++- **Persistent waist error:** at timeout, waist pitch target/actual are
++  0.005293/0.267526 rad, with -48 N m control at its limit. Waist saturation is
++  100% of physical steps; across all joint-by-substep samples it is 3.2363%.
++  Contact loading may explain this error but is not proven. A separate replay
++  could change only telemetry, recording waist generalized constraint, bias,
++  passive and actuator forces plus acceleration. A balanced opposing load would
++  support the hypothesis; an unexplained force residual would weaken it. These
++  observations do not justify increasing torque limits.
++
++Each raw return is -1.006367842, with zero standing-hold/success contribution.
++Peak joint speed is 8.5900 rad/s, below the 30 rad/s safety threshold. These are
++ordinary timeouts, not safety aborts, simulator errors or evidence of deliberate
++failure seeking. No new training or control experiment was performed here.
+ 
+ ## ROS 2 Integration
+ 
+@@ -943,9 +1080,10 @@ was sufficient for the full 20 s simulation on this VM.
+ **ROS integration passed; the scripted baseline did not recover to standing.**
+ Both full episodes had `is_success=false`, zero standing dwell, final pelvis height
+ 0.07636 m and torso tilt 73.59 degrees; non-foot support remained 0.64335 body weights.
+-These are ROS integration runs, not the five formal policy evaluations. Training
+-has not been run (not declared blocked), and no trained checkpoint exists. This does
+-not demonstrate learned recovery or physical-robot control.
++These are ROS integration runs, separate from the five formal PPO evaluations above.
++At the time of these ROS runs, training had not yet run; the later PPO smoke checkpoint
++was not connected to ROS. Neither result demonstrates successful learned recovery
++or physical-robot control.
+ 
+ Commands, raw CLI outputs, node/client logs, matched samples and strict JSON summaries
+ are retained under `audit-output/ros-integration/run-20260921-231426-Xwwi/` (ignored
+@@ -1369,9 +1507,10 @@ Commit history records implementation milestones without squashing or rewriting
+ No real supine-to-standing recovery was observed. The bounded scripts exercise the
+ environment; they have not recovered the robot to standing. ROS service-to-simulation
+ integration has passed with this baseline. PPO optimization and reload now pass, but
+-poor sampling has deferred the larger formal training experiment. Five formal
+-evaluation episodes also remain outstanding; integration and standing fixtures do
+-not complete those requirements.
++poor sampling has deferred the larger formal training experiment. Five frozen-policy
++evaluation episodes have completed with 0/5 recoveries and identical fixed-supine
++trajectories. This completes the evaluation protocol, not the recovery objective;
++integration and standing fixtures are separate evidence.
+ 
+ Simulation uses convex collision hulls, spherical foot proxies and soft constraints;
+ measured nonzero penetration is not mathematical nonintersection. Finite checks do
+diff --git a/src/x2_recovery/test/test_env.py b/src/x2_recovery/test/test_env.py
+index e38ff5d..dbf3767 100644
+--- a/src/x2_recovery/test/test_env.py
++++ b/src/x2_recovery/test/test_env.py
+@@ -1,14 +1,17 @@
+ """Separate real-X2 integration and explicitly synthetic fault/reward tests."""
+ from dataclasses import replace
+ import copy
++import ast
++import inspect
+ import json
+ import time
+ import unittest
+ from unittest.mock import patch
+ import mujoco as mj
+ import numpy as np
+-from x2_recovery.env import X2RecoveryEnv, EnvConfig, EnvExecutionError, _reward, _potential
+-from x2_recovery.reset import integration_state, nominal_pose
++from x2_recovery.env import (X2RecoveryEnv, EnvConfig, EnvExecutionError, _reward, _potential,
++                             _MODEL_SIGNATURE_ARRAYS, _MODEL_IDENTITY_ARRAYS)
++from x2_recovery.reset import integration_state, nominal_pose, model_signature
+ from x2_recovery.success import CALIBRATED_SETTINGS, SuccessTracker
+ 
+ 
+@@ -60,6 +63,47 @@ class RealEnvTests(unittest.TestCase):
+         for a,b in zip(*sequences):
+             np.testing.assert_array_equal(a[0],b[0]);self.assertEqual(a[1:],b[1:])
+ 
++    def test_bytewise_model_checks_cover_hash_fields_and_mutations(self):
++        e=self.e
++        definition=ast.parse(inspect.getsource(model_signature))
++        hash_fields=ast.literal_eval(next(n.iter for n in ast.walk(definition) if isinstance(n,ast.For)))
++        self.assertEqual(_MODEL_SIGNATURE_ARRAYS,hash_fields)
++        self.assertEqual(tuple(row[0] for row in e._model_snapshot),
++                         _MODEL_SIGNATURE_ARRAYS+_MODEL_IDENTITY_ARRAYS)
++        identity=e._model_identity();e._check_model()
++        for name,_,_,snapshot in e._model_snapshot:
++            self.assertFalse(snapshot.flags.writeable)
++            raw=getattr(e.model,name).view(np.uint8).reshape(-1)
++            if not raw.size:continue
++            with self.subTest(field=name):
++                original=raw[0].copy()
++                try:
++                    raw[0]^=np.uint8(1)
++                    self.assertNotEqual(identity,e._model_identity())
++                    with self.assertRaisesRegex(ValueError,'Model/mapping changed'):e._check_model()
++                finally:raw[0]=original
++                e._check_model();self.assertEqual(identity,e._model_identity())
++        original=e.model.opt.timestep
++        try:
++            e.model.opt.timestep*=2
++            with self.assertRaisesRegex(ValueError,'Model/mapping changed'):e._check_model()
++        finally:e.model.opt.timestep=original
++        # A signed-zero change is numerically equal but changes the hashed bytes.
++        values=e.model.body_gravcomp;index=int(np.flatnonzero(values==0.)[0])
++        original=values[index].copy()
++        try:
++            values[index]=np.copysign(0.,-1. if not np.signbit(original) else 1.)
++            self.assertEqual(values[index],original);self.assertNotEqual(e._model_identity(),identity)
++            with self.assertRaisesRegex(ValueError,'Model/mapping changed'):e._check_model()
++        finally:values[index]=original
++        e._check_model();self.assertEqual(identity,e._model_identity())
++
++    def test_model_checks_retain_both_transition_boundaries(self):
++        e=self.e;e.reset(seed=221001)
++        with patch.object(e,'_check_model',wraps=e._check_model) as checks:
++            e.step(np.zeros(31,np.float32))
++        self.assertEqual(checks.call_count,2)
++
+     def test_per_substep_pd_mapping_and_applied_torques(self):
+         e=self.e;e.reset(seed=42);start=e.data.time
+         with patch.object(e.tracker,'update',wraps=e.tracker.update) as update:
+diff --git a/src/x2_recovery/test/test_training.py b/src/x2_recovery/test/test_training.py
+index dad519a..f0f7824 100644
+--- a/src/x2_recovery/test/test_training.py
++++ b/src/x2_recovery/test/test_training.py
+@@ -355,5 +355,295 @@ with np.load(p/'probe.npz', allow_pickle=False) as d:
+             tr.formal_plan(self.root, config)
+ 
+ 
++class SyntheticControlledEnv(SyntheticEnv):
++    """149D accounting fixture; this is not an X2 recovery simulation."""
++    observation_space = gym.spaces.Box(-np.inf, np.inf, (149,), dtype=np.float32)
++
++    def __init__(self, *args, **kwargs):
++        super().__init__()
++        self.env = SimpleNamespace(physics_dt=.001)
++
++    def reset(self, **kwargs):
++        observation, info = super().reset(**kwargs)
++        return np.r_[observation, np.zeros(32, np.float32)], info
++
++    def step(self, action):
++        observation, reward, terminated, truncated, info = super().step(action)
++        info['state'].update(left_weight=.1, right_weight=.2, other_weight=.7)
++        info['controller'] = dict(target_tracking_max_rad=.2)
++        info['reward_terms'] = {'new_controller_term': reward}
++        return np.r_[observation, np.zeros(32, np.float32)], reward, terminated, truncated, info
++
++
++class ControlBlockTests(unittest.TestCase):
++    def test_provenance_snapshots_actual_imported_sources_at_logical_paths(self):
++        repository = Path(tr.__file__).resolve().parents[3]
++        actual_env = Path(sys.modules[tr.X2RecoveryEnv.__module__].__file__).resolve()
++        command = subprocess.check_output
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            package = root/'old-source'/'src'/'x2_recovery'/'x2_recovery'
++            package.mkdir(parents=True)
++            old_train = package/'train.py'
++            old_train.write_text('# a previous execution source, not the current checkout\n')
++            (package/'env.py').write_text('# not the imported environment module\n')
++            (root/'old-source'/'requirements.txt').write_text('# saved package requirements\n')
++            output = root/'new-run'
++            output.mkdir()
++            def checked_output(args, **kwargs):
++                if args[:3] == ['git', '-C', str(package)]:
++                    self.assertEqual(args[3:], ['rev-parse', '--show-toplevel'])
++                    return str(repository)+'\n'
++                return command(args, **kwargs)
++            with patch.object(tr, '__file__', str(old_train)), patch.object(tr.subprocess, 'check_output', checked_output):
++                saved = tr.provenance(output)
++            train_path = 'src/x2_recovery/x2_recovery/train.py'
++            env_path = 'src/x2_recovery/x2_recovery/env.py'
++            self.assertEqual((output/'source'/train_path).read_bytes(), old_train.read_bytes())
++            self.assertEqual(saved['source_paths'][train_path], str(old_train))
++            self.assertEqual((output/'source'/env_path).read_bytes(), actual_env.read_bytes())
++            self.assertEqual(saved['source_paths'][env_path], str(actual_env))
++            self.assertEqual((output/'source'/'requirements.txt').read_text(), '# saved package requirements\n')
++            for logical, digest in saved['source_hashes'].items():
++                self.assertEqual(tr.sha256(output/'source'/logical), digest)
++
++    def test_interrupted_update_publication_keeps_previous_checkpoint_pair(self):
++        class SavedModel:
++            def save(self, path, **kwargs):
++                Path(path).write_bytes(b'checkpoint fixture')
++
++        for failure in ('rng', 'pointer'):
++            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as temporary:
++                root = Path(temporary)
++                saved = tr.save_valid_update(root, SavedModel(), {'completed_optimization_rounds': 1}, {})
++                pointer = (root/'last_valid_update.json').read_bytes()
++                checkpoint, rng = tr.valid_update_files(root, saved)
++                originals = checkpoint.read_bytes(), rng.read_bytes()
++                def fail_rng(path):
++                    Path(path).write_bytes(b'interrupted RNG write')
++                    raise OSError('injected RNG failure')
++                with ExitStack() as stack:
++                    if failure == 'rng':
++                        stack.enter_context(patch.object(tr, '_save_rng', fail_rng))
++                    else:
++                        stack.enter_context(patch.object(tr, 'write_json', side_effect=OSError('injected pointer failure')))
++                    with self.assertRaisesRegex(OSError, 'injected'):
++                        tr.save_valid_update(root, SavedModel(), {'completed_optimization_rounds': 2}, {})
++                self.assertEqual((root/'last_valid_update.json').read_bytes(), pointer)
++                self.assertEqual(tr.valid_update_files(root, saved), (checkpoint, rng))
++                self.assertEqual((checkpoint.read_bytes(), rng.read_bytes()), originals)
++                self.assertTrue((root/'checkpoints'/'update-000002'/'policy.zip').exists())
++                with self.assertRaises(FileExistsError):
++                    tr.save_valid_update(root, SavedModel(), {'completed_optimization_rounds': 2}, {})
++
++    def test_valid_update_checks_both_hashes_and_accepts_legacy_layout(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            checkpoint, rng = root/'policy_last_update.zip', root/'rng_last_update.pt'
++            checkpoint.write_bytes(b'old checkpoint')
++            rng.write_bytes(b'old RNG')
++            saved = dict(checkpoint_sha256=tr.sha256(checkpoint), rng_sha256=tr.sha256(rng))
++            self.assertEqual(tr.valid_update_files(root, saved), (checkpoint, rng))
++            rng.write_bytes(b'changed RNG')
++            with self.assertRaisesRegex(ValueError, 'rng changed'):
++                tr.valid_update_files(root, saved)
++
++    def test_synthetic_step_error_recovers_published_generation_and_closes_env(self):
++        class FailingFixture(SyntheticControlledEnv):
++            instances = []
++            def __init__(self, *args, **kwargs):
++                super().__init__(*args, **kwargs)
++                self.total_steps = 0
++                self.instances.append(self)
++            def step(self, action):
++                self.total_steps += 1
++                if self.total_steps == 9:
++                    raise RuntimeError('injected later rollout failure')
++                return super().step(action)
++
++        with tempfile.TemporaryDirectory() as temporary, ExitStack() as stack:
++            root = Path(temporary)/'run'
++            stack.enter_context(patch.object(tr, 'X2RecoveryEnv', SyntheticEnv))
++            stack.enter_context(patch.object(tr, 'ControlledRecoveryEnv', FailingFixture))
++            stack.enter_context(patch.object(tr, 'controller_identity', lambda env: {'fixture': 'synthetic149'}))
++            stack.enter_context(patch.object(tr, 'provenance', lambda directory: {'fixture': 'synthetic'}))
++            config = tr.TrainConfig(total_timesteps=16, n_steps=8, batch_size=4, n_epochs=2)
++            with self.assertRaisesRegex(RuntimeError, 'later rollout failure'):
++                tr.run_control_block(config, tr.ControlConfig(), root)
++            saved = json.loads((root/'last_valid_update.json').read_text())
++            checkpoint, rng = tr.valid_update_files(root, saved)
++            manifest = json.loads((root/'manifest.json').read_text())
++            self.assertEqual(manifest['status'], 'ERROR')
++            self.assertEqual(manifest['training']['completed_optimization_rounds'], 1)
++            self.assertEqual(manifest['observed_before_error']['sampled_transitions'], 8)
++            self.assertEqual(manifest['checkpoint']['recovered_from'], saved['checkpoint_path'])
++            self.assertEqual((root/'policy_final.zip').read_bytes(), checkpoint.read_bytes())
++            self.assertEqual((root/'rng_state.pt').read_bytes(), rng.read_bytes())
++            self.assertTrue(all(env._closed for env in FailingFixture.instances))
++
++    def test_distribution_diagnostic_is_read_only_and_not_noise_weight_std(self):
++        with ExitStack() as stack:
++            env=DummyVecEnv([SyntheticControlledEnv]);stack.callback(env.close)
++            model=PPO('MlpPolicy',env,n_steps=8,batch_size=4,use_sde=True,seed=123,
++                      policy_kwargs={'net_arch':[32,32],'log_std_init':-1.5},device='cpu')
++            observations=np.full((40,149),.5,dtype=np.float32)
++            before={key:value.clone() for key,value in model.policy.state_dict().items()}
++            rng=torch.get_rng_state().clone()
++            matrices=model.policy.action_dist.exploration_matrices.clone()
++            metrics=tr.action_distribution_metrics(model,observations)
++            self.assertTrue(torch.equal(rng,torch.get_rng_state()))
++            self.assertTrue(torch.equal(matrices,model.policy.action_dist.exploration_matrices))
++            self.assertTrue(all(torch.equal(before[key],value) for key,value in model.policy.state_dict().items()))
++            self.assertEqual(metrics['action_distribution_observations'],32)
++            self.assertGreater(metrics['action_distribution_std_median'],metrics['noise_weight_std_mean'])
++            self.assertLessEqual(metrics['action_distribution_std_min'],metrics['action_distribution_std_median'])
++            self.assertLessEqual(metrics['action_distribution_std_median'],metrics['action_distribution_std_max'])
++
++    def test_synthetic_first_success_retains_pre_update_weights_and_episode(self):
++        class SuccessfulFixture(SyntheticControlledEnv):
++            def step(self, action):
++                observation, reward, terminated, truncated, info = super().step(action)
++                if truncated:
++                    terminated, truncated = True, False
++                    info.update(is_success=True, termination_reason='success', truncation_reason=None)
++                return observation, reward, terminated, truncated, info
++
++        with tempfile.TemporaryDirectory() as temporary, ExitStack() as stack:
++            root = Path(temporary)
++            stack.enter_context(patch.object(tr, 'X2RecoveryEnv', SyntheticEnv))
++            stack.enter_context(patch.object(tr, 'ControlledRecoveryEnv', SuccessfulFixture))
++            stack.enter_context(patch.object(tr, 'controller_identity', lambda env: {'fixture': 'synthetic149'}))
++            stack.enter_context(patch.object(tr, 'provenance', lambda directory: {'fixture': 'synthetic'}))
++            config = tr.TrainConfig(total_timesteps=16, n_steps=8, batch_size=4, n_epochs=2)
++            result = tr.run_control_block(config, tr.ControlConfig(), root/'run')
++            saved = json.loads((root/'run'/'first_success.json').read_text())
++            self.assertEqual(saved['optimizer_steps_in_block'], 0)
++            self.assertEqual(saved['completed_optimization_rounds'], 0)
++            self.assertEqual(saved['cumulative_model_timesteps'], 2)
++            self.assertEqual(saved['episode_adam_versions'], [0])
++            trajectory = json.loads((root/'run'/'first_success_trajectory.json').read_text())['transitions']
++            self.assertEqual(len(trajectory), 2)
++            self.assertEqual(saved['physics_steps'], 40)
++            self.assertEqual(len(trajectory[0]['observation']), 149)
++            self.assertTrue(trajectory[-1]['info']['is_success'])
++            initial = PPO.load(root/'run'/'policy_first_success.zip', device='cpu')
++            final = PPO.load(root/'run'/'policy_final.zip', device='cpu')
++            self.assertGreater(tr.parameter_changes(tr.parameter_copy(initial.policy), final.policy)['actor_mean']['l2'], 0)
++            self.assertEqual(result['training']['first_success'], saved)
++
++    def test_synthetic_block_resume_keeps_optimizer_and_dynamic_rollout_shapes(self):
++        with tempfile.TemporaryDirectory() as temporary, ExitStack() as stack:
++            root = Path(temporary)
++            stack.enter_context(patch.object(tr, 'X2RecoveryEnv', SyntheticEnv))
++            stack.enter_context(patch.object(tr, 'ControlledRecoveryEnv', SyntheticControlledEnv))
++            stack.enter_context(patch.object(tr, 'controller_identity', lambda env: {'fixture': 'synthetic149'}))
++            stack.enter_context(patch.object(tr, 'provenance', lambda directory: {'fixture': 'synthetic'}))
++            config = tr.TrainConfig(total_timesteps=16, n_steps=8, batch_size=4, n_epochs=2)
++            first = tr.run_control_block(config, tr.ControlConfig(), root/'first')
++            self.assertEqual(first['status'], 'COMPLETE')
++            self.assertEqual(first['training']['sampled_transitions'], 16)
++            self.assertEqual(first['training']['partial_rollout_transitions'], 0)
++            self.assertEqual(first['training']['rollout_checks'][0]['observations']['shape'], [8, 1, 149])
++            self.assertEqual(first['training']['optimizer_steps'], first['training']['adam_state']['step_max'])
++            with (root/'first'/'episode_diagnostics.csv').open() as stream:
++                rows = list(csv.DictReader(stream))
++            self.assertEqual(len(rows), 8)
++            self.assertTrue(all(json.loads(row['reward_terms']).keys() == {'new_controller_term'} for row in rows))
++            second = tr.run_control_block(config, tr.ControlConfig(), root/'second', resume_run=root/'first')
++            self.assertEqual(second['training']['inherited_model_timesteps'], 16)
++            self.assertEqual(second['training']['cumulative_model_timesteps'], 32)
++            self.assertEqual(second['training']['adam_state']['inherited_steps'], first['training']['optimizer_steps'])
++            self.assertGreater(second['training']['parameter_changes']['actor_mean']['l2'], 0)
++            self.assertEqual(len(second['training']['updates']), 2)
++            with (root/'second'/'progress.csv').open() as stream:
++                progress = list(csv.DictReader(stream))
++            self.assertEqual(progress[-1]['cumulative_model_timesteps'], '32')
++            loaded = PPO.load(root/'second'/'policy_final.zip', device='cpu')
++            self.assertNotIn('train', loaded.__dict__)
++            correlated = tr.run_control_block(config, tr.ControlConfig(), root/'sde', use_sde=True)
++            self.assertGreater(correlated['training']['optimizer_steps'], 0)
++            correlated_model = PPO.load(root/'sde'/'policy_final.zip', device='cpu')
++            self.assertTrue(correlated_model.use_sde)
++            self.assertEqual(correlated_model.sde_sample_freq, 8)
++            parent_hash = tr.sha256(root/'sde'/'policy_final.zip')
++            with patch.object(tr, 'initialize_exploration_phase', wraps=tr.initialize_exploration_phase) as initialize:
++                branch = tr.run_control_block(config, tr.ControlConfig(), root/'sde-low-std',
++                    use_sde=True, resume_run=root/'sde', initial_exploration_std_factor=.25)
++                self.assertEqual(initialize.call_count, 1)
++                continued = tr.run_control_block(config, tr.ControlConfig(), root/'sde-low-std-continued',
++                    use_sde=True, resume_run=root/'sde-low-std')
++                self.assertEqual(initialize.call_count, 1)
++            self.assertEqual(tr.sha256(root/'sde'/'policy_final.zip'), parent_hash)
++            self.assertTrue(branch['initialization_phase']['applied'])
++            self.assertFalse(continued['initialization_phase']['applied'])
++            self.assertEqual(branch['training']['adam_state']['inherited_steps'], correlated['training']['optimizer_steps'])
++            self.assertEqual(continued['training']['cumulative_model_timesteps'], 48)
++            phase = json.loads((root/'sde-low-std'/'resolved_config.json').read_text())['initialization_phase']
++            self.assertEqual(phase['factor'], .25)
++            with self.assertRaisesRegex(ValueError, 'Resume configuration differs'):
++                tr.run_control_block(replace(config, learning_rate=.001), tr.ControlConfig(), root/'bad', resume_run=root/'first')
++            self.assertFalse((root/'bad').exists())
++            changed = json.loads((root/'first'/'resolved_config.json').read_text())
++            changed['unrelated_metadata'] = 'changed after saving'
++            tr.write_json(root/'first'/'resolved_config.json', changed)
++            with self.assertRaisesRegex(ValueError, 'configuration.*changed|Configuration.*changed'):
++                tr.run_control_block(config, tr.ControlConfig(), root/'changed-config', resume_run=root/'first')
++            self.assertFalse((root/'changed-config').exists())
++
++    def test_exploration_phase_real_sb3_policy_without_env_or_optimizer_step(self):
++        from stable_baselines3.common.policies import ActorCriticPolicy
++        obs_space = gym.spaces.Box(-np.inf, np.inf, (149,), dtype=np.float32)
++        action_space = gym.spaces.Box(-1., 1., (11,), dtype=np.float32)
++        policy = ActorCriticPolicy(obs_space, action_space, lambda _: 1e-4,
++            net_arch=dict(pi=[16, 16], vf=[16, 16]), use_sde=True, log_std_init=-1.5)
++        # Synthetic, explicit Adam state exercises preservation without running
++        # a training step. These values are not X2 optimization evidence.
++        for parameter in policy.parameters():
++            policy.optimizer.state[parameter] = dict(step=torch.tensor(7.),
++                exp_avg=torch.full_like(parameter, .01), exp_avg_sq=torch.full_like(parameter, .02))
++        model = SimpleNamespace(policy=policy, predict=policy.predict, observation_space=obs_space,
++            action_space=action_space, num_timesteps=16384, _n_updates=40)
++        observations = np.full((5, 149), .2, dtype=np.float32)
++        actions, _ = model.predict(observations, deterministic=True)
++        initial_log_std = policy.log_std.detach().clone()
++        with patch.object(policy.optimizer, 'step', side_effect=AssertionError('No optimizer step allowed')):
++            phase = tr.initialize_exploration_phase(model, .25, observations, actions)
++        self.assertTrue(torch.equal(policy.log_std, initial_log_std + np.log(.25)))
++        self.assertTrue(phase['optimizer_state_unchanged'] and phase['rng_state_unchanged'])
++        self.assertEqual(phase['inherited_adam_steps'], 7)
++        self.assertEqual(phase['action_consistency']['intervention_max_abs_error'], 0)
++        self.assertNotEqual(phase['before']['sha256'], phase['after']['sha256'])
++        np.testing.assert_allclose(phase['after']['exp_log_std_mean']/phase['before']['exp_log_std_mean'], .25, rtol=1e-6)
++        before = policy.log_std.detach().clone()
++        noop = tr.initialize_exploration_phase(model, 1., observations, actions)
++        self.assertFalse(noop['applied'])
++        self.assertTrue(torch.equal(policy.log_std, before))
++        with self.assertRaisesRegex(ValueError, 'Parent deterministic'):
++            tr.initialize_exploration_phase(model, .25, observations, actions + .1)
++        self.assertTrue(torch.equal(policy.log_std, before))
++
++    def test_exploration_phase_validation_before_output_creation(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            for value in (0, -1., 1.01, float('nan'), float('inf'), True, '.25'):
++                with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'factor'):
++                    tr.run_control_block(tr.TrainConfig(), tr.ControlConfig(), root/'invalid',
++                        resume_run=root/'absent', initial_exploration_std_factor=value)
++                self.assertFalse((root/'invalid').exists())
++            with self.assertRaisesRegex(ValueError, 'requires --resume-run'):
++                tr.run_control_block(tr.TrainConfig(), tr.ControlConfig(), root/'fresh',
++                    initial_exploration_std_factor=.25)
++            self.assertFalse((root/'fresh').exists())
++
++    def test_control_budget_and_path_rejected_before_creation(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            with self.assertRaisesRegex(ValueError, '1800'):
++                tr.run_control_block(tr.TrainConfig(max_wall_seconds=1801), tr.ControlConfig(), root/'new')
++            with self.assertRaisesRegex(ValueError, 'already exists'):
++                tr.run_control_block(tr.TrainConfig(), tr.ControlConfig(), root)
++            self.assertFalse((root/'new').exists())
++
++
+ if __name__ == '__main__':
+     unittest.main()
+diff --git a/src/x2_recovery/x2_recovery/env.py b/src/x2_recovery/x2_recovery/env.py
+index 7c279f2..14a2dec 100644
+--- a/src/x2_recovery/x2_recovery/env.py
++++ b/src/x2_recovery/x2_recovery/env.py
+@@ -14,6 +14,23 @@ from .reset import ResetSettings, reset_supine, checked_step, model_signature, i
+ from .success import StandingContext, SuccessTracker, CALIBRATED_SETTINGS, measure_standing
+ 
+ 
++# Keep this list identical to reset.model_signature; the regression test checks
++# that its bytewise boundary checks cover every field used by the provenance hash.
++_MODEL_SIGNATURE_ARRAYS = (
++    'body_mass','body_inertia','body_ipos','body_iquat','body_pos','body_quat',
++    'body_gravcomp','jnt_range','jnt_margin','jnt_solref','jnt_solimp',
++    'jnt_limited','jnt_actfrclimited','jnt_actfrcrange','jnt_axis',
++    'dof_damping','dof_armature','dof_frictionloss','geom_type','geom_size',
++    'geom_pos','geom_quat','geom_contype','geom_conaffinity','geom_friction',
++    'geom_solref','geom_solimp','geom_margin','geom_gap','geom_priority',
++    'mesh_vert','actuator_gear','actuator_gainprm','actuator_biasprm',
++    'actuator_ctrlrange','actuator_ctrllimited','eq_active0')
++_MODEL_IDENTITY_ARRAYS = (
++    'jnt_type','jnt_bodyid','jnt_qposadr','jnt_dofadr','body_parentid','body_rootid',
++    'geom_bodyid','actuator_trnid','actuator_trntype','actuator_dyntype','actuator_gaintype',
++    'actuator_ctrladr','actuator_outadr','actuator_forcelimited','actuator_forcerange')
++
++
+ @dataclass(frozen=True)
+ class EnvConfig:
+     decimation: int = 20
+@@ -143,6 +160,17 @@ class X2RecoveryEnv(gym.Env):
+         self.action_space=gym.spaces.Box(-1.,1.,(31,),dtype=np.float32)
+         self.observation_space=gym.spaces.Box(-np.inf,np.inf,(117,),dtype=np.float32)
+         self._mapping=self.loaded.mapping;self._signature=self._model_identity()
++        # Check the same bytes at the same boundaries without rehashing the full
++        # collision mesh twice per transition. uint8 comparison also detects
++        # signed-zero changes that ordinary floating-point equality would miss.
++        self._model_snapshot=[]
++        for key in _MODEL_SIGNATURE_ARRAYS+_MODEL_IDENTITY_ARRAYS:
++            original=getattr(self.model,key)
++            snapshot=original.view(np.uint8).copy();snapshot.setflags(write=False)
++            self._model_snapshot.append((key,original.dtype,original.shape,snapshot))
++        self._model_snapshot=tuple(self._model_snapshot)
++        self._model_options=str(self.model.opt)
++        self._model_counts=(self.model.neq,self.model.nmocap)
+         self._renderer=None;self._human=None;self._closed=False;self._ready=False
+         self._measurement=None;self._result=None;self._expected_state=None
+         self._seed=None;self.reset_seed=None;self.episode_start_time=None
+@@ -150,18 +178,23 @@ class X2RecoveryEnv(gym.Env):
+         self._physics_steps=0;self.last_substeps=[];self.last_error=None;self.reset_evidence=None
+ 
+     def _model_identity(self):
+-        # Whole mesh identity at policy/reset/render boundaries, NEVER each substep.
++        # Cryptographic provenance identity; boundary checks compare these bytes.
+         import hashlib
+         h=hashlib.sha256(model_signature(self.model).encode())
+-        for key in ('jnt_type','jnt_bodyid','jnt_qposadr','jnt_dofadr','body_parentid','body_rootid',
+-                    'geom_bodyid','actuator_trnid','actuator_trntype','actuator_dyntype','actuator_gaintype',
+-                    'actuator_ctrladr','actuator_outadr','actuator_forcelimited','actuator_forcerange'):
++        for key in _MODEL_IDENTITY_ARRAYS:
+             h.update(getattr(self.model,key).tobytes())
+         h.update(str((self.model.neq,self.model.nmocap)).encode())
+         return h.digest()
+ 
+     def _check_model(self):
+-        require(self.loaded.mapping==self._mapping and self._model_identity()==self._signature,'Model/mapping changed')
++        require(self.loaded.mapping==self._mapping
++                and str(self.model.opt)==self._model_options
++                and (self.model.neq,self.model.nmocap)==self._model_counts,
++                'Model/mapping changed')
++        for key,dtype,shape,snapshot in self._model_snapshot:
++            current=getattr(self.model,key)
++            require(current.dtype==dtype and current.shape==shape
++                    and np.array_equal(current.view(np.uint8),snapshot),'Model/mapping changed')
+         check_callbacks()
+ 
+     def _fail(self, exc, action=None):
+@@ -389,3 +422,434 @@ class _HumanView:
+         self.glfw.make_context_current(self.window);self.context.free()
+         self.glfw.destroy_window(self.window);type(self).users-=1
+         if not type(self).users:self.glfw.terminate()
++
++
++BILATERAL_ACTION_NAMES = ('hip_pitch', 'hip_roll', 'hip_yaw', 'knee', 'ankle_pitch',
++                          'ankle_roll', 'waist_pitch', 'shoulder_pitch', 'shoulder_roll',
++                          'shoulder_yaw', 'elbow')
++
++
++def bilateral_action_matrix(joint_names):
++    """Map normalized bilateral commands into the pinned X2 joint order.
++
++    The model uses +Y pitch/knee/elbow, +X roll and +Z yaw on both sides.
++    A sagittal mirror therefore reverses right roll/yaw commands. The slightly
++    asymmetric shoulder frames mean this is a coordination prior, not exact IK.
++    Unlisted joints keep their reference targets without a learned residual.
++    """
++    require(len(joint_names) == 31 and len(set(joint_names)) == 31, 'Invalid physical joint order')
++    matrix = np.zeros((31, len(BILATERAL_ACTION_NAMES)))
++    for column, name in enumerate(BILATERAL_ACTION_NAMES):
++        sides = ('',) if name == 'waist_pitch' else ('left_', 'right_')
++        for side in sides:
++            joint = side + name + '_joint'
++            require(joint in joint_names, 'Missing bilateral joint: ' + joint)
++            sign = -1. if side == 'right_' and name.endswith(('_roll', '_yaw')) else 1.
++            matrix[joint_names.index(joint), column] = sign
++    return matrix
++
++
++INDEPENDENT_LEG_ACTION_NAMES = tuple(side+'_'+name for side in ('left', 'right')
++                                     for name in BILATERAL_ACTION_NAMES[:6]) + BILATERAL_ACTION_NAMES[6:]
++
++
++def independent_legs_action_matrix(joint_names):
++    """Twelve independent leg commands and the existing five upper-body synergies."""
++    bilateral = bilateral_action_matrix(joint_names)
++    matrix = np.zeros((31, len(INDEPENDENT_LEG_ACTION_NAMES)))
++    for column, name in enumerate(INDEPENDENT_LEG_ACTION_NAMES[:12]):
++        matrix[joint_names.index(name+'_joint'), column] = 1.
++    matrix[:, 12:] = bilateral[:, 6:]
++    return matrix
++
++
++@dataclass(frozen=True)
++class ControlConfig:
++    """Versioned learning controller; the wrapped physical task is unchanged."""
++    version: str = 'targets-v1'
++    mode: str = 'rate'
++    rate_multiplier: float = 1.
++    delta_multiplier: float = 1.
++    tracking_error_ratio: float | None = None
++    reward_version: str = 'original'
++    reference_stages: tuple = ()
++    residual_multiplier: float = .2
++    residual_joint_multipliers: tuple | None = None
++    action_layout: str = 'joint31'
++    reference_interpolation: str = 'quintic-v1'
++    head_reference: tuple = ()
++    head_progress_range_m: tuple = ()
++    residual_start_s: float = 0.
++    residual_ramp_s: float = 0.
++
++    def __post_init__(self):
++        layouts = {'targets-v1': 'joint31', 'targets-v2': 'joint31', 'targets-v3': 'bilateral11',
++                   'targets-v4': 'bilateral11', 'targets-v5': 'independentlegs17'}
++        require(type(self.version) is str and self.version in layouts, 'Unknown controller version')
++        require(self.action_layout in layouts.values(), 'Unknown policy action layout')
++        require(self.action_layout == layouts[self.version], 'Controller version/action layout mismatch')
++        require(self.mode in ('rate', 'measured_delta', 'reference_residual'), 'Unknown action semantics')
++        for name in ('residual_start_s', 'residual_ramp_s'):
++            value = getattr(self, name)
++            require(type(value) in (int, float) and np.isfinite(value) and value >= 0,
++                    'Residual phase times must be finite nonnegative numbers')
++        if self.version in ('targets-v4', 'targets-v5'):
++            require(self.mode == 'reference_residual' and self.residual_ramp_s > 0,
++                    'targets-v4/v5 requires reference_residual and a positive residual ramp')
++        else:
++            require(self.residual_start_s == self.residual_ramp_s == 0,
++                    'Residual phase gating requires targets-v4/v5')
++        require(self.reference_interpolation in ('quintic-v1', 'linear-v1'), 'Unknown reference interpolation')
++        require(self.reference_interpolation == 'quintic-v1' or self.mode == 'reference_residual',
++                'Linear reference interpolation requires reference_residual')
++        require(self.reward_version in ('original', 'support-v1', 'track-v1', 'upright-support-v2',
++                                       'reference-head-support-v1', 'reference-balance-v1'),
++                'Unknown reward version')
++        require(type(self.head_reference) is tuple and type(self.head_progress_range_m) is tuple,
++                'Head reference and progress range must be tuples')
++        if self.reward_version in ('reference-head-support-v1', 'reference-balance-v1'):
++            require(self.mode == 'reference_residual', 'Head reference reward requires reference_residual')
++            require(len(self.head_progress_range_m) == 2
++                    and all(type(x) in (int, float) and np.isfinite(x) for x in self.head_progress_range_m)
++                    and 0 <= self.head_progress_range_m[0] < self.head_progress_range_m[1],
++                    'Head progress range must be finite increasing nonnegative heights')
++            require(len(self.head_reference) >= 2 and all(type(row) is tuple and len(row) == 2
++                    and all(type(x) in (int, float) and np.isfinite(x) for x in row)
++                    and row[0] >= 0 and 0 <= row[1] <= 1 for row in self.head_reference),
++                    'Head reference must contain finite (time, progress) pairs')
++            require(self.head_reference[0] == (0., 0.) and self.head_reference[-1][1] == 1.
++                    and all(b[0] > a[0] for a, b in zip(self.head_reference, self.head_reference[1:])),
++                    'Head reference must start at (0,0), end at progress1 and have increasing times')
++        else:
++            require(not self.head_reference and not self.head_progress_range_m,
++                    'Head reference inputs require a head-guided reward version')
++        for name in ('rate_multiplier', 'delta_multiplier', 'residual_multiplier'):
++            value = getattr(self, name)
++            require(type(value) in (int, float) and np.isfinite(value) and value > 0, 'Invalid '+name)
++        require(self.tracking_error_ratio is None or (type(self.tracking_error_ratio) in (int, float)
++                and np.isfinite(self.tracking_error_ratio) and self.tracking_error_ratio > 0), 'Invalid tracking error ratio')
++        require(type(self.reference_stages) is tuple, 'Reference stages must be a tuple')
++        require((self.mode == 'reference_residual') == bool(self.reference_stages), 'Reference/controller mismatch')
++        require(self.reward_version != 'track-v1' or self.mode == 'reference_residual',
++                'Tracking reward requires reference control')
++        require((self.version in ('targets-v2', 'targets-v3', 'targets-v4', 'targets-v5')) == (self.residual_joint_multipliers is not None),
++                'Jointwise residual multipliers require targets-v2/v3/v4/v5 and explicit values')
++        if self.residual_joint_multipliers is not None:
++            require(self.mode == 'reference_residual', 'Jointwise residual multipliers require reference_residual')
++            require(type(self.residual_joint_multipliers) is tuple and len(self.residual_joint_multipliers) == 31,
++                    'Jointwise residual multipliers must be a 31-element tuple in mapped joint order')
++            require(all(type(value) in (int, float) and np.isfinite(value) and value >= 0
++                        for value in self.residual_joint_multipliers),
++                    'Jointwise residual multipliers must be finite nonnegative numbers')
++
++    @classmethod
++    def from_dict(cls, values):
++        values = dict(values)
++        if 'reference_stages' in values:
++            values['reference_stages'] = tuple((str(n), float(t), dict(q)) for n, t, q in values['reference_stages'])
++        if values.get('residual_joint_multipliers') is not None:
++            require(type(values['residual_joint_multipliers']) in (list, tuple),
++                    'Jointwise residual multipliers must be a list or tuple')
++            values['residual_joint_multipliers'] = tuple(values['residual_joint_multipliers'])
++        for name in ('head_reference', 'head_progress_range_m'):
++            if name in values:
++                require(type(values[name]) in (list, tuple), 'Head reference fields must be lists or tuples')
++                values[name] = tuple(tuple(row) if type(row) in (list, tuple) else row for row in values[name]) if name == 'head_reference' else tuple(values[name])
++        return cls(**values)
++
++
++def residual_phase_gate(control, elapsed_sim_s):
++    """Read the 50Hz pre-control phase; never advance a separate phase state."""
++    require(np.isfinite(elapsed_sim_s) and elapsed_sim_s >= 0, 'Invalid residual gate time')
++    if control.version not in ('targets-v4', 'targets-v5'):
++        return 1.
++    u = float(np.clip((elapsed_sim_s-control.residual_start_s)/control.residual_ramp_s, 0., 1.))
++    return u**3*(10.-15.*u+6.*u*u)
++
++
++def controller_reference_targets(elapsed_sim_s, keyframes, interpolation):
++    """Sample an explicit reference interpolation, without advancing controller state."""
++    if interpolation == 'quintic-v1':
++        from .baseline import scripted_targets
++        return scripted_targets(elapsed_sim_s, keyframes)
++    require(interpolation == 'linear-v1', 'Unknown reference interpolation')
++    require(np.isfinite(elapsed_sim_s) and elapsed_sim_s >= 0, 'Invalid episode time')
++    times, targets = keyframes.times_s, keyframes.targets_rad
++    if elapsed_sim_s >= times[-1]:
++        return targets[-1].copy(), dict(name='hold', progress=1., sequence_finished=True)
++    index = int(np.searchsorted(times, elapsed_sim_s, side='right')-1)
++    fraction = float(np.clip((elapsed_sim_s-times[index])/(times[index+1]-times[index]), 0., 1.))
++    return ((1-fraction)*targets[index]+fraction*targets[index+1],
++            dict(name=keyframes.phases[index], progress=fraction, sequence_finished=False))
++
++
++def balance_support_task(state):
++    """Near-upright balance densities; these are not standing/safety predicates."""
++    names = ('pelvis_height_m', 'upright_dot', 'left_weight', 'right_weight', 'other_weight',
++             'com_linear_m_s', 'torso_angular_rad_s', 'self_penetration_m')
++    require(np.isfinite([state[name] for name in names]).all(), 'Nonfinite balance task measurement')
++    height = float(np.clip(state['pelvis_height_m']/CALIBRATED_SETTINGS.h_ref_m, 0., 1.))
++    gate = float(np.clip((state['upright_dot']-.5)/.5, 0., 1.))
++    feet = state['left_weight']+state['right_weight']
++    bilateral = float(np.clip(min(state['left_weight'], state['right_weight'])/.2, 0., 1.))
++    distance = max(.8-feet, 0., feet-1.2)
++    nominal_load = float(np.exp(-(distance/.4)**2))
++    other_support = float(np.exp(-(state['other_weight']/.1)**2))
++    low_speed = float(1./(1.+(state['com_linear_m_s']/.3)**2+(state['torso_angular_rad_s']/.75)**2))
++    terms = dict(balance=6.*height*gate*bilateral*nominal_load*other_support*low_speed,
++                 overload=-.5*gate*float(np.clip(feet-1.2, 0., 3.)),
++                 self_penetration=-.5*gate*float(np.clip(state['self_penetration_m']/.003, 0., 1.)))
++    require(np.isfinite(list(terms.values())).all(), 'Nonfinite balance task reward')
++    return terms, dict(balance_height_factor=height, balance_upright_gate=gate,
++        balance_bilateral_factor=bilateral, balance_nominal_load_factor=nominal_load,
++        balance_other_support_factor=other_support, balance_low_speed_factor=low_speed,
++        balance_feet_weight=float(feet))
++
++
++def head_support_task(config, q, reference, pose_indices, state, qualified, head_height_m, elapsed_s):
++    """Control-boundary task reward densities, independent of success detection."""
++    require(config.reward_version in ('reference-head-support-v1', 'reference-balance-v1'),
++            'Expected head-guided reward')
++    require(np.isfinite(head_height_m) and np.isfinite(elapsed_s) and elapsed_s >= 0,
++            'Nonfinite head task measurement or invalid time')
++    z0, zstar = config.head_progress_range_m
++    progress = float(np.clip((head_height_m-z0)/(zstar-z0), 0., 1.))
++    table = np.asarray(config.head_reference)
++    reference_progress = float(np.interp(elapsed_s, table[:, 0], table[:, 1]))
++    pose_error = np.asarray(q)[pose_indices]-np.asarray(reference)[pose_indices]
++    joint_match = float(np.exp(-np.mean(pose_error**2)/.35**2))
++    head_match = float(np.exp(-((progress-reference_progress)/.2)**2))
++    upright = float(np.clip(state['upright_dot'], 0., 1.))
++    left, right, other = state['left_weight'], state['right_weight'], state['other_weight']
++    contact = float(np.clip(left+right+other, 0., 1.))
++    foot_transfer = float(np.clip(left+right, 0., 1.)*np.clip(min(left,right)/.25, 0., 1.)
++                          *(1.-np.clip(other, 0., 1.)))
++    terms = dict(pose_guide=(1.-reference_progress)*joint_match,
++                 head_track=2.*head_match*contact, upright_progress=4.*progress*upright*contact,
++                 foot_transfer=2.*progress*upright*foot_transfer, standing=5.*float(qualified))
++    require(np.isfinite(list(terms.values())).all(), 'Nonfinite head task reward')
++    diagnostics = dict(head_height_m=float(head_height_m), head_progress=progress,
++        reference_progress=reference_progress, head_tracking_error=progress-reference_progress,
++        head_tracking_error_m=float(head_height_m-(z0+reference_progress*(zstar-z0))),
++        contact_factor=contact, upright=upright, foot_transfer_factor=foot_transfer,
++        pose_error_rms_rad=float(np.sqrt(np.mean(pose_error**2))), elapsed_sim_s=float(elapsed_s),
++        measurement_scope='post-step control boundary; head_pitch_link body origin in world Z')
++    if config.reward_version == 'reference-balance-v1':
++        balance, factors = balance_support_task(state)
++        terms = dict(pose_guide=terms['pose_guide'], head_track=terms['head_track'],
++                     **balance, standing=terms['standing'])
++        diagnostics.update(factors)
++    return terms, diagnostics
++
++
++class ControlledRecoveryEnv(gym.Wrapper):
++    """50 Hz target generation ahead of the original limited PD and MuJoCo step.
++
++    This is intentionally not HoST's per-physics-step current-q offset. The new
++    policy observes the adopted target and elapsed phase. All episodes still start
++    through the original supine reset; the original tracker owns success.
++    """
++    def __init__(self, env=None, control=None):
++        super().__init__(env if env is not None else X2RecoveryEnv())
++        require(isinstance(self.env, X2RecoveryEnv), 'Expected the native X2 physical environment')
++        self.control_config = control if control is not None else ControlConfig()
++        require(isinstance(self.control_config, ControlConfig), 'Expected ControlConfig')
++        if self.control_config.version in ('targets-v4', 'targets-v5'):
++            require(self.control_config.residual_start_s+self.control_config.residual_ramp_s
++                    <= self.env.config.episode_timeout_s, 'Residual ramp exceeds the original episode timeout')
++        self.observation_space = gym.spaces.Box(-np.inf, np.inf, (149,), dtype=np.float32)
++        joint_names = [row.joint_name for row in self.env.loaded.mapping]
++        self.pose_indices = np.array([i for i, name in enumerate(joint_names)
++                                      if 'head' not in name and 'wrist' not in name], dtype=int)
++        self.head_body = None
++        if self.control_config.reward_version in ('reference-head-support-v1', 'reference-balance-v1'):
++            require(len(self.pose_indices) == 23, 'Expected 23 reference pose joints')
++            self.head_body = self.env.model.body('head_pitch_link').id
++        if self.control_config.action_layout == 'bilateral11':
++            self.policy_action_names = BILATERAL_ACTION_NAMES
++            self.policy_to_joint = bilateral_action_matrix(joint_names)
++            self.action_space = gym.spaces.Box(-1., 1., (11,), dtype=np.float32)
++        elif self.control_config.action_layout == 'independentlegs17':
++            self.policy_action_names = INDEPENDENT_LEG_ACTION_NAMES
++            self.policy_to_joint = independent_legs_action_matrix(joint_names)
++            self.action_space = gym.spaces.Box(-1., 1., (17,), dtype=np.float32)
++        else:
++            self.policy_action_names = tuple(joint_names)
++            self.policy_to_joint = np.eye(31)
++        groups = {'hip': 1.5, 'knee': 1.5, 'ankle': 1., 'waist': .6,
++                  'shoulder': 1.5, 'elbow': 1.5, 'wrist': .6, 'head': .6}
++        self.rate = np.array([groups[r.joint_name.removeprefix('left_').removeprefix('right_').split('_')[0]]
++                              for r in self.env.loaded.mapping]) * self.control_config.rate_multiplier
++        # A position error producing one effort limit under P alone. Damping and
++        # contact dynamics can still cause saturation; this is not a force guarantee.
++        self.delta = np.minimum(self.env.effort_magnitude / self.env.kp,
++                                (self.env.q_max-self.env.q_min)*.25) * self.control_config.delta_multiplier
++        # Static mapped-joint coefficients do not add controller state. An exact
++        # zero disables only that joint's learned residual, not its reference/PD.
++        self.residual_scale = self.delta * self.control_config.residual_multiplier
++        if self.control_config.residual_joint_multipliers is not None:
++            self.residual_scale *= np.asarray(self.control_config.residual_joint_multipliers)
++        require(np.isfinite(self.residual_scale).all(), 'Derived residual scales must be finite')
++        self.target = self.env.q_ref.copy()
++        self.reference = None
++        self.last_controller = None
++
++    def _augment(self, observation):
++        e = self.env
++        target = (self.target-(e.q_min+e.q_max)/2)/((e.q_max-e.q_min)/2)
++        phase = (e.data.time-e.episode_start_time)/e.config.episode_timeout_s
++        obs = np.r_[observation, target, phase].astype(np.float32)
++        require(obs.shape == (149,) and np.isfinite(obs).all(), 'Invalid controller observation')
++        return obs
++
++    def reset(self, **kwargs):
++        observation, info = self.env.reset(**kwargs)
++        q, _ = self.env.loaded.read_state(self.env.data)
++        self.target = np.clip(q, self.env.q_min, self.env.q_max)
++        self.reference = None
++        if self.control_config.reference_stages:
++            from .baseline import build_keyframes
++            self.reference = build_keyframes(q, self.env.loaded.mapping, stages=self.control_config.reference_stages)
++        self.last_controller = None
++        info['controller'] = dict(version=self.control_config.version, mode=self.control_config.mode,
++                                  action_layout=self.control_config.action_layout,
++                                  initial_target_rad=self.target.tolist())
++        if self.control_config.version in ('targets-v4', 'targets-v5'):
++            info['controller'].update(residual_gate=0., residual_gate_time_s=0.)
++        return self._augment(observation), info
++
++    def step(self, action):
++        e, c = self.env, self.control_config
++        action = np.asarray(action)
++        require(action.shape == self.action_space.shape and np.issubdtype(action.dtype, np.number)
++                and not np.iscomplexobj(action) and np.isfinite(action).all() and np.all(abs(action) <= 1),
++                'Controller action must be finite and in [-1,1] with shape ' + str(self.action_space.shape))
++        # Keep legacy arithmetic intact; the new linear map acts once, inside
++        # the environment. PPO retains the policy's original action/log-probability.
++        mapped_action = self.policy_to_joint @ action if c.action_layout != 'joint31' else action
++        q, _ = e.loaded.read_state(e.data)
++        previous = self.target.copy()
++        reference = None
++        gate_time = float(e.data.time-e.episode_start_time)
++        if c.mode == 'rate':
++            _, requested = e.action_targets(action)
++        elif c.mode == 'measured_delta':
++            requested = np.clip(q+self.delta*action, e.q_min, e.q_max)
++        else:
++            reference, _ = controller_reference_targets(
++                e.data.time-e.episode_start_time+e.control_dt, self.reference, c.reference_interpolation)
++            if c.version in ('targets-v4', 'targets-v5'):
++                gate = residual_phase_gate(c, gate_time)
++                gated_residual = self.residual_scale*mapped_action*gate
++                requested = np.clip(reference+gated_residual, e.q_min, e.q_max)
++            else:
++                requested = np.clip(reference+self.residual_scale*mapped_action, e.q_min, e.q_max)
++        if c.tracking_error_ratio is not None:
++            margin = e.effort_magnitude/e.kp*c.tracking_error_ratio
++            requested = np.clip(requested, np.maximum(e.q_min,q-margin), np.minimum(e.q_max,q+margin))
++        self.target = requested if c.mode == 'measured_delta' else previous+np.clip(
++            requested-previous, -self.rate*e.control_dt, self.rate*e.control_dt)
++        physical_action = e.action_for_targets(self.target)
++        observation, original_reward, terminated, truncated, info = e.step(physical_action)
++        self.last_controller = dict(policy_action=action.tolist(), mapped_policy_action=mapped_action.tolist(),
++            action_layout=c.action_layout, requested_target_rad=requested.tolist(),
++            adopted_target_rad=self.target.tolist(), pre_q_rad=q.tolist(),
++            pre_time_s=float(e.data.time-e.episode_start_time-info['physics_steps_executed']*e.physics_dt),
++            target_tracking_max_rad=float(np.max(abs(self.target-q))),
++            target_tracking_rms_rad=float(np.sqrt(np.mean((self.target-q)**2))))
++        if c.version in ('targets-v4', 'targets-v5'):
++            self.last_controller.update(residual_gate=gate, residual_gate_time_s=gate_time,
++                                        gated_residual_rad=gated_residual.tolist())
++        info['controller'] = self.last_controller
++        reward = original_reward
++        if c.reward_version != 'original':
++            # New task objective, not an optimal-policy-invariant shaping claim.
++            v = e._measurement
++            dt = info['physics_steps_executed']*e.physics_dt
++            if c.reward_version in ('reference-head-support-v1', 'reference-balance-v1'):
++                elapsed = float(e.data.time-e.episode_start_time)
++                measured_reference, _ = controller_reference_targets(elapsed, self.reference, c.reference_interpolation)
++                actual, _ = e.loaded.read_state(e.data)
++                density, info['learning_task'] = head_support_task(c, actual, measured_reference,
++                    self.pose_indices, v, e._result['instant_standing_ok'] and not e._result['failures'],
++                    float(e.data.xpos[self.head_body, 2]), elapsed)
++                terms = {name: dt*value for name, value in density.items()}
++                terms.update(torque_cost=info['reward_terms']['torque_cost'],
++                    target_change=-.01*float(np.mean((self.target-previous)**2)),
++                    success=50.*float(info['is_success']),
++                    safety=-2.*float(str(info['termination_reason']).startswith('safety_abort:')))
++            else:
++                height = np.clip(v['pelvis_height_m']/CALIBRATED_SETTINGS.h_ref_m,0,1.2)
++                upright = np.clip(v['upright_dot'],0,1)
++                feet = np.clip(v['left_weight']+v['right_weight'],0,1.2)
++                bilateral = np.clip(min(v['left_weight'],v['right_weight'])/.25,0,1)
++                terms = dict(posture=dt*2*upright, elevation=dt*3*height,
++                    foot_support=dt*3*height*upright*feet,
++                    bilateral=dt*height*upright*bilateral,
++                    standing=dt*5*float(e._result['instant_standing_ok'] and not e._result['failures']),
++                    torque_cost=info['reward_terms']['torque_cost'],
++                    target_change=-.01*float(np.mean((self.target-previous)**2)),
++                    success=50.*float(info['is_success']), safety=-2.*float(str(info['termination_reason']).startswith('safety_abort:')))
++                if c.reward_version == 'upright-support-v2':
++                    # A new objective: elevation only pays in proportion to uprightness.
++                    # The earlier reward versions retain their recorded semantics.
++                    terms['elevation'] *= upright
++                if c.reward_version == 'track-v1':
++                    require(reference is not None, 'Tracking reward requires reference')
++                    actual, _ = e.loaded.read_state(e.data)
++                    terms['reference_tracking'] = dt*float(np.exp(-4*np.mean((actual-reference)**2)))
++            info['physical_reward_terms'] = info['reward_terms']
++            info['physical_reward'] = original_reward
++            info['reward_terms'] = terms
++            reward = float(sum(terms.values()))
++        return self._augment(observation), reward, terminated, truncated, info
++
++    def resolved_config(self):
++        resolved = dict(base=self.env.resolved_config(), controller=asdict(self.control_config),
++            target_rate_rad_s=self.rate.tolist(), measured_delta_rad=self.delta.tolist(),
++            residual_scale_rad=self.residual_scale.tolist(),
++            residual_joint_full_scale_rad=(self.residual_scale*np.sum(abs(self.policy_to_joint), axis=1)).tolist(),
++            residual_joint_names=[row.joint_name for row in self.env.loaded.mapping],
++            policy_action_names=list(self.policy_action_names), policy_to_joint_matrix=self.policy_to_joint.tolist(),
++            residual_action_semantics='reference + residual_scale_rad * (policy_to_joint_matrix @ policy_action); joint_multiplier=1 for targets-v1; then joint-range and target-rate limits',
++            reference_sampling=dict(interpolation=self.control_config.reference_interpolation,
++                frequency_hz=1/self.env.control_dt, time='elapsed recovery time + control_dt',
++                endpoint='final legal reference target held after final keyframe'),
++            action_schema=f'{self.action_space.shape[0]} normalized {self.control_config.action_layout} policy actions; controller transforms once per control step',
++            observation_schema='native117 + adopted_target normalized31 + elapsed/timeout1',
++            observation_shape=[149], action_shape=list(self.action_space.shape))
++        if self.control_config.version in ('targets-v4', 'targets-v5'):
++            resolved['residual_action_semantics'] = ('reference + residual_phase_gate(pre_control_elapsed) * '
++                'residual_scale_rad * (policy_to_joint_matrix @ policy_action); then joint-range and target-rate limits')
++            resolved['residual_gate'] = dict(start_s=self.control_config.residual_start_s,
++                ramp_s=self.control_config.residual_ramp_s, interpolation='quintic 10u^3-15u^4+6u^5',
++                u='clip((pre_control_elapsed-start_s)/ramp_s,0,1)',
++                sampling='once at the beginning of each control step; held for its physical substeps',
++                timing='off-grid start takes effect at the first subsequent control boundary',
++                state='derived only from existing observed elapsed/timeout phase; reset adds no hidden state',
++                residual_scale_scope='resolved residual scales are full authority when gate reaches1',
++                policy_buffer='original policy actions and log probabilities are unchanged')
++        if self.control_config.reward_version in ('reference-head-support-v1', 'reference-balance-v1'):
++            resolved['learning_task'] = dict(head_body='head_pitch_link', head_point='body origin world Z',
++                pose_joint_names=[self.env.loaded.mapping[i].joint_name for i in self.pose_indices],
++                head_reference_interpolation='linear with endpoint hold', pose_sigma_rad=.35,
++                head_progress_sigma=.2, density_weights=dict(pose_guide=1.,head_track=2.,upright_progress=4.,foot_transfer=2.,standing=5.),
++                sampling='post-control-step measurements weighted by actual executed physics duration',
++                observation='existing joint angles, pelvis gravity/height and elapsed phase determine the task inputs; normalization/table are fixed configuration')
++            if self.control_config.reward_version == 'reference-balance-v1':
++                resolved['learning_task'].update(
++                    density_weights=dict(pose_guide=1., head_track=2., balance=6., overload=-.5,
++                                         self_penetration=-.5, standing=5.),
++                    balance_factors=dict(
++                        height='clip(pelvis_height_m/h_ref_m,0,1)',
++                        upright_gate='clip((upright_dot-.5)/.5,0,1)',
++                        bilateral='clip(min(left_weight,right_weight)/.2,0,1)',
++                        nominal_load='exp(-(distance(left_weight+right_weight,[.8,1.2])/.4)^2)',
++                        other_support='exp(-(other_weight/.1)^2)',
++                        low_speed='1/(1+(com_linear_m_s/.3)^2+(torso_angular_rad_s/.75)^2)'),
++                    balance_density='6 * product(balance_factors)',
++                    overload_density='-.5 * upright_gate * clip(left_weight+right_weight-1.2,0,3)',
++                    self_penetration_density='-.5 * upright_gate * clip(self_penetration_m/.003,0,1)',
++                    standing='unchanged native independent standing result; no new success or termination rule',
++                    scope='New task objective; bounded balance costs vanish at torso tilt >=60 degrees; no optimal-policy invariance claim')
++        return resolved
+diff --git a/src/x2_recovery/x2_recovery/train.py b/src/x2_recovery/x2_recovery/train.py
+index d447ccd..4e9f360 100644
+--- a/src/x2_recovery/x2_recovery/train.py
++++ b/src/x2_recovery/x2_recovery/train.py
+@@ -20,6 +20,7 @@ import sys
+ import time
+ import traceback
+ import csv
++import random
+ 
+ import numpy as np
+ import torch
+@@ -27,9 +28,9 @@ from stable_baselines3 import PPO
+ from stable_baselines3.common.callbacks import BaseCallback
+ from stable_baselines3.common.logger import configure
+ from stable_baselines3.common.monitor import Monitor
+-from stable_baselines3.common.vec_env import DummyVecEnv, VecCheckNan
++from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecCheckNan
+ 
+-from .env import EnvConfig, X2RecoveryEnv
++from .env import ControlConfig, ControlledRecoveryEnv, EnvConfig, X2RecoveryEnv
+ from .model import COMMIT, REPOSITORY, SCENE, require
+ from .model_audit import fingerprint
+ from .success import MODEL_FINGERPRINT
+@@ -213,29 +214,49 @@ def env_identity(env):
+ 
+ def provenance(directory):
+     import importlib.metadata
+-    root = Path(subprocess.check_output(['git', '-C', str(Path(__file__).resolve().parent),
++    package = Path(__file__).resolve().parent
++    root = Path(subprocess.check_output(['git', '-C', str(package),
+                                          'rev-parse', '--show-toplevel'], text=True).strip())
+     def git(*args):
+         return subprocess.check_output(['git', '-C', str(root), *args], text=True).strip()
+     snapshot = directory / 'source'
+     snapshot.mkdir()
+-    paths = list((root / 'src/x2_recovery/x2_recovery').glob('*.py'))
+-    paths += [root / p for p in ('requirements.txt', 'src/x2_recovery/setup.py',
+-                                'src/x2_recovery/package.xml', '.gitignore')]
++    logical_package = Path('src/x2_recovery/x2_recovery')
++    paths = {logical_package / path.name: path for path in package.glob('*.py')}
++    # A continuation may import a previous run's source snapshot. Record the
++    # actual modules, including an explicit override if imports span directories.
++    for name, module in tuple(sys.modules.items()):
++        if name != 'x2_recovery' and not name.startswith('x2_recovery.'):
++            continue
++        filename = getattr(module, '__file__', None)
++        if filename is None or Path(filename).suffix != '.py':
++            continue
++        actual = Path(filename).resolve()
++        suffix = Path(*name.split('.')[1:])
++        relative = (suffix / '__init__.py' if actual.name == '__init__.py'
++                    else suffix.with_suffix('.py'))
++        paths[logical_package / relative] = actual
++    layout_root = package.parents[2] if package.parts[-3:] == ('src', 'x2_recovery', 'x2_recovery') else root
++    for relative in map(Path, ('requirements.txt', 'src/x2_recovery/setup.py',
++                              'src/x2_recovery/package.xml', '.gitignore')):
++        candidate = layout_root / relative
++        paths[relative] = candidate if candidate.is_file() else root / relative
+     hashes = {}
+-    for path in paths:
+-        relative = path.relative_to(root)
++    for relative, path in sorted(paths.items()):
+         target = snapshot / relative
+         target.parent.mkdir(parents=True, exist_ok=True)
+         shutil.copyfile(path, target)
+         hashes[str(relative)] = sha256(target)
+-    (snapshot / 'tracked.diff').write_text(git('diff', 'HEAD', '--', *(str(p.relative_to(root)) for p in paths)))
++    (snapshot / 'tracked.diff').write_text(git('diff', 'HEAD', '--', *(str(p) for p in sorted(paths))))
+     memory = {line.split(':')[0]: line.split(':')[1].strip()
+               for line in Path('/proc/meminfo').read_text().splitlines()
+               if line.split(':')[0] in ('MemTotal', 'MemAvailable', 'SwapTotal', 'SwapFree')}
+     return dict(git=dict(root=str(root), branch=git('branch', '--show-current'), head=git('rev-parse', 'HEAD'),
+                          status=git('status', '--porcelain', '--untracked-files=all')),
+-                source_snapshot='source', source_hashes=hashes, cwd=str(Path.cwd()),
++                source_snapshot='source', source_hashes=hashes,
++                source_paths={str(relative): str(path) for relative, path in sorted(paths.items())},
++                tracked_diff_scope='current Git checkout; source snapshot follows actual imported package/module paths',
++                cwd=str(Path.cwd()),
+                 command=[sys.executable, '-m', 'x2_recovery.train', *sys.argv[1:]],
+                 python=dict(executable=sys.executable, version=sys.version, prefix=sys.prefix),
+                 system=dict(platform=platform.platform(), architecture=platform.machine(),
+@@ -877,9 +898,666 @@ def run_experiment(config, directory, run_type, *, probe_policy='untrained', pro
+     return manifest
+ 
+ 
++class ControlEpisodeLog:
++    """Per-worker raw episode statistics; all samples are control-step boundaries."""
++    fields = ('episode_id', 'env_index', 'reset_seed', 'global_transition', 'length',
++              'physics_steps', 'simulated_seconds', 'return', 'terminated', 'truncated',
++              'reason', 'success', 'max_height_m', 'tilt_at_max_height_deg', 'min_tilt_deg',
++              'max_stable_seconds', 'max_bilateral_weight', 'other_weight_at_max_height',
++              'torque_saturation_fraction', 'max_tracking_error_rad', 'raw_action_oob_fraction',
++              'action_boundary_fraction', 'reward_terms')
++
++    def __init__(self, directory, stack, physics_dt, workers):
++        self.writer = csv_output(stack, directory / 'episode_diagnostics.csv', self.fields)
++        self.current = [None] * workers
++        self.trajectories = [[] for _ in range(workers)]
++        self.dt, self.transitions, self.physics_steps = physics_dt, 0, 0
++        self.episodes, self.observations = [], []
++
++    def add(self, index, observation, raw_action, action, reward, terminated, truncated, info, global_step):
++        require(np.isfinite(reward) and np.isclose(sum(info['reward_terms'].values()), reward,
++                atol=2e-6, rtol=2e-6), 'Invalid raw controller reward/components')
++        if len(self.observations) < 16:
++            self.observations.append(np.array(observation, dtype=np.float32, copy=True))
++        require(len(self.trajectories[index]) < 1000, 'Controller episode exceeds the 20-second trajectory bound')
++        self.trajectories[index].append(json_value(dict(
++            control_step=len(self.trajectories[index])+1, global_transition=global_step,
++            observation=observation, raw_policy_action=raw_action, applied_policy_action=action,
++            reward=float(reward), terminated=bool(terminated), truncated=bool(truncated), info=info)))
++        if self.current[index] is None:
++            self.current[index] = dict(length=0, physics_steps=0, return_value=0., terms={}, saturation=0.,
++                height=-1., tilt=180., hold=0., bilateral=0., tracking=0., raw_oob=0., boundary=0.)
++        c, state = self.current[index], info['state']
++        steps = int(info['physics_steps_executed'])
++        self.transitions += 1
++        self.physics_steps += steps
++        c['length'] += 1
++        c['physics_steps'] += steps
++        c['return_value'] += float(reward)
++        c['saturation'] += info['torque_saturation_fraction'] * steps
++        c['raw_oob'] += float(np.mean(np.abs(raw_action) > 1))
++        c['boundary'] += float(np.mean(np.abs(action) >= 1))
++        c['tracking'] = max(c['tracking'], info['controller']['target_tracking_max_rad'])
++        c['tilt'] = min(c['tilt'], state['tilt_deg'])
++        c['hold'] = max(c['hold'], info['stable_duration_s'])
++        c['bilateral'] = max(c['bilateral'], min(state['left_weight'], state['right_weight']))
++        if state['pelvis_height_m'] > c['height']:
++            c.update(height=state['pelvis_height_m'], tilt_at_height=state['tilt_deg'],
++                     other_at_height=state['other_weight'])
++        for key, value in info['reward_terms'].items():
++            c['terms'][key] = c['terms'].get(key, 0.) + value
++        if terminated or truncated:
++            require(np.isclose(c['physics_steps'] * self.dt, info['elapsed_sim_s'], atol=1e-8, rtol=0),
++                    'Episode physical duration mismatch')
++            row = dict(episode_id=len(self.episodes)+1, env_index=index, reset_seed=info['reset_seed'],
++                global_transition=global_step, length=c['length'], physics_steps=c['physics_steps'],
++                simulated_seconds=c['physics_steps']*self.dt, return_value=c['return_value'],
++                terminated=terminated, truncated=truncated,
++                reason=info['termination_reason'] or info['truncation_reason'], success=info['is_success'],
++                max_height_m=c['height'], tilt_at_max_height_deg=c['tilt_at_height'], min_tilt_deg=c['tilt'],
++                max_stable_seconds=c['hold'], max_bilateral_weight=c['bilateral'],
++                other_weight_at_max_height=c['other_at_height'],
++                torque_saturation_fraction=c['saturation']/c['physics_steps'],
++                max_tracking_error_rad=c['tracking'], raw_action_oob_fraction=c['raw_oob']/c['length'],
++                action_boundary_fraction=c['boundary']/c['length'], reward_terms=c['terms'])
++            row['return'] = row.pop('return_value')
++            self.episodes.append(row)
++            written = dict(row, reward_terms=json.dumps(json_value(row['reward_terms']), allow_nan=False))
++            self.writer.writerow(written)
++            self.current[index] = None
++            trajectory = self.trajectories[index]
++            self.trajectories[index] = []
++            return trajectory
++        return None
++
++
++def action_distribution_metrics(model, observations):
++    """Observe marginal action variance without drawing actions or resetting gSDE noise."""
++    observations = np.asarray(observations).reshape((-1, *model.observation_space.shape))
++    require(len(observations) > 0 and np.isfinite(observations).all(), 'Invalid distribution diagnostic observations')
++    indices = np.linspace(0, len(observations)-1, min(32, len(observations)), dtype=int)
++    with torch.inference_mode():
++        distribution = model.policy.get_distribution(torch.as_tensor(observations[indices], device=model.device))
++        std = distribution.distribution.stddev.detach().cpu().numpy()
++        weight_std = float(torch.exp(model.policy.log_std.detach()).mean())
++    require(np.isfinite(std).all() and np.all(std > 0) and math.isfinite(weight_std),
++            'Invalid action distribution standard deviation')
++    return dict(noise_weight_std_mean=weight_std, action_distribution_std_min=float(std.min()),
++                action_distribution_std_median=float(np.median(std)), action_distribution_std_max=float(std.max()),
++                action_distribution_observations=len(indices))
++
++
++class ControlTrainingEvidence(TrainingEvidence):
++    """Reuse gradient hooks while accounting for vector workers and inherited Adam state."""
++    def __init__(self, config, directory, stack, episodes, workers, inherited_steps, initial_timesteps):
++        BaseCallback.__init__(self)
++        self.config, self.directory, self.episodes = config, directory, episodes
++        self.workers, self.inherited_steps, self.initial_timesteps = workers, inherited_steps, initial_timesteps
++        self.completed_rollouts = self.completed_updates = self.optimizer_steps = 0
++        self.gradient_tensors, self.gradient_max_abs = 0, 0.
++        self.stop_reason = self.learn_start = self.cycle_start = None
++        self.rollout_records, self.updates = [], []
++        self.first_success = None
++        self.progress = csv_output(stack, directory / 'progress.csv', (
++            'rollout', 'sampled_transitions', 'cumulative_model_timesteps', 'trained_rollout_transitions',
++            'optimizer_steps', 'cumulative_adam_steps', 'sb3_n_updates', 'learn_seconds', 'cycle_seconds',
++            'optimization_seconds', 'transitions_per_second', 'policy_loss', 'value_loss', 'entropy_loss',
++            'total_loss', 'approx_kl', 'clip_fraction', 'policy_std_mean', 'noise_weight_std_mean',
++            'action_distribution_std_min', 'action_distribution_std_median', 'action_distribution_std_max',
++            'action_distribution_observations', 'explained_variance', 'undefined_reason'))
++
++    def optimizer_state(self, optimizer):
++        steps = []
++        for state in optimizer.state.values():
++            for key, value in state.items():
++                if isinstance(value, torch.Tensor):
++                    require(torch.isfinite(value).all().item(), 'Nonfinite optimizer state: '+key)
++            if 'step' in state:
++                steps.append(int(state['step'].item()))
++        expected = self.inherited_steps + self.optimizer_steps
++        require(not steps or min(steps) == max(steps) == expected, 'Adam step count disagrees with observed updates')
++        return dict(step_min=min(steps) if steps else 0, step_max=max(steps) if steps else 0,
++                    inherited_steps=self.inherited_steps, block_optimizer_steps=self.optimizer_steps)
++
++    def _on_step(self):
++        loc = self.locals
++        for i in range(self.workers):
++            info, done = loc['infos'][i], bool(loc['dones'][i])
++            truncated = bool(info.get('TimeLimit.truncated', False))
++            if done:
++                require('terminal_observation' in info and truncated == bool(info['truncation_reason']),
++                        'Vector terminal semantics changed')
++            trajectory = self.episodes.add(i, loc['obs_tensor'][i].detach().cpu().numpy(), loc['actions'][i],
++                loc['clipped_actions'][i], float(loc['rewards'][i]), done and not truncated, truncated,
++                info, self.model.num_timesteps)
++            active_trace = trajectory if trajectory is not None else self.episodes.trajectories[i]
++            active_trace[-1]['cumulative_adam_steps_at_action'] = self.inherited_steps+self.optimizer_steps
++            if info['is_success'] and self.first_success is None:
++                require(done and not truncated and trajectory is not None,
++                        'Success must belong to a complete terminated episode')
++                # This callback runs before the rollout's PPO optimization. These
++                # are the exact weights that sampled the successful actions.
++                checkpoint = self.directory/'policy_first_success.zip'
++                self.model.save(checkpoint, exclude=['train'])
++                write_json(self.directory/'first_success_trajectory.json', dict(
++                    scope='control-step observations/actions/info; success checked by the original tracker at every physical step',
++                    env_index=i, seed=self.config.seed, reset_seed=info['reset_seed'], transitions=trajectory))
++                self.first_success = dict(checkpoint=checkpoint.name, checkpoint_sha256=sha256(checkpoint),
++                    trajectory='first_success_trajectory.json',
++                    trajectory_sha256=sha256(self.directory/'first_success_trajectory.json'),
++                    cumulative_model_timesteps=self.model.num_timesteps, env_index=i,
++                    rollout=self.completed_rollouts+1, completed_optimization_rounds=self.completed_updates,
++                    optimizer_steps_in_block=self.optimizer_steps, seed=self.config.seed, reset_seed=info['reset_seed'],
++                    episode_transitions=len(trajectory), physics_steps=sum(t['info']['physics_steps_executed'] for t in trajectory),
++                    episode_adam_versions=sorted({t['cumulative_adam_steps_at_action'] for t in trajectory}),
++                    weights_scope='weights at the success transition; a long episode may span prior PPO updates',
++                    controller_identity=json.loads((self.directory/'resolved_config.json').read_text())['identity'],
++                    stochastic_success=True, deterministic_recovery='NOT_YET_VERIFIED')
++                write_json(self.directory/'first_success.json', self.first_success)
++        if self.stop_reason is not None:
++            return False
++        if time.perf_counter()-self.learn_start >= self.config.max_wall_seconds:
++            self.stop_reason = 'wall_budget'
++            return loc['n_steps'] + 1 == self.config.n_steps
++        return True
++
++    def _on_rollout_end(self):
++        buffer, checks = self.model.rollout_buffer, {}
++        shapes = dict(observations=(self.config.n_steps, self.workers, *self.model.observation_space.shape),
++                      actions=(self.config.n_steps, self.workers, *self.model.action_space.shape))
++        for name in ('observations', 'actions', 'rewards', 'values', 'log_probs', 'advantages', 'returns'):
++            arr = getattr(buffer, name)
++            require(arr.shape == shapes.get(name, (self.config.n_steps, self.workers)), 'Wrong rollout shape: '+name)
++            require(arr.dtype == np.float32 and np.isfinite(arr).all(), 'Invalid rollout tensor: '+name)
++            checks[name] = dict(shape=list(arr.shape), dtype=str(arr.dtype), finite=True,
++                                min=float(arr.min()), max=float(arr.max()))
++        self.completed_rollouts += 1
++        self.rollout_records.append(checks)
++
++    def after_update(self, model, optimization_seconds):
++        metrics = model.logger.name_to_value
++        names = dict(policy_loss='train/policy_gradient_loss', value_loss='train/value_loss',
++                     entropy_loss='train/entropy_loss', total_loss='train/loss', approx_kl='train/approx_kl',
++                     clip_fraction='train/clip_fraction')
++        losses = {key: float(metrics[value]) for key, value in names.items()}
++        require(np.isfinite(list(losses.values())).all(), 'Nonfinite update loss/KL/clip fraction')
++        variance, reason = float(metrics['train/explained_variance']), ''
++        if not math.isfinite(variance):
++            require(np.var(model.rollout_buffer.returns) == 0, 'Undefined explained variance with nonconstant returns')
++            variance, reason = None, 'returns variance is zero'
++        self.completed_updates += 1
++        elapsed, cycle = time.perf_counter()-self.learn_start, time.perf_counter()-self.cycle_start
++        batch = self.config.n_steps*self.workers
++        distribution_metrics = action_distribution_metrics(model, model.rollout_buffer.observations)
++        row = dict(rollout=self.completed_updates, sampled_transitions=self.episodes.transitions,
++            cumulative_model_timesteps=model.num_timesteps, trained_rollout_transitions=self.completed_updates*batch,
++            optimizer_steps=self.optimizer_steps, cumulative_adam_steps=self.inherited_steps+self.optimizer_steps,
++            sb3_n_updates=model._n_updates, learn_seconds=elapsed, cycle_seconds=cycle,
++            optimization_seconds=optimization_seconds, transitions_per_second=batch/cycle,
++            policy_std_mean=distribution_metrics['noise_weight_std_mean'],
++            explained_variance=variance, undefined_reason=reason, **losses, **distribution_metrics)
++        self.progress.writerow(row)
++        self.updates.append(row)
++        print(json.dumps(row, allow_nan=False), flush=True)
++        quality = sampling_quality(self.episodes.episodes)
++        if quality['sampling_degenerate']:
++            self.stop_reason = 'sampling_degenerate'
++        elif elapsed >= self.config.max_wall_seconds:
++            self.stop_reason = 'wall_budget'
++        self.cycle_start = time.perf_counter()
++
++    def summary(self, model):
++        trained = self.completed_updates*self.config.n_steps*self.workers
++        return dict(requested_transitions=self.config.total_timesteps, sampled_transitions=self.episodes.transitions,
++            inherited_model_timesteps=self.initial_timesteps, cumulative_model_timesteps=model.num_timesteps,
++            transitions_in_completed_training_rollouts=trained, completed_rollout_count=self.completed_rollouts,
++            completed_optimization_rounds=self.completed_updates,
++            partial_rollout_transitions=self.episodes.transitions-trained, optimizer_steps=self.optimizer_steps,
++            sb3_n_updates=model._n_updates, adam_state=self.optimizer_state(model.policy.optimizer),
++            rollout_checks=self.rollout_records, updates=self.updates,
++            first_success=self.first_success,
++            numerical_checks=dict(finite=True, rollout='seven arrays of every complete rollout',
++                losses='update-level means and last evaluated minibatch total loss',
++                gradients='every backward parameter tensor and every post-clip optimizer input',
++                gradient_tensors=self.gradient_tensors, max_abs_backward_gradient=self.gradient_max_abs,
++                parameters_and_optimizer='after every optimizer step'))
++
++
++def controller_identity(env):
++    identity = env_identity(env.env)
++    identity['controller'] = json_value(env.resolved_config())
++    identity['observation']['shape'] = list(env.observation_space.shape)
++    identity['observation']['dtype'] = str(env.observation_space.dtype)
++    identity['observation']['low'] = ['-inf']*env.observation_space.shape[0]
++    identity['observation']['high'] = ['inf']*env.observation_space.shape[0]
++    identity['action'] = dict(shape=list(env.action_space.shape), dtype=str(env.action_space.dtype),
++                              low=env.action_space.low.tolist(), high=env.action_space.high.tolist())
++    return identity
++
++
++def _controller_factory(config_dict, control_dict, directory, index):
++    def create():
++        torch.set_num_threads(1)
++        if torch.get_num_interop_threads() != 1:
++            torch.set_num_interop_threads(1)
++        config = TrainConfig.from_dict(config_dict)
++        env = ControlledRecoveryEnv(X2RecoveryEnv(config.env, render_mode=None, capture_substeps=False),
++                                    ControlConfig.from_dict(control_dict))
++        return TimedMonitor(env, Path(directory)/f'worker_{index:02d}.monitor.csv')
++    return create
++
++
++def _adam_steps(model):
++    steps = [int(v['step'].item()) for v in model.policy.optimizer.state.values() if 'step' in v]
++    require(not steps or min(steps) == max(steps), 'Inconsistent inherited Adam steps')
++    return max(steps) if steps else 0
++
++
++def _save_rng(path):
++    # Only locally generated state is loaded; this file is not an untrusted input format.
++    torch.save(dict(python=random.getstate(), numpy=np.random.get_state(), torch=torch.get_rng_state()), path)
++
++
++def _load_rng(path):
++    state = torch.load(path, map_location='cpu', weights_only=False)
++    random.setstate(state['python'])
++    np.random.set_state(state['numpy'])
++    torch.set_rng_state(state['torch'])
++
++
++def save_valid_update(directory, model, training, changes):
++    """Publish an immutable checkpoint/RNG pair only after both files exist.
++
++    An interrupted save leaves an unreferenced generation for diagnosis, while
++    the previous pointer and its complete files remain available for recovery.
++    """
++    directory = Path(directory)
++    generation = directory / 'checkpoints' / f"update-{training['completed_optimization_rounds']:06d}"
++    generation.parent.mkdir(exist_ok=True)
++    generation.mkdir()  # Never overwrite a previous generation or failed attempt.
++    checkpoint, rng = generation / 'policy.zip', generation / 'rng.pt'
++    model.save(checkpoint, exclude=['train'])
++    _save_rng(rng)
++    saved = dict(training=training, parameter_changes=changes,
++                 checkpoint_path=str(checkpoint.relative_to(directory)),
++                 rng_path=str(rng.relative_to(directory)),
++                 checkpoint_sha256=sha256(checkpoint), rng_sha256=sha256(rng))
++    write_json(directory / 'last_valid_update.json', saved)
++    return saved
++
++
++def valid_update_files(directory, saved):
++    """Resolve and validate a published pair, including the older flat layout."""
++    directory = Path(directory).resolve()
++    paths = []
++    for key, fallback in (('checkpoint', 'policy_last_update.zip'), ('rng', 'rng_last_update.pt')):
++        relative = Path(saved.get(key + '_path', fallback))
++        path = (directory / relative).resolve()
++        require(not relative.is_absolute() and path.is_relative_to(directory),
++                'Last valid update path is outside its run directory')
++        require(sha256(path) == saved[key + '_sha256'], 'Last valid ' + key + ' changed')
++        paths.append(path)
++    return tuple(paths)
++
++
++def _state_digest(value):
++    return hashlib.sha256(json.dumps(json_value(value), sort_keys=True,
++                                    separators=(',', ':'), allow_nan=False).encode()).hexdigest()
++
++
++def initialize_exploration_phase(model, factor, observations, expected_actions):
++    """One declared log-std intervention, before this block's training baseline.
++
++    Actor/critic, optimizer moments/counters, and RNG stay unchanged. SB3 resets
++    gSDE noise at rollout start using the adjusted standard-deviation parameters.
++    """
++    require(type(factor) in (float, int) and math.isfinite(factor) and 0 < factor <= 1,
++            'Initial exploration std factor must be finite and in (0, 1]')
++    observations, expected_actions = np.asarray(observations), np.asarray(expected_actions)
++    require(observations.ndim == 2 and len(observations) > 0
++            and observations.shape[1:] == model.observation_space.shape
++            and observations.dtype == np.float32 and np.isfinite(observations).all(),
++            'Invalid exploration phase observations')
++    require(expected_actions.shape == (len(observations), *model.action_space.shape)
++            and np.isfinite(expected_actions).all(), 'Invalid exploration phase expected actions')
++    before = {key: value.detach().clone() for key, value in model.policy.state_dict().items()}
++    require('log_std' in before and torch.isfinite(before['log_std']).all().item(),
++            'Exploration phase requires finite policy log_std')
++    optimizer_before = _state_digest(model.policy.optimizer.state_dict())
++    rng = lambda: dict(python=random.getstate(), numpy=np.random.get_state(), torch=torch.get_rng_state())
++    rng_before = _state_digest(rng())
++    counters_before = (model.num_timesteps, model._n_updates, _adam_steps(model))
++    with torch.inference_mode():
++        actions_before, _ = model.predict(observations, deterministic=True)
++    require(np.allclose(actions_before, expected_actions, atol=1e-7, rtol=1e-6),
++            'Parent deterministic action probe changed')
++    if factor != 1:
++        with torch.no_grad():
++            model.policy.log_std.add_(math.log(factor))
++    with torch.inference_mode():
++        actions_after, _ = model.predict(observations, deterministic=True)
++    require(np.array_equal(actions_before, actions_after), 'Exploration phase changed deterministic actions')
++    after = model.policy.state_dict()
++    require(before.keys() == after.keys() and all(torch.equal(value, after[key])
++            for key, value in before.items() if key != 'log_std'),
++            'Exploration phase changed actor, critic, or buffers')
++    require(torch.isfinite(after['log_std']).all().item(), 'Exploration phase created nonfinite log_std')
++    require(_state_digest(model.policy.optimizer.state_dict()) == optimizer_before,
++            'Exploration phase changed optimizer state')
++    require(_state_digest(rng()) == rng_before, 'Exploration phase consumed RNG')
++    require((model.num_timesteps, model._n_updates, _adam_steps(model)) == counters_before,
++            'Exploration phase changed update counters')
++    def stats(value):
++        array = value.detach().cpu().numpy()
++        return dict(shape=list(array.shape), dtype=str(array.dtype),
++                    sha256=hashlib.sha256(array.tobytes()).hexdigest(),
++                    min=float(array.min()), mean=float(array.mean()), max=float(array.max()),
++                    exp_log_std_mean=float(np.exp(array).mean()))
++    return dict(kind='one_time_exploration_std_scale', applied=factor != 1, factor=float(factor),
++                operation='policy.log_std += log(factor); no optimizer step',
++                before=stats(before['log_std']), after=stats(after['log_std']),
++                optimizer_state_sha256=optimizer_before, optimizer_state_unchanged=True,
++                rng_state_sha256=rng_before, rng_state_unchanged=True,
++                inherited_timesteps=counters_before[0], inherited_sb3_updates=counters_before[1],
++                inherited_adam_steps=counters_before[2], actor_critic_and_buffers_unchanged=True,
++                action_consistency=dict(observations=len(observations),
++                    parent_probe_max_abs_error=float(np.max(abs(actions_before-expected_actions))),
++                    intervention_max_abs_error=float(np.max(abs(actions_after-actions_before))),
++                    parent_atol=1e-7, parent_rtol=1e-6, intervention_exact=True),
++                training_delta_baseline='captured after this intervention',
++                subsequent_resume='factor defaults to 1; this intervention is not automatically replayed')
++
++
++def run_control_block(config, control, directory, *, workers=1, use_sde=False, sde_sample_freq=8,
++                      resume_run=None, initial_exploration_std_factor=1.):
++    require(type(initial_exploration_std_factor) in (float, int)
++            and math.isfinite(initial_exploration_std_factor) and 0 < initial_exploration_std_factor <= 1,
++            'Initial exploration std factor must be finite and in (0, 1]')
++    require(initial_exploration_std_factor == 1 or resume_run is not None,
++            'Initial exploration std reduction requires --resume-run')
++    require(workers in (1, 2, 4) and type(workers) is int, 'workers must be 1, 2 or 4')
++    require(type(use_sde) is bool and type(sde_sample_freq) is int and sde_sample_freq > 0, 'Invalid exploration settings')
++    require(config.max_wall_seconds <= 1800, 'A control training block is limited to 1800 seconds')
++    require(config.total_timesteps % (config.n_steps*workers) == 0, 'Transitions must divide full vector rollout size')
++    require(config.env == EnvConfig(), 'Control experiments retain the original physical task configuration')
++    directory = Path(directory).resolve()
++    require(not directory.exists(), 'Output directory already exists: '+str(directory))
++    parent = None
++    algorithm = dict(training=asdict(config), workers=workers, use_sde=use_sde, sde_sample_freq=sde_sample_freq,
++                     controller=asdict(control))
++    if resume_run is not None:
++        resume_run = Path(resume_run).resolve()
++        parent = json.loads((resume_run/'manifest.json').read_text())
++        require(sha256(resume_run/'resolved_config.json') == parent['config_sha256'],
++                'Parent resolved configuration changed')
++        old = json.loads((resume_run/'resolved_config.json').read_text())
++        comparable = json_value(algorithm)
++        previous = {key: old[key] for key in comparable}
++        for value in (comparable, previous):
++            value['training'] = dict(value['training'])
++            for key in ('total_timesteps', 'max_wall_seconds'):
++                value['training'].pop(key)
++        require(comparable == previous, 'Resume configuration differs beyond block budgets')
++        require(parent.get('checkpoint') is not None and parent['checkpoint']['sha256'] == sha256(resume_run/'policy_final.zip'),
++                'Parent checkpoint missing or changed')
++        require(parent['rng_sha256'] == sha256(resume_run/'rng_state.pt'), 'Parent RNG state changed')
++    directory.mkdir(parents=True)
++    started, begin = utc_now(), time.perf_counter()
++    manifest = dict(run_id=directory.name, run_type='controller_ppo_block', status='RUNNING', started_utc=started,
++                    normalization='fixed_env_scaling', formal_evaluation='NOT_EVALUATED', timing={},
++                    checkpoint=None, resume_from=None if parent is None else dict(
++                        path=str(resume_run), checkpoint_sha256=parent['checkpoint']['sha256'],
++                        state='model/optimizer/global RNG restored; fresh legal supine episodes, not bitwise simulator resume'))
++    model = evidence = episodes = vec = None
++    error = None
++    with ExitStack() as stack:
++        log = stack.enter_context((directory/'stdout.log').open('x', buffering=1))
++        with redirect_stdout(log), redirect_stderr(log):
++            try:
++                configure_threads(config)
++                manifest['provenance'] = provenance(directory)
++                probe = ControlledRecoveryEnv(X2RecoveryEnv(config.env), control)
++                stack.callback(probe.close)
++                identity = controller_identity(probe)
++                if parent is not None:
++                    require(old['identity'] == identity, 'Parent model/control/core identity differs')
++                factories = [_controller_factory(asdict(config), asdict(control), str(directory), i) for i in range(workers)]
++                plain = DummyVecEnv(factories) if workers == 1 else SubprocVecEnv(factories, start_method='spawn')
++                stack.callback(plain.close)
++                vec = VecCheckNan(plain, raise_exception=True, warn_once=False)
++                # The worker factories use one thread; keep parent optimization at the explicit budget.
++                configure_threads(config)
++                vec.seed(config.seed)
++                if parent is None:
++                    model = PPO('MlpPolicy', vec, device='cpu', seed=config.seed, verbose=0,
++                        n_steps=config.n_steps, batch_size=config.batch_size, n_epochs=config.n_epochs,
++                        learning_rate=config.learning_rate, gamma=config.gamma, gae_lambda=config.gae_lambda,
++                        clip_range=config.clip_range, clip_range_vf=config.clip_range_vf,
++                        normalize_advantage=config.normalize_advantage, ent_coef=config.ent_coef,
++                        vf_coef=config.vf_coef, max_grad_norm=config.max_grad_norm, target_kl=config.target_kl,
++                        use_sde=use_sde, sde_sample_freq=sde_sample_freq, policy_kwargs=policy_kwargs(config))
++                else:
++                    model = PPO.load(resume_run/'policy_final.zip', env=vec, device='cpu')
++                    require(model.num_timesteps == parent['training']['cumulative_model_timesteps'], 'Inherited timestep count differs')
++                    _load_rng(resume_run/'rng_state.pt')
++                phase = dict(kind='one_time_exploration_std_scale', applied=False, factor=1.)
++                if initial_exploration_std_factor != 1:
++                    with np.load(resume_run/'reload_probe.npz', allow_pickle=False) as parent_probe:
++                        phase = initialize_exploration_phase(model, initial_exploration_std_factor,
++                            parent_probe['observations'], parent_probe['actions'])
++                    phase['parent_checkpoint_sha256'] = parent['checkpoint']['sha256']
++                    phase['parent_probe_sha256'] = sha256(resume_run/'reload_probe.npz')
++                    require(sha256(resume_run/'policy_final.zip') == parent['checkpoint']['sha256'],
++                            'Parent checkpoint changed during phase initialization')
++                manifest['initialization_phase'] = phase
++                logger = configure(str(directory/'sb3'), ['csv'])
++                stack.callback(logger.close)
++                model.set_logger(logger)
++                resolved = dict(**algorithm, schema='x2-controller-ppo-v1', identity=identity,
++                    initialization_phase=phase,
++                    environment=probe.resolved_config(), device='cpu', normalization='fixed_env_scaling',
++                    module_paths=dict(train=str(Path(__file__).resolve()),
++                        env=str(Path(sys.modules[X2RecoveryEnv.__module__].__file__).resolve()),
++                        ppo=str(Path(sys.modules[PPO.__module__].__file__).resolve())),
++                    policy_resolved=dict(representation=str(model.policy), optimizer=type(model.policy.optimizer).__name__,
++                        optimizer_defaults=model.policy.optimizer.defaults, activation='Tanh', ortho_init=True),
++                    capture_substeps=False, reset='original legal supine reset',
++                    exploration_metric_definitions=dict(
++                        policy_std_mean='legacy alias for noise_weight_std_mean; not gSDE marginal action standard deviation',
++                        noise_weight_std_mean='mean exp(log_std); gSDE noise matrix weights or diagonal Gaussian action standard deviation',
++                        action_distribution_std='marginal Gaussian standard deviation after the update on up to32 evenly spaced real rollout observations, all action dimensions; no random samples'),
++                    metrics='control-step-sampled height/support/hold; physical-step-weighted saturation; raw episode reward')
++                write_json(directory/'resolved_config.json', resolved)
++                manifest['config_sha256'] = sha256(directory/'resolved_config.json')
++                manifest['identity'] = identity
++                manifest['timing']['construction_seconds'] = time.perf_counter()-begin
++                episodes = ControlEpisodeLog(directory, stack, probe.env.physics_dt, workers)
++                evidence = ControlTrainingEvidence(config, directory, stack, episodes, workers, _adam_steps(model), model.num_timesteps)
++                evidence.install_hooks(model, stack)
++                before = parameter_copy(model.policy)
++                original_train = model.train
++                def observed_train():
++                    start = time.perf_counter()
++                    original_train()
++                    evidence.after_update(model, time.perf_counter()-start)
++                    validate_updates(parameter_changes(before, model.policy), evidence.optimizer_steps,
++                                     evidence.completed_updates)
++                    save_valid_update(directory, model, evidence.summary(model),
++                                      parameter_changes(before, model.policy))
++                model.train = observed_train
++                stack.callback(lambda: model.__dict__.pop('train', None))
++                evidence.learn_start = time.perf_counter()
++                try:
++                    model.learn(config.total_timesteps, callback=evidence, reset_num_timesteps=parent is None)
++                finally:
++                    manifest['timing']['learn_seconds'] = time.perf_counter()-evidence.learn_start
++                manifest['training'] = evidence.summary(model)
++                manifest['training']['parameter_changes'] = parameter_changes(before, model.policy)
++                manifest['sampling_quality'] = sampling_quality(episodes.episodes)
++                manifest['stop_reason'] = evidence.stop_reason or 'requested_transitions'
++                validate_updates(manifest['training']['parameter_changes'], evidence.optimizer_steps, evidence.completed_updates)
++                save_start = time.perf_counter()
++                model.save(directory/'policy_final.zip', exclude=['train'])
++                _save_rng(directory/'rng_state.pt')
++                manifest['rng_sha256'] = sha256(directory/'rng_state.pt')
++                manifest['checkpoint'] = dict(path='policy_final.zip', sha256=sha256(directory/'policy_final.zip'),
++                    trained_rollout_transitions=manifest['training']['transitions_in_completed_training_rollouts'],
++                    cumulative_model_timesteps=model.num_timesteps, actual_block_optimizer_steps=evidence.optimizer_steps,
++                    discarded_partial_rollout=manifest['training']['partial_rollout_transitions'])
++                model.policy.set_training_mode(False)
++                observations = np.asarray(episodes.observations, dtype=np.float32)
++                with torch.inference_mode():
++                    actions, _ = model.predict(observations, deterministic=True)
++                np.savez_compressed(directory/'reload_probe.npz', observations=observations, actions=actions)
++                manifest['timing']['save_seconds'] = time.perf_counter()-save_start
++                require(controller_identity(probe) == identity, 'Controller identity changed during training')
++                manifest['reset_cost'] = dict(seconds=vec.get_attr('reset_seconds'), calls=vec.get_attr('reset_calls'))
++                manifest['training']['transitions_per_second'] = episodes.transitions/manifest['timing']['learn_seconds']
++                manifest['training']['physics_steps'] = episodes.physics_steps
++                manifest['training']['recovery_simulated_seconds'] = episodes.physics_steps*probe.env.physics_dt
++                manifest['status'] = 'COMPLETE' if evidence.stop_reason is None else 'BUDGET_STOP' if evidence.stop_reason == 'wall_budget' else 'STOPPED'
++            except Exception as exc:
++                error = exc
++                manifest.update(status='ERROR', stop_reason=type(exc).__name__+': '+str(exc), traceback=traceback.format_exc())
++                if evidence is not None:
++                    manifest['observed_before_error'] = dict(sampled_transitions=episodes.transitions,
++                        completed_rollouts=evidence.completed_rollouts, optimizer_steps=evidence.optimizer_steps)
++                if (directory/'last_valid_update.json').exists():
++                    safe = json.loads((directory/'last_valid_update.json').read_text())
++                    checkpoint, rng = valid_update_files(directory, safe)
++                    shutil.copyfile(checkpoint, directory/'policy_final.zip')
++                    shutil.copyfile(rng, directory/'rng_state.pt')
++                    manifest['rng_sha256'] = safe['rng_sha256']
++                    manifest['training'] = safe['training']
++                    manifest['training']['parameter_changes'] = safe['parameter_changes']
++                    manifest['checkpoint'] = dict(path='policy_final.zip', sha256=safe['checkpoint_sha256'],
++                        state='last complete validated optimization before error; see observed_before_error',
++                        recovered_from=str(checkpoint.relative_to(directory)),
++                        recovered_rng_from=str(rng.relative_to(directory)),
++                        cumulative_model_timesteps=safe['training']['cumulative_model_timesteps'],
++                        trained_rollout_transitions=safe['training']['transitions_in_completed_training_rollouts'])
++                traceback.print_exc()
++            finally:
++                if episodes is not None:
++                    write_json(directory/'partial_episodes.json', episodes.current)
++                manifest.update(ended_utc=utc_now(), core_sources_after_run=source_hashes())
++                manifest['timing']['total_seconds'] = time.perf_counter()-begin
++                write_json(directory/'manifest.json', manifest)
++    if error is not None:
++        raise error
++    plot_start = time.perf_counter()
++    manifest['reward_plot'] = plot_reward(directory)
++    manifest['timing']['plot_seconds'] = time.perf_counter()-plot_start
++    manifest['timing']['total_seconds'] = time.perf_counter()-begin
++    write_json(directory/'manifest.json', manifest)
++    return manifest
++
++
++def control_reload_check(directory, *, seed=221020, max_wall_seconds=180.):
++    """Independent-process development validation, never a formal five-episode batch."""
++    directory = Path(directory).resolve()
++    resolved = json.loads((directory/'resolved_config.json').read_text())
++    manifest = json.loads((directory/'manifest.json').read_text())
++    require(resolved['schema'] == 'x2-controller-ppo-v1', 'Unexpected controller checkpoint schema')
++    require(sha256(directory/'resolved_config.json') == manifest['config_sha256'], 'Configuration changed')
++    require(sha256(directory/'policy_final.zip') == manifest['checkpoint']['sha256'], 'Checkpoint changed')
++    require(type(seed) is int and 0 <= seed < 2**32 and math.isfinite(max_wall_seconds) and 0 < max_wall_seconds <= 300,
++            'Invalid development check budget/seed')
++    output = directory/f'development-{seed}'
++    require(not output.exists(), 'Development evidence already exists')
++    output.mkdir()
++    config = TrainConfig.from_dict(resolved['training'])
++    configure_threads(config)
++    env = ControlledRecoveryEnv(X2RecoveryEnv(config.env, capture_substeps=True), ControlConfig.from_dict(resolved['controller']))
++    result = dict(status='RUNNING', seed=seed, label='development_reload_validation', pid=os.getpid(),
++                  python_executable=sys.executable, checkpoint=str(directory/'policy_final.zip'),
++                  checkpoint_sha256=sha256(directory/'policy_final.zip'), transitions=0, physics_steps=0)
++    start = time.perf_counter()
++    try:
++        require(controller_identity(env) == resolved['identity'], 'Saved environment/controller identity differs')
++        model = PPO.load(directory/'policy_final.zip', device='cpu')
++        model.policy.set_training_mode(False)
++        before = {key: value.detach().clone() for key, value in model.policy.state_dict().items()}
++        with np.load(directory/'reload_probe.npz', allow_pickle=False) as probe:
++            with torch.inference_mode():
++                actual, _ = model.predict(probe['observations'], deterministic=True)
++            require(actual.shape == probe['actions'].shape and np.isfinite(actual).all() and np.all(abs(actual) <= 1),
++                    'Invalid loaded deterministic actions')
++            require(np.allclose(actual, probe['actions'], atol=1e-7, rtol=1e-6), 'Reload deterministic actions differ')
++            result['action_consistency'] = dict(max_abs_error=float(np.max(abs(actual-probe['actions']))), atol=1e-7, rtol=1e-6)
++        with (output/'trajectory.jsonl').open('x', buffering=1) as stream:
++            observation, info = env.reset(seed=seed)
++            result.update(reset_seed=info['reset_seed'], reset_status=env.env.reset_evidence['status'],
++                max_height_m=info['state']['pelvis_height_m'], min_tilt_deg=info['state']['tilt_deg'], max_stable_seconds=0.)
++            stream.write(json.dumps(json_value(dict(kind='reset', seed=seed, info=info,
++                evidence=env.env.reset_evidence, observation=observation,
++                qpos=env.env.data.qpos.copy(), qvel=env.env.data.qvel.copy())), allow_nan=False)+'\n')
++            while True:
++                require(time.perf_counter()-start < max_wall_seconds, 'Development reload wall budget exceeded')
++                with torch.inference_mode():
++                    action, _ = model.predict(observation, deterministic=True)
++                observation, reward, terminated, truncated, info = env.step(action)
++                result['transitions'] += 1
++                result['physics_steps'] += info['physics_steps_executed']
++                for sample in env.env.last_substeps:
++                    v, tracker = sample['measurement'], sample['success']
++                    result['max_height_m'] = max(result['max_height_m'], v['pelvis_height_m'])
++                    result['min_tilt_deg'] = min(result['min_tilt_deg'], v['tilt_deg'])
++                    result['max_stable_seconds'] = max(result['max_stable_seconds'], tracker['stable_duration_s'])
++                post_q, post_dq = env.env.loaded.read_state(env.env.data)
++                last = env.env.last_substeps[-1]
++                stream.write(json.dumps(json_value(dict(kind='transition', control_step=result['transitions'],
++                    action=action, reward=reward, terminated=terminated, truncated=truncated, info=info,
++                    post_step=dict(time_s=float(env.env.data.time), q_rad=post_q, dq_rad_s=post_dq,
++                                   ctrl_Nm=env.env.data.ctrl[env.env.context.ctrladr].copy()),
++                    last_substep_control=dict(pre_time_s=last['measurement']['time_s']-env.env.physics_dt,
++                        post_time_s=last['measurement']['time_s'], target_rad=last['target_rad'],
++                        pre_q_rad=last['q_rad'], pre_dq_rad_s=last['dq_rad_s'],
++                        pre_tau_raw_Nm=last['tau_raw_Nm'], post_applied_torque_Nm=last['applied_torque_Nm']),
++                    substeps=[dict(measurement=s['measurement'], success=s['success']) for s in env.env.last_substeps])), allow_nan=False)+'\n')
++                if terminated or truncated:
++                    require(np.isclose(result['physics_steps']*env.env.physics_dt, info['elapsed_sim_s'],
++                                       atol=1e-8, rtol=0), 'Development physical duration mismatch')
++                    result.update(status='COMPLETE', success=info['is_success'], terminated=terminated, truncated=truncated,
++                        reason=info['termination_reason'] or info['truncation_reason'], sim_duration_s=info['elapsed_sim_s'], final_info=info)
++                    break
++        require(all(torch.equal(value, before[key]) for key, value in model.policy.state_dict().items()), 'Inference changed policy state')
++        require(controller_identity(env) == resolved['identity'], 'Environment changed during development check')
++        require(sha256(directory/'policy_final.zip') == result['checkpoint_sha256'], 'Checkpoint file changed')
++        result['policy_state_unchanged'] = True
++    except Exception as exc:
++        result.update(status='ERROR', error=type(exc).__name__+': '+str(exc))
++        raise
++    finally:
++        env.close()
++        result['wall_seconds'] = time.perf_counter()-start
++        write_json(output/'summary.json', result)
++    return result
++
++
+ def main(argv=None):
+     parser = argparse.ArgumentParser(description=__doc__)
+     commands = parser.add_subparsers(dest='command', required=True)
++    sub = commands.add_parser('control-block', help='Bounded PPO on an explicitly versioned learning controller')
++    sub.add_argument('--run-dir', required=True, type=Path)
++    sub.add_argument('--control-config', required=True, type=Path)
++    sub.add_argument('--total-timesteps', required=True, type=int)
++    sub.add_argument('--max-wall-seconds', required=True, type=float)
++    sub.add_argument('--seed', required=True, type=int)
++    sub.add_argument('--workers', choices=(1, 2, 4), type=int, default=1)
++    sub.add_argument('--resume-run', type=Path)
++    sub.add_argument('--initial-exploration-std-factor', type=float, default=1.,
++                     help='One-time post-load std scaling in (0,1]; reductions require --resume-run')
++    sub.add_argument('--use-sde', action='store_true')
++    sub.add_argument('--sde-sample-freq', type=int, default=8)
++    sub.add_argument('--learning-rate', type=float, default=1e-4)
++    sub.add_argument('--log-std-init', type=float, default=-1.5)
++    sub.add_argument('--target-kl', type=float, default=.03)
++    sub.add_argument('--n-epochs', type=int, default=5)
++    sub = commands.add_parser('control-reload', help='One complete deterministic development attempt in this process')
++    sub.add_argument('--run-dir', required=True, type=Path)
++    sub.add_argument('--seed', type=int, default=221020)
++    sub.add_argument('--max-wall-seconds', type=float, default=180.)
+     for name in ('probe', 'smoke', 'train'):
+         sub = commands.add_parser(name)
+         sub.add_argument('--run-dir', '--output-dir', required=True, type=Path)
+@@ -901,6 +1579,24 @@ def main(argv=None):
+     sub.add_argument('--run-dir', required=True, type=Path)
+     args = parser.parse_args(argv)
+     try:
++        if args.command == 'control-block':
++            values = json.loads(args.control_config.read_text())
++            require(isinstance(values, dict), 'Expected controller configuration object')
++            control = ControlConfig.from_dict(values.get('controller', values))
++            config = TrainConfig(seed=args.seed, total_timesteps=args.total_timesteps,
++                max_wall_seconds=args.max_wall_seconds, n_steps=512//args.workers,
++                learning_rate=args.learning_rate, log_std_init=args.log_std_init,
++                target_kl=args.target_kl, n_epochs=args.n_epochs)
++            result = run_control_block(config, control, args.run_dir, workers=args.workers,
++                use_sde=args.use_sde, sde_sample_freq=args.sde_sample_freq, resume_run=args.resume_run,
++                initial_exploration_std_factor=args.initial_exploration_std_factor)
++            print(json.dumps(dict(run_dir=str(args.run_dir), status=result['status'],
++                training=result['training'], stop_reason=result['stop_reason']), allow_nan=False))
++            return 0 if result['status'] in ('COMPLETE', 'BUDGET_STOP', 'STOPPED') else 2
++        if args.command == 'control-reload':
++            result = control_reload_check(args.run_dir, seed=args.seed, max_wall_seconds=args.max_wall_seconds)
++            print(json.dumps(result, allow_nan=False))
++            return 0
+         if args.command == 'reload-check':
+             result = reload_check(args.run_dir, args.output)
+             print(json.dumps({k: result[k] for k in ('status', 'pid', 'python_executable', 'transitions')}, allow_nan=False))

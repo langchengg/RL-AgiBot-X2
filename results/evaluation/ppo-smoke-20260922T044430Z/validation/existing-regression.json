@@ -1,0 +1,9 @@
+{
+  "command": "Project venv unittest discovery: existing test_model/reset/success/env/baseline/training/ros_nodes/ros_integration",
+  "tests": 125,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "exit_code": 0,
+  "wall_seconds": 63.24234182199871
+}

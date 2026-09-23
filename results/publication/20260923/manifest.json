@@ -1,0 +1,530 @@
+{
+  "schema": "x2-publication-v1",
+  "date_utc": "2026-09-23",
+  "base_head": "f3dcdcd361254d1c447b5a7a8901567ab8de68d4",
+  "implementation_commit": "8fa8acf58329e76e869cdd31cbc4c97e91f2dbeb",
+  "evaluation_runs": [
+    "ppo-smoke-20260922T044430Z",
+    "ppo-reference-residual-20260922T212457Z"
+  ],
+  "files": [
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/analysis/experiment_totals.json",
+      "bytes": 59034,
+      "sha256": "6fb80c9899a6f597beb2a472b5b345c36aea0d0d357001aa033f2df77d22eab4"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/analysis/hold_comparison.json",
+      "bytes": 4489,
+      "sha256": "33da478c1aeda8d05921e8cb18cbd7ff4a4f83d61b0f18d2e97a37470f1821d9"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/analysis/independent_development_audit.json",
+      "bytes": 9418,
+      "sha256": "416ac424ec7b68777c7635826d4619879c8a353dcc56e2da076172a3d025ec75"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/analysis/network_ablation.json",
+      "bytes": 3763,
+      "sha256": "37dc62cee486c17f6915815accb13bc5f07316e32df300e0fb1b802ad825539a"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/analysis/reference_mechanism.json",
+      "bytes": 94145,
+      "sha256": "0e04c4b9d9db6ee3587c37d0326523a5b9c93c4d080b763e8f82ea921dc9d164"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/analysis/research.json",
+      "bytes": 2222,
+      "sha256": "64ffe979a3f78b4f043dc170f1503a902d617ff5832b8f3ff634f269bf6c03ab"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/analysis/selection.json",
+      "bytes": 2132,
+      "sha256": "4f916151d274b21776e2a2b9926e73c414420f813b18c05e3fe6e9bf3f7aaa52"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/completion.json",
+      "bytes": 3653,
+      "sha256": "9cd20dda34677d1d30f0edcdc2380211b4daba4355e56679e00ad549fa1d3298"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/demonstration/manifest.json",
+      "bytes": 263320,
+      "sha256": "ee748bb7d423ebfae94e6a02532bb1146fd3b22241acda0addd3ad1b4ed6fafd"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/demonstration/summary.json",
+      "bytes": 1796,
+      "sha256": "ddffd5b22b293fae422b19e1a656c01dcf78def01a4dee2e1958a3f6776e0e99"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/demonstration/trained-recovery-reproduction.mp4",
+      "bytes": 532522,
+      "sha256": "f37e91fae16ce93f0b16f72d9cda971f2a5ba47798ac82c70d90db670aed5fd3"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/demonstration/visual_check.json",
+      "bytes": 1133,
+      "sha256": "8d1519a5064d379444ee7cbe0a97a9617537c11dfd7a0db8a06cb38a2b8c8490"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/episodes.csv",
+      "bytes": 699,
+      "sha256": "a2c06cc95d64efedaafcb5759f7a729ecb35c522109324ff58e49a3ef2afdfeb"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/independent_final_audit.json",
+      "bytes": 7261,
+      "sha256": "62527c313a918b7c21500dcc979c0b6ec138955aee1476b4c1b1afcdd266b3c5"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/independent_final_audit.log",
+      "bytes": 4714,
+      "sha256": "c45addc7ab0d1a17a0a0836a5fb460f3e054d8a1e2437a0e9eee052ec40f85a6"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/independent_final_audit.py",
+      "bytes": 12799,
+      "sha256": "631318bc0c3fa051055e0c6f7039cec941df4f90aba980bc71cf2fb08c587d20"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/episode_diagnostics.csv",
+      "bytes": 3953,
+      "sha256": "fb31135941f4b0eb00823c62c6803591142614d518ad6e015795925f41c2b19d"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/manifest.json",
+      "bytes": 296556,
+      "sha256": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/policy_final.zip",
+      "bytes": 947996,
+      "sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/progress.csv",
+      "bytes": 3166,
+      "sha256": "edb6073778eb32da1ca87130740517ba77fee6c10e499a2534f3706482ce94d5"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/reload_probe.npz",
+      "bytes": 3358,
+      "sha256": "f98f58d40e089e075b8174d86ebbfff338882c1968fa97edc75261ae17db474b"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/reload_validation.json",
+      "bytes": 9536,
+      "sha256": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/resolved_config.json",
+      "bytes": 623803,
+      "sha256": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/rng_state.pt",
+      "bytes": 14455,
+      "sha256": "98b50d4fa2a694c2062214ae645f1a545209e5573a99799fe87dc989d97c45d4"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/training_reward.png",
+      "bytes": 52440,
+      "sha256": "92640b31ecc25eba8a02c78ee36bae699328aa45955589def0119df23156d201"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/manifest.json",
+      "bytes": 506502,
+      "sha256": "0224b05ad31f58dfe1d846bd53bc70c1da9f789112b5f4e1f01ed766d9e16c71"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/source/working-tree.patch",
+      "bytes": 126454,
+      "sha256": "e00af97fc678098a9f4d27e7ffaa1edbd0d7d3df94bed458fbb199c6aee3f01b"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/source/x2_recovery/__init__.py",
+      "bytes": 76,
+      "sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/source/x2_recovery/baseline.py",
+      "bytes": 20640,
+      "sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/source/x2_recovery/env.py",
+      "bytes": 56569,
+      "sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/source/x2_recovery/evaluate.py",
+      "bytes": 48378,
+      "sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/source/x2_recovery/model.py",
+      "bytes": 12145,
+      "sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/source/x2_recovery/model_audit.py",
+      "bytes": 56213,
+      "sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/source/x2_recovery/reset.py",
+      "bytes": 17618,
+      "sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/source/x2_recovery/success.py",
+      "bytes": 17007,
+      "sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/source/x2_recovery/train.py",
+      "bytes": 105004,
+      "sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/summary.json",
+      "bytes": 19385,
+      "sha256": "6558b67d74af34608c1f8271933832b4d31164cf296dee5d64d2c4f676a9b918"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/supporting_artifacts.json",
+      "bytes": 6152,
+      "sha256": "f162cf3a3da90793675eb28727b69f1825be6c54ae1e7aaf1a9d601712fd0623"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/trajectory.jsonl.gz",
+      "bytes": 10747314,
+      "sha256": "1f733d43b750de9befb9126554196c295040478270ab5d29d545a0a43fe37fcb"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/validation/commands.json",
+      "bytes": 1881,
+      "sha256": "c578f035b510c88923562d63a6eb872331144a253aab8177c8effc8515c7f5d6"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/validation/fresh-build.log",
+      "bytes": 95,
+      "sha256": "f9aa730753964e6036325e385a790f9464693a9cbcd647b3a0dbf418ef62c837"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/validation/outside-import-help.log",
+      "bytes": 3717,
+      "sha256": "52c191b0588c57c2eabad33e62b8c45f7a3e58bea9b0a7a241398e42c220a9d8"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/validation/pip-check.log",
+      "bytes": 30,
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/validation/regression.log",
+      "bytes": 40906,
+      "sha256": "db6f447765cb7b4167a3fa1741678c5ddc202aecaaf8f72b914acdb49544fa52"
+    },
+    {
+      "path": "results/evaluation/ppo-reference-residual-20260922T212457Z/validation/summary.json",
+      "bytes": 4583,
+      "sha256": "eb965af3788f18505d5489aa73ad1660d3763b10efb7589653f890e02728d147"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/episodes.csv",
+      "bytes": 560,
+      "sha256": "7614cf5a23b45df77f709ff188dc0c9726e43027734b99dee7d7aae783f68815"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/execution.json",
+      "bytes": 772,
+      "sha256": "1f025793f58137a6dca2c321b19187dcca07a69669a4a0132e1cfbbbf3a06552"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/failure_analysis.json",
+      "bytes": 6912,
+      "sha256": "d650f65221b195c0c6426a5b151eab161823ac23f295e03c679b7dd16d11d580"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/manifest.json",
+      "bytes": 144379,
+      "sha256": "cd1a5b1c5786411b8cdf7c6e85c5ecbe4eef837e8ea0f675bedaeb283b5db647"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/policy_final.zip",
+      "bytes": 847726,
+      "sha256": "e8fa7e642e8ccd8d6dd38aaf9d810eee3c00d39d4188f82702c5b8e6124b213e"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/progress.csv",
+      "bytes": 1101,
+      "sha256": "3191ebcdffc9b5a84bfaa2ef3224c59a34788f4f589707dd6f3f78abd0a7d3a5"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/reload_check.json",
+      "bytes": 42432,
+      "sha256": "64d1a2fe0a4c2c3643877c34396d758949fdd981dc8ec28cd2fae54c5b90ddee"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/reload_probe.npz",
+      "bytes": 9996,
+      "sha256": "59910668c5c0ca7650d348524677c26162392aa62aefb919a8e2e8fb31d84bc8"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/inputs/training-run/resolved_config.json",
+      "bytes": 75187,
+      "sha256": "1f65af4b7294956feb9a9d19f80aa337d10c0be8b8bdb26dbbf3deb19be0f648"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/manifest.json",
+      "bytes": 57746,
+      "sha256": "9664a885ccf820458823cbfb6054cdd4c9cd63dbbc3b28dd2804590ec3e91126"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/test_evaluation.py",
+      "bytes": 24860,
+      "sha256": "bd9075a112c88f95402c30e1d9a0f52dc854ffda57023faa8fd08745430b3f59"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/working-tree.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/__init__.py",
+      "bytes": 76,
+      "sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/baseline.py",
+      "bytes": 20640,
+      "sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/env.py",
+      "bytes": 24958,
+      "sha256": "6c3acaee1b85a23cde4013b88a7ca65a1987e7c9ae75a05a3d482929b803f980"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/evaluate.py",
+      "bytes": 36530,
+      "sha256": "c924c7c28c9e41fa051ee74796b6e3766791090f7640913f53ea87d000e71031"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/model.py",
+      "bytes": 12145,
+      "sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/model_audit.py",
+      "bytes": 56213,
+      "sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/reset.py",
+      "bytes": 17618,
+      "sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/success.py",
+      "bytes": 17007,
+      "sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/source/x2_recovery/train.py",
+      "bytes": 56215,
+      "sha256": "9fe83fcde4868e31adf0dffecfcc8e1966d06bba05da6a25f98f9eaa0c32446a"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/stdout.log",
+      "bytes": 1356,
+      "sha256": "24cdd1f6bc1c242a8bed279aa7a18adb04d12834f81019ed44cfe543fa1e0d27"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/summary.json",
+      "bytes": 18616,
+      "sha256": "9a1f059d5c793c169e03a256f20b13346e3a6ca40e749737a453bdb3a001d4ba"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/trajectory.jsonl.gz",
+      "bytes": 31051480,
+      "sha256": "4266bd591bd77239ff31782c4737c927d4278d0c168aba9712389adcc7e66634"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/checks.json",
+      "bytes": 1475,
+      "sha256": "43c52b30c071d099045694c84169fc3289b26c2382ec8c5f74706ca2736cb32e"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/evaluation-tests-final.json",
+      "bytes": 252,
+      "sha256": "0fa91ee0c07217f54b70b6facd7af677eb3cccb85db27506aae57be2656883a1"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/evaluation-tests-final.log",
+      "bytes": 2176,
+      "sha256": "1c1dcbbefd71fb5ca7f0f3e64836c4e1cd280c7c1c273b1ff5ffa72fd262158c"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/existing-regression.json",
+      "bytes": 253,
+      "sha256": "fcb64308c27b93893d72c6c4459fa6ee1a08c2c2bad30d8935cd1bdc0ed93941"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/existing-regression.log",
+      "bytes": 17439,
+      "sha256": "177e0ce4a6381a3480fd1754e3c430e606a2b6d34ac4bdd9dcd4d83b1dd0c919"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/final-checks.json",
+      "bytes": 2256,
+      "sha256": "bdaa190d86134a7b40cffca76f787d844adbdcc55801c181be797777172adc20"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/fresh-build.json",
+      "bytes": 654,
+      "sha256": "971e3a08a36e517bac381f431bbfdf9f71e9b8a3003c9e3fe10c786a3fcf134f"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/fresh-build.log",
+      "bytes": 95,
+      "sha256": "f3017a71dec1a0a4a3453f9d25fd779b5b616351f6c4a24b8653dec23cd4ba31"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/initial-checks.json",
+      "bytes": 1489,
+      "sha256": "391464c53fc7a5824a791749bf6eaba50a8ab08ffb610646e216b8348abae009"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/installed-cli.json",
+      "bytes": 1168,
+      "sha256": "4474569f784848ef9bb024d53220e6eca3162afccfee43ce9defe6441a0aab65"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/validation/preflight.json",
+      "bytes": 41257,
+      "sha256": "30c28281afffa0638883561b6b7e777c9ef21daff6892d637d9cb4a05c25737c"
+    },
+    {
+      "path": "results/evaluation/ppo-smoke-20260922T044430Z/verification.json",
+      "bytes": 716,
+      "sha256": "eb4a3a568ee651b8adec612ceac8cd9ee21f61a1485ea2800f604010891d19c0"
+    },
+    {
+      "path": "results/publication/20260923/HumanUP-LICENSE.txt",
+      "bytes": 11384,
+      "sha256": "4c3a7d6efb1af6ef125b338c6282040f62796c828236bee2a0c834792d028845"
+    },
+    {
+      "path": "results/publication/20260923/THIRD_PARTY_NOTICES.md",
+      "bytes": 1503,
+      "sha256": "63b42d244056413faf367687ac19fac4c625b9ea3f48fd677866934498439a99"
+    },
+    {
+      "path": "results/publication/20260923/verify_delivery.py",
+      "bytes": 4188,
+      "sha256": "cbb04ae258664f3282b04a3fd09ca0cb89f511fb439722d07ed0b410834073cb"
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/__init__.py",
+      "bytes": 76,
+      "sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532"
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/model.py",
+      "bytes": 12145,
+      "sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5"
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/model_audit.py",
+      "bytes": 56213,
+      "sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc"
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/reset.py",
+      "bytes": 17618,
+      "sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e"
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/success.py",
+      "bytes": 17007,
+      "sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1"
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/env.py",
+      "bytes": 56569,
+      "sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7"
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/train.py",
+      "bytes": 105004,
+      "sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118"
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/evaluate.py",
+      "bytes": 48378,
+      "sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366"
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/baseline.py",
+      "bytes": 20640,
+      "sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+    },
+    {
+      "path": "src/x2_recovery/x2_recovery/motion_search.py",
+      "bytes": 15333,
+      "sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56"
+    }
+  ],
+  "total_bytes": 47708845,
+  "compressed_trajectories": [
+    {
+      "original": "results/evaluation/ppo-smoke-20260922T044430Z/trajectory.jsonl",
+      "published": "results/evaluation/ppo-smoke-20260922T044430Z/trajectory.jsonl.gz",
+      "original_bytes": 152594226,
+      "published_bytes": 31051480,
+      "original_sha256": "83ae5584152f58da0757f57f68cf0ed39876eca663b0e4d97238c1ba459dcdc4",
+      "gzip_sha256": "4266bd591bd77239ff31782c4737c927d4278d0c168aba9712389adcc7e66634",
+      "frozen_summary_hash_match": true,
+      "decompressed_hash_match": true
+    },
+    {
+      "original": "results/evaluation/ppo-reference-residual-20260922T212457Z/trajectory.jsonl",
+      "published": "results/evaluation/ppo-reference-residual-20260922T212457Z/trajectory.jsonl.gz",
+      "original_bytes": 44023359,
+      "published_bytes": 10747314,
+      "original_sha256": "8fe2978965a49e63bd24ea5b38c37a15b600c47036f505c683433956c4f85443",
+      "gzip_sha256": "1f733d43b750de9befb9126554196c295040478270ab5d29d545a0a43fe37fcb",
+      "frozen_summary_hash_match": true,
+      "decompressed_hash_match": true
+    }
+  ],
+  "runtime_matches_successful_frozen_sources": {
+    "__init__.py": true,
+    "evaluate.py": true,
+    "train.py": true,
+    "env.py": true,
+    "reset.py": true,
+    "success.py": true,
+    "model.py": true,
+    "model_audit.py": true,
+    "baseline.py": true
+  },
+  "large_file_review": {
+    "threshold_bytes": 20971520,
+    "decision": "Include 31,051,480-byte old trajectory gzip: complete five-episode 0/5 record; no episode discarded; total publication below 100 MiB."
+  },
+  "excluded_local_data": [
+    "Original uncompressed trajectory.jsonl files (byte-identical gzip copies included)",
+    "runs/ bulk training/search logs and nonselected checkpoints",
+    "audit-output/ original diagnostics",
+    "Private task PDF, project venv and build/install/log directories",
+    "Official model cache and original external HumanUP motion asset"
+  ],
+  "historical_provenance": "Original manifests and absolute paths are unchanged. Files record pre-publication HEAD and workspace state. Current execution uses repository-relative inputs.",
+  "reproduction_dependencies": "Published controller/config/reference/checkpoint/probe/manifest plus pinned official model cache and documented VM Python dependencies; no bulk local run is needed.",
+  "license_attribution": "THIRD_PARTY_NOTICES.md"
+}

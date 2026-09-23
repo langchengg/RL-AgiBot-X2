@@ -1,0 +1,77 @@
+[
+  {
+    "command": [
+      "pwd"
+    ],
+    "returncode": 0,
+    "stdout": "/home/lang/RL-AgiBot-X2\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "status",
+      "--short",
+      "--branch"
+    ],
+    "returncode": 0,
+    "stdout": "## main...origin/main\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "f3dcdcd361254d1c447b5a7a8901567ab8de68d4\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "uname",
+      "-a"
+    ],
+    "returncode": 0,
+    "stdout": "Linux lang 7.0.0-31-generic #31~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 10 09:27:00 UTC 2 aarch64 aarch64 aarch64 GNU/Linux\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "systemd-detect-virt"
+    ],
+    "returncode": 0,
+    "stdout": "parallels\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "Python 3.12.3\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pip",
+      "check"
+    ],
+    "returncode": 0,
+    "stdout": "No broken requirements found.\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "sha256sum",
+      "runs/ppo_supine/smoke-std-minus1p5-20260922/policy_final.zip"
+    ],
+    "returncode": 0,
+    "stdout": "e8fa7e642e8ccd8d6dd38aaf9d810eee3c00d39d4188f82702c5b8e6124b213e  runs/ppo_supine/smoke-std-minus1p5-20260922/policy_final.zip\n",
+    "stderr": ""
+  }
+]

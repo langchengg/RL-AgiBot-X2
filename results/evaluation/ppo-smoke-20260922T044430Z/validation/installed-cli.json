@@ -1,0 +1,9 @@
+{
+  "cwd": "/tmp",
+  "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+  "module_file": "/home/lang/RL-AgiBot-X2/audit-output/ppo-evaluation-validation-20260922/fresh-package/build/x2_recovery/x2_recovery/evaluate.py",
+  "resolved_module_file": "/home/lang/RL-AgiBot-X2/src/x2_recovery/x2_recovery/evaluate.py",
+  "help_exit_code": 0,
+  "stdout": "usage: evaluate.py [-h] --training-run TRAINING_RUN --seeds SEEDS SEEDS SEEDS\n                   SEEDS SEEDS --deterministic --output OUTPUT\n                   [--episode-wall-seconds EPISODE_WALL_SECONDS]\n\nFive frozen, deterministic PPO attempts; no training and no automatic reset.\nThe environment owns physics, reset and success. This module records its\nevidence and independently checks the bookkeeping, not a second standing\ncriterion.\n\noptions:\n  -h, --help            show this help message and exit\n  --training-run TRAINING_RUN\n  --seeds SEEDS SEEDS SEEDS SEEDS SEEDS\n  --deterministic\n  --output OUTPUT\n  --episode-wall-seconds EPISODE_WALL_SECONDS\n                        Cooperative wall watchdog per attempt, including reset\n                        (default: 180).\n",
+  "stderr": ""
+}

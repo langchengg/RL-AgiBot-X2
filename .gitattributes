@@ -1,0 +1,6 @@
+# Frozen evidence is verified by byte SHA-256; never normalize its line endings.
+results/evaluation/** -text
+# Python csv.writer produced CRLF. Preserve it as recorded, not trailing spaces.
+results/evaluation/**/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Unified patch context contains single-space empty lines by design.
+results/evaluation/**/source/working-tree.patch whitespace=-blank-at-eol

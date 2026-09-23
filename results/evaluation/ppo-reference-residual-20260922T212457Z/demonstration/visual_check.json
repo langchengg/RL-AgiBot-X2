@@ -1,0 +1,28 @@
+{
+  "status": "REVIEWED_PASS",
+  "reviewed_images": [
+    "frame-0000.png",
+    "frame-0243.png"
+  ],
+  "review": "Initial actual supine and final standing PNGs opened and visually inspected. Full robot visible; controller/reproduction/time/hold/result text readable and uncropped. All encoded video frames previously decoded in the renderer.",
+  "video_sha256": "f37e91fae16ce93f0b16f72d9cda971f2a5ba47798ac82c70d90db670aed5fd3",
+  "video_bytes": 532522,
+  "fps": 10.0,
+  "decoded_frames": 50,
+  "container_frame_count": 50.0,
+  "saved_trajectory_episode_recomputed": {
+    "episode": 1,
+    "seed": 222603,
+    "reset_seed": 1890868118,
+    "controller": "reference_plus_trained_PPO_residual",
+    "success": 1,
+    "sim_duration_s": 4.856000000000583,
+    "max_pelvis_height_m": 0.6315388406049972,
+    "max_stable_hold_s": 2.000000000000668,
+    "terminated": 1,
+    "truncated": 0,
+    "termination_reason": "success"
+  },
+  "checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+  "scope": "Separate new-process trained-hybrid reproduction. Not footage from formal five-episode evaluation."
+}

@@ -1,0 +1,283 @@
+{
+  "status": "PASS",
+  "created_utc": "2026-09-22T21:23:48.955926+00:00",
+  "auditor_sha256": "2a27082b0ff70834601755fd802c115c192846ba96c5e86565b740a657d1d6f6",
+  "checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+  "training_transitions": 4096,
+  "optimizer_steps": 138,
+  "parameter_changes": {
+    "actor_mean": {
+      "l2": 0.2911195072889336,
+      "max_abs": 0.007409419398754835
+    },
+    "critic": {
+      "l2": 1.9639009822466242,
+      "max_abs": 0.019189361482858658
+    },
+    "log_std": {
+      "l2": 0.11407239829908856,
+      "max_abs": 0.008557558059692383
+    }
+  },
+  "results": [
+    {
+      "label": "reload",
+      "path": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/ppo-success-reference-small-4k/development-222610",
+      "seed": 222610,
+      "reset_seed": 444722860,
+      "transitions": 243,
+      "physics_steps": 4856,
+      "success": true,
+      "sim_duration_s": 4.856000000000583,
+      "native_hold_s": 2.000000000000668,
+      "hold_start_s": 2.8559999999999155,
+      "hold_samples": 2001,
+      "last_transition_physics_steps": 16,
+      "original_tracker_replay": "EXACT_ALL_FIELDS_ALL_SAMPLES",
+      "policy_prediction_max_abs_error": null,
+      "pd_last_substep_max_abs_error_Nm": 0.0,
+      "residual_mapping_max_abs_error_rad": 0.0,
+      "nonzero_applied_action_transitions": 243,
+      "nonzero_gated_residual_transitions": 130,
+      "success_window_ranges": {
+        "pelvis_height_m": [
+          0.61558819343626,
+          0.6171801947326976
+        ],
+        "tilt_deg": [
+          0.4754929467768515,
+          1.867363458940001
+        ],
+        "left_weight": [
+          0.4105704597351283,
+          0.5699125483173175
+        ],
+        "right_weight": [
+          0.4231965387922551,
+          0.5804799782798158
+        ],
+        "other_weight": [
+          0.0,
+          0.0
+        ],
+        "base_linear_m_s": [
+          0.002007417642625985,
+          0.05263922057307397
+        ],
+        "com_linear_m_s": [
+          0.0018767944437571558,
+          0.06852062614467908
+        ],
+        "base_angular_rad_s": [
+          0.004703515586474418,
+          0.15999230330775233
+        ],
+        "torso_angular_rad_s": [
+          0.004543655870273215,
+          0.1906250573367258
+        ],
+        "joint_rad_s": [
+          0.005666660955511396,
+          0.19831130795477214
+        ],
+        "floor_penetration_m": [
+          0.0006748793289171424,
+          0.0009986508271115037
+        ],
+        "self_penetration_m": [
+          0.0,
+          0.0
+        ],
+        "support_gap_m": [
+          0.0,
+          0.0
+        ]
+      },
+      "trajectory_sha256": "be4a1a9d65e1627a5e69c101b01169044b9d983a93b6e01e4a3e93f70605025f"
+    },
+    {
+      "label": "trained_network",
+      "path": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/success-small4k-network-ablation/trained_network",
+      "seed": 222601,
+      "reset_seed": 1771390471,
+      "transitions": 243,
+      "physics_steps": 4856,
+      "success": true,
+      "sim_duration_s": 4.856000000000583,
+      "native_hold_s": 2.000000000000668,
+      "hold_start_s": 2.8559999999999155,
+      "hold_samples": 2001,
+      "last_transition_physics_steps": 16,
+      "original_tracker_replay": "EXACT_ALL_FIELDS_ALL_SAMPLES",
+      "policy_prediction_max_abs_error": 0.0,
+      "pd_last_substep_max_abs_error_Nm": 0.0,
+      "residual_mapping_max_abs_error_rad": 0.0,
+      "nonzero_applied_action_transitions": 243,
+      "nonzero_gated_residual_transitions": 130,
+      "success_window_ranges": {
+        "pelvis_height_m": [
+          0.61558819343626,
+          0.6171801947326976
+        ],
+        "tilt_deg": [
+          0.4754929467768515,
+          1.867363458940001
+        ],
+        "left_weight": [
+          0.4105704597351283,
+          0.5699125483173175
+        ],
+        "right_weight": [
+          0.4231965387922551,
+          0.5804799782798158
+        ],
+        "other_weight": [
+          0.0,
+          0.0
+        ],
+        "base_linear_m_s": [
+          0.002007417642625985,
+          0.05263922057307397
+        ],
+        "com_linear_m_s": [
+          0.0018767944437571558,
+          0.06852062614467908
+        ],
+        "base_angular_rad_s": [
+          0.004703515586474418,
+          0.15999230330775233
+        ],
+        "torso_angular_rad_s": [
+          0.004543655870273215,
+          0.1906250573367258
+        ],
+        "joint_rad_s": [
+          0.005666660955511396,
+          0.19831130795477214
+        ],
+        "floor_penetration_m": [
+          0.0006748793289171424,
+          0.0009986508271115037
+        ],
+        "self_penetration_m": [
+          0.0,
+          0.0
+        ],
+        "support_gap_m": [
+          0.0,
+          0.0
+        ]
+      },
+      "trajectory_sha256": "d22176104e4c8a53dd4c56c7e0304a92152eb96bca8a5f75841c3b324876211f"
+    },
+    {
+      "label": "zero_residual",
+      "path": "/home/lang/RL-AgiBot-X2/runs/recovery_discovery/20260922T072024Z/success-small4k-network-ablation/zero_residual",
+      "seed": 222601,
+      "reset_seed": 1771390471,
+      "transitions": 245,
+      "physics_steps": 4887,
+      "success": true,
+      "sim_duration_s": 4.887000000000594,
+      "native_hold_s": 2.000000000000668,
+      "hold_start_s": 2.886999999999926,
+      "hold_samples": 2001,
+      "last_transition_physics_steps": 7,
+      "original_tracker_replay": "EXACT_ALL_FIELDS_ALL_SAMPLES",
+      "policy_prediction_max_abs_error": 0.0,
+      "pd_last_substep_max_abs_error_Nm": 0.0,
+      "residual_mapping_max_abs_error_rad": 0.0,
+      "nonzero_applied_action_transitions": 0,
+      "nonzero_gated_residual_transitions": 0,
+      "success_window_ranges": {
+        "pelvis_height_m": [
+          0.6162852428293539,
+          0.6192178463999066
+        ],
+        "tilt_deg": [
+          0.9864572140282444,
+          2.748944568020194
+        ],
+        "left_weight": [
+          0.43294447675852993,
+          0.5725137473052551
+        ],
+        "right_weight": [
+          0.42358299023835994,
+          0.5605649985562001
+        ],
+        "other_weight": [
+          0.0,
+          0.0
+        ],
+        "base_linear_m_s": [
+          0.0034213547060645156,
+          0.05395860312422294
+        ],
+        "com_linear_m_s": [
+          0.0019120541918214173,
+          0.06847626212892692
+        ],
+        "base_angular_rad_s": [
+          0.007000564644488333,
+          0.15319231058969898
+        ],
+        "torso_angular_rad_s": [
+          0.005766640570437178,
+          0.1818506000839889
+        ],
+        "joint_rad_s": [
+          0.01034149921570943,
+          0.20055421024555276
+        ],
+        "floor_penetration_m": [
+          0.0007184986076863254,
+          0.0009989494001247752
+        ],
+        "self_penetration_m": [
+          0.0,
+          0.0
+        ],
+        "support_gap_m": [
+          0.0,
+          0.0
+        ]
+      },
+      "trajectory_sha256": "b109224a0bf4512a5381b4b3cac59b6240c8720df261abe9f9c148690bae4747"
+    }
+  ],
+  "initial_ablation_state_errors": {
+    "qpos": 0.0,
+    "qvel": 0.0,
+    "observation": 0.0
+  },
+  "reload_vs_ablation_learned_poststate_errors": {
+    "q_rad": 0.0,
+    "dq_rad_s": 0.0,
+    "ctrl_Nm": 0.0
+  },
+  "matched_target_max_difference_rad": 0.005623214989900593,
+  "policy_state_sha256": "24a51f6bf7bbcc2741cee197e0ea00667f3178fd6d4de92aceafd43ab61db1e6",
+  "optimizer_state_sha256": "74b23abf4ab1bfbbc3462b81a7f10492e3642f358f64ab64bd991ac6e0a43d4e",
+  "loaded_policy_and_optimizer_unchanged": true,
+  "physical_config_equal_to_successful_reference": true,
+  "source_hashes": {
+    "env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+  },
+  "executed_ablation_runner_sha256": "b3bb33ff600d34c24303fef70ceeb0d959e7eecff7083b5e8e7bd4ded60ff067",
+  "runner_review": "Normal branch applies ordinary deterministic PPO.predict directly to same wrapper. Zero branch explicitly applies zero while separately logging prediction. No noise, extra clipping, transform, learning, gain/physics/state writes or hidden override in normal branch.",
+  "interpretation": "Trained reference+PPO residual and reference alone both recover. Network changes actual targets; learned recovery is real, but PPO was not necessary for this successful reference. One matched pair provides no success-rate improvement evidence. Completion was0.031s earlier for the trained pair.",
+  "limitations": [
+    "Native tracker replay uses validated persisted reset origin; no new physical execution is claimed.",
+    "Full q/dq/PD evidence at each final physical substep of control transitions; other substeps retain scalar original success measurements.",
+    "Reload trace omits intermediate observations; direct prediction replay applies to matched ablation trace, which has bitwise identical post-joint states and controls.",
+    "Fixed deterministic reset; no robustness or formal evaluation claim."
+  ],
+  "physical_reset_calls": 0,
+  "physical_step_calls": 0,
+  "learn_calls": 0
+}

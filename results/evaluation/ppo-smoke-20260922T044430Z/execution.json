@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "-m",
+    "x2_recovery.evaluate",
+    "--training-run",
+    "runs/ppo_supine/smoke-std-minus1p5-20260922",
+    "--seeds",
+    "220930",
+    "220931",
+    "220932",
+    "220933",
+    "220934",
+    "--deterministic",
+    "--output",
+    "/home/lang/RL-AgiBot-X2/results/evaluation/ppo-smoke-20260922T044430Z"
+  ],
+  "cwd": "/home/lang/RL-AgiBot-X2",
+  "output": "/home/lang/RL-AgiBot-X2/results/evaluation/ppo-smoke-20260922T044430Z",
+  "started_utc": "2026-09-22T04:44:30.230823+00:00",
+  "exit_code": 0,
+  "stdout_log": "/home/lang/RL-AgiBot-X2/audit-output/ppo-evaluation-validation-20260922/formal-stdout.log",
+  "ended_utc": "2026-09-22T04:46:29.954370+00:00",
+  "wall_seconds": 119.72345080699597
+}

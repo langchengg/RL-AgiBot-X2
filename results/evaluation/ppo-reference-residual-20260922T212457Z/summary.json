@@ -1,0 +1,624 @@
+{
+  "status": "COMPLETE",
+  "planned": 5,
+  "attempted": 5,
+  "valid_completed": 5,
+  "successes_observed": 5,
+  "started_utc": "2026-09-22T21:24:59.143754+00:00",
+  "episodes": [
+    {
+      "episode": 1,
+      "seed": 221030,
+      "reset_seed": 1232936377,
+      "controller": "ppo_reference_residual",
+      "success": 1,
+      "sim_duration_s": 4.856000000000583,
+      "max_pelvis_height_m": 0.6315388406049972,
+      "max_stable_hold_s": 2.000000000000668,
+      "terminated": 1,
+      "truncated": 0,
+      "termination_reason": "success"
+    },
+    {
+      "episode": 2,
+      "seed": 221031,
+      "reset_seed": 820366694,
+      "controller": "ppo_reference_residual",
+      "success": 1,
+      "sim_duration_s": 4.856000000000583,
+      "max_pelvis_height_m": 0.6315388406049972,
+      "max_stable_hold_s": 2.000000000000668,
+      "terminated": 1,
+      "truncated": 0,
+      "termination_reason": "success"
+    },
+    {
+      "episode": 3,
+      "seed": 221032,
+      "reset_seed": 564952530,
+      "controller": "ppo_reference_residual",
+      "success": 1,
+      "sim_duration_s": 4.856000000000583,
+      "max_pelvis_height_m": 0.6315388406049972,
+      "max_stable_hold_s": 2.000000000000668,
+      "terminated": 1,
+      "truncated": 0,
+      "termination_reason": "success"
+    },
+    {
+      "episode": 4,
+      "seed": 221033,
+      "reset_seed": 701763276,
+      "controller": "ppo_reference_residual",
+      "success": 1,
+      "sim_duration_s": 4.856000000000583,
+      "max_pelvis_height_m": 0.6315388406049972,
+      "max_stable_hold_s": 2.000000000000668,
+      "terminated": 1,
+      "truncated": 0,
+      "termination_reason": "success"
+    },
+    {
+      "episode": 5,
+      "seed": 221034,
+      "reset_seed": 1414725255,
+      "controller": "ppo_reference_residual",
+      "success": 1,
+      "sim_duration_s": 4.856000000000583,
+      "max_pelvis_height_m": 0.6315388406049972,
+      "max_stable_hold_s": 2.000000000000668,
+      "terminated": 1,
+      "truncated": 0,
+      "termination_reason": "success"
+    }
+  ],
+  "diagnostics": [
+    {
+      "control_steps": 243,
+      "physics_steps": 4856,
+      "raw_return": 82.86760265122089,
+      "reward_terms": {
+        "pose_guide": 1.7975400588302106,
+        "head_track": 8.640301243647109,
+        "balance": 12.387828914366185,
+        "overload": -0.032596859263477204,
+        "self_penetration": -0.0,
+        "standing": 10.07999999999998,
+        "torque_cost": -0.004865634005740171,
+        "target_change": -0.0006050723533815241,
+        "success": 50.0,
+        "safety": -0.0
+      },
+      "peak_height_sample": {
+        "elapsed_sim_s": 2.068,
+        "measurement": {
+          "time_s": 3.7289999999997003,
+          "pelvis_height_m": 0.6315388406049972,
+          "upright_dot": 0.9261724871447226,
+          "tilt_deg": 22.15417461734764,
+          "left_weight": 0.0,
+          "right_weight": 0.0,
+          "other_weight": 0.0,
+          "other_force_N": 0.0,
+          "base_linear_m_s": 0.542052478425298,
+          "com_linear_m_s": 0.5685767550339403,
+          "base_angular_rad_s": 2.2401713084369397,
+          "torso_angular_rad_s": 1.50594013079608,
+          "joint_rad_s": 1.3745821661313988,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0,
+          "self_penetration_m": 0.0,
+          "support_gap_m": 0.0,
+          "pelvis_xy": [
+            -0.14904931424587448,
+            -0.09640246577109991
+          ],
+          "left_xy": [
+            -0.18661148249004364,
+            0.18274117016622868
+          ],
+          "right_xy": [
+            -0.21977113139764862,
+            -0.37765995182797696
+          ]
+        },
+        "tracker": {
+          "instant_standing_ok": false,
+          "standing_held": false,
+          "recovery_success": false,
+          "stable_duration_s": 0.0,
+          "failures": [
+            "torso_tilt",
+            "left_support",
+            "right_support",
+            "feet_total",
+            "base_linear_m_s",
+            "com_linear_m_s",
+            "base_angular_rad_s",
+            "torso_angular_rad_s",
+            "joint_rad_s"
+          ],
+          "invalid_reason": null,
+          "drift_m": {
+            "pelvis": 0.0,
+            "left": 0.0,
+            "right": 0.0
+          },
+          "timed_out": false
+        }
+      },
+      "failed_predicate_substeps": {
+        "height": 2189,
+        "torso_tilt": 2341,
+        "left_support": 1491,
+        "right_support": 1290,
+        "feet_total": 2150,
+        "other_weight": 1271,
+        "joint_rad_s": 2190,
+        "base_angular_rad_s": 2249,
+        "torso_angular_rad_s": 2188,
+        "com_linear_m_s": 2045,
+        "self_penetration_m": 667,
+        "base_linear_m_s": 1989,
+        "floor_penetration_m": 768,
+        "joint_limit_rad": 1064
+      },
+      "qualified_substeps": 2001,
+      "hold_interruptions": 0,
+      "torque_saturation_physics_weighted": 0.007147791890311951,
+      "mean_squared_action_change_per_transition": 2.351238151571598e-05
+    },
+    {
+      "control_steps": 243,
+      "physics_steps": 4856,
+      "raw_return": 82.86760265122089,
+      "reward_terms": {
+        "pose_guide": 1.7975400588302106,
+        "head_track": 8.640301243647109,
+        "balance": 12.387828914366185,
+        "overload": -0.032596859263477204,
+        "self_penetration": -0.0,
+        "standing": 10.07999999999998,
+        "torque_cost": -0.004865634005740171,
+        "target_change": -0.0006050723533815241,
+        "success": 50.0,
+        "safety": -0.0
+      },
+      "peak_height_sample": {
+        "elapsed_sim_s": 2.068,
+        "measurement": {
+          "time_s": 3.7289999999997003,
+          "pelvis_height_m": 0.6315388406049972,
+          "upright_dot": 0.9261724871447226,
+          "tilt_deg": 22.15417461734764,
+          "left_weight": 0.0,
+          "right_weight": 0.0,
+          "other_weight": 0.0,
+          "other_force_N": 0.0,
+          "base_linear_m_s": 0.542052478425298,
+          "com_linear_m_s": 0.5685767550339403,
+          "base_angular_rad_s": 2.2401713084369397,
+          "torso_angular_rad_s": 1.50594013079608,
+          "joint_rad_s": 1.3745821661313988,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0,
+          "self_penetration_m": 0.0,
+          "support_gap_m": 0.0,
+          "pelvis_xy": [
+            -0.14904931424587448,
+            -0.09640246577109991
+          ],
+          "left_xy": [
+            -0.18661148249004364,
+            0.18274117016622868
+          ],
+          "right_xy": [
+            -0.21977113139764862,
+            -0.37765995182797696
+          ]
+        },
+        "tracker": {
+          "instant_standing_ok": false,
+          "standing_held": false,
+          "recovery_success": false,
+          "stable_duration_s": 0.0,
+          "failures": [
+            "torso_tilt",
+            "left_support",
+            "right_support",
+            "feet_total",
+            "base_linear_m_s",
+            "com_linear_m_s",
+            "base_angular_rad_s",
+            "torso_angular_rad_s",
+            "joint_rad_s"
+          ],
+          "invalid_reason": null,
+          "drift_m": {
+            "pelvis": 0.0,
+            "left": 0.0,
+            "right": 0.0
+          },
+          "timed_out": false
+        }
+      },
+      "failed_predicate_substeps": {
+        "height": 2189,
+        "torso_tilt": 2341,
+        "left_support": 1491,
+        "right_support": 1290,
+        "feet_total": 2150,
+        "other_weight": 1271,
+        "joint_rad_s": 2190,
+        "base_angular_rad_s": 2249,
+        "torso_angular_rad_s": 2188,
+        "com_linear_m_s": 2045,
+        "self_penetration_m": 667,
+        "base_linear_m_s": 1989,
+        "floor_penetration_m": 768,
+        "joint_limit_rad": 1064
+      },
+      "qualified_substeps": 2001,
+      "hold_interruptions": 0,
+      "torque_saturation_physics_weighted": 0.007147791890311951,
+      "mean_squared_action_change_per_transition": 2.351238151571598e-05
+    },
+    {
+      "control_steps": 243,
+      "physics_steps": 4856,
+      "raw_return": 82.86760265122089,
+      "reward_terms": {
+        "pose_guide": 1.7975400588302106,
+        "head_track": 8.640301243647109,
+        "balance": 12.387828914366185,
+        "overload": -0.032596859263477204,
+        "self_penetration": -0.0,
+        "standing": 10.07999999999998,
+        "torque_cost": -0.004865634005740171,
+        "target_change": -0.0006050723533815241,
+        "success": 50.0,
+        "safety": -0.0
+      },
+      "peak_height_sample": {
+        "elapsed_sim_s": 2.068,
+        "measurement": {
+          "time_s": 3.7289999999997003,
+          "pelvis_height_m": 0.6315388406049972,
+          "upright_dot": 0.9261724871447226,
+          "tilt_deg": 22.15417461734764,
+          "left_weight": 0.0,
+          "right_weight": 0.0,
+          "other_weight": 0.0,
+          "other_force_N": 0.0,
+          "base_linear_m_s": 0.542052478425298,
+          "com_linear_m_s": 0.5685767550339403,
+          "base_angular_rad_s": 2.2401713084369397,
+          "torso_angular_rad_s": 1.50594013079608,
+          "joint_rad_s": 1.3745821661313988,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0,
+          "self_penetration_m": 0.0,
+          "support_gap_m": 0.0,
+          "pelvis_xy": [
+            -0.14904931424587448,
+            -0.09640246577109991
+          ],
+          "left_xy": [
+            -0.18661148249004364,
+            0.18274117016622868
+          ],
+          "right_xy": [
+            -0.21977113139764862,
+            -0.37765995182797696
+          ]
+        },
+        "tracker": {
+          "instant_standing_ok": false,
+          "standing_held": false,
+          "recovery_success": false,
+          "stable_duration_s": 0.0,
+          "failures": [
+            "torso_tilt",
+            "left_support",
+            "right_support",
+            "feet_total",
+            "base_linear_m_s",
+            "com_linear_m_s",
+            "base_angular_rad_s",
+            "torso_angular_rad_s",
+            "joint_rad_s"
+          ],
+          "invalid_reason": null,
+          "drift_m": {
+            "pelvis": 0.0,
+            "left": 0.0,
+            "right": 0.0
+          },
+          "timed_out": false
+        }
+      },
+      "failed_predicate_substeps": {
+        "height": 2189,
+        "torso_tilt": 2341,
+        "left_support": 1491,
+        "right_support": 1290,
+        "feet_total": 2150,
+        "other_weight": 1271,
+        "joint_rad_s": 2190,
+        "base_angular_rad_s": 2249,
+        "torso_angular_rad_s": 2188,
+        "com_linear_m_s": 2045,
+        "self_penetration_m": 667,
+        "base_linear_m_s": 1989,
+        "floor_penetration_m": 768,
+        "joint_limit_rad": 1064
+      },
+      "qualified_substeps": 2001,
+      "hold_interruptions": 0,
+      "torque_saturation_physics_weighted": 0.007147791890311951,
+      "mean_squared_action_change_per_transition": 2.351238151571598e-05
+    },
+    {
+      "control_steps": 243,
+      "physics_steps": 4856,
+      "raw_return": 82.86760265122089,
+      "reward_terms": {
+        "pose_guide": 1.7975400588302106,
+        "head_track": 8.640301243647109,
+        "balance": 12.387828914366185,
+        "overload": -0.032596859263477204,
+        "self_penetration": -0.0,
+        "standing": 10.07999999999998,
+        "torque_cost": -0.004865634005740171,
+        "target_change": -0.0006050723533815241,
+        "success": 50.0,
+        "safety": -0.0
+      },
+      "peak_height_sample": {
+        "elapsed_sim_s": 2.068,
+        "measurement": {
+          "time_s": 3.7289999999997003,
+          "pelvis_height_m": 0.6315388406049972,
+          "upright_dot": 0.9261724871447226,
+          "tilt_deg": 22.15417461734764,
+          "left_weight": 0.0,
+          "right_weight": 0.0,
+          "other_weight": 0.0,
+          "other_force_N": 0.0,
+          "base_linear_m_s": 0.542052478425298,
+          "com_linear_m_s": 0.5685767550339403,
+          "base_angular_rad_s": 2.2401713084369397,
+          "torso_angular_rad_s": 1.50594013079608,
+          "joint_rad_s": 1.3745821661313988,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0,
+          "self_penetration_m": 0.0,
+          "support_gap_m": 0.0,
+          "pelvis_xy": [
+            -0.14904931424587448,
+            -0.09640246577109991
+          ],
+          "left_xy": [
+            -0.18661148249004364,
+            0.18274117016622868
+          ],
+          "right_xy": [
+            -0.21977113139764862,
+            -0.37765995182797696
+          ]
+        },
+        "tracker": {
+          "instant_standing_ok": false,
+          "standing_held": false,
+          "recovery_success": false,
+          "stable_duration_s": 0.0,
+          "failures": [
+            "torso_tilt",
+            "left_support",
+            "right_support",
+            "feet_total",
+            "base_linear_m_s",
+            "com_linear_m_s",
+            "base_angular_rad_s",
+            "torso_angular_rad_s",
+            "joint_rad_s"
+          ],
+          "invalid_reason": null,
+          "drift_m": {
+            "pelvis": 0.0,
+            "left": 0.0,
+            "right": 0.0
+          },
+          "timed_out": false
+        }
+      },
+      "failed_predicate_substeps": {
+        "height": 2189,
+        "torso_tilt": 2341,
+        "left_support": 1491,
+        "right_support": 1290,
+        "feet_total": 2150,
+        "other_weight": 1271,
+        "joint_rad_s": 2190,
+        "base_angular_rad_s": 2249,
+        "torso_angular_rad_s": 2188,
+        "com_linear_m_s": 2045,
+        "self_penetration_m": 667,
+        "base_linear_m_s": 1989,
+        "floor_penetration_m": 768,
+        "joint_limit_rad": 1064
+      },
+      "qualified_substeps": 2001,
+      "hold_interruptions": 0,
+      "torque_saturation_physics_weighted": 0.007147791890311951,
+      "mean_squared_action_change_per_transition": 2.351238151571598e-05
+    },
+    {
+      "control_steps": 243,
+      "physics_steps": 4856,
+      "raw_return": 82.86760265122089,
+      "reward_terms": {
+        "pose_guide": 1.7975400588302106,
+        "head_track": 8.640301243647109,
+        "balance": 12.387828914366185,
+        "overload": -0.032596859263477204,
+        "self_penetration": -0.0,
+        "standing": 10.07999999999998,
+        "torque_cost": -0.004865634005740171,
+        "target_change": -0.0006050723533815241,
+        "success": 50.0,
+        "safety": -0.0
+      },
+      "peak_height_sample": {
+        "elapsed_sim_s": 2.068,
+        "measurement": {
+          "time_s": 3.7289999999997003,
+          "pelvis_height_m": 0.6315388406049972,
+          "upright_dot": 0.9261724871447226,
+          "tilt_deg": 22.15417461734764,
+          "left_weight": 0.0,
+          "right_weight": 0.0,
+          "other_weight": 0.0,
+          "other_force_N": 0.0,
+          "base_linear_m_s": 0.542052478425298,
+          "com_linear_m_s": 0.5685767550339403,
+          "base_angular_rad_s": 2.2401713084369397,
+          "torso_angular_rad_s": 1.50594013079608,
+          "joint_rad_s": 1.3745821661313988,
+          "joint_limit_rad": 0.0,
+          "floor_penetration_m": 0.0,
+          "self_penetration_m": 0.0,
+          "support_gap_m": 0.0,
+          "pelvis_xy": [
+            -0.14904931424587448,
+            -0.09640246577109991
+          ],
+          "left_xy": [
+            -0.18661148249004364,
+            0.18274117016622868
+          ],
+          "right_xy": [
+            -0.21977113139764862,
+            -0.37765995182797696
+          ]
+        },
+        "tracker": {
+          "instant_standing_ok": false,
+          "standing_held": false,
+          "recovery_success": false,
+          "stable_duration_s": 0.0,
+          "failures": [
+            "torso_tilt",
+            "left_support",
+            "right_support",
+            "feet_total",
+            "base_linear_m_s",
+            "com_linear_m_s",
+            "base_angular_rad_s",
+            "torso_angular_rad_s",
+            "joint_rad_s"
+          ],
+          "invalid_reason": null,
+          "drift_m": {
+            "pelvis": 0.0,
+            "left": 0.0,
+            "right": 0.0
+          },
+          "timed_out": false
+        }
+      },
+      "failed_predicate_substeps": {
+        "height": 2189,
+        "torso_tilt": 2341,
+        "left_support": 1491,
+        "right_support": 1290,
+        "feet_total": 2150,
+        "other_weight": 1271,
+        "joint_rad_s": 2190,
+        "base_angular_rad_s": 2249,
+        "torso_angular_rad_s": 2188,
+        "com_linear_m_s": 2045,
+        "self_penetration_m": 667,
+        "base_linear_m_s": 1989,
+        "floor_penetration_m": 768,
+        "joint_limit_rad": 1064
+      },
+      "qualified_substeps": 2001,
+      "hold_interruptions": 0,
+      "torque_saturation_physics_weighted": 0.007147791890311951,
+      "mean_squared_action_change_per_transition": 2.351238151571598e-05
+    }
+  ],
+  "initial_state_comparison": [
+    {
+      "episode": 1,
+      "physical_state_sha256": "2c191ccf518fc05761f7e153e95cf90875fea9982a626c8b1a700fdbc3ea9ed7",
+      "exact_equal_to_first": true,
+      "max_abs_delta": {
+        "qpos": 0.0,
+        "qvel": 0.0,
+        "observation": 0.0
+      }
+    },
+    {
+      "episode": 2,
+      "physical_state_sha256": "2c191ccf518fc05761f7e153e95cf90875fea9982a626c8b1a700fdbc3ea9ed7",
+      "exact_equal_to_first": true,
+      "max_abs_delta": {
+        "qpos": 0.0,
+        "qvel": 0.0,
+        "observation": 0.0
+      }
+    },
+    {
+      "episode": 3,
+      "physical_state_sha256": "2c191ccf518fc05761f7e153e95cf90875fea9982a626c8b1a700fdbc3ea9ed7",
+      "exact_equal_to_first": true,
+      "max_abs_delta": {
+        "qpos": 0.0,
+        "qvel": 0.0,
+        "observation": 0.0
+      }
+    },
+    {
+      "episode": 4,
+      "physical_state_sha256": "2c191ccf518fc05761f7e153e95cf90875fea9982a626c8b1a700fdbc3ea9ed7",
+      "exact_equal_to_first": true,
+      "max_abs_delta": {
+        "qpos": 0.0,
+        "qvel": 0.0,
+        "observation": 0.0
+      }
+    },
+    {
+      "episode": 5,
+      "physical_state_sha256": "2c191ccf518fc05761f7e153e95cf90875fea9982a626c8b1a700fdbc3ea9ed7",
+      "exact_equal_to_first": true,
+      "max_abs_delta": {
+        "qpos": 0.0,
+        "qvel": 0.0,
+        "observation": 0.0
+      }
+    }
+  ],
+  "all_initial_states_equal_within_tolerance": true,
+  "physical_transition_sha256": [
+    "16373c002b561128fb5274899480ea9fc6b70e436f5fbe3068b4a098e7340d4d",
+    "16373c002b561128fb5274899480ea9fc6b70e436f5fbe3068b4a098e7340d4d",
+    "16373c002b561128fb5274899480ea9fc6b70e436f5fbe3068b4a098e7340d4d",
+    "16373c002b561128fb5274899480ea9fc6b70e436f5fbe3068b4a098e7340d4d",
+    "16373c002b561128fb5274899480ea9fc6b70e436f5fbe3068b4a098e7340d4d"
+  ],
+  "all_recorded_physical_transitions_identical": true,
+  "verified_from_disk": true,
+  "result": "5/5",
+  "final_policy_state_sha256": "24a51f6bf7bbcc2741cee197e0ea00667f3178fd6d4de92aceafd43ab61db1e6",
+  "ended_utc": "2026-09-22T21:25:30.172542+00:00",
+  "wall_seconds": 31.028818765000324,
+  "environment_closed": true,
+  "artifact_sha256": {
+    "manifest.json": "0224b05ad31f58dfe1d846bd53bc70c1da9f789112b5f4e1f01ed766d9e16c71",
+    "episodes.csv": "a2c06cc95d64efedaafcb5759f7a729ecb35c522109324ff58e49a3ef2afdfeb",
+    "trajectory.jsonl": "8fe2978965a49e63bd24ea5b38c37a15b600c47036f505c683433956c4f85443"
+  }
+}

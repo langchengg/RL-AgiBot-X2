@@ -1,0 +1,1938 @@
+{
+  "status": "PASS",
+  "episode_label": "reload_validation",
+  "formal_evaluation": "NOT_EVALUATED",
+  "pid": 197760,
+  "python_executable": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+  "checkpoint_path": "/home/lang/RL-AgiBot-X2/runs/ppo_supine/smoke-std-minus1p5-20260922/policy_final.zip",
+  "started_utc": "2026-09-22T01:51:31.826795+00:00",
+  "action_consistency": {
+    "max_abs_error": 0.0,
+    "atol": 1e-07,
+    "rtol": 1e-06,
+    "observations": 16,
+    "action_shape": [
+      16,
+      31
+    ]
+  },
+  "compatibility": {
+    "model_fingerprint": "bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0",
+    "core_source_hashes": {
+      "env.py": "6c3acaee1b85a23cde4013b88a7ca65a1987e7c9ae75a05a3d482929b803f980",
+      "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+    },
+    "resolved_env": {
+      "config": {
+        "decimation": 20,
+        "episode_timeout_s": 20.0,
+        "step_wall_s": 5.0,
+        "reset_wall_s": 45.0,
+        "reset_perturb_rad": 0.0,
+        "joint_velocity_scale_rad_s": 5.0,
+        "base_linear_scale_m_s": 1.0,
+        "base_angular_scale_rad_s": 2.0,
+        "shaping_gamma": 0.999,
+        "height_weight": 3.0,
+        "upright_weight": 1.0,
+        "standing_hold_weight": 1.0,
+        "torque_cost_weight": -0.02,
+        "action_change_weight": -0.002,
+        "success_bonus": 50.0,
+        "safety_floor_m": 0.03,
+        "safety_self_m": 0.015,
+        "safety_joint_limit_rad": 0.05,
+        "safety_joint_speed_rad_s": 30.0,
+        "reference_angles": [
+          [
+            "hip_pitch",
+            -0.05
+          ],
+          [
+            "knee",
+            0.1
+          ],
+          [
+            "ankle_pitch",
+            -0.05
+          ],
+          [
+            "shoulder_pitch",
+            -0.15
+          ],
+          [
+            "elbow",
+            -0.3
+          ]
+        ],
+        "shoulder_roll_rad": 0.15,
+        "pd_gains": [
+          [
+            "hip",
+            600.0,
+            16.970562748477143
+          ],
+          [
+            "knee",
+            600.0,
+            16.970562748477143
+          ],
+          [
+            "ankle",
+            300.0,
+            11.313708498984761
+          ],
+          [
+            "waist",
+            300.0,
+            11.313708498984761
+          ],
+          [
+            "shoulder",
+            100.0,
+            4.242640687119286
+          ],
+          [
+            "elbow",
+            100.0,
+            4.242640687119286
+          ],
+          [
+            "head",
+            10.0,
+            0.4242640687119285
+          ],
+          [
+            "wrist",
+            10.0,
+            0.4242640687119285
+          ]
+        ]
+      },
+      "physics_dt": 0.001,
+      "control_dt": 0.02,
+      "success_settings": {
+        "h_ref_m": 0.6724955472220092,
+        "height_ratio_min": 0.9,
+        "tilt_deg_max": 15.0,
+        "foot_weight_min": 0.05,
+        "feet_weight_min": 0.8,
+        "feet_weight_max": 1.2,
+        "other_weight_max": 1e-05,
+        "linear_m_s_max": 0.1,
+        "angular_rad_s_max": 0.25,
+        "joint_rad_s_max": 0.5,
+        "pelvis_drift_m_max": 0.05,
+        "foot_drift_m_max": 0.03,
+        "hold_s": 2.0,
+        "floor_penetration_m_max": 0.001,
+        "self_penetration_m_max": 0.0001,
+        "support_gap_m_max": 2e-06,
+        "joint_limit_rad_max": 0.0001
+      },
+      "mapping": [
+        {
+          "ctrl_index": 0,
+          "actuator_name": "motor_left_hip_pitch_joint",
+          "joint_name": "left_hip_pitch_joint",
+          "joint_id": 1,
+          "qpos_address": 7,
+          "dof_address": 6,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -2.704,
+            2.556
+          ],
+          "control_range": [
+            -118.0,
+            118.0
+          ],
+          "effort_range": [
+            -118.0,
+            118.0
+          ],
+          "joint_effort_range": [
+            -120.0,
+            120.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 1,
+          "actuator_name": "motor_left_hip_roll_joint",
+          "joint_name": "left_hip_roll_joint",
+          "joint_id": 2,
+          "qpos_address": 8,
+          "dof_address": 7,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.235,
+            2.906
+          ],
+          "control_range": [
+            -118.0,
+            118.0
+          ],
+          "effort_range": [
+            -118.0,
+            118.0
+          ],
+          "joint_effort_range": [
+            -120.0,
+            120.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 2,
+          "actuator_name": "motor_left_hip_yaw_joint",
+          "joint_name": "left_hip_yaw_joint",
+          "joint_id": 3,
+          "qpos_address": 9,
+          "dof_address": 8,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -1.684,
+            3.43
+          ],
+          "control_range": [
+            -118.0,
+            118.0
+          ],
+          "effort_range": [
+            -118.0,
+            118.0
+          ],
+          "joint_effort_range": [
+            -120.0,
+            120.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 3,
+          "actuator_name": "motor_left_knee_joint",
+          "joint_name": "left_knee_joint",
+          "joint_id": 4,
+          "qpos_address": 10,
+          "dof_address": 9,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            0.0,
+            2.4073
+          ],
+          "control_range": [
+            -118.0,
+            118.0
+          ],
+          "effort_range": [
+            -118.0,
+            118.0
+          ],
+          "joint_effort_range": [
+            -120.0,
+            120.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 4,
+          "actuator_name": "motor_left_ankle_pitch_joint",
+          "joint_name": "left_ankle_pitch_joint",
+          "joint_id": 5,
+          "qpos_address": 11,
+          "dof_address": 10,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.803,
+            0.453
+          ],
+          "control_range": [
+            -36.0,
+            36.0
+          ],
+          "effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 5,
+          "actuator_name": "motor_left_ankle_roll_joint",
+          "joint_name": "left_ankle_roll_joint",
+          "joint_id": 6,
+          "qpos_address": 12,
+          "dof_address": 11,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.262,
+            0.262
+          ],
+          "control_range": [
+            -24.0,
+            24.0
+          ],
+          "effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 6,
+          "actuator_name": "motor_right_hip_pitch_joint",
+          "joint_name": "right_hip_pitch_joint",
+          "joint_id": 7,
+          "qpos_address": 13,
+          "dof_address": 12,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -2.704,
+            2.556
+          ],
+          "control_range": [
+            -118.0,
+            118.0
+          ],
+          "effort_range": [
+            -118.0,
+            118.0
+          ],
+          "joint_effort_range": [
+            -120.0,
+            120.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 7,
+          "actuator_name": "motor_right_hip_roll_joint",
+          "joint_name": "right_hip_roll_joint",
+          "joint_id": 8,
+          "qpos_address": 14,
+          "dof_address": 13,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -2.906,
+            0.235
+          ],
+          "control_range": [
+            -118.0,
+            118.0
+          ],
+          "effort_range": [
+            -118.0,
+            118.0
+          ],
+          "joint_effort_range": [
+            -120.0,
+            120.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 8,
+          "actuator_name": "motor_right_hip_yaw_joint",
+          "joint_name": "right_hip_yaw_joint",
+          "joint_id": 9,
+          "qpos_address": 15,
+          "dof_address": 14,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -3.43,
+            1.684
+          ],
+          "control_range": [
+            -118.0,
+            118.0
+          ],
+          "effort_range": [
+            -118.0,
+            118.0
+          ],
+          "joint_effort_range": [
+            -120.0,
+            120.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 9,
+          "actuator_name": "motor_right_knee_joint",
+          "joint_name": "right_knee_joint",
+          "joint_id": 10,
+          "qpos_address": 16,
+          "dof_address": 15,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            0.0,
+            2.4073
+          ],
+          "control_range": [
+            -118.0,
+            118.0
+          ],
+          "effort_range": [
+            -118.0,
+            118.0
+          ],
+          "joint_effort_range": [
+            -120.0,
+            120.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 10,
+          "actuator_name": "motor_right_ankle_pitch_joint",
+          "joint_name": "right_ankle_pitch_joint",
+          "joint_id": 11,
+          "qpos_address": 17,
+          "dof_address": 16,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.803,
+            0.453
+          ],
+          "control_range": [
+            -36.0,
+            36.0
+          ],
+          "effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 11,
+          "actuator_name": "motor_right_ankle_roll_joint",
+          "joint_name": "right_ankle_roll_joint",
+          "joint_id": 12,
+          "qpos_address": 18,
+          "dof_address": 17,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.2625,
+            0.2625
+          ],
+          "control_range": [
+            -24.0,
+            24.0
+          ],
+          "effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 12,
+          "actuator_name": "motor_waist_yaw_joint",
+          "joint_name": "waist_yaw_joint",
+          "joint_id": 13,
+          "qpos_address": 19,
+          "dof_address": 18,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -3.43,
+            2.2078
+          ],
+          "control_range": [
+            -118.0,
+            118.0
+          ],
+          "effort_range": [
+            -118.0,
+            118.0
+          ],
+          "joint_effort_range": [
+            -120.0,
+            120.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 13,
+          "actuator_name": "motor_waist_pitch_joint",
+          "joint_name": "waist_pitch_joint",
+          "joint_id": 14,
+          "qpos_address": 20,
+          "dof_address": 19,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.314,
+            0.314
+          ],
+          "control_range": [
+            -48.0,
+            48.0
+          ],
+          "effort_range": [
+            -48.0,
+            48.0
+          ],
+          "joint_effort_range": [
+            -48.0,
+            48.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 14,
+          "actuator_name": "motor_waist_roll_joint",
+          "joint_name": "waist_roll_joint",
+          "joint_id": 15,
+          "qpos_address": 21,
+          "dof_address": 20,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.488,
+            0.488
+          ],
+          "control_range": [
+            -48.0,
+            48.0
+          ],
+          "effort_range": [
+            -48.0,
+            48.0
+          ],
+          "joint_effort_range": [
+            -48.0,
+            48.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 15,
+          "actuator_name": "motor_head_yaw_joint",
+          "joint_name": "head_yaw_joint",
+          "joint_id": 30,
+          "qpos_address": 36,
+          "dof_address": 35,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.349,
+            0.349
+          ],
+          "control_range": [
+            -2.6,
+            2.6
+          ],
+          "effort_range": [
+            -2.6,
+            2.6
+          ],
+          "joint_effort_range": [
+            -2.6,
+            2.6
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 16,
+          "actuator_name": "motor_head_pitch_joint",
+          "joint_name": "head_pitch_joint",
+          "joint_id": 31,
+          "qpos_address": 37,
+          "dof_address": 36,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.3838,
+            0.3838
+          ],
+          "control_range": [
+            -0.6,
+            0.6
+          ],
+          "effort_range": [
+            -0.6,
+            0.6
+          ],
+          "joint_effort_range": [
+            -0.6,
+            0.6
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 17,
+          "actuator_name": "motor_left_shoulder_pitch_joint",
+          "joint_name": "left_shoulder_pitch_joint",
+          "joint_id": 16,
+          "qpos_address": 22,
+          "dof_address": 21,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -3.08,
+            2.04
+          ],
+          "control_range": [
+            -36.0,
+            36.0
+          ],
+          "effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 18,
+          "actuator_name": "motor_left_shoulder_roll_joint",
+          "joint_name": "left_shoulder_roll_joint",
+          "joint_id": 17,
+          "qpos_address": 23,
+          "dof_address": 22,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.061,
+            2.993
+          ],
+          "control_range": [
+            -36.0,
+            36.0
+          ],
+          "effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 19,
+          "actuator_name": "motor_left_shoulder_yaw_joint",
+          "joint_name": "left_shoulder_yaw_joint",
+          "joint_id": 18,
+          "qpos_address": 24,
+          "dof_address": 23,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -2.556,
+            2.556
+          ],
+          "control_range": [
+            -24.0,
+            24.0
+          ],
+          "effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 20,
+          "actuator_name": "motor_left_elbow_joint",
+          "joint_name": "left_elbow_joint",
+          "joint_id": 19,
+          "qpos_address": 25,
+          "dof_address": 24,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -2.3556,
+            0.0
+          ],
+          "control_range": [
+            -24.0,
+            24.0
+          ],
+          "effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 21,
+          "actuator_name": "motor_left_wrist_yaw_joint",
+          "joint_name": "left_wrist_yaw_joint",
+          "joint_id": 20,
+          "qpos_address": 26,
+          "dof_address": 25,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -2.556,
+            2.556
+          ],
+          "control_range": [
+            -24.0,
+            24.0
+          ],
+          "effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 22,
+          "actuator_name": "motor_left_wrist_pitch_joint",
+          "joint_name": "left_wrist_pitch_joint",
+          "joint_id": 21,
+          "qpos_address": 27,
+          "dof_address": 26,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.5236,
+            0.5236
+          ],
+          "control_range": [
+            -2.2,
+            2.2
+          ],
+          "effort_range": [
+            -2.2,
+            2.2
+          ],
+          "joint_effort_range": [
+            -4.8,
+            4.8
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 23,
+          "actuator_name": "motor_left_wrist_roll_joint",
+          "joint_name": "left_wrist_roll_joint",
+          "joint_id": 22,
+          "qpos_address": 28,
+          "dof_address": 27,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -1.5097,
+            0.724
+          ],
+          "control_range": [
+            -2.2,
+            2.2
+          ],
+          "effort_range": [
+            -2.2,
+            2.2
+          ],
+          "joint_effort_range": [
+            -4.8,
+            4.8
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 24,
+          "actuator_name": "motor_right_shoulder_pitch_joint",
+          "joint_name": "right_shoulder_pitch_joint",
+          "joint_id": 23,
+          "qpos_address": 29,
+          "dof_address": 28,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -3.08,
+            2.04
+          ],
+          "control_range": [
+            -36.0,
+            36.0
+          ],
+          "effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 25,
+          "actuator_name": "motor_right_shoulder_roll_joint",
+          "joint_name": "right_shoulder_roll_joint",
+          "joint_id": 24,
+          "qpos_address": 30,
+          "dof_address": 29,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -2.993,
+            0.061
+          ],
+          "control_range": [
+            -36.0,
+            36.0
+          ],
+          "effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_effort_range": [
+            -36.0,
+            36.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 26,
+          "actuator_name": "motor_right_shoulder_yaw_joint",
+          "joint_name": "right_shoulder_yaw_joint",
+          "joint_id": 25,
+          "qpos_address": 31,
+          "dof_address": 30,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -2.556,
+            2.556
+          ],
+          "control_range": [
+            -24.0,
+            24.0
+          ],
+          "effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 27,
+          "actuator_name": "motor_right_elbow_joint",
+          "joint_name": "right_elbow_joint",
+          "joint_id": 26,
+          "qpos_address": 32,
+          "dof_address": 31,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -2.3556,
+            0.0
+          ],
+          "control_range": [
+            -24.0,
+            24.0
+          ],
+          "effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 28,
+          "actuator_name": "motor_right_wrist_yaw_joint",
+          "joint_name": "right_wrist_yaw_joint",
+          "joint_id": 27,
+          "qpos_address": 33,
+          "dof_address": 32,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -2.556,
+            2.556
+          ],
+          "control_range": [
+            -24.0,
+            24.0
+          ],
+          "effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_effort_range": [
+            -24.0,
+            24.0
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 29,
+          "actuator_name": "motor_right_wrist_pitch_joint",
+          "joint_name": "right_wrist_pitch_joint",
+          "joint_id": 28,
+          "qpos_address": 34,
+          "dof_address": 33,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.5236,
+            0.5236
+          ],
+          "control_range": [
+            -2.2,
+            2.2
+          ],
+          "effort_range": [
+            -2.2,
+            2.2
+          ],
+          "joint_effort_range": [
+            -4.8,
+            4.8
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        },
+        {
+          "ctrl_index": 30,
+          "actuator_name": "motor_right_wrist_roll_joint",
+          "joint_name": "right_wrist_roll_joint",
+          "joint_id": 29,
+          "qpos_address": 35,
+          "dof_address": 34,
+          "gear": 1.0,
+          "gain": 1.0,
+          "position_range": [
+            -0.724,
+            1.5097
+          ],
+          "control_range": [
+            -2.2,
+            2.2
+          ],
+          "effort_range": [
+            -2.2,
+            2.2
+          ],
+          "joint_effort_range": [
+            -4.8,
+            4.8
+          ],
+          "joint_type": "hinge",
+          "transmission": "joint",
+          "control_units": "N m (unit gain and gear)",
+          "limiting_stages": [
+            "input ctrlrange",
+            "joint actuatorfrcrange"
+          ]
+        }
+      ],
+      "q_ref_rad": [
+        -0.05,
+        0.0,
+        0.0,
+        0.1,
+        -0.05,
+        0.0,
+        -0.05,
+        0.0,
+        0.0,
+        0.1,
+        -0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.15,
+        0.15,
+        0.0,
+        -0.3,
+        0.0,
+        0.0,
+        0.0,
+        -0.15,
+        -0.15,
+        0.0,
+        -0.3,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q_min_rad": [
+        -2.704,
+        -0.235,
+        -1.684,
+        0.0,
+        -0.803,
+        -0.262,
+        -2.704,
+        -2.906,
+        -3.43,
+        0.0,
+        -0.803,
+        -0.2625,
+        -3.43,
+        -0.314,
+        -0.488,
+        -0.349,
+        -0.3838,
+        -3.08,
+        -0.061,
+        -2.556,
+        -2.3556,
+        -2.556,
+        -0.5236,
+        -1.5097,
+        -3.08,
+        -2.993,
+        -2.556,
+        -2.3556,
+        -2.556,
+        -0.5236,
+        -0.724
+      ],
+      "q_max_rad": [
+        2.556,
+        2.906,
+        3.43,
+        2.4073,
+        0.453,
+        0.262,
+        2.556,
+        0.235,
+        1.684,
+        2.4073,
+        0.453,
+        0.2625,
+        2.2078,
+        0.314,
+        0.488,
+        0.349,
+        0.3838,
+        2.04,
+        2.993,
+        2.556,
+        0.0,
+        2.556,
+        0.5236,
+        0.724,
+        2.04,
+        0.061,
+        2.556,
+        0.0,
+        2.556,
+        0.5236,
+        1.5097
+      ],
+      "scale_positive_rad": [
+        2.606,
+        2.906,
+        3.43,
+        2.3073,
+        0.503,
+        0.262,
+        2.606,
+        0.235,
+        1.684,
+        2.3073,
+        0.503,
+        0.2625,
+        2.2078,
+        0.314,
+        0.488,
+        0.349,
+        0.3838,
+        2.19,
+        2.843,
+        2.556,
+        0.3,
+        2.556,
+        0.5236,
+        0.724,
+        2.19,
+        0.211,
+        2.556,
+        0.3,
+        2.556,
+        0.5236,
+        1.5097
+      ],
+      "scale_negative_rad": [
+        2.6540000000000004,
+        0.235,
+        1.684,
+        0.1,
+        0.753,
+        0.262,
+        2.6540000000000004,
+        2.906,
+        3.43,
+        0.1,
+        0.753,
+        0.2625,
+        3.43,
+        0.314,
+        0.488,
+        0.349,
+        0.3838,
+        2.93,
+        0.211,
+        2.556,
+        2.0556,
+        2.556,
+        0.5236,
+        1.5097,
+        2.93,
+        2.843,
+        2.556,
+        2.0556,
+        2.556,
+        0.5236,
+        0.724
+      ],
+      "kp_Nm_rad": [
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        300.0,
+        300.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        300.0,
+        300.0,
+        300.0,
+        300.0,
+        300.0,
+        10.0,
+        10.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        10.0,
+        10.0,
+        10.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        10.0,
+        10.0,
+        10.0
+      ],
+      "kd_Nm_s_rad": [
+        16.970562748477143,
+        16.970562748477143,
+        16.970562748477143,
+        16.970562748477143,
+        11.313708498984761,
+        11.313708498984761,
+        16.970562748477143,
+        16.970562748477143,
+        16.970562748477143,
+        16.970562748477143,
+        11.313708498984761,
+        11.313708498984761,
+        11.313708498984761,
+        11.313708498984761,
+        11.313708498984761,
+        0.4242640687119285,
+        0.4242640687119285,
+        4.242640687119286,
+        4.242640687119286,
+        4.242640687119286,
+        4.242640687119286,
+        0.4242640687119285,
+        0.4242640687119285,
+        0.4242640687119285,
+        4.242640687119286,
+        4.242640687119286,
+        4.242640687119286,
+        4.242640687119286,
+        0.4242640687119285,
+        0.4242640687119285,
+        0.4242640687119285
+      ],
+      "effort_limits_Nm": [
+        [
+          -118.0,
+          118.0
+        ],
+        [
+          -118.0,
+          118.0
+        ],
+        [
+          -118.0,
+          118.0
+        ],
+        [
+          -118.0,
+          118.0
+        ],
+        [
+          -36.0,
+          36.0
+        ],
+        [
+          -24.0,
+          24.0
+        ],
+        [
+          -118.0,
+          118.0
+        ],
+        [
+          -118.0,
+          118.0
+        ],
+        [
+          -118.0,
+          118.0
+        ],
+        [
+          -118.0,
+          118.0
+        ],
+        [
+          -36.0,
+          36.0
+        ],
+        [
+          -24.0,
+          24.0
+        ],
+        [
+          -118.0,
+          118.0
+        ],
+        [
+          -48.0,
+          48.0
+        ],
+        [
+          -48.0,
+          48.0
+        ],
+        [
+          -2.6,
+          2.6
+        ],
+        [
+          -0.6,
+          0.6
+        ],
+        [
+          -36.0,
+          36.0
+        ],
+        [
+          -36.0,
+          36.0
+        ],
+        [
+          -24.0,
+          24.0
+        ],
+        [
+          -24.0,
+          24.0
+        ],
+        [
+          -24.0,
+          24.0
+        ],
+        [
+          -2.2,
+          2.2
+        ],
+        [
+          -2.2,
+          2.2
+        ],
+        [
+          -36.0,
+          36.0
+        ],
+        [
+          -36.0,
+          36.0
+        ],
+        [
+          -24.0,
+          24.0
+        ],
+        [
+          -24.0,
+          24.0
+        ],
+        [
+          -24.0,
+          24.0
+        ],
+        [
+          -2.2,
+          2.2
+        ],
+        [
+          -2.2,
+          2.2
+        ]
+      ]
+    },
+    "observation": {
+      "shape": [
+        117
+      ],
+      "dtype": "float32",
+      "low": [
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf",
+        "-inf"
+      ],
+      "high": [
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf",
+        "inf"
+      ]
+    },
+    "action": {
+      "shape": [
+        31
+      ],
+      "dtype": "float32",
+      "low": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "high": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "reset_seed": 650492041,
+  "complete_episode": true,
+  "transitions": 1000,
+  "physics_steps": 20000,
+  "simulated_seconds": 20.0,
+  "raw_return": -1.0063678420167061,
+  "terminated": false,
+  "truncated": true,
+  "final_info": {
+    "is_success": false,
+    "termination_reason": null,
+    "truncation_reason": "time_limit",
+    "elapsed_sim_s": 20.000000000003563,
+    "physics_steps_executed": 20,
+    "stable_duration_s": 0.0,
+    "standing_failures": [
+      "height",
+      "torso_tilt",
+      "feet_total",
+      "other_weight"
+    ],
+    "reward_terms_raw": {
+      "height": -0.00011497738309944328,
+      "upright": -0.0006440257458715237,
+      "standing_hold": 0.0,
+      "torque_cost": 0.0008526908253631637,
+      "action_change": 1.0766827058053631e-17,
+      "success": 0.0
+    },
+    "reward_terms": {
+      "height": -0.0003449321492983298,
+      "upright": -0.0006440257458715237,
+      "standing_hold": 0.0,
+      "torque_cost": -1.7053816507263275e-05,
+      "action_change": -2.1533654116107262e-20,
+      "success": 0.0
+    },
+    "torque_saturation_fraction": 0.03225806451612903,
+    "reset_seed": 650492041,
+    "state": {
+      "pelvis_height_m": 0.07732118097888714,
+      "tilt_deg": 73.25853067371216,
+      "left_weight": 0.14070328019212955,
+      "right_weight": 0.21592582770889446,
+      "other_weight": 0.6433708928918402
+    },
+    "warnings": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "control": {
+      "any_saturation_time_fraction": 1.0,
+      "joint_saturation_time_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_boundary_fraction": 0.0,
+      "raw_torque_abs_max_Nm": 78.6698881075671,
+      "applied_torque_abs_max_Nm": 48.0,
+      "joint_rad_s": 1.4523809062555571e-05,
+      "joint_limit_rad": 0.0,
+      "floor_penetration_m": 0.0006570889111207441,
+      "self_penetration_m": 0.0
+    }
+  },
+  "checkpoint_sha256": "e8fa7e642e8ccd8d6dd38aaf9d810eee3c00d39d4188f82702c5b8e6124b213e",
+  "ended_utc": "2026-09-22T01:51:51.899714+00:00",
+  "wall_seconds": 20.072927385001094
+}
