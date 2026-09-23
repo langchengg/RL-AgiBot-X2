@@ -1,14 +1,17 @@
 """Separate real-X2 integration and explicitly synthetic fault/reward tests."""
 from dataclasses import replace
 import copy
+import ast
+import inspect
 import json
 import time
 import unittest
 from unittest.mock import patch
 import mujoco as mj
 import numpy as np
-from x2_recovery.env import X2RecoveryEnv, EnvConfig, EnvExecutionError, _reward, _potential
-from x2_recovery.reset import integration_state, nominal_pose
+from x2_recovery.env import (X2RecoveryEnv, EnvConfig, EnvExecutionError, _reward, _potential,
+                             _MODEL_SIGNATURE_ARRAYS, _MODEL_IDENTITY_ARRAYS)
+from x2_recovery.reset import integration_state, nominal_pose, model_signature
 from x2_recovery.success import CALIBRATED_SETTINGS, SuccessTracker
 
 
@@ -59,6 +62,47 @@ class RealEnvTests(unittest.TestCase):
             e.reset(seed=24);sequences.append([e.step(a) for a in actions])
         for a,b in zip(*sequences):
             np.testing.assert_array_equal(a[0],b[0]);self.assertEqual(a[1:],b[1:])
+
+    def test_bytewise_model_checks_cover_hash_fields_and_mutations(self):
+        e=self.e
+        definition=ast.parse(inspect.getsource(model_signature))
+        hash_fields=ast.literal_eval(next(n.iter for n in ast.walk(definition) if isinstance(n,ast.For)))
+        self.assertEqual(_MODEL_SIGNATURE_ARRAYS,hash_fields)
+        self.assertEqual(tuple(row[0] for row in e._model_snapshot),
+                         _MODEL_SIGNATURE_ARRAYS+_MODEL_IDENTITY_ARRAYS)
+        identity=e._model_identity();e._check_model()
+        for name,_,_,snapshot in e._model_snapshot:
+            self.assertFalse(snapshot.flags.writeable)
+            raw=getattr(e.model,name).view(np.uint8).reshape(-1)
+            if not raw.size:continue
+            with self.subTest(field=name):
+                original=raw[0].copy()
+                try:
+                    raw[0]^=np.uint8(1)
+                    self.assertNotEqual(identity,e._model_identity())
+                    with self.assertRaisesRegex(ValueError,'Model/mapping changed'):e._check_model()
+                finally:raw[0]=original
+                e._check_model();self.assertEqual(identity,e._model_identity())
+        original=e.model.opt.timestep
+        try:
+            e.model.opt.timestep*=2
+            with self.assertRaisesRegex(ValueError,'Model/mapping changed'):e._check_model()
+        finally:e.model.opt.timestep=original
+        # A signed-zero change is numerically equal but changes the hashed bytes.
+        values=e.model.body_gravcomp;index=int(np.flatnonzero(values==0.)[0])
+        original=values[index].copy()
+        try:
+            values[index]=np.copysign(0.,-1. if not np.signbit(original) else 1.)
+            self.assertEqual(values[index],original);self.assertNotEqual(e._model_identity(),identity)
+            with self.assertRaisesRegex(ValueError,'Model/mapping changed'):e._check_model()
+        finally:values[index]=original
+        e._check_model();self.assertEqual(identity,e._model_identity())
+
+    def test_model_checks_retain_both_transition_boundaries(self):
+        e=self.e;e.reset(seed=221001)
+        with patch.object(e,'_check_model',wraps=e._check_model) as checks:
+            e.step(np.zeros(31,np.float32))
+        self.assertEqual(checks.call_count,2)
 
     def test_per_substep_pd_mapping_and_applied_torques(self):
         e=self.e;e.reset(seed=42);start=e.data.time

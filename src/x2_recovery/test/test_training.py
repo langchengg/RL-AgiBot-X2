@@ -355,5 +355,295 @@ with np.load(p/'probe.npz', allow_pickle=False) as d:
             tr.formal_plan(self.root, config)
 
 
+class SyntheticControlledEnv(SyntheticEnv):
+    """149D accounting fixture; this is not an X2 recovery simulation."""
+    observation_space = gym.spaces.Box(-np.inf, np.inf, (149,), dtype=np.float32)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+        self.env = SimpleNamespace(physics_dt=.001)
+
+    def reset(self, **kwargs):
+        observation, info = super().reset(**kwargs)
+        return np.r_[observation, np.zeros(32, np.float32)], info
+
+    def step(self, action):
+        observation, reward, terminated, truncated, info = super().step(action)
+        info['state'].update(left_weight=.1, right_weight=.2, other_weight=.7)
+        info['controller'] = dict(target_tracking_max_rad=.2)
+        info['reward_terms'] = {'new_controller_term': reward}
+        return np.r_[observation, np.zeros(32, np.float32)], reward, terminated, truncated, info
+
+
+class ControlBlockTests(unittest.TestCase):
+    def test_provenance_snapshots_actual_imported_sources_at_logical_paths(self):
+        repository = Path(tr.__file__).resolve().parents[3]
+        actual_env = Path(sys.modules[tr.X2RecoveryEnv.__module__].__file__).resolve()
+        command = subprocess.check_output
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            package = root/'old-source'/'src'/'x2_recovery'/'x2_recovery'
+            package.mkdir(parents=True)
+            old_train = package/'train.py'
+            old_train.write_text('# a previous execution source, not the current checkout\n')
+            (package/'env.py').write_text('# not the imported environment module\n')
+            (root/'old-source'/'requirements.txt').write_text('# saved package requirements\n')
+            output = root/'new-run'
+            output.mkdir()
+            def checked_output(args, **kwargs):
+                if args[:3] == ['git', '-C', str(package)]:
+                    self.assertEqual(args[3:], ['rev-parse', '--show-toplevel'])
+                    return str(repository)+'\n'
+                return command(args, **kwargs)
+            with patch.object(tr, '__file__', str(old_train)), patch.object(tr.subprocess, 'check_output', checked_output):
+                saved = tr.provenance(output)
+            train_path = 'src/x2_recovery/x2_recovery/train.py'
+            env_path = 'src/x2_recovery/x2_recovery/env.py'
+            self.assertEqual((output/'source'/train_path).read_bytes(), old_train.read_bytes())
+            self.assertEqual(saved['source_paths'][train_path], str(old_train))
+            self.assertEqual((output/'source'/env_path).read_bytes(), actual_env.read_bytes())
+            self.assertEqual(saved['source_paths'][env_path], str(actual_env))
+            self.assertEqual((output/'source'/'requirements.txt').read_text(), '# saved package requirements\n')
+            for logical, digest in saved['source_hashes'].items():
+                self.assertEqual(tr.sha256(output/'source'/logical), digest)
+
+    def test_interrupted_update_publication_keeps_previous_checkpoint_pair(self):
+        class SavedModel:
+            def save(self, path, **kwargs):
+                Path(path).write_bytes(b'checkpoint fixture')
+
+        for failure in ('rng', 'pointer'):
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                saved = tr.save_valid_update(root, SavedModel(), {'completed_optimization_rounds': 1}, {})
+                pointer = (root/'last_valid_update.json').read_bytes()
+                checkpoint, rng = tr.valid_update_files(root, saved)
+                originals = checkpoint.read_bytes(), rng.read_bytes()
+                def fail_rng(path):
+                    Path(path).write_bytes(b'interrupted RNG write')
+                    raise OSError('injected RNG failure')
+                with ExitStack() as stack:
+                    if failure == 'rng':
+                        stack.enter_context(patch.object(tr, '_save_rng', fail_rng))
+                    else:
+                        stack.enter_context(patch.object(tr, 'write_json', side_effect=OSError('injected pointer failure')))
+                    with self.assertRaisesRegex(OSError, 'injected'):
+                        tr.save_valid_update(root, SavedModel(), {'completed_optimization_rounds': 2}, {})
+                self.assertEqual((root/'last_valid_update.json').read_bytes(), pointer)
+                self.assertEqual(tr.valid_update_files(root, saved), (checkpoint, rng))
+                self.assertEqual((checkpoint.read_bytes(), rng.read_bytes()), originals)
+                self.assertTrue((root/'checkpoints'/'update-000002'/'policy.zip').exists())
+                with self.assertRaises(FileExistsError):
+                    tr.save_valid_update(root, SavedModel(), {'completed_optimization_rounds': 2}, {})
+
+    def test_valid_update_checks_both_hashes_and_accepts_legacy_layout(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            checkpoint, rng = root/'policy_last_update.zip', root/'rng_last_update.pt'
+            checkpoint.write_bytes(b'old checkpoint')
+            rng.write_bytes(b'old RNG')
+            saved = dict(checkpoint_sha256=tr.sha256(checkpoint), rng_sha256=tr.sha256(rng))
+            self.assertEqual(tr.valid_update_files(root, saved), (checkpoint, rng))
+            rng.write_bytes(b'changed RNG')
+            with self.assertRaisesRegex(ValueError, 'rng changed'):
+                tr.valid_update_files(root, saved)
+
+    def test_synthetic_step_error_recovers_published_generation_and_closes_env(self):
+        class FailingFixture(SyntheticControlledEnv):
+            instances = []
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                self.total_steps = 0
+                self.instances.append(self)
+            def step(self, action):
+                self.total_steps += 1
+                if self.total_steps == 9:
+                    raise RuntimeError('injected later rollout failure')
+                return super().step(action)
+
+        with tempfile.TemporaryDirectory() as temporary, ExitStack() as stack:
+            root = Path(temporary)/'run'
+            stack.enter_context(patch.object(tr, 'X2RecoveryEnv', SyntheticEnv))
+            stack.enter_context(patch.object(tr, 'ControlledRecoveryEnv', FailingFixture))
+            stack.enter_context(patch.object(tr, 'controller_identity', lambda env: {'fixture': 'synthetic149'}))
+            stack.enter_context(patch.object(tr, 'provenance', lambda directory: {'fixture': 'synthetic'}))
+            config = tr.TrainConfig(total_timesteps=16, n_steps=8, batch_size=4, n_epochs=2)
+            with self.assertRaisesRegex(RuntimeError, 'later rollout failure'):
+                tr.run_control_block(config, tr.ControlConfig(), root)
+            saved = json.loads((root/'last_valid_update.json').read_text())
+            checkpoint, rng = tr.valid_update_files(root, saved)
+            manifest = json.loads((root/'manifest.json').read_text())
+            self.assertEqual(manifest['status'], 'ERROR')
+            self.assertEqual(manifest['training']['completed_optimization_rounds'], 1)
+            self.assertEqual(manifest['observed_before_error']['sampled_transitions'], 8)
+            self.assertEqual(manifest['checkpoint']['recovered_from'], saved['checkpoint_path'])
+            self.assertEqual((root/'policy_final.zip').read_bytes(), checkpoint.read_bytes())
+            self.assertEqual((root/'rng_state.pt').read_bytes(), rng.read_bytes())
+            self.assertTrue(all(env._closed for env in FailingFixture.instances))
+
+    def test_distribution_diagnostic_is_read_only_and_not_noise_weight_std(self):
+        with ExitStack() as stack:
+            env=DummyVecEnv([SyntheticControlledEnv]);stack.callback(env.close)
+            model=PPO('MlpPolicy',env,n_steps=8,batch_size=4,use_sde=True,seed=123,
+                      policy_kwargs={'net_arch':[32,32],'log_std_init':-1.5},device='cpu')
+            observations=np.full((40,149),.5,dtype=np.float32)
+            before={key:value.clone() for key,value in model.policy.state_dict().items()}
+            rng=torch.get_rng_state().clone()
+            matrices=model.policy.action_dist.exploration_matrices.clone()
+            metrics=tr.action_distribution_metrics(model,observations)
+            self.assertTrue(torch.equal(rng,torch.get_rng_state()))
+            self.assertTrue(torch.equal(matrices,model.policy.action_dist.exploration_matrices))
+            self.assertTrue(all(torch.equal(before[key],value) for key,value in model.policy.state_dict().items()))
+            self.assertEqual(metrics['action_distribution_observations'],32)
+            self.assertGreater(metrics['action_distribution_std_median'],metrics['noise_weight_std_mean'])
+            self.assertLessEqual(metrics['action_distribution_std_min'],metrics['action_distribution_std_median'])
+            self.assertLessEqual(metrics['action_distribution_std_median'],metrics['action_distribution_std_max'])
+
+    def test_synthetic_first_success_retains_pre_update_weights_and_episode(self):
+        class SuccessfulFixture(SyntheticControlledEnv):
+            def step(self, action):
+                observation, reward, terminated, truncated, info = super().step(action)
+                if truncated:
+                    terminated, truncated = True, False
+                    info.update(is_success=True, termination_reason='success', truncation_reason=None)
+                return observation, reward, terminated, truncated, info
+
+        with tempfile.TemporaryDirectory() as temporary, ExitStack() as stack:
+            root = Path(temporary)
+            stack.enter_context(patch.object(tr, 'X2RecoveryEnv', SyntheticEnv))
+            stack.enter_context(patch.object(tr, 'ControlledRecoveryEnv', SuccessfulFixture))
+            stack.enter_context(patch.object(tr, 'controller_identity', lambda env: {'fixture': 'synthetic149'}))
+            stack.enter_context(patch.object(tr, 'provenance', lambda directory: {'fixture': 'synthetic'}))
+            config = tr.TrainConfig(total_timesteps=16, n_steps=8, batch_size=4, n_epochs=2)
+            result = tr.run_control_block(config, tr.ControlConfig(), root/'run')
+            saved = json.loads((root/'run'/'first_success.json').read_text())
+            self.assertEqual(saved['optimizer_steps_in_block'], 0)
+            self.assertEqual(saved['completed_optimization_rounds'], 0)
+            self.assertEqual(saved['cumulative_model_timesteps'], 2)
+            self.assertEqual(saved['episode_adam_versions'], [0])
+            trajectory = json.loads((root/'run'/'first_success_trajectory.json').read_text())['transitions']
+            self.assertEqual(len(trajectory), 2)
+            self.assertEqual(saved['physics_steps'], 40)
+            self.assertEqual(len(trajectory[0]['observation']), 149)
+            self.assertTrue(trajectory[-1]['info']['is_success'])
+            initial = PPO.load(root/'run'/'policy_first_success.zip', device='cpu')
+            final = PPO.load(root/'run'/'policy_final.zip', device='cpu')
+            self.assertGreater(tr.parameter_changes(tr.parameter_copy(initial.policy), final.policy)['actor_mean']['l2'], 0)
+            self.assertEqual(result['training']['first_success'], saved)
+
+    def test_synthetic_block_resume_keeps_optimizer_and_dynamic_rollout_shapes(self):
+        with tempfile.TemporaryDirectory() as temporary, ExitStack() as stack:
+            root = Path(temporary)
+            stack.enter_context(patch.object(tr, 'X2RecoveryEnv', SyntheticEnv))
+            stack.enter_context(patch.object(tr, 'ControlledRecoveryEnv', SyntheticControlledEnv))
+            stack.enter_context(patch.object(tr, 'controller_identity', lambda env: {'fixture': 'synthetic149'}))
+            stack.enter_context(patch.object(tr, 'provenance', lambda directory: {'fixture': 'synthetic'}))
+            config = tr.TrainConfig(total_timesteps=16, n_steps=8, batch_size=4, n_epochs=2)
+            first = tr.run_control_block(config, tr.ControlConfig(), root/'first')
+            self.assertEqual(first['status'], 'COMPLETE')
+            self.assertEqual(first['training']['sampled_transitions'], 16)
+            self.assertEqual(first['training']['partial_rollout_transitions'], 0)
+            self.assertEqual(first['training']['rollout_checks'][0]['observations']['shape'], [8, 1, 149])
+            self.assertEqual(first['training']['optimizer_steps'], first['training']['adam_state']['step_max'])
+            with (root/'first'/'episode_diagnostics.csv').open() as stream:
+                rows = list(csv.DictReader(stream))
+            self.assertEqual(len(rows), 8)
+            self.assertTrue(all(json.loads(row['reward_terms']).keys() == {'new_controller_term'} for row in rows))
+            second = tr.run_control_block(config, tr.ControlConfig(), root/'second', resume_run=root/'first')
+            self.assertEqual(second['training']['inherited_model_timesteps'], 16)
+            self.assertEqual(second['training']['cumulative_model_timesteps'], 32)
+            self.assertEqual(second['training']['adam_state']['inherited_steps'], first['training']['optimizer_steps'])
+            self.assertGreater(second['training']['parameter_changes']['actor_mean']['l2'], 0)
+            self.assertEqual(len(second['training']['updates']), 2)
+            with (root/'second'/'progress.csv').open() as stream:
+                progress = list(csv.DictReader(stream))
+            self.assertEqual(progress[-1]['cumulative_model_timesteps'], '32')
+            loaded = PPO.load(root/'second'/'policy_final.zip', device='cpu')
+            self.assertNotIn('train', loaded.__dict__)
+            correlated = tr.run_control_block(config, tr.ControlConfig(), root/'sde', use_sde=True)
+            self.assertGreater(correlated['training']['optimizer_steps'], 0)
+            correlated_model = PPO.load(root/'sde'/'policy_final.zip', device='cpu')
+            self.assertTrue(correlated_model.use_sde)
+            self.assertEqual(correlated_model.sde_sample_freq, 8)
+            parent_hash = tr.sha256(root/'sde'/'policy_final.zip')
+            with patch.object(tr, 'initialize_exploration_phase', wraps=tr.initialize_exploration_phase) as initialize:
+                branch = tr.run_control_block(config, tr.ControlConfig(), root/'sde-low-std',
+                    use_sde=True, resume_run=root/'sde', initial_exploration_std_factor=.25)
+                self.assertEqual(initialize.call_count, 1)
+                continued = tr.run_control_block(config, tr.ControlConfig(), root/'sde-low-std-continued',
+                    use_sde=True, resume_run=root/'sde-low-std')
+                self.assertEqual(initialize.call_count, 1)
+            self.assertEqual(tr.sha256(root/'sde'/'policy_final.zip'), parent_hash)
+            self.assertTrue(branch['initialization_phase']['applied'])
+            self.assertFalse(continued['initialization_phase']['applied'])
+            self.assertEqual(branch['training']['adam_state']['inherited_steps'], correlated['training']['optimizer_steps'])
+            self.assertEqual(continued['training']['cumulative_model_timesteps'], 48)
+            phase = json.loads((root/'sde-low-std'/'resolved_config.json').read_text())['initialization_phase']
+            self.assertEqual(phase['factor'], .25)
+            with self.assertRaisesRegex(ValueError, 'Resume configuration differs'):
+                tr.run_control_block(replace(config, learning_rate=.001), tr.ControlConfig(), root/'bad', resume_run=root/'first')
+            self.assertFalse((root/'bad').exists())
+            changed = json.loads((root/'first'/'resolved_config.json').read_text())
+            changed['unrelated_metadata'] = 'changed after saving'
+            tr.write_json(root/'first'/'resolved_config.json', changed)
+            with self.assertRaisesRegex(ValueError, 'configuration.*changed|Configuration.*changed'):
+                tr.run_control_block(config, tr.ControlConfig(), root/'changed-config', resume_run=root/'first')
+            self.assertFalse((root/'changed-config').exists())
+
+    def test_exploration_phase_real_sb3_policy_without_env_or_optimizer_step(self):
+        from stable_baselines3.common.policies import ActorCriticPolicy
+        obs_space = gym.spaces.Box(-np.inf, np.inf, (149,), dtype=np.float32)
+        action_space = gym.spaces.Box(-1., 1., (11,), dtype=np.float32)
+        policy = ActorCriticPolicy(obs_space, action_space, lambda _: 1e-4,
+            net_arch=dict(pi=[16, 16], vf=[16, 16]), use_sde=True, log_std_init=-1.5)
+        # Synthetic, explicit Adam state exercises preservation without running
+        # a training step. These values are not X2 optimization evidence.
+        for parameter in policy.parameters():
+            policy.optimizer.state[parameter] = dict(step=torch.tensor(7.),
+                exp_avg=torch.full_like(parameter, .01), exp_avg_sq=torch.full_like(parameter, .02))
+        model = SimpleNamespace(policy=policy, predict=policy.predict, observation_space=obs_space,
+            action_space=action_space, num_timesteps=16384, _n_updates=40)
+        observations = np.full((5, 149), .2, dtype=np.float32)
+        actions, _ = model.predict(observations, deterministic=True)
+        initial_log_std = policy.log_std.detach().clone()
+        with patch.object(policy.optimizer, 'step', side_effect=AssertionError('No optimizer step allowed')):
+            phase = tr.initialize_exploration_phase(model, .25, observations, actions)
+        self.assertTrue(torch.equal(policy.log_std, initial_log_std + np.log(.25)))
+        self.assertTrue(phase['optimizer_state_unchanged'] and phase['rng_state_unchanged'])
+        self.assertEqual(phase['inherited_adam_steps'], 7)
+        self.assertEqual(phase['action_consistency']['intervention_max_abs_error'], 0)
+        self.assertNotEqual(phase['before']['sha256'], phase['after']['sha256'])
+        np.testing.assert_allclose(phase['after']['exp_log_std_mean']/phase['before']['exp_log_std_mean'], .25, rtol=1e-6)
+        before = policy.log_std.detach().clone()
+        noop = tr.initialize_exploration_phase(model, 1., observations, actions)
+        self.assertFalse(noop['applied'])
+        self.assertTrue(torch.equal(policy.log_std, before))
+        with self.assertRaisesRegex(ValueError, 'Parent deterministic'):
+            tr.initialize_exploration_phase(model, .25, observations, actions + .1)
+        self.assertTrue(torch.equal(policy.log_std, before))
+
+    def test_exploration_phase_validation_before_output_creation(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for value in (0, -1., 1.01, float('nan'), float('inf'), True, '.25'):
+                with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'factor'):
+                    tr.run_control_block(tr.TrainConfig(), tr.ControlConfig(), root/'invalid',
+                        resume_run=root/'absent', initial_exploration_std_factor=value)
+                self.assertFalse((root/'invalid').exists())
+            with self.assertRaisesRegex(ValueError, 'requires --resume-run'):
+                tr.run_control_block(tr.TrainConfig(), tr.ControlConfig(), root/'fresh',
+                    initial_exploration_std_factor=.25)
+            self.assertFalse((root/'fresh').exists())
+
+    def test_control_budget_and_path_rejected_before_creation(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            with self.assertRaisesRegex(ValueError, '1800'):
+                tr.run_control_block(tr.TrainConfig(max_wall_seconds=1801), tr.ControlConfig(), root/'new')
+            with self.assertRaisesRegex(ValueError, 'already exists'):
+                tr.run_control_block(tr.TrainConfig(), tr.ControlConfig(), root)
+            self.assertFalse((root/'new').exists())
+
+
 if __name__ == '__main__':
     unittest.main()
