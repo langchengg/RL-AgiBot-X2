@@ -1,0 +1,4 @@
+[INFO] [1790258126.352017767] [late_telemetry]: status=waiting joint=left_knee_joint no_sample
+[INFO] [1790258127.340980060] [late_telemetry]: status=waiting joint=left_knee_joint no_sample
+[INFO] [1790258128.340523560] [late_telemetry]: status=waiting joint=left_knee_joint no_sample
+[INFO] [1790258129.340231060] [late_telemetry]: status=SUCCEEDED joint=left_knee_joint no_sample

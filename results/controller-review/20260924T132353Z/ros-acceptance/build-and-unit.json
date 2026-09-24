@@ -1,0 +1,95 @@
+{
+  "scope": "Fresh isolated build and current ROS node tests; same existing VM and dependencies, not a fresh OS or Python installation",
+  "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+  "source_sha256": {
+    "src/x2_recovery/x2_recovery/recovery_node.py": "a2d4aa5cf23bae1d17634b14de19691fa7af9953f255c2f5df518ff4f2b94dd7",
+    "src/x2_recovery/launch/recovery.launch.py": "df28e45daf0194ed62db7bc54b9a7eea5c75843e464921f9ffeac9a2e599a634",
+    "src/x2_recovery/test/test_ros_nodes.py": "2d2169c6620662d621072935c633945da3aec58f67313b703dbc3ab7e1149e5c",
+    "src/x2_recovery/test/test_ros_integration.py": "3a6e0060795877e1911168090d9514a87224c65697ea6735b7b1230be0b8997a"
+  },
+  "build": {
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "command": [
+      "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+      "-m",
+      "colcon",
+      "--log-base",
+      "/tmp/x2-review-20260924/ros-log",
+      "build",
+      "--base-paths",
+      "src",
+      "--build-base",
+      "/tmp/x2-review-20260924/ros-build",
+      "--install-base",
+      "/tmp/x2-review-20260924/ros-install",
+      "--symlink-install"
+    ],
+    "environment_setup": [
+      "source /opt/ros/jazzy/setup.bash",
+      "export PYTHONNOUSERSITE=1"
+    ],
+    "exit_code": 0,
+    "output": "Starting >>> x2_recovery\nFinished <<< x2_recovery [1.05s]\n\nSummary: 1 package finished [1.21s]\n"
+  },
+  "node_unit_tests": {
+    "cwd": "/tmp",
+    "command": [
+      "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "/home/lang/RL-AgiBot-X2/src/x2_recovery/test",
+      "-p",
+      "test_ros_nodes.py"
+    ],
+    "environment_setup": [
+      "source /opt/ros/jazzy/setup.bash",
+      "source /tmp/x2-review-20260924/ros-install/setup.bash",
+      "export ROS_DOMAIN_ID=185 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST RMW_IMPLEMENTATION=rmw_fastrtps_cpp PYTHONNOUSERSITE=1"
+    ],
+    "exit_code": 0,
+    "tests": 23,
+    "result": "PASS",
+    "scope": "Synthetic/fault-injection unit tests, not physical recovery evidence"
+  },
+  "cross_process": {
+    "policy": {
+      "path": "policy-r4/summary.json",
+      "checks": 111,
+      "exit_code": 0,
+      "result": "PASS",
+      "real_successful_episodes": 5,
+      "scope": "Five functional ROS scenarios; not a new formal five-seed evaluation"
+    },
+    "baseline": {
+      "path": "baseline-r2/summary.json",
+      "checks": 85,
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    "previous_attempts": [
+      {
+        "path": "baseline/summary.json",
+        "result": "FAIL",
+        "reason": "Independent CLI discovery missed telemetry within its first two-second window; the real node ran and exited cleanly"
+      },
+      {
+        "path": "policy/summary.json",
+        "result": "FAIL",
+        "reason": "Busy request during reset exceeded an extra one-second timing goal; correct false response, 1.125303543 s"
+      },
+      {
+        "path": "policy-r2/summary.json",
+        "result": "FAIL",
+        "reason": "Same reset-busy timing goal, 1.004000834 s"
+      },
+      {
+        "path": "policy-r3/summary.json",
+        "result": "FAIL",
+        "reason": "All-digit wrong hash was parsed by ROS YAML as an integer and rejected before the expected hash error; test fixture corrected to a hexadecimal string with letters"
+      }
+    ],
+    "timing_scope": "Initial acceptance is sent before reset. A busy request arriving during the single-threaded bounded reset can wait for reset to finish. That latency target is reported separately, including an UNMET 1.011865667 s in policy-r3. No general one-second busy-response guarantee."
+  }
+}

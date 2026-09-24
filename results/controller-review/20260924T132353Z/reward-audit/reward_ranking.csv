@@ -1,0 +1,13 @@
+trajectory,reward_version,success,transitions,duration_s,raw_return,discounted_prefix,critic_tail,exact_historical_bootstrap,scope
+published_success,reference-balance-v1,True,243,4.856000000000583,82.86760265122089,67.17305124942912,,,original real rewards
+published_success,reference-balance-density10-v1,True,243,4.856000000000583,53.25249945606175,42.00984413251371,,,real trajectory offline rescore
+published_success,reference-balance-density05-v1,True,243,4.856000000000583,51.60721594521958,40.61188818157397,,,real trajectory offline rescore
+zero_residual_success,reference-balance-v1,True,245,4.887000000000594,83.08554907185739,67.25224707525959,,,original real rewards
+zero_residual_success,reference-balance-density10-v1,True,245,4.887000000000594,53.27429024245623,41.9471497696677,,,real trajectory offline rescore
+zero_residual_success,reference-balance-density05-v1,True,245,4.887000000000594,51.61810919637839,40.54131103046816,,,real trajectory offline rescore
+continued_policy_safety_failure,reference-balance-v1,False,293,5.850000000000915,27.315238303391858,23.403242964671765,,,original real rewards
+continued_policy_safety_failure,reference-balance-density10-v1,False,293,5.850000000000915,0.8963099285073048,0.9648971180742203,,,real trajectory offline rescore
+continued_policy_safety_failure,reference-balance-density05-v1,False,293,5.850000000000915,-0.5714083145418369,-0.28167765118120053,,,real trajectory offline rescore
+broad_residual_timeout,reference-balance-v1,False,1000,20.000000000003563,17.304419104050012,15.196736199858421,,,original real rewards
+broad_residual_timeout,reference-balance-density10-v1,False,1000,20.000000000003563,1.6933015460894159,1.4873561217579294,,,real trajectory offline rescore
+broad_residual_timeout,reference-balance-density05-v1,False,1000,20.000000000003563,0.8260172373138273,0.7257238951967873,,,real trajectory offline rescore

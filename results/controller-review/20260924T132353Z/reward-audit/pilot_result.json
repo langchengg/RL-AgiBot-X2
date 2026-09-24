@@ -1,0 +1,672 @@
+{
+  "status": "COMPLETE",
+  "kind": "local_unadopted_reward_pilot",
+  "reward_version": "reference-balance-density10-v1",
+  "source_checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+  "source_config_sha256": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+  "script_sha256": "913b66c02e33c2adf88e56088583d1442d7845675e10de10cd7dbafc3d8488b9",
+  "objective": {
+    "positive_density_scale": 0.1,
+    "scaled_components": [
+      "pose_guide",
+      "head_track",
+      "balance",
+      "standing"
+    ],
+    "success": 50,
+    "safety": -2,
+    "added_time_cost": 0,
+    "base_reward": "reference-balance-v1"
+  },
+  "initialization": {
+    "actor": "copied exactly",
+    "log_std": "copied exactly",
+    "critic": "fresh seeded initialization",
+    "optimizer": "fresh Adam, empty state",
+    "statistics": "fixed scaling only; no VecNormalize",
+    "old_rollouts_reused": false,
+    "actor_probe_max_abs_error": 0.0,
+    "probe_count": 16,
+    "atol": 1e-07,
+    "rtol": 0
+  },
+  "seed": 26092451,
+  "budget": {
+    "total_transitions": 4096,
+    "workers": 2,
+    "n_steps": 256,
+    "rollout_transitions": 512,
+    "rollouts": 8,
+    "hard_wall_seconds": 1200,
+    "torch_threads": 1
+  },
+  "actual_transitions": 4096,
+  "updates": [
+    {
+      "rollout": 1,
+      "transitions": 512,
+      "actual_adam_steps_min": 9,
+      "actual_adam_steps_max": 9,
+      "sb3_epoch_attempt_counter": 2,
+      "elapsed_wall_s": 14.898359256999811
+    },
+    {
+      "rollout": 2,
+      "transitions": 1024,
+      "actual_adam_steps_min": 26,
+      "actual_adam_steps_max": 26,
+      "sb3_epoch_attempt_counter": 5,
+      "elapsed_wall_s": 28.654194222000115
+    },
+    {
+      "rollout": 3,
+      "transitions": 1536,
+      "actual_adam_steps_min": 34,
+      "actual_adam_steps_max": 34,
+      "sb3_epoch_attempt_counter": 7,
+      "elapsed_wall_s": 39.708220643999994
+    },
+    {
+      "rollout": 4,
+      "transitions": 2048,
+      "actual_adam_steps_min": 48,
+      "actual_adam_steps_max": 48,
+      "sb3_epoch_attempt_counter": 9,
+      "elapsed_wall_s": 51.36704777399973
+    },
+    {
+      "rollout": 5,
+      "transitions": 2560,
+      "actual_adam_steps_min": 60,
+      "actual_adam_steps_max": 60,
+      "sb3_epoch_attempt_counter": 11,
+      "elapsed_wall_s": 61.825915987999906
+    },
+    {
+      "rollout": 6,
+      "transitions": 3072,
+      "actual_adam_steps_min": 72,
+      "actual_adam_steps_max": 72,
+      "sb3_epoch_attempt_counter": 13,
+      "elapsed_wall_s": 74.53338882699973
+    },
+    {
+      "rollout": 7,
+      "transitions": 3584,
+      "actual_adam_steps_min": 81,
+      "actual_adam_steps_max": 81,
+      "sb3_epoch_attempt_counter": 15,
+      "elapsed_wall_s": 83.79922320600008
+    },
+    {
+      "rollout": 8,
+      "transitions": 4096,
+      "actual_adam_steps_min": 97,
+      "actual_adam_steps_max": 97,
+      "sb3_epoch_attempt_counter": 18,
+      "elapsed_wall_s": 94.80348750299981
+    }
+  ],
+  "optimizer_steps": 97,
+  "rollout_count": 8,
+  "learning_wall_seconds": 106.67721425899981,
+  "wall_seconds": 122.56433747500023,
+  "checkpoint_sha256": "8e4ca41ece2c0643de8f5b8fffdf2857269e06d1430a155004396a6808c6dd73",
+  "policy_state_sha256": "98792a9d6793bf1c2b06aea9016dbe95cdc08df4fd322ede521385a85efb41a2",
+  "numerical_checks_finite": true,
+  "old_checkpoint_unchanged": true,
+  "parameter_changes": {
+    "actor_and_log_std": 0.338143211669824,
+    "critic": 0.5479579951484924
+  },
+  "successful_reload": true,
+  "adopted": false,
+  "local_output": "runs/controller-review-20260924/reward-density10-pilot",
+  "local_checkpoint": "policy_pilot.zip",
+  "checkpoint_published": false,
+  "configuration": {
+    "schema": "local-density10-pilot-configuration-v1",
+    "input_training_run": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run",
+    "input_checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+    "input_config_sha256": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+    "objective": {
+      "positive_density_scale": 0.1,
+      "scaled_components": [
+        "pose_guide",
+        "head_track",
+        "balance",
+        "standing"
+      ],
+      "success": 50,
+      "safety": -2,
+      "added_time_cost": 0,
+      "base_reward": "reference-balance-v1"
+    },
+    "new_reward_version": "reference-balance-density10-v1",
+    "control_configuration": "Exactly the full controller/reference, env physics, observation, action and preprocessing from input_config_sha256.",
+    "algorithm": {
+      "seed": 26092451,
+      "total_timesteps": 4096,
+      "max_wall_seconds": 1200,
+      "n_steps": 256,
+      "batch_size": 64,
+      "n_epochs": 5,
+      "learning_rate": 0.0001,
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "clip_range": 0.2,
+      "clip_range_vf": null,
+      "normalize_advantage": true,
+      "ent_coef": 0.0,
+      "vf_coef": 0.5,
+      "max_grad_norm": 0.5,
+      "target_kl": 0.03,
+      "log_std_init": -2.5,
+      "net_arch": [
+        128,
+        128
+      ],
+      "torch_threads": 1,
+      "interop_threads": 1,
+      "reload_timeout_seconds": 180.0
+    },
+    "workers": 2,
+    "use_sde": true,
+    "sde_sample_freq": 25,
+    "initialization": {
+      "actor": "copied exactly",
+      "log_std": "copied exactly",
+      "critic": "fresh seeded initialization",
+      "optimizer": "fresh Adam, empty state",
+      "statistics": "fixed scaling only; no VecNormalize",
+      "old_rollouts_reused": false,
+      "actor_probe_max_abs_error": 0.0,
+      "probe_count": 16,
+      "atol": 1e-07,
+      "rtol": 0
+    }
+  },
+  "configuration_sha256": "bfdb4f4d8153b87754201952dee30ae17837d16778c194531c6603b3a993c25c",
+  "observed_training_episodes": [
+    {
+      "worker": 1,
+      "global_transition": 700,
+      "seed": 1500933068,
+      "success": false,
+      "duration_s": 6.9890000000007175,
+      "stable_s": 0.0,
+      "reason": "safety_abort:joint_limit_rad",
+      "transitions": 350,
+      "raw_environment_return": 2.198385787875303,
+      "observed_discounted_prefix": 2.062246196960217,
+      "actual_sb3_terminal_reward_adjustment": 0.0,
+      "actual_discounted_sb3_bootstrap_tail": 0.0,
+      "bootstrap_scope": "Actual recorded SB3 adjustment for this new pilot; not inferred with the final critic.",
+      "discounted_components": {
+        "balance": 1.513045549119178,
+        "head_track": 1.0073520841535062,
+        "overload": -0.029207648875578356,
+        "pose_guide": 0.1726316156410178,
+        "safety": -1.4105399355996018,
+        "self_penetration": 0.0,
+        "standing": 0.8153906030588232,
+        "success": 0.0,
+        "target_change": -0.000579651971242244,
+        "torque_cost": -0.0058464185658820556
+      }
+    },
+    {
+      "worker": 0,
+      "global_transition": 946,
+      "seed": 1763280116,
+      "success": false,
+      "duration_s": 9.448999999999353,
+      "stable_s": 0.0,
+      "reason": "safety_abort:joint_limit_rad",
+      "transitions": 473,
+      "raw_environment_return": 5.202135939201291,
+      "observed_discounted_prefix": 4.339301908302099,
+      "actual_sb3_terminal_reward_adjustment": 0.0,
+      "actual_discounted_sb3_bootstrap_tail": 0.0,
+      "bootstrap_scope": "Actual recorded SB3 adjustment for this new pilot; not inferred with the final critic.",
+      "discounted_components": {
+        "balance": 2.353897378138355,
+        "head_track": 1.3128429207180228,
+        "overload": -0.029207648875578356,
+        "pose_guide": 0.17262045675611187,
+        "safety": -1.2472124525398525,
+        "self_penetration": 0.0,
+        "standing": 1.7837260383722968,
+        "success": 0.0,
+        "target_change": -0.0005843777346100687,
+        "torque_cost": -0.006780406532643213
+      }
+    },
+    {
+      "worker": 1,
+      "global_transition": 2700,
+      "seed": 673441724,
+      "success": false,
+      "duration_s": 20.000000000003563,
+      "stable_s": 0.0,
+      "reason": "time_limit",
+      "transitions": 1000,
+      "raw_environment_return": 16.699127374327993,
+      "observed_discounted_prefix": 10.804930083373868,
+      "actual_sb3_terminal_reward_adjustment": 0.5782966613769531,
+      "actual_discounted_sb3_bootstrap_tail": 0.212849886435064,
+      "bootstrap_scope": "Actual recorded SB3 adjustment for this new pilot; not inferred with the final critic.",
+      "discounted_components": {
+        "balance": 4.691400438258828,
+        "head_track": 2.0545021876261536,
+        "overload": -0.029207648875578356,
+        "pose_guide": 0.1726715127684645,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 3.9246040242035614,
+        "success": 0.0,
+        "target_change": -0.0006002083332239834,
+        "torque_cost": -0.008440222274341668
+      }
+    },
+    {
+      "worker": 0,
+      "global_transition": 2946,
+      "seed": 516376789,
+      "success": false,
+      "duration_s": 20.000000000003563,
+      "stable_s": 0.0,
+      "reason": "time_limit",
+      "transitions": 1000,
+      "raw_environment_return": 3.8986594733243236,
+      "observed_discounted_prefix": 3.2399396262668287,
+      "actual_sb3_terminal_reward_adjustment": 0.5806531310081482,
+      "actual_discounted_sb3_bootstrap_tail": 0.2137172168674986,
+      "bootstrap_scope": "Actual recorded SB3 adjustment for this new pilot; not inferred with the final critic.",
+      "discounted_components": {
+        "balance": 1.3199347078786248,
+        "head_track": 0.9382197322453988,
+        "overload": -0.029207648875578356,
+        "pose_guide": 0.172641683304614,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 0.8452111380130479,
+        "success": 0.0,
+        "target_change": -0.0005978793790186154,
+        "torque_cost": -0.006262106920260087
+      }
+    },
+    {
+      "worker": 0,
+      "global_transition": 3820,
+      "seed": 899924208,
+      "success": false,
+      "duration_s": 8.735999999999748,
+      "stable_s": 0.0,
+      "reason": "safety_abort:joint_limit_rad",
+      "transitions": 437,
+      "raw_environment_return": 4.147324395453303,
+      "observed_discounted_prefix": 3.554291146857477,
+      "actual_sb3_terminal_reward_adjustment": 0.0,
+      "actual_discounted_sb3_bootstrap_tail": 0.0,
+      "bootstrap_scope": "Actual recorded SB3 adjustment for this new pilot; not inferred with the final critic.",
+      "discounted_components": {
+        "balance": 2.0686714219681956,
+        "head_track": 1.2255819873554141,
+        "overload": -0.029207648875578356,
+        "pose_guide": 0.17264248214389466,
+        "safety": -1.2929533692197175,
+        "self_penetration": 0.0,
+        "standing": 1.4166435845199237,
+        "success": 0.0,
+        "target_change": -0.0005860871902404095,
+        "torque_cost": -0.006501223844416494
+      }
+    }
+  ],
+  "training_episodes": {
+    "completed": 5,
+    "success": 0,
+    "safety_failure": 3,
+    "time_limit": 2,
+    "partial_at_block_end": 2
+  },
+  "before": {
+    "success": true,
+    "duration_s": 4.856000000000583,
+    "max_continuous_hold_s": 2.000000000000668,
+    "new_objective": {
+      "raw_return": 53.25249945606175,
+      "observed_discounted_prefix": 42.00984413251371,
+      "discounted_terms": {
+        "balance": 1.0295071851447386,
+        "head_track": 0.764063340471658,
+        "overload": -0.029207648875578356,
+        "pose_guide": 0.17007680389013258,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 0.8322645723729608,
+        "success": 39.248056406669455,
+        "target_change": -0.0005677432706075868,
+        "torque_cost": -0.004348783889048051
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 243,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    },
+    "original_objective_offline_rescore": {
+      "raw_return": 82.86760265122089,
+      "discounted_prefix": 67.17305124942912
+    },
+    "recovery_constraints": {
+      "samples": 4856,
+      "sampled_duration_s": 4.856,
+      "max_joint_excess_rad": 0.04518521846959589,
+      "worst_joint": "left_ankle_pitch_joint",
+      "worst_joint_elapsed_s": 2.205999999999757,
+      "any_joint_above_zero_s": 1.068,
+      "any_joint_above_standing_tolerance_s": 1.064,
+      "max_joint_speed_rad_s": 8.347143742429603,
+      "max_actuation_limit_ratio": 1.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.00904692154437733,
+          "geom_ids": [
+            0,
+            38
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 2.2069999999997574
+        },
+        "self": {
+          "depth_m": 0.0031814764288165204,
+          "geom_ids": [
+            28,
+            80
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "right_hip_pitch_link",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": 1.5039999999998346
+        },
+        "peak_ground_vertical_N": 1626.681419263664,
+        "peak_ground_vertical_bodyweights": 3.9512183254629623,
+        "peak_ground_elapsed_s": 2.187999999999759,
+        "peak_ground_sum_norm_N": 1845.4477378972624,
+        "largest_ground_contact_N": 1003.7441903198246
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.00904692154437733,
+          "geom_ids": [
+            0,
+            38
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 2.2069999999997574
+        },
+        "self": {
+          "depth_m": 0.0031814764288165204,
+          "geom_ids": [
+            28,
+            80
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "right_hip_pitch_link",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": 1.5039999999998346
+        },
+        "peak_ground_vertical_N": 1629.5367037838168,
+        "peak_ground_vertical_bodyweights": 3.9581538276374104,
+        "peak_ground_elapsed_s": 2.187999999999759,
+        "peak_ground_sum_norm_N": 1861.0069678496673,
+        "largest_ground_contact_N": 1007.9568615340987
+      }
+    },
+    "standing_window_margins": {
+      "height_m": 0.010342200936451773,
+      "tilt_deg": 13.132636541059998,
+      "left_support_bodyweights": 0.3605704597351283,
+      "right_support_bodyweights": 0.3731965387922551,
+      "feet_lower_bodyweights": 0.18322602073808858,
+      "feet_upper_bodyweights": 0.1749003105767366,
+      "other_weight": 1e-05,
+      "base_linear_m_s": 0.047360779426926035,
+      "com_linear_m_s": 0.03147937385532093,
+      "base_angular_rad_s": 0.09000769669224767,
+      "torso_angular_rad_s": 0.0593749426632742,
+      "joint_rad_s": 0.30168869204522786,
+      "joint_limit_rad": 0.0001,
+      "floor_penetration_m": 1.3491728884963694e-06,
+      "self_penetration_m": 0.0001,
+      "support_gap_m": 2e-06,
+      "pelvis_drift_m": 0.03409576145130805,
+      "left_drift_m": 0.022911976949313545,
+      "right_drift_m": 0.014549603747564296
+    },
+    "sway": {
+      "torso_tilt_range_deg": 1.3918705121631496,
+      "maximum_torso_tilt_deg": 1.867363458940001,
+      "pelvis_xy_peak_to_peak_m": [
+        0.012428201879789824,
+        0.00992394084267374
+      ],
+      "max_base_angular_rad_s": 0.15999230330775233,
+      "max_torso_angular_rad_s": 0.1906250573367258
+    },
+    "local_diagnostic_source_hashes": {
+      "summary.json": "8996ae103655f826f1c1ade163223522151b768bbef268871fa6986f520828a7",
+      "joint_constraints.csv": "bff2572ee1cee4048a45fdeab2eec17caa69b429dbf4a34bfa61273edde373b6",
+      "physical_trace.npz": "714b27b1fba38bd5321aeccf7a767f29d71678d257ac54571f04867816614a16",
+      "control_trace.npz": "a06a44432f5b7cdf6baccadc94baab9b49688d74854ca1b0379af968c25e25a2"
+    }
+  },
+  "after": {
+    "success": true,
+    "duration_s": 4.803000000000566,
+    "max_continuous_hold_s": 2.000000000000668,
+    "new_objective": {
+      "raw_return": 53.18942593134462,
+      "observed_discounted_prefix": 42.03967463933657,
+      "discounted_terms": {
+        "balance": 0.9927954744055926,
+        "head_track": 0.7556775277510108,
+        "overload": -0.029207648875578356,
+        "pose_guide": 0.16982992505828415,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 0.8288191344899393,
+        "success": 39.32667042084071,
+        "target_change": -0.0005678710273404491,
+        "torque_cost": -0.004342323306050087
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 241,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    },
+    "original_objective_offline_rescore": {
+      "raw_return": 82.23678094058795,
+      "discounted_prefix": 66.76377319468003
+    },
+    "recovery_constraints": {
+      "samples": 4803,
+      "sampled_duration_s": 4.803,
+      "max_joint_excess_rad": 0.04518521846959589,
+      "worst_joint": "left_ankle_pitch_joint",
+      "worst_joint_elapsed_s": 2.205999999999757,
+      "any_joint_above_zero_s": 1.068,
+      "any_joint_above_standing_tolerance_s": 1.064,
+      "max_joint_speed_rad_s": 8.347143742429603,
+      "max_actuation_limit_ratio": 1.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.00904692154437733,
+          "geom_ids": [
+            0,
+            38
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 2.2069999999997574
+        },
+        "self": {
+          "depth_m": 0.0031814764288165204,
+          "geom_ids": [
+            28,
+            80
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "right_hip_pitch_link",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": 1.5039999999998346
+        },
+        "peak_ground_vertical_N": 1626.681419263664,
+        "peak_ground_vertical_bodyweights": 3.9512183254629623,
+        "peak_ground_elapsed_s": 2.187999999999759,
+        "peak_ground_sum_norm_N": 1845.4477378972624,
+        "largest_ground_contact_N": 1003.7441903198246
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.00904692154437733,
+          "geom_ids": [
+            0,
+            38
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 2.2069999999997574
+        },
+        "self": {
+          "depth_m": 0.0031814764288165204,
+          "geom_ids": [
+            28,
+            80
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "right_hip_pitch_link",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": 1.5039999999998346
+        },
+        "peak_ground_vertical_N": 1629.5367037838168,
+        "peak_ground_vertical_bodyweights": 3.9581538276374104,
+        "peak_ground_elapsed_s": 2.187999999999759,
+        "peak_ground_sum_norm_N": 1861.0069678496673,
+        "largest_ground_contact_N": 1007.9568615340987
+      }
+    },
+    "standing_window_margins": {
+      "height_m": 0.008975910119865649,
+      "tilt_deg": 12.011375835380809,
+      "left_support_bodyweights": 0.34301587511732173,
+      "right_support_bodyweights": 0.3770604224010007,
+      "feet_lower_bodyweights": 0.18278117717054843,
+      "feet_upper_bodyweights": 0.17972735738168155,
+      "other_weight": 1e-05,
+      "base_linear_m_s": 0.02089063025249674,
+      "com_linear_m_s": 0.028130737618914173,
+      "base_angular_rad_s": 0.0764187181796154,
+      "torso_angular_rad_s": 0.052909539170211406,
+      "joint_rad_s": 0.30500459640020305,
+      "joint_limit_rad": 0.0001,
+      "floor_penetration_m": 7.54883257850919e-07,
+      "self_penetration_m": 0.0001,
+      "support_gap_m": 2e-06,
+      "pelvis_drift_m": 0.009787777473828994,
+      "left_drift_m": 0.018566129122940072,
+      "right_drift_m": 0.01764405065434084
+    },
+    "sway": {
+      "torso_tilt_range_deg": 2.0557374182507635,
+      "maximum_torso_tilt_deg": 2.9886241646191913,
+      "pelvis_xy_peak_to_peak_m": [
+        0.03706331303613464,
+        0.015659259465824686
+      ],
+      "max_base_angular_rad_s": 0.1735812818203846,
+      "max_torso_angular_rad_s": 0.1970904608297886
+    },
+    "local_diagnostic_source_hashes": {
+      "summary.json": "3b0698a4caf16703813b16bea6de69b9d0b277dd7ede9fdc2d0539b607f79a4c",
+      "joint_constraints.csv": "3a081f89ab1e2c79692223840704f46c7bbf7a3e2aab87081ba1501b91687376",
+      "physical_trace.npz": "550aaf44443c3218a4a3e5455151c7235244340c2d863d9fc102c99efa3f9313",
+      "control_trace.npz": "f6cf37dde5979ea250fb3936f9db69f3a375622e95479476010e14a6aeb79956"
+    }
+  },
+  "source_local_manifest_sha256": "f0fbbf1588c686624fe255b0eac3b4dbc56f4e6eb7fc645b86546bea7d87c2cf",
+  "actual_command": "PYTHONPATH=src/x2_recovery .venv/bin/python results/controller-review/20260924T132353Z/reward-audit/pilot.py --training-run results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run --expected-checkpoint-sha256 11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64 --output runs/controller-review-20260924/reward-density10-pilot",
+  "baseline_trajectory_parity": {
+    "observation_max_abs": 0.0,
+    "action_max_abs": 0.0,
+    "qpos_max_abs": 0.0,
+    "qvel_max_abs": 0.0,
+    "reference": "../published-policy/control_trace.npz",
+    "atol_state": 1e-10,
+    "atol_action": 1e-07,
+    "rtol": 0
+  },
+  "trajectory_parity_scope": "Real deterministic transferred-actor run before optimization exactly equals published-policy diagnostic at every saved control boundary.",
+  "formal_five_evaluation_performed": true,
+  "conclusion": "Offline reward ranking is corrected for the available evidence. One real development run after a short pilot succeeds 53ms earlier, while the pre-gate constraint violations and impact maxima are unchanged. Stochastic training has zero completed successes. No general control benefit, safety fix or new release controller is claimed; the candidate checkpoint remains local.",
+  "training_arrays_sha256": "b5d9c22065e6bbad2d27f0aa8b35bb708b96a31f5e910750e11073493daca066",
+  "training_array_semantics": "reward_terms preserves actual double environment components; raw_environment_reward is the float32 DummyVecEnv reward before SB3 bootstrap. rollout_rewards contains the actual adjustment. Values/advantages/returns are per-rollout critic/GAE data, not whole-episode observed returns.",
+  "formal_five_evaluation_summary": "pilot_five_summary.json",
+  "formal_five_evaluation_summary_sha256": "67273703c8805f68855231c3f3efd48eed896b71187bb463be1f69a53b57747a",
+  "formal_five_evaluation_scope": "Separate new candidate frozen five, exactly seeds26092460..26092464; no changes or substitution after outcomes.",
+  "training_wall_seconds": 94.80348750299981,
+  "learning_wall_seconds_scope": "This original pilot manifest timing field includes the after-training diagnostic; training loop duration is separately given by training_wall_seconds."
+}

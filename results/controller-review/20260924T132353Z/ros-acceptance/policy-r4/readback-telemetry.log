@@ -1,0 +1,15 @@
+[INFO] [1790258522.789849873] [telemetry_node]: status=waiting joint=left_knee_joint no_sample
+[INFO] [1790258523.781103915] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample
+[INFO] [1790258524.781011374] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.029997 sample_age_s=0.025
+[INFO] [1790258525.780978583] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.698329 sample_age_s=0.016
+[INFO] [1790258526.780988042] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.077548 sample_age_s=0.018
+[INFO] [1790258527.780957125] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.320212 sample_age_s=0.015
+[INFO] [1790258528.781115584] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.328689 sample_age_s=0.012
+[INFO] [1790258529.781156043] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.328158 sample_age_s=0.001
+[INFO] [1790258530.780949585] [telemetry_node]: status=RUNNING joint=left_knee_joint last_sample waiting_for_current_sample position_rad=0.328172 sample_age_s=0.865
+[INFO] [1790258531.781062211] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.030000 sample_age_s=0.019
+[INFO] [1790258532.781042461] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.672333 sample_age_s=0.018
+[INFO] [1790258533.781073837] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.506781 sample_age_s=0.018
+[INFO] [1790258534.781056212] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.327161 sample_age_s=0.013
+[INFO] [1790258535.781698546] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.328259 sample_age_s=0.020
+[INFO] [1790258536.783154380] [telemetry_node]: status=RUNNING joint=left_knee_joint last_sample waiting_for_current_sample position_rad=0.328172 sample_age_s=0.423

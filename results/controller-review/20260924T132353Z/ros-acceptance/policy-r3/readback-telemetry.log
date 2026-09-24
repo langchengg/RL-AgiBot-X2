@@ -1,0 +1,16 @@
+[INFO] [1790258366.209788882] [telemetry_node]: status=waiting joint=left_knee_joint no_sample
+[INFO] [1790258367.201123424] [telemetry_node]: status=waiting joint=left_knee_joint no_sample
+[INFO] [1790258368.200862008] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample
+[INFO] [1790258369.200905175] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.466662 sample_age_s=0.015
+[INFO] [1790258370.201087967] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.462336 sample_age_s=0.008
+[INFO] [1790258371.201088467] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.356316 sample_age_s=0.013
+[INFO] [1790258372.200819051] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.326870 sample_age_s=0.014
+[INFO] [1790258373.200851968] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.328309 sample_age_s=0.005
+[INFO] [1790258374.201436677] [telemetry_node]: status=SUCCEEDED joint=left_knee_joint last_sample position_rad=0.328172 sample_age_s=0.239
+[INFO] [1790258375.200859094] [telemetry_node]: status=RUNNING joint=left_knee_joint last_sample waiting_for_current_sample position_rad=0.328172 sample_age_s=1.239
+[INFO] [1790258376.200895678] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.499917 sample_age_s=0.014
+[INFO] [1790258377.200822679] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=1.379782 sample_age_s=0.013
+[INFO] [1790258378.200863762] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.321228 sample_age_s=0.012
+[INFO] [1790258379.201656555] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.326870 sample_age_s=0.020
+[INFO] [1790258380.200823888] [telemetry_node]: status=RUNNING joint=left_knee_joint sample position_rad=0.328259 sample_age_s=0.003
+[INFO] [1790258381.201494889] [telemetry_node]: status=RUNNING joint=left_knee_joint last_sample waiting_for_current_sample position_rad=0.328172 sample_age_s=0.315

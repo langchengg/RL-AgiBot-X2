@@ -1,0 +1,1665 @@
+{
+  "schema": "constraint-diagnostic-v1",
+  "status": "COMPLETE",
+  "error": null,
+  "seed": 26092419,
+  "controller": "zero_residual_reference",
+  "source_identity": {
+    "input_sha256": {
+      "policy_final.zip": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+      "resolved_config.json": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+      "manifest.json": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac",
+      "reload_probe.npz": "f98f58d40e089e075b8174d86ebbfff338882c1968fa97edc75261ae17db474b",
+      "progress.csv": "edb6073778eb32da1ca87130740517ba77fee6c10e499a2534f3706482ce94d5",
+      "reload_validation.json": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175"
+    },
+    "deployment_difference": {
+      "reset_perturb_rad": {
+        "published": 0.0,
+        "deployment": 0.002
+      }
+    },
+    "input_interface": {
+      "max_abs_error": 0.0,
+      "atol": 1e-07,
+      "rtol": 1e-06,
+      "observations": 16,
+      "action_shape": [
+        16,
+        17
+      ]
+    },
+    "controller_config_sha256": "0a4a38d8f49368ec3a933daa97a8a1af108a856df795c4c0384635c90db797aa",
+    "audit_source_sha256": "1fb81ff48deb366c2ca1b8adf6126eb7a8de78519db6212ceceae9cb1df1f86d",
+    "runner_sha256": "f3261f3ae4a67aa7af91c8865845b331db909e6ec1d929549aaa260afc830045",
+    "protocol_manifest_sha256": "fc495061b49196f35093ec7f96a5359f5731a543d589cc66247210265c6b486f",
+    "deterministic": true,
+    "device": "cpu"
+  },
+  "wall_seconds": 23.724124928000037,
+  "trace_level": "compact",
+  "trace_retention": "All metrics calculated from full float64 physical vectors. Compact traces retain every physical sample scalar and joint extrema, joint CSV, and full control-boundary observations/actions/states; full traces also retain physical vectors.",
+  "reset_handoff_absolute_s": 1.6579999999999282,
+  "success": false,
+  "reset_handoff_comparison_max_abs": {
+    "observation": 0.0,
+    "qpos": 0.0,
+    "qvel": 0.0,
+    "integration_state": 0.0
+  },
+  "sim_duration_s": 20.00000000000356,
+  "final_info": {
+    "is_success": false,
+    "termination_reason": null,
+    "truncation_reason": "time_limit",
+    "elapsed_sim_s": 20.00000000000356,
+    "physics_steps_executed": 20,
+    "stable_duration_s": 0.0,
+    "standing_failures": [
+      "height",
+      "torso_tilt",
+      "feet_total",
+      "other_weight"
+    ],
+    "reward_terms_raw": {
+      "height": -0.00020926659948541926,
+      "upright": -0.0005771818910753623,
+      "standing_hold": 0.0,
+      "torque_cost": 0.00013183323887204534,
+      "action_change": 0.0,
+      "success": 0.0
+    },
+    "reward_terms": {
+      "pose_guide": 0.0,
+      "head_track": 5.555177545985608e-13,
+      "balance": 0.0,
+      "overload": -0.0,
+      "self_penetration": -0.0,
+      "standing": 0.0,
+      "torque_cost": -2.6366647774409066e-06,
+      "target_change": -0.0,
+      "success": 0.0,
+      "safety": -0.0
+    },
+    "torque_saturation_fraction": 0.0,
+    "reset_seed": 274665320,
+    "state": {
+      "pelvis_height_m": 0.14072801631776055,
+      "tilt_deg": 81.11991189880527,
+      "left_weight": 0.16559488088980134,
+      "right_weight": 0.051139437998606804,
+      "other_weight": 0.7832657354033675
+    },
+    "warnings": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "control": {
+      "any_saturation_time_fraction": 0.0,
+      "joint_saturation_time_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_boundary_fraction": 0.0,
+      "raw_torque_abs_max_Nm": 15.97781391951999,
+      "applied_torque_abs_max_Nm": 15.97781391951999,
+      "joint_rad_s": 7.270494545914159e-05,
+      "joint_limit_rad": 0.0,
+      "floor_penetration_m": 0.0005680287344780278,
+      "self_penetration_m": 0.0
+    },
+    "controller": {
+      "policy_action": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mapped_policy_action": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "action_layout": "independentlegs17",
+      "requested_target_rad": [
+        0.40270638646470763,
+        0.05176899532965093,
+        0.1857676463245218,
+        0.2694036195233626,
+        -0.5028483836579863,
+        -0.14089190063566387,
+        -0.1715652120451876,
+        -0.24696804682121729,
+        -0.5759228779801838,
+        0.3621801042167413,
+        0.20907965953863314,
+        -0.20717924660958606,
+        0.04220837617211479,
+        0.2675014023094545,
+        -0.03730552458943326,
+        -1.7270626380958332e-08,
+        -0.0029731722933949655,
+        -1.124809859897946,
+        0.36678833231212893,
+        0.004260100879079651,
+        -0.5234213502441638,
+        -0.0009443249058440184,
+        -0.02220273002751454,
+        0.008820361762617412,
+        -1.1246877058160847,
+        -0.3668157960533691,
+        -0.004288424291048126,
+        -0.5234368406200903,
+        0.0011205449100229804,
+        -0.022231170772547014,
+        -0.008815809861664142
+      ],
+      "adopted_target_rad": [
+        0.40270638646470763,
+        0.05176899532965093,
+        0.1857676463245218,
+        0.2694036195233626,
+        -0.5028483836579863,
+        -0.14089190063566387,
+        -0.1715652120451876,
+        -0.24696804682121729,
+        -0.5759228779801838,
+        0.3621801042167413,
+        0.20907965953863314,
+        -0.20717924660958606,
+        0.04220837617211479,
+        0.2675014023094545,
+        -0.03730552458943326,
+        -1.7270626380958332e-08,
+        -0.0029731722933949655,
+        -1.124809859897946,
+        0.36678833231212893,
+        0.004260100879079651,
+        -0.5234213502441638,
+        -0.0009443249058440184,
+        -0.02220273002751454,
+        0.008820361762617412,
+        -1.1246877058160847,
+        -0.3668157960533691,
+        -0.004288424291048126,
+        -0.5234368406200903,
+        0.0011205449100229804,
+        -0.022231170772547014,
+        -0.008815809861664142
+      ],
+      "pre_q_rad": [
+        0.37607696647332467,
+        0.07229824334832795,
+        0.1837994520259429,
+        0.24563665986527117,
+        -0.5163720022091689,
+        -0.13430714561583676,
+        -0.1588303329417405,
+        -0.25929048617748124,
+        -0.5769130609150609,
+        0.3624063316482677,
+        0.20866392470054512,
+        -0.20534159780601682,
+        0.050240834045722604,
+        0.30673797607329634,
+        -0.06315532173935143,
+        0.0003465103500321119,
+        -0.006245383323709152,
+        -1.1071932478985265,
+        0.34678241706990093,
+        0.0006327437237015213,
+        -0.5239744894409235,
+        -0.0026472885627642126,
+        -0.028777839570960067,
+        0.0015586135266002351,
+        -1.1028153593822105,
+        -0.4188756576127048,
+        -0.014418657991704484,
+        -0.5138477857991008,
+        -0.0033768926066856985,
+        -0.017042309453166486,
+        -0.02637828441237779
+      ],
+      "pre_time_s": 19.98000000000356,
+      "target_tracking_max_rad": 0.052059861559335674,
+      "target_tracking_rms_rad": 0.017122836713911613,
+      "residual_gate": 1.0,
+      "residual_gate_time_s": 19.980000000003535,
+      "gated_residual_rad": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "learning_task": {
+      "head_height_m": 0.18805289265544803,
+      "head_progress": 0.0,
+      "reference_progress": 1.0,
+      "head_tracking_error": -1.0,
+      "head_tracking_error_m": -1.037810254566561,
+      "contact_factor": 1.0,
+      "upright": 0.1543670330553751,
+      "foot_transfer_factor": 0.009608845360837347,
+      "pose_error_rms_rad": 0.019363415250943542,
+      "elapsed_sim_s": 20.00000000000356,
+      "measurement_scope": "post-step control boundary; head_pitch_link body origin in world Z",
+      "balance_height_factor": 0.2092623763816571,
+      "balance_upright_gate": 0.0,
+      "balance_bilateral_factor": 0.255697189993034,
+      "balance_nominal_load_factor": 0.11928462412907416,
+      "balance_other_support_factor": 2.268857237522313e-27,
+      "balance_low_speed_factor": 0.9999999997139024,
+      "balance_feet_weight": 0.21673431888840816
+    },
+    "physical_reward_terms": {
+      "height": -0.0006277997984562578,
+      "upright": -0.0005771818910753623,
+      "standing_hold": 0.0,
+      "torque_cost": -2.6366647774409066e-06,
+      "action_change": -0.0,
+      "success": 0.0
+    },
+    "physical_reward": -0.001207618354309061
+  },
+  "physics_dt_s": 0.001,
+  "standing_tolerance_rad": 0.0001,
+  "duration_rule": "Right endpoint indicators: sum(mask[k])*dt for (post_time[k]-dt,post_time[k]]. Consecutive true samples form runs; extrema are physical-step sampled, not continuous extrema.",
+  "force_timing": "integration_* copies after native mj_step and before the EXISTING active mj_forward. Their contacts/forces use the pre-state time; qpos/qvel use post-time. postforward_* is the synchronized post-state recomputation used by existing success checks, not the applied interval solve.",
+  "force_definition": "Ground vertical is the signed sum of contact force world-Z on robot; bodyweights=force/(mass*9.81). Sum-norm and largest-contact force are separate; no force ratio is electrical power.",
+  "observer": "Scoped Python forwarding wrappers only; no added mj_step or active mj_forward; no physics-state writes.",
+  "timing_source": "https://github.com/google-deepmind/mujoco/blob/3.13.0/src/engine/engine_forward.c",
+  "noninterference_tolerances": {
+    "state_atol": 1e-10,
+    "action_atol": 1e-07,
+    "rtol": 0
+  },
+  "standing_settings": {
+    "h_ref_m": 0.6724955472220092,
+    "height_ratio_min": 0.9,
+    "tilt_deg_max": 15.0,
+    "foot_weight_min": 0.05,
+    "feet_weight_min": 0.8,
+    "feet_weight_max": 1.2,
+    "other_weight_max": 1e-05,
+    "linear_m_s_max": 0.1,
+    "angular_rad_s_max": 0.25,
+    "joint_rad_s_max": 0.5,
+    "pelvis_drift_m_max": 0.05,
+    "foot_drift_m_max": 0.03,
+    "hold_s": 2.0,
+    "floor_penetration_m_max": 0.001,
+    "self_penetration_m_max": 0.0001,
+    "support_gap_m_max": 2e-06,
+    "joint_limit_rad_max": 0.0001
+  },
+  "segments": {
+    "reset_settling": {
+      "samples": 1658,
+      "sampled_duration_s": 1.6580000000000001,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": -1.6569999999999283,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 0.7952791325518409,
+      "max_actuation_limit_ratio": 0.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.0027451648176753524,
+          "geom_ids": [
+            0,
+            80
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": -1.5959999999999281
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": -1.6579999999999282
+        },
+        "peak_ground_vertical_N": 1106.4174448164574,
+        "peak_ground_vertical_bodyweights": 2.6874942024908544,
+        "peak_ground_elapsed_s": -1.6259999999999282,
+        "peak_ground_sum_norm_N": 1326.3247870060256,
+        "largest_ground_contact_N": 433.29670553843334
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.0027451648176753524,
+          "geom_ids": [
+            0,
+            80
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": -1.5959999999999281
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": -1.6569999999999283
+        },
+        "peak_ground_vertical_N": 1106.4174448164574,
+        "peak_ground_vertical_bodyweights": 2.6874942024908544,
+        "peak_ground_elapsed_s": -1.6259999999999282,
+        "peak_ground_sum_norm_N": 1326.3247870060256,
+        "largest_ground_contact_N": 433.29670553843334
+      }
+    },
+    "recovery": {
+      "samples": 20000,
+      "sampled_duration_s": 20.0,
+      "max_joint_excess_rad": 0.040404758419271825,
+      "worst_joint": "left_ankle_pitch_joint",
+      "worst_joint_elapsed_s": 2.202999999999758,
+      "any_joint_above_zero_s": 1.053,
+      "any_joint_above_standing_tolerance_s": 1.05,
+      "max_joint_speed_rad_s": 8.413746065473111,
+      "max_actuation_limit_ratio": 1.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.026192693922984407,
+          "geom_ids": [
+            0,
+            71
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_shoulder_roll_link"
+          ],
+          "elapsed_s": 4.422000000000437
+        },
+        "self": {
+          "depth_m": 0.003335742773067803,
+          "geom_ids": [
+            28,
+            80
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "right_hip_pitch_link",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": 1.5019999999998348
+        },
+        "peak_ground_vertical_N": 8678.700066865897,
+        "peak_ground_vertical_bodyweights": 21.080611322725733,
+        "peak_ground_elapsed_s": 4.409000000000432,
+        "peak_ground_sum_norm_N": 10422.099285608356,
+        "largest_ground_contact_N": 2769.708197110033
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.026192693922984407,
+          "geom_ids": [
+            0,
+            71
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_shoulder_roll_link"
+          ],
+          "elapsed_s": 4.422000000000437
+        },
+        "self": {
+          "depth_m": 0.003335742773067803,
+          "geom_ids": [
+            28,
+            80
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "right_hip_pitch_link",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": 1.5019999999998348
+        },
+        "peak_ground_vertical_N": 8646.651957724986,
+        "peak_ground_vertical_bodyweights": 21.00276628519446,
+        "peak_ground_elapsed_s": 4.409000000000432,
+        "peak_ground_sum_norm_N": 10426.515583160897,
+        "largest_ground_contact_N": 2769.1611704699753
+      }
+    },
+    "residual_disabled": {
+      "samples": 2260,
+      "sampled_duration_s": 2.2600000000000002,
+      "max_joint_excess_rad": 0.040404758419271825,
+      "worst_joint": "left_ankle_pitch_joint",
+      "worst_joint_elapsed_s": 2.202999999999758,
+      "any_joint_above_zero_s": 1.053,
+      "any_joint_above_standing_tolerance_s": 1.05,
+      "max_joint_speed_rad_s": 8.413746065473111,
+      "max_actuation_limit_ratio": 1.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.00843827576561727,
+          "geom_ids": [
+            0,
+            38
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 2.192999999999759
+        },
+        "self": {
+          "depth_m": 0.003335742773067803,
+          "geom_ids": [
+            28,
+            80
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "right_hip_pitch_link",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": 1.5019999999998348
+        },
+        "peak_ground_vertical_N": 1556.5251049593326,
+        "peak_ground_vertical_bodyweights": 3.780808243043939,
+        "peak_ground_elapsed_s": 2.1819999999997597,
+        "peak_ground_sum_norm_N": 1905.7397387953101,
+        "largest_ground_contact_N": 958.5163926246552
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.00843827576561727,
+          "geom_ids": [
+            0,
+            38
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 2.192999999999759
+        },
+        "self": {
+          "depth_m": 0.003335742773067803,
+          "geom_ids": [
+            28,
+            80
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "right_hip_pitch_link",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": 1.5019999999998348
+        },
+        "peak_ground_vertical_N": 1552.6433093990684,
+        "peak_ground_vertical_bodyweights": 3.771379339773894,
+        "peak_ground_elapsed_s": 2.1819999999997597,
+        "peak_ground_sum_norm_N": 1920.9658287308762,
+        "largest_ground_contact_N": 960.5257897053027
+      }
+    },
+    "residual_ramp": {
+      "samples": 200,
+      "sampled_duration_s": 0.2,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": 2.2609999999997514,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 3.053934990418555,
+      "max_actuation_limit_ratio": 0.8274198409499489,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.0019953680943437203,
+          "geom_ids": [
+            0,
+            38
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 2.259999999999751
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": 2.259999999999751
+        },
+        "peak_ground_vertical_N": 629.0478932350806,
+        "peak_ground_vertical_bodyweights": 1.527960874151628,
+        "peak_ground_elapsed_s": 2.259999999999751,
+        "peak_ground_sum_norm_N": 658.8067917106877,
+        "largest_ground_contact_N": 358.40354577348586
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.0019451993847881223,
+          "geom_ids": [
+            0,
+            38
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 2.2609999999997514
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": 2.2609999999997514
+        },
+        "peak_ground_vertical_N": 630.4130817352087,
+        "peak_ground_vertical_bodyweights": 1.531276924704329,
+        "peak_ground_elapsed_s": 2.2609999999997514,
+        "peak_ground_sum_norm_N": 661.3399580141592,
+        "largest_ground_contact_N": 357.60906980571417
+      }
+    },
+    "residual_full": {
+      "samples": 17540,
+      "sampled_duration_s": 17.54,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": 2.460999999999782,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 6.856928591182776,
+      "max_actuation_limit_ratio": 1.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.026192693922984407,
+          "geom_ids": [
+            0,
+            71
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_shoulder_roll_link"
+          ],
+          "elapsed_s": 4.422000000000437
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": 2.4599999999997815
+        },
+        "peak_ground_vertical_N": 8678.700066865897,
+        "peak_ground_vertical_bodyweights": 21.080611322725733,
+        "peak_ground_elapsed_s": 4.409000000000432,
+        "peak_ground_sum_norm_N": 10422.099285608356,
+        "largest_ground_contact_N": 2769.708197110033
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.026192693922984407,
+          "geom_ids": [
+            0,
+            71
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_shoulder_roll_link"
+          ],
+          "elapsed_s": 4.422000000000437
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": 2.460999999999782
+        },
+        "peak_ground_vertical_N": 8646.651957724986,
+        "peak_ground_vertical_bodyweights": 21.00276628519446,
+        "peak_ground_elapsed_s": 4.409000000000432,
+        "peak_ground_sum_norm_N": 10426.515583160897,
+        "largest_ground_contact_N": 2769.1611704699753
+      }
+    },
+    "final_standing_window": {
+      "samples": 0
+    },
+    "landing_100ms": {
+      "samples": 1171,
+      "sampled_duration_s": 1.171,
+      "max_joint_excess_rad": 0.040404758419271825,
+      "worst_joint": "left_ankle_pitch_joint",
+      "worst_joint_elapsed_s": 2.202999999999758,
+      "any_joint_above_zero_s": 0.519,
+      "any_joint_above_standing_tolerance_s": 0.518,
+      "max_joint_speed_rad_s": 8.413746065473111,
+      "max_actuation_limit_ratio": 1.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.026192693922984407,
+          "geom_ids": [
+            0,
+            71
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_shoulder_roll_link"
+          ],
+          "elapsed_s": 4.422000000000437
+        },
+        "self": {
+          "depth_m": 0.001244736325003059,
+          "geom_ids": [
+            2,
+            30
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "pelvis",
+            "right_hip_roll_link"
+          ],
+          "elapsed_s": 0.836999999999908
+        },
+        "peak_ground_vertical_N": 8678.700066865897,
+        "peak_ground_vertical_bodyweights": 21.080611322725733,
+        "peak_ground_elapsed_s": 4.409000000000432,
+        "peak_ground_sum_norm_N": 10422.099285608356,
+        "largest_ground_contact_N": 2769.708197110033
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.026192693922984407,
+          "geom_ids": [
+            0,
+            71
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_shoulder_roll_link"
+          ],
+          "elapsed_s": 4.422000000000437
+        },
+        "self": {
+          "depth_m": 0.0012457433983583588,
+          "geom_ids": [
+            2,
+            30
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "pelvis",
+            "right_hip_roll_link"
+          ],
+          "elapsed_s": 0.8419999999999075
+        },
+        "peak_ground_vertical_N": 8646.651957724986,
+        "peak_ground_vertical_bodyweights": 21.00276628519446,
+        "peak_ground_elapsed_s": 4.409000000000432,
+        "peak_ground_sum_norm_N": 10426.515583160897,
+        "largest_ground_contact_N": 2769.1611704699753
+      }
+    }
+  },
+  "segment_definition": "Residual stage uses actual gate held from pre-control boundary; final window includes both endpoint samples (2001 samples for a 2s hold). Segment memberships overlap.",
+  "final_window_start_elapsed_s": null,
+  "standing_window_minimum_margins": null,
+  "airborne_intervals": [
+    {
+      "start_s": 0.6299999999999307,
+      "end_s": 0.6309999999999307,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 0.6379999999999298,
+      "end_s": 0.6389999999999298,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 0.6559999999999279,
+      "end_s": 0.6569999999999279,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 0.6779999999999254,
+      "end_s": 0.6789999999999254,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 0.6799999999999252,
+      "end_s": 0.6809999999999252,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 0.6969999999999233,
+      "end_s": 0.6989999999999232,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 0.7029999999999227,
+      "end_s": 0.7039999999999227,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 0.7099999999999219,
+      "end_s": 0.7119999999999218,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 0.7289999999999198,
+      "end_s": 0.7299999999999198,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 0.7389999999999187,
+      "end_s": 0.7409999999999186,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 1.0929999999998798,
+      "end_s": 1.0939999999998797,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.1069999999998783,
+      "end_s": 1.1079999999998782,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.1159999999998773,
+      "end_s": 1.1169999999998772,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.1219999999998767,
+      "end_s": 1.1229999999998765,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.1289999999998759,
+      "end_s": 1.1309999999998757,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 1.136999999999875,
+      "end_s": 1.137999999999875,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.1399999999998747,
+      "end_s": 1.1419999999998744,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 1.146999999999874,
+      "end_s": 1.1499999999998736,
+      "sampled_duration_s": 0.003,
+      "samples": 3
+    },
+    {
+      "start_s": 1.1519999999998733,
+      "end_s": 1.154999999999873,
+      "sampled_duration_s": 0.003,
+      "samples": 3
+    },
+    {
+      "start_s": 1.1579999999998727,
+      "end_s": 1.1609999999998724,
+      "sampled_duration_s": 0.003,
+      "samples": 3
+    },
+    {
+      "start_s": 1.163999999999872,
+      "end_s": 1.1699999999998714,
+      "sampled_duration_s": 0.006,
+      "samples": 6
+    },
+    {
+      "start_s": 1.173999999999871,
+      "end_s": 1.1879999999998694,
+      "sampled_duration_s": 0.014,
+      "samples": 14
+    },
+    {
+      "start_s": 1.190999999999869,
+      "end_s": 1.191999999999869,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.1929999999998688,
+      "end_s": 1.2039999999998676,
+      "sampled_duration_s": 0.011,
+      "samples": 11
+    },
+    {
+      "start_s": 1.2069999999998673,
+      "end_s": 1.2169999999998662,
+      "sampled_duration_s": 0.01,
+      "samples": 10
+    },
+    {
+      "start_s": 1.218999999999866,
+      "end_s": 1.2239999999998654,
+      "sampled_duration_s": 0.005,
+      "samples": 5
+    },
+    {
+      "start_s": 1.2289999999998649,
+      "end_s": 1.2399999999998637,
+      "sampled_duration_s": 0.011,
+      "samples": 11
+    },
+    {
+      "start_s": 1.2439999999998632,
+      "end_s": 1.244999999999863,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.2499999999998626,
+      "end_s": 1.2509999999998624,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.254999999999862,
+      "end_s": 1.2629999999998611,
+      "sampled_duration_s": 0.008,
+      "samples": 8
+    },
+    {
+      "start_s": 1.2699999999998604,
+      "end_s": 1.2759999999998597,
+      "sampled_duration_s": 0.006,
+      "samples": 6
+    },
+    {
+      "start_s": 1.2799999999998593,
+      "end_s": 1.281999999999859,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 1.291999999999858,
+      "end_s": 1.2959999999998575,
+      "sampled_duration_s": 0.004,
+      "samples": 4
+    },
+    {
+      "start_s": 1.3119999999998557,
+      "end_s": 1.3149999999998554,
+      "sampled_duration_s": 0.003,
+      "samples": 3
+    },
+    {
+      "start_s": 1.3209999999998547,
+      "end_s": 1.3219999999998546,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.326999999999854,
+      "end_s": 1.327999999999854,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.3309999999998536,
+      "end_s": 1.3329999999998534,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 1.3399999999998526,
+      "end_s": 1.3419999999998524,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 1.3489999999998517,
+      "end_s": 1.3499999999998515,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.3789999999998483,
+      "end_s": 1.3799999999998482,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.8329999999997983,
+      "end_s": 1.8339999999997982,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.8669999999997946,
+      "end_s": 1.8709999999997942,
+      "sampled_duration_s": 0.004,
+      "samples": 4
+    },
+    {
+      "start_s": 1.880999999999793,
+      "end_s": 1.8829999999997928,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 1.8839999999997927,
+      "end_s": 1.8849999999997926,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.8959999999997914,
+      "end_s": 1.899999999999791,
+      "sampled_duration_s": 0.004,
+      "samples": 4
+    },
+    {
+      "start_s": 1.90799999999979,
+      "end_s": 1.9119999999997896,
+      "sampled_duration_s": 0.004,
+      "samples": 4
+    },
+    {
+      "start_s": 1.9139999999997894,
+      "end_s": 1.9189999999997889,
+      "sampled_duration_s": 0.005,
+      "samples": 5
+    },
+    {
+      "start_s": 1.9219999999997885,
+      "end_s": 1.9229999999997884,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 1.9249999999997882,
+      "end_s": 2.141999999999764,
+      "sampled_duration_s": 0.217,
+      "samples": 217
+    },
+    {
+      "start_s": 4.218000000000369,
+      "end_s": 4.220000000000369,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 4.239000000000376,
+      "end_s": 4.240000000000376,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 4.246000000000378,
+      "end_s": 4.248000000000379,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 4.255000000000381,
+      "end_s": 4.259000000000382,
+      "sampled_duration_s": 0.004,
+      "samples": 4
+    },
+    {
+      "start_s": 4.269000000000386,
+      "end_s": 4.270000000000386,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 4.28100000000039,
+      "end_s": 4.28200000000039,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 4.288000000000392,
+      "end_s": 4.289000000000392,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 4.291000000000393,
+      "end_s": 4.292000000000393,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 4.294000000000394,
+      "end_s": 4.295000000000394,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 4.300000000000396,
+      "end_s": 4.302000000000397,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 4.310000000000399,
+      "end_s": 4.314000000000401,
+      "sampled_duration_s": 0.004,
+      "samples": 4
+    },
+    {
+      "start_s": 4.322000000000403,
+      "end_s": 4.326000000000405,
+      "sampled_duration_s": 0.004,
+      "samples": 4
+    },
+    {
+      "start_s": 4.331000000000406,
+      "end_s": 4.333000000000407,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 4.338000000000409,
+      "end_s": 4.339000000000409,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 4.34300000000041,
+      "end_s": 4.344000000000411,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 4.346000000000411,
+      "end_s": 4.348000000000412,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 4.353000000000414,
+      "end_s": 4.356000000000415,
+      "sampled_duration_s": 0.003,
+      "samples": 3
+    },
+    {
+      "start_s": 4.359000000000416,
+      "end_s": 4.360000000000416,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 4.362000000000417,
+      "end_s": 4.364000000000417,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 4.368000000000419,
+      "end_s": 4.369000000000419,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 4.37200000000042,
+      "end_s": 4.374000000000421,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 4.379000000000422,
+      "end_s": 4.383000000000424,
+      "sampled_duration_s": 0.004,
+      "samples": 4
+    },
+    {
+      "start_s": 4.386000000000425,
+      "end_s": 4.390000000000426,
+      "sampled_duration_s": 0.004,
+      "samples": 4
+    },
+    {
+      "start_s": 4.398000000000429,
+      "end_s": 4.40100000000043,
+      "sampled_duration_s": 0.003,
+      "samples": 3
+    }
+  ],
+  "landing_events": [
+    {
+      "elapsed_s": 0.6319999999999306,
+      "ground_vertical_N": 554.7854324552878
+    },
+    {
+      "elapsed_s": 0.6399999999999297,
+      "ground_vertical_N": 220.96753236076424
+    },
+    {
+      "elapsed_s": 0.6579999999999278,
+      "ground_vertical_N": 88.63813538711217
+    },
+    {
+      "elapsed_s": 0.6799999999999253,
+      "ground_vertical_N": 219.62673909628148
+    },
+    {
+      "elapsed_s": 0.6819999999999251,
+      "ground_vertical_N": 648.5716453503014
+    },
+    {
+      "elapsed_s": 0.6999999999999231,
+      "ground_vertical_N": 486.34304690594865
+    },
+    {
+      "elapsed_s": 0.7049999999999226,
+      "ground_vertical_N": 265.63825559859606
+    },
+    {
+      "elapsed_s": 0.7129999999999217,
+      "ground_vertical_N": 502.3369428819855
+    },
+    {
+      "elapsed_s": 0.7309999999999197,
+      "ground_vertical_N": 237.3761554283642
+    },
+    {
+      "elapsed_s": 0.7419999999999185,
+      "ground_vertical_N": 505.3652424181422
+    },
+    {
+      "elapsed_s": 1.0949999999998796,
+      "ground_vertical_N": 343.03422751997545
+    },
+    {
+      "elapsed_s": 1.108999999999878,
+      "ground_vertical_N": 527.464865776077
+    },
+    {
+      "elapsed_s": 1.117999999999877,
+      "ground_vertical_N": 931.6731928377619
+    },
+    {
+      "elapsed_s": 1.1239999999998764,
+      "ground_vertical_N": 939.3101994045579
+    },
+    {
+      "elapsed_s": 1.1319999999998756,
+      "ground_vertical_N": 921.4467117914901
+    },
+    {
+      "elapsed_s": 1.1389999999998748,
+      "ground_vertical_N": 385.4091218055004
+    },
+    {
+      "elapsed_s": 1.1429999999998743,
+      "ground_vertical_N": 1227.7065873611527
+    },
+    {
+      "elapsed_s": 1.1509999999998735,
+      "ground_vertical_N": 417.04167482251984
+    },
+    {
+      "elapsed_s": 1.155999999999873,
+      "ground_vertical_N": 548.3854193363854
+    },
+    {
+      "elapsed_s": 1.1619999999998722,
+      "ground_vertical_N": 485.22638095305473
+    },
+    {
+      "elapsed_s": 1.1709999999998713,
+      "ground_vertical_N": 447.74751018320615
+    },
+    {
+      "elapsed_s": 1.1889999999998693,
+      "ground_vertical_N": 526.9874509874672
+    },
+    {
+      "elapsed_s": 1.1929999999998688,
+      "ground_vertical_N": 501.1752460048
+    },
+    {
+      "elapsed_s": 1.2049999999998675,
+      "ground_vertical_N": 492.3016548805009
+    },
+    {
+      "elapsed_s": 1.217999999999866,
+      "ground_vertical_N": 525.2276559481342
+    },
+    {
+      "elapsed_s": 1.2249999999998653,
+      "ground_vertical_N": 392.6834320384915
+    },
+    {
+      "elapsed_s": 1.2409999999998635,
+      "ground_vertical_N": 318.085799305778
+    },
+    {
+      "elapsed_s": 1.245999999999863,
+      "ground_vertical_N": 358.00578087209414
+    },
+    {
+      "elapsed_s": 1.2519999999998623,
+      "ground_vertical_N": 272.8090684292487
+    },
+    {
+      "elapsed_s": 1.263999999999861,
+      "ground_vertical_N": 286.68378138617425
+    },
+    {
+      "elapsed_s": 1.2769999999998596,
+      "ground_vertical_N": 240.88315580008333
+    },
+    {
+      "elapsed_s": 1.282999999999859,
+      "ground_vertical_N": 797.503320235033
+    },
+    {
+      "elapsed_s": 1.2969999999998574,
+      "ground_vertical_N": 227.9312965815472
+    },
+    {
+      "elapsed_s": 1.3159999999998553,
+      "ground_vertical_N": 212.293269658585
+    },
+    {
+      "elapsed_s": 1.3229999999998545,
+      "ground_vertical_N": 234.46778330165708
+    },
+    {
+      "elapsed_s": 1.3289999999998539,
+      "ground_vertical_N": 581.6117859703602
+    },
+    {
+      "elapsed_s": 1.3339999999998533,
+      "ground_vertical_N": 566.756740510068
+    },
+    {
+      "elapsed_s": 1.3429999999998523,
+      "ground_vertical_N": 661.793370530172
+    },
+    {
+      "elapsed_s": 1.3509999999998514,
+      "ground_vertical_N": 329.5489965213709
+    },
+    {
+      "elapsed_s": 1.3809999999998481,
+      "ground_vertical_N": 238.04022989202065
+    },
+    {
+      "elapsed_s": 1.8349999999997981,
+      "ground_vertical_N": 223.70842418090373
+    },
+    {
+      "elapsed_s": 1.871999999999794,
+      "ground_vertical_N": 532.2919601710987
+    },
+    {
+      "elapsed_s": 1.8839999999997927,
+      "ground_vertical_N": 292.3564035325933
+    },
+    {
+      "elapsed_s": 1.8859999999997925,
+      "ground_vertical_N": 295.38326887821097
+    },
+    {
+      "elapsed_s": 1.9009999999997909,
+      "ground_vertical_N": 350.09530007819455
+    },
+    {
+      "elapsed_s": 1.9129999999997895,
+      "ground_vertical_N": 292.73360957169075
+    },
+    {
+      "elapsed_s": 1.9199999999997888,
+      "ground_vertical_N": 373.40498089521384
+    },
+    {
+      "elapsed_s": 1.9239999999997883,
+      "ground_vertical_N": 326.5411234985383
+    },
+    {
+      "elapsed_s": 2.1429999999997644,
+      "ground_vertical_N": 315.4363156124392
+    },
+    {
+      "elapsed_s": 4.22100000000037,
+      "ground_vertical_N": 186.33770292695135
+    },
+    {
+      "elapsed_s": 4.241000000000376,
+      "ground_vertical_N": 84.2100651769221
+    },
+    {
+      "elapsed_s": 4.249000000000379,
+      "ground_vertical_N": 101.21495936874891
+    },
+    {
+      "elapsed_s": 4.260000000000383,
+      "ground_vertical_N": 186.62816725303324
+    },
+    {
+      "elapsed_s": 4.271000000000386,
+      "ground_vertical_N": 84.55392145744698
+    },
+    {
+      "elapsed_s": 4.28300000000039,
+      "ground_vertical_N": 85.8338632666433
+    },
+    {
+      "elapsed_s": 4.290000000000393,
+      "ground_vertical_N": 91.06790596588756
+    },
+    {
+      "elapsed_s": 4.293000000000394,
+      "ground_vertical_N": 87.5994008682336
+    },
+    {
+      "elapsed_s": 4.296000000000395,
+      "ground_vertical_N": 169.06951132474484
+    },
+    {
+      "elapsed_s": 4.303000000000397,
+      "ground_vertical_N": 87.2995780105258
+    },
+    {
+      "elapsed_s": 4.315000000000401,
+      "ground_vertical_N": 83.68218280804025
+    },
+    {
+      "elapsed_s": 4.327000000000405,
+      "ground_vertical_N": 81.36984682790643
+    },
+    {
+      "elapsed_s": 4.334000000000407,
+      "ground_vertical_N": 79.31758905412715
+    },
+    {
+      "elapsed_s": 4.340000000000409,
+      "ground_vertical_N": 78.86851493259343
+    },
+    {
+      "elapsed_s": 4.345000000000411,
+      "ground_vertical_N": 69.65500375669095
+    },
+    {
+      "elapsed_s": 4.349000000000412,
+      "ground_vertical_N": 77.31957622228532
+    },
+    {
+      "elapsed_s": 4.357000000000415,
+      "ground_vertical_N": 146.50314126877873
+    },
+    {
+      "elapsed_s": 4.361000000000416,
+      "ground_vertical_N": 73.7655929750967
+    },
+    {
+      "elapsed_s": 4.365000000000418,
+      "ground_vertical_N": 75.39950717124246
+    },
+    {
+      "elapsed_s": 4.370000000000419,
+      "ground_vertical_N": 77.37975955363177
+    },
+    {
+      "elapsed_s": 4.375000000000421,
+      "ground_vertical_N": 71.66244732836356
+    },
+    {
+      "elapsed_s": 4.384000000000424,
+      "ground_vertical_N": 152.74592988621362
+    },
+    {
+      "elapsed_s": 4.391000000000426,
+      "ground_vertical_N": 86.59051212601466
+    },
+    {
+      "elapsed_s": 4.40200000000043,
+      "ground_vertical_N": 70.57711138418372
+    }
+  ],
+  "airborne_landing_definition": "Airborne = synchronized postforward total ground vertical force <=1e-9 N; landing = the next loaded sample; landing_100ms is the union of 0.1 s windows beginning at those samples. This is a force-based diagnostic, not a claim of complete geometric separation.",
+  "constraint_envelope_checks": {
+    "joint_excess": false,
+    "directional_actuation": true,
+    "declared_velocity": true,
+    "velocity_limits_declared_count": 31
+  },
+  "constraint_envelope_pass": false,
+  "constraint_envelope_definition": "Recovery nominal joint-range excess <=0.0001 rad, directional actuation ratio<=1+1e-10 and each declared URDF speed ratio<=1+1e-10. The joint tolerance is borrowed from standing, not a hardware safety allowance. Candidate impact non-regression requires separate comparison with the unchanged-controller baseline.",
+  "admissible_recovery": false,
+  "actuation_consistency": {
+    "integration_vs_postforward_max_abs_Nm": 0.0,
+    "mapped_joint_vs_ctrl_max_abs_Nm": 0.0,
+    "actuator_vs_ctrl_max_abs_Nm": 0.0,
+    "mapping": "31 stateless scalar hinge motors; fixed unit gain/gear; no actuator-output clamp; input and joint clamps preserved."
+  },
+  "reward": {
+    "raw_return": 13.383720977680985,
+    "observed_discounted_prefix": 11.93902715177375,
+    "discounted_terms": {
+      "balance": 4.127537297335727,
+      "head_track": 6.122734625645684,
+      "overload": -0.03360936930156729,
+      "pose_guide": 1.7283034068334264,
+      "safety": 0.0,
+      "self_penetration": 0.0,
+      "standing": 0.0,
+      "success": 0.0,
+      "target_change": -0.0005675937629076933,
+      "torque_cost": -0.0053712149765960965
+    },
+    "gamma_per_policy_transition": 0.999,
+    "transitions": 1000,
+    "terminated": false,
+    "truncated": true,
+    "critic_tail_estimate": null,
+    "historical_rollout_bootstrap": null,
+    "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+  },
+  "maximum_stable_hold_s": 0.0,
+  "artifacts_sha256": {
+    "joint_constraints.csv": "735f3df1b1705f7cf55c9443f67956e5fe7e233b81e963ed201784eecbc79e01",
+    "physical_trace.npz": "18538d23760c46795c8987d50eb0a81a1ca1f959e469da4b6d8bfc2f6a5e9ab3",
+    "control_trace.npz": "8ac7b505245494c68707173bd0dfe44d07ff1b7f331cd8b3721f871eb297b7a1"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "selected_seeds": [
+    26092400,
+    26092401,
+    26092402,
+    26092403,
+    26092404,
+    26092405,
+    26092406,
+    26092407,
+    26092408,
+    26092409,
+    26092410,
+    26092411,
+    26092412,
+    26092413,
+    26092414,
+    26092415,
+    26092416,
+    26092417,
+    26092418,
+    26092419
+  ],
+  "minimum_pairwise_handoff_qpos_qvel_max_abs_difference": 0.0022682819706189607,
+  "reset_preflight_sha256": "d44116012bd83330c3d8a742e198e7cc753befa5d276b28108e51a6ea15b637e",
+  "reset_handoffs_sha256": "f61d43955a83ee4fff556c54c86187337f3db7ddd6caa113dc7f9c28a71f295f",
+  "rule": "No replacement seeds or reset retries based on controller outcomes."
+}

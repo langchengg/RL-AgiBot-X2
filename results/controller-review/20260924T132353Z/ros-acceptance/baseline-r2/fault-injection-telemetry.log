@@ -1,0 +1,3 @@
+[INFO] [1790258655.475542895] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample
+[INFO] [1790258656.467233562] [telemetry_node]: status=RUNNING joint=left_knee_joint last_sample waiting_for_current_sample position_rad=0.029997 sample_age_s=0.200
+[INFO] [1790258657.467239062] [telemetry_node]: status=FAILED joint=left_knee_joint last_sample position_rad=0.029998 sample_age_s=0.037

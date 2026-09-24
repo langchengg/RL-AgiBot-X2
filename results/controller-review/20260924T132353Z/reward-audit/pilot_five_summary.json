@@ -1,0 +1,50 @@
+{
+  "status": "COMPLETE",
+  "planned": 5,
+  "completed": 5,
+  "invalid_or_blocked": 0,
+  "success": 5,
+  "constraint_envelope_pass": 0,
+  "admissible_recovery": 0,
+  "checkpoint_sha256": "8e4ca41ece2c0643de8f5b8fffdf2857269e06d1430a155004396a6808c6dd73",
+  "new_reward_version": "reference-balance-density10-v1",
+  "input_and_policy_identities_unchanged": true,
+  "frozen_manifest_sha256": "13112158c2524dd16b437de74a712a634d9379944d9c9ed2ba7ada847d64a5d4",
+  "episode_artifacts_sha256": [
+    {
+      "summary.json": "e568fd43636ae753053aebf7fb32d0abda132fa20cad4cf95ae1e0beda93cc7a",
+      "joint_constraints.csv": "3a081f89ab1e2c79692223840704f46c7bbf7a3e2aab87081ba1501b91687376",
+      "physical_trace.npz": "550aaf44443c3218a4a3e5455151c7235244340c2d863d9fc102c99efa3f9313",
+      "control_trace.npz": "f6cf37dde5979ea250fb3936f9db69f3a375622e95479476010e14a6aeb79956"
+    },
+    {
+      "summary.json": "b97e8bb731f2fe7c081228c90dc08cfd6b9be491043d4c6ae8f4076cc6bf94f4",
+      "joint_constraints.csv": "3a081f89ab1e2c79692223840704f46c7bbf7a3e2aab87081ba1501b91687376",
+      "physical_trace.npz": "550aaf44443c3218a4a3e5455151c7235244340c2d863d9fc102c99efa3f9313",
+      "control_trace.npz": "f6cf37dde5979ea250fb3936f9db69f3a375622e95479476010e14a6aeb79956"
+    },
+    {
+      "summary.json": "90881a92f390eb5ec0b4fcde47154bb92232a8d7c4d6991f4363e15958700e94",
+      "joint_constraints.csv": "3a081f89ab1e2c79692223840704f46c7bbf7a3e2aab87081ba1501b91687376",
+      "physical_trace.npz": "550aaf44443c3218a4a3e5455151c7235244340c2d863d9fc102c99efa3f9313",
+      "control_trace.npz": "f6cf37dde5979ea250fb3936f9db69f3a375622e95479476010e14a6aeb79956"
+    },
+    {
+      "summary.json": "0dc6b196fe1decd185a293ba4499219038a3a495665c97ea1816cc78900041c2",
+      "joint_constraints.csv": "3a081f89ab1e2c79692223840704f46c7bbf7a3e2aab87081ba1501b91687376",
+      "physical_trace.npz": "550aaf44443c3218a4a3e5455151c7235244340c2d863d9fc102c99efa3f9313",
+      "control_trace.npz": "f6cf37dde5979ea250fb3936f9db69f3a375622e95479476010e14a6aeb79956"
+    },
+    {
+      "summary.json": "9c3c25ccbfa6bfc0b26a12bc198db74c9f7191a76dcc146c14e1d9f01ba94d1f",
+      "joint_constraints.csv": "3a081f89ab1e2c79692223840704f46c7bbf7a3e2aab87081ba1501b91687376",
+      "physical_trace.npz": "550aaf44443c3218a4a3e5455151c7235244340c2d863d9fc102c99efa3f9313",
+      "control_trace.npz": "f6cf37dde5979ea250fb3936f9db69f3a375622e95479476010e14a6aeb79956"
+    }
+  ],
+  "wall_seconds": 55.08259990100032,
+  "all_five_initial_and_control_state_trajectories_identical": true,
+  "checkpoint_published": false,
+  "adopted": false,
+  "interpretation": "This fixed-condition repeatability result does not establish perturbed robustness or repair full-process constraints. Original historical5/5 is unchanged."
+}

@@ -1,0 +1,8 @@
+--- a/run_pairs.py
++++ b/run_pairs.py
+@@ -17 +17 @@
+-from x2_recovery.constraint_audit import run_diagnostic, write_json
++from x2_recovery.constraint_audit import json_value, run_diagnostic, write_json
+@@ -42 +42 @@
+-        standing_sway=json.dumps(summary.get('standing_window_sway'), sort_keys=True),
++        standing_sway=json.dumps(json_value(summary.get('standing_window_sway')), sort_keys=True),

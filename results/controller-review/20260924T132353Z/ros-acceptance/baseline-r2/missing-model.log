@@ -1,0 +1,1 @@
+Recovery startup/execution failed: ValueError: Missing asset repository: /nonexistent/x2-assets; set X2_ASSET_REPO

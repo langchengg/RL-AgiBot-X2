@@ -4,3 +4,8 @@ results/evaluation/** -text
 results/evaluation/**/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # Unified patch context contains single-space empty lines by design.
 results/evaluation/**/source/working-tree.patch whitespace=-blank-at-eol
+# New controller review evidence follows the same byte-preserving CSV convention.
+results/controller-review/** -text
+results/controller-review/**/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Preserve trailing blank lines emitted by ROS CLI in raw acceptance logs.
+results/controller-review/*/ros-acceptance/**/*.log whitespace=-blank-at-eof

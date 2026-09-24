@@ -1,0 +1,192 @@
+{
+  "protocol": {
+    "planned_pairs": 20,
+    "max_reset_candidates": 40,
+    "candidate_seeds": [
+      26092400,
+      26092401,
+      26092402,
+      26092403,
+      26092404,
+      26092405,
+      26092406,
+      26092407,
+      26092408,
+      26092409,
+      26092410,
+      26092411,
+      26092412,
+      26092413,
+      26092414,
+      26092415,
+      26092416,
+      26092417,
+      26092418,
+      26092419,
+      26092420,
+      26092421,
+      26092422,
+      26092423,
+      26092424,
+      26092425,
+      26092426,
+      26092427,
+      26092428,
+      26092429,
+      26092430,
+      26092431,
+      26092432,
+      26092433,
+      26092434,
+      26092435,
+      26092436,
+      26092437,
+      26092438,
+      26092439
+    ],
+    "selection": "First 20 legal resets in fixed candidate order, reset-only selection before any controller outcome; retain rejection reasons.",
+    "perturb_rad": 0.002,
+    "distribution": "Existing reset_supine independent uniform joint perturbations for all 31 controlled joints; existing pose legality and contact settling unchanged.",
+    "A": "same reference, zero 17-vector residual",
+    "B": "same reference, selected frozen deterministic CPU PPO",
+    "allowed_base_config_difference": [
+      "reset_perturb_rad"
+    ],
+    "all_other_settings": "Strict original prepare validation before explicit reset-only deployment override; no source/hash bypass.",
+    "physical_pair_atol": 1e-10,
+    "rtol": 0,
+    "incomplete": "Report separately; never substitute seeds after controller outcomes.",
+    "metrics": [
+      "success",
+      "recovery_sim_s",
+      "max_continuous_hold_s",
+      "joint_excess_max_rad",
+      "joint_excess_duration_s",
+      "max_velocity_rad_s",
+      "torque_ratio",
+      "floor_penetration_m",
+      "floor_contact_load_N",
+      "stable_margins"
+    ],
+    "analysis": "Paired success wins/losses/ties; time differences only among both-success pairs. This is a development review, not a broad robustness claim."
+  },
+  "source_identity": {
+    "input_sha256": {
+      "policy_final.zip": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+      "resolved_config.json": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+      "manifest.json": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac",
+      "reload_probe.npz": "f98f58d40e089e075b8174d86ebbfff338882c1968fa97edc75261ae17db474b",
+      "progress.csv": "edb6073778eb32da1ca87130740517ba77fee6c10e499a2534f3706482ce94d5",
+      "reload_validation.json": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175"
+    },
+    "deployment_difference": {
+      "reset_perturb_rad": {
+        "published": 0.0,
+        "deployment": 0.002
+      }
+    },
+    "input_interface": {
+      "max_abs_error": 0.0,
+      "atol": 1e-07,
+      "rtol": 1e-06,
+      "observations": 16,
+      "action_shape": [
+        16,
+        17
+      ]
+    },
+    "controller_config_sha256": "0a4a38d8f49368ec3a933daa97a8a1af108a856df795c4c0384635c90db797aa",
+    "audit_source_sha256": "1fb81ff48deb366c2ca1b8adf6126eb7a8de78519db6212ceceae9cb1df1f86d",
+    "runner_sha256": "f3261f3ae4a67aa7af91c8865845b331db909e6ec1d929549aaa260afc830045",
+    "protocol_manifest_sha256": "fc495061b49196f35093ec7f96a5359f5731a543d589cc66247210265c6b486f",
+    "deterministic": true,
+    "device": "cpu"
+  },
+  "full_deployment_base_config": {
+    "decimation": 20,
+    "episode_timeout_s": 20.0,
+    "step_wall_s": 5.0,
+    "reset_wall_s": 45.0,
+    "reset_perturb_rad": 0.002,
+    "joint_velocity_scale_rad_s": 5.0,
+    "base_linear_scale_m_s": 1.0,
+    "base_angular_scale_rad_s": 2.0,
+    "shaping_gamma": 0.999,
+    "height_weight": 3.0,
+    "upright_weight": 1.0,
+    "standing_hold_weight": 1.0,
+    "torque_cost_weight": -0.02,
+    "action_change_weight": -0.002,
+    "success_bonus": 50.0,
+    "safety_floor_m": 0.03,
+    "safety_self_m": 0.015,
+    "safety_joint_limit_rad": 0.05,
+    "safety_joint_speed_rad_s": 30.0,
+    "reference_angles": [
+      [
+        "hip_pitch",
+        -0.05
+      ],
+      [
+        "knee",
+        0.1
+      ],
+      [
+        "ankle_pitch",
+        -0.05
+      ],
+      [
+        "shoulder_pitch",
+        -0.15
+      ],
+      [
+        "elbow",
+        -0.3
+      ]
+    ],
+    "shoulder_roll_rad": 0.15,
+    "pd_gains": [
+      [
+        "hip",
+        600.0,
+        16.970562748477143
+      ],
+      [
+        "knee",
+        600.0,
+        16.970562748477143
+      ],
+      [
+        "ankle",
+        300.0,
+        11.313708498984761
+      ],
+      [
+        "waist",
+        300.0,
+        11.313708498984761
+      ],
+      [
+        "shoulder",
+        100.0,
+        4.242640687119286
+      ],
+      [
+        "elbow",
+        100.0,
+        4.242640687119286
+      ],
+      [
+        "head",
+        10.0,
+        0.4242640687119285
+      ],
+      [
+        "wrist",
+        10.0,
+        0.4242640687119285
+      ]
+    ]
+  },
+  "statement": "Original checkpoint and controller unchanged; only validated reset perturbation distribution differs."
+}

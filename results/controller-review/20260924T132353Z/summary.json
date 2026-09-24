@@ -1,0 +1,207 @@
+{
+  "schema": "controller-review-summary-v1",
+  "started_commit": "f23a1c1ceb888756d94e8b6768bfcd7f1de2ca8e",
+  "completed_utc": "2026-09-24T14:32:44.053731+00:00",
+  "statuses": {
+    "constraint_audit": {
+      "status": "COMPLETE",
+      "finding": "Published mixed policy has transient joint-limit excess/impact; original final standing success remains valid. Noninterference comparison is exactly zero."
+    },
+    "constraint_mitigation": {
+      "status": "UNRESOLVED",
+      "finding": "Six local reference candidates, each internally paired with zero/frozen residual, 12 complete episodes; none passed the predeclared joint/impact/standing criteria. No reference/PD/physics change adopted."
+    },
+    "reward_audit": {
+      "status": "COMPLETE",
+      "finding": "Exact rewards available for four real comparison traces; historical191.958 episode exactG missing, but verified signed totals rigorously bound G>=72.413169>success67.173051."
+    },
+    "reward_mitigation": {
+      "status": "UNRESOLVED",
+      "finding": "Reduced-density offline objective repairs that ranking; one local4096-transition/97-Adam pilot plus separately frozen5 gives standing5/5 but whole-envelope0/5, hence not adopted."
+    },
+    "paired_validation": {
+      "status": "COMPLETE",
+      "finding": "20valid,0invalid pairs of distinct legal perturbed resets. Reference2/20,residual3/20; wins1/losses0/ties19; 2common successes. All40 fail whole-envelope. No proven residual advantage."
+    },
+    "ros_policy_integration": {
+      "status": "PASS",
+      "finding": "Original frozen historical controller strictly loaded; real ROS success and exact independent trajectory match;111functional policy checks and85baseline checks. Busy-during-reset one-second goal is not guaranteed."
+    },
+    "reproduction_entry": {
+      "status": "PASS",
+      "finding": "Installed check guarded against reset/step/learn; real copied-input run success; five focused boundary tests and validated delegation to existing five-seed evaluator."
+    },
+    "publication": {
+      "status": "READY",
+      "finding": "Validated candidate ready for normal commit/push. Actual commit and remote verification are reported in final response, avoiding recursive receipt commits."
+    }
+  },
+  "runtime": {
+    "system": "Linux-7.0.0-34-generic-aarch64-with-glibc2.39",
+    "machine": "aarch64",
+    "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "ros": "Jazzy",
+    "build_install": "/tmp/x2-review-20260924/ros-install",
+    "reused": "existing verified venv, Ubuntu/ROS packages, pinned external X2 assets; no dependency upgrades or fresh installation"
+  },
+  "invariance": {
+    "tracked_start_files": 402,
+    "old_results_files": 368,
+    "old_results_byte_changes": [],
+    "changed_existing_files": [
+      ".gitattributes",
+      "README.md",
+      "src/x2_recovery/launch/recovery.launch.py",
+      "src/x2_recovery/test/test_ros_integration.py",
+      "src/x2_recovery/test/test_ros_nodes.py",
+      "src/x2_recovery/x2_recovery/recovery_node.py"
+    ],
+    "all_other_starting_tracked_files_byte_identical": true,
+    "protected_core_sha256": {
+      "src/x2_recovery/x2_recovery/baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "src/x2_recovery/x2_recovery/env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "src/x2_recovery/x2_recovery/evaluate.py": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "src/x2_recovery/x2_recovery/model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "src/x2_recovery/x2_recovery/reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "src/x2_recovery/x2_recovery/success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "src/x2_recovery/x2_recovery/train.py": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118"
+    },
+    "source_sha256_at_delivery": {
+      "src/x2_recovery/setup.py": "e151a450c3ae92125c8c00d47cd842aee904a7d6586e0e656e5219f62d478487",
+      "src/x2_recovery/test/test_reproduce.py": "b935059a9e254e1196e229b382c18e44ce02bcf9c0a1c970c05678a993859eb8",
+      "src/x2_recovery/test/test_reset.py": "c57101a3ef63ef5d87fdd4e44d16787ba4c4fdee275c8a12ecd25d946093cc2f",
+      "src/x2_recovery/test/test_env.py": "8f86ddd6311571512949097bcb80711915f8741927fae8b1346a6e18b3ed5cb9",
+      "src/x2_recovery/test/test_model.py": "d9b960aae2b86f90bcea8ff5860726db349b2acf0068c91deb9307fe9714cd5d",
+      "src/x2_recovery/test/test_training.py": "dd9369460e8cd33d95510673888c98b2ee27196d503614c27a4c52adba454c1e",
+      "src/x2_recovery/test/test_ros_integration.py": "3a6e0060795877e1911168090d9514a87224c65697ea6735b7b1230be0b8997a",
+      "src/x2_recovery/test/test_evaluation.py": "c68c912062afacb6781b919652c00bff17d96cf6d74c45a8ad72a95fa0f4f519",
+      "src/x2_recovery/test/test_control.py": "cece331cacd8e0f91483e9f7aba6d085c5bfbb5ef80177047a5afbf3e754840f",
+      "src/x2_recovery/test/test_ros_nodes.py": "2d2169c6620662d621072935c633945da3aec58f67313b703dbc3ab7e1149e5c",
+      "src/x2_recovery/test/test_success.py": "be901f9eaf4e47d69d678148a291319696c7c0ae3a01062f6e3f9760f65711d1",
+      "src/x2_recovery/test/test_baseline.py": "6c13f36def03716078aad1496a9d79fcc3c22508ea55eb3d0a6dd761d60c0748",
+      "src/x2_recovery/test/test_constraint_audit.py": "5af9af38c9ab512b09be5184fa55d05e9a7e4544ac4f5a1a06f825376ca34297",
+      "src/x2_recovery/x2_recovery/simulation_validation.py": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+      "src/x2_recovery/x2_recovery/telemetry_node.py": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "src/x2_recovery/x2_recovery/train.py": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+      "src/x2_recovery/x2_recovery/model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "src/x2_recovery/x2_recovery/success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "src/x2_recovery/x2_recovery/reproduce.py": "7df55e684abb53203fe031ef00c77ebce36bc49e0bf86eb43711749c34ede230",
+      "src/x2_recovery/x2_recovery/constraint_audit.py": "1fb81ff48deb366c2ca1b8adf6126eb7a8de78519db6212ceceae9cb1df1f86d",
+      "src/x2_recovery/x2_recovery/evaluate.py": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "src/x2_recovery/x2_recovery/env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "src/x2_recovery/x2_recovery/reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "src/x2_recovery/x2_recovery/motion_search.py": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+      "src/x2_recovery/x2_recovery/model_audit.py": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+      "src/x2_recovery/x2_recovery/success_validation.py": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+      "src/x2_recovery/x2_recovery/baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "src/x2_recovery/x2_recovery/recovery_node.py": "a2d4aa5cf23bae1d17634b14de19691fa7af9953f255c2f5df518ff4f2b94dd7",
+      "src/x2_recovery/x2_recovery/diagnostics.py": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+      "src/x2_recovery/x2_recovery/__init__.py": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+      "src/x2_recovery/launch/recovery.launch.py": "df28e45daf0194ed62db7bc54b9a7eea5c75843e464921f9ffeac9a2e599a634"
+    },
+    "selected_checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+    "selected_config_sha256": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+    "deleted_tracked_files": [],
+    "gitattributes_change": "Narrow additive -text, CSV CRLF and raw ROS CLI log trailing-blank-line rules for new controller-review evidence; no historical rules or bytes changed."
+  },
+  "readme": {
+    "before_lines": 557,
+    "before_bytes": 33415,
+    "after_lines": 662,
+    "after_bytes": 42511,
+    "sha256": "3d655f47b94556a5e3b34b8281f73481450a6978e6cd93560b80e7a494c31a5f",
+    "sections": [
+      "## Setup and Quick Start",
+      "## Robot Model and Simulation",
+      "## Environment Design",
+      "## Rewards and Training",
+      "## Evaluation and Limitations",
+      "## ROS 2 Integration and Validation"
+    ],
+    "relative_links_checked": 34,
+    "unresolved_links": [],
+    "bash_syntax_blocks": 11,
+    "semantics": "Commands checked against actual parsers. Installed check/run and ROS policy commands actually executed; new-training tutorial and production five-evaluator delegation not used to rerun the historical formal batch."
+  },
+  "tests": {
+    "new_build_exit_code": 0,
+    "regression": {
+      "command": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/lang/RL-AgiBot-X2/src/x2_recovery/test",
+        "-v"
+      ],
+      "cwd": "/tmp",
+      "environment": [
+        "source /opt/ros/jazzy/setup.bash",
+        "source /tmp/x2-review-20260924/ros-install/setup.bash",
+        "ROS_DOMAIN_ID=187",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST",
+        "RMW_IMPLEMENTATION=rmw_fastrtps_cpp",
+        "MUJOCO_GL=osmesa"
+      ],
+      "tests": 204,
+      "failures": 0,
+      "exit_code": 0,
+      "wall_s": 128.419,
+      "initial_attempt": "First omitted MUJOCO_GL and got1 blank-image render failure; correct documented OSMesa backend rerun passed without source/test changes."
+    },
+    "historical_publication_audit": {
+      "tree": "f23a1c1ceb888756d94e8b6768bfcd7f1de2ca8e",
+      "directory": "/tmp/x2-review-20260924/historical-check",
+      "complete_local_clone": true,
+      "result": "PASS",
+      "checked_files": 94,
+      "scope": "Stored original0/5and5/5 records plus saved-observation loads; reset/step/learn/optimizer guards remained zero. Not a new episode."
+    },
+    "current_strict_controller_load": "PASS,16 saved observations,maximum action error0",
+    "ros_policy_checks": 111,
+    "ros_baseline_checks": 85,
+    "ros_node_unit_tests": 23,
+    "note": "Counts are test/check scopes, not independent recovery initial states. Regression includes optimizer/unit fixtures; candidate PPO training is separately accounted below."
+  },
+  "experiments": {
+    "new_training_transitions": 4096,
+    "new_training_optimizer_steps": 97,
+    "training_wall_s": 94.803,
+    "pilot_including_diagnostics_wall_s": 122.564,
+    "new_fixed_five_wall_s": 55.083,
+    "pilot_checkpoint_local_only": "runs/controller-review-20260924/reward-density10-pilot/policy_pilot.zip",
+    "pilot_checkpoint_sha256": "8e4ca41ece2c0643de8f5b8fffdf2857269e06d1430a155004396a6808c6dd73",
+    "actor_transfer": "Old actor/log_std exactly transferred; critic/Adam fresh; no old rollout/normalization statistics reused.",
+    "new_five": "5standing/0envelope/0admissible; fixed initial states and trajectories identical; not broader robustness.",
+    "default_policy_replaced": false,
+    "new_checkpoint_published": false,
+    "not_performed": [
+      "No long training or action search",
+      "No model/physics/safety/success changes",
+      "No real robot or paid cloud",
+      "No new video",
+      "No editing of old evidence/manifest or bypass of compatibility checks"
+    ]
+  },
+  "artifacts": {
+    "constraint": "published-policy/summary.json",
+    "zero_residual": "zero-residual-reference/summary.json",
+    "noninterference": "noninterference.json",
+    "mitigation": "mitigation/summary.json",
+    "reward": "reward-audit/summary.json",
+    "pilot": "reward-audit/pilot_result.json",
+    "new_five": "reward-audit/pilot_five_summary.json",
+    "paired": "paired/summary.json",
+    "ros": "ros-acceptance/build-and-unit.json",
+    "reproduction": "reproduction_validation.json"
+  },
+  "known_limitations": [
+    "Whole-process constraint mitigation remains unresolved; fixed standing is not hardware-safe recovery.",
+    "Perturbed success remains low and residual benefit unproven.",
+    "Exact historical episode6 reward sequence unavailable; bound not reconstructed return.",
+    "Reward objective candidate stays local despite fixed-condition success.",
+    "Single-threaded busy requests can wait through bounded reset; no universal1s RPC guarantee."
+  ],
+  "next_step": "Develop the pre-residual reference support/landing transition with independent constraint targets; use a new preregistered perturbation batch after any tuning. Reward training cannot fix a prefix where residual authority is zero."
+}

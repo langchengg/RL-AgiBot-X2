@@ -4,8 +4,10 @@ Native MuJoCo/Gymnasium supine recovery for AgiBot X2. The selected controller c
 an X2 reference motion with a trained PPO residual and succeeded in **5/5 fixed-supine
 evaluations**. All five initial states and trajectories were identical. The reference
 alone also succeeds: PPO changes the motion, but improved success rate is not established.
-The earlier pure-PPO checkpoint scored 0/5. ROS 2 is validated separately with
-`scripted_baseline`, which did not recover to standing.
+The earlier pure-PPO checkpoint scored 0/5. A later physical-step review found transient
+joint-limit excess and landing impacts despite the valid final standing window. ROS 2 now
+loads this complete hybrid controller explicitly; the default remains `scripted_baseline`.
+This is a simulation demonstration with unresolved whole-episode constraint risks.
 
 ## Setup and Quick Start
 
@@ -67,9 +69,10 @@ offline. [Prior installation evidence][ros-commands] records system reuse and do
 
 ### Load and run the published controller
 
-This independent block uses `prepare` to check the complete controller's identities and
-saved-observation actions without reset, step, learning or input writes. Keep the zip,
-manifest, resolved reference/configuration, progress, reload validation and probe together.
+The thin `reproduce` entry delegates to the existing validated loader and execution paths.
+Keep the zip, manifest, resolved reference/configuration, progress, reload validation and
+probe together. `check` only loads and checks saved-observation actions; it never resets,
+steps or trains. `run` makes a verified writable input copy before one real episode.
 
 ```bash
 set -e
@@ -78,31 +81,20 @@ export PY="$WS/.venv/bin/python"
 export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
 source /opt/ros/jazzy/setup.bash
 source "$WS/install/setup.bash"
-cd "$WS"
+cd /tmp
 INPUT="$WS/results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run"
 POLICY_SHA=11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64
-"$PY" - "$INPUT" "$POLICY_SHA" <<'PYCODE'
-import json, sys
-from x2_recovery.evaluate import prepare
-env, model, original, prepared = prepare(sys.argv[1], expected_checkpoint_sha256=sys.argv[2])
-try:
-    print(json.dumps(prepared['consistency']))
-finally:
-    env.close()
-PYCODE
+RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-$$"
+"$PY" -m x2_recovery.reproduce check --training-run "$INPUT" \
+  --expected-checkpoint-sha256 "$POLICY_SHA" --output "$WS/runs/check-$RUN_ID"
+"$PY" -m x2_recovery.reproduce run --training-run "$INPUT" \
+  --expected-checkpoint-sha256 "$POLICY_SHA" --seed 221030 \
+  --output "$WS/runs/replay-$RUN_ID"
 ```
 
-For **one new headless simulation**, continue below with a writable input copy:
-`control-reload` writes `development-<seed>/summary.json` and a new trajectory there.
-
-```bash
-REPLAY_RUN="$WS/runs/published-replay-$(date -u +%Y%m%dT%H%M%SZ)-$$"
-test ! -e "$REPLAY_RUN"
-mkdir -p "$WS/runs"
-cp -R "$INPUT" "$REPLAY_RUN"
-"$PY" -m x2_recovery.train control-reload \
-  --run-dir "$REPLAY_RUN" --seed 222611 --max-wall-seconds 180
-```
+All three subcommands require a new output path and refuse overlap with the frozen input.
+The one-episode result is under `replay-<id>/training-input/development-221030/`;
+`execution.json` records the real child exit code. Nothing installs or trains implicitly.
 
 Inspect `status`, `success`, `reason`, `sim_duration_s`; exit 0 alone is not recovery success.
 The [video][video] is a separate real reproduction; training/evaluation and ROS commands follow.
@@ -125,8 +117,8 @@ is **UNLICENSED**; no additional project license is granted.
   drift beyond the unchanged 0.314 rad bound. This is a project modeling choice.
 
 The floating pelvis has 7 position coordinates/6 velocities; the model has `nq=38`,
-`nv=37`, **31 hinged joints and 31 direct torque motors**. Joint ranges and effective
-motor limits (0.6–118 N m, depending on joint) are enforced; URDF speed ratings are
+`nv=37`, **31 hinged joints and 31 direct torque motors**. Soft joint-limit constraints
+and clamped motor-effort bounds (0.6–118 N m, depending on joint) remain active; URDF speed ratings are
 reported but not enforced as hardware speed clamps. Mapping uses discovered qpos,
 DOF and control addresses, not assumed contiguous joint IDs. No base restraint,
 external recovery force, gravity compensation or mass scaling is used.
@@ -277,6 +269,41 @@ training scale. A separate lower-noise branch continued 4,096 → 16,384 transit
 and was rejected after only 0.569 s of qualified hold; the selected checkpoint was not
 continued. Re-running training does not guarantee the published checkpoint or outcome.
 
+The [discounted-reward review][review-reward] uses complete real reward sequences and
+`sum(gamma**t * r_t)` with one exponent per policy transition, including the short final
+transition. Raw Monitor totals, observed discounted prefixes, truncated critic tails and
+rollout GAE are distinct; no missing historical bootstrap is inferred from today's critic.
+
+| Real trajectory under `reference-balance-v1` | Raw return | Observed discounted return |
+| --- | ---: | ---: |
+| Selected deterministic success | 82.867603 | 67.173051 |
+| Zero-residual reference success | 83.085549 | 67.252247 |
+| Continued-policy safety failure, same control configuration | 27.315238 | 23.403243 |
+| Broader-residual 20 s timeout, different control configuration | 17.304419 | 15.196736; critic tail unavailable |
+| Selected training episode 6, joint-limit abort | 191.958311 | Exact sequence unavailable; rigorous lower bound 72.413169 |
+
+The last row's signed component totals and known terminal safety penalty prove its
+lower bound exceeds the fast success return. They do **not** reconstruct its sequence:
+`G >= 0.999**974*(194.0051577-2)-0.0468471`. That stochastic episode crossed several
+actor updates, so this confirms a task/reward ranking mismatch for those trajectories,
+not intentional exploitation or a performance claim about the final actor.
+
+Two offline candidates reduce repeatable positive densities while keeping success +50,
+safety −2 and every physical/task condition unchanged. `reference-balance-density10-v1`
+scales pose/head/balance/standing by 0.1, with no added time cost. Its conservative 20 s
+nonterminal positive-return bound is 17.704528; the same fast success rescored is 42.009844.
+The historical failure's upper bound becomes 18.628065. These bounds cover repeated
+posture/hold rewards; they do not guarantee all exploration outranks immediate failure.
+A single local 4096-transition pilot transferred the original actor/log std, initialized a
+fresh critic/Adam, and reused no rollout. It completed eight rollouts and 97 actual Adam
+updates in about 123 s including diagnostics. Before/after deterministic development
+recovery was 4.856/4.803 s, but the same pre-residual constraint violations remained;
+stochastic training had zero successful completed episodes. The new objective and
+checkpoint are **unadopted local experiments**, not replacements for the published inputs.
+A separately [frozen new five][review-pilot-five] then achieved 5/5 original standing success
+at 4.803 s, but 0/5 constraint-envelope and 0/5 admissible recoveries. All five trajectories
+were again identical fixed-condition repeats; new weights and full candidate inputs remain local.
+
 ### New training, continuation and evaluation
 
 This is an optional **new experiment**, not required to use the published policy.
@@ -374,13 +401,49 @@ In the [matched ablation][ablation], trained residual and reference alone both s
 across 130 transitions without parameter/optimizer updates. This proves control influence,
 not success-rate improvement. The formal five repeats share identical initial states
 and trajectories, so neither comparison establishes broad fallen-pose robustness.
-The reference-only [mechanism analysis][mechanism] records 0.215 s airborne, landing
-near 3.96 W, peak floor penetration 9.05 mm and joint excess 0.04519 rad against a
-0.05 rad guard. These are reference-only transient measurements; the trained-policy
-hold separately reaches 0.998651 mm floor penetration against the 1 mm criterion.
-Reduce launch/landing impulse, then test registered reset perturbations while retaining
-the original success criterion. Neither broader robustness nor real-robot deployment
-has been validated; ROS does not run this hybrid policy.
+The new [physical-step audit][review-audit] reproduces the **mixed controller itself**.
+Adding the observer changed control-boundary observations, actions, qpos/qvel and rewards
+by exactly zero. It copies forces immediately after native `mj_step`, before the existing
+`mj_forward`, and separately labels the synchronized post-state recomputation. It adds
+no physics step, forward solve or state write. Extrema are 1 kHz sample maxima; durations
+sum 1 ms right-endpoint indicators, not continuous-time mathematical bounds.
+
+| Whole recovery, excluding reset settling | Published mixed controller |
+| --- | --- |
+| Worst actual joint excess | Left ankle pitch: 0.0451852 rad below −0.803 rad at 2.206 s |
+| That joint / longest consecutive excess | 0.650 s / 0.393 s; any joint exceeds standing tolerance for 1.064 s |
+| Maximum joint speed / declared URDF speed ratio | 8.34714 rad/s / 0.699325; 31 velocity declarations available |
+| Actual mapped motor effort / limit | Maximum directional ratio 1.0; targets stayed within nominal limits |
+| Floor / self penetration | 9.04692 mm / 3.18148 mm |
+| Landing vertical load | Actual integration solve: 3.95122 W; post-forward recomputation: 3.95815 W |
+| Final continuous standing window | Original predicates pass; floor-penetration margin only 1.349 micrometres |
+
+Of 1,064 over-tolerance samples, 1,063 precede residual activation; maximum excess,
+speed and penetration also occur before activation. This primarily implicates the
+reference prefix and its execution, not an inactive residual. Reset settling has zero
+nominal-range excess. The separate [zero-residual audit][review-zero] uses the same inputs.
+
+The review predeclared a conservative **whole-recovery** goal of ≤0.0001 rad joint excess,
+legal directional effort and declared URDF speeds; this reuses the standing tolerance,
+not a PDF or hardware safety allowance. Original standing success remains valid, but
+this additional envelope fails. Six isolated reference-margin/timing candidates were
+compared internally with/without the original actor (12 real episodes). None met the
+combined standing, constraint and impact criteria. The 0.03 rad left-ankle-margin case
+still stood but reduced excess only to 0.0440961 rad and increased peak load/self contact.
+Other candidates lost success or worsened impact; [all outcomes][review-mitigation] remain.
+No altered reference or checkpoint replaces the published system. Broad fallen-pose
+robustness and real-robot deployment remain unvalidated.
+
+The [registered paired batch][review-pairs] perturbs all 31 initial joint targets uniformly
+within ±0.002 rad through the existing legal reset. The first 20 of 40 predeclared seeds
+all passed reset-only screening before outcomes; all 20 handoffs were physically distinct.
+Each A/B run independently reset to exactly matching qpos/qvel/observation and full MuJoCo
+integration state. All 20 planned pairs completed: zero residual **2/20**, frozen residual
+**3/20**; B-only success 1, A-only 0, ties 19. Among the two common successes, B−A recovery
+time was +1 ms and −24 ms (mean −11.5 ms). All 40 failed the conservative whole-episode
+envelope. This small development batch reveals substantial sensitivity and does not
+establish residual superiority. No failed seed was replaced; a table-serialization bug
+was repaired from complete saved physical records without rerunning any episode.
 
 ### Reproduce or audit without overwriting evidence
 
@@ -395,10 +458,10 @@ export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
 source /opt/ros/jazzy/setup.bash
 source "$WS/install/setup.bash"
 cd "$WS"
-"$PY" -m x2_recovery.evaluate \
+"$PY" -m x2_recovery.reproduce evaluate \
   --training-run "$WS/results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run" \
   --expected-checkpoint-sha256 11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64 \
-  --seeds 221030 221031 221032 221033 221034 --deterministic \
+  --seeds 221030 221031 221032 221033 221034 \
   --output "$WS/results/evaluation/reproduction-$(date -u +%Y%m%dT%H%M%SZ)-$$"
 ```
 
@@ -412,13 +475,15 @@ export PY="$WS/.venv/bin/python"
 export X2_ASSET_REPO="$HOME/.cache/hrs-x2-recovery/agibot_x2_urdf"
 AUDIT="$(mktemp -d /tmp/x2-evidence.XXXXXX)"
 git clone --no-hardlinks "$WS" "$AUDIT/repository"
+git -C "$AUDIT/repository" checkout --detach f23a1c1ceb888756d94e8b6768bfcd7f1de2ca8e
 cd "$AUDIT/repository"
 gzip -dk results/evaluation/ppo-smoke-20260922T044430Z/trajectory.jsonl.gz
 gzip -dk results/evaluation/ppo-reference-residual-20260922T212457Z/trajectory.jsonl.gz
 "$PY" results/publication/20260923/verify_delivery.py
 ```
 
-The verifier checks the 94-file [publication inventory][inventory], gzip byte round trips,
+Run that historical inventory audit at its compatible pre-integration tree, as above;
+new ROS source is intentionally different. The verifier checks the 94-file [publication inventory][inventory], gzip byte round trips,
 both saved batches and saved-observation inference in separate processes, with reset,
 step and optimization forbidden. It uses frozen source for the old 117/31 PPO and
 current compatible source for the selected 149/17 policy. Do not load the old policy
@@ -434,7 +499,8 @@ README hashes describe their declared base plus patches, not later documentation
 | Original 0/5 policy and batch | [summary][old-summary] · [complete batch][old-dir] |
 | Reference/residual comparison and experiment accounting | [ablation][ablation] · [hold][hold] · [mechanism][mechanism] · [totals][totals] |
 | Publication/source identity and prior validation | [inventory][inventory] · [validation][publication-validation] · [ROS source identity][ros-identity] |
-| Final ROS acceptance and executed commands | [summary][ros-summary] · [commands][ros-commands] |
+| Historical ROS acceptance and commands | [summary][ros-summary] · [commands][ros-commands] |
+| New constraint/reward review, paired trials and ROS policy | [constraint audit][review-audit] · [reward][review-reward] · [paired][review-pairs] · [ROS][review-ros] |
 
 `runs/`, `audit-output/` and bulk research logs are ignored local development data,
 not required published inputs. Old absolute paths in evidence identify original
@@ -443,33 +509,42 @@ the old full README remains in Git history.
 
 ## ROS 2 Integration and Validation
 
-`Recovery` owns one native `X2RecoveryEnv`; `Telemetry` subscribes and logs status and
-`left_knee_joint` at 1 Hz. `ament_python` installs the resource marker, package metadata,
-`recovery.launch.py` and entries `recovery_node`, `telemetry_node`, `runtime_check`,
-`train_recovery`. Evaluation uses `python -m x2_recovery.evaluate`; ROS has no checkpoint option.
-The ROS controller remains **scripted_baseline**, separate from the successful hybrid.
+`Recovery` owns the simulation; `Telemetry` logs status and the measured left knee at
+1 Hz. The default is still `scripted_baseline`. Explicit `reference_residual` uses the
+same complete `evaluate.prepare` loader as standalone inference: checkpoint, reference,
+config/source/model identity, preprocessing and saved 149/17 actions are checked before
+the service is offered. Loading constructs the model but does not reset or step.
+Missing inputs, wrong hashes, missing reference or incompatible interfaces fail startup;
+there is no fallback. Both modes expose the same 31 real joint measurements.
 
 | Interface | Type / behavior |
 | --- | --- |
 | `/x2/start_recovery` | `std_srvs/srv/Trigger`: true means accepted; false while pending/running |
 | `/x2/recovery_status` | `std_msgs/msg/String`: IDLE, RUNNING, SUCCEEDED, FAILED; changes plus heartbeat |
-| `/x2/joint_states` | `sensor_msgs/msg/JointState`: 31 mapped names, measured positions/velocities, ROS acquisition stamp; effort empty |
+| `/x2/joint_states` | `sensor_msgs/msg/JointState`: 31 names, actual q/dq, ROS acquisition stamp; effort empty |
 
-The single-threaded executor responds before reset; subsequent timers each run at most one
-`scripted_targets → action_for_targets → env.step → loaded.read_state` transition.
-Bounded PD advances physics; telemetry reads it. Terminal status persists and sampling stops.
-Explicit requests reset the same instance, including after recoverable FAILED; fatal errors close
-resources. There is no automatic retry. Script completion is not success; Ctrl+C unwinds
-before cleanup, with best-effort DDS delivery.
+The exclusive executor sends the acceptance response before a later timer resets.
+Each subsequent timer performs at most one control transition. Policy mode keeps the
+full `ControlledRecoveryEnv`, saves its observation, predicts a deterministic CPU action,
+and steps that wrapper; joint readback comes from the same underlying physical state.
+Phase follows simulation time, never timer delays. No catch-up stepping is performed.
+The original independent standing criterion alone controls SUCCEEDED. A finished
+reference, high reward or accepted service request cannot establish recovery.
 
-`episode_timeout_s=20` measures simulation after settling; `recovery_timeout_s=30`
-measures monotonic wall time from acceptance, including reset. Checks before/after calls
-cannot preempt reset/step. Joint stamps use ROS acquisition time; no `/clock` is supplied
-and `use_sim_time=true` is rejected. Status QoS: reliable/transient-local/keep-last-1;
-joints: reliable/volatile/keep-last-10. Late subscribers receive retained status while the
-publisher lives, without a fabricated joint sample. Timing is not hard real time.
+Terminal states stop sampling and stepping. A new request resets target/reference/phase
+and controller history; recoverable exceptions produce FAILED and permit explicit retry.
+Ctrl+C unwinds execution and closes resources. `episode_timeout_s=20` excludes settling;
+policy mode requires the saved value because changing it would also change observation
+phase. Test shorter failures with `recovery_timeout_s`, a monotonic wall watchdog including
+reset, or with baseline mode. The watchdog cannot preempt a currently executing bounded
+reset/step. Busy requests during reset can consequently take over one second to respond.
 
-In **each new terminal**, run this common setup; domain 86 must be unused by other runs:
+Joint stamps use ROS acquisition time, not MuJoCo time. No `/clock` is supplied;
+`use_sim_time=true` is rejected. Status QoS is reliable/transient-local/keep-last-1,
+and joints reliable/volatile/keep-last-10. Late subscribers receive retained status
+while its publisher lives. This is not hard real-time control or hardware deployment.
+
+In **each new terminal**, use this setup; choose an unused domain:
 
 ```bash
 set -e
@@ -480,57 +555,79 @@ source /opt/ros/jazzy/setup.bash
 source "$WS/install/setup.bash"
 export ROS_DOMAIN_ID=86 ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
 export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+INPUT="$WS/results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run"
+POLICY_SHA=11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64
 cd /tmp
 ```
 
-Terminal 1 launches both nodes:
+Terminal 1 launches both business nodes with the historical successful controller:
 
 ```bash
-ros2 launch x2_recovery recovery.launch.py seed:=60 episode_timeout_s:=20.0 recovery_timeout_s:=30.0
+ros2 launch x2_recovery recovery.launch.py controller:=reference_residual \
+  training_run:="$INPUT" expected_checkpoint_sha256:="$POLICY_SHA" \
+  seed:=221030 episode_timeout_s:=20.0 recovery_timeout_s:=30.0
 ```
 
-Terminal 2 starts concurrent bounded observers:
+For the original failure/regression path, stop that launch and use
+`ros2 launch x2_recovery recovery.launch.py controller:=scripted_baseline seed:=60`.
+The installed ament package retains its standard resource marker, launch file and four
+console entries; `evaluate` and `reproduce` are Python module entries.
+
+Terminal 2 starts bounded observers and requests recovery once IDLE is visible:
 
 ```bash
 timeout --signal=INT --kill-after=5s 70s ros2 topic echo /x2/recovery_status std_msgs/msg/String \
   --qos-reliability reliable --qos-durability transient_local &
 timeout --signal=INT --kill-after=5s 70s ros2 topic echo /x2/joint_states sensor_msgs/msg/JointState \
   --qos-reliability reliable --qos-durability volatile &
-```
-
-Once IDLE is visible, send the first request; send the second while RUNNING:
-
-```bash
-timeout --signal=INT --kill-after=5s 10s ros2 service call /x2/start_recovery std_srvs/srv/Trigger '{}'
 timeout --signal=INT --kill-after=5s 10s ros2 service call /x2/start_recovery std_srvs/srv/Trigger '{}'
 ```
 
-After FAILED, repeat the service call for a fresh episode. To test wall timeout, stop
-and relaunch with `recovery_timeout_s:=3.0`, then request recovery; observer timeout is
-separate. Alternatively, stop manual processes and use the same terminal setup for this
-runner: it exercises readiness, both timeouts, retries, faults and cleanup in real episodes.
+Repeat the service call during RUNNING to observe busy rejection, and after SUCCEEDED
+or FAILED to request a fresh episode. For wall timeout, stop the launch and restart the
+same policy command with `recovery_timeout_s:=3.0`; keep policy simulation timeout at 20 s.
+Alternatively, stop manual processes and run the installed-package cross-process check:
 
 ```bash
 ROS_CHECK="$(mktemp -d /tmp/x2-ros-check.XXXXXX)"
 timeout --signal=INT --kill-after=15s 240s "$PY" \
-  "$WS/src/x2_recovery/test/test_ros_integration.py" --output-dir "$ROS_CHECK/integration"
+  "$WS/src/x2_recovery/test/test_ros_integration.py" --output-dir "$ROS_CHECK/policy" \
+  --training-run "$INPUT" --expected-checkpoint-sha256 "$POLICY_SHA" \
+  --reference-trace "$WS/results/controller-review/20260924T132353Z/unobserved/control_trace.npz"
 ```
 
-The [2026-09-23 acceptance][ros-summary] used new source/venv/model/build in the same VM,
-reusing Ubuntu/ROS packages. These **historical results** were not rerun for this README:
+The [new ROS acceptance][review-ros] used a fresh build/install in the existing VM,
+reusing the verified `.venv`, system ROS packages and pinned external model. It was
+not a new OS/dependency installation. Original launch, read-only observation wrappers,
+explicit fault injection and unit tests are recorded separately.
 
-| Final acceptance scope | Recorded result |
+| Current acceptance scope | Actual result |
 | --- | --- |
-| Cross-process checks / separate regression suite | 85/85 checks; 183/183 tests, no failures/errors/skips; not 268 recovery attempts |
-| Launch, acceptance, busy rejection | Both nodes ready; acceptance true, busy false; response sent before reset |
-| Simulation timeout | FAILED/time_limit; 1000 control calls, 20.000 s simulation, 20.555981 s wall |
-| 3 s wall timeout | FAILED/recovery_timeout; 2.440 s simulation, 3.007609 s wall, 7.609 ms overshoot |
-| Actual telemetry | 9 timestamp-matched simulator snapshots, names/q/dq maximum error 0 |
-| Retry, errors and shutdown | Fresh reset after terminal/fault; startup failures, active Ctrl+C, owned processes cleaned up |
+| Policy / baseline cross-process checks | 111 / 85 passed; both runner exit codes 0, all owned children exited |
+| Real policy recovery and retry | 4.856 s, 243 control calls; original launch, observed retry and post-fault retry succeeded |
+| Response before reset | Server send completed 14.89 ms before reset began |
+| Actual JointState | 14 timestamp-matched q/dq snapshots, maximum error 0 |
+| Standalone vs ROS / complete retry | All actions, observations, states, rewards and simulation times match exactly |
+| Timeouts, startup errors, stepping fault, Ctrl+C | Expected FAILED/rejection/cleanup paths verified; no hidden fallback |
 
-The baseline did not stand. Earlier [shutdown][ros-first] and [discovery][ros-second]
-failures led to runner signal/wait fixes; production nodes were unchanged. The evidence
-index links commands, source identities and results.
+These are functional scenarios, not a new five-seed robustness experiment. SUCCEEDED
+still carries the whole-episode risks measured above. Initial attempts exposed a bounded
+DDS-discovery miss, reset-busy latency above one second, and a test hash parsed as a YAML
+integer; the [attempt records][review-ros-attempts] preserve them. Busy functionality and
+the one-second timing goal are reported separately; final baseline still missed that
+optional latency goal. No production timeout or task-success threshold was relaxed.
+
+The current regression suite includes calculator tests using synthetic data and real
+MuJoCo environment tests. With the terminal setup above, use the required offscreen
+backend (a default graphics backend can return blank images on this VM):
+
+```bash
+MUJOCO_GL=osmesa "$PY" -m unittest discover -s "$WS/src/x2_recovery/test" -v
+```
+
+The [2026-09-23 baseline acceptance][ros-summary] remains separate historical evidence:
+85 cross-process checks and 183 regression tests, not 268 recovery attempts. Its earlier
+[shutdown][ros-first] and [discovery][ros-second] fixes remain in the runner.
 
 [upstream]: https://github.com/AgibotTech/agibot_x2_urdf/tree/60c5de582c523cd188f563819e62d34cfdc3d2d0
 [inputs]: results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run
@@ -555,3 +652,11 @@ index links commands, source identities and results.
 [ros-identity]: results/ros-acceptance/20260923T125208Z-patched-v3/source-identity.json
 [ros-first]: results/ros-acceptance/20260923T121422Z-release-71037f7/summary.json
 [ros-second]: results/ros-acceptance/20260923T122443Z-patched-v2/summary.json
+[review-audit]: results/controller-review/20260924T132353Z/published-policy/summary.json
+[review-zero]: results/controller-review/20260924T132353Z/zero-residual-reference/summary.json
+[review-mitigation]: results/controller-review/20260924T132353Z/mitigation/summary.json
+[review-reward]: results/controller-review/20260924T132353Z/reward-audit/summary.json
+[review-pairs]: results/controller-review/20260924T132353Z/paired/summary.json
+[review-ros]: results/controller-review/20260924T132353Z/ros-acceptance/policy-r4/summary.json
+[review-ros-attempts]: results/controller-review/20260924T132353Z/ros-acceptance/build-and-unit.json
+[review-pilot-five]: results/controller-review/20260924T132353Z/reward-audit/pilot_five_summary.json

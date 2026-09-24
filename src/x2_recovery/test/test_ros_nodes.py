@@ -2,7 +2,7 @@
 import copy
 from types import SimpleNamespace
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import numpy as np
 import rclpy
@@ -280,6 +280,104 @@ class RecoveryLogicTests(unittest.TestCase):
                             ('recovery_timeout_s', 2.), ('use_sim_time', True)]:
             result = self.node.set_parameters([Parameter(name, value=value)])
             self.assertFalse(result[0].successful)
+
+
+class RecoveryPolicyLogicTests(unittest.TestCase):
+    """Synthetic wiring tests; actual policy recovery is cross-process acceptance."""
+    @classmethod
+    def setUpClass(cls):
+        cls.mapping = load_effective_model().mapping
+
+    def setUp(self):
+        self.context = Context()
+        rclpy.init(context=self.context)
+        self.addCleanup(self.context.shutdown)
+        self.clock = SimpleNamespace(now=100.)
+        self.clock.monotonic = lambda: self.clock.now
+        self.physical = SyntheticEnv(self.mapping, self.clock)
+        self.physical.config = SimpleNamespace(episode_timeout_s=20.)
+        self.env = SimpleNamespace(observation_space=SimpleNamespace(shape=(149,)),
+                                   action_space=SimpleNamespace(shape=(17,)),
+                                   close=self.physical.close)
+        def reset(**kwargs):
+            _, info = self.physical.reset(**kwargs)
+            return np.full(149, self.physical.resets, dtype=np.float32), info
+        def step(action):
+            _, reward, term, trunc, info = self.physical.step(action)
+            return np.full(149, self.physical.steps+1, dtype=np.float32), reward, term, trunc, info
+        self.env.reset, self.env.step = Mock(side_effect=reset), Mock(side_effect=step)
+        self.policy = SimpleNamespace(predict=Mock(return_value=(np.zeros(17), None)))
+        self.prepared = dict(saved=dict(controller=dict(mode='reference_residual'),
+            identity=dict(model_fingerprint={'sha256': 'synthetic'})), directory='synthetic',
+            hashes={'policy_final.zip': 'a'*64}, consistency={'passed': True})
+        self.parameters = [Parameter('controller', value='reference_residual'),
+                           Parameter('training_run', value='synthetic'),
+                           Parameter('expected_checkpoint_sha256', value='a'*64)]
+        self.time_patch = patch.object(rn, 'time', self.clock)
+        self.prepare_patch = patch.object(rn, 'prepare_policy',
+            return_value=(self.env, self.physical, self.policy, self.prepared))
+        self.time_patch.start(); self.prepare = self.prepare_patch.start()
+        self.addCleanup(self.time_patch.stop); self.addCleanup(self.prepare_patch.stop)
+
+    def make_node(self, extra=()):
+        node = rn.RecoveryNode(context=self.context, parameter_overrides=[*self.parameters, *extra])
+        self.addCleanup(node.destroy_node); self.addCleanup(node.close)
+        return node
+
+    def test_full_wrapper_inference_same_physics_and_retry(self):
+        node = self.make_node()
+        self.prepare.assert_called_once_with('synthetic', 'a'*64)
+        self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
+        node._start(Trigger.Request(), Trigger.Response())
+        self.assertIsNone(node.observation)
+        node._advance()
+        self.assertEqual((self.physical.resets, self.physical.steps), (1, 0))
+        self.assertIsNone(node.keyframes)
+        self.assertFalse(node._start(Trigger.Request(), Trigger.Response()).success)
+        node._advance()
+        self.policy.predict.assert_called_once()
+        np.testing.assert_array_equal(self.policy.predict.call_args.args[0], np.ones(149))
+        self.assertEqual(self.policy.predict.call_args.kwargs, {'deterministic': True})
+        np.testing.assert_array_equal(self.env.step.call_args.args[0], np.zeros(17))
+        np.testing.assert_array_equal(node._sample().position, self.physical.q)
+        self.physical.terminated = self.physical.success = True
+        node._advance()
+        self.assertEqual(node.status, 'SUCCEEDED')
+        self.assertIsNone(node.observation); self.assertIsNone(node.last_action)
+        count = self.physical.steps; node._advance(); self.assertEqual(count, self.physical.steps)
+        self.assertTrue(node._start(Trigger.Request(), Trigger.Response()).success)
+        node._advance()
+        self.assertEqual(self.physical.resets, 2)
+        np.testing.assert_array_equal(node.observation, np.full(149, 2))
+
+    def test_policy_timeout_preserves_saved_episode_clock(self):
+        with self.assertRaisesRegex(ValueError, 'saved configuration'):
+            self.make_node([Parameter('episode_timeout_s', value=2.)])
+        node = self.make_node([Parameter('recovery_timeout_s', value=.001)])
+        self.assertEqual(self.physical.config.episode_timeout_s, 20.)
+        node._start(Trigger.Request(), Trigger.Response())
+        self.clock.now += .002; node._advance()
+        self.assertEqual(node.status, 'FAILED')
+        self.assertEqual(self.physical.steps, 0)
+
+    def test_interface_rejected_and_policy_inputs_never_fallback(self):
+        self.env.action_space.shape = (31,)
+        with self.assertRaisesRegex(ValueError, '149/17'):
+            self.make_node()
+        self.assertEqual(self.physical.closes, 1)
+        with patch.object(rn, 'prepare_policy', side_effect=ValueError('Checkpoint identity mismatch')):
+            with self.assertRaisesRegex(ValueError, 'Checkpoint identity mismatch'):
+                self.make_node()
+        with self.assertRaisesRegex(ValueError, 'requires training_run'):
+            self.make_node([Parameter('training_run', value='')])
+        with self.assertRaisesRegex(ValueError, 'Policy inputs require'):
+            self.make_node([Parameter('controller', value='scripted_baseline')])
+
+    def test_policy_parameters_are_startup_only(self):
+        node = self.make_node()
+        for name in ('controller', 'training_run', 'expected_checkpoint_sha256'):
+            self.assertTrue(node.describe_parameter(name).read_only)
+            self.assertFalse(node.set_parameters([Parameter(name, value='changed')])[0].successful)
 
 
 class TelemetryLogicTests(unittest.TestCase):

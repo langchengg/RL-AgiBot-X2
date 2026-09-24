@@ -1,0 +1,133 @@
+{
+  "source": "results/evaluation/ppo-reference-residual-20260922T212457Z/trajectory.jsonl.gz",
+  "source_sha256": "1f733d43b750de9befb9126554196c295040478270ab5d29d545a0a43fe37fcb",
+  "source_is_published": true,
+  "schema": {
+    "scalar_measurements": "every 1 ms, after checked_step mj_step then mj_forward",
+    "joint_q_dq": "last_substep_control only, final pre-integration sample in each 20 ms policy transition",
+    "forces": "serialized final post-forward recomputation, not intervening original integrator solve"
+  },
+  "limits": "Scalar any-joint exceedance counters cannot identify joints, maximum excess per joint, summed per-joint duration or consecutive intervals.",
+  "episodes": {
+    "1": {
+      "transitions": 243,
+      "samples": 4856,
+      "above_standing_samples": 1064,
+      "above_zero_samples": 1068,
+      "peaks": {
+        "joint_limit_rad": {
+          "value": 0.04518521846959589,
+          "absolute_time_s": 3.866999999999685
+        },
+        "joint_rad_s": {
+          "value": 8.347143742429603,
+          "absolute_time_s": 2.814999999999801
+        },
+        "floor_penetration_m": {
+          "value": 0.00904692154437733,
+          "absolute_time_s": 3.867999999999685
+        },
+        "self_penetration_m": {
+          "value": 0.0031814764288165204,
+          "absolute_time_s": 3.1649999999997624
+        }
+      }
+    },
+    "2": {
+      "transitions": 243,
+      "samples": 4856,
+      "above_standing_samples": 1064,
+      "above_zero_samples": 1068,
+      "peaks": {
+        "joint_limit_rad": {
+          "value": 0.04518521846959589,
+          "absolute_time_s": 3.866999999999685
+        },
+        "joint_rad_s": {
+          "value": 8.347143742429603,
+          "absolute_time_s": 2.814999999999801
+        },
+        "floor_penetration_m": {
+          "value": 0.00904692154437733,
+          "absolute_time_s": 3.867999999999685
+        },
+        "self_penetration_m": {
+          "value": 0.0031814764288165204,
+          "absolute_time_s": 3.1649999999997624
+        }
+      }
+    },
+    "3": {
+      "transitions": 243,
+      "samples": 4856,
+      "above_standing_samples": 1064,
+      "above_zero_samples": 1068,
+      "peaks": {
+        "joint_limit_rad": {
+          "value": 0.04518521846959589,
+          "absolute_time_s": 3.866999999999685
+        },
+        "joint_rad_s": {
+          "value": 8.347143742429603,
+          "absolute_time_s": 2.814999999999801
+        },
+        "floor_penetration_m": {
+          "value": 0.00904692154437733,
+          "absolute_time_s": 3.867999999999685
+        },
+        "self_penetration_m": {
+          "value": 0.0031814764288165204,
+          "absolute_time_s": 3.1649999999997624
+        }
+      }
+    },
+    "4": {
+      "transitions": 243,
+      "samples": 4856,
+      "above_standing_samples": 1064,
+      "above_zero_samples": 1068,
+      "peaks": {
+        "joint_limit_rad": {
+          "value": 0.04518521846959589,
+          "absolute_time_s": 3.866999999999685
+        },
+        "joint_rad_s": {
+          "value": 8.347143742429603,
+          "absolute_time_s": 2.814999999999801
+        },
+        "floor_penetration_m": {
+          "value": 0.00904692154437733,
+          "absolute_time_s": 3.867999999999685
+        },
+        "self_penetration_m": {
+          "value": 0.0031814764288165204,
+          "absolute_time_s": 3.1649999999997624
+        }
+      }
+    },
+    "5": {
+      "transitions": 243,
+      "samples": 4856,
+      "above_standing_samples": 1064,
+      "above_zero_samples": 1068,
+      "peaks": {
+        "joint_limit_rad": {
+          "value": 0.04518521846959589,
+          "absolute_time_s": 3.866999999999685
+        },
+        "joint_rad_s": {
+          "value": 8.347143742429603,
+          "absolute_time_s": 2.814999999999801
+        },
+        "floor_penetration_m": {
+          "value": 0.00904692154437733,
+          "absolute_time_s": 3.867999999999685
+        },
+        "self_penetration_m": {
+          "value": 0.0031814764288165204,
+          "absolute_time_s": 3.1649999999997624
+        }
+      }
+    }
+  }
+}

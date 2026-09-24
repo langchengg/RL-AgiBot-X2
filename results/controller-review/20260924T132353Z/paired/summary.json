@@ -1,0 +1,484 @@
+{
+  "schema": "paired-reset-review-v1",
+  "planned": 20,
+  "valid_pairs": 20,
+  "invalid_or_blocked_pairs": 0,
+  "reset_candidates_attempted": 20,
+  "reset_rejections": 0,
+  "minimum_pairwise_handoff_difference": 0.0022682819706189607,
+  "pairs": [
+    {
+      "pair": 1,
+      "seed": 26092400,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": 0.00017396995274143734,
+      "B_minus_A_peak_ground_N": 108.67823435372065
+    },
+    {
+      "pair": 2,
+      "seed": 26092401,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": 0.001291406420689034,
+      "B_minus_A_peak_ground_N": -19.45658509129771
+    },
+    {
+      "pair": 3,
+      "seed": 26092402,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": -1020.7393158862324
+    },
+    {
+      "pair": 4,
+      "seed": 26092403,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": -3.953749748553115e-05,
+      "B_minus_A_peak_ground_N": -31.00370626003587
+    },
+    {
+      "pair": 5,
+      "seed": 26092404,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": -0.0003103256767342799,
+      "B_minus_A_peak_ground_N": -28.740313016325672
+    },
+    {
+      "pair": 6,
+      "seed": 26092405,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": true,
+      "success_outcome": "B_win",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": -0.009909549749014257,
+      "B_minus_A_peak_ground_N": -755.4474673192337
+    },
+    {
+      "pair": 7,
+      "seed": 26092406,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": -0.005843019723122067,
+      "B_minus_A_peak_ground_N": -13.171826217008856
+    },
+    {
+      "pair": 8,
+      "seed": 26092407,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": -0.006318489711325537,
+      "B_minus_A_peak_ground_N": -41.845230237598116
+    },
+    {
+      "pair": 9,
+      "seed": 26092408,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": -0.006614321087755615,
+      "B_minus_A_peak_ground_N": -17.02341772703403
+    },
+    {
+      "pair": 10,
+      "seed": 26092409,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": -0.00570622501910889,
+      "B_minus_A_peak_ground_N": -12.872097725831281
+    },
+    {
+      "pair": 11,
+      "seed": 26092410,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": 0.001416502459591129,
+      "B_minus_A_peak_ground_N": -63.627584426811154
+    },
+    {
+      "pair": 12,
+      "seed": 26092411,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": 0.003346266053923852,
+      "B_minus_A_peak_ground_N": -20.24846521487234
+    },
+    {
+      "pair": 13,
+      "seed": 26092412,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.001000000000000334,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 14,
+      "seed": 26092413,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": -0.024000000000008015,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 15,
+      "seed": 26092414,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": -8.974538185979597e-05,
+      "B_minus_A_peak_ground_N": -29.829136288027257
+    },
+    {
+      "pair": 16,
+      "seed": 26092415,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": -5.172634262962106e-05,
+      "B_minus_A_peak_ground_N": -10.533541182054705
+    },
+    {
+      "pair": 17,
+      "seed": 26092416,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": -592.3109895549751
+    },
+    {
+      "pair": 18,
+      "seed": 26092417,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": -159.63378961655235
+    },
+    {
+      "pair": 19,
+      "seed": 26092418,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": -107.05831902862974
+    },
+    {
+      "pair": 20,
+      "seed": 26092419,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": false,
+      "B_success": false,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": null,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": -589.7799754578937
+    }
+  ],
+  "controllers": {
+    "A_reference": {
+      "completed": 20,
+      "successes": 2,
+      "constraint_envelope_passes": 0,
+      "admissible_recoveries": 0,
+      "ranges": {
+        "joint_excess_max_rad": {
+          "min": 0.04000627588471328,
+          "max": 0.05967368216807167
+        },
+        "joint_excess_duration_s": {
+          "min": 1.043,
+          "max": 1.068
+        },
+        "max_velocity_rad_s": {
+          "min": 8.114800007997,
+          "max": 20.58041141481913
+        },
+        "torque_ratio": {
+          "min": 1.0,
+          "max": 1.0
+        },
+        "floor_penetration_m": {
+          "min": 0.007995610333273392,
+          "max": 0.026192693922984407
+        },
+        "self_penetration_m": {
+          "min": 0.0030421798172032373,
+          "max": 0.003690456114998469
+        },
+        "floor_contact_load_N": {
+          "min": 1563.4298200438186,
+          "max": 8709.121218457996
+        }
+      }
+    },
+    "B_residual": {
+      "completed": 20,
+      "successes": 3,
+      "constraint_envelope_passes": 0,
+      "admissible_recoveries": 0,
+      "ranges": {
+        "joint_excess_max_rad": {
+          "min": 0.04000627588471328,
+          "max": 0.0581930082696529
+        },
+        "joint_excess_duration_s": {
+          "min": 1.043,
+          "max": 1.068
+        },
+        "max_velocity_rad_s": {
+          "min": 8.067880667518075,
+          "max": 20.539624698382536
+        },
+        "torque_ratio": {
+          "min": 1.0,
+          "max": 1.0
+        },
+        "floor_penetration_m": {
+          "min": 0.007995610333273392,
+          "max": 0.02566702567990905
+        },
+        "self_penetration_m": {
+          "min": 0.0030421798172032373,
+          "max": 0.003690456114998469
+        },
+        "floor_contact_load_N": {
+          "min": 1517.7514694145245,
+          "max": 8148.334801634656
+        }
+      }
+    }
+  },
+  "success_outcomes": {
+    "A_win": 0,
+    "B_win": 1,
+    "tie": 19
+  },
+  "both_success_pairs": 2,
+  "B_minus_A_success_time_s": {
+    "min": -0.024000000000008015,
+    "max": 0.001000000000000334,
+    "mean": -0.01150000000000384,
+    "median": -0.01150000000000384
+  },
+  "wall_seconds": 523.205091374,
+  "source_identity": {
+    "input_sha256": {
+      "policy_final.zip": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+      "resolved_config.json": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+      "manifest.json": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac",
+      "reload_probe.npz": "f98f58d40e089e075b8174d86ebbfff338882c1968fa97edc75261ae17db474b",
+      "progress.csv": "edb6073778eb32da1ca87130740517ba77fee6c10e499a2534f3706482ce94d5",
+      "reload_validation.json": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175"
+    },
+    "deployment_difference": {
+      "reset_perturb_rad": {
+        "published": 0.0,
+        "deployment": 0.002
+      }
+    },
+    "input_interface": {
+      "max_abs_error": 0.0,
+      "atol": 1e-07,
+      "rtol": 1e-06,
+      "observations": 16,
+      "action_shape": [
+        16,
+        17
+      ]
+    },
+    "controller_config_sha256": "0a4a38d8f49368ec3a933daa97a8a1af108a856df795c4c0384635c90db797aa",
+    "audit_source_sha256": "1fb81ff48deb366c2ca1b8adf6126eb7a8de78519db6212ceceae9cb1df1f86d",
+    "runner_sha256": "f3261f3ae4a67aa7af91c8865845b331db909e6ec1d929549aaa260afc830045",
+    "protocol_manifest_sha256": "fc495061b49196f35093ec7f96a5359f5731a543d589cc66247210265c6b486f",
+    "deterministic": true,
+    "device": "cpu"
+  },
+  "policy_weights_unchanged": true,
+  "claims": "20 distinct physical initial states, 40 controller runs; paired development data. Success and the conservative full-process constraint envelope are separate. Success differences are descriptive; this batch does not establish broad robustness or a causal training benefit.",
+  "reporting_repair": {
+    "repaired_rows": 5,
+    "diagnostic_artifact_hashes_verified": 120,
+    "physical_execution_exceptions": 0,
+    "description": "Only result-table serialization failed for successful episodes; complete raw summaries, arrays and hashes were preserved. All physical episodes were executed once. Offline aggregation repaired the CSV and denominators; no reruns or replacement seeds.",
+    "raw_execution_log": "paired_progress.json",
+    "source_patch": "reporting_fix.patch",
+    "record": "reporting_fix.json",
+    "corrected_runner_sha256": "4b08ef789b143086fdb522eea1fd075e2abd8a35bda5f2cdd5cbbd494a4d82cf"
+  },
+  "execution": {
+    "command": [
+      ".venv/bin/python",
+      "results/controller-review/20260924T132353Z/run_pairs.py",
+      "--manifest",
+      "results/controller-review/20260924T132353Z/manifest.json",
+      "--training-run",
+      "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run",
+      "--expected-checkpoint-sha256",
+      "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+      "--output",
+      "results/controller-review/20260924T132353Z/paired"
+    ],
+    "cwd": "/home/lang/RL-AgiBot-X2",
+    "environment": {
+      "PYTHONPATH": "/home/lang/RL-AgiBot-X2/src/x2_recovery"
+    },
+    "original_batch_process_exit_code": 2,
+    "reason": "Five successful diagnostic episodes reached a NumPy-to-JSON reporting bug after complete raw outputs were saved; three pairs were provisionally omitted from table aggregation. Physics completed for all 40 episodes.",
+    "offline_reaggregation_exit_code": 0,
+    "repeat_requirement": "Use a new output directory; the corrected runner includes the serialization fix. No repeat was executed for this batch."
+  }
+}

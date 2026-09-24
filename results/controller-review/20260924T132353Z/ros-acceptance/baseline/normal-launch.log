@@ -1,0 +1,18 @@
+[INFO] [launch]: All log files can be found below /home/lang/.ros/log/2026-09-24-21-55-16-500185-lang-90091
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [recovery_node-1]: process started with pid [90282]
+[INFO] [telemetry_node-2]: process started with pid [90283]
+[telemetry_node-2] [INFO] [1790258118.008134180] [telemetry_node]: status=waiting joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790258118.914717389] [telemetry_node]: status=waiting joint=left_knee_joint no_sample
+[recovery_node-1] [INFO] [1790258119.154028847] [recovery_node]: {"event": "ready", "controller": "scripted_baseline", "episode": 0, "create_s": 1.995821418000105, "executable": "/home/lang/RL-AgiBot-X2/.venv/bin/python", "module": "/tmp/x2-review-20260924/ros-build/x2_recovery/x2_recovery/recovery_node.py", "seed": 60, "episode_timeout_s": 20.0, "recovery_timeout_s": 30.0, "control_dt": 0.02, "asset_repo": "/home/lang/.cache/hrs-x2-recovery/agibot_x2_urdf", "controlled_joints": 31}
+[telemetry_node-2] [INFO] [1790258119.914240264] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790258120.914345931] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790258121.914256890] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790258122.914255557] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[telemetry_node-2] [INFO] [1790258123.914357850] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [telemetry_node-2]: sending signal 'SIGINT' to process[telemetry_node-2]
+[INFO] [recovery_node-1]: sending signal 'SIGINT' to process[recovery_node-1]
+[recovery_node-1] {"event": "closed", "controller": "scripted_baseline", "episode": 0}
+[INFO] [telemetry_node-2]: process has finished cleanly [pid 90283]
+[INFO] [recovery_node-1]: process has finished cleanly [pid 90282]

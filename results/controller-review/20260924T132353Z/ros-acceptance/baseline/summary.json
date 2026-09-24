@@ -1,0 +1,384 @@
+{
+  "controller": "scripted_baseline",
+  "checks": {
+    "installed_outside_checkout": {
+      "result": "PASS"
+    },
+    "single_launch_two_processes": {
+      "result": "PASS"
+    },
+    "daemon-start": {
+      "result": "PASS",
+      "output": "The daemon has been started\n"
+    },
+    "node-list": {
+      "result": "PASS",
+      "output": "/recovery_node\n/ros_integration_client\n"
+    },
+    "business_nodes_discovered": {
+      "result": "FAIL"
+    }
+  },
+  "processes": [
+    {
+      "pid": 90091,
+      "process_group": 90091,
+      "command": [
+        "ros2",
+        "launch",
+        "x2_recovery",
+        "recovery.launch.py",
+        "seed:=60",
+        "episode_timeout_s:=20.0",
+        "recovery_timeout_s:=30.0"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-24T13:55:16.309809+00:00",
+      "started_monotonic_s": 1949.892550429,
+      "environment": {
+        "HOME": "/home/lang",
+        "PATH": "/home/lang/.codex/tmp/arg0/codex-arg0SRkmoL:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/usr/lib/chatgpt/resources",
+        "PYTHONPATH": "/tmp/x2-review-20260924/ros-build/x2_recovery:/tmp/x2-review-20260924/ros-install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "184",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-review-20260924/ros-install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-review-20260924/ros-install",
+        "X2_ASSET_REPO": null,
+        "X2_SCENE": null,
+        "MUJOCO_GL": null
+      },
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/normal-launch.log",
+      "returncode": 0,
+      "members_when_ready": [
+        {
+          "pid": 90091,
+          "state": "S",
+          "parent_pid": 89755,
+          "process_group": 90091,
+          "start_ticks": 194989,
+          "command": [
+            "/usr/bin/python3",
+            "/opt/ros/jazzy/bin/ros2",
+            "launch",
+            "x2_recovery",
+            "recovery.launch.py",
+            "seed:=60",
+            "episode_timeout_s:=20.0",
+            "recovery_timeout_s:=30.0"
+          ]
+        },
+        {
+          "pid": 90282,
+          "state": "S",
+          "parent_pid": 90091,
+          "process_group": 90091,
+          "start_ticks": 195012,
+          "command": [
+            "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+            "/tmp/x2-review-20260924/ros-install/x2_recovery/lib/x2_recovery/recovery_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_aacwethr",
+            "--params-file",
+            "/tmp/launch_params_56a1kre7"
+          ]
+        },
+        {
+          "pid": 90283,
+          "state": "S",
+          "parent_pid": 90091,
+          "process_group": 90091,
+          "start_ticks": 195012,
+          "command": [
+            "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+            "/tmp/x2-review-20260924/ros-install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_eu9920jk"
+          ]
+        }
+      ],
+      "members_before_stop": [
+        {
+          "pid": 90091,
+          "state": "S",
+          "parent_pid": 89755,
+          "process_group": 90091,
+          "start_ticks": 194989,
+          "command": [
+            "/usr/bin/python3",
+            "/opt/ros/jazzy/bin/ros2",
+            "launch",
+            "x2_recovery",
+            "recovery.launch.py",
+            "seed:=60",
+            "episode_timeout_s:=20.0",
+            "recovery_timeout_s:=30.0"
+          ]
+        },
+        {
+          "pid": 90282,
+          "state": "S",
+          "parent_pid": 90091,
+          "process_group": 90091,
+          "start_ticks": 195012,
+          "command": [
+            "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+            "/tmp/x2-review-20260924/ros-install/x2_recovery/lib/x2_recovery/recovery_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_aacwethr",
+            "--params-file",
+            "/tmp/launch_params_56a1kre7"
+          ]
+        },
+        {
+          "pid": 90283,
+          "state": "S",
+          "parent_pid": 90091,
+          "process_group": 90091,
+          "start_ticks": 195012,
+          "command": [
+            "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+            "/tmp/x2-review-20260924/ros-install/x2_recovery/lib/x2_recovery/telemetry_node",
+            "--ros-args",
+            "--params-file",
+            "/tmp/launch_params_eu9920jk"
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "signal": "SIGINT",
+          "target_kind": "launch_pid",
+          "target": 90091,
+          "sent_utc": "2026-09-24T13:55:24.142722+00:00",
+          "sent_monotonic_s": 1957.72546235
+        }
+      ],
+      "exit_observed_utc": "2026-09-24T13:55:24.477827+00:00",
+      "exit_observed_monotonic_s": 1958.060570391,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": [
+        {
+          "name": "recovery_node-1",
+          "pid": 90282,
+          "returncode": 0
+        },
+        {
+          "name": "telemetry_node-2",
+          "pid": 90283,
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "pid": 92088,
+      "process_group": 92088,
+      "command": [
+        "ros2",
+        "daemon",
+        "start"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-24T13:55:20.253074+00:00",
+      "started_monotonic_s": 1953.835816473,
+      "environment": {
+        "HOME": "/home/lang",
+        "PATH": "/home/lang/.codex/tmp/arg0/codex-arg0SRkmoL:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/usr/lib/chatgpt/resources",
+        "PYTHONPATH": "/tmp/x2-review-20260924/ros-build/x2_recovery:/tmp/x2-review-20260924/ros-install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "184",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-review-20260924/ros-install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-review-20260924/ros-install",
+        "X2_ASSET_REPO": null,
+        "X2_SCENE": null,
+        "MUJOCO_GL": null
+      },
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/daemon-start.log",
+      "returncode": 0,
+      "members_before_stop": [
+        {
+          "pid": 92531,
+          "state": "S",
+          "parent_pid": 1626,
+          "process_group": 92088,
+          "start_ticks": 195454,
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "from ros2cli.daemon.daemonize import main; main()",
+            "--name",
+            "ros2-daemon",
+            "--ros-domain-id",
+            "184",
+            "--rmw-implementation",
+            "rmw_fastrtps_cpp"
+          ]
+        }
+      ],
+      "exit_observed_utc": "2026-09-24T13:55:21.457394+00:00",
+      "exit_observed_monotonic_s": 1955.040139932,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [
+        {
+          "pid": 92531,
+          "state": "S",
+          "parent_pid": 1626,
+          "process_group": 92088,
+          "start_ticks": 195454,
+          "command": [
+            "/usr/bin/python3",
+            "-c",
+            "from ros2cli.daemon.daemonize import main; main()",
+            "--name",
+            "ros2-daemon",
+            "--ros-domain-id",
+            "184",
+            "--rmw-implementation",
+            "rmw_fastrtps_cpp"
+          ]
+        }
+      ],
+      "launch_children": []
+    },
+    {
+      "pid": 92894,
+      "process_group": 92894,
+      "command": [
+        "ros2",
+        "node",
+        "list",
+        "--no-daemon",
+        "--spin-time",
+        "2"
+      ],
+      "cwd": "/tmp",
+      "started_utc": "2026-09-24T13:55:21.478053+00:00",
+      "started_monotonic_s": 1955.060795765,
+      "environment": {
+        "HOME": "/home/lang",
+        "PATH": "/home/lang/.codex/tmp/arg0/codex-arg0SRkmoL:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/usr/lib/chatgpt/resources",
+        "PYTHONPATH": "/tmp/x2-review-20260924/ros-build/x2_recovery:/tmp/x2-review-20260924/ros-install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+        "PYTHONNOUSERSITE": "1",
+        "VIRTUAL_ENV": null,
+        "ROS_DISTRO": "jazzy",
+        "ROS_DOMAIN_ID": "184",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+        "AMENT_PREFIX_PATH": "/tmp/x2-review-20260924/ros-install/x2_recovery:/opt/ros/jazzy",
+        "CMAKE_PREFIX_PATH": "/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor",
+        "COLCON_PREFIX_PATH": "/tmp/x2-review-20260924/ros-install",
+        "X2_ASSET_REPO": null,
+        "X2_SCENE": null,
+        "MUJOCO_GL": null
+      },
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/node-list.log",
+      "returncode": 0,
+      "exit_observed_utc": "2026-09-24T13:55:24.036424+00:00",
+      "exit_observed_monotonic_s": 1957.619166725,
+      "remaining_group_members": [],
+      "deferred_cli_daemon_members": [],
+      "launch_children": []
+    }
+  ],
+  "rpc": [],
+  "cli": [
+    {
+      "command": [
+        "ros2",
+        "daemon",
+        "start"
+      ],
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/daemon-start.log",
+      "exit_code": 0,
+      "process_wall_s": 1.2244521259999601,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    },
+    {
+      "command": [
+        "ros2",
+        "node",
+        "list",
+        "--no-daemon",
+        "--spin-time",
+        "2"
+      ],
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/node-list.log",
+      "exit_code": 0,
+      "process_wall_s": 2.572468668000056,
+      "scope": "Includes Python startup and DDS discovery; not callback/RPC latency"
+    }
+  ],
+  "episodes": [],
+  "identity": {
+    "executable": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "cwd": "/tmp",
+    "module": "/tmp/x2-review-20260924/ros-build/x2_recovery/x2_recovery/recovery_node.py",
+    "prefix": "/tmp/x2-review-20260924/ros-install/x2_recovery",
+    "launch": "/tmp/x2-review-20260924/ros-install/x2_recovery/share/x2_recovery/launch/recovery.launch.py",
+    "rmw": "rmw_fastrtps_cpp",
+    "domain": "184",
+    "discovery": "LOCALHOST"
+  },
+  "graph_discovery_protocol": {
+    "previous_default_direct_spin_s": 0.5,
+    "explicit_direct_spin_s": 2.0,
+    "service_type": "Unchanged CLI after bounded daemon graph readiness",
+    "reason": "An independent CLI observer may not be discovered when the integration client is ready",
+    "unchanged_rpc_limit_s": 1.0,
+    "runner_budget_s": 210.0
+  },
+  "result": "FAIL",
+  "error": {
+    "type": "AssertionError",
+    "message": "business_nodes_discovered: {}"
+  },
+  "daemon_was_running": false,
+  "own_cli_daemon_stopped": true,
+  "all_children_exited": true,
+  "remaining_owned_group_members": [],
+  "telemetry_by_scenario": {},
+  "telemetry_terminal_log_lines": [
+    {
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790258118.008134180] [telemetry_node]: status=waiting joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790258118.914717389] [telemetry_node]: status=waiting joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790258119.914240264] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790258120.914345931] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790258121.914256890] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790258122.914255557] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    },
+    {
+      "log": "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/ros-acceptance/baseline/normal-launch.log",
+      "line": "[telemetry_node-2] [INFO] [1790258123.914357850] [telemetry_node]: status=IDLE joint=left_knee_joint no_sample"
+    }
+  ],
+  "cleanup_errors": []
+}

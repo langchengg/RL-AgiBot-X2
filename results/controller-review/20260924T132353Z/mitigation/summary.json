@@ -1,0 +1,386 @@
+{
+  "status": "UNRESOLVED",
+  "tested_reference_candidates": 6,
+  "real_complete_episodes": 12,
+  "successes": 2,
+  "envelope_pass": 0,
+  "adopted": null,
+  "training": false,
+  "interpretation": "0.03 rad left-ankle target margin retained standing but insufficiently reduced actual excess and increased self penetration/peak load. Other isolated margins or slower landing transition lost success or worsened impact. Reduced peak excess with a failed recovery is not a fix. Do not replace published controller.",
+  "comparison_scope": "Every altered reference internally tested both zero residual and transferred original actor. Same reset seed221030 and all other settings fixed. These are development attempts, not a frozen final five.",
+  "raw_trace_scope": "Local runs retain full physical/action traces; review publishes all compact outcomes, source recipe, hashes, per-joint measurements and exact control configs. No new checkpoint.",
+  "rows": [
+    {
+      "candidate": "left-ankle-margin-015",
+      "controller": "zero_residual_reference",
+      "success": "False",
+      "sim_s": "3.834000000000242",
+      "hold_s": "0.0",
+      "reason": "safety_abort:joint_limit_rad",
+      "joint_excess_rad": "0.05802418391017161",
+      "worst_joint": "left_wrist_roll_joint",
+      "excess_duration_s": "1.053",
+      "speed_rad_s": "20.289750774660735",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.022326397199747827",
+      "self_penetration_m": "0.003512247129923292",
+      "peak_ground_force_bodyweights": "5.232452588004802",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "a2fdb21c631f878fb71bd53c4b08b20b1b6f5cd9c2e1fb27a1ce48479e61f201",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "5322f5fb1820ed916e50ae12952535ab239caf1fe35e1a7a746a6f4e13e41d09",
+          "bytes": 12362866
+        },
+        "control_trace.npz": {
+          "sha256": "a498dfc76f5b43271dc5d22436d0668a387e443151940a7de79e164f9ef53768",
+          "bytes": 273690
+        }
+      }
+    },
+    {
+      "candidate": "left-ankle-margin-015",
+      "controller": "transferred_residual",
+      "success": "False",
+      "sim_s": "3.849000000000247",
+      "hold_s": "0.007000000000002338",
+      "reason": "safety_abort:joint_limit_rad",
+      "joint_excess_rad": "0.053823237001616064",
+      "worst_joint": "left_wrist_roll_joint",
+      "excess_duration_s": "1.053",
+      "speed_rad_s": "20.294629985602093",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.020781192763248094",
+      "self_penetration_m": "0.003512247129923292",
+      "peak_ground_force_bodyweights": "4.966844688002892",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "a2fdb21c631f878fb71bd53c4b08b20b1b6f5cd9c2e1fb27a1ce48479e61f201",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "9e08275c0b2cdb456fd7c4455ec64f7d34a6d6c2f98a96d949c476c45141bad7",
+          "bytes": 12411426
+        },
+        "control_trace.npz": {
+          "sha256": "15d874d8373ab53cfd2c47dd32da88799d283066b206bc77d5164e029b5a5d5b",
+          "bytes": 302914
+        }
+      }
+    },
+    {
+      "candidate": "left-ankle-margin-030",
+      "controller": "zero_residual_reference",
+      "success": "True",
+      "sim_s": "4.857000000000584",
+      "hold_s": "2.000000000000668",
+      "reason": "success",
+      "joint_excess_rad": "0.04409613316552152",
+      "worst_joint": "left_ankle_pitch_joint",
+      "excess_duration_s": "1.063",
+      "speed_rad_s": "8.213792678075663",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.008363174875924442",
+      "self_penetration_m": "0.0033790495863418044",
+      "peak_ground_force_bodyweights": "3.965370945392629",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "a9aaa760fe722e159ac1c5bc8da36bf053a044ea0e02ebf32aa4b9cb19093849",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "513b7d40d6cb7e23c59fd4101b18e374daf261fec467aa9511c15672215a680a",
+          "bytes": 15002814
+        },
+        "control_trace.npz": {
+          "sha256": "606637ef694047e925bc19194544a807b777e268976b70009648025b7ef6195d",
+          "bytes": 341519
+        }
+      }
+    },
+    {
+      "candidate": "left-ankle-margin-030",
+      "controller": "transferred_residual",
+      "success": "True",
+      "sim_s": "4.829000000000574",
+      "hold_s": "2.000000000000668",
+      "reason": "success",
+      "joint_excess_rad": "0.04409613316552152",
+      "worst_joint": "left_ankle_pitch_joint",
+      "excess_duration_s": "1.063",
+      "speed_rad_s": "8.213792678075663",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.008363174875924442",
+      "self_penetration_m": "0.0033790495863418044",
+      "peak_ground_force_bodyweights": "3.965370945392629",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "a9aaa760fe722e159ac1c5bc8da36bf053a044ea0e02ebf32aa4b9cb19093849",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "81b5af9dd6a884cccbe2615e44b89c1ad139fe555088558b91a7e23412ba6f05",
+          "bytes": 14947655
+        },
+        "control_trace.npz": {
+          "sha256": "ba4b753ca4143b97f4cab7b470d6ec56939ae144da4f5850064e894bf4d216c3",
+          "bytes": 381817
+        }
+      }
+    },
+    {
+      "candidate": "left-ankle-margin-060",
+      "controller": "zero_residual_reference",
+      "success": "False",
+      "sim_s": "4.095000000000329",
+      "hold_s": "0.0",
+      "reason": "safety_abort:joint_limit_rad",
+      "joint_excess_rad": "0.051875281174702303",
+      "worst_joint": "left_wrist_roll_joint",
+      "excess_duration_s": "1.059",
+      "speed_rad_s": "20.261287668486204",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.02282685151551346",
+      "self_penetration_m": "0.002959537772426173",
+      "peak_ground_force_bodyweights": "5.391370896532526",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "2d37791cad535cbbe5492a69266cd8daacb29c9f3e9afb7a0cba27284bc9956e",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "d4901c8a283cdfa648994fdbfafcab4cf7a9485e01c92214393817f09d82a4fb",
+          "bytes": 13055758
+        },
+        "control_trace.npz": {
+          "sha256": "9580e94f1d60daa7f8ef69cd68cfa320aacebaa3e9623c8013f3510f3a864735",
+          "bytes": 289027
+        }
+      }
+    },
+    {
+      "candidate": "left-ankle-margin-060",
+      "controller": "transferred_residual",
+      "success": "False",
+      "sim_s": "4.130000000000341",
+      "hold_s": "0.0",
+      "reason": "safety_abort:joint_limit_rad",
+      "joint_excess_rad": "0.05662888914068498",
+      "worst_joint": "left_wrist_roll_joint",
+      "excess_duration_s": "1.059",
+      "speed_rad_s": "20.364410638903745",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.022029621704576202",
+      "self_penetration_m": "0.002959537772426173",
+      "peak_ground_force_bodyweights": "5.328550398166715",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "2d37791cad535cbbe5492a69266cd8daacb29c9f3e9afb7a0cba27284bc9956e",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "038a43e78b2c0bd0631ee7818f84073e2b4aab47143299cb9845023a3ce80094",
+          "bytes": 13158942
+        },
+        "control_trace.npz": {
+          "sha256": "43b0761c3c297846a1658b9fc79d63e429720d8a6c63ff18958cbe73a40380e2",
+          "bytes": 323918
+        }
+      }
+    },
+    {
+      "candidate": "waist-margin-040",
+      "controller": "zero_residual_reference",
+      "success": "False",
+      "sim_s": "20.000000000003563",
+      "hold_s": "0.9570000000003196",
+      "reason": "time_limit",
+      "joint_excess_rad": "0.041774086455661386",
+      "worst_joint": "left_ankle_pitch_joint",
+      "excess_duration_s": "1.047",
+      "speed_rad_s": "8.268684371047454",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.023731850879090258",
+      "self_penetration_m": "0.003468989083445999",
+      "peak_ground_force_bodyweights": "20.08945116117616",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "94b4a576ae0b6ed9b4605bba98e4a21a11d7c889d7f06ba7ca3edc1bdb7fafcd",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "606e5ee5ff6347555afb702ec9fb71fe2cab19f877dd1c944511ef34064e27e8",
+          "bytes": 52166141
+        },
+        "control_trace.npz": {
+          "sha256": "ce204ef13dfb0266f1a6d9373809d0c32ddd743e8aa584c1e5fd5f81fd4adbf3",
+          "bytes": 1171725
+        }
+      }
+    },
+    {
+      "candidate": "waist-margin-040",
+      "controller": "transferred_residual",
+      "success": "False",
+      "sim_s": "20.000000000003563",
+      "hold_s": "0.8790000000002935",
+      "reason": "time_limit",
+      "joint_excess_rad": "0.041774086455661386",
+      "worst_joint": "left_ankle_pitch_joint",
+      "excess_duration_s": "1.047",
+      "speed_rad_s": "8.268684371047454",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.02437326415028452",
+      "self_penetration_m": "0.003468989083445999",
+      "peak_ground_force_bodyweights": "19.701873044503984",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "94b4a576ae0b6ed9b4605bba98e4a21a11d7c889d7f06ba7ca3edc1bdb7fafcd",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "fb608b36c905d0b1f3a43ce34db76066c31873133291776dee5de88ac856c5e8",
+          "bytes": 52448359
+        },
+        "control_trace.npz": {
+          "sha256": "6c2c9b02f35c0c8abc09854bc537cd5b6b104e96dcca3b1e9f130c0bed675673",
+          "bytes": 1426518
+        }
+      }
+    },
+    {
+      "candidate": "left-roll-margin-020",
+      "controller": "zero_residual_reference",
+      "success": "False",
+      "sim_s": "3.933000000000275",
+      "hold_s": "0.0",
+      "reason": "safety_abort:joint_limit_rad",
+      "joint_excess_rad": "0.05531750170337868",
+      "worst_joint": "left_wrist_roll_joint",
+      "excess_duration_s": "1.057",
+      "speed_rad_s": "20.32283924029366",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.02102844748155336",
+      "self_penetration_m": "0.0032633381242036055",
+      "peak_ground_force_bodyweights": "5.345940812830767",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "4ab663be5a80d15bcea76c4427d8b412e8d22d213f1d437127edf6fbdee3cc0f",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "51829dd03a340a92cff8dd0b7739bc72c366b080c74d341657a5826ef9cfcc3e",
+          "bytes": 12630206
+        },
+        "control_trace.npz": {
+          "sha256": "87830ed92cb1d5f95aa1d2d51e87cd1a134346425db5e018ca9d70e90e9144f8",
+          "bytes": 279416
+        }
+      }
+    },
+    {
+      "candidate": "left-roll-margin-020",
+      "controller": "transferred_residual",
+      "success": "False",
+      "sim_s": "3.9490000000002805",
+      "hold_s": "0.001000000000000334",
+      "reason": "safety_abort:joint_limit_rad",
+      "joint_excess_rad": "0.054786053114397326",
+      "worst_joint": "left_wrist_roll_joint",
+      "excess_duration_s": "1.056",
+      "speed_rad_s": "20.51828924007385",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.021398690120551345",
+      "self_penetration_m": "0.0032633381242036055",
+      "peak_ground_force_bodyweights": "5.283066293441433",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "4ab663be5a80d15bcea76c4427d8b412e8d22d213f1d437127edf6fbdee3cc0f",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "306e6a630d293ff19a5d8fdc9eb5ed95a095dfb659fe924a6c549581cdaa6838",
+          "bytes": 12679622
+        },
+        "control_trace.npz": {
+          "sha256": "c7bc0f58e37ffbb75fc61588470da7995af1c19706c964aad46e9c73c8b6d4ed",
+          "bytes": 310343
+        }
+      }
+    },
+    {
+      "candidate": "landing-transition-slower",
+      "controller": "zero_residual_reference",
+      "success": "False",
+      "sim_s": "20.000000000003563",
+      "hold_s": "0.0",
+      "reason": "time_limit",
+      "joint_excess_rad": "0.03471258475872535",
+      "worst_joint": "waist_pitch_joint",
+      "excess_duration_s": "1.156",
+      "speed_rad_s": "8.347143742429603",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.024210062009507836",
+      "self_penetration_m": "0.0031814764288165204",
+      "peak_ground_force_bodyweights": "18.268464554452557",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "c0646b31a09e6290bdf6a786560945ebbcba8c377eaec5f25dfb53ec7d8ac24c",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "1a027b892190f6ac45b2a975bef3ec7cbfe5701012a7d9f228a6bc8363be57ff",
+          "bytes": 51412566
+        },
+        "control_trace.npz": {
+          "sha256": "98ba86eea7a3454458c3c45f5eaad0a66eead08d15d4af638c578ef73533eac7",
+          "bytes": 1149682
+        }
+      }
+    },
+    {
+      "candidate": "landing-transition-slower",
+      "controller": "transferred_residual",
+      "success": "False",
+      "sim_s": "20.000000000003563",
+      "hold_s": "0.0",
+      "reason": "time_limit",
+      "joint_excess_rad": "0.03471258475872535",
+      "worst_joint": "waist_pitch_joint",
+      "excess_duration_s": "1.183",
+      "speed_rad_s": "8.726471913609583",
+      "torque_ratio": "1.0",
+      "floor_penetration_m": "0.024507068614925465",
+      "self_penetration_m": "0.0031814764288165204",
+      "peak_ground_force_bodyweights": "19.01321513821072",
+      "constraint_envelope_pass": "False",
+      "admissible": "False",
+      "config_sha256": "c0646b31a09e6290bdf6a786560945ebbcba8c377eaec5f25dfb53ec7d8ac24c",
+      "passes_impact_speed_nonregression": false,
+      "candidate_accepted": false,
+      "local_raw_artifacts": {
+        "physical_trace.npz": {
+          "sha256": "f7a42d25b99db47922b02c3bc6bbfb0a0815b80592aa852671465736e5ad39d2",
+          "bytes": 51887253
+        },
+        "control_trace.npz": {
+          "sha256": "ba535e54dfdd409835615a4b3a3fe8fe2d5d8798535273cc08afb37693543c4d",
+          "bytes": 1407377
+        }
+      }
+    }
+  ]
+}

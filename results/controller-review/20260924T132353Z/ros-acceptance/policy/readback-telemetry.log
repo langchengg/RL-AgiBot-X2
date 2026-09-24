@@ -1,0 +1,3 @@
+[INFO] [1790258150.819881321] [telemetry_node]: status=waiting joint=left_knee_joint no_sample
+[INFO] [1790258151.809533946] [telemetry_node]: status=waiting joint=left_knee_joint no_sample
+[INFO] [1790258152.809471405] [telemetry_node]: status=RUNNING joint=left_knee_joint no_sample

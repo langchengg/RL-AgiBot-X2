@@ -1,0 +1,38 @@
+{
+  "observations": {
+    "shape_match": true,
+    "max_abs_error": 0.0,
+    "atol": 1e-10,
+    "rtol": 0,
+    "pass_": true
+  },
+  "qpos": {
+    "shape_match": true,
+    "max_abs_error": 0.0,
+    "atol": 1e-10,
+    "rtol": 0,
+    "pass_": true
+  },
+  "qvel": {
+    "shape_match": true,
+    "max_abs_error": 0.0,
+    "atol": 1e-10,
+    "rtol": 0,
+    "pass_": true
+  },
+  "actions": {
+    "shape_match": true,
+    "max_abs_error": 0.0,
+    "atol": 1e-07,
+    "rtol": 0,
+    "pass_": true
+  },
+  "reward": {
+    "shape_match": true,
+    "max_abs_error": 0.0,
+    "atol": 1e-10,
+    "rtol": 0,
+    "pass_": true
+  },
+  "pass": true
+}

@@ -1,0 +1,16 @@
+{
+  "scope": "Postprocessing only; no physical state, action, policy, reset, or source used by simulation changed.",
+  "error": "The result-row JSON serializer did not convert a NumPy array inside standing_window_sway; successful physical diagnostics remained complete.",
+  "original_runner_sha256": "f3261f3ae4a67aa7af91c8865845b331db909e6ec1d929549aaa260afc830045",
+  "corrected_runner_sha256": "4b08ef789b143086fdb522eea1fd075e2abd8a35bda5f2cdd5cbbd494a4d82cf",
+  "patch": "reporting_fix.patch",
+  "reconstruction": "Apply the patch in reverse to corrected run_pairs.py to recover exactly the runner used for the physical batch. Final table/denominators will be reconstructed offline from every completed diagnostic summary; no rerun or seed replacement.",
+  "completion": {
+    "original_reported_valid_pairs": 17,
+    "corrected_physical_valid_pairs": 20,
+    "repaired_rows": 5,
+    "diagnostic_artifact_hashes_verified": 120,
+    "executed_source_recovered_by_reverse_patch": true,
+    "no_new_episodes": true
+  }
+}

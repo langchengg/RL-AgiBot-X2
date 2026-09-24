@@ -1,0 +1,221 @@
+{
+  "schema": "x2-controller-review-v1",
+  "created_utc": "2026-09-24T13:32:10.066588+00:00",
+  "started_commit": "f23a1c1ceb888756d94e8b6768bfcd7f1de2ca8e",
+  "scope": "Native MuJoCo simulation audit, bounded development, paired reset validation and ROS deployment; not hardware safety certification.",
+  "historical_input": "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run",
+  "protected_input_and_source": {
+    "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/episode_diagnostics.csv": {
+      "sha256": "fb31135941f4b0eb00823c62c6803591142614d518ad6e015795925f41c2b19d",
+      "bytes": 3953
+    },
+    "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/manifest.json": {
+      "sha256": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac",
+      "bytes": 296556
+    },
+    "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/policy_final.zip": {
+      "sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+      "bytes": 947996
+    },
+    "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/progress.csv": {
+      "sha256": "edb6073778eb32da1ca87130740517ba77fee6c10e499a2534f3706482ce94d5",
+      "bytes": 3166
+    },
+    "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/reload_probe.npz": {
+      "sha256": "f98f58d40e089e075b8174d86ebbfff338882c1968fa97edc75261ae17db474b",
+      "bytes": 3358
+    },
+    "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/reload_validation.json": {
+      "sha256": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175",
+      "bytes": 9536
+    },
+    "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/resolved_config.json": {
+      "sha256": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+      "bytes": 623803
+    },
+    "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/rng_state.pt": {
+      "sha256": "98b50d4fa2a694c2062214ae645f1a545209e5573a99799fe87dc989d97c45d4",
+      "bytes": 14455
+    },
+    "results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run/training_reward.png": {
+      "sha256": "92640b31ecc25eba8a02c78ee36bae699328aa45955589def0119df23156d201",
+      "bytes": 52440
+    },
+    "src/x2_recovery/x2_recovery/__init__.py": {
+      "sha256": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+      "bytes": 76
+    },
+    "src/x2_recovery/x2_recovery/baseline.py": {
+      "sha256": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+      "bytes": 20640
+    },
+    "src/x2_recovery/x2_recovery/diagnostics.py": {
+      "sha256": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+      "bytes": 28892
+    },
+    "src/x2_recovery/x2_recovery/env.py": {
+      "sha256": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+      "bytes": 56569
+    },
+    "src/x2_recovery/x2_recovery/evaluate.py": {
+      "sha256": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+      "bytes": 48378
+    },
+    "src/x2_recovery/x2_recovery/model.py": {
+      "sha256": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "bytes": 12145
+    },
+    "src/x2_recovery/x2_recovery/model_audit.py": {
+      "sha256": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+      "bytes": 56213
+    },
+    "src/x2_recovery/x2_recovery/motion_search.py": {
+      "sha256": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+      "bytes": 15333
+    },
+    "src/x2_recovery/x2_recovery/recovery_node.py": {
+      "sha256": "7443ffe04321786a200054212da67d9abdf653492b93e2809f6fbca54e63f913",
+      "bytes": 11642
+    },
+    "src/x2_recovery/x2_recovery/reset.py": {
+      "sha256": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "bytes": 17618
+    },
+    "src/x2_recovery/x2_recovery/simulation_validation.py": {
+      "sha256": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+      "bytes": 22112
+    },
+    "src/x2_recovery/x2_recovery/success.py": {
+      "sha256": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "bytes": 17007
+    },
+    "src/x2_recovery/x2_recovery/success_validation.py": {
+      "sha256": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+      "bytes": 20221
+    },
+    "src/x2_recovery/x2_recovery/telemetry_node.py": {
+      "sha256": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+      "bytes": 5646
+    },
+    "src/x2_recovery/x2_recovery/train.py": {
+      "sha256": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+      "bytes": 105004
+    }
+  },
+  "protected_history": {
+    "files": 368,
+    "identity_table_sha256": "45ab04af8c677195967a027c24641e996304d2657f68b2277eb242f82c03f2cb"
+  },
+  "task_source": {
+    "pdf_read": "/home/lang/Downloads/HRS_Take_Home_Task.pdf",
+    "sha256": "2503770be75c8be84e6aa98b02c567a0b5fa75c37071fd6a842078739b478ca9",
+    "additional_requirements": "User message for this review. The PDF supplies no universal transient joint-excess tolerance."
+  },
+  "comparison_frozen_before_new_candidates": {
+    "standing_success": "Unchanged original per-physics-step tracker, including continuous 2 s hold.",
+    "constraint_envelope_pass": "Every sampled actual recovery joint within nominal model range plus 0.0001 rad; actuator joint effort within directional model bound (numerical ratio tolerance 1e-10); all actual URDF velocity limits met when declared. Reset settling is reported separately.",
+    "joint_excess_target_rad": 0.0001,
+    "target_origin": "Conservative improvement objective borrowed from existing standing-window tolerance, NOT an established hardware safety limit.",
+    "candidate_acceptance": "Original standing success AND constraint envelope; floor/self penetration, peak floor resultant load and maximum joint velocity must not exceed unchanged-controller measured baseline (absolute numeric tolerance 1e-10). Do not count early abort as recovery improvement.",
+    "noninterference": {
+      "qpos_qvel_observation_atol": 1e-10,
+      "action_atol": 1e-07,
+      "rtol": 0,
+      "comparison": "Same seed, deterministic policy, full unobserved-vs-observed episode, physical arrays only; timestamps/paths excluded."
+    },
+    "duration_rule": "dt times count of post-integration samples satisfying predicate. A consecutive run consists of adjacent sample indices, duration count*dt. Maxima are physical-step sample maxima, not continuous-time extrema."
+  },
+  "paired_protocol": {
+    "planned_pairs": 20,
+    "max_reset_candidates": 40,
+    "candidate_seeds": [
+      26092400,
+      26092401,
+      26092402,
+      26092403,
+      26092404,
+      26092405,
+      26092406,
+      26092407,
+      26092408,
+      26092409,
+      26092410,
+      26092411,
+      26092412,
+      26092413,
+      26092414,
+      26092415,
+      26092416,
+      26092417,
+      26092418,
+      26092419,
+      26092420,
+      26092421,
+      26092422,
+      26092423,
+      26092424,
+      26092425,
+      26092426,
+      26092427,
+      26092428,
+      26092429,
+      26092430,
+      26092431,
+      26092432,
+      26092433,
+      26092434,
+      26092435,
+      26092436,
+      26092437,
+      26092438,
+      26092439
+    ],
+    "selection": "First 20 legal resets in fixed candidate order, reset-only selection before any controller outcome; retain rejection reasons.",
+    "perturb_rad": 0.002,
+    "distribution": "Existing reset_supine independent uniform joint perturbations for all 31 controlled joints; existing pose legality and contact settling unchanged.",
+    "A": "same reference, zero 17-vector residual",
+    "B": "same reference, selected frozen deterministic CPU PPO",
+    "allowed_base_config_difference": [
+      "reset_perturb_rad"
+    ],
+    "all_other_settings": "Strict original prepare validation before explicit reset-only deployment override; no source/hash bypass.",
+    "physical_pair_atol": 1e-10,
+    "rtol": 0,
+    "incomplete": "Report separately; never substitute seeds after controller outcomes.",
+    "metrics": [
+      "success",
+      "recovery_sim_s",
+      "max_continuous_hold_s",
+      "joint_excess_max_rad",
+      "joint_excess_duration_s",
+      "max_velocity_rad_s",
+      "torque_ratio",
+      "floor_penetration_m",
+      "floor_contact_load_N",
+      "stable_margins"
+    ],
+    "analysis": "Paired success wins/losses/ties; time differences only among both-success pairs. This is a development review, not a broad robustness claim."
+  },
+  "resource_budget": {
+    "autonomous_wall_seconds": 7200,
+    "training_block_max_seconds": 1200,
+    "training": "Only after audits and only when evidence supports need. No dependency upgrades."
+  },
+  "planned_edits": [
+    "new constraint audit calculator/observer and focused tests",
+    "new thin reproduction CLI and tests",
+    "recovery_node.py",
+    "recovery.launch.py",
+    "existing ROS tests",
+    "README.md",
+    "new results/controller-review run"
+  ],
+  "immutable": [
+    "model.py",
+    "reset.py",
+    "success.py",
+    "existing published results",
+    "old checkpoint/config/manifest",
+    "physics and success/safety thresholds"
+  ]
+}

@@ -1,0 +1,1 @@
+Recovery startup/execution failed: InvalidParameterTypeException: Trying to set parameter 'expected_checkpoint_sha256' to '0' of type 'INTEGER', expecting type 'STRING': expected_checkpoint_sha256

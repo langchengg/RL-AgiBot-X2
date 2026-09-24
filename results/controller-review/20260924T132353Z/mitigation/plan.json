@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-09-24T13:50:40.666758+00:00",
+  "seed": 221030,
+  "status": "predeclared before running any candidate",
+  "selection": "No promotion unless standing AND preregistered envelope AND impact/speed nonregression. All candidates retained, including safety terminations. Same controller settings for A/B within each version. Original actor weights transferred to altered reference execution; no training.",
+  "candidates": [
+    {
+      "name": "left-ankle-margin-015",
+      "margins": {
+        "left_ankle_pitch_joint": 0.015
+      }
+    },
+    {
+      "name": "left-ankle-margin-030",
+      "margins": {
+        "left_ankle_pitch_joint": 0.03
+      }
+    },
+    {
+      "name": "left-ankle-margin-060",
+      "margins": {
+        "left_ankle_pitch_joint": 0.06
+      }
+    },
+    {
+      "name": "waist-margin-040",
+      "margins": {
+        "waist_pitch_joint": 0.04
+      }
+    },
+    {
+      "name": "left-roll-margin-020",
+      "margins": {
+        "left_ankle_roll_joint": 0.02
+      }
+    },
+    {
+      "name": "landing-transition-slower",
+      "duration_override": {
+        "catch-knot-13": 0.3
+      }
+    }
+  ]
+}

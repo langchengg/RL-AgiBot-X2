@@ -7,7 +7,8 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
-    arguments = [('seed', '60', int), ('episode_timeout_s', '20.0', float),
+    arguments = [('controller', 'scripted_baseline', str), ('training_run', '', str),
+                 ('expected_checkpoint_sha256', '', str), ('seed', '60', int), ('episode_timeout_s', '20.0', float),
                  ('recovery_timeout_s', '30.0', float)]
     parameters = {name: ParameterValue(LaunchConfiguration(name), value_type=kind)
                   for name, _, kind in arguments}
