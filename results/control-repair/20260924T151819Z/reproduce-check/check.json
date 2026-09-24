@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "scope": "read-only loading; no reset, step, or training",
+  "controller": "reference_residual",
+  "training_run": "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/training-run",
+  "checkpoint_sha256": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+  "input_sha256": {
+    "policy_final.zip": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+    "resolved_config.json": "6973248b351408dcad0d48ad54c0ee3187760ed3e9c3ca50d045202e4878db73",
+    "manifest.json": "0f450a3457b7a0346177c48a26c9d12be87601352c92943f560126d346da773a",
+    "reload_probe.npz": "3a73d17888b44e0f928f05d1bb9ea8821256e286db9e04f99d5537c7faa86ebc",
+    "progress.csv": "686493b8c035707af1af3fe62b1f39bc39409d77dc5dc5b2b0e5ad5a5c7df595",
+    "reload_validation.json": "cf21ed9e0f4a1cabdba1375f6050b089f7106d28c66d8b9b3e1f7518ccaba833"
+  },
+  "saved_action_check": {
+    "max_abs_error": 0.0,
+    "atol": 1e-07,
+    "rtol": 1e-06,
+    "observations": 16,
+    "action_shape": [
+      16,
+      17
+    ]
+  },
+  "observation_shape": [
+    149
+  ],
+  "policy_action_shape": [
+    17
+  ],
+  "actuators": 31,
+  "model_asset_directory": "/home/lang/.cache/hrs-x2-recovery/agibot_x2_urdf",
+  "source_identity": {
+    "env.py": "c4a5bc96dd7a26bcfec73c648a63ab476c65bdde4543fca0fb92f037fb041da0",
+    "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+  },
+  "limitation": "Historical simulation controller; standing success does not certify whole-episode constraints."
+}

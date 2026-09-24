@@ -1,0 +1,11 @@
+{
+  "comparison": "g13-10 versus inserted reference knots, real full original reset/episode",
+  "keys": {
+    "physical_state_sha256": true,
+    "policy_action_sha256": true,
+    "actual_target_sha256": true
+  },
+  "max_reference_query_error_rad": 4.440892098500626e-16,
+  "both_complete_20_s": true,
+  "all_equal": true
+}

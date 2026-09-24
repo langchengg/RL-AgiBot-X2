@@ -1,0 +1,104 @@
+[0.118s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', '--log-base', '/tmp/x2-ros-deploy-20260924T145619Z/fresh/log', 'build', '--base-paths', '/home/lang/RL-AgiBot-X2/src', '--packages-select', 'x2_recovery', '--symlink-install', '--build-base', '/tmp/x2-ros-deploy-20260924T145619Z/fresh/build', '--install-base', '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install']
+[0.118s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base='/tmp/x2-ros-deploy-20260924T145619Z/fresh/log', log_level=None, verb_name='build', build_base='/tmp/x2-ros-deploy-20260924T145619Z/fresh/build', install_base='/tmp/x2-ros-deploy-20260924T145619Z/fresh/install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['/home/lang/RL-AgiBot-X2/src'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['x2_recovery'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0xf0455320d070>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xf0455336bb90>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xf0455336bb90>>, mixin_verb=('build',))
+[0.167s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.167s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.167s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.167s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.167s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.167s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/lang/RL-AgiBot-X2/src'
+[0.167s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extensions ['ignore', 'ignore_ament_install']
+[0.167s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extension 'ignore'
+[0.167s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extension 'ignore_ament_install'
+[0.167s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extensions ['colcon_pkg']
+[0.167s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extension 'colcon_pkg'
+[0.167s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extensions ['colcon_meta']
+[0.167s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extension 'colcon_meta'
+[0.167s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extensions ['ros']
+[0.167s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extension 'ros'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extensions ['cmake', 'python']
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extension 'cmake'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extension 'python'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extensions ['python_setup_py']
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src) by extension 'python_setup_py'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src/x2_recovery) by extensions ['ignore', 'ignore_ament_install']
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src/x2_recovery) by extension 'ignore'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src/x2_recovery) by extension 'ignore_ament_install'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src/x2_recovery) by extensions ['colcon_pkg']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src/x2_recovery) by extension 'colcon_pkg'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src/x2_recovery) by extensions ['colcon_meta']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src/x2_recovery) by extension 'colcon_meta'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src/x2_recovery) by extensions ['ros']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(/home/lang/RL-AgiBot-X2/src/x2_recovery) by extension 'ros'
+[0.188s] DEBUG:colcon.colcon_core.package_identification:Package '/home/lang/RL-AgiBot-X2/src/x2_recovery' with type 'ros.ament_python' and name 'x2_recovery'
+[0.188s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.204s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.204s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.206s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 287 installed packages in /opt/ros/jazzy
+[0.207s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.282s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_args' from command line to 'None'
+[0.282s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_target' from command line to 'None'
+[0.282s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.282s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_clean_cache' from command line to 'False'
+[0.282s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_clean_first' from command line to 'False'
+[0.282s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'cmake_force_configure' from command line to 'False'
+[0.282s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'ament_cmake_args' from command line to 'None'
+[0.282s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'catkin_cmake_args' from command line to 'None'
+[0.282s] Level 5:colcon.colcon_core.verb:set package 'x2_recovery' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.282s] DEBUG:colcon.colcon_core.verb:Building package 'x2_recovery' with the following arguments: {'ament_cmake_args': None, 'build_base': '/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery', 'merge_install': False, 'path': '/home/lang/RL-AgiBot-X2/src/x2_recovery', 'symlink_install': True, 'test_result_base': None}
+[0.282s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.283s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.283s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/lang/RL-AgiBot-X2/src/x2_recovery' with build type 'ament_python'
+[0.283s] Level 1:colcon.colcon_core.shell:create_environment_hook('x2_recovery', 'ament_prefix_path')
+[0.287s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.287s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/hook/ament_prefix_path.ps1'
+[0.288s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/hook/ament_prefix_path.dsv'
+[0.288s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/hook/ament_prefix_path.sh'
+[0.289s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.289s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.415s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/lang/RL-AgiBot-X2/src/x2_recovery'
+[0.415s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.416s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.879s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: build, build_clib, extract_messages, install_egg_info, init_catalog, check, install_scripts, bdist_rpm, upload_docs, build_py, install, install_lib, egg_info, register, build_scripts, update_catalog, upload, bdist, build_ext, clean, symlink_data, install_data, setopt, install_headers, rotate, alias, dist_info, editable_wheel, bdist_egg, sdist, develop, bdist_dumb, easy_install, compile_catalog, test, saveopts, bdist_wheel
+[1.059s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools 'develop' options: --site-dirs, --find-links, --install-dir, --no-deps, --always-copy, --egg-path, --zip-ok, --prefix, --quiet, --index-url, --multi-version, --allow-hosts, --install-layout, --uninstall, --script-dir, --no-user-cfg, --upgrade, --build-directory, --local-snapshots-ok, --optimize, --exclude-scripts, --record, --editable, --version, --no-find-links, --always-unzip, --help, --dry-run, --verbose, --user, --force-installation-into-system-dir
+[1.060s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/lib/python3.12/site-packages:${PYTHONPATH} /home/lang/RL-AgiBot-X2/.venv/bin/python -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery/build --no-deps symlink_data
+[1.374s] Level 1:colcon.colcon_core.shell:create_environment_hook('x2_recovery', 'pythonpath_develop')
+[1.374s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/lib/python3.12/site-packages:${PYTHONPATH} /home/lang/RL-AgiBot-X2/.venv/bin/python -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery/build --no-deps symlink_data
+[1.374s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery/share/x2_recovery/hook/pythonpath_develop.ps1'
+[1.375s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery/share/x2_recovery/hook/pythonpath_develop.dsv'
+[1.375s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery/share/x2_recovery/hook/pythonpath_develop.sh'
+[1.380s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery' for CMake module files
+[1.380s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery' for CMake config files
+[1.381s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/lib'
+[1.381s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/bin'
+[1.381s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/lib/pkgconfig/x2_recovery.pc'
+[1.381s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/lib/python3.12/site-packages'
+[1.381s] Level 1:colcon.colcon_core.shell:create_environment_hook('x2_recovery', 'pythonpath')
+[1.381s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/hook/pythonpath.ps1'
+[1.381s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/hook/pythonpath.dsv'
+[1.381s] INFO:colcon.colcon_core.shell:Creating environment hook '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/hook/pythonpath.sh'
+[1.382s] Level 1:colcon.colcon_core.environment:checking '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/bin'
+[1.382s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(x2_recovery)
+[1.382s] INFO:colcon.colcon_core.shell:Creating package script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/package.ps1'
+[1.383s] INFO:colcon.colcon_core.shell:Creating package descriptor '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/package.dsv'
+[1.383s] INFO:colcon.colcon_core.shell:Creating package script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/package.sh'
+[1.384s] INFO:colcon.colcon_core.shell:Creating package script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/package.bash'
+[1.385s] INFO:colcon.colcon_core.shell:Creating package script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/x2_recovery/package.zsh'
+[1.386s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/share/colcon-core/packages/x2_recovery)
+[1.386s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.386s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.386s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[1.386s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.394s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.394s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.394s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.412s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.412s] INFO:colcon.colcon_core.shell:Creating prefix script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/local_setup.ps1'
+[1.412s] INFO:colcon.colcon_core.shell:Creating prefix util module '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/_local_setup_util_ps1.py'
+[1.413s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/setup.ps1'
+[1.414s] INFO:colcon.colcon_core.shell:Creating prefix script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/local_setup.sh'
+[1.415s] INFO:colcon.colcon_core.shell:Creating prefix util module '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/_local_setup_util_sh.py'
+[1.415s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/setup.sh'
+[1.416s] INFO:colcon.colcon_core.shell:Creating prefix script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/local_setup.bash'
+[1.416s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/setup.bash'
+[1.416s] INFO:colcon.colcon_core.shell:Creating prefix script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/local_setup.zsh'
+[1.417s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/setup.zsh'

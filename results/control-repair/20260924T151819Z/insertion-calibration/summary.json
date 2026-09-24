@@ -1,0 +1,21 @@
+{
+  "status": "COMPLETE",
+  "completed_candidates": 1,
+  "error_candidates": 0,
+  "planned_candidates": 1,
+  "unscheduled_candidates": 0,
+  "successful_recoveries": 0,
+  "feasible_candidates": 0,
+  "best_feasible": null,
+  "best_infeasible": "g23-insert-only-335",
+  "target_equivalence_groups": [],
+  "wall_seconds": 14.349594506000358,
+  "core_sources_after": {
+    "env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+  },
+  "source_sha256_after": "1b5923787e0e0a2b69e92ac3fa63fd676aba7175152a2fedc105e3f682687d84"
+}

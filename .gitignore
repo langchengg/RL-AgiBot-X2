@@ -42,3 +42,8 @@ HRS_Take_Home_Task*.pdf
 # Keep the original local JSONL files; see README for restoration and SHA-256 checks.
 /results/evaluation/ppo-smoke-20260922T044430Z/trajectory.jsonl
 /results/evaluation/ppo-reference-residual-20260922T212457Z/trajectory.jsonl
+
+# This new search's plans/journals are published as verified byte-identical gzip.
+# Retain original local files; gzip -dk restores them for search replay.
+/results/control-repair/20260924T151819Z/**/plan.json
+/results/control-repair/20260924T151819Z/**/results.jsonl

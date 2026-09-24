@@ -1,0 +1,915 @@
+{
+  "schema": "targets-v6-real-ros-acceptance-v1",
+  "completed_utc": "2026-09-24T20:32:39.939358+00:00",
+  "status": "PASS",
+  "reports": {
+    "policy": {
+      "result": "PASS",
+      "exit_code": 0,
+      "checks_passed": 142,
+      "summary_sha256": "5e84f6fe44a062bde9d860bcb90aaf33eb79a2b1db34688f93f306d014074849",
+      "identity": {
+        "executable": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "cwd": "/tmp",
+        "module": "/tmp/x2-repair-20260924T151819Z/v6-fresh/build/x2_recovery/x2_recovery/recovery_node.py",
+        "prefix": "/tmp/x2-repair-20260924T151819Z/v6-fresh/install/x2_recovery",
+        "launch": "/tmp/x2-repair-20260924T151819Z/v6-fresh/install/x2_recovery/share/x2_recovery/launch/recovery.launch.py",
+        "rmw": "rmw_fastrtps_cpp",
+        "domain": "91",
+        "discovery": "LOCALHOST",
+        "source_sha256": {
+          "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/test/test_ros_integration.py": "7915b1097ae73d8b6d69c66ab18a4b3bbcf2be0c09fb715f2aa31f451b9574a7",
+          "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/x2_recovery/recovery_node.py": "43192a9f1aac4c80022d9fc6e3f7e3e422e2837e05b9c5e18abeb58d510b69d3",
+          "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/launch/recovery.launch.py": "b915912185c7df75dc0521fb2fad2c19fb150500079fe6faf680bbb0cf0757f4"
+        }
+      },
+      "episodes": [
+        {
+          "index": 1,
+          "episode": 1,
+          "status": "SUCCEEDED",
+          "reason": "success",
+          "control_steps": 331,
+          "sim_seconds": 6.616000000000924,
+          "wall_seconds": 7.363849919998756,
+          "stable_hold_s": 2.000000000000421,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 2,
+          "episode": 2,
+          "status": "SUCCEEDED",
+          "reason": "success",
+          "control_steps": 331,
+          "sim_seconds": 6.616000000000924,
+          "wall_seconds": 7.233426295002573,
+          "stable_hold_s": 2.000000000000421,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 3,
+          "episode": 1,
+          "status": "FAILED",
+          "reason": "recovery_timeout",
+          "control_steps": 88,
+          "sim_seconds": 1.7599999999998064,
+          "wall_seconds": 3.0000777099994593,
+          "stable_hold_s": 0.0,
+          "timeout_overshoot_s": 7.770999945932999e-05
+        },
+        {
+          "index": 4,
+          "episode": 1,
+          "status": "FAILED",
+          "reason": "shutdown",
+          "control_steps": 4,
+          "sim_seconds": 0.07999999999999119,
+          "wall_seconds": 0.8184771249980258,
+          "stable_hold_s": 0.0,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 5,
+          "episode": 1,
+          "status": "SUCCEEDED",
+          "reason": "success",
+          "control_steps": 331,
+          "sim_seconds": 6.616000000000924,
+          "wall_seconds": 7.378153003002808,
+          "stable_hold_s": 2.000000000000421,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 6,
+          "episode": 2,
+          "status": "SUCCEEDED",
+          "reason": "success",
+          "control_steps": 331,
+          "sim_seconds": 6.616000000000924,
+          "wall_seconds": 7.365619795000384,
+          "stable_hold_s": 2.000000000000421,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 7,
+          "episode": 1,
+          "status": "FAILED",
+          "reason": "step_error",
+          "control_steps": 2,
+          "sim_seconds": 0.039999999999995595,
+          "wall_seconds": 0.6872965009970358,
+          "stable_hold_s": 0.0,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 8,
+          "episode": 2,
+          "status": "SUCCEEDED",
+          "reason": "success",
+          "control_steps": 331,
+          "sim_seconds": 6.616000000000924,
+          "wall_seconds": 7.270929170001182,
+          "stable_hold_s": 2.000000000000421,
+          "timeout_overshoot_s": 0.0
+        }
+      ],
+      "selected_checks": {
+        "single_launch_two_processes": {
+          "result": "PASS"
+        },
+        "response_reset_step_order": {
+          "result": "PASS",
+          "send_end": 19808.492465695,
+          "reset_begin": 19808.496827486,
+          "reset_end": 19809.125531695,
+          "first_step_begin": 19809.131941653
+        },
+        "same_snapshot_actual_readback": {
+          "result": "PASS",
+          "matched": 18,
+          "max_absolute_error": 0.0
+        },
+        "audited_busy_no_episode_reset_or_step_mutation": {
+          "result": "PASS",
+          "callbacks": 5
+        },
+        "deterministic_current_observation_pipeline": {
+          "result": "PASS",
+          "calls": 662
+        },
+        "predicted_action_reaches_complete_wrapper": {
+          "result": "PASS",
+          "controls": 662
+        },
+        "policy_loaded_once_for_two_episodes": {
+          "result": "PASS"
+        },
+        "nonzero_residual_enabled_in_both_episodes": {
+          "result": "PASS",
+          "active_transitions": 112,
+          "max_abs_gated_residual_rad": 8.820052444934845e-05
+        },
+        "policy_state_unchanged_after_two_episodes": {
+          "result": "PASS",
+          "evidence": [
+            {
+              "event": "policy_state_check",
+              "monotonic_s": 19815.871691573,
+              "episode": 1,
+              "status": "SUCCEEDED",
+              "unchanged": true,
+              "tensors": 13
+            },
+            {
+              "event": "policy_state_check",
+              "monotonic_s": 19823.511660452,
+              "episode": 2,
+              "status": "SUCCEEDED",
+              "unchanged": true,
+              "tensors": 13
+            }
+          ]
+        },
+        "normal_cleanup": {
+          "result": "PASS",
+          "children": [
+            {
+              "name": "recovery_node-1",
+              "pid": 552190,
+              "returncode": 0
+            },
+            {
+              "name": "telemetry_node-2",
+              "pid": 552191,
+              "returncode": 0
+            }
+          ]
+        },
+        "active_ctrl_c_cleanup": {
+          "result": "PASS"
+        },
+        "diagnostic_failure_processes_cleaned_up": {
+          "result": "PASS"
+        },
+        "missing-policy-path-request-rejected": {
+          "result": "PASS"
+        },
+        "missing-policy-path-diagnostic-failed": {
+          "result": "PASS"
+        },
+        "missing-policy-path-no-execution-or-fallback": {
+          "result": "PASS"
+        },
+        "missing-policy-path-cleanup": {
+          "result": "PASS"
+        },
+        "wrong-policy-hash-request-rejected": {
+          "result": "PASS"
+        },
+        "wrong-policy-hash-diagnostic-failed": {
+          "result": "PASS"
+        },
+        "wrong-policy-hash-no-execution-or-fallback": {
+          "result": "PASS"
+        },
+        "wrong-policy-hash-cleanup": {
+          "result": "PASS"
+        },
+        "policy-timeout-mismatch-request-rejected": {
+          "result": "PASS"
+        },
+        "policy-timeout-mismatch-diagnostic-failed": {
+          "result": "PASS"
+        },
+        "policy-timeout-mismatch-no-execution-or-fallback": {
+          "result": "PASS"
+        },
+        "policy-timeout-mismatch-cleanup": {
+          "result": "PASS"
+        },
+        "missing-reference-request-rejected": {
+          "result": "PASS"
+        },
+        "missing-reference-diagnostic-failed": {
+          "result": "PASS"
+        },
+        "missing-reference-no-execution-or-fallback": {
+          "result": "PASS"
+        },
+        "missing-reference-cleanup": {
+          "result": "PASS"
+        },
+        "incompatible-interface-request-rejected": {
+          "result": "PASS"
+        },
+        "incompatible-interface-diagnostic-failed": {
+          "result": "PASS"
+        },
+        "incompatible-interface-no-execution-or-fallback": {
+          "result": "PASS"
+        },
+        "incompatible-interface-cleanup": {
+          "result": "PASS"
+        }
+      },
+      "standalone_comparison": {
+        "reference": "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/ros-acceptance/standalone-reference.npz",
+        "fields": {
+          "observations": {
+            "standalone_shape": [
+              332,
+              149
+            ],
+            "ros_shape": [
+              332,
+              149
+            ],
+            "max_absolute_error": 0.0,
+            "atol": 1e-10,
+            "rtol": 0
+          },
+          "actions": {
+            "standalone_shape": [
+              331,
+              17
+            ],
+            "ros_shape": [
+              331,
+              17
+            ],
+            "max_absolute_error": 0.0,
+            "atol": 1e-07,
+            "rtol": 0
+          },
+          "qpos": {
+            "standalone_shape": [
+              332,
+              38
+            ],
+            "ros_shape": [
+              332,
+              38
+            ],
+            "max_absolute_error": 0.0,
+            "atol": 1e-10,
+            "rtol": 0
+          },
+          "qvel": {
+            "standalone_shape": [
+              332,
+              37
+            ],
+            "ros_shape": [
+              332,
+              37
+            ],
+            "max_absolute_error": 0.0,
+            "atol": 1e-10,
+            "rtol": 0
+          },
+          "reward": {
+            "standalone_shape": [
+              331
+            ],
+            "ros_shape": [
+              331
+            ],
+            "max_absolute_error": 0.0,
+            "atol": 1e-10,
+            "rtol": 0
+          },
+          "time_s": {
+            "standalone_shape": [
+              332
+            ],
+            "ros_shape": [
+              332
+            ],
+            "max_absolute_error": 0.0,
+            "atol": 1e-10,
+            "rtol": 0
+          }
+        },
+        "scope": "Simulation state/action comparisons; ROS and wall timestamps intentionally differ"
+      },
+      "performance_metrics": {
+        "real-reset-busy": {
+          "one_second_goal_met": true,
+          "round_trip_s": 0.6437606670006062,
+          "result": "MET",
+          "explanation": "Busy response waits for the current bounded reset on the exclusive executor; the initial acceptance response is tested separately before reset"
+        }
+      },
+      "cleanup": {
+        "all_children_exited": true,
+        "remaining_owned_group_members": [],
+        "own_cli_daemon_stopped": true,
+        "cleanup_errors": []
+      },
+      "process_exit_codes": [
+        {
+          "log": "normal-launch.log",
+          "returncode": 0,
+          "launch_children": [
+            {
+              "name": "recovery_node-1",
+              "pid": 552190,
+              "returncode": 0
+            },
+            {
+              "name": "telemetry_node-2",
+              "pid": 552191,
+              "returncode": 0
+            }
+          ],
+          "remaining_group_members": []
+        },
+        {
+          "log": "daemon-start.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "node-list.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "service-type.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "status-qos.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "joint-qos.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "idle-echo.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "cli-accept.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "cli-busy.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "joint-echo.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "late-telemetry.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "wall-launch.log",
+          "returncode": 0,
+          "launch_children": [
+            {
+              "name": "recovery_node-1",
+              "pid": 564538,
+              "returncode": 0
+            },
+            {
+              "name": "telemetry_node-2",
+              "pid": 564539,
+              "returncode": 0
+            }
+          ],
+          "remaining_group_members": []
+        },
+        {
+          "log": "active-shutdown-launch.log",
+          "returncode": 0,
+          "launch_children": [
+            {
+              "name": "recovery_node-1",
+              "pid": 566298,
+              "returncode": 0
+            },
+            {
+              "name": "telemetry_node-2",
+              "pid": 566299,
+              "returncode": 0
+            }
+          ],
+          "remaining_group_members": []
+        },
+        {
+          "log": "readback-recovery.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "readback-telemetry.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "fault-injection-recovery.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "fault-injection-telemetry.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "invalid-startup-0.log",
+          "returncode": 1,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "invalid-startup-1.log",
+          "returncode": 1,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "invalid-startup-2.log",
+          "returncode": 1,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "invalid-startup-3.log",
+          "returncode": 1,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "invalid-startup-4.log",
+          "returncode": 1,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "missing-policy-path.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "wrong-policy-hash.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "policy-timeout-mismatch.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "missing-reference.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "incompatible-interface.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "fractional-physics-timeout.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "missing-model.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        }
+      ]
+    },
+    "baseline": {
+      "result": "PASS",
+      "exit_code": 0,
+      "checks_passed": 92,
+      "summary_sha256": "130caf92eda9912dd3b27f0b1148b413e53e314295d6df682d9a576405f923be",
+      "identity": {
+        "executable": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "cwd": "/tmp",
+        "module": "/tmp/x2-repair-20260924T151819Z/v6-fresh/build/x2_recovery/x2_recovery/recovery_node.py",
+        "prefix": "/tmp/x2-repair-20260924T151819Z/v6-fresh/install/x2_recovery",
+        "launch": "/tmp/x2-repair-20260924T151819Z/v6-fresh/install/x2_recovery/share/x2_recovery/launch/recovery.launch.py",
+        "rmw": "rmw_fastrtps_cpp",
+        "domain": "92",
+        "discovery": "LOCALHOST",
+        "source_sha256": {
+          "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/test/test_ros_integration.py": "7915b1097ae73d8b6d69c66ab18a4b3bbcf2be0c09fb715f2aa31f451b9574a7",
+          "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/x2_recovery/recovery_node.py": "43192a9f1aac4c80022d9fc6e3f7e3e422e2837e05b9c5e18abeb58d510b69d3",
+          "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/launch/recovery.launch.py": "b915912185c7df75dc0521fb2fad2c19fb150500079fe6faf680bbb0cf0757f4"
+        }
+      },
+      "episodes": [
+        {
+          "index": 1,
+          "episode": 1,
+          "status": "FAILED",
+          "reason": "time_limit",
+          "control_steps": 1000,
+          "sim_seconds": 20.000000000003563,
+          "wall_seconds": 20.614724592996936,
+          "stable_hold_s": 0.0,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 2,
+          "episode": 2,
+          "status": "FAILED",
+          "reason": "time_limit",
+          "control_steps": 1000,
+          "sim_seconds": 20.000000000003563,
+          "wall_seconds": 20.600607135002065,
+          "stable_hold_s": 0.0,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 3,
+          "episode": 1,
+          "status": "FAILED",
+          "reason": "recovery_timeout",
+          "control_steps": 120,
+          "sim_seconds": 2.399999999999763,
+          "wall_seconds": 3.010417959001643,
+          "stable_hold_s": 0.0,
+          "timeout_overshoot_s": 0.010417959001642885
+        },
+        {
+          "index": 4,
+          "episode": 1,
+          "status": "FAILED",
+          "reason": "shutdown",
+          "control_steps": 4,
+          "sim_seconds": 0.07999999999999119,
+          "wall_seconds": 0.6883337920007762,
+          "stable_hold_s": 0.0,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 5,
+          "episode": 1,
+          "status": "FAILED",
+          "reason": "time_limit",
+          "control_steps": 101,
+          "sim_seconds": 2.00299999999978,
+          "wall_seconds": 2.6222398770005384,
+          "stable_hold_s": 0.0,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 6,
+          "episode": 1,
+          "status": "FAILED",
+          "reason": "step_error",
+          "control_steps": 2,
+          "sim_seconds": 0.039999999999995595,
+          "wall_seconds": 0.6747968749987194,
+          "stable_hold_s": 0.0,
+          "timeout_overshoot_s": 0.0
+        },
+        {
+          "index": 7,
+          "episode": 2,
+          "status": "FAILED",
+          "reason": "time_limit",
+          "control_steps": 11,
+          "sim_seconds": 0.20299999999997764,
+          "wall_seconds": 0.806680834000872,
+          "stable_hold_s": 0.0,
+          "timeout_overshoot_s": 0.0
+        }
+      ],
+      "selected_checks": {
+        "single_launch_two_processes": {
+          "result": "PASS"
+        },
+        "response_reset_step_order": {
+          "result": "PASS",
+          "send_end": 19969.466819605,
+          "reset_begin": 19969.484565771,
+          "reset_end": 19970.091904355,
+          "first_step_begin": 19970.095580355
+        },
+        "same_snapshot_actual_readback": {
+          "result": "PASS",
+          "matched": 9,
+          "max_absolute_error": 0.0
+        },
+        "audited_busy_no_episode_reset_or_step_mutation": {
+          "result": "PASS",
+          "callbacks": 5
+        },
+        "normal_cleanup": {
+          "result": "PASS",
+          "children": [
+            {
+              "name": "recovery_node-1",
+              "pid": 585733,
+              "returncode": 0
+            },
+            {
+              "name": "telemetry_node-2",
+              "pid": 585734,
+              "returncode": 0
+            }
+          ]
+        },
+        "active_ctrl_c_cleanup": {
+          "result": "PASS"
+        },
+        "diagnostic_failure_processes_cleaned_up": {
+          "result": "PASS"
+        }
+      },
+      "standalone_comparison": null,
+      "performance_metrics": {
+        "real-reset-busy": {
+          "one_second_goal_met": true,
+          "round_trip_s": 0.6236491669988027,
+          "result": "MET",
+          "explanation": "Busy response waits for the current bounded reset on the exclusive executor; the initial acceptance response is tested separately before reset"
+        }
+      },
+      "cleanup": {
+        "all_children_exited": true,
+        "remaining_owned_group_members": [],
+        "own_cli_daemon_stopped": true,
+        "cleanup_errors": []
+      },
+      "process_exit_codes": [
+        {
+          "log": "normal-launch.log",
+          "returncode": 0,
+          "launch_children": [
+            {
+              "name": "recovery_node-1",
+              "pid": 585733,
+              "returncode": 0
+            },
+            {
+              "name": "telemetry_node-2",
+              "pid": 585734,
+              "returncode": 0
+            }
+          ],
+          "remaining_group_members": []
+        },
+        {
+          "log": "daemon-start.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "node-list.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "service-type.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "status-qos.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "joint-qos.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "idle-echo.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "cli-accept.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "cli-busy.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "joint-echo.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "late-telemetry.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "wall-launch.log",
+          "returncode": 0,
+          "launch_children": [
+            {
+              "name": "recovery_node-1",
+              "pid": 586508,
+              "returncode": 0
+            },
+            {
+              "name": "telemetry_node-2",
+              "pid": 586509,
+              "returncode": 0
+            }
+          ],
+          "remaining_group_members": []
+        },
+        {
+          "log": "active-shutdown-launch.log",
+          "returncode": 0,
+          "launch_children": [
+            {
+              "name": "recovery_node-1",
+              "pid": 586611,
+              "returncode": 0
+            },
+            {
+              "name": "telemetry_node-2",
+              "pid": 586612,
+              "returncode": 0
+            }
+          ],
+          "remaining_group_members": []
+        },
+        {
+          "log": "readback-recovery.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "readback-telemetry.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "fault-injection-recovery.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "fault-injection-telemetry.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "invalid-startup-0.log",
+          "returncode": 1,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "invalid-startup-1.log",
+          "returncode": 1,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "invalid-startup-2.log",
+          "returncode": 1,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "invalid-startup-3.log",
+          "returncode": 1,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "invalid-startup-4.log",
+          "returncode": 1,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "fractional-physics-timeout.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        },
+        {
+          "log": "missing-model.log",
+          "returncode": 0,
+          "launch_children": [],
+          "remaining_group_members": []
+        }
+      ]
+    }
+  },
+  "checkpoint_sha256": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+  "input_hashes_after": {
+    "policy_final.zip": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+    "resolved_config.json": "6973248b351408dcad0d48ad54c0ee3187760ed3e9c3ca50d045202e4878db73",
+    "reload_validation.json": "cf21ed9e0f4a1cabdba1375f6050b089f7106d28c66d8b9b3e1f7518ccaba833"
+  },
+  "input_identity_unchanged": true,
+  "source_hashes_after": {
+    "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/test/test_ros_integration.py": "7915b1097ae73d8b6d69c66ab18a4b3bbcf2be0c09fb715f2aa31f451b9574a7",
+    "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/x2_recovery/env.py": "c4a5bc96dd7a26bcfec73c648a63ab476c65bdde4543fca0fb92f037fb041da0",
+    "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/x2_recovery/recovery_node.py": "43192a9f1aac4c80022d9fc6e3f7e3e422e2837e05b9c5e18abeb58d510b69d3",
+    "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/launch/recovery.launch.py": "b915912185c7df75dc0521fb2fad2c19fb150500079fe6faf680bbb0cf0757f4"
+  },
+  "source_identity_unchanged": true,
+  "reference_original_unchanged": true,
+  "remaining_owned_domains": [],
+  "commands": "commands.json",
+  "source_install": "/tmp/x2-repair-20260924T151819Z/v6-fresh/install/setup.bash",
+  "scope": "New trained targets-v6 policy real ROS success and separate scripted_baseline regression.142 and92 checks overlap; these are not234 independent recovery trials. Normal policy launch2 full success episodes; instrumented readback2 full successes; injected-fault recovery retry1 success, plus explicit timeout/shutdown/error scenarios. Wrapper records actual original simulation, never changes success criteria or physics. No training or production source changes by this acceptance task."
+}

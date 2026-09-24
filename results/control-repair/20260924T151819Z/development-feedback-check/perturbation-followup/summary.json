@@ -1,0 +1,23 @@
+{
+  "status": "COMPLETE",
+  "planned": 4,
+  "completed": 4,
+  "invalid": 0,
+  "not_executed": 0,
+  "nominal_three_hashes_match": null,
+  "perturbed_planned": 4,
+  "perturbed_valid": 4,
+  "perturbed_success": 3,
+  "perturbed_feasible": 2,
+  "distinct_valid_handoff_states": 4,
+  "fatal": null,
+  "exceptions": [],
+  "inputs_unchanged": true,
+  "source_unchanged": true,
+  "wall_seconds": 31.160983806999866,
+  "controller": "reference_motion_plus_observation_only_analytical_ankle_feedback",
+  "training": false,
+  "weight_transfer": false,
+  "ppo_control_inference": false,
+  "interpretation": "Small preregistered development check only; not formal five, not held-out robustness and not evidence of PPO contribution. All illegal resets retained; no replacements."
+}

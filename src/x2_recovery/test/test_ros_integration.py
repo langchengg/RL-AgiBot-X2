@@ -70,6 +70,30 @@ def instrumented_node(events_path, inject_step_error=False):
     from x2_recovery import recovery_node as rn
     stream = open(events_path, 'x', buffering=1)
     traces = {}
+    prepare_count = 0
+    prepare = rn.prepare_policy
+    native_reset = rn.X2RecoveryEnv.reset
+    native_step = rn.X2RecoveryEnv.step
+
+    def prepared(*args, **kwargs):
+        nonlocal prepare_count
+        prepare_count += 1
+        event('prepare_begin', count=prepare_count)
+        try:
+            result = prepare(*args, **kwargs)
+            event('prepare_end', count=prepare_count, success=True)
+            return result
+        except BaseException as exc:
+            event('prepare_end', count=prepare_count, success=False, error=type(exc).__name__)
+            raise
+
+    def physical_reset(env, *args, **kwargs):
+        event('native_reset_called')
+        return native_reset(env, *args, **kwargs)
+
+    def physical_step(env, *args, **kwargs):
+        event('native_step_called')
+        return native_step(env, *args, **kwargs)
 
     def event(kind, **fields):
         stream.write(json.dumps(dict(event=kind, monotonic_s=time.monotonic(), **fields),
@@ -79,6 +103,13 @@ def instrumented_node(events_path, inject_step_error=False):
         def __init__(self, **kwargs):
             super().__init__(**kwargs)
             self.audit_reset_count = 0
+            self.audit_policy_before = None
+            self.audit_prediction = None
+            event('constructed', controller=self.controller, controller_ready=self.controller_ready,
+                  initialization_error=self.initialization_error, status=self.status,
+                  loaded_controller=self.audit_loaded_controller,
+                  has_environment=self.env is not None, has_timer=self.timer is not None,
+                  prepare_count=prepare_count)
             send = self.service.send_response
             def sending(response, header):
                 event('send_begin', success=response.success, episode=self.episode)
@@ -86,6 +117,22 @@ def instrumented_node(events_path, inject_step_error=False):
                 event('send_end', success=response.success, episode=self.episode)
                 return result
             self.service.send_response = sending
+            if not self.controller_ready:
+                return
+            if self.policy is not None:
+                self.audit_policy_before = {key: value.detach().cpu().clone()
+                    for key, value in self.policy.policy.state_dict().items()}
+                predict = self.policy.predict
+                def predicted(observation, *args, **kwargs):
+                    result = predict(observation, *args, **kwargs)
+                    self.audit_prediction = np.asarray(result[0]).copy()
+                    event('predict_end', episode=self.episode,
+                          deterministic=kwargs.get('deterministic') is True,
+                          observation_matches_current=np.array_equal(observation, self.observation),
+                          observation_shape=list(np.shape(observation)),
+                          action_shape=list(np.shape(result[0])))
+                    return result
+                self.policy.predict = predicted
             for operation in ('reset', 'step'):
                 original = getattr(self.env, operation)
                 def call(*args, _op=operation, _original=original, **kw):
@@ -95,15 +142,24 @@ def instrumented_node(events_path, inject_step_error=False):
                     try:
                         result = _original(*args, **kw)
                         event(_op+'_end', episode=self.episode, elapsed_sim_s=result[-1]['elapsed_sim_s'],
-                              physics_steps=self.physical_env._physics_steps,
-                              reset_evidence=self.physical_env.reset_evidence if _op == 'reset' else None)
+                              physics_steps=self.base_env._physics_steps,
+                              reset_evidence=self.base_env.reset_evidence if _op == 'reset' else None)
                         trace = traces.setdefault(self.episode, {name: [] for name in
                             ('observations', 'actions', 'qpos', 'qvel', 'reward', 'time_s')})
                         trace['observations'].append(np.asarray(result[0]).copy())
-                        trace['qpos'].append(self.physical_env.data.qpos.copy())
-                        trace['qvel'].append(self.physical_env.data.qvel.copy())
+                        trace['qpos'].append(self.base_env.data.qpos.copy())
+                        trace['qvel'].append(self.base_env.data.qvel.copy())
                         trace['time_s'].append(result[-1]['elapsed_sim_s'])
                         if _op == 'step':
+                            if self.policy is not None:
+                                controller = result[-1]['controller']
+                                event('control_pipeline', episode=self.episode,
+                                    step=self.control_steps+1,
+                                    action_matches_prediction=np.array_equal(args[0], self.audit_prediction),
+                                    action_matches_wrapper=np.array_equal(args[0], controller['policy_action']),
+                                    residual_gate=controller['residual_gate'],
+                                    max_abs_gated_residual_rad=float(np.max(np.abs(controller['gated_residual_rad']))),
+                                    max_abs_ctrl_Nm=float(np.max(np.abs(self.base_env.data.ctrl))))
                             trace['actions'].append(np.asarray(args[0]).copy())
                             trace['reward'].append(result[1])
                         if inject_step_error and self.episode == 1 and _op == 'step' and self.control_steps == 2:
@@ -119,7 +175,21 @@ def instrumented_node(events_path, inject_step_error=False):
                 event('close_begin'); original_close(); event('close_end')
             self.env.close = close
 
+        def _finish(self, status, reason, completed_at, **details):
+            was_busy = self.busy
+            super()._finish(status, reason, completed_at, **details)
+            if was_busy and self.audit_policy_before is not None:
+                import torch
+                current = self.policy.policy.state_dict()
+                unchanged = current.keys() == self.audit_policy_before.keys() and all(
+                    torch.equal(value.detach().cpu(), self.audit_policy_before[key])
+                    for key, value in current.items())
+                event('policy_state_check', episode=self.episode, status=status,
+                      unchanged=unchanged, tensors=len(current))
+
         def _log(self, kind, **fields):
+            if kind in ('ready', 'initialization_failed'):
+                self.audit_loaded_controller = fields.get('loaded_controller')
             event('node_event', name=kind, episode=self.episode, fields=fields)
             return super()._log(kind, **fields)
 
@@ -138,13 +208,13 @@ def instrumented_node(events_path, inject_step_error=False):
 
         def _sample(self):
             captured = []
-            read = self.physical_env.loaded.read_state
+            read = self.base_env.loaded.read_state
             def readback(data):
                 q, dq = read(data)
-                captured.append(dict(names=[r.joint_name for r in self.physical_env.loaded.mapping],
+                captured.append(dict(names=[r.joint_name for r in self.base_env.loaded.mapping],
                                      q=q.tolist(), dq=dq.tolist(), sim_time_s=float(data.time)))
                 return q, dq
-            with patch.object(self.physical_env.loaded, 'read_state', side_effect=readback):
+            with patch.object(self.base_env.loaded, 'read_state', side_effect=readback):
                 message = super()._sample()
             event('sample_created', episode=self.episode, step=self.control_steps,
                   stamp=[message.header.stamp.sec, message.header.stamp.nanosec])
@@ -155,7 +225,10 @@ def instrumented_node(events_path, inject_step_error=False):
             return message
 
     try:
-        with patch.object(rn, 'RecoveryNode', RecordedRecovery):
+        with patch.object(rn, 'RecoveryNode', RecordedRecovery), \
+                patch.object(rn, 'prepare_policy', side_effect=prepared), \
+                patch.object(rn.X2RecoveryEnv, 'reset', physical_reset), \
+                patch.object(rn.X2RecoveryEnv, 'step', physical_step):
             return rn.main()
     finally:
         stream.close()
@@ -175,7 +248,7 @@ def records(path):
     return result
 
 
-def run(output, training_run=None, checkpoint=None, reference_trace=None):
+def run(output, controller_run=None, checkpoint=None, reference_trace=None):
     import hashlib
     import rclpy
     from rclpy.executors import SingleThreadedExecutor
@@ -187,6 +260,7 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
     from ament_index_python.packages import get_package_prefix, get_package_share_directory
     from x2_recovery.telemetry_node import STATUS_QOS, JOINT_QOS, validate_joint_state
     from x2_recovery import recovery_node
+    from x2_recovery.success import CALIBRATED_SETTINGS
     from ros2cli.node.daemon import DaemonNode, is_daemon_running, shutdown_daemon
     from ros2cli.daemon import get_xmlrpc_server_url
     from types import SimpleNamespace
@@ -195,10 +269,10 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
     daemon_args = SimpleNamespace()
     daemon_was_running = is_daemon_running(daemon_args)
     output.mkdir(parents=True, exist_ok=False)
-    policy_mode = training_run is not None
+    policy_mode = controller_run is not None
     controller = 'reference_residual' if policy_mode else 'scripted_baseline'
-    policy_launch = ([f'controller:={controller}', f'training_run:={training_run}',
-                      f'expected_checkpoint_sha256:={checkpoint}'] if policy_mode else [])
+    policy_launch = ([f'controller_run:={controller_run}',
+                      f'expected_checkpoint_sha256:={checkpoint}'] if policy_mode else ['controller:=scripted_baseline'])
     policy_parameters = [part for value in policy_launch for part in ('-p', value)]
     report = dict(controller=controller, checks={}, processes=[], rpc=[], cli=[], episodes=[],
                   identity=dict(executable=sys.executable, cwd=os.getcwd(),
@@ -434,6 +508,44 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
         wait(lambda: statuses and statuses[-1][1] == record['status'])
         return record
 
+    def failed_startup(label, parameters, expected_message, requested_controller,
+                       environment_prefix=()):
+        nonlocal scenario
+        scenario = label
+        statuses.clear(); joints.clear()
+        evidence_path = output/(label+'-events.jsonl')
+        bad, bad_log = spawn([*environment_prefix, sys.executable, str(Path(__file__).resolve()),
+            '--instrumented-node', str(evidence_path), '--ros-args', *parameters], label)
+        wait(lambda: client.service_is_ready() and statuses and statuses[-1][1] == 'FAILED'
+             and any(e['event'] == 'constructed' for e in records(evidence_path)), 20.)
+        response = rpc(label+'-request-rejected', False)
+        pump(.15)
+        evidence = records(evidence_path)
+        constructed = next(e for e in evidence if e['event'] == 'constructed')
+        check(label+'-diagnostic-failed', bad.poll() is None and not constructed['controller_ready']
+              and constructed['status'] == 'FAILED' and not constructed['has_timer']
+              and constructed['initialization_error'] is not None
+              and expected_message in bad_log.read_text(), expected_error=expected_message,
+              initialization_error=constructed['initialization_error'])
+        check(label+'-no-execution-or-fallback', constructed['controller'] == requested_controller
+              and constructed['loaded_controller'] is None and not constructed['has_environment']
+              and not joints and not any(e['event'] in ('native_reset_called', 'native_step_called',
+                  'reset_begin', 'step_begin', 'predict_end') for e in evidence)
+              and all(e['after']['episode'] == 0 and e['after']['control_steps'] == 0
+                      for e in evidence if e['event'] == 'callback_return'),
+              requested_controller=requested_controller, observed=constructed,
+              request_message=response['message'])
+        check(label+'-cleanup', stop(bad) == 0)
+        wait(lambda: not client.service_is_ready(), 5.)
+
+    def policy_succeeded(record):
+        result = record.get('environment_result') or {}
+        return (record['status'] == 'SUCCEEDED' and record['reason'] == 'success'
+                and result.get('is_success') is True and result.get('terminated') is True
+                and result.get('truncated') is False and not result.get('standing_failures')
+                and result.get('stable_duration_s', 0.)+1e-8 >= CALIBRATED_SETTINGS.hold_s
+                and record['control_steps'] > 0 and record['elapsed_sim_s'] > 0.)
+
     prefix = Path(get_package_prefix('x2_recovery'))/'lib/x2_recovery'
     try:
         check('installed_outside_checkout', Path.cwd() == Path('/tmp') and 'install' in str(prefix)
@@ -441,9 +553,11 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
               and Path(prefix/'recovery_node').read_text().splitlines()[0] == '#!'+sys.executable)
         statuses.clear(); joints.clear()
         scenario = 'normal-episode-1'
+        normal_launch_parameters = ([f'controller_run:={controller_run}']
+            if policy_mode and checkpoint == recovery_node.PUBLISHED_CHECKPOINT_SHA256 else policy_launch)
         launch, log = spawn(['ros2', 'launch', 'x2_recovery', 'recovery.launch.py',
                               'seed:=221030' if policy_mode else 'seed:=60', 'episode_timeout_s:=20.0',
-                              'recovery_timeout_s:=30.0', *policy_launch], 'normal-launch')
+                              'recovery_timeout_s:=30.0', *normal_launch_parameters], 'normal-launch')
         ready(log)
         check('single_launch_two_processes', 'process started with pid' in log.read_text()
               and 'telemetry_node-' in log.read_text() and 'recovery_node-' in log.read_text())
@@ -483,14 +597,14 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
         cli(['topic','echo','/x2/joint_states','sensor_msgs/msg/JointState','--once','--timeout','5'], 'joint-echo')
         result = finished(log, 1)
         check('real_policy_success' if policy_mode else 'simulation_timeout',
-              (result['status'] == 'SUCCEEDED' and result['reason'] == 'success'
-               and abs(result['elapsed_sim_s']-4.856) < 1e-8 and result['control_steps'] == 243
-               if policy_mode else result['status'] == 'FAILED' and result['reason'] == 'time_limit'
+              (policy_succeeded(result) if policy_mode else result['status'] == 'FAILED' and result['reason'] == 'time_limit'
                and abs(result['elapsed_sim_s']-20.) < 1e-8 and result['control_steps'] == 1000)
               and result['wall_s'] < 30., **result)
+        normal_first = result
         if policy_mode:
             identity = next(r for r in records(log) if r.get('event') == 'ready')
             check('policy_startup_identity', identity['controller'] == controller
+                  and identity['loaded_controller'] == controller and identity['controller_ready'] is True
                   and identity['input_hashes']['policy_final.zip'] == checkpoint
                   and identity['observation_dimension'] == 149 and identity['action_dimension'] == 17
                   and identity['controlled_joints'] == 31 and identity['deterministic'] is True
@@ -516,8 +630,8 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
         scenario = 'normal-episode-2'
         rpc('same-instance-accept', True)
         second = finished(log, 2)
-        check('same_instance_new_episode', second['episode'] == 2 and second['control_steps'] == (243 if policy_mode else 1000)
-              and second['reason'] == ('success' if policy_mode else 'time_limit') and len([r for r in records(log)
+        check('same_instance_new_episode', second['episode'] == 2 and second['control_steps'] == normal_first['control_steps']
+              and (policy_succeeded(second) if policy_mode else second['reason'] == 'time_limit') and len([r for r in records(log)
               if r.get('event') == 'reset_completed']) == 2)
         check('normal_cleanup', stop(launch) == 0 and '"event": "closed"' in log.read_text()
               and clean_launch_children(launch),
@@ -580,13 +694,16 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
         for i in range(4): rpc(f'readback-stepping-busy-{i}', False)
         result = finished(audit_log, 1)
         if policy_mode:
-            check('instrumented_real_policy_success', result['status'] == 'SUCCEEDED'
-                  and result['reason'] == 'success', **result)
+            check('instrumented_real_policy_success', policy_succeeded(result), **result)
         events = records(events_path)
         begin = next(e for e in events if e['event'] == 'reset_begin')
         end = next(e for e in events if e['event'] == 'reset_end')
         sent = next(e for e in events if e['event'] == 'send_end' and e['success'])
         check('acceptance_sent_before_reset', sent['monotonic_s'] < begin['monotonic_s'])
+        constructed = next(e for e in events if e['event'] == 'constructed')
+        native_calls = [e for e in events if e['event'] in ('native_reset_called', 'native_step_called')]
+        check('initialization_has_no_reset_or_step', constructed['monotonic_s'] < sent['monotonic_s']
+              and bool(native_calls) and all(e['monotonic_s'] >= begin['monotonic_s'] for e in native_calls))
         first_step = next(e for e in events if e['event'] == 'step_begin')
         check('response_reset_step_order', sent['monotonic_s'] < begin['monotonic_s']
               < end['monotonic_s'] < first_step['monotonic_s'], send_end=sent['monotonic_s'],
@@ -640,9 +757,33 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
             scenario = 'readback-complete-retry-episode-2'
             rpc('readback-complete-retry-accept', True)
             policy_retry = finished(audit_log, 2)
-            check('instrumented_policy_retry_success', policy_retry['status'] == 'SUCCEEDED'
-                  and policy_retry['control_steps'] == 243
-                  and abs(policy_retry['elapsed_sim_s']-4.856) < 1e-8, **policy_retry)
+            check('instrumented_policy_retry_success', policy_succeeded(policy_retry)
+                  and policy_retry['control_steps'] == result['control_steps']
+                  and abs(policy_retry['elapsed_sim_s']-result['elapsed_sim_s']) < 1e-8, **policy_retry)
+            wait(lambda: any(e['event'] == 'policy_state_check' and e['episode'] == 2
+                             for e in records(events_path)), 2.)
+            policy_events = records(events_path)
+            prepare_events = [e for e in policy_events if e['event'] == 'prepare_begin']
+            predictions = [e for e in policy_events if e['event'] == 'predict_end' and e['episode'] in (1, 2)]
+            controls = [e for e in policy_events if e['event'] == 'control_pipeline' and e['episode'] in (1, 2)]
+            completed = result['control_steps']+policy_retry['control_steps']
+            check('policy_loaded_once_for_two_episodes', len(prepare_events) == 1
+                  and len([e for e in policy_events if e['event'] == 'prepare_end' and e['success']]) == 1)
+            check('deterministic_current_observation_pipeline', len(predictions) == completed
+                  and all(e['deterministic'] and e['observation_matches_current']
+                          and e['observation_shape'] == [149] and e['action_shape'] == [17]
+                          for e in predictions), calls=len(predictions))
+            check('predicted_action_reaches_complete_wrapper', len(controls) == completed
+                  and all(e['action_matches_prediction'] and e['action_matches_wrapper'] for e in controls),
+                  controls=len(controls))
+            active = [e for e in controls if e['residual_gate'] > 0
+                      and e['max_abs_gated_residual_rad'] > 0 and e['max_abs_ctrl_Nm'] > 0]
+            check('nonzero_residual_enabled_in_both_episodes', {e['episode'] for e in active} == {1, 2},
+                  active_transitions=len(active),
+                  max_abs_gated_residual_rad=max((e['max_abs_gated_residual_rad'] for e in active), default=0.))
+            unchanged = [e for e in policy_events if e['event'] == 'policy_state_check' and e['episode'] in (1, 2)]
+            check('policy_state_unchanged_after_two_episodes', len(unchanged) == 2
+                  and all(e['status'] == 'SUCCEEDED' and e['unchanged'] for e in unchanged), evidence=unchanged)
         shutdown_episode = 3 if policy_mode else 2
         scenario = f'readback-active-shutdown-episode-{shutdown_episode}'
         rpc('shutdown-active-accept', True)
@@ -693,16 +834,16 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
         scenario = 'retry-after-synthetic-fault-episode-2'
         rpc('retry-after-fault-accept', True)
         retry = finished(fault_log, 2)
-        check('real_reset_after_synthetic_fault', retry['reason'] == ('success' if policy_mode else 'time_limit') and
-              retry['episode'] == 2 and retry['control_steps'] == (243 if policy_mode else 11))
+        check('real_reset_after_synthetic_fault', (policy_succeeded(retry) if policy_mode else retry['reason'] == 'time_limit') and
+              retry['episode'] == 2 and retry['control_steps'] == (normal_first['control_steps'] if policy_mode else 11))
         stop(faulty); stop(fault_telemetry)
         wait(lambda: not client.service_is_ready(), 5.)
         for index, args in enumerate([
-            ['-p','seed:=-1'], ['-p','episode_timeout_s:=0.0205'],
+            ['-p','seed:=-1'],
             ['-p','recovery_timeout_s:=0.0'], ['-p','use_sim_time:=true'],
             ['-p','episode_timeout_s:=0.0'], ['-p','episode_timeout_s:=-1.0']]):
             scenario = f'invalid-startup-{index}'
-            bad, bad_log = spawn([str(prefix/'recovery_node'),'--ros-args',*args], f'invalid-startup-{index}')
+            bad, bad_log = spawn([str(prefix/'recovery_node'),'--ros-args','-p','controller:=scripted_baseline',*args], f'invalid-startup-{index}')
             wait(lambda: bad.poll() is not None, 10.)
             stop(bad)
             check(f'invalid-startup-{index}', bad.returncode != 0 and '"event": "ready"' not in bad_log.read_text()
@@ -719,7 +860,7 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
                     directory.mkdir()
                     for name in ('policy_final.zip', 'resolved_config.json', 'manifest.json',
                                  'reload_validation.json', 'reload_probe.npz', 'progress.csv'):
-                        shutil.copyfile(training_run/name, directory/name)
+                        shutil.copyfile(controller_run/name, directory/name)
                     config = json.loads((directory/'resolved_config.json').read_text())
                     manifest = json.loads((directory/'manifest.json').read_text())
                     if label == 'missing-reference':
@@ -733,30 +874,25 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
                     manifest['config_sha256'] = hashlib.sha256(
                         (directory/'resolved_config.json').read_bytes()).hexdigest()
                     dump(directory/'manifest.json', manifest)
-                    fixtures.append((label, ['-p', f'training_run:={directory}'],
+                    fixtures.append((label, ['-p', f'controller_run:={directory}'],
                         'Incomplete controller configuration' if label == 'missing-reference'
                         else 'Controller interface shape mismatch'))
                 cases = [
-                    ('missing-policy-path', ['-p', 'training_run:=/nonexistent/x2-controller'], 'Missing input:'),
+                    ('missing-policy-path', ['-p', 'controller_run:=/nonexistent/x2-controller'], 'Missing input:'),
                     ('wrong-policy-hash', ['-p', 'expected_checkpoint_sha256:='+'f'*64], 'Checkpoint identity mismatch'),
                     ('policy-timeout-mismatch', ['-p', 'episode_timeout_s:=2.0'], 'saved configuration'),
                     *fixtures]
                 for label, override, expected_message in cases:
-                    scenario = label
-                    bad, bad_log = spawn([str(prefix/'recovery_node'), '--ros-args',
-                                          *policy_parameters, *override], label)
-                    wait(lambda: bad.poll() is not None, 20.)
-                    stop(bad)
-                    check(label, bad.returncode != 0 and '"event": "ready"' not in bad_log.read_text()
-                          and expected_message in bad_log.read_text(), expected_error=expected_message,
-                          scope='Real startup rejection; tampered fixtures are temporary copies')
-        # Missing assets are a real startup fault, isolated to this child process.
-        bad, bad_log = spawn(['env','X2_ASSET_REPO=/nonexistent/x2-assets',str(prefix/'recovery_node')], 'missing-model')
-        wait(lambda: bad.poll() is not None, 10.)
-        stop(bad)
-        check('model_load_failure', bad.returncode != 0 and '"event": "ready"' not in bad_log.read_text()
-              and 'Missing asset repository:' in bad_log.read_text())
-        check('startup_failures_no_service', not client.service_is_ready())
+                    failed_startup(label, [*policy_parameters, *override], expected_message,
+                                   'reference_residual')
+        failed_startup('fractional-physics-timeout',
+                       ['-p', 'controller:=scripted_baseline', '-p', 'episode_timeout_s:=0.0205'],
+                       'Timeout must align to physics timestep', 'scripted_baseline')
+        # Bad model assets retain diagnostics too; the environment never starts.
+        failed_startup('missing-model', ['-p', 'controller:=scripted_baseline'],
+                       'Missing asset repository:', 'scripted_baseline',
+                       environment_prefix=['env', 'X2_ASSET_REPO=/nonexistent/x2-assets'])
+        check('diagnostic_failure_processes_cleaned_up', not client.service_is_ready())
         report['result'] = 'PASS'
         return 0
     except BaseException as exc:
@@ -831,13 +967,13 @@ if __name__ == '__main__':
         sys.exit(instrumented_node(path, inject))
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', type=Path, required=True)
-    parser.add_argument('--training-run', type=Path, help='Enable real reference-residual acceptance')
+    parser.add_argument('--controller-run', type=Path, help='Enable real reference-residual acceptance')
     parser.add_argument('--expected-checkpoint-sha256')
     parser.add_argument('--reference-trace', type=Path, help='Standalone control_trace.npz for numeric comparison')
     args = parser.parse_args()
-    if bool(args.training_run) != bool(args.expected_checkpoint_sha256):
-        parser.error('--training-run and --expected-checkpoint-sha256 are required together')
+    if bool(args.controller_run) != bool(args.expected_checkpoint_sha256):
+        parser.error('--controller-run and --expected-checkpoint-sha256 are required together')
     sys.exit(run(args.output_dir.resolve(),
-                 args.training_run.resolve() if args.training_run else None,
+                 args.controller_run.resolve() if args.controller_run else None,
                  args.expected_checkpoint_sha256,
                  args.reference_trace.resolve() if args.reference_trace else None))

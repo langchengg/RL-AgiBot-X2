@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "compared": "Full postintegration qpos then qvel bytes at each recovery physics sample",
+  "streaming_sha256": "a19c2500ada9c527be6fb422d5f646a949026617aec0f47a8233c996eeac1673",
+  "full_observer_sha256": "a19c2500ada9c527be6fb422d5f646a949026617aec0f47a8233c996eeac1673",
+  "samples": 4784,
+  "source": "generation-01/best_infeasible.json",
+  "scope": "Streaming observer and existing full observer produce exactly identical dynamics for the same candidate; original full observer noninterference is independently validated in historical evidence."
+}

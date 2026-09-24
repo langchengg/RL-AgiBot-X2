@@ -1,0 +1,452 @@
+{
+  "schema": "paired-reset-review-v1",
+  "planned": 20,
+  "valid_pairs": 20,
+  "invalid_or_blocked_pairs": 0,
+  "reset_candidates_attempted": 20,
+  "reset_rejections": 0,
+  "minimum_pairwise_handoff_difference": 0.0022995096711316988,
+  "pairs": [
+    {
+      "pair": 1,
+      "seed": 26092500,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 2,
+      "seed": 26092501,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 3,
+      "seed": 26092502,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 4,
+      "seed": 26092503,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 5,
+      "seed": 26092504,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 6,
+      "seed": 26092505,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 7,
+      "seed": 26092506,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 8,
+      "seed": 26092507,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 9,
+      "seed": 26092508,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 10,
+      "seed": 26092509,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 11,
+      "seed": 26092510,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 12,
+      "seed": 26092511,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 13,
+      "seed": 26092512,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 14,
+      "seed": 26092513,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 15,
+      "seed": 26092514,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 16,
+      "seed": 26092515,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 17,
+      "seed": 26092516,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 18,
+      "seed": 26092517,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 19,
+      "seed": 26092518,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    },
+    {
+      "pair": 20,
+      "seed": 26092519,
+      "valid": true,
+      "A_B_handoff_max_abs": {
+        "reset_qpos": 0.0,
+        "reset_qvel": 0.0,
+        "reset_observation": 0.0
+      },
+      "A_success": true,
+      "B_success": true,
+      "success_outcome": "tie",
+      "B_minus_A_success_time_s": 0.0,
+      "B_minus_A_joint_excess_rad": 0.0,
+      "B_minus_A_peak_ground_N": 0.0
+    }
+  ],
+  "controllers": {
+    "A_reference": {
+      "completed": 20,
+      "successes": 20,
+      "constraint_envelope_passes": 20,
+      "admissible_recoveries": 20,
+      "ranges": {
+        "joint_excess_max_rad": {
+          "min": 0.0,
+          "max": 0.0
+        },
+        "joint_excess_duration_s": {
+          "min": 0.0,
+          "max": 0.0
+        },
+        "max_velocity_rad_s": {
+          "min": 3.5623726169083003,
+          "max": 3.941600015500039
+        },
+        "torque_ratio": {
+          "min": 1.0,
+          "max": 1.0
+        },
+        "floor_penetration_m": {
+          "min": 0.0031343515959392455,
+          "max": 0.003498473995414193
+        },
+        "self_penetration_m": {
+          "min": 0.0016616560082663113,
+          "max": 0.0016707040544149448
+        },
+        "floor_contact_load_N": {
+          "min": 768.5196797021271,
+          "max": 850.6123284613799
+        }
+      }
+    },
+    "B_residual": {
+      "completed": 20,
+      "successes": 20,
+      "constraint_envelope_passes": 20,
+      "admissible_recoveries": 20,
+      "ranges": {
+        "joint_excess_max_rad": {
+          "min": 0.0,
+          "max": 0.0
+        },
+        "joint_excess_duration_s": {
+          "min": 0.0,
+          "max": 0.0
+        },
+        "max_velocity_rad_s": {
+          "min": 3.5623726169083003,
+          "max": 3.941600015500039
+        },
+        "torque_ratio": {
+          "min": 1.0,
+          "max": 1.0
+        },
+        "floor_penetration_m": {
+          "min": 0.0031343515959392455,
+          "max": 0.003498473995414193
+        },
+        "self_penetration_m": {
+          "min": 0.0016616560082663113,
+          "max": 0.0016707040544149448
+        },
+        "floor_contact_load_N": {
+          "min": 768.5196797021271,
+          "max": 850.6123284613799
+        }
+      }
+    }
+  },
+  "success_outcomes": {
+    "A_win": 0,
+    "B_win": 0,
+    "tie": 20
+  },
+  "both_success_pairs": 20,
+  "B_minus_A_success_time_s": {
+    "min": 0.0,
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0
+  },
+  "wall_seconds": 269.42090075300075,
+  "source_identity": {
+    "input_sha256": {
+      "policy_final.zip": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+      "resolved_config.json": "6973248b351408dcad0d48ad54c0ee3187760ed3e9c3ca50d045202e4878db73",
+      "manifest.json": "0f450a3457b7a0346177c48a26c9d12be87601352c92943f560126d346da773a",
+      "reload_probe.npz": "3a73d17888b44e0f928f05d1bb9ea8821256e286db9e04f99d5537c7faa86ebc",
+      "progress.csv": "686493b8c035707af1af3fe62b1f39bc39409d77dc5dc5b2b0e5ad5a5c7df595",
+      "reload_validation.json": "cf21ed9e0f4a1cabdba1375f6050b089f7106d28c66d8b9b3e1f7518ccaba833"
+    },
+    "deployment_difference": {
+      "reset_perturb_rad": {
+        "published": 0.0,
+        "deployment": 0.002
+      }
+    },
+    "input_interface": {
+      "max_abs_error": 0.0,
+      "atol": 1e-07,
+      "rtol": 1e-06,
+      "observations": 16,
+      "action_shape": [
+        16,
+        17
+      ]
+    },
+    "controller_config_sha256": "2298b6d8576d2cf17e63267b33fc46cd1e23e7c50fb85a11fba888f473759ef3",
+    "audit_source_sha256": "1fb81ff48deb366c2ca1b8adf6126eb7a8de78519db6212ceceae9cb1df1f86d",
+    "runner_sha256": "4b08ef789b143086fdb522eea1fd075e2abd8a35bda5f2cdd5cbbd494a4d82cf",
+    "protocol_manifest_sha256": "9a1ab53e5ba0a8b64d5eacc4539d295a2b459b61aee35edf3fffeb3786c5fe17",
+    "deterministic": true,
+    "device": "cpu"
+  },
+  "policy_weights_unchanged": true,
+  "claims": "20 distinct physical initial states, 40 controller runs; paired development data. Success and the conservative full-process constraint envelope are separate. Success differences are descriptive; this batch does not establish broad robustness or a causal training benefit."
+}

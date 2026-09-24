@@ -80,7 +80,8 @@ class RecoveryLogicTests(unittest.TestCase):
         self.env_patch = patch.object(rn, 'X2RecoveryEnv', return_value=self.env)
         self.time_patch.start(); self.env_patch.start()
         self.addCleanup(self.time_patch.stop); self.addCleanup(self.env_patch.stop)
-        self.node = rn.RecoveryNode(context=self.context)
+        self.node = rn.RecoveryNode(context=self.context, parameter_overrides=[
+            Parameter('controller', value='scripted_baseline')])
         self.addCleanup(self.context.shutdown)
         self.addCleanup(self.node.destroy_node)
         self.addCleanup(self.node.close)
@@ -92,6 +93,15 @@ class RecoveryLogicTests(unittest.TestCase):
 
     def finish_logs(self):
         return [r for r in self.logs if r['event'] == 'finished']
+
+    def test_explicit_baseline_ignores_unused_default_checkpoint(self):
+        self.assertEqual(self.node.controller, 'scripted_baseline')
+        self.assertEqual(self.node.controller_run, '')
+        self.assertEqual(self.node.expected_checkpoint_sha256, rn.PUBLISHED_CHECKPOINT_SHA256)
+        self.assertTrue(self.node.controller_ready)
+        self.assertIsNone(self.node.initialization_error)
+        self.assertIs(self.node.base_env, self.env)
+        self.assertEqual(self.node.status, 'IDLE')
 
     def test_acceptance_pending_busy_no_environment_calls_or_mutation(self):
         self.assertEqual((self.env.resets, self.env.steps), (0, 0))
@@ -261,9 +271,18 @@ class RecoveryLogicTests(unittest.TestCase):
 
     def test_startup_cleanup_does_not_replace_first_error(self):
         with patch.object(self.env.loaded, 'mapping', ()), \
-                patch.object(self.env, 'close', side_effect=RuntimeError('secondary cleanup')):
-            with self.assertRaisesRegex(ValueError, 'Invalid controlled joint mapping'):
-                rn.RecoveryNode(context=self.context)
+                patch.object(self.env, 'close', side_effect=RuntimeError('secondary cleanup')) as close:
+            failed = rn.RecoveryNode(context=self.context, parameter_overrides=[
+                Parameter('controller', value='scripted_baseline')])
+            self.addCleanup(failed.destroy_node)
+            self.addCleanup(failed.close)
+            self.assertEqual(failed.status, 'FAILED')
+            self.assertFalse(failed.controller_ready)
+            self.assertIn('Invalid controlled joint mapping', str(failed.initialization_error))
+            self.assertNotIn('secondary cleanup', str(failed.initialization_error))
+            self.assertFalse(failed._start(Trigger.Request(), Trigger.Response()).success)
+            failed.close(); failed.close()
+            close.assert_called_once()
 
     def test_startup_parameters_and_runtime_changes_rejected(self):
         for name in ('seed', 'episode_timeout_s', 'recovery_timeout_s', 'use_sim_time'):
@@ -275,7 +294,8 @@ class RecoveryLogicTests(unittest.TestCase):
                             ('recovery_timeout_s', float('nan')), ('episode_timeout_s', -1.),
                             ('use_sim_time', True)]:
             with self.assertRaises((ValueError, RuntimeError)):
-                rn.RecoveryNode(context=self.context, parameter_overrides=[Parameter(name, value=value)])
+                rn.RecoveryNode(context=self.context, parameter_overrides=[
+                    Parameter('controller', value='scripted_baseline'), Parameter(name, value=value)])
         for name, value in [('seed', 61), ('episode_timeout_s', 3.),
                             ('recovery_timeout_s', 2.), ('use_sim_time', True)]:
             result = self.node.set_parameters([Parameter(name, value=value)])
@@ -306,78 +326,293 @@ class RecoveryPolicyLogicTests(unittest.TestCase):
             _, reward, term, trunc, info = self.physical.step(action)
             return np.full(149, self.physical.steps+1, dtype=np.float32), reward, term, trunc, info
         self.env.reset, self.env.step = Mock(side_effect=reset), Mock(side_effect=step)
-        self.policy = SimpleNamespace(predict=Mock(return_value=(np.zeros(17), None)))
-        self.prepared = dict(saved=dict(controller=dict(mode='reference_residual'),
+        self.actor = SimpleNamespace(training=True)
+        self.actor.set_training_mode = Mock(side_effect=lambda mode: setattr(self.actor, 'training', mode))
+        self.policy = SimpleNamespace(predict=Mock(return_value=(np.zeros(17), None)), policy=self.actor)
+        self.prepared = dict(saved=dict(schema='x2-controller-ppo-v1',
+            controller=dict(mode='reference_residual', version='targets-v5', action_layout='independentlegs17'),
             identity=dict(model_fingerprint={'sha256': 'synthetic'})), directory='synthetic',
             hashes={'policy_final.zip': 'a'*64}, consistency={'passed': True})
-        self.parameters = [Parameter('controller', value='reference_residual'),
-                           Parameter('training_run', value='synthetic'),
+        # The controller is deliberately omitted: successful policy mode is the default.
+        self.parameters = [Parameter('controller_run', value='synthetic'),
                            Parameter('expected_checkpoint_sha256', value='a'*64)]
         self.time_patch = patch.object(rn, 'time', self.clock)
         self.prepare_patch = patch.object(rn, 'prepare_policy',
             return_value=(self.env, self.physical, self.policy, self.prepared))
+        self.baseline_patch = patch.object(rn, 'X2RecoveryEnv',
+            side_effect=AssertionError('Policy mode must never fall back to a baseline'))
         self.time_patch.start(); self.prepare = self.prepare_patch.start()
+        self.baseline = self.baseline_patch.start()
         self.addCleanup(self.time_patch.stop); self.addCleanup(self.prepare_patch.stop)
+        self.addCleanup(self.baseline_patch.stop)
 
-    def make_node(self, extra=()):
-        node = rn.RecoveryNode(context=self.context, parameter_overrides=[*self.parameters, *extra])
+    def make_node(self, extra=(), parameters=None):
+        node = rn.RecoveryNode(context=self.context,
+            parameter_overrides=[*(self.parameters if parameters is None else parameters), *extra])
         self.addCleanup(node.destroy_node); self.addCleanup(node.close)
+        node.test_logs = []
+        node._log = lambda event, **fields: node.test_logs.append(dict(event=event, **fields))
         return node
 
-    def test_full_wrapper_inference_same_physics_and_retry(self):
+    @staticmethod
+    def start(node):
+        return node._start(Trigger.Request(), Trigger.Response())
+
+    def finish(self, node):
+        return [r for r in node.test_logs if r['event'] == 'finished'][-1]
+
+    def assert_failed_initialization(self, node, cause):
+        self.assertEqual(node.status, 'FAILED')
+        self.assertFalse(node.controller_ready)
+        self.assertIn(cause, str(node.initialization_error))
+        self.assertIsNone(node.timer)
+        self.assertFalse(node.busy or node.pending)
+        for _ in range(2):
+            response = self.start(node)
+            self.assertFalse(response.success)
+            self.assertTrue(response.message)
+            node._advance()
+        self.assertEqual(node.episode, 0)
+        self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
+        self.baseline.assert_not_called()
+
+    def test_default_policy_and_checkpoint_identity_are_explicit(self):
+        self.prepared['hashes']['policy_final.zip'] = rn.PUBLISHED_CHECKPOINT_SHA256
+        node = self.make_node(parameters=[Parameter('controller_run', value='synthetic')])
+        self.assertEqual(node.controller, 'reference_residual')
+        self.assertEqual(node.expected_checkpoint_sha256,
+            '11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64')
+        self.prepare.assert_called_once_with('synthetic', node.expected_checkpoint_sha256)
+        self.assertTrue(node.controller_ready)
+        self.assertIsNone(node.initialization_error)
+        self.assertIs(node.base_env, self.physical)
+        self.assertIs(node.env, self.env)
+        self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
+
+    def test_full_wrapper_inference_same_physics_and_retry_loads_once(self):
+        import torch
+        modes = []
+        def predict(observation, *, deterministic):
+            modes.append((torch.is_inference_mode_enabled(), self.actor.training, deterministic))
+            return np.arange(17, dtype=np.float32)/100, None
+        self.policy.predict.side_effect = predict
         node = self.make_node()
         self.prepare.assert_called_once_with('synthetic', 'a'*64)
+        self.assertTrue(node.controller_ready)
         self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
-        node._start(Trigger.Request(), Trigger.Response())
+        self.assertTrue(self.start(node).success)
         self.assertIsNone(node.observation)
         node._advance()
         self.assertEqual((self.physical.resets, self.physical.steps), (1, 0))
+        self.policy.predict.assert_not_called(); self.env.step.assert_not_called()
         self.assertIsNone(node.keyframes)
-        self.assertFalse(node._start(Trigger.Request(), Trigger.Response()).success)
+        self.assertFalse(self.start(node).success)
         node._advance()
         self.policy.predict.assert_called_once()
         np.testing.assert_array_equal(self.policy.predict.call_args.args[0], np.ones(149))
         self.assertEqual(self.policy.predict.call_args.kwargs, {'deterministic': True})
-        np.testing.assert_array_equal(self.env.step.call_args.args[0], np.zeros(17))
+        np.testing.assert_array_equal(self.env.step.call_args.args[0], np.arange(17, dtype=np.float32)/100)
+        self.assertEqual(self.env.step.call_count, 1)
+        np.testing.assert_array_equal(node.observation, np.full(149, 2))
         np.testing.assert_array_equal(node._sample().position, self.physical.q)
+        np.testing.assert_array_equal(node._sample().velocity, self.physical.dq)
         self.physical.terminated = self.physical.success = True
         node._advance()
+        self.assertEqual(self.policy.predict.call_count, 2)
+        self.assertEqual(self.env.step.call_count, 2)
+        np.testing.assert_array_equal(self.policy.predict.call_args.args[0], np.full(149, 2))
         self.assertEqual(node.status, 'SUCCEEDED')
         self.assertIsNone(node.observation); self.assertIsNone(node.last_action)
-        count = self.physical.steps; node._advance(); self.assertEqual(count, self.physical.steps)
-        self.assertTrue(node._start(Trigger.Request(), Trigger.Response()).success)
+        count = self.physical.steps
+        for _ in range(3): node._advance()
+        self.assertEqual(count, self.physical.steps)
+        self.assertTrue(self.start(node).success)
+        self.assertIsNone(node.observation)
         node._advance()
         self.assertEqual(self.physical.resets, 2)
         np.testing.assert_array_equal(node.observation, np.full(149, 2))
+        self.prepare.assert_called_once()
+        self.assertEqual(modes, [(True, False, True), (True, False, True)])
+        self.assertTrue(self.actor.set_training_mode.called)
+        self.assertTrue(all(call.args == (False,) for call in self.actor.set_training_mode.call_args_list))
+        self.baseline.assert_not_called()
 
-    def test_policy_timeout_preserves_saved_episode_clock(self):
-        with self.assertRaisesRegex(ValueError, 'saved configuration'):
-            self.make_node([Parameter('episode_timeout_s', value=2.)])
+    def test_policy_episode_timeout_mismatch_stays_failed_and_closes_once(self):
+        node = self.make_node([Parameter('episode_timeout_s', value=2.)])
+        self.assert_failed_initialization(node, 'saved configuration')
+        self.assertEqual(self.physical.closes, 1)
+        node.close(); node.close()
+        self.assertEqual(self.physical.closes, 1)
+
+    def test_policy_wall_timeout_preserves_saved_episode_clock(self):
         node = self.make_node([Parameter('recovery_timeout_s', value=.001)])
         self.assertEqual(self.physical.config.episode_timeout_s, 20.)
-        node._start(Trigger.Request(), Trigger.Response())
+        self.start(node)
         self.clock.now += .002; node._advance()
         self.assertEqual(node.status, 'FAILED')
-        self.assertEqual(self.physical.steps, 0)
+        self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
+        self.assertEqual(self.finish(node)['reason'], 'recovery_timeout')
 
-    def test_interface_rejected_and_policy_inputs_never_fallback(self):
-        self.env.action_space.shape = (31,)
-        with self.assertRaisesRegex(ValueError, '149/17'):
-            self.make_node()
-        self.assertEqual(self.physical.closes, 1)
-        with patch.object(rn, 'prepare_policy', side_effect=ValueError('Checkpoint identity mismatch')):
-            with self.assertRaisesRegex(ValueError, 'Checkpoint identity mismatch'):
-                self.make_node()
-        with self.assertRaisesRegex(ValueError, 'requires training_run'):
-            self.make_node([Parameter('training_run', value='')])
-        with self.assertRaisesRegex(ValueError, 'Policy inputs require'):
-            self.make_node([Parameter('controller', value='scripted_baseline')])
+    def test_targets_v6_uses_strict_prepared_wrapper_without_startup_episode(self):
+        self.prepared['saved']['controller'].update(version='targets-v6',
+            feedback_kp=.3, feedback_kd=.03, feedback_cap_rad=.08,
+            feedback_start_s=3.5, feedback_ramp_s=.2)
+        node = self.make_node()
+        self.assertTrue(node.controller_ready)
+        self.assertIs(node.env, self.env)
+        self.assertIs(node.base_env, self.physical)
+        self.prepare.assert_called_once_with('synthetic', 'a'*64)
+        self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
+        self.assertTrue(self.start(node).success)
+        node._advance()
+        self.assertEqual((self.physical.resets, self.physical.steps), (1, 0))
+        node._advance()
+        self.assertEqual(self.env.step.call_count, 1)
+        self.baseline.assert_not_called()
+
+    def test_wrong_interface_keeps_failed_service_without_fallback(self):
+        original = copy.deepcopy(self.prepared['saved'])
+        for field, value in (('schema', 'legacy'), ('mode', 'rate'), ('version', 'targets-v4'), ('version', 'targets-v7'),
+                ('action_layout', 'joint31'), ('observation_shape', (117,)), ('action_shape', (31,))):
+            with self.subTest(field=field):
+                self.prepared['saved'] = copy.deepcopy(original)
+                self.env.observation_space.shape = (149,)
+                self.env.action_space.shape = (17,)
+                if field == 'schema':
+                    self.prepared['saved']['schema'] = value
+                elif field == 'observation_shape':
+                    self.env.observation_space.shape = value
+                elif field == 'action_shape':
+                    self.env.action_space.shape = value
+                else:
+                    self.prepared['saved']['controller'][field] = value
+                previous_closes = self.physical.closes
+                node = self.make_node()
+                self.assert_failed_initialization(node, '149/17')
+                self.assertEqual(self.physical.closes, previous_closes+1)
+                node.close(); node.close()
+                self.assertEqual(self.physical.closes, previous_closes+1)
+
+    def test_explicit_baseline_rejects_policy_input_directory(self):
+        node = self.make_node([Parameter('controller', value='scripted_baseline')])
+        self.assert_failed_initialization(node, 'Policy inputs require')
+        self.prepare.assert_not_called()
+        self.assertEqual(self.physical.closes, 0)
+
+    def test_bad_checkpoint_keeps_failed_service_without_retrying_load(self):
+        self.prepare.side_effect = ValueError('Checkpoint identity mismatch')
+        node = self.make_node()
+        self.assert_failed_initialization(node, 'Checkpoint identity mismatch')
+        self.prepare.assert_called_once()
+        node.close(); node.close()
+        self.assertEqual(self.physical.closes, 0)
+
+    def test_missing_controller_run_is_not_accepted(self):
+        node = self.make_node(parameters=[])
+        self.assert_failed_initialization(node, 'controller_run')
+        self.prepare.assert_not_called()
+        node.close(); node.close()
+
+    def test_nonfinite_or_wrong_shaped_reset_observation_stops_before_predict(self):
+        node = self.make_node()
+        for bad in (np.zeros(117), np.zeros((1, 149)), np.full(149, np.nan), np.full(149, np.inf)):
+            with self.subTest(shape=bad.shape, finite=bool(np.isfinite(bad).all())):
+                def reset(**kwargs):
+                    _, info = self.physical.reset(**kwargs)
+                    return bad.copy(), info
+                self.env.reset.side_effect = reset
+                self.assertTrue(self.start(node).success)
+                node._advance()
+                self.assertEqual(node.status, 'FAILED')
+                self.assertEqual(self.finish(node)['reason'], 'reset_error')
+                self.policy.predict.assert_not_called(); self.env.step.assert_not_called()
+                self.assertIsNone(node.observation)
+
+    def test_nonfinite_or_wrong_shaped_policy_action_never_reaches_step(self):
+        node = self.make_node()
+        for bad in (np.zeros(31), np.zeros((1, 17)), np.full(17, np.nan), np.full(17, np.inf)):
+            with self.subTest(shape=bad.shape, finite=bool(np.isfinite(bad).all())):
+                self.policy.predict.return_value = (bad.copy(), None)
+                self.assertTrue(self.start(node).success); node._advance(); node._advance()
+                self.assertEqual(node.status, 'FAILED')
+                self.assertEqual(self.finish(node)['reason'], 'predict_error')
+                self.env.step.assert_not_called()
+                self.assertIsNone(node.last_action)
+        self.assertEqual(self.policy.predict.call_count, 4)
+        self.prepare.assert_called_once()
+
+    def test_invalid_next_observation_fails_after_one_step_without_further_inference(self):
+        node = self.make_node()
+        self.start(node); node._advance()
+        def step(action):
+            _, reward, term, trunc, info = self.physical.step(action)
+            return np.full(149, np.nan), reward, term, trunc, info
+        self.env.step.side_effect = step
+        node._advance()
+        self.assertEqual(node.status, 'FAILED')
+        self.assertEqual(self.finish(node)['reason'], 'step_error')
+        self.assertEqual(self.finish(node)['control_steps'], 1)
+        self.assertAlmostEqual(self.finish(node)['environment_result']['elapsed_sim_s'], .02)
+        self.assertEqual((self.policy.predict.call_count, self.env.step.call_count), (1, 1))
+        node._advance()
+        self.assertEqual((self.policy.predict.call_count, self.env.step.call_count), (1, 1))
+
+    def test_predict_exception_fails_clears_state_and_allows_explicit_retry(self):
+        node = self.make_node()
+        self.start(node); node._advance()
+        self.policy.predict.side_effect = RuntimeError('synthetic predict failure')
+        node._advance()
+        self.assertEqual(node.status, 'FAILED')
+        self.assertEqual(self.finish(node)['reason'], 'predict_error')
+        self.assertIn('synthetic predict failure', self.finish(node)['error']['message'])
+        self.assertIsNone(node.observation); self.assertIsNone(node.last_action)
+        self.assertEqual(self.physical.steps, 0)
+        self.policy.predict.side_effect = None
+        self.assertTrue(self.start(node).success)
+        node._advance(); node._advance()
+        self.assertEqual(node.status, 'RUNNING')
+        self.assertEqual((self.physical.resets, self.physical.steps), (2, 1))
+        self.prepare.assert_called_once()
+
+    def test_predict_deadline_is_checked_before_step(self):
+        node = self.make_node()
+        self.start(node); node._advance()
+        def slow(observation, **kwargs):
+            self.clock.now = node.deadline
+            return np.zeros(17), None
+        self.policy.predict.side_effect = slow
+        node._advance()
+        self.assertEqual(node.status, 'FAILED')
+        self.assertEqual(self.finish(node)['reason'], 'recovery_timeout')
+        self.policy.predict.assert_called_once(); self.env.step.assert_not_called()
+        self.assertIsNone(node.last_action)
+
+    def test_policy_step_and_sample_exceptions_have_distinct_stages(self):
+        node = self.make_node()
+        self.start(node); node._advance()
+        self.physical.step_error = RuntimeError('synthetic step failure')
+        node._advance()
+        self.assertEqual(self.finish(node)['reason'], 'step_error')
+        self.physical.step_error = None
+        self.assertTrue(self.start(node).success); node._advance()
+        with patch.object(node, '_sample', side_effect=ValueError('synthetic joint snapshot failure')), \
+             patch.object(node.joint_pub, 'publish') as publish:
+            node._advance(); publish.assert_not_called()
+        self.assertEqual(node.status, 'FAILED')
+        self.assertEqual(self.finish(node)['reason'], 'sample_error')
+        self.assertIn('synthetic joint snapshot failure', self.finish(node)['error']['message'])
+        self.assertFalse(node.busy)
 
     def test_policy_parameters_are_startup_only(self):
         node = self.make_node()
-        for name in ('controller', 'training_run', 'expected_checkpoint_sha256'):
-            self.assertTrue(node.describe_parameter(name).read_only)
-            self.assertFalse(node.set_parameters([Parameter(name, value='changed')])[0].successful)
+        for name, changed in (('controller', 'scripted_baseline'), ('controller_run', 'changed'),
+                ('expected_checkpoint_sha256', 'b'*64), ('seed', 3), ('episode_timeout_s', 3.),
+                ('recovery_timeout_s', 2.), ('use_sim_time', True)):
+            descriptor = node.describe_parameter(name)
+            self.assertEqual(descriptor.name, name)
+            self.assertEqual(descriptor.type, node.get_parameter(name).type_.value)
+            self.assertTrue(descriptor.read_only)
+            self.assertFalse(node.set_parameters([Parameter(name, value=changed)])[0].successful)
 
 
 class TelemetryLogicTests(unittest.TestCase):

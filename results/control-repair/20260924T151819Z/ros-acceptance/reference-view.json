@@ -1,0 +1,12 @@
+{
+  "created_utc": "2026-09-24T20:27:11.327488+00:00",
+  "source": "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/trained-policy-diagnostic/control_trace.npz",
+  "source_sha256": "1e46e4a9590afe4387fc5e3d5ec55da8c3b13618a0425dcfe06df3cc8ccb5080",
+  "source_summary_sha256": "96e7eec49cbaa08520efbe21d2c670448c8ade55470cee21cb1223a7fdebb855",
+  "derived_view": "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/ros-acceptance/standalone-reference.npz",
+  "derived_sha256": "3cf95e36657396040ee056e6f0ee970e150e2fe161171f1ae58bebb58e3fb0e1",
+  "rule": "Rename action->actions; observations/reset+next_observation, qpos/qvel/reset+post-transition; time_s=0 followed by original elapsed_s. No simulation, interpolation, resampling or value modification.",
+  "time_scope": "Recovery elapsed simulation seconds, exactly the existing ROS runner recording.",
+  "checkpoint_sha256": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+  "controller_config_sha256": "6973248b351408dcad0d48ad54c0ee3187760ed3e9c3ca50d045202e4878db73"
+}

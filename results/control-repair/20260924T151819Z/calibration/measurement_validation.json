@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "comparison_tolerance": {
+    "atol": 1e-10,
+    "rtol": 0
+  },
+  "comparison": {
+    "sim_seconds": {
+      "old": 4.887000000000594,
+      "new": 4.887000000000594,
+      "abs_difference": 0.0
+    },
+    "max_stable_hold_s": {
+      "old": 2.000000000000668,
+      "new": 2.000000000000668,
+      "abs_difference": 0.0
+    },
+    "max_joint_excess_rad": {
+      "old": 0.04518521846959589,
+      "new": 0.04518521846959589,
+      "abs_difference": 0.0
+    },
+    "any_joint_above_tolerance_s": {
+      "old": 1.064,
+      "new": 1.0639999999999936,
+      "abs_difference": 6.439293542825908e-15
+    },
+    "max_joint_speed_rad_s": {
+      "old": 8.347143742429603,
+      "new": 8.347143742429603,
+      "abs_difference": 0.0
+    },
+    "max_actuation_limit_ratio": {
+      "old": 1.0,
+      "new": 1.0,
+      "abs_difference": 0.0
+    },
+    "peak_ground_vertical_N": {
+      "old": 1626.681419263664,
+      "new": 1626.681419263664,
+      "abs_difference": 0.0
+    },
+    "peak_ground_sum_norm_N": {
+      "old": 1845.4477378972624,
+      "new": 1845.4477378972624,
+      "abs_difference": 0.0
+    },
+    "floor_penetration_m": {
+      "old": 0.00904692154437733,
+      "new": 0.00904692154437733,
+      "abs_difference": 0.0
+    },
+    "self_penetration_m": {
+      "old": 0.0031814764288165204,
+      "new": 0.0031814764288165204,
+      "abs_difference": 0.0
+    }
+  },
+  "scope": "Streaming every-physics-step scalar metrics versus already observed original reference-only complete episode; no claim this scalar comparison alone proves state-trajectory noninterference.",
+  "wall_seconds": 5.830848460999732
+}

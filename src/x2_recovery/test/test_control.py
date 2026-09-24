@@ -628,4 +628,68 @@ class ControlTests(unittest.TestCase):
                                  {k:v for k,v in new.items() if k!='elevation'})
         finally:e.close()
 
+class FeedbackV6Tests(unittest.TestCase):
+    def config(self, **changes):
+        from dataclasses import replace
+        c=ControlConfig(version='targets-v6', mode='reference_residual', action_layout='independentlegs17',
+            reference_stages=(('hold',.3,{}),), residual_joint_multipliers=(0.,)*31,
+            residual_start_s=3.5, residual_ramp_s=.2, feedback_kp=.3, feedback_kd=.03,
+            feedback_cap_rad=.08, feedback_start_s=3.5, feedback_ramp_s=.2)
+        return replace(c,**changes)
+
+    def test_config_explicit_version_bounds_and_roundtrip(self):
+        from dataclasses import asdict
+        c=self.config()
+        self.assertEqual(ControlConfig.from_dict(json.loads(json.dumps(asdict(c)))),c)
+        for kw in ({'version':'targets-v5'},{'feedback_kp':True},{'feedback_kd':-.1},
+                   {'feedback_cap_rad':.081},{'feedback_ramp_s':0.},{'feedback_start_s':float('nan')}):
+            with self.subTest(kw=kw),self.assertRaises(ValueError):self.config(**kw)
+        self.assertEqual(ControlConfig().feedback_kp,0.)
+
+    def test_feedback_float32_signs_saturation_and_pregate(self):
+        from x2_recovery.env import torso_ankle_feedback_action
+        c=self.config();lo=-np.ones(31);hi=np.ones(31);obs=np.zeros(149,np.float32)
+        obs[62:65]=[np.sin(.1),0.,-np.cos(.1)];obs[69]=.1;obs[148]=.25
+        a=torso_ankle_feedback_action(obs,c,lo,hi)
+        gravity=obs[62:65].astype(float);omega=obs[68:71].astype(float)*2.
+        dg=-np.cross(omega,gravity);x,_,z=gravity;dx,_,dz=dg
+        expected=np.float32(np.clip(.3*np.arctan2(x,-z)+.03*(-z*dx+x*dz)/(x*x+z*z),-.08,.08)/.08)
+        self.assertEqual(a.dtype,np.float32);self.assertEqual(a[4],expected);self.assertEqual(a[10],expected)
+        self.assertEqual(np.count_nonzero(a),2)
+        obs[69]=5.;self.assertEqual(torso_ankle_feedback_action(obs,c,lo,hi)[4],1.)
+        obs[148]=0.;np.testing.assert_array_equal(torso_ankle_feedback_action(obs,c,lo,hi),np.zeros(17,np.float32))
+        obs[148]=.25;np.testing.assert_array_equal(torso_ankle_feedback_action(obs,self.config(feedback_kp=0.,feedback_kd=0.),lo,hi),np.zeros(17,np.float32))
+        obs[63]=np.nan
+        with self.assertRaises(ValueError):torso_ankle_feedback_action(obs,c,lo,hi)
+
+    def test_feedback_gravity_includes_waist_rotation(self):
+        from x2_recovery.env import torso_ankle_feedback_action
+        obs=np.zeros(149,np.float32);obs[13]=.3;obs[148]=.25
+        obs[62:65]=[-np.sin(float(obs[13])),0.,-np.cos(float(obs[13]))]
+        # Upright torso can require a non-upright pelvis.
+        a=torso_ankle_feedback_action(obs,self.config(),-np.ones(31),np.ones(31))
+        self.assertLess(float(np.max(abs(a))),1e-7)
+
+    def test_feedback_gate_is_separate_from_policy_gate(self):
+        from x2_recovery.env import feedback_phase_gate
+        c=self.config(residual_start_s=8.,residual_ramp_s=1.)
+        self.assertEqual(feedback_phase_gate(c,3.5),0.)
+        self.assertAlmostEqual(feedback_phase_gate(c,3.6),.5)
+        self.assertEqual(feedback_phase_gate(c,3.7),1.)
+        self.assertEqual(residual_phase_gate(c,3.7),0.)
+
+    def test_density10_scales_only_four_positive_densities(self):
+        base=self.config(reward_version='reference-balance-v1',head_reference=((0.,0.),(5.,1.)),head_progress_range_m=(.1,.7))
+        new=replace(base,reward_version='reference-balance-density10-v1')
+        state=dict(pelvis_height_m=.63,upright_dot=.98,left_weight=.7,right_weight=.7,other_weight=.01,
+                   com_linear_m_s=.08,torso_angular_rad_s=.1,self_penetration_m=.0002)
+        args=(np.zeros(31),np.ones(31)*.02,np.arange(23),state,True,.6,3.)
+        old,oldmeta=head_support_task(base,*args);scaled,meta=head_support_task(new,*args)
+        for key,value in old.items():
+            self.assertEqual(scaled[key],value*(.1 if key in ('pose_guide','head_track','balance','standing') else 1.))
+        self.assertNotIn('positive_density_scale',oldmeta);self.assertEqual(meta['positive_density_scale'],.1)
+        self.assertEqual(head_support_task(base,*args),(old,oldmeta))
+        for dt in (.020,.005):
+            self.assertEqual(dt*scaled['standing'],dt*(old['standing']*.1))
+
 if __name__=='__main__':unittest.main()

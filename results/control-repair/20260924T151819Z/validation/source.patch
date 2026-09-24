@@ -1,0 +1,2034 @@
+diff --git a/src/x2_recovery/launch/recovery.launch.py b/src/x2_recovery/launch/recovery.launch.py
+index 12302e7..ba6f606 100644
+--- a/src/x2_recovery/launch/recovery.launch.py
++++ b/src/x2_recovery/launch/recovery.launch.py
+@@ -7,8 +7,10 @@ from launch_ros.parameter_descriptions import ParameterValue
+ 
+ 
+ def generate_launch_description():
+-    arguments = [('controller', 'scripted_baseline', str), ('training_run', '', str),
+-                 ('expected_checkpoint_sha256', '', str), ('seed', '60', int), ('episode_timeout_s', '20.0', float),
++    arguments = [('controller', 'reference_residual', str), ('controller_run', '', str),
++                 ('expected_checkpoint_sha256',
++                  '11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64', str),
++                 ('seed', '60', int), ('episode_timeout_s', '20.0', float),
+                  ('recovery_timeout_s', '30.0', float)]
+     parameters = {name: ParameterValue(LaunchConfiguration(name), value_type=kind)
+                   for name, _, kind in arguments}
+diff --git a/src/x2_recovery/test/test_control.py b/src/x2_recovery/test/test_control.py
+index 414dedb..2c7a259 100644
+--- a/src/x2_recovery/test/test_control.py
++++ b/src/x2_recovery/test/test_control.py
+@@ -628,4 +628,68 @@ class ControlTests(unittest.TestCase):
+                                  {k:v for k,v in new.items() if k!='elevation'})
+         finally:e.close()
+ 
++class FeedbackV6Tests(unittest.TestCase):
++    def config(self, **changes):
++        from dataclasses import replace
++        c=ControlConfig(version='targets-v6', mode='reference_residual', action_layout='independentlegs17',
++            reference_stages=(('hold',.3,{}),), residual_joint_multipliers=(0.,)*31,
++            residual_start_s=3.5, residual_ramp_s=.2, feedback_kp=.3, feedback_kd=.03,
++            feedback_cap_rad=.08, feedback_start_s=3.5, feedback_ramp_s=.2)
++        return replace(c,**changes)
++
++    def test_config_explicit_version_bounds_and_roundtrip(self):
++        from dataclasses import asdict
++        c=self.config()
++        self.assertEqual(ControlConfig.from_dict(json.loads(json.dumps(asdict(c)))),c)
++        for kw in ({'version':'targets-v5'},{'feedback_kp':True},{'feedback_kd':-.1},
++                   {'feedback_cap_rad':.081},{'feedback_ramp_s':0.},{'feedback_start_s':float('nan')}):
++            with self.subTest(kw=kw),self.assertRaises(ValueError):self.config(**kw)
++        self.assertEqual(ControlConfig().feedback_kp,0.)
++
++    def test_feedback_float32_signs_saturation_and_pregate(self):
++        from x2_recovery.env import torso_ankle_feedback_action
++        c=self.config();lo=-np.ones(31);hi=np.ones(31);obs=np.zeros(149,np.float32)
++        obs[62:65]=[np.sin(.1),0.,-np.cos(.1)];obs[69]=.1;obs[148]=.25
++        a=torso_ankle_feedback_action(obs,c,lo,hi)
++        gravity=obs[62:65].astype(float);omega=obs[68:71].astype(float)*2.
++        dg=-np.cross(omega,gravity);x,_,z=gravity;dx,_,dz=dg
++        expected=np.float32(np.clip(.3*np.arctan2(x,-z)+.03*(-z*dx+x*dz)/(x*x+z*z),-.08,.08)/.08)
++        self.assertEqual(a.dtype,np.float32);self.assertEqual(a[4],expected);self.assertEqual(a[10],expected)
++        self.assertEqual(np.count_nonzero(a),2)
++        obs[69]=5.;self.assertEqual(torso_ankle_feedback_action(obs,c,lo,hi)[4],1.)
++        obs[148]=0.;np.testing.assert_array_equal(torso_ankle_feedback_action(obs,c,lo,hi),np.zeros(17,np.float32))
++        obs[148]=.25;np.testing.assert_array_equal(torso_ankle_feedback_action(obs,self.config(feedback_kp=0.,feedback_kd=0.),lo,hi),np.zeros(17,np.float32))
++        obs[63]=np.nan
++        with self.assertRaises(ValueError):torso_ankle_feedback_action(obs,c,lo,hi)
++
++    def test_feedback_gravity_includes_waist_rotation(self):
++        from x2_recovery.env import torso_ankle_feedback_action
++        obs=np.zeros(149,np.float32);obs[13]=.3;obs[148]=.25
++        obs[62:65]=[-np.sin(float(obs[13])),0.,-np.cos(float(obs[13]))]
++        # Upright torso can require a non-upright pelvis.
++        a=torso_ankle_feedback_action(obs,self.config(),-np.ones(31),np.ones(31))
++        self.assertLess(float(np.max(abs(a))),1e-7)
++
++    def test_feedback_gate_is_separate_from_policy_gate(self):
++        from x2_recovery.env import feedback_phase_gate
++        c=self.config(residual_start_s=8.,residual_ramp_s=1.)
++        self.assertEqual(feedback_phase_gate(c,3.5),0.)
++        self.assertAlmostEqual(feedback_phase_gate(c,3.6),.5)
++        self.assertEqual(feedback_phase_gate(c,3.7),1.)
++        self.assertEqual(residual_phase_gate(c,3.7),0.)
++
++    def test_density10_scales_only_four_positive_densities(self):
++        base=self.config(reward_version='reference-balance-v1',head_reference=((0.,0.),(5.,1.)),head_progress_range_m=(.1,.7))
++        new=replace(base,reward_version='reference-balance-density10-v1')
++        state=dict(pelvis_height_m=.63,upright_dot=.98,left_weight=.7,right_weight=.7,other_weight=.01,
++                   com_linear_m_s=.08,torso_angular_rad_s=.1,self_penetration_m=.0002)
++        args=(np.zeros(31),np.ones(31)*.02,np.arange(23),state,True,.6,3.)
++        old,oldmeta=head_support_task(base,*args);scaled,meta=head_support_task(new,*args)
++        for key,value in old.items():
++            self.assertEqual(scaled[key],value*(.1 if key in ('pose_guide','head_track','balance','standing') else 1.))
++        self.assertNotIn('positive_density_scale',oldmeta);self.assertEqual(meta['positive_density_scale'],.1)
++        self.assertEqual(head_support_task(base,*args),(old,oldmeta))
++        for dt in (.020,.005):
++            self.assertEqual(dt*scaled['standing'],dt*(old['standing']*.1))
++
+ if __name__=='__main__':unittest.main()
+diff --git a/src/x2_recovery/test/test_ros_integration.py b/src/x2_recovery/test/test_ros_integration.py
+index a1f713a..c225f83 100644
+--- a/src/x2_recovery/test/test_ros_integration.py
++++ b/src/x2_recovery/test/test_ros_integration.py
+@@ -70,6 +70,30 @@ def instrumented_node(events_path, inject_step_error=False):
+     from x2_recovery import recovery_node as rn
+     stream = open(events_path, 'x', buffering=1)
+     traces = {}
++    prepare_count = 0
++    prepare = rn.prepare_policy
++    native_reset = rn.X2RecoveryEnv.reset
++    native_step = rn.X2RecoveryEnv.step
++
++    def prepared(*args, **kwargs):
++        nonlocal prepare_count
++        prepare_count += 1
++        event('prepare_begin', count=prepare_count)
++        try:
++            result = prepare(*args, **kwargs)
++            event('prepare_end', count=prepare_count, success=True)
++            return result
++        except BaseException as exc:
++            event('prepare_end', count=prepare_count, success=False, error=type(exc).__name__)
++            raise
++
++    def physical_reset(env, *args, **kwargs):
++        event('native_reset_called')
++        return native_reset(env, *args, **kwargs)
++
++    def physical_step(env, *args, **kwargs):
++        event('native_step_called')
++        return native_step(env, *args, **kwargs)
+ 
+     def event(kind, **fields):
+         stream.write(json.dumps(dict(event=kind, monotonic_s=time.monotonic(), **fields),
+@@ -79,6 +103,13 @@ def instrumented_node(events_path, inject_step_error=False):
+         def __init__(self, **kwargs):
+             super().__init__(**kwargs)
+             self.audit_reset_count = 0
++            self.audit_policy_before = None
++            self.audit_prediction = None
++            event('constructed', controller=self.controller, controller_ready=self.controller_ready,
++                  initialization_error=self.initialization_error, status=self.status,
++                  loaded_controller=self.audit_loaded_controller,
++                  has_environment=self.env is not None, has_timer=self.timer is not None,
++                  prepare_count=prepare_count)
+             send = self.service.send_response
+             def sending(response, header):
+                 event('send_begin', success=response.success, episode=self.episode)
+@@ -86,6 +117,22 @@ def instrumented_node(events_path, inject_step_error=False):
+                 event('send_end', success=response.success, episode=self.episode)
+                 return result
+             self.service.send_response = sending
++            if not self.controller_ready:
++                return
++            if self.policy is not None:
++                self.audit_policy_before = {key: value.detach().cpu().clone()
++                    for key, value in self.policy.policy.state_dict().items()}
++                predict = self.policy.predict
++                def predicted(observation, *args, **kwargs):
++                    result = predict(observation, *args, **kwargs)
++                    self.audit_prediction = np.asarray(result[0]).copy()
++                    event('predict_end', episode=self.episode,
++                          deterministic=kwargs.get('deterministic') is True,
++                          observation_matches_current=np.array_equal(observation, self.observation),
++                          observation_shape=list(np.shape(observation)),
++                          action_shape=list(np.shape(result[0])))
++                    return result
++                self.policy.predict = predicted
+             for operation in ('reset', 'step'):
+                 original = getattr(self.env, operation)
+                 def call(*args, _op=operation, _original=original, **kw):
+@@ -95,15 +142,24 @@ def instrumented_node(events_path, inject_step_error=False):
+                     try:
+                         result = _original(*args, **kw)
+                         event(_op+'_end', episode=self.episode, elapsed_sim_s=result[-1]['elapsed_sim_s'],
+-                              physics_steps=self.physical_env._physics_steps,
+-                              reset_evidence=self.physical_env.reset_evidence if _op == 'reset' else None)
++                              physics_steps=self.base_env._physics_steps,
++                              reset_evidence=self.base_env.reset_evidence if _op == 'reset' else None)
+                         trace = traces.setdefault(self.episode, {name: [] for name in
+                             ('observations', 'actions', 'qpos', 'qvel', 'reward', 'time_s')})
+                         trace['observations'].append(np.asarray(result[0]).copy())
+-                        trace['qpos'].append(self.physical_env.data.qpos.copy())
+-                        trace['qvel'].append(self.physical_env.data.qvel.copy())
++                        trace['qpos'].append(self.base_env.data.qpos.copy())
++                        trace['qvel'].append(self.base_env.data.qvel.copy())
+                         trace['time_s'].append(result[-1]['elapsed_sim_s'])
+                         if _op == 'step':
++                            if self.policy is not None:
++                                controller = result[-1]['controller']
++                                event('control_pipeline', episode=self.episode,
++                                    step=self.control_steps+1,
++                                    action_matches_prediction=np.array_equal(args[0], self.audit_prediction),
++                                    action_matches_wrapper=np.array_equal(args[0], controller['policy_action']),
++                                    residual_gate=controller['residual_gate'],
++                                    max_abs_gated_residual_rad=float(np.max(np.abs(controller['gated_residual_rad']))),
++                                    max_abs_ctrl_Nm=float(np.max(np.abs(self.base_env.data.ctrl))))
+                             trace['actions'].append(np.asarray(args[0]).copy())
+                             trace['reward'].append(result[1])
+                         if inject_step_error and self.episode == 1 and _op == 'step' and self.control_steps == 2:
+@@ -119,7 +175,21 @@ def instrumented_node(events_path, inject_step_error=False):
+                 event('close_begin'); original_close(); event('close_end')
+             self.env.close = close
+ 
++        def _finish(self, status, reason, completed_at, **details):
++            was_busy = self.busy
++            super()._finish(status, reason, completed_at, **details)
++            if was_busy and self.audit_policy_before is not None:
++                import torch
++                current = self.policy.policy.state_dict()
++                unchanged = current.keys() == self.audit_policy_before.keys() and all(
++                    torch.equal(value.detach().cpu(), self.audit_policy_before[key])
++                    for key, value in current.items())
++                event('policy_state_check', episode=self.episode, status=status,
++                      unchanged=unchanged, tensors=len(current))
++
+         def _log(self, kind, **fields):
++            if kind in ('ready', 'initialization_failed'):
++                self.audit_loaded_controller = fields.get('loaded_controller')
+             event('node_event', name=kind, episode=self.episode, fields=fields)
+             return super()._log(kind, **fields)
+ 
+@@ -138,13 +208,13 @@ def instrumented_node(events_path, inject_step_error=False):
+ 
+         def _sample(self):
+             captured = []
+-            read = self.physical_env.loaded.read_state
++            read = self.base_env.loaded.read_state
+             def readback(data):
+                 q, dq = read(data)
+-                captured.append(dict(names=[r.joint_name for r in self.physical_env.loaded.mapping],
++                captured.append(dict(names=[r.joint_name for r in self.base_env.loaded.mapping],
+                                      q=q.tolist(), dq=dq.tolist(), sim_time_s=float(data.time)))
+                 return q, dq
+-            with patch.object(self.physical_env.loaded, 'read_state', side_effect=readback):
++            with patch.object(self.base_env.loaded, 'read_state', side_effect=readback):
+                 message = super()._sample()
+             event('sample_created', episode=self.episode, step=self.control_steps,
+                   stamp=[message.header.stamp.sec, message.header.stamp.nanosec])
+@@ -155,7 +225,10 @@ def instrumented_node(events_path, inject_step_error=False):
+             return message
+ 
+     try:
+-        with patch.object(rn, 'RecoveryNode', RecordedRecovery):
++        with patch.object(rn, 'RecoveryNode', RecordedRecovery), \
++                patch.object(rn, 'prepare_policy', side_effect=prepared), \
++                patch.object(rn.X2RecoveryEnv, 'reset', physical_reset), \
++                patch.object(rn.X2RecoveryEnv, 'step', physical_step):
+             return rn.main()
+     finally:
+         stream.close()
+@@ -175,7 +248,7 @@ def records(path):
+     return result
+ 
+ 
+-def run(output, training_run=None, checkpoint=None, reference_trace=None):
++def run(output, controller_run=None, checkpoint=None, reference_trace=None):
+     import hashlib
+     import rclpy
+     from rclpy.executors import SingleThreadedExecutor
+@@ -187,6 +260,7 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+     from ament_index_python.packages import get_package_prefix, get_package_share_directory
+     from x2_recovery.telemetry_node import STATUS_QOS, JOINT_QOS, validate_joint_state
+     from x2_recovery import recovery_node
++    from x2_recovery.success import CALIBRATED_SETTINGS
+     from ros2cli.node.daemon import DaemonNode, is_daemon_running, shutdown_daemon
+     from ros2cli.daemon import get_xmlrpc_server_url
+     from types import SimpleNamespace
+@@ -195,10 +269,10 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+     daemon_args = SimpleNamespace()
+     daemon_was_running = is_daemon_running(daemon_args)
+     output.mkdir(parents=True, exist_ok=False)
+-    policy_mode = training_run is not None
++    policy_mode = controller_run is not None
+     controller = 'reference_residual' if policy_mode else 'scripted_baseline'
+-    policy_launch = ([f'controller:={controller}', f'training_run:={training_run}',
+-                      f'expected_checkpoint_sha256:={checkpoint}'] if policy_mode else [])
++    policy_launch = ([f'controller_run:={controller_run}',
++                      f'expected_checkpoint_sha256:={checkpoint}'] if policy_mode else ['controller:=scripted_baseline'])
+     policy_parameters = [part for value in policy_launch for part in ('-p', value)]
+     report = dict(controller=controller, checks={}, processes=[], rpc=[], cli=[], episodes=[],
+                   identity=dict(executable=sys.executable, cwd=os.getcwd(),
+@@ -434,6 +508,44 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+         wait(lambda: statuses and statuses[-1][1] == record['status'])
+         return record
+ 
++    def failed_startup(label, parameters, expected_message, requested_controller,
++                       environment_prefix=()):
++        nonlocal scenario
++        scenario = label
++        statuses.clear(); joints.clear()
++        evidence_path = output/(label+'-events.jsonl')
++        bad, bad_log = spawn([*environment_prefix, sys.executable, str(Path(__file__).resolve()),
++            '--instrumented-node', str(evidence_path), '--ros-args', *parameters], label)
++        wait(lambda: client.service_is_ready() and statuses and statuses[-1][1] == 'FAILED'
++             and any(e['event'] == 'constructed' for e in records(evidence_path)), 20.)
++        response = rpc(label+'-request-rejected', False)
++        pump(.15)
++        evidence = records(evidence_path)
++        constructed = next(e for e in evidence if e['event'] == 'constructed')
++        check(label+'-diagnostic-failed', bad.poll() is None and not constructed['controller_ready']
++              and constructed['status'] == 'FAILED' and not constructed['has_timer']
++              and constructed['initialization_error'] is not None
++              and expected_message in bad_log.read_text(), expected_error=expected_message,
++              initialization_error=constructed['initialization_error'])
++        check(label+'-no-execution-or-fallback', constructed['controller'] == requested_controller
++              and constructed['loaded_controller'] is None and not constructed['has_environment']
++              and not joints and not any(e['event'] in ('native_reset_called', 'native_step_called',
++                  'reset_begin', 'step_begin', 'predict_end') for e in evidence)
++              and all(e['after']['episode'] == 0 and e['after']['control_steps'] == 0
++                      for e in evidence if e['event'] == 'callback_return'),
++              requested_controller=requested_controller, observed=constructed,
++              request_message=response['message'])
++        check(label+'-cleanup', stop(bad) == 0)
++        wait(lambda: not client.service_is_ready(), 5.)
++
++    def policy_succeeded(record):
++        result = record.get('environment_result') or {}
++        return (record['status'] == 'SUCCEEDED' and record['reason'] == 'success'
++                and result.get('is_success') is True and result.get('terminated') is True
++                and result.get('truncated') is False and not result.get('standing_failures')
++                and result.get('stable_duration_s', 0.)+1e-8 >= CALIBRATED_SETTINGS.hold_s
++                and record['control_steps'] > 0 and record['elapsed_sim_s'] > 0.)
++
+     prefix = Path(get_package_prefix('x2_recovery'))/'lib/x2_recovery'
+     try:
+         check('installed_outside_checkout', Path.cwd() == Path('/tmp') and 'install' in str(prefix)
+@@ -441,9 +553,11 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+               and Path(prefix/'recovery_node').read_text().splitlines()[0] == '#!'+sys.executable)
+         statuses.clear(); joints.clear()
+         scenario = 'normal-episode-1'
++        normal_launch_parameters = ([f'controller_run:={controller_run}']
++            if policy_mode and checkpoint == recovery_node.PUBLISHED_CHECKPOINT_SHA256 else policy_launch)
+         launch, log = spawn(['ros2', 'launch', 'x2_recovery', 'recovery.launch.py',
+                               'seed:=221030' if policy_mode else 'seed:=60', 'episode_timeout_s:=20.0',
+-                              'recovery_timeout_s:=30.0', *policy_launch], 'normal-launch')
++                              'recovery_timeout_s:=30.0', *normal_launch_parameters], 'normal-launch')
+         ready(log)
+         check('single_launch_two_processes', 'process started with pid' in log.read_text()
+               and 'telemetry_node-' in log.read_text() and 'recovery_node-' in log.read_text())
+@@ -483,14 +597,14 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+         cli(['topic','echo','/x2/joint_states','sensor_msgs/msg/JointState','--once','--timeout','5'], 'joint-echo')
+         result = finished(log, 1)
+         check('real_policy_success' if policy_mode else 'simulation_timeout',
+-              (result['status'] == 'SUCCEEDED' and result['reason'] == 'success'
+-               and abs(result['elapsed_sim_s']-4.856) < 1e-8 and result['control_steps'] == 243
+-               if policy_mode else result['status'] == 'FAILED' and result['reason'] == 'time_limit'
++              (policy_succeeded(result) if policy_mode else result['status'] == 'FAILED' and result['reason'] == 'time_limit'
+                and abs(result['elapsed_sim_s']-20.) < 1e-8 and result['control_steps'] == 1000)
+               and result['wall_s'] < 30., **result)
++        normal_first = result
+         if policy_mode:
+             identity = next(r for r in records(log) if r.get('event') == 'ready')
+             check('policy_startup_identity', identity['controller'] == controller
++                  and identity['loaded_controller'] == controller and identity['controller_ready'] is True
+                   and identity['input_hashes']['policy_final.zip'] == checkpoint
+                   and identity['observation_dimension'] == 149 and identity['action_dimension'] == 17
+                   and identity['controlled_joints'] == 31 and identity['deterministic'] is True
+@@ -516,8 +630,8 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+         scenario = 'normal-episode-2'
+         rpc('same-instance-accept', True)
+         second = finished(log, 2)
+-        check('same_instance_new_episode', second['episode'] == 2 and second['control_steps'] == (243 if policy_mode else 1000)
+-              and second['reason'] == ('success' if policy_mode else 'time_limit') and len([r for r in records(log)
++        check('same_instance_new_episode', second['episode'] == 2 and second['control_steps'] == normal_first['control_steps']
++              and (policy_succeeded(second) if policy_mode else second['reason'] == 'time_limit') and len([r for r in records(log)
+               if r.get('event') == 'reset_completed']) == 2)
+         check('normal_cleanup', stop(launch) == 0 and '"event": "closed"' in log.read_text()
+               and clean_launch_children(launch),
+@@ -580,13 +694,16 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+         for i in range(4): rpc(f'readback-stepping-busy-{i}', False)
+         result = finished(audit_log, 1)
+         if policy_mode:
+-            check('instrumented_real_policy_success', result['status'] == 'SUCCEEDED'
+-                  and result['reason'] == 'success', **result)
++            check('instrumented_real_policy_success', policy_succeeded(result), **result)
+         events = records(events_path)
+         begin = next(e for e in events if e['event'] == 'reset_begin')
+         end = next(e for e in events if e['event'] == 'reset_end')
+         sent = next(e for e in events if e['event'] == 'send_end' and e['success'])
+         check('acceptance_sent_before_reset', sent['monotonic_s'] < begin['monotonic_s'])
++        constructed = next(e for e in events if e['event'] == 'constructed')
++        native_calls = [e for e in events if e['event'] in ('native_reset_called', 'native_step_called')]
++        check('initialization_has_no_reset_or_step', constructed['monotonic_s'] < sent['monotonic_s']
++              and bool(native_calls) and all(e['monotonic_s'] >= begin['monotonic_s'] for e in native_calls))
+         first_step = next(e for e in events if e['event'] == 'step_begin')
+         check('response_reset_step_order', sent['monotonic_s'] < begin['monotonic_s']
+               < end['monotonic_s'] < first_step['monotonic_s'], send_end=sent['monotonic_s'],
+@@ -640,9 +757,33 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+             scenario = 'readback-complete-retry-episode-2'
+             rpc('readback-complete-retry-accept', True)
+             policy_retry = finished(audit_log, 2)
+-            check('instrumented_policy_retry_success', policy_retry['status'] == 'SUCCEEDED'
+-                  and policy_retry['control_steps'] == 243
+-                  and abs(policy_retry['elapsed_sim_s']-4.856) < 1e-8, **policy_retry)
++            check('instrumented_policy_retry_success', policy_succeeded(policy_retry)
++                  and policy_retry['control_steps'] == result['control_steps']
++                  and abs(policy_retry['elapsed_sim_s']-result['elapsed_sim_s']) < 1e-8, **policy_retry)
++            wait(lambda: any(e['event'] == 'policy_state_check' and e['episode'] == 2
++                             for e in records(events_path)), 2.)
++            policy_events = records(events_path)
++            prepare_events = [e for e in policy_events if e['event'] == 'prepare_begin']
++            predictions = [e for e in policy_events if e['event'] == 'predict_end' and e['episode'] in (1, 2)]
++            controls = [e for e in policy_events if e['event'] == 'control_pipeline' and e['episode'] in (1, 2)]
++            completed = result['control_steps']+policy_retry['control_steps']
++            check('policy_loaded_once_for_two_episodes', len(prepare_events) == 1
++                  and len([e for e in policy_events if e['event'] == 'prepare_end' and e['success']]) == 1)
++            check('deterministic_current_observation_pipeline', len(predictions) == completed
++                  and all(e['deterministic'] and e['observation_matches_current']
++                          and e['observation_shape'] == [149] and e['action_shape'] == [17]
++                          for e in predictions), calls=len(predictions))
++            check('predicted_action_reaches_complete_wrapper', len(controls) == completed
++                  and all(e['action_matches_prediction'] and e['action_matches_wrapper'] for e in controls),
++                  controls=len(controls))
++            active = [e for e in controls if e['residual_gate'] > 0
++                      and e['max_abs_gated_residual_rad'] > 0 and e['max_abs_ctrl_Nm'] > 0]
++            check('nonzero_residual_enabled_in_both_episodes', {e['episode'] for e in active} == {1, 2},
++                  active_transitions=len(active),
++                  max_abs_gated_residual_rad=max((e['max_abs_gated_residual_rad'] for e in active), default=0.))
++            unchanged = [e for e in policy_events if e['event'] == 'policy_state_check' and e['episode'] in (1, 2)]
++            check('policy_state_unchanged_after_two_episodes', len(unchanged) == 2
++                  and all(e['status'] == 'SUCCEEDED' and e['unchanged'] for e in unchanged), evidence=unchanged)
+         shutdown_episode = 3 if policy_mode else 2
+         scenario = f'readback-active-shutdown-episode-{shutdown_episode}'
+         rpc('shutdown-active-accept', True)
+@@ -693,16 +834,16 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+         scenario = 'retry-after-synthetic-fault-episode-2'
+         rpc('retry-after-fault-accept', True)
+         retry = finished(fault_log, 2)
+-        check('real_reset_after_synthetic_fault', retry['reason'] == ('success' if policy_mode else 'time_limit') and
+-              retry['episode'] == 2 and retry['control_steps'] == (243 if policy_mode else 11))
++        check('real_reset_after_synthetic_fault', (policy_succeeded(retry) if policy_mode else retry['reason'] == 'time_limit') and
++              retry['episode'] == 2 and retry['control_steps'] == (normal_first['control_steps'] if policy_mode else 11))
+         stop(faulty); stop(fault_telemetry)
+         wait(lambda: not client.service_is_ready(), 5.)
+         for index, args in enumerate([
+-            ['-p','seed:=-1'], ['-p','episode_timeout_s:=0.0205'],
++            ['-p','seed:=-1'],
+             ['-p','recovery_timeout_s:=0.0'], ['-p','use_sim_time:=true'],
+             ['-p','episode_timeout_s:=0.0'], ['-p','episode_timeout_s:=-1.0']]):
+             scenario = f'invalid-startup-{index}'
+-            bad, bad_log = spawn([str(prefix/'recovery_node'),'--ros-args',*args], f'invalid-startup-{index}')
++            bad, bad_log = spawn([str(prefix/'recovery_node'),'--ros-args','-p','controller:=scripted_baseline',*args], f'invalid-startup-{index}')
+             wait(lambda: bad.poll() is not None, 10.)
+             stop(bad)
+             check(f'invalid-startup-{index}', bad.returncode != 0 and '"event": "ready"' not in bad_log.read_text()
+@@ -719,7 +860,7 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+                     directory.mkdir()
+                     for name in ('policy_final.zip', 'resolved_config.json', 'manifest.json',
+                                  'reload_validation.json', 'reload_probe.npz', 'progress.csv'):
+-                        shutil.copyfile(training_run/name, directory/name)
++                        shutil.copyfile(controller_run/name, directory/name)
+                     config = json.loads((directory/'resolved_config.json').read_text())
+                     manifest = json.loads((directory/'manifest.json').read_text())
+                     if label == 'missing-reference':
+@@ -733,30 +874,25 @@ def run(output, training_run=None, checkpoint=None, reference_trace=None):
+                     manifest['config_sha256'] = hashlib.sha256(
+                         (directory/'resolved_config.json').read_bytes()).hexdigest()
+                     dump(directory/'manifest.json', manifest)
+-                    fixtures.append((label, ['-p', f'training_run:={directory}'],
++                    fixtures.append((label, ['-p', f'controller_run:={directory}'],
+                         'Incomplete controller configuration' if label == 'missing-reference'
+                         else 'Controller interface shape mismatch'))
+                 cases = [
+-                    ('missing-policy-path', ['-p', 'training_run:=/nonexistent/x2-controller'], 'Missing input:'),
++                    ('missing-policy-path', ['-p', 'controller_run:=/nonexistent/x2-controller'], 'Missing input:'),
+                     ('wrong-policy-hash', ['-p', 'expected_checkpoint_sha256:='+'f'*64], 'Checkpoint identity mismatch'),
+                     ('policy-timeout-mismatch', ['-p', 'episode_timeout_s:=2.0'], 'saved configuration'),
+                     *fixtures]
+                 for label, override, expected_message in cases:
+-                    scenario = label
+-                    bad, bad_log = spawn([str(prefix/'recovery_node'), '--ros-args',
+-                                          *policy_parameters, *override], label)
+-                    wait(lambda: bad.poll() is not None, 20.)
+-                    stop(bad)
+-                    check(label, bad.returncode != 0 and '"event": "ready"' not in bad_log.read_text()
+-                          and expected_message in bad_log.read_text(), expected_error=expected_message,
+-                          scope='Real startup rejection; tampered fixtures are temporary copies')
+-        # Missing assets are a real startup fault, isolated to this child process.
+-        bad, bad_log = spawn(['env','X2_ASSET_REPO=/nonexistent/x2-assets',str(prefix/'recovery_node')], 'missing-model')
+-        wait(lambda: bad.poll() is not None, 10.)
+-        stop(bad)
+-        check('model_load_failure', bad.returncode != 0 and '"event": "ready"' not in bad_log.read_text()
+-              and 'Missing asset repository:' in bad_log.read_text())
+-        check('startup_failures_no_service', not client.service_is_ready())
++                    failed_startup(label, [*policy_parameters, *override], expected_message,
++                                   'reference_residual')
++        failed_startup('fractional-physics-timeout',
++                       ['-p', 'controller:=scripted_baseline', '-p', 'episode_timeout_s:=0.0205'],
++                       'Timeout must align to physics timestep', 'scripted_baseline')
++        # Bad model assets retain diagnostics too; the environment never starts.
++        failed_startup('missing-model', ['-p', 'controller:=scripted_baseline'],
++                       'Missing asset repository:', 'scripted_baseline',
++                       environment_prefix=['env', 'X2_ASSET_REPO=/nonexistent/x2-assets'])
++        check('diagnostic_failure_processes_cleaned_up', not client.service_is_ready())
+         report['result'] = 'PASS'
+         return 0
+     except BaseException as exc:
+@@ -831,13 +967,13 @@ if __name__ == '__main__':
+         sys.exit(instrumented_node(path, inject))
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument('--output-dir', type=Path, required=True)
+-    parser.add_argument('--training-run', type=Path, help='Enable real reference-residual acceptance')
++    parser.add_argument('--controller-run', type=Path, help='Enable real reference-residual acceptance')
+     parser.add_argument('--expected-checkpoint-sha256')
+     parser.add_argument('--reference-trace', type=Path, help='Standalone control_trace.npz for numeric comparison')
+     args = parser.parse_args()
+-    if bool(args.training_run) != bool(args.expected_checkpoint_sha256):
+-        parser.error('--training-run and --expected-checkpoint-sha256 are required together')
++    if bool(args.controller_run) != bool(args.expected_checkpoint_sha256):
++        parser.error('--controller-run and --expected-checkpoint-sha256 are required together')
+     sys.exit(run(args.output_dir.resolve(),
+-                 args.training_run.resolve() if args.training_run else None,
++                 args.controller_run.resolve() if args.controller_run else None,
+                  args.expected_checkpoint_sha256,
+                  args.reference_trace.resolve() if args.reference_trace else None))
+diff --git a/src/x2_recovery/test/test_ros_nodes.py b/src/x2_recovery/test/test_ros_nodes.py
+index d1299e4..277e9ec 100644
+--- a/src/x2_recovery/test/test_ros_nodes.py
++++ b/src/x2_recovery/test/test_ros_nodes.py
+@@ -80,7 +80,8 @@ class RecoveryLogicTests(unittest.TestCase):
+         self.env_patch = patch.object(rn, 'X2RecoveryEnv', return_value=self.env)
+         self.time_patch.start(); self.env_patch.start()
+         self.addCleanup(self.time_patch.stop); self.addCleanup(self.env_patch.stop)
+-        self.node = rn.RecoveryNode(context=self.context)
++        self.node = rn.RecoveryNode(context=self.context, parameter_overrides=[
++            Parameter('controller', value='scripted_baseline')])
+         self.addCleanup(self.context.shutdown)
+         self.addCleanup(self.node.destroy_node)
+         self.addCleanup(self.node.close)
+@@ -93,6 +94,15 @@ class RecoveryLogicTests(unittest.TestCase):
+     def finish_logs(self):
+         return [r for r in self.logs if r['event'] == 'finished']
+ 
++    def test_explicit_baseline_ignores_unused_default_checkpoint(self):
++        self.assertEqual(self.node.controller, 'scripted_baseline')
++        self.assertEqual(self.node.controller_run, '')
++        self.assertEqual(self.node.expected_checkpoint_sha256, rn.PUBLISHED_CHECKPOINT_SHA256)
++        self.assertTrue(self.node.controller_ready)
++        self.assertIsNone(self.node.initialization_error)
++        self.assertIs(self.node.base_env, self.env)
++        self.assertEqual(self.node.status, 'IDLE')
++
+     def test_acceptance_pending_busy_no_environment_calls_or_mutation(self):
+         self.assertEqual((self.env.resets, self.env.steps), (0, 0))
+         self.assertTrue(self.start().success)
+@@ -261,9 +271,18 @@ class RecoveryLogicTests(unittest.TestCase):
+ 
+     def test_startup_cleanup_does_not_replace_first_error(self):
+         with patch.object(self.env.loaded, 'mapping', ()), \
+-                patch.object(self.env, 'close', side_effect=RuntimeError('secondary cleanup')):
+-            with self.assertRaisesRegex(ValueError, 'Invalid controlled joint mapping'):
+-                rn.RecoveryNode(context=self.context)
++                patch.object(self.env, 'close', side_effect=RuntimeError('secondary cleanup')) as close:
++            failed = rn.RecoveryNode(context=self.context, parameter_overrides=[
++                Parameter('controller', value='scripted_baseline')])
++            self.addCleanup(failed.destroy_node)
++            self.addCleanup(failed.close)
++            self.assertEqual(failed.status, 'FAILED')
++            self.assertFalse(failed.controller_ready)
++            self.assertIn('Invalid controlled joint mapping', str(failed.initialization_error))
++            self.assertNotIn('secondary cleanup', str(failed.initialization_error))
++            self.assertFalse(failed._start(Trigger.Request(), Trigger.Response()).success)
++            failed.close(); failed.close()
++            close.assert_called_once()
+ 
+     def test_startup_parameters_and_runtime_changes_rejected(self):
+         for name in ('seed', 'episode_timeout_s', 'recovery_timeout_s', 'use_sim_time'):
+@@ -275,7 +294,8 @@ class RecoveryLogicTests(unittest.TestCase):
+                             ('recovery_timeout_s', float('nan')), ('episode_timeout_s', -1.),
+                             ('use_sim_time', True)]:
+             with self.assertRaises((ValueError, RuntimeError)):
+-                rn.RecoveryNode(context=self.context, parameter_overrides=[Parameter(name, value=value)])
++                rn.RecoveryNode(context=self.context, parameter_overrides=[
++                    Parameter('controller', value='scripted_baseline'), Parameter(name, value=value)])
+         for name, value in [('seed', 61), ('episode_timeout_s', 3.),
+                             ('recovery_timeout_s', 2.), ('use_sim_time', True)]:
+             result = self.node.set_parameters([Parameter(name, value=value)])
+@@ -306,78 +326,293 @@ class RecoveryPolicyLogicTests(unittest.TestCase):
+             _, reward, term, trunc, info = self.physical.step(action)
+             return np.full(149, self.physical.steps+1, dtype=np.float32), reward, term, trunc, info
+         self.env.reset, self.env.step = Mock(side_effect=reset), Mock(side_effect=step)
+-        self.policy = SimpleNamespace(predict=Mock(return_value=(np.zeros(17), None)))
+-        self.prepared = dict(saved=dict(controller=dict(mode='reference_residual'),
++        self.actor = SimpleNamespace(training=True)
++        self.actor.set_training_mode = Mock(side_effect=lambda mode: setattr(self.actor, 'training', mode))
++        self.policy = SimpleNamespace(predict=Mock(return_value=(np.zeros(17), None)), policy=self.actor)
++        self.prepared = dict(saved=dict(schema='x2-controller-ppo-v1',
++            controller=dict(mode='reference_residual', version='targets-v5', action_layout='independentlegs17'),
+             identity=dict(model_fingerprint={'sha256': 'synthetic'})), directory='synthetic',
+             hashes={'policy_final.zip': 'a'*64}, consistency={'passed': True})
+-        self.parameters = [Parameter('controller', value='reference_residual'),
+-                           Parameter('training_run', value='synthetic'),
++        # The controller is deliberately omitted: successful policy mode is the default.
++        self.parameters = [Parameter('controller_run', value='synthetic'),
+                            Parameter('expected_checkpoint_sha256', value='a'*64)]
+         self.time_patch = patch.object(rn, 'time', self.clock)
+         self.prepare_patch = patch.object(rn, 'prepare_policy',
+             return_value=(self.env, self.physical, self.policy, self.prepared))
++        self.baseline_patch = patch.object(rn, 'X2RecoveryEnv',
++            side_effect=AssertionError('Policy mode must never fall back to a baseline'))
+         self.time_patch.start(); self.prepare = self.prepare_patch.start()
++        self.baseline = self.baseline_patch.start()
+         self.addCleanup(self.time_patch.stop); self.addCleanup(self.prepare_patch.stop)
++        self.addCleanup(self.baseline_patch.stop)
+ 
+-    def make_node(self, extra=()):
+-        node = rn.RecoveryNode(context=self.context, parameter_overrides=[*self.parameters, *extra])
++    def make_node(self, extra=(), parameters=None):
++        node = rn.RecoveryNode(context=self.context,
++            parameter_overrides=[*(self.parameters if parameters is None else parameters), *extra])
+         self.addCleanup(node.destroy_node); self.addCleanup(node.close)
++        node.test_logs = []
++        node._log = lambda event, **fields: node.test_logs.append(dict(event=event, **fields))
+         return node
+ 
+-    def test_full_wrapper_inference_same_physics_and_retry(self):
++    @staticmethod
++    def start(node):
++        return node._start(Trigger.Request(), Trigger.Response())
++
++    def finish(self, node):
++        return [r for r in node.test_logs if r['event'] == 'finished'][-1]
++
++    def assert_failed_initialization(self, node, cause):
++        self.assertEqual(node.status, 'FAILED')
++        self.assertFalse(node.controller_ready)
++        self.assertIn(cause, str(node.initialization_error))
++        self.assertIsNone(node.timer)
++        self.assertFalse(node.busy or node.pending)
++        for _ in range(2):
++            response = self.start(node)
++            self.assertFalse(response.success)
++            self.assertTrue(response.message)
++            node._advance()
++        self.assertEqual(node.episode, 0)
++        self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
++        self.baseline.assert_not_called()
++
++    def test_default_policy_and_checkpoint_identity_are_explicit(self):
++        self.prepared['hashes']['policy_final.zip'] = rn.PUBLISHED_CHECKPOINT_SHA256
++        node = self.make_node(parameters=[Parameter('controller_run', value='synthetic')])
++        self.assertEqual(node.controller, 'reference_residual')
++        self.assertEqual(node.expected_checkpoint_sha256,
++            '11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64')
++        self.prepare.assert_called_once_with('synthetic', node.expected_checkpoint_sha256)
++        self.assertTrue(node.controller_ready)
++        self.assertIsNone(node.initialization_error)
++        self.assertIs(node.base_env, self.physical)
++        self.assertIs(node.env, self.env)
++        self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
++
++    def test_full_wrapper_inference_same_physics_and_retry_loads_once(self):
++        import torch
++        modes = []
++        def predict(observation, *, deterministic):
++            modes.append((torch.is_inference_mode_enabled(), self.actor.training, deterministic))
++            return np.arange(17, dtype=np.float32)/100, None
++        self.policy.predict.side_effect = predict
+         node = self.make_node()
+         self.prepare.assert_called_once_with('synthetic', 'a'*64)
++        self.assertTrue(node.controller_ready)
+         self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
+-        node._start(Trigger.Request(), Trigger.Response())
++        self.assertTrue(self.start(node).success)
+         self.assertIsNone(node.observation)
+         node._advance()
+         self.assertEqual((self.physical.resets, self.physical.steps), (1, 0))
++        self.policy.predict.assert_not_called(); self.env.step.assert_not_called()
+         self.assertIsNone(node.keyframes)
+-        self.assertFalse(node._start(Trigger.Request(), Trigger.Response()).success)
++        self.assertFalse(self.start(node).success)
+         node._advance()
+         self.policy.predict.assert_called_once()
+         np.testing.assert_array_equal(self.policy.predict.call_args.args[0], np.ones(149))
+         self.assertEqual(self.policy.predict.call_args.kwargs, {'deterministic': True})
+-        np.testing.assert_array_equal(self.env.step.call_args.args[0], np.zeros(17))
++        np.testing.assert_array_equal(self.env.step.call_args.args[0], np.arange(17, dtype=np.float32)/100)
++        self.assertEqual(self.env.step.call_count, 1)
++        np.testing.assert_array_equal(node.observation, np.full(149, 2))
+         np.testing.assert_array_equal(node._sample().position, self.physical.q)
++        np.testing.assert_array_equal(node._sample().velocity, self.physical.dq)
+         self.physical.terminated = self.physical.success = True
+         node._advance()
++        self.assertEqual(self.policy.predict.call_count, 2)
++        self.assertEqual(self.env.step.call_count, 2)
++        np.testing.assert_array_equal(self.policy.predict.call_args.args[0], np.full(149, 2))
+         self.assertEqual(node.status, 'SUCCEEDED')
+         self.assertIsNone(node.observation); self.assertIsNone(node.last_action)
+-        count = self.physical.steps; node._advance(); self.assertEqual(count, self.physical.steps)
+-        self.assertTrue(node._start(Trigger.Request(), Trigger.Response()).success)
++        count = self.physical.steps
++        for _ in range(3): node._advance()
++        self.assertEqual(count, self.physical.steps)
++        self.assertTrue(self.start(node).success)
++        self.assertIsNone(node.observation)
+         node._advance()
+         self.assertEqual(self.physical.resets, 2)
+         np.testing.assert_array_equal(node.observation, np.full(149, 2))
++        self.prepare.assert_called_once()
++        self.assertEqual(modes, [(True, False, True), (True, False, True)])
++        self.assertTrue(self.actor.set_training_mode.called)
++        self.assertTrue(all(call.args == (False,) for call in self.actor.set_training_mode.call_args_list))
++        self.baseline.assert_not_called()
++
++    def test_policy_episode_timeout_mismatch_stays_failed_and_closes_once(self):
++        node = self.make_node([Parameter('episode_timeout_s', value=2.)])
++        self.assert_failed_initialization(node, 'saved configuration')
++        self.assertEqual(self.physical.closes, 1)
++        node.close(); node.close()
++        self.assertEqual(self.physical.closes, 1)
+ 
+-    def test_policy_timeout_preserves_saved_episode_clock(self):
+-        with self.assertRaisesRegex(ValueError, 'saved configuration'):
+-            self.make_node([Parameter('episode_timeout_s', value=2.)])
++    def test_policy_wall_timeout_preserves_saved_episode_clock(self):
+         node = self.make_node([Parameter('recovery_timeout_s', value=.001)])
+         self.assertEqual(self.physical.config.episode_timeout_s, 20.)
+-        node._start(Trigger.Request(), Trigger.Response())
++        self.start(node)
+         self.clock.now += .002; node._advance()
+         self.assertEqual(node.status, 'FAILED')
++        self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
++        self.assertEqual(self.finish(node)['reason'], 'recovery_timeout')
++
++    def test_targets_v6_uses_strict_prepared_wrapper_without_startup_episode(self):
++        self.prepared['saved']['controller'].update(version='targets-v6',
++            feedback_kp=.3, feedback_kd=.03, feedback_cap_rad=.08,
++            feedback_start_s=3.5, feedback_ramp_s=.2)
++        node = self.make_node()
++        self.assertTrue(node.controller_ready)
++        self.assertIs(node.env, self.env)
++        self.assertIs(node.base_env, self.physical)
++        self.prepare.assert_called_once_with('synthetic', 'a'*64)
++        self.assertEqual((self.physical.resets, self.physical.steps), (0, 0))
++        self.assertTrue(self.start(node).success)
++        node._advance()
++        self.assertEqual((self.physical.resets, self.physical.steps), (1, 0))
++        node._advance()
++        self.assertEqual(self.env.step.call_count, 1)
++        self.baseline.assert_not_called()
++
++    def test_wrong_interface_keeps_failed_service_without_fallback(self):
++        original = copy.deepcopy(self.prepared['saved'])
++        for field, value in (('schema', 'legacy'), ('mode', 'rate'), ('version', 'targets-v4'), ('version', 'targets-v7'),
++                ('action_layout', 'joint31'), ('observation_shape', (117,)), ('action_shape', (31,))):
++            with self.subTest(field=field):
++                self.prepared['saved'] = copy.deepcopy(original)
++                self.env.observation_space.shape = (149,)
++                self.env.action_space.shape = (17,)
++                if field == 'schema':
++                    self.prepared['saved']['schema'] = value
++                elif field == 'observation_shape':
++                    self.env.observation_space.shape = value
++                elif field == 'action_shape':
++                    self.env.action_space.shape = value
++                else:
++                    self.prepared['saved']['controller'][field] = value
++                previous_closes = self.physical.closes
++                node = self.make_node()
++                self.assert_failed_initialization(node, '149/17')
++                self.assertEqual(self.physical.closes, previous_closes+1)
++                node.close(); node.close()
++                self.assertEqual(self.physical.closes, previous_closes+1)
++
++    def test_explicit_baseline_rejects_policy_input_directory(self):
++        node = self.make_node([Parameter('controller', value='scripted_baseline')])
++        self.assert_failed_initialization(node, 'Policy inputs require')
++        self.prepare.assert_not_called()
++        self.assertEqual(self.physical.closes, 0)
++
++    def test_bad_checkpoint_keeps_failed_service_without_retrying_load(self):
++        self.prepare.side_effect = ValueError('Checkpoint identity mismatch')
++        node = self.make_node()
++        self.assert_failed_initialization(node, 'Checkpoint identity mismatch')
++        self.prepare.assert_called_once()
++        node.close(); node.close()
++        self.assertEqual(self.physical.closes, 0)
++
++    def test_missing_controller_run_is_not_accepted(self):
++        node = self.make_node(parameters=[])
++        self.assert_failed_initialization(node, 'controller_run')
++        self.prepare.assert_not_called()
++        node.close(); node.close()
++
++    def test_nonfinite_or_wrong_shaped_reset_observation_stops_before_predict(self):
++        node = self.make_node()
++        for bad in (np.zeros(117), np.zeros((1, 149)), np.full(149, np.nan), np.full(149, np.inf)):
++            with self.subTest(shape=bad.shape, finite=bool(np.isfinite(bad).all())):
++                def reset(**kwargs):
++                    _, info = self.physical.reset(**kwargs)
++                    return bad.copy(), info
++                self.env.reset.side_effect = reset
++                self.assertTrue(self.start(node).success)
++                node._advance()
++                self.assertEqual(node.status, 'FAILED')
++                self.assertEqual(self.finish(node)['reason'], 'reset_error')
++                self.policy.predict.assert_not_called(); self.env.step.assert_not_called()
++                self.assertIsNone(node.observation)
++
++    def test_nonfinite_or_wrong_shaped_policy_action_never_reaches_step(self):
++        node = self.make_node()
++        for bad in (np.zeros(31), np.zeros((1, 17)), np.full(17, np.nan), np.full(17, np.inf)):
++            with self.subTest(shape=bad.shape, finite=bool(np.isfinite(bad).all())):
++                self.policy.predict.return_value = (bad.copy(), None)
++                self.assertTrue(self.start(node).success); node._advance(); node._advance()
++                self.assertEqual(node.status, 'FAILED')
++                self.assertEqual(self.finish(node)['reason'], 'predict_error')
++                self.env.step.assert_not_called()
++                self.assertIsNone(node.last_action)
++        self.assertEqual(self.policy.predict.call_count, 4)
++        self.prepare.assert_called_once()
++
++    def test_invalid_next_observation_fails_after_one_step_without_further_inference(self):
++        node = self.make_node()
++        self.start(node); node._advance()
++        def step(action):
++            _, reward, term, trunc, info = self.physical.step(action)
++            return np.full(149, np.nan), reward, term, trunc, info
++        self.env.step.side_effect = step
++        node._advance()
++        self.assertEqual(node.status, 'FAILED')
++        self.assertEqual(self.finish(node)['reason'], 'step_error')
++        self.assertEqual(self.finish(node)['control_steps'], 1)
++        self.assertAlmostEqual(self.finish(node)['environment_result']['elapsed_sim_s'], .02)
++        self.assertEqual((self.policy.predict.call_count, self.env.step.call_count), (1, 1))
++        node._advance()
++        self.assertEqual((self.policy.predict.call_count, self.env.step.call_count), (1, 1))
++
++    def test_predict_exception_fails_clears_state_and_allows_explicit_retry(self):
++        node = self.make_node()
++        self.start(node); node._advance()
++        self.policy.predict.side_effect = RuntimeError('synthetic predict failure')
++        node._advance()
++        self.assertEqual(node.status, 'FAILED')
++        self.assertEqual(self.finish(node)['reason'], 'predict_error')
++        self.assertIn('synthetic predict failure', self.finish(node)['error']['message'])
++        self.assertIsNone(node.observation); self.assertIsNone(node.last_action)
+         self.assertEqual(self.physical.steps, 0)
++        self.policy.predict.side_effect = None
++        self.assertTrue(self.start(node).success)
++        node._advance(); node._advance()
++        self.assertEqual(node.status, 'RUNNING')
++        self.assertEqual((self.physical.resets, self.physical.steps), (2, 1))
++        self.prepare.assert_called_once()
++
++    def test_predict_deadline_is_checked_before_step(self):
++        node = self.make_node()
++        self.start(node); node._advance()
++        def slow(observation, **kwargs):
++            self.clock.now = node.deadline
++            return np.zeros(17), None
++        self.policy.predict.side_effect = slow
++        node._advance()
++        self.assertEqual(node.status, 'FAILED')
++        self.assertEqual(self.finish(node)['reason'], 'recovery_timeout')
++        self.policy.predict.assert_called_once(); self.env.step.assert_not_called()
++        self.assertIsNone(node.last_action)
+ 
+-    def test_interface_rejected_and_policy_inputs_never_fallback(self):
+-        self.env.action_space.shape = (31,)
+-        with self.assertRaisesRegex(ValueError, '149/17'):
+-            self.make_node()
+-        self.assertEqual(self.physical.closes, 1)
+-        with patch.object(rn, 'prepare_policy', side_effect=ValueError('Checkpoint identity mismatch')):
+-            with self.assertRaisesRegex(ValueError, 'Checkpoint identity mismatch'):
+-                self.make_node()
+-        with self.assertRaisesRegex(ValueError, 'requires training_run'):
+-            self.make_node([Parameter('training_run', value='')])
+-        with self.assertRaisesRegex(ValueError, 'Policy inputs require'):
+-            self.make_node([Parameter('controller', value='scripted_baseline')])
++    def test_policy_step_and_sample_exceptions_have_distinct_stages(self):
++        node = self.make_node()
++        self.start(node); node._advance()
++        self.physical.step_error = RuntimeError('synthetic step failure')
++        node._advance()
++        self.assertEqual(self.finish(node)['reason'], 'step_error')
++        self.physical.step_error = None
++        self.assertTrue(self.start(node).success); node._advance()
++        with patch.object(node, '_sample', side_effect=ValueError('synthetic joint snapshot failure')), \
++             patch.object(node.joint_pub, 'publish') as publish:
++            node._advance(); publish.assert_not_called()
++        self.assertEqual(node.status, 'FAILED')
++        self.assertEqual(self.finish(node)['reason'], 'sample_error')
++        self.assertIn('synthetic joint snapshot failure', self.finish(node)['error']['message'])
++        self.assertFalse(node.busy)
+ 
+     def test_policy_parameters_are_startup_only(self):
+         node = self.make_node()
+-        for name in ('controller', 'training_run', 'expected_checkpoint_sha256'):
+-            self.assertTrue(node.describe_parameter(name).read_only)
+-            self.assertFalse(node.set_parameters([Parameter(name, value='changed')])[0].successful)
++        for name, changed in (('controller', 'scripted_baseline'), ('controller_run', 'changed'),
++                ('expected_checkpoint_sha256', 'b'*64), ('seed', 3), ('episode_timeout_s', 3.),
++                ('recovery_timeout_s', 2.), ('use_sim_time', True)):
++            descriptor = node.describe_parameter(name)
++            self.assertEqual(descriptor.name, name)
++            self.assertEqual(descriptor.type, node.get_parameter(name).type_.value)
++            self.assertTrue(descriptor.read_only)
++            self.assertFalse(node.set_parameters([Parameter(name, value=changed)])[0].successful)
+ 
+ 
+ class TelemetryLogicTests(unittest.TestCase):
+diff --git a/src/x2_recovery/x2_recovery/env.py b/src/x2_recovery/x2_recovery/env.py
+index 14a2dec..6da9017 100644
+--- a/src/x2_recovery/x2_recovery/env.py
++++ b/src/x2_recovery/x2_recovery/env.py
+@@ -481,10 +481,16 @@ class ControlConfig:
+     head_progress_range_m: tuple = ()
+     residual_start_s: float = 0.
+     residual_ramp_s: float = 0.
++    feedback_kp: float = 0.
++    feedback_kd: float = 0.
++    feedback_cap_rad: float = 0.
++    feedback_start_s: float = 0.
++    feedback_ramp_s: float = 0.
+ 
+     def __post_init__(self):
+         layouts = {'targets-v1': 'joint31', 'targets-v2': 'joint31', 'targets-v3': 'bilateral11',
+-                   'targets-v4': 'bilateral11', 'targets-v5': 'independentlegs17'}
++                   'targets-v4': 'bilateral11', 'targets-v5': 'independentlegs17',
++                   'targets-v6': 'independentlegs17'}
+         require(type(self.version) is str and self.version in layouts, 'Unknown controller version')
+         require(self.action_layout in layouts.values(), 'Unknown policy action layout')
+         require(self.action_layout == layouts[self.version], 'Controller version/action layout mismatch')
+@@ -493,21 +499,31 @@ class ControlConfig:
+             value = getattr(self, name)
+             require(type(value) in (int, float) and np.isfinite(value) and value >= 0,
+                     'Residual phase times must be finite nonnegative numbers')
+-        if self.version in ('targets-v4', 'targets-v5'):
++        if self.version in ('targets-v4', 'targets-v5', 'targets-v6'):
+             require(self.mode == 'reference_residual' and self.residual_ramp_s > 0,
+-                    'targets-v4/v5 requires reference_residual and a positive residual ramp')
++                    'targets-v4/v5/v6 requires reference_residual and a positive residual ramp')
+         else:
+             require(self.residual_start_s == self.residual_ramp_s == 0,
+-                    'Residual phase gating requires targets-v4/v5')
++                    'Residual phase gating requires targets-v4/v5/v6')
++        feedback_values = (self.feedback_kp, self.feedback_kd, self.feedback_cap_rad,
++                           self.feedback_start_s, self.feedback_ramp_s)
++        require(all(type(value) in (int, float) and np.isfinite(value) and value >= 0
++                    for value in feedback_values), 'Feedback parameters must be finite nonnegative numbers')
++        if self.version == 'targets-v6':
++            require(self.mode == 'reference_residual' and 0 < self.feedback_cap_rad <= .08
++                    and self.feedback_kp <= .6 and self.feedback_kd <= .1 and self.feedback_ramp_s > 0,
++                    'targets-v6 requires explicit bounded torso-ankle feedback')
++        else:
++            require(not any(feedback_values), 'Feedback parameters require targets-v6')
+         require(self.reference_interpolation in ('quintic-v1', 'linear-v1'), 'Unknown reference interpolation')
+         require(self.reference_interpolation == 'quintic-v1' or self.mode == 'reference_residual',
+                 'Linear reference interpolation requires reference_residual')
+         require(self.reward_version in ('original', 'support-v1', 'track-v1', 'upright-support-v2',
+-                                       'reference-head-support-v1', 'reference-balance-v1'),
++                                       'reference-head-support-v1', 'reference-balance-v1', 'reference-balance-density10-v1'),
+                 'Unknown reward version')
+         require(type(self.head_reference) is tuple and type(self.head_progress_range_m) is tuple,
+                 'Head reference and progress range must be tuples')
+-        if self.reward_version in ('reference-head-support-v1', 'reference-balance-v1'):
++        if self.reward_version in ('reference-head-support-v1', 'reference-balance-v1', 'reference-balance-density10-v1'):
+             require(self.mode == 'reference_residual', 'Head reference reward requires reference_residual')
+             require(len(self.head_progress_range_m) == 2
+                     and all(type(x) in (int, float) and np.isfinite(x) for x in self.head_progress_range_m)
+@@ -532,8 +548,8 @@ class ControlConfig:
+         require((self.mode == 'reference_residual') == bool(self.reference_stages), 'Reference/controller mismatch')
+         require(self.reward_version != 'track-v1' or self.mode == 'reference_residual',
+                 'Tracking reward requires reference control')
+-        require((self.version in ('targets-v2', 'targets-v3', 'targets-v4', 'targets-v5')) == (self.residual_joint_multipliers is not None),
+-                'Jointwise residual multipliers require targets-v2/v3/v4/v5 and explicit values')
++        require((self.version in ('targets-v2', 'targets-v3', 'targets-v4', 'targets-v5', 'targets-v6')) == (self.residual_joint_multipliers is not None),
++                'Jointwise residual multipliers require targets-v2/v3/v4/v5/v6 and explicit values')
+         if self.residual_joint_multipliers is not None:
+             require(self.mode == 'reference_residual', 'Jointwise residual multipliers require reference_residual')
+             require(type(self.residual_joint_multipliers) is tuple and len(self.residual_joint_multipliers) == 31,
+@@ -561,12 +577,60 @@ class ControlConfig:
+ def residual_phase_gate(control, elapsed_sim_s):
+     """Read the 50Hz pre-control phase; never advance a separate phase state."""
+     require(np.isfinite(elapsed_sim_s) and elapsed_sim_s >= 0, 'Invalid residual gate time')
+-    if control.version not in ('targets-v4', 'targets-v5'):
++    if control.version not in ('targets-v4', 'targets-v5', 'targets-v6'):
+         return 1.
+     u = float(np.clip((elapsed_sim_s-control.residual_start_s)/control.residual_ramp_s, 0., 1.))
+     return u**3*(10.-15.*u+6.*u*u)
+ 
+ 
++def torso_ankle_feedback_action(observation, control, q_min, q_max,
++                                joint_velocity_scale=5., base_angular_scale=2., timeout_s=20.):
++    """Memoryless149D torso feedback, preserving the measured float32 action path.
++
++    The constant law adds equal ankle pitch offsets. It is an explicit reference
++    controller component, independent of learned PPO actions and residual scale.
++    """
++    require(control.version == 'targets-v6', 'Torso feedback requires targets-v6')
++    obs = np.asarray(observation, dtype=float)
++    require(obs.shape == (149,) and np.isfinite(obs).all(), 'Expected finite149D feedback observation')
++    action = np.zeros(17, dtype=np.float32)
++    if (control.feedback_kp == 0 and control.feedback_kd == 0) or obs[148]*timeout_s < control.feedback_start_s:
++        return action
++    lower, upper = np.asarray(q_min, dtype=float), np.asarray(q_max, dtype=float)
++    require(lower.shape == upper.shape == (31,) and np.all(lower < upper), 'Invalid feedback joint bounds')
++    q = (lower+upper)/2+obs[:31]*(upper-lower)/2
++    yaw, pitch, roll = q[[12, 13, 14]]
++    sy, cy = np.sin(yaw), np.cos(yaw)
++    sp, cp = np.sin(pitch), np.cos(pitch)
++    sr, cr = np.sin(roll), np.cos(roll)
++    Z = np.array([[cy, -sy, 0.], [sy, cy, 0.], [0., 0., 1.]])
++    Y = np.array([[cp, 0., sp], [0., 1., 0.], [-sp, 0., cp]])
++    X = np.array([[1., 0., 0.], [0., cr, -sr], [0., sr, cr]])
++    Q = Z@Y@X
++    axes = np.column_stack([np.array([0., 0., 1.]), Z@np.array([0., 1., 0.]), Z@Y@np.array([1., 0., 0.])])
++    gravity = Q.T@obs[62:65]
++    waist_velocity = (obs[31:62]*joint_velocity_scale)[[12, 13, 14]]
++    omega = Q.T@(obs[68:71]*base_angular_scale+axes@waist_velocity)
++    gravity_rate = -np.cross(omega, gravity)
++    x, _, z = gravity
++    dx, _, dz = gravity_rate
++    denominator = x*x+z*z
++    require(denominator > 1e-10, 'Sagittal gravity projection is undefined')
++    tilt = float(np.arctan2(x, -z))
++    rate = float((-z*dx+x*dz)/denominator)
++    delta = float(np.clip(control.feedback_kp*tilt+control.feedback_kd*rate,
++                         -control.feedback_cap_rad, control.feedback_cap_rad))
++    action[[4, 10]] = delta/control.feedback_cap_rad
++    return action
++
++
++def feedback_phase_gate(control, elapsed_sim_s):
++    require(control.version == 'targets-v6' and np.isfinite(elapsed_sim_s) and elapsed_sim_s >= 0,
++            'Invalid feedback phase')
++    u = float(np.clip((elapsed_sim_s-control.feedback_start_s)/control.feedback_ramp_s, 0., 1.))
++    return u**3*(10.-15.*u+6.*u*u)
++
++
+ def controller_reference_targets(elapsed_sim_s, keyframes, interpolation):
+     """Sample an explicit reference interpolation, without advancing controller state."""
+     if interpolation == 'quintic-v1':
+@@ -608,7 +672,7 @@ def balance_support_task(state):
+ 
+ def head_support_task(config, q, reference, pose_indices, state, qualified, head_height_m, elapsed_s):
+     """Control-boundary task reward densities, independent of success detection."""
+-    require(config.reward_version in ('reference-head-support-v1', 'reference-balance-v1'),
++    require(config.reward_version in ('reference-head-support-v1', 'reference-balance-v1', 'reference-balance-density10-v1'),
+             'Expected head-guided reward')
+     require(np.isfinite(head_height_m) and np.isfinite(elapsed_s) and elapsed_s >= 0,
+             'Nonfinite head task measurement or invalid time')
+@@ -634,11 +698,15 @@ def head_support_task(config, q, reference, pose_indices, state, qualified, head
+         contact_factor=contact, upright=upright, foot_transfer_factor=foot_transfer,
+         pose_error_rms_rad=float(np.sqrt(np.mean(pose_error**2))), elapsed_sim_s=float(elapsed_s),
+         measurement_scope='post-step control boundary; head_pitch_link body origin in world Z')
+-    if config.reward_version == 'reference-balance-v1':
++    if config.reward_version in ('reference-balance-v1', 'reference-balance-density10-v1'):
+         balance, factors = balance_support_task(state)
+         terms = dict(pose_guide=terms['pose_guide'], head_track=terms['head_track'],
+                      **balance, standing=terms['standing'])
+         diagnostics.update(factors)
++        if config.reward_version == 'reference-balance-density10-v1':
++            for name in ('pose_guide', 'head_track', 'balance', 'standing'):
++                terms[name] *= .1
++            diagnostics['positive_density_scale'] = .1
+     return terms, diagnostics
+ 
+ 
+@@ -654,15 +722,22 @@ class ControlledRecoveryEnv(gym.Wrapper):
+         require(isinstance(self.env, X2RecoveryEnv), 'Expected the native X2 physical environment')
+         self.control_config = control if control is not None else ControlConfig()
+         require(isinstance(self.control_config, ControlConfig), 'Expected ControlConfig')
+-        if self.control_config.version in ('targets-v4', 'targets-v5'):
++        if self.control_config.version in ('targets-v4', 'targets-v5', 'targets-v6'):
+             require(self.control_config.residual_start_s+self.control_config.residual_ramp_s
+                     <= self.env.config.episode_timeout_s, 'Residual ramp exceeds the original episode timeout')
+         self.observation_space = gym.spaces.Box(-np.inf, np.inf, (149,), dtype=np.float32)
++        if self.control_config.version == 'targets-v6':
++            require(self.control_config.feedback_start_s+self.control_config.feedback_ramp_s
++                    <= self.env.config.episode_timeout_s, 'Feedback ramp exceeds episode timeout')
+         joint_names = [row.joint_name for row in self.env.loaded.mapping]
++        if self.control_config.version == 'targets-v6':
++            require([joint_names[i] for i in (4, 10, 12, 13, 14)] ==
++                    ['left_ankle_pitch_joint', 'right_ankle_pitch_joint', 'waist_yaw_joint',
++                     'waist_pitch_joint', 'waist_roll_joint'], 'Unexpected feedback joint mapping')
+         self.pose_indices = np.array([i for i, name in enumerate(joint_names)
+                                       if 'head' not in name and 'wrist' not in name], dtype=int)
+         self.head_body = None
+-        if self.control_config.reward_version in ('reference-head-support-v1', 'reference-balance-v1'):
++        if self.control_config.reward_version in ('reference-head-support-v1', 'reference-balance-v1', 'reference-balance-density10-v1'):
+             require(len(self.pose_indices) == 23, 'Expected 23 reference pose joints')
+             self.head_body = self.env.model.body('head_pitch_link').id
+         if self.control_config.action_layout == 'bilateral11':
+@@ -714,7 +789,7 @@ class ControlledRecoveryEnv(gym.Wrapper):
+         info['controller'] = dict(version=self.control_config.version, mode=self.control_config.mode,
+                                   action_layout=self.control_config.action_layout,
+                                   initial_target_rad=self.target.tolist())
+-        if self.control_config.version in ('targets-v4', 'targets-v5'):
++        if self.control_config.version in ('targets-v4', 'targets-v5', 'targets-v6'):
+             info['controller'].update(residual_gate=0., residual_gate_time_s=0.)
+         return self._augment(observation), info
+ 
+@@ -738,10 +813,20 @@ class ControlledRecoveryEnv(gym.Wrapper):
+         else:
+             reference, _ = controller_reference_targets(
+                 e.data.time-e.episode_start_time+e.control_dt, self.reference, c.reference_interpolation)
+-            if c.version in ('targets-v4', 'targets-v5'):
++            if c.version in ('targets-v4', 'targets-v5', 'targets-v6'):
+                 gate = residual_phase_gate(c, gate_time)
+                 gated_residual = self.residual_scale*mapped_action*gate
+-                requested = np.clip(reference+gated_residual, e.q_min, e.q_max)
++                if c.version == 'targets-v6':
++                    # Use the same CURRENT wrapped float32 observation as the validated
++                    # analytical pilot; no independent sensor read or hidden filter state.
++                    feedback_action = torso_ankle_feedback_action(self._augment(e._observation()), c,
++                        e.q_min, e.q_max, e.config.joint_velocity_scale_rad_s,
++                        e.config.base_angular_scale_rad_s, e.config.episode_timeout_s)
++                    feedback_gate = feedback_phase_gate(c, gate_time)
++                    feedback_delta = c.feedback_cap_rad*(self.policy_to_joint@feedback_action)*feedback_gate
++                    requested = np.clip(reference+feedback_delta+gated_residual, e.q_min, e.q_max)
++                else:
++                    requested = np.clip(reference+gated_residual, e.q_min, e.q_max)
+             else:
+                 requested = np.clip(reference+self.residual_scale*mapped_action, e.q_min, e.q_max)
+         if c.tracking_error_ratio is not None:
+@@ -757,16 +842,20 @@ class ControlledRecoveryEnv(gym.Wrapper):
+             pre_time_s=float(e.data.time-e.episode_start_time-info['physics_steps_executed']*e.physics_dt),
+             target_tracking_max_rad=float(np.max(abs(self.target-q))),
+             target_tracking_rms_rad=float(np.sqrt(np.mean((self.target-q)**2))))
+-        if c.version in ('targets-v4', 'targets-v5'):
++        if c.version in ('targets-v4', 'targets-v5', 'targets-v6'):
+             self.last_controller.update(residual_gate=gate, residual_gate_time_s=gate_time,
+                                         gated_residual_rad=gated_residual.tolist())
+         info['controller'] = self.last_controller
++        if c.version == 'targets-v6':
++            self.last_controller.update(feedback_policy_action=feedback_action.tolist(),
++                feedback_target_delta_rad=feedback_delta.tolist(), feedback_gate=feedback_gate,
++                feedback_kind='torso-ankle-pd-v1')
+         reward = original_reward
+         if c.reward_version != 'original':
+             # New task objective, not an optimal-policy-invariant shaping claim.
+             v = e._measurement
+             dt = info['physics_steps_executed']*e.physics_dt
+-            if c.reward_version in ('reference-head-support-v1', 'reference-balance-v1'):
++            if c.reward_version in ('reference-head-support-v1', 'reference-balance-v1', 'reference-balance-density10-v1'):
+                 elapsed = float(e.data.time-e.episode_start_time)
+                 measured_reference, _ = controller_reference_targets(elapsed, self.reference, c.reference_interpolation)
+                 actual, _ = e.loaded.read_state(e.data)
+@@ -818,7 +907,7 @@ class ControlledRecoveryEnv(gym.Wrapper):
+             action_schema=f'{self.action_space.shape[0]} normalized {self.control_config.action_layout} policy actions; controller transforms once per control step',
+             observation_schema='native117 + adopted_target normalized31 + elapsed/timeout1',
+             observation_shape=[149], action_shape=list(self.action_space.shape))
+-        if self.control_config.version in ('targets-v4', 'targets-v5'):
++        if self.control_config.version in ('targets-v4', 'targets-v5', 'targets-v6'):
+             resolved['residual_action_semantics'] = ('reference + residual_phase_gate(pre_control_elapsed) * '
+                 'residual_scale_rad * (policy_to_joint_matrix @ policy_action); then joint-range and target-rate limits')
+             resolved['residual_gate'] = dict(start_s=self.control_config.residual_start_s,
+@@ -829,14 +918,25 @@ class ControlledRecoveryEnv(gym.Wrapper):
+                 state='derived only from existing observed elapsed/timeout phase; reset adds no hidden state',
+                 residual_scale_scope='resolved residual scales are full authority when gate reaches1',
+                 policy_buffer='original policy actions and log probabilities are unchanged')
+-        if self.control_config.reward_version in ('reference-head-support-v1', 'reference-balance-v1'):
++        if self.control_config.version == 'targets-v6':
++            resolved['reference_feedback'] = dict(kind='torso-ankle-pd-v1',
++                kp=self.control_config.feedback_kp, kd=self.control_config.feedback_kd,
++                cap_rad=self.control_config.feedback_cap_rad, start_s=self.control_config.feedback_start_s,
++                ramp_s=self.control_config.feedback_ramp_s, observation='current wrapped float32 149D',
++                computation='waist rotations reconstruct torso gravity/angular velocity; clipped kp*tilt+kd*tilt_rate; normalized float32 ankle action; cap then physical-time quintic gate',
++                joints=['left_ankle_pitch_joint', 'right_ankle_pitch_joint'], memory='none',
++                learned_residual='independent; original policy action and log probability unchanged')
++            resolved['residual_action_semantics'] = ('reference + explicit reference_feedback + '
++                'residual_phase_gate(pre_control_elapsed) * residual_scale_rad * '
++                '(policy_to_joint_matrix @ policy_action); then joint-range and target-rate limits')
++        if self.control_config.reward_version in ('reference-head-support-v1', 'reference-balance-v1', 'reference-balance-density10-v1'):
+             resolved['learning_task'] = dict(head_body='head_pitch_link', head_point='body origin world Z',
+                 pose_joint_names=[self.env.loaded.mapping[i].joint_name for i in self.pose_indices],
+                 head_reference_interpolation='linear with endpoint hold', pose_sigma_rad=.35,
+                 head_progress_sigma=.2, density_weights=dict(pose_guide=1.,head_track=2.,upright_progress=4.,foot_transfer=2.,standing=5.),
+                 sampling='post-control-step measurements weighted by actual executed physics duration',
+                 observation='existing joint angles, pelvis gravity/height and elapsed phase determine the task inputs; normalization/table are fixed configuration')
+-            if self.control_config.reward_version == 'reference-balance-v1':
++            if self.control_config.reward_version in ('reference-balance-v1', 'reference-balance-density10-v1'):
+                 resolved['learning_task'].update(
+                     density_weights=dict(pose_guide=1., head_track=2., balance=6., overload=-.5,
+                                          self_penetration=-.5, standing=5.),
+@@ -852,4 +952,13 @@ class ControlledRecoveryEnv(gym.Wrapper):
+                     self_penetration_density='-.5 * upright_gate * clip(self_penetration_m/.003,0,1)',
+                     standing='unchanged native independent standing result; no new success or termination rule',
+                     scope='New task objective; bounded balance costs vanish at torso tilt >=60 degrees; no optimal-policy invariance claim')
++        if self.control_config.reward_version == 'reference-balance-density10-v1':
++            task = resolved['learning_task']
++            task['density_weights'] = dict(task['density_weights'])
++            for name in ('pose_guide', 'head_track', 'balance', 'standing'):
++                task['density_weights'][name] *= .1
++            task['positive_density_scale'] = .1
++            task['scaled_positive_terms'] = ['pose_guide', 'head_track', 'balance', 'standing']
++            task['balance_density'] = '.1 * ('+task['balance_density']+')'
++            task['unscaled_terms'] = ['overload', 'self_penetration', 'torque_cost', 'target_change', 'success', 'safety']
+         return resolved
+diff --git a/src/x2_recovery/x2_recovery/motion_search.py b/src/x2_recovery/x2_recovery/motion_search.py
+index 94ce656..066da98 100644
+--- a/src/x2_recovery/x2_recovery/motion_search.py
++++ b/src/x2_recovery/x2_recovery/motion_search.py
+@@ -6,7 +6,8 @@ replays its prefix from the original reset; no state restoration is used.
+ import argparse
+ import atexit
+ from concurrent.futures import ProcessPoolExecutor
+-from dataclasses import asdict
++from contextlib import contextmanager
++from dataclasses import asdict, replace
+ import json
+ import multiprocessing as mp
+ from pathlib import Path
+@@ -209,6 +210,495 @@ def search(directory, *, candidates=32, generations=2, workers=2, max_wall_secon
+     write_json(directory/'summary.json',summary);return summary
+ 
+ 
++# Repair search is deliberately separate from the historical short-prefix search.
++# It reuses the published full configuration and always runs complete episodes.
++_REPAIR = None
++
++
++def control_diff(before, after, path='controller'):
++    """Exact scalar changes, including indexed reference stages; no hidden defaults."""
++    if isinstance(before, dict) and isinstance(after, dict):
++        result = []
++        for key in sorted(set(before) | set(after)):
++            if key not in before or key not in after:
++                result.append(dict(path=path+'.'+key, before=before.get(key), after=after.get(key)))
++            else:
++                result.extend(control_diff(before[key], after[key], path+'.'+key))
++        return result
++    if isinstance(before, (tuple, list)) and isinstance(after, (tuple, list)) and len(before) == len(after):
++        return [change for index, (a, b) in enumerate(zip(before, after))
++                for change in control_diff(a, b, f'{path}[{index}]')]
++    return [] if before == after else [dict(path=path, before=before, after=after)]
++
++
++def _digest(value):
++    import hashlib
++    return hashlib.sha256(json.dumps(json_value(value), sort_keys=True, separators=(',', ':'),
++                                      allow_nan=False).encode()).hexdigest()
++
++
++from .constraint_audit import PhysicalObserver
++
++
++class StreamingConstraintObserver(PhysicalObserver):
++    """Same checked-step forwarding, but bounded memory and one contact solve read.
++
++    q/dq are post integration. Contacts and actuator force are copied immediately
++    after mj_step, before the existing mj_forward: the actual integration solve.
++    The original tracker update is forwarded once to retain exact substep hold.
++    """
++    def __init__(self, base):
++        import hashlib
++        import xml.etree.ElementTree as ET
++        from .model import URDF
++        super().__init__(base)
++        self.target_hash = hashlib.sha256()
++        self.state_hash = hashlib.sha256()
++        self.n = len(base.loaded.mapping)
++        self.speed_limits = np.full(self.n, np.nan)
++        self.velocity_sources = []
++        urdf = ET.parse(base.loaded.asset_repo/URDF).getroot()
++        for i, row in enumerate(base.loaded.mapping):
++            limit = urdf.find(f"joint[@name='{row.joint_name}']/limit")
++            if limit is not None and limit.get('velocity') is not None:
++                self.speed_limits[i] = float(limit.get('velocity'))
++            self.velocity_sources.append(URDF+'#'+row.joint_name+'/limit@velocity'
++                                         if np.isfinite(self.speed_limits[i]) else None)
++        self.stats = {phase: self._empty() for phase in ('reset', 'recovery')}
++        self.max_hold = self.max_progress = self.progress_integral = self.final_quality = 0.
++        self.final_measurement = None
++        self.peak_progress_measurement = None
++        self.prefix_cutoff_s = None
++        self.prefix = dict(samples=0, covered_through_s=0., max_joint_excess_rad=0.,
++            max_joint_speed_rad_s=0., any_joint_above_tolerance_s=0.,
++            peak_ground_vertical_N=0., peak_ground_sum_norm_N=0.,
++            floor_penetration_m=0., self_penetration_m=0.)
++
++    def _empty(self):
++        return dict(samples=0, qmin=np.full(self.n, np.inf), qmax=np.full(self.n, -np.inf),
++                    excess=np.zeros(self.n), max_time=np.zeros(self.n), duration=np.zeros(self.n),
++                    duration_tolerance=np.zeros(self.n), current_run=np.zeros(self.n),
++                    longest_run=np.zeros(self.n), excess_integral=np.zeros(self.n),
++                    speed=np.zeros(self.n), torque_positive=np.zeros(self.n), torque_negative=np.zeros(self.n),
++                    torque_ratio=np.zeros(self.n), saturation=np.zeros(self.n),
++                    target_margin=np.full(self.n, np.inf), any_excess_s=0., any_tolerance_s=0.,
++                    first_violation_s=None, peak_ground_vertical_N=0., peak_ground_sum_norm_N=0., floor_penetration_m=0.,
++                    self_penetration_m=0., worst_floor=None, worst_self=None)
++
++    def __enter__(self):
++        super().__enter__()
++        self._tracker_update = self.base.tracker.update
++        def tracked(measurement):
++            result = self._tracker_update(measurement)
++            if self.phase == 'recovery':
++                self.max_hold = max(self.max_hold, result['stable_duration_s'])
++                h = float(np.clip(measurement['pelvis_height_m']/CALIBRATED_SETTINGS.h_ref_m, 0., 1.))
++                u = float(np.clip(measurement['upright_dot'], 0., 1.))
++                feet = float(np.clip(measurement['left_weight']+measurement['right_weight'], 0., 1.))
++                self.final_quality = h*u*feet
++                if self.final_quality > self.max_progress:
++                    self.max_progress = self.final_quality
++                    self.peak_progress_measurement = measurement.copy()
++                self.progress_integral += self.final_quality*self.base.physics_dt
++                self.final_measurement = measurement.copy()
++            return result
++        self.base.tracker.update = tracked
++        return self
++
++    def __exit__(self, *args):
++        self.base.tracker.update = self._tracker_update
++        return super().__exit__(*args)
++
++    def _observed_step(self, model, data, *args, **kwargs):
++        from .constraint_audit import _contacts
++        if data is not self.base.data:
++            return self._step(model, data, *args, **kwargs)
++        require(not args and not kwargs, 'Repair observer requires a single physical step')
++        base = self.base
++        target = base._target.copy() if self.phase == 'recovery' else None
++        q, dq = base.loaded.read_state(data)
++        raw = None if target is None else base.kp*(target-q)-base.kd*dq
++        ctrl = data.ctrl[base.context.ctrladr].copy()
++        pre_time = float(data.time)
++        self._step(model, data)
++        if self.phase == 'recovery':
++            self.state_hash.update(np.asarray(data.qpos, dtype='<f8').tobytes())
++            self.state_hash.update(np.asarray(data.qvel, dtype='<f8').tobytes())
++        self.pending = dict(q=data.qpos[base.context.qadr].copy(),
++            dq=data.qvel[base.context.vadr].copy(), time=float(data.time), pre_time=pre_time,
++            target=target, raw=raw, ctrl=ctrl,
++            force=data.qfrc_actuator[base.context.vadr].copy(),
++            actuator=data.actuator_force[base.context.ctrladr].copy(),
++            contacts=_contacts(model, data, base.context.floor))
++
++    def _observed_checked(self, loaded, data, deadline):
++        self._checked(loaded, data, deadline)
++        if data is not self.base.data:
++            return
++        row, self.pending = self.pending, None
++        require(row is not None and row['time'] == float(data.time), 'Missing aligned physical sample')
++        require(np.array_equal(row['q'], data.qpos[self.base.context.qadr])
++                and np.array_equal(row['dq'], data.qvel[self.base.context.vadr]),
++                'Forward solve unexpectedly changed physical state')
++        self.consume(row)
++
++    def consume(self, row):
++        from .constraint_audit import excess, directional_ratio
++        base = self.base; dt = base.physics_dt; stats = self.stats[self.phase]
++        t = row['time']-(base.episode_start_time if self.phase == 'recovery' else 0.)
++        ex = excess(row['q'], base.q_min, base.q_max)
++        stats['samples'] += 1
++        stats['qmin'] = np.minimum(stats['qmin'], row['q']); stats['qmax'] = np.maximum(stats['qmax'], row['q'])
++        new_peak = ex > stats['excess']; stats['max_time'][new_peak] = t
++        stats['excess'] = np.maximum(stats['excess'], ex)
++        stats['duration'] += (ex > 0)*dt
++        stats['duration_tolerance'] += (ex > CALIBRATED_SETTINGS.joint_limit_rad_max)*dt
++        stats['current_run'] = np.where(ex > 0, stats['current_run']+dt, 0.)
++        stats['longest_run'] = np.maximum(stats['longest_run'], stats['current_run'])
++        stats['excess_integral'] += ex*dt
++        stats['speed'] = np.maximum(stats['speed'], abs(row['dq']))
++        stats['torque_positive'] = np.maximum(stats['torque_positive'], row['force'])
++        stats['torque_negative'] = np.minimum(stats['torque_negative'], row['force'])
++        stats['torque_ratio'] = np.maximum(stats['torque_ratio'], directional_ratio(row['force'], base.context.efforts))
++        # The pinned model validates unit gear and one motor per joint. Check that
++        # actuator force maps to the joint generalized force actually integrated.
++        require(np.allclose(row['force'], row['actuator'], atol=1e-10, rtol=0), 'Actuator/joint force mapping changed')
++        if row['target'] is not None:
++            stats['saturation'] += row['raw'] != row['ctrl']
++            stats['target_margin'] = np.minimum(stats['target_margin'],
++                np.minimum(row['target']-base.q_min, base.q_max-row['target']))
++            self.target_hash.update(np.asarray(row['target'], dtype='<f8').tobytes())
++        stats['any_excess_s'] += float(np.any(ex > 0))*dt
++        stats['any_tolerance_s'] += float(np.any(ex > CALIBRATED_SETTINGS.joint_limit_rad_max))*dt
++        if stats['first_violation_s'] is None and np.any(ex > CALIBRATED_SETTINGS.joint_limit_rad_max):
++            stats['first_violation_s'] = t
++        contacts = row['contacts']
++        if (self.phase == 'recovery' and getattr(self, 'prefix_cutoff_s', None) is not None
++                and t <= self.prefix_cutoff_s+1e-10):
++            p = self.prefix
++            p['samples'] += 1; p['covered_through_s'] = t
++            p['max_joint_excess_rad'] = max(p['max_joint_excess_rad'], float(ex.max()))
++            p['max_joint_speed_rad_s'] = max(p['max_joint_speed_rad_s'], float(abs(row['dq']).max()))
++            p['any_joint_above_tolerance_s'] += float(np.any(ex > CALIBRATED_SETTINGS.joint_limit_rad_max))*dt
++            for key in ('ground_vertical_N', 'ground_sum_norm_N'):
++                p['peak_'+key] = max(p['peak_'+key], contacts[key])
++            for kind in ('floor', 'self'):
++                p[kind+'_penetration_m'] = max(p[kind+'_penetration_m'], contacts[kind]['depth_m'])
++        stats['peak_ground_vertical_N'] = max(stats['peak_ground_vertical_N'], contacts['ground_vertical_N'])
++        stats['peak_ground_sum_norm_N'] = max(stats['peak_ground_sum_norm_N'], contacts['ground_sum_norm_N'])
++        for kind, key in [('floor', 'floor_penetration_m'), ('self', 'self_penetration_m')]:
++            if contacts[kind]['depth_m'] > stats[key]:
++                stats[key] = contacts[kind]['depth_m']
++                stats['worst_'+kind] = dict(contacts[kind], integration_pre_time_s=row['pre_time']-
++                    (base.episode_start_time if self.phase == 'recovery' else 0.))
++
++    def summary(self, phase):
++        s = self.stats[phase]; n = s['samples']
++        require(n > 0, 'No physical samples for '+phase)
++        speed_ratio = np.divide(s['speed'], self.speed_limits)
++        known = np.isfinite(speed_ratio) & (self.speed_limits > 0)
++        rows = []
++        for i, joint in enumerate(self.base.loaded.mapping):
++            rows.append(dict(joint_name=joint.joint_name, q_lower_rad=float(self.base.q_min[i]),
++                q_upper_rad=float(self.base.q_max[i]), q_min_observed_rad=float(s['qmin'][i]),
++                q_max_observed_rad=float(s['qmax'][i]), max_excess_rad=float(s['excess'][i]),
++                max_lower_excess_rad=float(max(0., self.base.q_min[i]-s['qmin'][i])),
++                max_upper_excess_rad=float(max(0., s['qmax'][i]-self.base.q_max[i])),
++                time_of_max_excess_s=float(s['max_time'][i]), time_above_zero_excess_s=float(s['duration'][i]),
++                time_above_standing_tolerance_s=float(s['duration_tolerance'][i]),
++                longest_consecutive_excess_s=float(s['longest_run'][i]),
++                excess_integral_rad_s=float(s['excess_integral'][i]),
++                max_abs_velocity_rad_s=float(s['speed'][i]),
++                declared_velocity_limit_rad_s=float(self.speed_limits[i]) if known[i] else None,
++                velocity_limit_source=self.velocity_sources[i],
++                max_velocity_ratio=float(speed_ratio[i]) if known[i] else None,
++                max_positive_actuation_Nm=float(s['torque_positive'][i]),
++                max_negative_actuation_Nm=float(s['torque_negative'][i]),
++                max_actuation_limit_ratio=float(s['torque_ratio'][i]),
++                torque_saturation_fraction=float(s['saturation'][i]/n),
++                min_target_limit_margin_rad=float(s['target_margin'][i]) if np.isfinite(s['target_margin'][i]) else None))
++        worst = int(np.argmax(s['excess']))
++        return dict(samples=n, sampled_duration_s=n*self.base.physics_dt, joints=rows,
++            worst_joint=rows[worst]['joint_name'], max_joint_excess_rad=float(s['excess'][worst]),
++            max_joint_speed_rad_s=float(s['speed'].max()),
++            max_velocity_ratio=float(speed_ratio[known].max()) if known.any() else None,
++            velocity_limits_complete=bool(known.all()), max_actuation_limit_ratio=float(s['torque_ratio'].max()),
++            excess_integral_rad_s=float(s['excess_integral'].sum()),
++            any_joint_above_zero_s=s['any_excess_s'], any_joint_above_tolerance_s=s['any_tolerance_s'],
++            first_violation_s=s['first_violation_s'], peak_ground_vertical_N=s['peak_ground_vertical_N'],
++            peak_ground_vertical_bodyweights=s['peak_ground_vertical_N']/self.base.context.weight_N,
++            peak_ground_sum_norm_N=s['peak_ground_sum_norm_N'],
++            floor_penetration_m=s['floor_penetration_m'], self_penetration_m=s['self_penetration_m'],
++            worst_floor=s['worst_floor'], worst_self=s['worst_self'])
++
++
++def repair_rank(result, comparison):
++    """Feasibility first; no standing bonus can buy a constraint violation."""
++    keys = ('peak_ground_vertical_N', 'peak_ground_sum_norm_N', 'floor_penetration_m', 'self_penetration_m', 'max_joint_speed_rad_s')
++    require(all(k in comparison and np.isfinite(comparison[k]) and comparison[k] > 0 for k in keys),
++            'Missing preregistered baseline comparison')
++    m = result['recovery']; tol = 1e-10
++    envelope = (m['max_joint_excess_rad'] <= .0001+tol and m['max_actuation_limit_ratio'] <= 1.+tol
++                and m['velocity_limits_complete'] and m['max_velocity_ratio'] <= 1.+tol)
++    impact = all(m[k] <= comparison[k]+tol for k in keys)
++    feasible = bool(result['complete_episode'] and result['success'] and envelope and impact)
++    completed = result['complete_episode']
++    eligible = bool(completed and (result['success'] or
++        (result['reason'] == 'time_limit' and result['max_progress_quality'] >= .25)))
++    timeout = result['episode_timeout_s']
++    progress = result['progress_integral_s']/timeout+result['final_quality']+result['max_stable_hold_s']/2.
++    violation = (m['max_joint_excess_rad']/.05+m['excess_integral_rad_s']/(.05*timeout)
++                 +m['any_joint_above_tolerance_s']/timeout
++                 +max(0., (m['max_velocity_ratio'] or 0.)-1.)
++                 +max(0., m['max_actuation_limit_ratio']-1.)
++                 +sum(max(0., m[k]/comparison[k]-1.) for k in keys))
++    early_abort_penalty = 0. if result['success'] or result['reason'] == 'time_limit' else 2.*max(0., 1.-result['sim_seconds']/timeout)
++    return dict(feasible=feasible, constraint_envelope_pass=bool(envelope), impact_pass=bool(impact),
++                infeasible_eligible=eligible, progress_score=float(progress), violation_score=float(violation),
++                infeasible_score=float(progress-violation-early_abort_penalty),
++                ranking_scope='Only original standing + envelope + nonworse impact is feasible. '
++                'No-motion and safety-aborted trials cannot become best_infeasible; all remain recorded.')
++
++
++def experimental_pd_config(original, overrides):
++    """One explicit experiment: preserve all groups/Kp, waist Kd in [1,6]x."""
++    if overrides is None:
++        return original
++    require(type(overrides) is dict and set(overrides) == {'pd_gains'},
++            'Only explicit pd_gains environment overrides are permitted')
++    rows = overrides['pd_gains']
++    require(type(rows) in (list, tuple) and len(rows) == len(original.pd_gains),
++            'Expected complete PD groups in original order')
++    require(all(type(r) in (list, tuple) and len(r) == 3 for r in rows), 'Invalid PD rows')
++    for row, old in zip(rows, original.pd_gains):
++        require(row[0] == old[0] and row[1] == old[1], 'PD group order/names and Kp must remain unchanged')
++        require(type(row[2]) in (int, float) and np.isfinite(row[2]), 'Nonfinite/non-numeric Kd')
++        if row[0] == 'waist':
++            require(old[2] <= row[2] <= 6.*old[2], 'Waist Kd multiplier must be in [1,6]')
++        else:
++            require(row[2] == old[2], 'Only waist Kd may change')
++    require(sum(r[0] == 'waist' for r in rows) == 1, 'Expected exactly one waist group')
++    return replace(original, pd_gains=tuple(tuple(row) for row in rows))
++
++
++@contextmanager
++def experimental_pd(base, original, overrides):
++    """Change only declared gain arrays/config before reset; always restore them."""
++    require(asdict(base.config) == asdict(original), 'Physical/reset configuration changed')
++    require(not base._ready, 'Cannot change PD in an active episode')
++    candidate = experimental_pd_config(original, overrides)
++    groups = [row.joint_name.removeprefix('left_').removeprefix('right_').split('_')[0]
++              for row in base.loaded.mapping]
++    def arrays(config):
++        gains = {group: (kp, kd) for group, kp, kd in config.pd_gains}
++        return np.asarray([gains[group] for group in groups], dtype=float).T
++    expected_kp, expected_kd = arrays(original)
++    require(np.array_equal(base.kp, expected_kp) and np.array_equal(base.kd, expected_kd),
++            'Original configuration and actual gain arrays disagree')
++    old_config, old_kp, old_kd = base.config, base.kp.copy(), base.kd.copy()
++    try:
++        base.config = candidate
++        base.kp[:], base.kd[:] = arrays(candidate)
++        yield candidate
++    finally:
++        base.config = old_config
++        base.kp[:], base.kd[:] = old_kp, old_kd
++
++
++def constraint_trial(resolved_config, control, *, seed, policy=None, base=None,
++                     zero_residual=True, comparison=None, name=None, env_control_overrides=None):
++    """Complete real-reset trial under the saved physical configuration, no cutoff.
++
++    Passing a prepared base/policy reuses resources only; no state is restored.
++    A changed control with frozen actor weights is explicitly a weight transfer.
++    """
++    from .train import TrainConfig
++    saved = json.loads(Path(resolved_config).read_text()) if isinstance(resolved_config, (str, Path)) else resolved_config
++    require(saved.get('schema') == 'x2-controller-ppo-v1', 'Expected full saved controller configuration')
++    require(type(seed) is int and 0 <= seed < 2**32, 'Invalid legal reset seed')
++    require(isinstance(control, ControlConfig), 'Explicit complete ControlConfig required')
++    require(zero_residual or policy is not None, 'Frozen policy required for residual trials')
++    cfg = TrainConfig.from_dict(saved['training'])
++    own = base is None
++    base = X2RecoveryEnv(cfg.env, capture_substeps=False) if own else base
++    old_capture = base.capture_substeps; base.capture_substeps = False
++    import hashlib
++    action_hash = hashlib.sha256()
++    started = time.monotonic(); steps = 0; total_reward = 0.
++    try:
++        with experimental_pd(base, cfg.env, env_control_overrides) as experimental_config:
++            env = ControlledRecoveryEnv(base, control)
++            with StreamingConstraintObserver(base) as observer:
++                observer.prefix_cutoff_s = sum(stage[1] for stage in control.reference_stages[:13])
++                obs, info = env.reset(seed=seed)
++                reset_seed = info['reset_seed']; require(base.reset_evidence['status'] == 'PASS', 'Illegal reset')
++                observer.phase = 'recovery'
++                while True:
++                    action = np.zeros(env.action_space.shape, np.float32) if zero_residual else policy.predict(obs, deterministic=True)[0]
++                    action_hash.update(np.asarray(action, dtype='<f8').tobytes())
++                    obs, reward, terminated, truncated, info = env.step(action)
++                    steps += 1; total_reward += reward
++                    if terminated or truncated: break
++            require(observer.stats['recovery']['samples'] == base._physics_steps, 'Physical sample count mismatch')
++            changes = control_diff(saved['controller'], json_value(asdict(control)))
++            env_changes = control_diff(json_value(asdict(cfg.env)), json_value(asdict(experimental_config)), path='environment')
++            resolved = base.resolved_config()
++            result = dict(name=name, status='COMPLETE', seed=seed, reset_seed=reset_seed,
++                controller='zero_residual_reference' if zero_residual else 'frozen_policy_transfer',
++                weight_transfer=bool((changes or env_changes) and not zero_residual), control_sha256=_digest(asdict(control)),
++                env_control_overrides=env_control_overrides, environment_control_changes=env_changes,
++                experiment_env_config=asdict(experimental_config), experiment_env_sha256=_digest(asdict(experimental_config)),
++                resolved_environment_sha256=_digest(resolved),
++                resolved_pd_gains=dict(joint_names=[r.joint_name for r in base.loaded.mapping],
++                    kp_Nm_rad=base.kp.tolist(), kd_Nm_s_rad=base.kd.tolist()),
++                changed_fields=changes, actual_target_sha256=observer.target_hash.hexdigest(),
++                physical_state_sha256=observer.state_hash.hexdigest(), policy_action_sha256=action_hash.hexdigest(),
++                fingerprint_encoding='Concatenated little-endian float64: full post-step qpos then qvel per physical step; action per transition.',
++                complete_episode=bool(terminated or truncated), terminated=bool(terminated), truncated=bool(truncated),
++                success=bool(info['is_success']), reason=info['termination_reason'] or info['truncation_reason'],
++                sim_seconds=float(info['elapsed_sim_s']), episode_timeout_s=cfg.env.episode_timeout_s,
++                transitions=steps, physics_steps=base._physics_steps, raw_return=float(total_reward),
++                max_stable_hold_s=observer.max_hold, max_progress_quality=observer.max_progress,
++                progress_integral_s=observer.progress_integral, final_quality=observer.final_quality,
++                final_measurement=observer.final_measurement, standing_failures=info['standing_failures'],
++                peak_progress_measurement=observer.peak_progress_measurement,
++                reset=observer.summary('reset'), recovery=observer.summary('recovery'),
++                prefix=dict(observer.prefix, cutoff_s=observer.prefix_cutoff_s,
++                    complete=float(info['elapsed_sim_s'])+1e-10 >= observer.prefix_cutoff_s,
++                    definition='Recovery post-step samples at or before the first13 reference stage durations; partial if episode ended earlier.'),
++                wall_seconds=time.monotonic()-started,
++                sampling='Every physics step; right-endpoint durations. Integration-solve force/contact at pre-time, '
++                         'joint q/dq at post-time. No extra active forward/step or state writes.')
++            if comparison is not None: result.update(repair_rank(result, comparison))
++            return json_value(result)
++    finally:
++        base.capture_substeps = old_capture
++        if own: base.close()
++
++
++def _repair_worker(control_input, expected_checkpoint):
++    global _REPAIR
++    from .evaluate import prepare, physical_env
++    env, policy, original, prepared = prepare(control_input, expected_checkpoint_sha256=expected_checkpoint)
++    _REPAIR = dict(env=env, base=physical_env(env), policy=policy, original=original, prepared=prepared)
++    atexit.register(env.close)
++
++
++def _repair_candidate(job):
++    index, candidate, seed, zero_residual, comparison = job
++    try:
++        result = constraint_trial(_REPAIR['prepared']['saved'], ControlConfig.from_dict(candidate['control_config']),
++            seed=seed, policy=_REPAIR['policy'], base=_REPAIR['base'], zero_residual=zero_residual,
++            comparison=comparison, name=candidate['name'],
++            env_control_overrides=candidate.get('env_control_overrides'))
++        from .evaluate import verify_policy
++        verify_policy(_REPAIR['policy'], _REPAIR['original'])
++        require(asdict(_REPAIR['base'].config) == asdict(_REPAIR['prepared']['config'].env),
++                'Original environment configuration was not restored')
++        result.update(index=index, policy_state_unchanged=True, original_environment_config_restored=True)
++        return result
++    except Exception as exc:
++        return dict(index=index, name=candidate['name'], status='ERROR', error=dict(type=type(exc).__name__, message=str(exc)))
++
++
++def repair_progress(candidates, recorded, scheduled):
++    """Journal records are authoritative; never skip a partially completed batch."""
++    indices = [r['index'] for r in recorded]
++    require(len(indices) == len(set(indices)), 'Duplicate recorded candidate index')
++    require(all(type(i) is int and 0 <= i < len(candidates) for i in indices), 'Invalid recorded candidate index')
++    require(all(r['name'] == candidates[r['index']]['name'] for r in recorded), 'Recorded candidate identity mismatch')
++    completed = set(indices); remaining = sorted(set(range(len(candidates)))-completed)
++    return dict(completed=len(completed), recorded_indices=sorted(completed),
++        pending_indices=sorted(set(scheduled)-completed), unrecorded_indices=remaining,
++        next_index=remaining[0] if remaining else None,
++        resume_rule='Reconstruct remaining candidates from candidates.jsonl unique indices and plan identities; next_index is a hint only.')
++
++
++def repair_search(directory, control_input, expected_checkpoint, plan, *, workers=4, max_wall_seconds=1800.):
++    import csv
++    import shutil
++    directory = Path(directory).resolve(); control_input = Path(control_input).resolve(); plan_path = Path(plan).resolve()
++    require(not directory.exists() and not directory.is_relative_to(control_input), 'Unsafe/existing output')
++    require(1 <= workers <= 4 and 0 < max_wall_seconds <= 1800., 'Invalid repair block budget')
++    specification = json.loads(plan_path.read_text()); candidates = specification['candidates']
++    require(1 <= len(candidates) <= 32 and len({c['name'] for c in candidates}) == len(candidates),
++            'Expected 1..32 uniquely named candidates (normal search batch 20..32)')
++    require(type(specification['zero_residual']) is bool, 'Explicit controller selection required')
++    from .train import TrainConfig
++    original_env = TrainConfig.from_dict(json.loads((control_input/'resolved_config.json').read_text())['training']).env
++    feature = specification.get('required_search_feature')
++    require(feature in (None, 'explicit_env_pd_gains_override_v1'), 'Unsupported required search feature')
++    if any('env_control_overrides' in c for c in candidates):
++        require(feature == 'explicit_env_pd_gains_override_v1', 'PD overrides require an explicit plan feature')
++    for candidate in candidates:
++        experimental = experimental_pd_config(original_env, candidate.get('env_control_overrides'))
++        if 'experiment_env_config' in candidate:
++            require(json_value(asdict(experimental)) == candidate['experiment_env_config'], 'Experiment environment config disagrees with overrides')
++        require(isinstance(candidate['name'], str) and candidate['name'], 'Invalid candidate name')
++        require(set(candidate['control_config']) == set(asdict(ControlConfig())), 'Every candidate requires a complete ControlConfig')
++        ControlConfig.from_dict(candidate['control_config'])
++    comparison = specification['comparison']; seed = specification['seed']
++    directory.mkdir(parents=True, exist_ok=False)
++    shutil.copyfile(plan_path, directory/'plan.json')
++    manifest = dict(kind='full_episode_constraint_repair_search', started_utc=utc_now(),
++        control_input=str(control_input), expected_checkpoint_sha256=expected_checkpoint,
++        input_sha256={p.name: sha256(p) for p in control_input.iterdir() if p.is_file()},
++        plan_sha256=sha256(plan_path), source_sha256=sha256(__file__), core_sources=source_hashes(),
++        workers=workers, max_wall_seconds=max_wall_seconds, requested_candidates=len(candidates),
++        comparison=comparison, seed=seed, zero_residual=specification['zero_residual'],
++        supported_environment_control_overrides='Complete original PD groups; only waist Kd in [1,6]x, all Kp and other groups unchanged.',
++        required_search_feature=feature,
++        feasibility_scope='Recovery physical samples only; reset settling is separately measured and retained.',
++        budget_scope='No task cutoff; scheduling stops at block deadline. Already-running complete episodes may overrun.')
++    write_json(directory/'manifest.json', manifest)
++    start = time.monotonic(); results = []; best_feasible = best_infeasible = None
++    scalar_fields = ['index','name','status','success','reason','sim_seconds','max_stable_hold_s',
++                     'feasible','constraint_envelope_pass','impact_pass','infeasible_eligible','infeasible_score',
++                     'max_joint_excess_rad','any_joint_above_tolerance_s','excess_integral_rad_s',
++                     'max_joint_speed_rad_s','max_velocity_ratio','max_actuation_limit_ratio',
++                     'peak_ground_vertical_N','peak_ground_sum_norm_N','floor_penetration_m','self_penetration_m','actual_target_sha256','wall_seconds']
++    with (directory/'candidates.jsonl').open('x', buffering=1) as stream, (directory/'results.csv').open('x', newline='') as csvstream:
++        writer = csv.DictWriter(csvstream, fieldnames=scalar_fields); writer.writeheader()
++        with ProcessPoolExecutor(max_workers=workers, mp_context=mp.get_context('spawn'),
++                initializer=_repair_worker, initargs=(str(control_input), expected_checkpoint)) as pool:
++            for offset in range(0, len(candidates), workers):
++                if time.monotonic()-start >= max_wall_seconds: break
++                jobs = [(i, candidates[i], seed, specification['zero_residual'], comparison)
++                        for i in range(offset, min(offset+workers, len(candidates)))]
++                scheduled = [job[0] for job in jobs]
++                write_json(directory/'search_state.json', repair_progress(candidates, results, scheduled))
++                for result in pool.map(_repair_candidate, jobs):
++                    results.append(result); stream.write(json.dumps(result, allow_nan=False)+'\n')
++                    flattened = dict(result, **result.get('recovery', {}))
++                    writer.writerow({key: flattened.get(key) for key in scalar_fields}); csvstream.flush()
++                    if result['status'] == 'COMPLETE':
++                        if result['feasible'] and (best_feasible is None or result['sim_seconds'] < best_feasible['sim_seconds']):
++                            best_feasible = result
++                            write_json(directory/'best_feasible.json', dict(result, control_config=candidates[result['index']]['control_config']))
++                        elif not result['feasible'] and result['infeasible_eligible'] and (best_infeasible is None or
++                                result['infeasible_score'] > best_infeasible['infeasible_score']):
++                            best_infeasible = result
++                            write_json(directory/'best_infeasible.json', dict(result, control_config=candidates[result['index']]['control_config']))
++                    write_json(directory/'search_state.json', dict(repair_progress(candidates, results, scheduled),
++                        best_feasible=None if best_feasible is None else best_feasible['name'],
++                        best_infeasible=None if best_infeasible is None else best_infeasible['name']))
++                    print(json.dumps({key: flattened.get(key) for key in scalar_fields}, allow_nan=False), flush=True)
++    complete = [r for r in results if r['status'] == 'COMPLETE']
++    hashes = {}
++    for r in complete: hashes.setdefault(r['actual_target_sha256'], []).append(r['name'])
++    summary = dict(status='COMPLETE' if len(results) == len(candidates) else 'BUDGET_STOP',
++        completed_candidates=len(complete), error_candidates=len(results)-len(complete),
++        planned_candidates=len(candidates), unscheduled_candidates=len(candidates)-len(results),
++        successful_recoveries=sum(r['success'] for r in complete), feasible_candidates=sum(r['feasible'] for r in complete),
++        best_feasible=None if best_feasible is None else best_feasible['name'],
++        best_infeasible=None if best_infeasible is None else best_infeasible['name'],
++        target_equivalence_groups=[names for names in hashes.values() if len(names) > 1],
++        wall_seconds=time.monotonic()-start, core_sources_after=source_hashes(),
++        source_sha256_after=sha256(__file__))
++    write_json(directory/'summary.json', summary)
++    return summary
++
++
+ def main(argv=None):
+     parser=argparse.ArgumentParser(description=__doc__);sub=parser.add_subparsers(dest='command',required=True)
+     p=sub.add_parser('search');p.add_argument('--output',required=True,type=Path)
+@@ -218,11 +708,18 @@ def main(argv=None):
+     p.add_argument('--route',choices=('symmetric','side'),default='symmetric');p.add_argument('--center',type=Path)
+     p.add_argument('--prefix',type=Path,help='Fixed, previously executed stages; search only eight suffix parameters')
+     p.add_argument('--objective',choices=('posture-v1','load-transfer-v1'),default='posture-v1')
++    p=sub.add_parser('repair-search');p.add_argument('--output',required=True,type=Path)
++    p.add_argument('--control-input',required=True,type=Path);p.add_argument('--expected-checkpoint-sha256',required=True)
++    p.add_argument('--plan',required=True,type=Path);p.add_argument('--workers',type=int,default=4)
++    p.add_argument('--max-wall-seconds',type=float,default=1800.)
+     p=sub.add_parser('replay');p.add_argument('--input',type=Path);p.add_argument('--output',type=Path,required=True)
+     p.add_argument('--full',action='store_true');p.add_argument('--max-sim-seconds',type=float,default=20.)
+     p.add_argument('--seed',type=int,default=221100)
+     args=parser.parse_args(argv)
+-    if args.command=='search':
++    if args.command=='repair-search':
++        result=repair_search(args.output,args.control_input,args.expected_checkpoint_sha256,args.plan,
++                             workers=args.workers,max_wall_seconds=args.max_wall_seconds)
++    elif args.command=='search':
+         center=json.loads(args.center.read_text())['parameters'] if args.center else None
+         result=search(args.output,candidates=args.candidates,generations=args.generations,workers=args.workers,
+             max_wall_seconds=args.max_wall_seconds,max_sim_s=args.max_sim_seconds,seed=args.seed,route=args.route,center=center,prefix=args.prefix,objective=args.objective)
+diff --git a/src/x2_recovery/x2_recovery/recovery_node.py b/src/x2_recovery/x2_recovery/recovery_node.py
+index be2d922..cb77931 100644
+--- a/src/x2_recovery/x2_recovery/recovery_node.py
++++ b/src/x2_recovery/x2_recovery/recovery_node.py
+@@ -5,8 +5,12 @@ another callback can reset/step. Timers never catch up with multiple control ste
+ """
+ import json
+ import math
++import pickle
+ import sys
+ import time
++import zipfile
++
++import numpy as np
+ 
+ import rclpy
+ from rcl_interfaces.msg import ParameterDescriptor
+@@ -20,11 +24,13 @@ from .baseline import build_keyframes, scripted_targets
+ from .env import EnvConfig, X2RecoveryEnv
+ from .telemetry_node import STATUS_QOS, JOINT_QOS, validate_joint_state, fixed_wall_clock
+ 
++PUBLISHED_CHECKPOINT_SHA256 = '11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64'
++
+ 
+-def prepare_policy(training_run, expected_checkpoint_sha256):
++def prepare_policy(controller_run, expected_checkpoint_sha256):
+     # Importing the training library is unnecessary for the baseline ROS path.
+     from .evaluate import prepare, physical_env
+-    env, model, _, prepared = prepare(training_run,
++    env, model, _, prepared = prepare(controller_run,
+         expected_checkpoint_sha256=expected_checkpoint_sha256)
+     return env, physical_env(env), model, prepared
+ 
+@@ -32,10 +38,14 @@ def prepare_policy(training_run, expected_checkpoint_sha256):
+ class RecoveryNode(Node):
+     def __init__(self, **kwargs):
+         super().__init__('recovery_node', **kwargs)
+-        self.env = self.physical_env = self.policy = None
++        self.env = self.base_env = self.policy = None
++        self.timer = self.heartbeat = None
++        self.controller_ready = False
++        self.initialization_error = None
+         self.observation = self.last_action = None
+-        self.controller = 'scripted_baseline'
++        self.controller = 'reference_residual'
+         self.closing = False
++        self._closed = False
+         self.fatal_error = False
+         self.busy = self.pending = False
+         self.status = 'IDLE'
+@@ -46,8 +56,8 @@ class RecoveryNode(Node):
+         self.last_result = None
+         try:
+             self.steady_clock = fixed_wall_clock(self)
+-            for name, default in (('controller', 'scripted_baseline'), ('training_run', ''),
+-                                  ('expected_checkpoint_sha256', ''), ('seed', 60),
++            for name, default in (('controller', 'reference_residual'), ('controller_run', ''),
++                                  ('expected_checkpoint_sha256', PUBLISHED_CHECKPOINT_SHA256), ('seed', 60),
+                                   ('episode_timeout_s', 20.), ('recovery_timeout_s', 30.)):
+                 # rclpy retains/mutates descriptors, so each parameter needs its own.
+                 descriptor = ParameterDescriptor(read_only=True, description='Startup-only configuration')
+@@ -59,58 +69,104 @@ class RecoveryNode(Node):
+                 if type(value) not in (int, float) or not math.isfinite(value) or value <= 0:
+                     raise ValueError(name+' must be finite and positive')
+             started = time.monotonic()
+-            # The existing constructor enforces physics-step alignment; no rounding here.
+-            identity = {}
+-            if self.controller == 'scripted_baseline':
+-                if self.training_run or self.expected_checkpoint_sha256:
+-                    raise ValueError('Policy inputs require controller:=reference_residual')
+-                self.env = self.physical_env = X2RecoveryEnv(
+-                    EnvConfig(episode_timeout_s=self.episode_timeout_s), render_mode=None)
+-            elif self.controller == 'reference_residual':
+-                if not self.training_run or not self.expected_checkpoint_sha256:
+-                    raise ValueError('reference_residual requires training_run and expected_checkpoint_sha256')
+-                self.env, self.physical_env, self.policy, prepared = prepare_policy(
+-                    self.training_run, self.expected_checkpoint_sha256)
+-                saved = prepared['saved']
+-                if (saved.get('controller', {}).get('mode') != 'reference_residual'
+-                        or self.env.observation_space.shape != (149,)
+-                        or self.env.action_space.shape != (17,)):
+-                    raise ValueError('reference_residual requires the validated 149/17 controller interface')
+-                if self.episode_timeout_s != self.physical_env.config.episode_timeout_s:
+-                    raise ValueError('Policy episode_timeout_s must equal its saved configuration; '
+-                                     'use recovery_timeout_s for a wall-clock watchdog')
+-                identity = dict(training_run=str(prepared['directory']),
+-                    input_hashes=prepared['hashes'], observation_dimension=149, action_dimension=17,
+-                    policy_device='cpu', deterministic=True,
+-                    saved_action_consistency=prepared['consistency'],
+-                    model_identity=saved['identity']['model_fingerprint'],
+-                    scope='Simulation demonstration; full-episode constraint risks are not resolved')
+-            else:
+-                raise ValueError('controller must be scripted_baseline or reference_residual')
+-            self.names = [row.joint_name for row in self.physical_env.loaded.mapping]
+-            if not self.names or any(not n for n in self.names) or len(set(self.names)) != len(self.names):
+-                raise ValueError('Invalid controlled joint mapping')
++            # These interfaces remain observable if the supplied controller is unavailable.
++            # No callback runs until initialization returns to the single executor.
+             self.status_pub = self.create_publisher(String, '/x2/recovery_status', STATUS_QOS)
+             self.joint_pub = self.create_publisher(JointState, '/x2/joint_states', JOINT_QOS)
+-            self.timer = self.create_timer(self.physical_env.control_dt, self._advance, clock=self.steady_clock)
+             self.heartbeat = self.create_timer(1., self._publish_status, clock=self.steady_clock)
+             self.service = self.create_service(Trigger, '/x2/start_recovery', self._start)
++            try:
++                identity = self._initialize_controller()
++            except (ValueError, TypeError, KeyError, RuntimeError, EOFError,
++                    FileNotFoundError, NotADirectoryError, IsADirectoryError, PermissionError,
++                    pickle.UnpicklingError, zipfile.BadZipFile) as exc:
++                # Input/configuration failures are diagnostic FAILED states. ROS interface
++                # creation, MemoryError and other system failures stay outside this handler.
++                self.initialization_error = dict(type=type(exc).__name__, message=str(exc))
++                self.status = 'FAILED'
++                try:
++                    self._release_environment()
++                except Exception as cleanup_error:
++                    self._log('initialization_cleanup_error', error=str(cleanup_error))
++                self._log('initialization_failed', controller_ready=False,
++                          requested_controller=self.controller, loaded_controller=None,
++                          controller_run=self.controller_run, error=self.initialization_error,
++                          executable=sys.executable, module=__file__)
++                self._publish_status()
++                return
++            self.timer = self.create_timer(self.base_env.control_dt, self._advance, clock=self.steady_clock)
++            self.controller_ready = True
+             self._publish_status()
+             self._log('ready', create_s=time.monotonic()-started, executable=sys.executable,
++                      requested_controller=self.controller, loaded_controller=self.controller,
++                      controller_ready=True,
+                       module=__file__, seed=self.seed, episode_timeout_s=self.episode_timeout_s,
+-                      recovery_timeout_s=self.recovery_timeout_s, control_dt=self.physical_env.control_dt,
+-                      asset_repo=str(self.physical_env.loaded.asset_repo), controlled_joints=len(self.names),
++                      recovery_timeout_s=self.recovery_timeout_s, control_dt=self.base_env.control_dt,
++                      asset_repo=str(self.base_env.loaded.asset_repo), controlled_joints=len(self.names),
+                       **identity)
+         except BaseException:
+             try:
+-                if self.env is not None:
+-                    self.env.close()
++                self._release_environment()
+             except Exception as exc:
+                 print(f'Secondary startup cleanup error: {type(exc).__name__}: {exc}', file=sys.stderr)
+             finally:
+                 self.destroy_node()
+             raise  # Preserve the startup failure even if cleanup also failed.
+ 
++    def _initialize_controller(self):
++        identity = {}
++        if self.controller == 'scripted_baseline':
++            if self.controller_run:
++                raise ValueError('Policy inputs require controller:=reference_residual')
++            # The published hash default is unused by this independent debug path.
++            self.env = self.base_env = X2RecoveryEnv(
++                EnvConfig(episode_timeout_s=self.episode_timeout_s), render_mode=None)
++        elif self.controller == 'reference_residual':
++            if not self.controller_run:
++                raise ValueError('reference_residual requires an explicit controller_run directory')
++            self.env, self.base_env, self.policy, prepared = prepare_policy(
++                self.controller_run, self.expected_checkpoint_sha256)
++            saved = prepared['saved']
++            control = saved.get('controller', {})
++            if (saved.get('schema') != 'x2-controller-ppo-v1'
++                    or control.get('mode') != 'reference_residual'
++                    or control.get('version') not in ('targets-v5', 'targets-v6')
++                    or control.get('action_layout') != 'independentlegs17'
++                    or self.env.observation_space.shape != (149,)
++                    or self.env.action_space.shape != (17,)):
++                raise ValueError('reference_residual requires a validated targets-v5/v6 independentlegs17 149/17 interface')
++            if self.episode_timeout_s != self.base_env.config.episode_timeout_s:
++                raise ValueError('Policy episode_timeout_s must equal its saved configuration; '
++                                 'use recovery_timeout_s for a wall-clock watchdog')
++            from torch import inference_mode
++            self._inference_mode = inference_mode
++            self.policy.policy.set_training_mode(False)
++            identity = dict(controller_run=str(prepared['directory']),
++                input_hashes=prepared['hashes'], observation_dimension=149, action_dimension=17,
++                policy_device='cpu', deterministic=True,
++                saved_action_consistency=prepared['consistency'],
++                model_identity=saved['identity']['model_fingerprint'],
++                control_identity=dict(schema=saved['schema'], mode=control['mode'],
++                                      version=control['version'], action_layout=control['action_layout']),
++                scope='Simulation demonstration; full-episode constraint risks are not resolved')
++        else:
++            raise ValueError('controller must be scripted_baseline or reference_residual')
++        self.names = [row.joint_name for row in self.base_env.loaded.mapping]
++        if not self.names or any(not n for n in self.names) or len(set(self.names)) != len(self.names):
++            raise ValueError('Invalid controlled joint mapping')
++        return identity
++
++    def _release_environment(self):
++        env, self.env = self.env, None
++        self.base_env = self.policy = None
++        if env is not None:
++            env.close()  # Wrapper owns its base; never close both independently.
++
++    @staticmethod
++    def _validate_vector(value, shape, name):
++        if getattr(value, 'shape', None) != shape or not np.isfinite(value).all():
++            raise ValueError(f'Invalid policy {name}: expected finite {shape}')
++
+     def _log(self, event, **fields):
+         message = json.dumps(dict(event=event, controller=self.controller,
+                                   episode=self.episode, **fields), allow_nan=False)
+@@ -124,6 +180,12 @@ class RecoveryNode(Node):
+ 
+     def _start(self, request, response):
+         started = time.monotonic()
++        if not self.controller_ready:
++            response.success = False
++            response.message = 'Controller unavailable: '+str(self.initialization_error or 'node closing')
++            self._log('rejected', status=self.status, reason='controller_unavailable',
++                      callback_body_s=time.monotonic()-started)
++            return response
+         if self.busy or self.closing:
+             response.success = False
+             response.message = 'Recovery already running'
+@@ -147,7 +209,7 @@ class RecoveryNode(Node):
+ 
+     def _sample(self):
+         # This callback and reset/step have the same, exclusive executor owner.
+-        q, dq = self.physical_env.loaded.read_state(self.physical_env.data)
++        q, dq = self.base_env.loaded.read_state(self.base_env.data)
+         stamp = self.get_clock().now().to_msg()
+         message = JointState()
+         message.header.stamp = stamp
+@@ -162,11 +224,11 @@ class RecoveryNode(Node):
+         return completed_at >= self.deadline
+ 
+     def _advance(self):
+-        if not self.busy or self.closing:
++        if not self.controller_ready or not self.busy or self.closing:
+             return
+         started = time.monotonic()
+         if self._expired(started):
+-            self._finish('FAILED', 'recovery_timeout', started)
++            self._finish('FAILED', 'recovery_timeout', started, stage='before_callback')
+             return
+         operation = 'reset' if self.pending else 'step'
+         completed_at = None
+@@ -180,40 +242,51 @@ class RecoveryNode(Node):
+                     return
+                 self.observation, info = self.env.reset(seed=self.seed)
+                 completed_at = time.monotonic()  # deadline decision excludes logging/DDS latency
++                if self.controller == 'reference_residual':
++                    self._validate_vector(self.observation, (149,), 'observation')
+                 self.last_info = info
+                 expired = self._expired(completed_at)
++                operation = 'sample'
+                 message = self._sample()  # invalid state always overrides a success outcome
+                 if self.controller == 'scripted_baseline':
+-                    self.keyframes = build_keyframes(message.position, self.physical_env.loaded.mapping)
++                    self.keyframes = build_keyframes(message.position, self.base_env.loaded.mapping)
+                 self.joint_pub.publish(message)
+                 self._log('reset_completed', monotonic_s=completed_at, duration_s=completed_at-started,
+-                          elapsed_sim_s=info['elapsed_sim_s'], episode_start_time=self.physical_env.episode_start_time,
++                          elapsed_sim_s=info['elapsed_sim_s'], episode_start_time=self.base_env.episode_start_time,
+                           reset_seed=info.get('reset_seed'))
+                 if expired:
+-                    self._finish('FAILED', 'recovery_timeout', completed_at)
++                    self._finish('FAILED', 'recovery_timeout', completed_at, stage='reset')
+                 return  # first callback never performs a control step
+             if self.controller == 'reference_residual':
+-                action, _ = self.policy.predict(self.observation, deterministic=True)
++                operation = 'predict'
++                self._validate_vector(self.observation, (149,), 'observation')
++                with self._inference_mode():
++                    action, _ = self.policy.predict(self.observation, deterministic=True)
++                self._validate_vector(action, (17,), 'action')
+             else:
+-                elapsed = float(self.physical_env.data.time-self.physical_env.episode_start_time)
++                elapsed = float(self.base_env.data.time-self.base_env.episode_start_time)
+                 targets, _ = scripted_targets(elapsed, self.keyframes)
+                 action = self.env.action_for_targets(targets)
+             self.last_action = action.copy()
+             # Target generation may take time; do not start step after the deadline.
+             before_step = time.monotonic()
+             if self._expired(before_step):
+-                self._finish('FAILED', 'recovery_timeout', before_step)
++                self._finish('FAILED', 'recovery_timeout', before_step, stage=operation)
+                 return
++            operation = 'step'
+             self.observation, _, terminated, truncated, info = self.env.step(action)
+             completed_at = time.monotonic()
+             self.control_steps += 1
+             self.last_info = info
+             self.last_result = dict(terminated=terminated, truncated=truncated, **info)
++            if self.controller == 'reference_residual':
++                self._validate_vector(self.observation, (149,), 'observation')
+             expired = self._expired(completed_at)
++            operation = 'sample'
+             message = self._sample()
+             self.joint_pub.publish(message)
+             if expired:
+-                self._finish('FAILED', 'recovery_timeout', completed_at)
++                self._finish('FAILED', 'recovery_timeout', completed_at, stage='step')
+             elif terminated:
+                 success = info['is_success'] is True
+                 self._finish('SUCCEEDED' if success else 'FAILED', info['termination_reason'], completed_at)
+@@ -252,16 +325,18 @@ class RecoveryNode(Node):
+ 
+     def close(self):
+         # Called only after spin has returned: no concurrent callback/environment use.
+-        if self.env is None:
++        if self._closed:
+             return
++        self._closed = True
+         self.closing = True
+-        self.timer.cancel()
+-        self.heartbeat.cancel()
++        self.controller_ready = False
++        for timer in (self.timer, self.heartbeat):
++            if timer is not None:
++                timer.cancel()
+         try:
+             self._finish('FAILED', 'shutdown', time.monotonic())
+         finally:
+-            env, self.env = self.env, None
+-            env.close()
++            self._release_environment()
+             self._log('closed')
+ 
+ 

@@ -1,0 +1,3270 @@
+{
+  "schema": "offline-support-diagnosis-v1",
+  "candidate": "g13-arm-contact-10",
+  "source_kind": "Offline postprocessing of completed physical trace; no new rollout",
+  "input_sha256": {
+    "results/control-repair/20260924T151819Z/candidate-g13-10/summary.json": "beef8a877ef1f3fc4feed01cb878bc795a8a3f2346e5e8bb01d201de64545d76",
+    "results/control-repair/20260924T151819Z/candidate-g13-10/physical_trace.npz": "a6579fad72f5be018ae8bff15686f660570f23f65d44a7642f2d12c4e23163b6",
+    "results/control-repair/20260924T151819Z/candidate-g13-10/control_trace.npz": "0633759306e4f3806c614d2e6e034817b80e0e04be3d4984ee65b9ca073dd58c",
+    "results/control-repair/20260924T151819Z/candidate-g13-10/joint_constraints.csv": "404794cbfccbec07dabaeceecfcc5588aa009cc4bc994f77f452aa8911f198f6",
+    "results/control-repair/20260924T151819Z/generation-13/plan.json": "37938a1b66c444b3de4aa69aec3ae5e626f47ee97eef1adf4b6258318502e978",
+    "results/control-repair/20260924T151819Z/generation-13/candidates.jsonl": "a30dd3c8650601875ce4e19d7125bd79d6b0b1cbf6b42bdccf272f7675ada2f8"
+  },
+  "script_sha256": "f80e9499d04c1ce5f3bd344729dea047aba090cb8e12810917b21ce1a0b5c249",
+  "streaming_full_replay_identity": {
+    "physical_state_sha256": "2c13e62a2c24e201bdb298d768b0d97bbc7400c60367cc555debf8634f7929ab",
+    "samples": 20000,
+    "exact_match": true,
+    "encoding": "Concatenated little-endian float64: full post-step qpos then qvel per physical step; action per transition."
+  },
+  "method": {
+    "model": "Strict original prepare; environment reset/step and mj_step patched to raise throughout",
+    "geometry": "Independent MjData pre-state qpos/qvel/ctrl/time copied for every 1ms physical sample; mj_forward only; warmstart explicitly zero. Post-state snapshots independently recomputed.",
+    "force": "Original trace retains total integration ground-force scalars, not per-body integration force vectors. Named body force/intervals here are independent pre-state recomputations, NOT the original integration forces; no equality is assumed.",
+    "intervals": "Half-open intervals [pre_time,pre_time+1ms), sampled right count times1ms; no claim of continuous-time contact edges.",
+    "velocity": "COM/subtree velocity and named body COM velocity reconstructed from exact saved qpos/qvel; world frame. Fixed3.5s foot-forward projection used to avoid changing-axis fall interpretation.",
+    "recomputed_total_vs_actual_integration_max_abs_N": 0.026197165353607943,
+    "interval_encoding": "Exact unsmoothed sample-index RLE [start inclusive,end exclusive]; recovery pre-state sample0 at elapsed0, nominaldt=.001s. Summary retains original accumulated MuJoCo boundary times. Unlisted wrist yaw/pitch bodies had no floor contact."
+  },
+  "arm_floor_contacts": {
+    "left_elbow_link": {
+      "recomputed_max_vertical_N": 24.098726203218074,
+      "max_geometric_depth_m": 0.00018093785725378786,
+      "max_recomputed_force_elapsed_s": 0.0,
+      "geometry_contact_intervals_summary": {
+        "segments": 1,
+        "total_sampled_duration_s": 0.455,
+        "longest_contiguous_sampled_duration_s": 0.455,
+        "first_start_elapsed_s": 0.0,
+        "last_end_elapsed_s": 0.4549999999999502
+      },
+      "geometry_contact_intervals_sample_index_rle": [
+        [
+          0,
+          455
+        ]
+      ],
+      "recomputed_positive_vertical_force_intervals_summary": {
+        "segments": 2,
+        "total_sampled_duration_s": 0.443,
+        "longest_contiguous_sampled_duration_s": 0.44,
+        "first_start_elapsed_s": 0.0,
+        "last_end_elapsed_s": 0.45299999999995044
+      },
+      "recomputed_positive_vertical_force_intervals_sample_index_rle": [
+        [
+          0,
+          440
+        ],
+        [
+          450,
+          453
+        ]
+      ]
+    },
+    "left_wrist_roll_link": {
+      "recomputed_max_vertical_N": 53.271079054468906,
+      "max_geometric_depth_m": 0.000188642636270199,
+      "max_recomputed_force_elapsed_s": 1.6849999999998146,
+      "geometry_contact_intervals_summary": {
+        "segments": 110,
+        "total_sampled_duration_s": 1.238,
+        "longest_contiguous_sampled_duration_s": 0.507,
+        "first_start_elapsed_s": 0.0,
+        "last_end_elapsed_s": 1.72799999999981
+      },
+      "geometry_contact_intervals_sample_index_rle": [
+        [
+          0,
+          507
+        ],
+        [
+          509,
+          517
+        ],
+        [
+          518,
+          520
+        ],
+        [
+          521,
+          526
+        ],
+        [
+          527,
+          529
+        ],
+        [
+          530,
+          532
+        ],
+        [
+          533,
+          537
+        ],
+        [
+          539,
+          544
+        ],
+        [
+          546,
+          549
+        ],
+        [
+          550,
+          553
+        ],
+        [
+          555,
+          561
+        ],
+        [
+          564,
+          571
+        ],
+        [
+          574,
+          581
+        ],
+        [
+          584,
+          591
+        ],
+        [
+          594,
+          601
+        ],
+        [
+          604,
+          612
+        ],
+        [
+          615,
+          623
+        ],
+        [
+          626,
+          633
+        ],
+        [
+          635,
+          640
+        ],
+        [
+          642,
+          648
+        ],
+        [
+          650,
+          655
+        ],
+        [
+          656,
+          658
+        ],
+        [
+          659,
+          663
+        ],
+        [
+          665,
+          673
+        ],
+        [
+          676,
+          686
+        ],
+        [
+          689,
+          696
+        ],
+        [
+          697,
+          698
+        ],
+        [
+          699,
+          704
+        ],
+        [
+          706,
+          711
+        ],
+        [
+          712,
+          714
+        ],
+        [
+          715,
+          719
+        ],
+        [
+          721,
+          727
+        ],
+        [
+          729,
+          732
+        ],
+        [
+          734,
+          740
+        ],
+        [
+          744,
+          751
+        ],
+        [
+          756,
+          762
+        ],
+        [
+          767,
+          771
+        ],
+        [
+          775,
+          778
+        ],
+        [
+          780,
+          782
+        ],
+        [
+          785,
+          788
+        ],
+        [
+          792,
+          794
+        ],
+        [
+          796,
+          798
+        ],
+        [
+          802,
+          805
+        ],
+        [
+          811,
+          815
+        ],
+        [
+          823,
+          826
+        ],
+        [
+          831,
+          833
+        ],
+        [
+          837,
+          839
+        ],
+        [
+          844,
+          847
+        ],
+        [
+          856,
+          860
+        ],
+        [
+          872,
+          876
+        ],
+        [
+          889,
+          892
+        ],
+        [
+          901,
+          903
+        ],
+        [
+          911,
+          912
+        ],
+        [
+          913,
+          914
+        ],
+        [
+          922,
+          924
+        ],
+        [
+          934,
+          937
+        ],
+        [
+          950,
+          954
+        ],
+        [
+          966,
+          970
+        ],
+        [
+          972,
+          980
+        ],
+        [
+          989,
+          999
+        ],
+        [
+          1005,
+          1032
+        ],
+        [
+          1034,
+          1058
+        ],
+        [
+          1059,
+          1089
+        ],
+        [
+          1090,
+          1102
+        ],
+        [
+          1103,
+          1112
+        ],
+        [
+          1113,
+          1124
+        ],
+        [
+          1125,
+          1136
+        ],
+        [
+          1137,
+          1148
+        ],
+        [
+          1149,
+          1161
+        ],
+        [
+          1163,
+          1187
+        ],
+        [
+          1189,
+          1209
+        ],
+        [
+          1211,
+          1227
+        ],
+        [
+          1230,
+          1254
+        ],
+        [
+          1255,
+          1265
+        ],
+        [
+          1267,
+          1281
+        ],
+        [
+          1284,
+          1292
+        ],
+        [
+          1295,
+          1317
+        ],
+        [
+          1319,
+          1334
+        ],
+        [
+          1336,
+          1340
+        ],
+        [
+          1341,
+          1348
+        ],
+        [
+          1350,
+          1369
+        ],
+        [
+          1371,
+          1389
+        ],
+        [
+          1392,
+          1417
+        ],
+        [
+          1419,
+          1440
+        ],
+        [
+          1443,
+          1453
+        ],
+        [
+          1455,
+          1460
+        ],
+        [
+          1462,
+          1467
+        ],
+        [
+          1470,
+          1474
+        ],
+        [
+          1477,
+          1482
+        ],
+        [
+          1487,
+          1491
+        ],
+        [
+          1494,
+          1496
+        ],
+        [
+          1499,
+          1502
+        ],
+        [
+          1508,
+          1512
+        ],
+        [
+          1520,
+          1524
+        ],
+        [
+          1534,
+          1538
+        ],
+        [
+          1549,
+          1552
+        ],
+        [
+          1561,
+          1563
+        ],
+        [
+          1569,
+          1571
+        ],
+        [
+          1581,
+          1583
+        ],
+        [
+          1591,
+          1592
+        ],
+        [
+          1594,
+          1595
+        ],
+        [
+          1604,
+          1606
+        ],
+        [
+          1618,
+          1620
+        ],
+        [
+          1631,
+          1633
+        ],
+        [
+          1648,
+          1650
+        ],
+        [
+          1666,
+          1667
+        ],
+        [
+          1669,
+          1670
+        ],
+        [
+          1685,
+          1687
+        ],
+        [
+          1717,
+          1718
+        ],
+        [
+          1727,
+          1728
+        ]
+      ],
+      "recomputed_positive_vertical_force_intervals_summary": {
+        "segments": 110,
+        "total_sampled_duration_s": 1.238,
+        "longest_contiguous_sampled_duration_s": 0.507,
+        "first_start_elapsed_s": 0.0,
+        "last_end_elapsed_s": 1.72799999999981
+      },
+      "recomputed_positive_vertical_force_intervals_sample_index_rle": [
+        [
+          0,
+          507
+        ],
+        [
+          509,
+          517
+        ],
+        [
+          518,
+          520
+        ],
+        [
+          521,
+          526
+        ],
+        [
+          527,
+          529
+        ],
+        [
+          530,
+          532
+        ],
+        [
+          533,
+          537
+        ],
+        [
+          539,
+          544
+        ],
+        [
+          546,
+          549
+        ],
+        [
+          550,
+          553
+        ],
+        [
+          555,
+          561
+        ],
+        [
+          564,
+          571
+        ],
+        [
+          574,
+          581
+        ],
+        [
+          584,
+          591
+        ],
+        [
+          594,
+          601
+        ],
+        [
+          604,
+          612
+        ],
+        [
+          615,
+          623
+        ],
+        [
+          626,
+          633
+        ],
+        [
+          635,
+          640
+        ],
+        [
+          642,
+          648
+        ],
+        [
+          650,
+          655
+        ],
+        [
+          656,
+          658
+        ],
+        [
+          659,
+          663
+        ],
+        [
+          665,
+          673
+        ],
+        [
+          676,
+          686
+        ],
+        [
+          689,
+          696
+        ],
+        [
+          697,
+          698
+        ],
+        [
+          699,
+          704
+        ],
+        [
+          706,
+          711
+        ],
+        [
+          712,
+          714
+        ],
+        [
+          715,
+          719
+        ],
+        [
+          721,
+          727
+        ],
+        [
+          729,
+          732
+        ],
+        [
+          734,
+          740
+        ],
+        [
+          744,
+          751
+        ],
+        [
+          756,
+          762
+        ],
+        [
+          767,
+          771
+        ],
+        [
+          775,
+          778
+        ],
+        [
+          780,
+          782
+        ],
+        [
+          785,
+          788
+        ],
+        [
+          792,
+          794
+        ],
+        [
+          796,
+          798
+        ],
+        [
+          802,
+          805
+        ],
+        [
+          811,
+          815
+        ],
+        [
+          823,
+          826
+        ],
+        [
+          831,
+          833
+        ],
+        [
+          837,
+          839
+        ],
+        [
+          844,
+          847
+        ],
+        [
+          856,
+          860
+        ],
+        [
+          872,
+          876
+        ],
+        [
+          889,
+          892
+        ],
+        [
+          901,
+          903
+        ],
+        [
+          911,
+          912
+        ],
+        [
+          913,
+          914
+        ],
+        [
+          922,
+          924
+        ],
+        [
+          934,
+          937
+        ],
+        [
+          950,
+          954
+        ],
+        [
+          966,
+          970
+        ],
+        [
+          972,
+          980
+        ],
+        [
+          989,
+          999
+        ],
+        [
+          1005,
+          1032
+        ],
+        [
+          1034,
+          1058
+        ],
+        [
+          1059,
+          1089
+        ],
+        [
+          1090,
+          1102
+        ],
+        [
+          1103,
+          1112
+        ],
+        [
+          1113,
+          1124
+        ],
+        [
+          1125,
+          1136
+        ],
+        [
+          1137,
+          1148
+        ],
+        [
+          1149,
+          1161
+        ],
+        [
+          1163,
+          1187
+        ],
+        [
+          1189,
+          1209
+        ],
+        [
+          1211,
+          1227
+        ],
+        [
+          1230,
+          1254
+        ],
+        [
+          1255,
+          1265
+        ],
+        [
+          1267,
+          1281
+        ],
+        [
+          1284,
+          1292
+        ],
+        [
+          1295,
+          1317
+        ],
+        [
+          1319,
+          1334
+        ],
+        [
+          1336,
+          1340
+        ],
+        [
+          1341,
+          1348
+        ],
+        [
+          1350,
+          1369
+        ],
+        [
+          1371,
+          1389
+        ],
+        [
+          1392,
+          1417
+        ],
+        [
+          1419,
+          1440
+        ],
+        [
+          1443,
+          1453
+        ],
+        [
+          1455,
+          1460
+        ],
+        [
+          1462,
+          1467
+        ],
+        [
+          1470,
+          1474
+        ],
+        [
+          1477,
+          1482
+        ],
+        [
+          1487,
+          1491
+        ],
+        [
+          1494,
+          1496
+        ],
+        [
+          1499,
+          1502
+        ],
+        [
+          1508,
+          1512
+        ],
+        [
+          1520,
+          1524
+        ],
+        [
+          1534,
+          1538
+        ],
+        [
+          1549,
+          1552
+        ],
+        [
+          1561,
+          1563
+        ],
+        [
+          1569,
+          1571
+        ],
+        [
+          1581,
+          1583
+        ],
+        [
+          1591,
+          1592
+        ],
+        [
+          1594,
+          1595
+        ],
+        [
+          1604,
+          1606
+        ],
+        [
+          1618,
+          1620
+        ],
+        [
+          1631,
+          1633
+        ],
+        [
+          1648,
+          1650
+        ],
+        [
+          1666,
+          1667
+        ],
+        [
+          1669,
+          1670
+        ],
+        [
+          1685,
+          1687
+        ],
+        [
+          1717,
+          1718
+        ],
+        [
+          1727,
+          1728
+        ]
+      ]
+    },
+    "right_elbow_link": {
+      "recomputed_max_vertical_N": 111.98620659050044,
+      "max_geometric_depth_m": 0.0004898346328607167,
+      "max_recomputed_force_elapsed_s": 1.8189999999997999,
+      "geometry_contact_intervals_summary": {
+        "segments": 5,
+        "total_sampled_duration_s": 0.486,
+        "longest_contiguous_sampled_duration_s": 0.429,
+        "first_start_elapsed_s": 0.0,
+        "last_end_elapsed_s": 1.90899999999979
+      },
+      "geometry_contact_intervals_sample_index_rle": [
+        [
+          0,
+          429
+        ],
+        [
+          1810,
+          1843
+        ],
+        [
+          1856,
+          1867
+        ],
+        [
+          1878,
+          1887
+        ],
+        [
+          1905,
+          1909
+        ]
+      ],
+      "recomputed_positive_vertical_force_intervals_summary": {
+        "segments": 5,
+        "total_sampled_duration_s": 0.477,
+        "longest_contiguous_sampled_duration_s": 0.42,
+        "first_start_elapsed_s": 0.0,
+        "last_end_elapsed_s": 1.90899999999979
+      },
+      "recomputed_positive_vertical_force_intervals_sample_index_rle": [
+        [
+          0,
+          420
+        ],
+        [
+          1810,
+          1843
+        ],
+        [
+          1856,
+          1867
+        ],
+        [
+          1878,
+          1887
+        ],
+        [
+          1905,
+          1909
+        ]
+      ]
+    },
+    "right_wrist_roll_link": {
+      "recomputed_max_vertical_N": 52.13152876640568,
+      "max_geometric_depth_m": 0.0004157428087000689,
+      "max_recomputed_force_elapsed_s": 0.709999999999922,
+      "geometry_contact_intervals_summary": {
+        "segments": 94,
+        "total_sampled_duration_s": 1.594,
+        "longest_contiguous_sampled_duration_s": 0.529,
+        "first_start_elapsed_s": 0.0,
+        "last_end_elapsed_s": 1.8179999999998
+      },
+      "geometry_contact_intervals_sample_index_rle": [
+        [
+          0,
+          529
+        ],
+        [
+          531,
+          542
+        ],
+        [
+          544,
+          552
+        ],
+        [
+          554,
+          558
+        ],
+        [
+          559,
+          561
+        ],
+        [
+          562,
+          565
+        ],
+        [
+          566,
+          568
+        ],
+        [
+          569,
+          571
+        ],
+        [
+          572,
+          574
+        ],
+        [
+          575,
+          577
+        ],
+        [
+          579,
+          583
+        ],
+        [
+          585,
+          588
+        ],
+        [
+          591,
+          596
+        ],
+        [
+          601,
+          607
+        ],
+        [
+          611,
+          615
+        ],
+        [
+          619,
+          623
+        ],
+        [
+          628,
+          633
+        ],
+        [
+          639,
+          642
+        ],
+        [
+          644,
+          645
+        ],
+        [
+          646,
+          647
+        ],
+        [
+          649,
+          651
+        ],
+        [
+          654,
+          656
+        ],
+        [
+          660,
+          662
+        ],
+        [
+          665,
+          667
+        ],
+        [
+          671,
+          674
+        ],
+        [
+          682,
+          686
+        ],
+        [
+          694,
+          698
+        ],
+        [
+          708,
+          712
+        ],
+        [
+          722,
+          725
+        ],
+        [
+          732,
+          734
+        ],
+        [
+          739,
+          751
+        ],
+        [
+          764,
+          774
+        ],
+        [
+          781,
+          789
+        ],
+        [
+          793,
+          800
+        ],
+        [
+          803,
+          811
+        ],
+        [
+          815,
+          832
+        ],
+        [
+          836,
+          869
+        ],
+        [
+          871,
+          891
+        ],
+        [
+          892,
+          898
+        ],
+        [
+          899,
+          913
+        ],
+        [
+          914,
+          928
+        ],
+        [
+          929,
+          1054
+        ],
+        [
+          1055,
+          1081
+        ],
+        [
+          1082,
+          1098
+        ],
+        [
+          1099,
+          1114
+        ],
+        [
+          1115,
+          1130
+        ],
+        [
+          1131,
+          1146
+        ],
+        [
+          1147,
+          1159
+        ],
+        [
+          1160,
+          1174
+        ],
+        [
+          1175,
+          1188
+        ],
+        [
+          1189,
+          1202
+        ],
+        [
+          1203,
+          1213
+        ],
+        [
+          1214,
+          1224
+        ],
+        [
+          1225,
+          1232
+        ],
+        [
+          1234,
+          1248
+        ],
+        [
+          1250,
+          1258
+        ],
+        [
+          1260,
+          1273
+        ],
+        [
+          1275,
+          1284
+        ],
+        [
+          1285,
+          1290
+        ],
+        [
+          1291,
+          1296
+        ],
+        [
+          1297,
+          1302
+        ],
+        [
+          1303,
+          1312
+        ],
+        [
+          1313,
+          1318
+        ],
+        [
+          1319,
+          1326
+        ],
+        [
+          1327,
+          1337
+        ],
+        [
+          1338,
+          1346
+        ],
+        [
+          1347,
+          1365
+        ],
+        [
+          1367,
+          1381
+        ],
+        [
+          1383,
+          1387
+        ],
+        [
+          1388,
+          1390
+        ],
+        [
+          1391,
+          1394
+        ],
+        [
+          1395,
+          1397
+        ],
+        [
+          1398,
+          1402
+        ],
+        [
+          1405,
+          1410
+        ],
+        [
+          1412,
+          1414
+        ],
+        [
+          1415,
+          1417
+        ],
+        [
+          1418,
+          1423
+        ],
+        [
+          1425,
+          1428
+        ],
+        [
+          1429,
+          1430
+        ],
+        [
+          1431,
+          1433
+        ],
+        [
+          1435,
+          1441
+        ],
+        [
+          1444,
+          1448
+        ],
+        [
+          1451,
+          1458
+        ],
+        [
+          1460,
+          1465
+        ],
+        [
+          1468,
+          1473
+        ],
+        [
+          1474,
+          1478
+        ],
+        [
+          1479,
+          1482
+        ],
+        [
+          1484,
+          1490
+        ],
+        [
+          1491,
+          1497
+        ],
+        [
+          1498,
+          1502
+        ],
+        [
+          1504,
+          1516
+        ],
+        [
+          1517,
+          1526
+        ],
+        [
+          1528,
+          1553
+        ],
+        [
+          1554,
+          1818
+        ]
+      ],
+      "recomputed_positive_vertical_force_intervals_summary": {
+        "segments": 94,
+        "total_sampled_duration_s": 1.593,
+        "longest_contiguous_sampled_duration_s": 0.529,
+        "first_start_elapsed_s": 0.0,
+        "last_end_elapsed_s": 1.8169999999998
+      },
+      "recomputed_positive_vertical_force_intervals_sample_index_rle": [
+        [
+          0,
+          529
+        ],
+        [
+          531,
+          542
+        ],
+        [
+          544,
+          552
+        ],
+        [
+          554,
+          558
+        ],
+        [
+          559,
+          561
+        ],
+        [
+          562,
+          565
+        ],
+        [
+          566,
+          568
+        ],
+        [
+          569,
+          571
+        ],
+        [
+          572,
+          574
+        ],
+        [
+          575,
+          577
+        ],
+        [
+          579,
+          583
+        ],
+        [
+          585,
+          588
+        ],
+        [
+          591,
+          596
+        ],
+        [
+          601,
+          607
+        ],
+        [
+          611,
+          615
+        ],
+        [
+          619,
+          623
+        ],
+        [
+          628,
+          633
+        ],
+        [
+          639,
+          642
+        ],
+        [
+          644,
+          645
+        ],
+        [
+          646,
+          647
+        ],
+        [
+          649,
+          651
+        ],
+        [
+          654,
+          656
+        ],
+        [
+          660,
+          662
+        ],
+        [
+          665,
+          667
+        ],
+        [
+          671,
+          674
+        ],
+        [
+          682,
+          686
+        ],
+        [
+          694,
+          698
+        ],
+        [
+          708,
+          712
+        ],
+        [
+          722,
+          725
+        ],
+        [
+          732,
+          734
+        ],
+        [
+          739,
+          751
+        ],
+        [
+          764,
+          774
+        ],
+        [
+          781,
+          789
+        ],
+        [
+          793,
+          800
+        ],
+        [
+          803,
+          811
+        ],
+        [
+          815,
+          832
+        ],
+        [
+          836,
+          869
+        ],
+        [
+          871,
+          891
+        ],
+        [
+          892,
+          898
+        ],
+        [
+          899,
+          913
+        ],
+        [
+          914,
+          928
+        ],
+        [
+          929,
+          1054
+        ],
+        [
+          1055,
+          1081
+        ],
+        [
+          1082,
+          1098
+        ],
+        [
+          1099,
+          1114
+        ],
+        [
+          1115,
+          1130
+        ],
+        [
+          1131,
+          1146
+        ],
+        [
+          1147,
+          1159
+        ],
+        [
+          1160,
+          1174
+        ],
+        [
+          1175,
+          1188
+        ],
+        [
+          1189,
+          1202
+        ],
+        [
+          1203,
+          1213
+        ],
+        [
+          1214,
+          1224
+        ],
+        [
+          1225,
+          1232
+        ],
+        [
+          1234,
+          1248
+        ],
+        [
+          1250,
+          1258
+        ],
+        [
+          1260,
+          1273
+        ],
+        [
+          1275,
+          1284
+        ],
+        [
+          1285,
+          1290
+        ],
+        [
+          1291,
+          1296
+        ],
+        [
+          1297,
+          1302
+        ],
+        [
+          1303,
+          1312
+        ],
+        [
+          1313,
+          1318
+        ],
+        [
+          1319,
+          1326
+        ],
+        [
+          1327,
+          1337
+        ],
+        [
+          1338,
+          1346
+        ],
+        [
+          1347,
+          1365
+        ],
+        [
+          1367,
+          1381
+        ],
+        [
+          1383,
+          1387
+        ],
+        [
+          1388,
+          1390
+        ],
+        [
+          1391,
+          1394
+        ],
+        [
+          1395,
+          1397
+        ],
+        [
+          1398,
+          1402
+        ],
+        [
+          1405,
+          1410
+        ],
+        [
+          1412,
+          1414
+        ],
+        [
+          1415,
+          1417
+        ],
+        [
+          1418,
+          1423
+        ],
+        [
+          1425,
+          1428
+        ],
+        [
+          1429,
+          1430
+        ],
+        [
+          1431,
+          1433
+        ],
+        [
+          1435,
+          1441
+        ],
+        [
+          1444,
+          1448
+        ],
+        [
+          1451,
+          1458
+        ],
+        [
+          1460,
+          1465
+        ],
+        [
+          1468,
+          1473
+        ],
+        [
+          1474,
+          1478
+        ],
+        [
+          1479,
+          1482
+        ],
+        [
+          1484,
+          1490
+        ],
+        [
+          1491,
+          1497
+        ],
+        [
+          1498,
+          1502
+        ],
+        [
+          1504,
+          1516
+        ],
+        [
+          1517,
+          1526
+        ],
+        [
+          1528,
+          1553
+        ],
+        [
+          1554,
+          1817
+        ]
+      ]
+    }
+  },
+  "outcome": {
+    "success": false,
+    "hold_s": 0.0,
+    "full_episode_seconds": 20.000000000003563,
+    "constraint_envelope_pass": true,
+    "waist_joint_csv": {
+      "joint_name": "waist_pitch_joint",
+      "q_lower_rad": "-0.314",
+      "q_upper_rad": "0.314",
+      "q_min_observed_rad": "-0.31389706540198287",
+      "q_max_observed_rad": "0.31068191895551744",
+      "max_lower_excess_rad": "0.0",
+      "max_upper_excess_rad": "0.0",
+      "max_excess_rad": "0.0",
+      "time_of_max_excess_s": "0.0009999999999998899",
+      "time_above_zero_excess_s": "0.0",
+      "time_above_standing_tolerance_s": "0.0",
+      "longest_consecutive_excess_s": "0.0",
+      "max_abs_velocity_rad_s": "1.8152654442558542",
+      "declared_velocity_limit_rad_s": "13.088",
+      "velocity_limit_source": "X2_URDF-v1.3.0/x2_ultra.urdf#waist_pitch_joint/limit@velocity (declaration; not MJCF clamp)",
+      "max_velocity_ratio": "0.13869693186551454",
+      "max_positive_actuation_Nm": "48.0",
+      "max_negative_actuation_Nm": "-48.0",
+      "max_actuation_limit_ratio": "1.0",
+      "torque_saturation_fraction": "0.04825",
+      "min_target_limit_margin_rad": "0.0036322802305221447",
+      "urdf_lower_rad": "-0.314",
+      "urdf_upper_rad": "0.314",
+      "urdf_effort_Nm": "48.0",
+      "effective_effort_lower_Nm": "-48.0",
+      "effective_effort_upper_Nm": "48.0"
+    },
+    "maximum_progress_quality": 0.5962659593609281,
+    "maximum_progress_elapsed_s": 3.849000000000247,
+    "progress_integral_s": 0.4793967653239908,
+    "maximum_pelvis_height_m": 0.553457716019714,
+    "height_required_m": 0.6052459924998083,
+    "minimum_torso_tilt_deg": 41.17593031275232,
+    "original_standing_tilt_max_deg": 15.0,
+    "g04_20_waist_max_excess_rad": 0.0035716037241139142
+  },
+  "samples": [
+    {
+      "elapsed_s": 1.499999999999835,
+      "measurements": {
+        "pelvis_height_m": 0.07976383058082048,
+        "tilt_deg": 77.11094078731686,
+        "left_weight": 0.24400944129839788,
+        "right_weight": 0.5366208067858849,
+        "other_weight": 0.7424941796156017,
+        "com_linear_m_s": 0.18176903734229524,
+        "torso_angular_rad_s": 0.4187386194664413
+      },
+      "quality": 0.02065339298854868,
+      "positions_world_m": {
+        "pelvis": [
+          0.01825191362757924,
+          0.024758603678998785,
+          0.07976383058082048
+        ],
+        "torso_link": [
+          -0.13474884363635029,
+          0.021473874405775636,
+          0.10480119894544353
+        ],
+        "left_ankle_roll_link": [
+          0.5317143830702113,
+          0.3182732006506156,
+          0.06187552988118135
+        ],
+        "right_ankle_roll_link": [
+          0.43364187410882404,
+          -0.34230760940379074,
+          0.08163570134809908
+        ],
+        "left_wrist_roll_link": [
+          -0.2018730026551162,
+          0.4957852092160228,
+          0.04150075763891576
+        ],
+        "right_wrist_roll_link": [
+          -0.11580418943443536,
+          -0.5101349577871483,
+          0.041467804888039035
+        ],
+        "left_elbow_link": [
+          -0.3306323251706709,
+          0.34299533991960035,
+          0.07722621115074614
+        ],
+        "right_elbow_link": [
+          -0.24955365997848253,
+          -0.3622973196085832,
+          0.07961149918094945
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          0.056487804170626085,
+          -0.053157497937963205,
+          -0.046777546993739094
+        ],
+        "left_ankle_roll_link": [
+          0.004147463547337332,
+          -0.1787993289545159,
+          -0.021175843959476852
+        ],
+        "right_ankle_roll_link": [
+          -0.5942046188538765,
+          -0.7656555861523736,
+          -0.15984469805177237
+        ]
+      },
+      "COM_world_m": [
+        -0.045031958972599324,
+        0.009808539304577918,
+        0.1195061042000246
+      ],
+      "COM_velocity_world_m_s": [
+        0.030266188905391858,
+        -0.17573815849554622,
+        -0.035214207276071614
+      ],
+      "feet_forward_world_xy": [
+        0.5340996015229795,
+        0.8454215609108834
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": -0.2633977931956115,
+      "recorded_actual_integration_ground_vertical_N": 363.7986622996475,
+      "integration_pre_elapsed_s": 1.4989999999998351,
+      "recomputed_post_floor_support": [
+        {
+          "body": "left_ankle_roll_link",
+          "geom": 18,
+          "depth_m": 0.0002642356555893023,
+          "vertical_N": 100.45651533024414
+        },
+        {
+          "body": "right_ankle_roll_link",
+          "geom": 38,
+          "depth_m": 5.7078272246861676e-05,
+          "vertical_N": 99.72876654358896
+        },
+        {
+          "body": "right_ankle_roll_link",
+          "geom": 45,
+          "depth_m": 1.6122885644144318e-05,
+          "vertical_N": 121.19324375474015
+        },
+        {
+          "body": "torso_link",
+          "geom": 53,
+          "depth_m": 0.00023788629606710798,
+          "vertical_N": 239.17140481915914
+        },
+        {
+          "body": "left_wrist_roll_link",
+          "geom": 67,
+          "depth_m": 1.5584290519406185e-05,
+          "vertical_N": 19.328871280910775
+        },
+        {
+          "body": "right_wrist_roll_link",
+          "geom": 80,
+          "depth_m": 1.4001840230239149e-05,
+          "vertical_N": 11.038034826567621
+        },
+        {
+          "body": "right_wrist_roll_link",
+          "geom": 80,
+          "depth_m": 5.67874429749371e-06,
+          "vertical_N": 14.375109806184698
+        }
+      ],
+      "joints": {
+        "waist_pitch_joint": {
+          "q_rad": 0.06662909701784994,
+          "dq_rad_s": 0.8919999541501026,
+          "target_rad": -0.046414290249347685,
+          "raw_pd_Nm": -43.99941670727869,
+          "actual_integration_motor_Nm": -43.99941670727869
+        },
+        "left_hip_pitch_joint": {
+          "q_rad": -0.5655891355213477,
+          "dq_rad_s": 0.4874146503624778,
+          "target_rad": -0.4771751551032067,
+          "raw_pd_Nm": 44.803964029563716,
+          "actual_integration_motor_Nm": 44.803964029563716
+        },
+        "right_hip_pitch_joint": {
+          "q_rad": -0.34561598931917575,
+          "dq_rad_s": 0.9361495288976898,
+          "target_rad": -0.22801843208074574,
+          "raw_pd_Nm": 55.09187300712746,
+          "actual_integration_motor_Nm": 55.09187300712746
+        },
+        "left_knee_joint": {
+          "q_rad": 0.904008588891596,
+          "dq_rad_s": 1.2903515837962887,
+          "target_rad": 1.0009725468784572,
+          "raw_pd_Nm": 36.34490629420904,
+          "actual_integration_motor_Nm": 36.34490629420904
+        },
+        "right_knee_joint": {
+          "q_rad": 1.3359183923862572,
+          "dq_rad_s": 1.623216123476942,
+          "target_rad": 1.3790944306850434,
+          "raw_pd_Nm": -1.2154148886446805,
+          "actual_integration_motor_Nm": -1.2154148886446805
+        },
+        "left_shoulder_pitch_joint": {
+          "q_rad": 0.603855736704422,
+          "dq_rad_s": -0.11044407913933622,
+          "target_rad": 0.5546837022900581,
+          "raw_pd_Nm": -4.467489698472273,
+          "actual_integration_motor_Nm": -4.467489698472273
+        },
+        "right_shoulder_pitch_joint": {
+          "q_rad": 0.45821727166100934,
+          "dq_rad_s": -0.5479987293991283,
+          "target_rad": 0.42457702964544297,
+          "raw_pd_Nm": -1.1044206550802094,
+          "actual_integration_motor_Nm": -1.1044206550802094
+        },
+        "left_elbow_joint": {
+          "q_rad": -0.5532203922942719,
+          "dq_rad_s": -0.27564212501511964,
+          "target_rad": -0.5876204019784927,
+          "raw_pd_Nm": -2.318598727329483,
+          "actual_integration_motor_Nm": -2.318598727329483
+        },
+        "right_elbow_joint": {
+          "q_rad": -0.3843357198946828,
+          "dq_rad_s": -0.612470202962934,
+          "target_rad": -0.4148166836321354,
+          "raw_pd_Nm": -0.5210177902267303,
+          "actual_integration_motor_Nm": -0.5210177902267303
+        }
+      }
+    },
+    {
+      "elapsed_s": 2.4999999999997966,
+      "measurements": {
+        "pelvis_height_m": 0.21831486372243653,
+        "tilt_deg": 92.56162125415351,
+        "left_weight": 0.3514871086395432,
+        "right_weight": 0.33841434557846006,
+        "other_weight": 1.0512329303184897,
+        "com_linear_m_s": 0.14475249113599542,
+        "torso_angular_rad_s": 1.002658774512517
+      },
+      "quality": 0.0,
+      "positions_world_m": {
+        "pelvis": [
+          -0.001857342940265627,
+          -0.1559479521800148,
+          0.21831486372243653
+        ],
+        "torso_link": [
+          -0.14832064660440664,
+          -0.11131563349314368,
+          0.1937517248192108
+        ],
+        "left_ankle_roll_link": [
+          0.022263076261208894,
+          0.334337558634953,
+          0.1145714650963436
+        ],
+        "right_ankle_roll_link": [
+          -0.13991229671007804,
+          -0.5917651429583429,
+          0.10491203092001437
+        ],
+        "left_wrist_roll_link": [
+          -0.021253070236039007,
+          0.08586343428197189,
+          0.29440622764027774
+        ],
+        "right_wrist_roll_link": [
+          -0.16159627825008507,
+          -0.4600980314606119,
+          0.29324806394147895
+        ],
+        "left_elbow_link": [
+          -0.1970363299623466,
+          0.18306251008427488,
+          0.26520686128349247
+        ],
+        "right_elbow_link": [
+          -0.30893854157019546,
+          -0.43957556306120016,
+          0.15515782070234718
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          0.1429182278214608,
+          -0.04046964609437907,
+          0.07803936530363373
+        ],
+        "left_ankle_roll_link": [
+          -0.22641075262968285,
+          0.12972664128024547,
+          0.05076597722432993
+        ],
+        "right_ankle_roll_link": [
+          -0.28664025149187833,
+          -0.06736199211105501,
+          -0.0016571558308598189
+        ]
+      },
+      "COM_world_m": [
+        -0.13326540890316227,
+        -0.13043467621599394,
+        0.1788288779633449
+      ],
+      "COM_velocity_world_m_s": [
+        0.044075832503201046,
+        -0.027323576915470736,
+        0.1351444664933439
+      ],
+      "feet_forward_world_xy": [
+        0.9875670429010265,
+        -0.15719839622503218
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": -0.07324475920891671,
+      "recorded_actual_integration_ground_vertical_N": 284.75579316892674,
+      "integration_pre_elapsed_s": 2.4989999999997963,
+      "recomputed_post_floor_support": [
+        {
+          "body": "left_ankle_roll_link",
+          "geom": 20,
+          "depth_m": 0.0006263357914499485,
+          "vertical_N": 144.70411443732644
+        },
+        {
+          "body": "right_ankle_roll_link",
+          "geom": 47,
+          "depth_m": 8.098612926493286e-05,
+          "vertical_N": 139.32217423097023
+        },
+        {
+          "body": "torso_link",
+          "geom": 53,
+          "depth_m": 1.858510692726023e-05,
+          "vertical_N": 318.0331287357411
+        }
+      ],
+      "joints": {
+        "waist_pitch_joint": {
+          "q_rad": 0.16424253300526995,
+          "dq_rad_s": -1.0335872193747107,
+          "target_rad": -0.03204600639641285,
+          "raw_pd_Nm": -48.530564916495535,
+          "actual_integration_motor_Nm": -48.0
+        },
+        "left_hip_pitch_joint": {
+          "q_rad": 0.7407775424393368,
+          "dq_rad_s": 1.037767246417213,
+          "target_rad": 0.7703315834999084,
+          "raw_pd_Nm": 0.25904493080449953,
+          "actual_integration_motor_Nm": 0.25904493080449953
+        },
+        "right_hip_pitch_joint": {
+          "q_rad": 0.6396378928184799,
+          "dq_rad_s": 0.142074506278979,
+          "target_rad": 0.7113893972635268,
+          "raw_pd_Nm": 40.94828244233168,
+          "actual_integration_motor_Nm": 40.94828244233168
+        },
+        "left_knee_joint": {
+          "q_rad": 1.8039131886098443,
+          "dq_rad_s": -0.994518112208247,
+          "target_rad": 1.7964424537241461,
+          "raw_pd_Nm": 12.08197140880969,
+          "actual_integration_motor_Nm": 12.08197140880969
+        },
+        "right_knee_joint": {
+          "q_rad": 1.896665725310133,
+          "dq_rad_s": -1.0298712155964294,
+          "target_rad": 1.886489944702387,
+          "raw_pd_Nm": 11.118594163977852,
+          "actual_integration_motor_Nm": 11.118594163977852
+        },
+        "left_shoulder_pitch_joint": {
+          "q_rad": 0.11397301851386579,
+          "dq_rad_s": 0.11798148385864779,
+          "target_rad": 0.04396708980202674,
+          "raw_pd_Nm": -7.472600027814635,
+          "actual_integration_motor_Nm": -7.472600027814635
+        },
+        "right_shoulder_pitch_joint": {
+          "q_rad": -0.3704946707907533,
+          "dq_rad_s": 0.16310287341766438,
+          "target_rad": -0.4331798193603754,
+          "raw_pd_Nm": -6.923193345228613,
+          "actual_integration_motor_Nm": -6.923193345228613
+        },
+        "left_elbow_joint": {
+          "q_rad": -1.0696470234734505,
+          "dq_rad_s": -0.4044332407139205,
+          "target_rad": -1.075476541364193,
+          "raw_pd_Nm": 1.1273493155600023,
+          "actual_integration_motor_Nm": 1.1273493155600023
+        },
+        "right_elbow_joint": {
+          "q_rad": -1.1256743843745627,
+          "dq_rad_s": -0.5370594475289971,
+          "target_rad": -1.1642438202023506,
+          "raw_pd_Nm": -1.589810865692789,
+          "actual_integration_motor_Nm": -1.589810865692789
+        }
+      }
+    },
+    {
+      "elapsed_s": 3.9220000000002715,
+      "measurements": {
+        "pelvis_height_m": 0.553457716019714,
+        "tilt_deg": 41.25130081029818,
+        "left_weight": 0.38429282922409946,
+        "right_weight": 0.35902895709876365,
+        "other_weight": 0.0,
+        "com_linear_m_s": 0.4700111796946527,
+        "torso_angular_rad_s": 1.767869369961379
+      },
+      "quality": 0.4599266389582566,
+      "positions_world_m": {
+        "pelvis": [
+          -0.18093273894562437,
+          -0.12382287887652005,
+          0.553457716019714
+        ],
+        "torso_link": [
+          -0.2698397684574055,
+          -0.06686355218594209,
+          0.6670273694959281
+        ],
+        "left_ankle_roll_link": [
+          -0.08895112421893019,
+          0.26665036537645626,
+          0.09171306490920214
+        ],
+        "right_ankle_roll_link": [
+          -0.195746519130371,
+          -0.5080236232806221,
+          0.09883579106370882
+        ],
+        "left_wrist_roll_link": [
+          0.03962309997788284,
+          0.08804632955178436,
+          1.0099132040198182
+        ],
+        "right_wrist_roll_link": [
+          -0.27294175012941857,
+          -0.4403063021281524,
+          0.9752167682988295
+        ],
+        "left_elbow_link": [
+          -0.1221229632946046,
+          0.15412734529286828,
+          0.9066101228523228
+        ],
+        "right_elbow_link": [
+          -0.4051360189487083,
+          -0.3375211587753089,
+          0.8605009492301021
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          -0.43341816417535806,
+          0.3475363842125862,
+          -0.016304272132817484
+        ],
+        "left_ankle_roll_link": [
+          -0.02696478370724481,
+          -0.2744791957001368,
+          -0.01780585793137683
+        ],
+        "right_ankle_roll_link": [
+          -0.192031106100659,
+          0.03895064637261672,
+          0.05948713405666933
+        ]
+      },
+      "COM_world_m": [
+        -0.23487376746242752,
+        -0.09056735811322357,
+        0.6159305559470545
+      ],
+      "COM_velocity_world_m_s": [
+        -0.45697215933403346,
+        0.10954379456009479,
+        0.009333365144768633
+      ],
+      "feet_forward_world_xy": [
+        0.9124596724715143,
+        -0.40916664833925165
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": -0.0967490828285178,
+      "recorded_actual_integration_ground_vertical_N": 309.1292340183339,
+      "integration_pre_elapsed_s": 3.921000000000271,
+      "recomputed_post_floor_support": [
+        {
+          "body": "left_ankle_roll_link",
+          "geom": 21,
+          "depth_m": 0.00024195717719633757,
+          "vertical_N": 25.241859507624643
+        },
+        {
+          "body": "left_ankle_roll_link",
+          "geom": 23,
+          "depth_m": 0.0001646365713386345,
+          "vertical_N": 132.96807597143462
+        },
+        {
+          "body": "right_ankle_roll_link",
+          "geom": 38,
+          "depth_m": 0.00036864828944247873,
+          "vertical_N": 147.8090261563687
+        }
+      ],
+      "joints": {
+        "waist_pitch_joint": {
+          "q_rad": 0.03768753304474556,
+          "dq_rad_s": 0.5279001763617077,
+          "target_rad": 0.05149305835366249,
+          "raw_pd_Nm": -1.6962723504225234,
+          "actual_integration_motor_Nm": -1.6962723504225234
+        },
+        "left_hip_pitch_joint": {
+          "q_rad": 0.43226883281433787,
+          "dq_rad_s": 0.22339010097623369,
+          "target_rad": 0.3882558096349239,
+          "raw_pd_Nm": -29.851753530040476,
+          "actual_integration_motor_Nm": -29.851753530040476
+        },
+        "right_hip_pitch_joint": {
+          "q_rad": -0.12413844649116908,
+          "dq_rad_s": -0.7027966688237423,
+          "target_rad": -0.10322078856080771,
+          "raw_pd_Nm": 24.12721986649595,
+          "actual_integration_motor_Nm": 24.12721986649595
+        },
+        "left_knee_joint": {
+          "q_rad": 0.9725692937156191,
+          "dq_rad_s": 0.14287804535691567,
+          "target_rad": 0.9623898908495904,
+          "raw_pd_Nm": -8.387602035586472,
+          "actual_integration_motor_Nm": -8.387602035586472
+        },
+        "right_knee_joint": {
+          "q_rad": 0.9498778596568902,
+          "dq_rad_s": -0.4093227632286342,
+          "target_rad": 0.9565464885026217,
+          "raw_pd_Nm": 10.826914546256756,
+          "actual_integration_motor_Nm": 10.826914546256756
+        },
+        "left_shoulder_pitch_joint": {
+          "q_rad": -0.8222533801455415,
+          "dq_rad_s": -0.3273816112239745,
+          "target_rad": -0.8587988632917405,
+          "raw_pd_Nm": -2.2308628031967546,
+          "actual_integration_motor_Nm": -2.2308628031967546
+        },
+        "right_shoulder_pitch_joint": {
+          "q_rad": -0.8735803679298478,
+          "dq_rad_s": -0.17001280198624688,
+          "target_rad": -0.9318873372673989,
+          "raw_pd_Nm": -5.099319191914516,
+          "actual_integration_motor_Nm": -5.099319191914516
+        },
+        "left_elbow_joint": {
+          "q_rad": -0.6381344094822562,
+          "dq_rad_s": 0.07262586466979862,
+          "target_rad": -0.6427369912683965,
+          "raw_pd_Nm": -0.7660988739797681,
+          "actual_integration_motor_Nm": -0.7660988739797681
+        },
+        "right_elbow_joint": {
+          "q_rad": -0.7301660499887052,
+          "dq_rad_s": 0.23498061146902527,
+          "target_rad": -0.7355569429278374,
+          "raw_pd_Nm": -1.5342240768633932,
+          "actual_integration_motor_Nm": -1.5342240768633932
+        }
+      }
+    },
+    {
+      "elapsed_s": 4.5000000000004645,
+      "measurements": {
+        "pelvis_height_m": 0.31607782693181186,
+        "tilt_deg": 71.82482893320918,
+        "left_weight": 0.11529501432159,
+        "right_weight": 0.21656268320276206,
+        "other_weight": 0.0,
+        "com_linear_m_s": 2.23644654399319,
+        "torso_angular_rad_s": 2.5058296486863973
+      },
+      "quality": 0.04865239473446265,
+      "positions_world_m": {
+        "pelvis": [
+          -0.7184522582018055,
+          0.037687842275943705,
+          0.31607782693181186
+        ],
+        "torso_link": [
+          -0.8573586428450488,
+          0.10382254984431494,
+          0.33552281972042813
+        ],
+        "left_ankle_roll_link": [
+          -0.15937782207519147,
+          0.18267990787376304,
+          0.09201915675448741
+        ],
+        "right_ankle_roll_link": [
+          -0.28561132279261436,
+          -0.339591887396442,
+          0.09571566815102937
+        ],
+        "left_wrist_roll_link": [
+          -0.8666065006647524,
+          0.15864661475319267,
+          0.8660842217446945
+        ],
+        "right_wrist_roll_link": [
+          -1.1716655307065134,
+          -0.30751384158838374,
+          0.4970128558935126
+        ],
+        "left_elbow_link": [
+          -0.8942403100415822,
+          0.24410334776523676,
+          0.6840580284950346
+        ],
+        "right_elbow_link": [
+          -1.142129175108191,
+          -0.15059319878105465,
+          0.3716998673159343
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          -1.5406006733950337,
+          0.19249654467689348,
+          -2.4349648524418317
+        ],
+        "left_ankle_roll_link": [
+          -0.6717604074595254,
+          -0.1699295468519576,
+          0.04937948412658599
+        ],
+        "right_ankle_roll_link": [
+          -0.49630736834546263,
+          0.30614979958913396,
+          -0.10490494963857566
+        ]
+      },
+      "COM_world_m": [
+        -0.7796481137112897,
+        0.0476151711661494,
+        0.3476503959831809
+      ],
+      "COM_velocity_world_m_s": [
+        -1.3674362615220095,
+        0.22041088504704126,
+        -1.7559129410556134
+      ],
+      "feet_forward_world_xy": [
+        0.01953338991274573,
+        -0.9998092051379187
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": -0.13693020456076557,
+      "recorded_actual_integration_ground_vertical_N": 144.52217842631717,
+      "integration_pre_elapsed_s": 4.499000000000464,
+      "recomputed_post_floor_support": [
+        {
+          "body": "left_ankle_roll_link",
+          "geom": 18,
+          "depth_m": 5.547516359598152e-06,
+          "vertical_N": 47.46593128555952
+        },
+        {
+          "body": "right_ankle_roll_link",
+          "geom": 40,
+          "depth_m": 0.00024142477735667866,
+          "vertical_N": 89.15692929484985
+        }
+      ],
+      "joints": {
+        "waist_pitch_joint": {
+          "q_rad": 0.22393083284962725,
+          "dq_rad_s": 0.4596637691953182,
+          "target_rad": 0.19202955520153045,
+          "raw_pd_Nm": -14.736554952693412,
+          "actual_integration_motor_Nm": -14.736554952693412
+        },
+        "left_hip_pitch_joint": {
+          "q_rad": 0.39696127908089907,
+          "dq_rad_s": -0.14176915096424877,
+          "target_rad": 0.39937306722998617,
+          "raw_pd_Nm": 3.7636994924612397,
+          "actual_integration_motor_Nm": 3.7636994924612397
+        },
+        "right_hip_pitch_joint": {
+          "q_rad": -0.18205453468985391,
+          "dq_rad_s": -0.014231936803550187,
+          "target_rad": -0.15580021259188653,
+          "raw_pd_Nm": 15.704968875609339,
+          "actual_integration_motor_Nm": 15.704968875609339
+        },
+        "left_knee_joint": {
+          "q_rad": 0.4510354070030458,
+          "dq_rad_s": -1.058753458392709,
+          "target_rad": 0.433665879188478,
+          "raw_pd_Nm": 6.722845944086098,
+          "actual_integration_motor_Nm": 6.722845944086098
+        },
+        "right_knee_joint": {
+          "q_rad": 0.501817959452477,
+          "dq_rad_s": -0.6794124560250236,
+          "target_rad": 0.503693739913404,
+          "raw_pd_Nm": 11.360354454518573,
+          "actual_integration_motor_Nm": 11.360354454518573
+        },
+        "left_shoulder_pitch_joint": {
+          "q_rad": -1.037072670660514,
+          "dq_rad_s": -0.5828942005701537,
+          "target_rad": -1.0634491401910782,
+          "raw_pd_Nm": -0.21234363208252915,
+          "actual_integration_motor_Nm": -0.21234363208252915
+        },
+        "right_shoulder_pitch_joint": {
+          "q_rad": -1.0701866254727503,
+          "dq_rad_s": -0.009366428785542296,
+          "target_rad": -1.0802144727110863,
+          "raw_pd_Nm": -0.9600617216451002,
+          "actual_integration_motor_Nm": -0.9600617216451002
+        },
+        "left_elbow_joint": {
+          "q_rad": -0.5534992403117545,
+          "dq_rad_s": 0.17204778452341507,
+          "target_rad": -0.5509438768208027,
+          "raw_pd_Nm": -0.4756782467788423,
+          "actual_integration_motor_Nm": -0.4756782467788423
+        },
+        "right_elbow_joint": {
+          "q_rad": -0.5855958846313045,
+          "dq_rad_s": 0.4614873601072587,
+          "target_rad": -0.5723665564656257,
+          "raw_pd_Nm": -0.6169034625938745,
+          "actual_integration_motor_Nm": -0.6169034625938745
+        }
+      }
+    }
+  ],
+  "geometry_scan": [
+    {
+      "elapsed_s": 2.9999999999999636,
+      "measurements": {
+        "pelvis_height_m": 0.2249731341094322,
+        "tilt_deg": 101.02896862824325,
+        "left_weight": 0.4735803475632677,
+        "right_weight": 0.5401234542399094,
+        "other_weight": 0.0,
+        "com_linear_m_s": 0.10478103799604684,
+        "torso_angular_rad_s": 0.2672626836462751
+      },
+      "quality": 0.0,
+      "positions_world_m": {
+        "pelvis": [
+          0.1389709587295253,
+          -0.1938183741347071,
+          0.2249731341094322
+        ],
+        "torso_link": [
+          -0.008539513942158433,
+          -0.1485999768411935,
+          0.24055671465892178
+        ],
+        "left_ankle_roll_link": [
+          0.010522977520259727,
+          0.3440203455742572,
+          0.11700230876034554
+        ],
+        "right_ankle_roll_link": [
+          -0.1358924491640991,
+          -0.6005742740867358,
+          0.1145507125145794
+        ],
+        "left_wrist_roll_link": [
+          0.09268241363227246,
+          0.06075967631410531,
+          0.34419448691476273
+        ],
+        "right_wrist_roll_link": [
+          0.007695337619781847,
+          -0.3922127231193747,
+          0.3383871774159761
+        ],
+        "left_elbow_link": [
+          -0.08394153921698508,
+          0.15004307153077817,
+          0.29911154436015197
+        ],
+        "right_elbow_link": [
+          -0.14619605932772683,
+          -0.47413220994938776,
+          0.23443302805005667
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          0.13041407532723892,
+          -0.044426768553330706,
+          0.04868442594454361
+        ],
+        "left_ankle_roll_link": [
+          0.01400753388478801,
+          0.026634833024822138,
+          -0.0007959300190977926
+        ],
+        "right_ankle_roll_link": [
+          0.018779774009394495,
+          -0.042377510160303763,
+          0.014391931658396778
+        ]
+      },
+      "COM_world_m": [
+        -0.02874220788431611,
+        -0.16041604987598182,
+        0.1921592108873001
+      ],
+      "COM_velocity_world_m_s": [
+        0.09913731380291933,
+        -0.025500832704711623,
+        0.022373342772970248
+      ],
+      "feet_forward_world_xy": [
+        0.976123824039262,
+        -0.21721482486922397
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": 0.040113196022362456,
+      "recorded_actual_integration_ground_vertical_N": 417.32389991688285,
+      "COM_from_midfoot_fixed_3p5s_forward_m": 0.03954353314277196,
+      "COM_velocity_fixed_3p5s_forward_m_s": 0.10220353158248463,
+      "recomputed_post_floor_body_vertical_N": {
+        "left_ankle_roll_link": 194.96881428826953,
+        "right_ankle_roll_link": 222.36401908204417
+      }
+    },
+    {
+      "elapsed_s": 3.849000000000247,
+      "measurements": {
+        "pelvis_height_m": 0.54755415501727,
+        "tilt_deg": 42.91855142547961,
+        "left_weight": 0.5587770090902346,
+        "right_weight": 0.4776692202960184,
+        "other_weight": 0.0,
+        "com_linear_m_s": 0.4610353401932378,
+        "torso_angular_rad_s": 1.2241074801870824
+      },
+      "quality": 0.5962659593609281,
+      "positions_world_m": {
+        "pelvis": [
+          -0.13892594142083914,
+          -0.12690725500862085,
+          0.54755415501727
+        ],
+        "torso_link": [
+          -0.23159331320058438,
+          -0.0774286338815464,
+          0.6616221840313541
+        ],
+        "left_ankle_roll_link": [
+          -0.08262108538133386,
+          0.2867958211106098,
+          0.09283330336590961
+        ],
+        "right_ankle_roll_link": [
+          -0.1814996447891495,
+          -0.5138811999186224,
+          0.09833467479937087
+        ],
+        "left_wrist_roll_link": [
+          0.05539174769866108,
+          0.10232773034066334,
+          0.9867845627386697
+        ],
+        "right_wrist_roll_link": [
+          -0.1927324768322469,
+          -0.43748358824255074,
+          0.9625467557370444
+        ],
+        "left_elbow_link": [
+          -0.11454389922412564,
+          0.15950062454147118,
+          0.8916365077018762
+        ],
+        "right_elbow_link": [
+          -0.3411159906803055,
+          -0.36101799524118383,
+          0.8470687255650997
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          -0.36498722315358145,
+          0.27117410982406775,
+          0.2369602944683074
+        ],
+        "left_ankle_roll_link": [
+          -0.13254641010900237,
+          -0.49134657858826114,
+          -0.11846940187654292
+        ],
+        "right_ankle_roll_link": [
+          -0.12756291537715547,
+          0.0424260709077382,
+          0.08741374027282159
+        ]
+      },
+      "COM_world_m": [
+        -0.20279803009562417,
+        -0.09753802052551554,
+        0.6075451919265658
+      ],
+      "COM_velocity_world_m_s": [
+        -0.4107398004147314,
+        0.0771391617585574,
+        0.19466882386645337
+      ],
+      "feet_forward_world_xy": [
+        0.9467888097501783,
+        -0.32185547957404825
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": -0.07212482003699736,
+      "recorded_actual_integration_ground_vertical_N": 193.46723565411753,
+      "COM_from_midfoot_fixed_3p5s_forward_m": -0.07249951914800491,
+      "COM_velocity_fixed_3p5s_forward_m_s": -0.4178995804125764,
+      "recomputed_post_floor_body_vertical_N": {
+        "left_ankle_roll_link": 230.0435215997098,
+        "right_ankle_roll_link": 196.65216680190724
+      }
+    },
+    {
+      "elapsed_s": 3.5000000000001306,
+      "measurements": {
+        "pelvis_height_m": 0.38257859362547986,
+        "tilt_deg": 69.38762472101446,
+        "left_weight": 0.4116415193894471,
+        "right_weight": 0.43730463212708715,
+        "other_weight": 0.0,
+        "com_linear_m_s": 0.9704169476178793,
+        "torso_angular_rad_s": 3.091243275954985
+      },
+      "quality": 0.170023174600695,
+      "positions_world_m": {
+        "pelvis": [
+          0.06716558002537323,
+          -0.1796268706221327,
+          0.38257859362547986
+        ],
+        "torso_link": [
+          -0.05443184327254184,
+          -0.13056989292916357,
+          0.46536971978824665
+        ],
+        "left_ankle_roll_link": [
+          -0.020910125080024957,
+          0.37798756840123615,
+          0.10792332871096243
+        ],
+        "right_ankle_roll_link": [
+          -0.17323849362686888,
+          -0.6251525915640812,
+          0.10512703562309662
+        ],
+        "left_wrist_roll_link": [
+          0.1180774106373352,
+          0.054274460707677594,
+          0.6984560929036007
+        ],
+        "right_wrist_roll_link": [
+          -0.0337806865185757,
+          -0.39341884478000355,
+          0.6745133697267787
+        ],
+        "left_elbow_link": [
+          -0.0476498780925593,
+          0.1500835949134514,
+          0.6309646695324002
+        ],
+        "right_elbow_link": [
+          -0.20565323635666205,
+          -0.4275714295081913,
+          0.5720767692566409
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          -0.3438935539426721,
+          0.25796671130127297,
+          1.323369993544938
+        ],
+        "left_ankle_roll_link": [
+          -0.07960393575916491,
+          -0.021888098090537322,
+          -0.06383728214347334
+        ],
+        "right_ankle_roll_link": [
+          -0.06894115528927447,
+          0.08241744025606965,
+          -0.06497574366696779
+        ]
+      },
+      "COM_world_m": [
+        -0.0721287708320644,
+        -0.13772987222650906,
+        0.4139239919653521
+      ],
+      "COM_velocity_world_m_s": [
+        -0.3859079725220621,
+        0.15116555814587165,
+        0.8774582970138014
+      ],
+      "feet_forward_world_xy": [
+        0.9809167967742097,
+        -0.1944279758836771
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": 0.02722014043452277,
+      "recorded_actual_integration_ground_vertical_N": 349.7717067206089,
+      "COM_from_midfoot_fixed_3p5s_forward_m": 0.02722014043452277,
+      "COM_velocity_fixed_3p5s_forward_m_s": -0.407934425749599,
+      "recomputed_post_floor_body_vertical_N": {
+        "left_ankle_roll_link": 169.46914997662628,
+        "right_ankle_roll_link": 180.03442509234554
+      }
+    },
+    {
+      "elapsed_s": 3.7000000000001974,
+      "measurements": {
+        "pelvis_height_m": 0.5014858095992369,
+        "tilt_deg": 47.390023999040764,
+        "left_weight": 0.0,
+        "right_weight": 0.0,
+        "other_weight": 0.0,
+        "com_linear_m_s": 0.6282300317774675,
+        "torso_angular_rad_s": 1.041801626555052
+      },
+      "quality": 0.0,
+      "positions_world_m": {
+        "pelvis": [
+          -0.06329108723593985,
+          -0.14178468070743988,
+          0.5014858095992369
+        ],
+        "torso_link": [
+          -0.16606619311739926,
+          -0.10016007729169156,
+          0.6098904265945315
+        ],
+        "left_ankle_roll_link": [
+          -0.05829614114540219,
+          0.34292637511179885,
+          0.09569744903428261
+        ],
+        "right_ankle_roll_link": [
+          -0.1826278919427412,
+          -0.5558524362582612,
+          0.09567896863039457
+        ],
+        "left_wrist_roll_link": [
+          0.09903823291969803,
+          0.06439408980952713,
+          0.8726636003811347
+        ],
+        "right_wrist_roll_link": [
+          -0.11211243317382362,
+          -0.42750443177516806,
+          0.8800948191794826
+        ],
+        "left_elbow_link": [
+          -0.07381374096539993,
+          0.1486526265770874,
+          0.8076812138450632
+        ],
+        "right_elbow_link": [
+          -0.28344708769245736,
+          -0.39269074138509147,
+          0.7769819069436982
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          -0.37747619830689627,
+          0.0939927035258208,
+          0.6609300361538324
+        ],
+        "left_ankle_roll_link": [
+          -0.19373946484057375,
+          -0.4423556057222333,
+          -0.0868802958400996
+        ],
+        "right_ankle_roll_link": [
+          0.16362875892103135,
+          0.5318236127675353,
+          0.002168926352674738
+        ]
+      },
+      "COM_world_m": [
+        -0.14878543391219523,
+        -0.10963883746739972,
+        0.5566574055965134
+      ],
+      "COM_velocity_world_m_s": [
+        -0.35735326118315747,
+        0.11021259046559703,
+        0.5048017476710461
+      ],
+      "feet_forward_world_xy": [
+        0.9806009800792365,
+        -0.19601458585432086
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": -0.027151466357261463,
+      "recorded_actual_integration_ground_vertical_N": 0.0,
+      "COM_from_midfoot_fixed_3p5s_forward_m": -0.02716545013220814,
+      "COM_velocity_fixed_3p5s_forward_m_s": -0.37196222715772304,
+      "recomputed_post_floor_body_vertical_N": {}
+    },
+    {
+      "elapsed_s": 3.900000000000264,
+      "measurements": {
+        "pelvis_height_m": 0.5528613144569594,
+        "tilt_deg": 41.5956702086792,
+        "left_weight": 0.3860837476817108,
+        "right_weight": 0.3566361881132484,
+        "other_weight": 0.0,
+        "com_linear_m_s": 0.4656847375190247,
+        "torso_angular_rad_s": 1.704406421032713
+      },
+      "quality": 0.45663096453421087,
+      "positions_world_m": {
+        "pelvis": [
+          -0.16823840078301328,
+          -0.12454616583548186,
+          0.5528613144569594
+        ],
+        "torso_link": [
+          -0.2577684979301931,
+          -0.07002136593965953,
+          0.66713422850704
+        ],
+        "left_ankle_roll_link": [
+          -0.08774882993231437,
+          0.27206593470231877,
+          0.09214657414397667
+        ],
+        "right_ankle_roll_link": [
+          -0.19115973704017122,
+          -0.5097740748743629,
+          0.09899758981328019
+        ],
+        "left_wrist_roll_link": [
+          0.04469899327555506,
+          0.09533376166616306,
+          1.0074783688150368
+        ],
+        "right_wrist_roll_link": [
+          -0.24625772654160533,
+          -0.4411927885562613,
+          0.9736986144700185
+        ],
+        "left_elbow_link": [
+          -0.11971704209672775,
+          0.15651510354895015,
+          0.9053792652330303
+        ],
+        "right_elbow_link": [
+          -0.38333207146480613,
+          -0.34524014788475077,
+          0.8587919381653774
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          -0.41036955886545634,
+          0.33414774528296914,
+          0.0790114265509661
+        ],
+        "left_ankle_roll_link": [
+          -0.06918347800947167,
+          -0.4111074944171912,
+          -0.09110359733128898
+        ],
+        "right_ankle_roll_link": [
+          -0.192383937647448,
+          0.04198559956506967,
+          0.08001822973154474
+        ]
+      },
+      "COM_world_m": [
+        -0.22489765273402884,
+        -0.0928554380156269,
+        0.6150026354314979
+      ],
+      "COM_velocity_world_m_s": [
+        -0.44987710864890795,
+        0.09523030909063439,
+        0.07351224457438281
+      ],
+      "feet_forward_world_xy": [
+        0.9235491981769318,
+        -0.383479958468166
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": -0.0888811095049126,
+      "recorded_actual_integration_ground_vertical_N": 143.72886684496737,
+      "COM_from_midfoot_fixed_3p5s_forward_m": -0.0888676974773257,
+      "COM_velocity_fixed_3p5s_forward_m_s": -0.4598074485971989,
+      "recomputed_post_floor_body_vertical_N": {
+        "left_ankle_roll_link": 158.94724282539693,
+        "right_ankle_roll_link": 146.82394463051295
+      }
+    },
+    {
+      "elapsed_s": 4.100000000000331,
+      "measurements": {
+        "pelvis_height_m": 0.5391187650104318,
+        "tilt_deg": 48.94342241526518,
+        "left_weight": 0.5566672584692567,
+        "right_weight": 0.394959773102706,
+        "other_weight": 0.0,
+        "com_linear_m_s": 0.7044960446713623,
+        "torso_angular_rad_s": 1.5001976988759838
+      },
+      "quality": 0.5010690370434803,
+      "positions_world_m": {
+        "pelvis": [
+          -0.2728556062967138,
+          -0.1039669689961283,
+          0.5391187650104318
+        ],
+        "torso_link": [
+          -0.3673245515482882,
+          -0.029808684789839952,
+          0.6372159527937442
+        ],
+        "left_ankle_roll_link": [
+          -0.08698161862688529,
+          0.25518246345867146,
+          0.09082871529263312
+        ],
+        "right_ankle_roll_link": [
+          -0.22477822402420908,
+          -0.5038468669077831,
+          0.09987839383940543
+        ],
+        "left_wrist_roll_link": [
+          -0.0704742622731559,
+          0.05400709961699198,
+          0.9900200703858295
+        ],
+        "right_wrist_roll_link": [
+          -0.5055497582048578,
+          -0.3816269237374958,
+          0.9545648849375779
+        ],
+        "left_elbow_link": [
+          -0.20408023493535277,
+          0.15599489290945517,
+          0.8762310106014086
+        ],
+        "right_elbow_link": [
+          -0.5874309037295029,
+          -0.25297436948813085,
+          0.8206103111447194
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          -0.7327671989104874,
+          0.4028004328424649,
+          -0.38491851174783664
+        ],
+        "left_ankle_roll_link": [
+          0.0140661853552419,
+          -0.08724973574778394,
+          0.017921628244404506
+        ],
+        "right_ankle_roll_link": [
+          -0.21120084491718133,
+          0.0012831223537524417,
+          0.05648428275520251
+        ]
+      },
+      "COM_world_m": [
+        -0.32523285348931563,
+        -0.057480842678439,
+        0.5919372167524596
+      ],
+      "COM_velocity_world_m_s": [
+        -0.6335851846835543,
+        0.24725999025915377,
+        -0.1837035326936955
+      ],
+      "feet_forward_world_xy": [
+        0.8049963741460885,
+        -0.5932797296483766
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": -0.17599005256434883,
+      "recorded_actual_integration_ground_vertical_N": 392.0830763396485,
+      "COM_from_midfoot_fixed_3p5s_forward_m": -0.17911891016681322,
+      "COM_velocity_fixed_3p5s_forward_m_s": -0.6695686092664931,
+      "recomputed_post_floor_body_vertical_N": {
+        "left_ankle_roll_link": 229.17495604555947,
+        "right_ankle_roll_link": 162.60142349574835
+      }
+    },
+    {
+      "elapsed_s": 4.5000000000004645,
+      "measurements": {
+        "pelvis_height_m": 0.31607782693181186,
+        "tilt_deg": 71.82482893320918,
+        "left_weight": 0.11529501432159,
+        "right_weight": 0.21656268320276206,
+        "other_weight": 0.0,
+        "com_linear_m_s": 2.23644654399319,
+        "torso_angular_rad_s": 2.5058296486863973
+      },
+      "quality": 0.04865239473446265,
+      "positions_world_m": {
+        "pelvis": [
+          -0.7184522582018055,
+          0.037687842275943705,
+          0.31607782693181186
+        ],
+        "torso_link": [
+          -0.8573586428450488,
+          0.10382254984431494,
+          0.33552281972042813
+        ],
+        "left_ankle_roll_link": [
+          -0.15937782207519147,
+          0.18267990787376304,
+          0.09201915675448741
+        ],
+        "right_ankle_roll_link": [
+          -0.28561132279261436,
+          -0.339591887396442,
+          0.09571566815102937
+        ],
+        "left_wrist_roll_link": [
+          -0.8666065006647524,
+          0.15864661475319267,
+          0.8660842217446945
+        ],
+        "right_wrist_roll_link": [
+          -1.1716655307065134,
+          -0.30751384158838374,
+          0.4970128558935126
+        ],
+        "left_elbow_link": [
+          -0.8942403100415822,
+          0.24410334776523676,
+          0.6840580284950346
+        ],
+        "right_elbow_link": [
+          -1.142129175108191,
+          -0.15059319878105465,
+          0.3716998673159343
+        ]
+      },
+      "body_COM_velocity_world_m_s": {
+        "torso_link": [
+          -1.5406006733950337,
+          0.19249654467689348,
+          -2.4349648524418317
+        ],
+        "left_ankle_roll_link": [
+          -0.6717604074595254,
+          -0.1699295468519576,
+          0.04937948412658599
+        ],
+        "right_ankle_roll_link": [
+          -0.49630736834546263,
+          0.30614979958913396,
+          -0.10490494963857566
+        ]
+      },
+      "COM_world_m": [
+        -0.7796481137112897,
+        0.0476151711661494,
+        0.3476503959831809
+      ],
+      "COM_velocity_world_m_s": [
+        -1.3674362615220095,
+        0.22041088504704126,
+        -1.7559129410556134
+      ],
+      "feet_forward_world_xy": [
+        0.01953338991274573,
+        -0.9998092051379187
+      ],
+      "COM_from_midfoot_instantaneous_forward_m": -0.13693020456076557,
+      "recorded_actual_integration_ground_vertical_N": 144.52217842631717,
+      "COM_from_midfoot_fixed_3p5s_forward_m": -0.5710330276576587,
+      "COM_velocity_fixed_3p5s_forward_m_s": -1.3841952396874964,
+      "recomputed_post_floor_body_vertical_N": {
+        "left_ankle_roll_link": 47.46593128555952,
+        "right_ankle_roll_link": 89.15692929484985
+      }
+    }
+  ],
+  "findings": {
+    "direct_facts": [
+      "20000 recovery physical-step state byte hashes exactly match streaming g13-10; full20s time_limit, zero original standing hold.",
+      "Nominal waist range excess0; q_min=-.3138970654 leaves only.0001029346rad to lower range; g04-20 waist peak excess.0035716037rad.",
+      "Left/right wrist-roll geometry persists intermittently until1.728/1.818s; right elbow contact until1.909s. All named arm-floor geometry is absent by1.909s.",
+      "Pelvis height peaks.5534577160m below required.6052459925m; torso minimum tilt41.17593deg exceeds15deg.",
+      "COM relative to midfoot projected onto fixed3.5s foot-forward axis moves+.02722m@3.5 to-.07250m@3.849 and-.57103m@4.5; backward COM velocity accelerates while feet do not follow."
+    ],
+    "inferences": [
+      "Longer intermittent arm support is consistent with removal of the early waist violation; this comparison changes only arm reference targets relative to g04-20, but original per-body integration forces are unavailable.",
+      "The late failure is backward toppling from incomplete torso orientation and increasing backward COM momentum, not an observed joint-limit failure or successful stance lost after2s."
+    ],
+    "testable_hypotheses": [
+      "Freeze this proven0-excess arm prefix and vary only late bilateral hip/ankle posture after arm release to move COM forward while correcting torso tilt. Do not change the early waist reference or infer late correction from a nominal target alone.",
+      "A bounded late posture/velocity feedback term could brake increasing backward COM motion; explicit target/rate limits and real complete-episode constraint checks remain necessary."
+    ]
+  },
+  "postprocessing": {
+    "compact_script_sha256": "1368c3b3035f716908191fab9fd7162e496627488067ff742b485156f61b20d0",
+    "physical_trace_changed": false,
+    "no_new_physics": true
+  },
+  "comparison": {
+    "only_arm_reference_targets_changed_vs_g04_20": true,
+    "changed_joint_names": [
+      "left_elbow_joint",
+      "left_shoulder_pitch_joint",
+      "left_shoulder_roll_joint",
+      "right_elbow_joint",
+      "right_shoulder_pitch_joint",
+      "right_shoulder_roll_joint"
+    ],
+    "g13_10": {
+      "max_joint_excess_rad": 0.0,
+      "max_velocity_ratio": 0.6043283332692239,
+      "peak_ground_vertical_N": 6575.411795454354,
+      "floor_penetration_m": 0.022688795143005057,
+      "self_penetration_m": 0.001656512180619064
+    },
+    "g04_20": {
+      "max_joint_excess_rad": 0.0035716037241139142,
+      "max_velocity_ratio": 0.5231468705243212,
+      "peak_ground_vertical_N": 9284.490608184886,
+      "floor_penetration_m": 0.024408004959143595,
+      "self_penetration_m": 0.0017927924786322067
+    },
+    "g13_10_engineering_feasible": false
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "paired_protocol": {
+    "planned_pairs": 20,
+    "max_reset_candidates": 40,
+    "candidate_seeds": [
+      26092500,
+      26092501,
+      26092502,
+      26092503,
+      26092504,
+      26092505,
+      26092506,
+      26092507,
+      26092508,
+      26092509,
+      26092510,
+      26092511,
+      26092512,
+      26092513,
+      26092514,
+      26092515,
+      26092516,
+      26092517,
+      26092518,
+      26092519,
+      26092520,
+      26092521,
+      26092522,
+      26092523,
+      26092524,
+      26092525,
+      26092526,
+      26092527,
+      26092528,
+      26092529,
+      26092530,
+      26092531,
+      26092532,
+      26092533,
+      26092534,
+      26092535,
+      26092536,
+      26092537,
+      26092538,
+      26092539
+    ],
+    "allowed_base_config_difference": [
+      "reset_perturb_rad"
+    ],
+    "perturb_rad": 0.002,
+    "physical_pair_atol": 1e-10,
+    "rtol": 0,
+    "A": "same targets-v6 reference and explicit analytical feedback; zero PPO residual",
+    "B": "same controller; frozen trained deterministic PPO residual",
+    "selection": "First20 legal resets before any outcome; no replacement using controller results"
+  },
+  "source_protocol": {
+    "path": "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/manifest.json",
+    "sha256": "f3e60db53e7f80cafc9038f8b169395218b95f3e7b8e06f466fd7f29728d4a98"
+  },
+  "comparison": {
+    "peak_ground_vertical_N": 1626.681419263664,
+    "peak_ground_sum_norm_N": 1845.4477378972624,
+    "floor_penetration_m": 0.00904692154437733,
+    "self_penetration_m": 0.0031814764288165204,
+    "max_joint_speed_rad_s": 8.347143742429603
+  }
+}

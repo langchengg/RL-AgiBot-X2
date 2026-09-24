@@ -1,0 +1,171 @@
+{
+  "cwd": "/tmp",
+  "environment": "clean shell; source /opt/ros/jazzy/setup.bash and /tmp/x2-repair-20260924T151819Z/v6-fresh/install/setup.bash; MUJOCO_GL=osmesa; OMP_NUM_THREADS=OPENBLAS_NUM_THREADS=1; original .venv. Build sources only Jazzy before fresh install exists.",
+  "commands": [
+    {
+      "kind": "fresh_build",
+      "argv": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "/usr/bin/colcon",
+        "--log-base",
+        "/tmp/x2-repair-20260924T151819Z/v6-fresh/log",
+        "build",
+        "--base-paths",
+        "/tmp/x2-repair-20260924T151819Z/candidate/src",
+        "--packages-select",
+        "x2_recovery",
+        "--symlink-install",
+        "--build-base",
+        "/tmp/x2-repair-20260924T151819Z/v6-fresh/build",
+        "--install-base",
+        "/tmp/x2-repair-20260924T151819Z/v6-fresh/install"
+      ],
+      "exit_code": 0,
+      "output": "validation/build.log"
+    },
+    {
+      "kind": "regression",
+      "argv": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/test",
+        "-v"
+      ],
+      "exit_code": 0,
+      "output": "validation/regression.log",
+      "tests": 236,
+      "seconds": 87.262
+    },
+    {
+      "kind": "fresh_training",
+      "argv": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "-m",
+        "x2_recovery.train",
+        "control-block",
+        "--control-config",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/final_control_config.json",
+        "--run-dir",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/training-run",
+        "--total-timesteps",
+        "4096",
+        "--max-wall-seconds",
+        "1200",
+        "--seed",
+        "26092490",
+        "--workers",
+        "2",
+        "--learning-rate",
+        "0.0001",
+        "--log-std-init",
+        "-2.3",
+        "--target-kl",
+        "0.03",
+        "--n-epochs",
+        "5"
+      ],
+      "exit_code": 0,
+      "output": "training-run/stdout.log"
+    },
+    {
+      "kind": "independent_reload",
+      "argv": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "-m",
+        "x2_recovery.train",
+        "control-reload",
+        "--run-dir",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/training-run",
+        "--seed",
+        "221030",
+        "--max-wall-seconds",
+        "180"
+      ],
+      "exit_code": 0,
+      "output": "training-run/development-221030/summary.json"
+    },
+    {
+      "kind": "formal",
+      "argv": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/final_validation.py",
+        "formal",
+        "--protocol",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/manifest.json",
+        "--training-run",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/training-run",
+        "--expected-checkpoint-sha256",
+        "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+        "--output",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/fixed-five"
+      ],
+      "exit_code": 0,
+      "output": "fixed-five/validation_summary.json"
+    },
+    {
+      "kind": "paired",
+      "argv": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/final_validation.py",
+        "paired",
+        "--protocol",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/manifest.json",
+        "--training-run",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/training-run",
+        "--expected-checkpoint-sha256",
+        "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+        "--output",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/held-out-paired",
+        "--pairs-runner",
+        "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/run_pairs.py"
+      ],
+      "exit_code": 0,
+      "output": "held-out-paired/validation_summary.json"
+    },
+    {
+      "kind": "reproduce_check",
+      "argv": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "-m",
+        "x2_recovery.reproduce",
+        "check",
+        "--training-run",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/training-run",
+        "--expected-checkpoint-sha256",
+        "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+        "--output",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/reproduce-check"
+      ],
+      "exit_code": 0,
+      "output": "reproduce-check/check.json"
+    },
+    {
+      "kind": "reproduce_run",
+      "argv": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "-m",
+        "x2_recovery.reproduce",
+        "run",
+        "--training-run",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/training-run",
+        "--expected-checkpoint-sha256",
+        "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+        "--output",
+        "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/reproduce-run",
+        "--seed",
+        "221030"
+      ],
+      "exit_code": 0,
+      "output": "reproduce-run/execution.json"
+    }
+  ],
+  "ROS_commands": "../ros-acceptance/commands.json",
+  "reload_evidence_packaging": {
+    "operation": "byte-identical copy of actual development-221030/summary.json to portable reload_validation.json",
+    "sha256": "cf21ed9e0f4a1cabdba1375f6050b089f7106d28c66d8b9b3e1f7518ccaba833"
+  },
+  "no_additional_formal_episodes": true
+}

@@ -1,0 +1,55 @@
+{
+  "measured": {
+    "reference-balance-density10-v1": {
+      "raw_return": 55.746912692155185,
+      "observed_discounted_prefix": 36.528859720044395,
+      "discounted_terms": {
+        "balance": 1.8075844511766475,
+        "head_track": 1.2715017286840866,
+        "overload": 0.0,
+        "pose_guide": 0.3463454008393681,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 0.9142997198964049,
+        "success": 32.194732707313335,
+        "target_change": -0.0003297569658757893,
+        "torque_cost": -0.005274530899566275
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 441,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    },
+    "reference-balance-v1": {
+      "raw_return": 107.52963159427344,
+      "observed_discounted_prefix": 75.58644142541293,
+      "discounted_terms": {
+        "balance": 18.075844511766476,
+        "head_track": 12.715017286840856,
+        "overload": 0.0,
+        "pose_guide": 3.4634540083936756,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 9.142997198964052,
+        "success": 32.194732707313335,
+        "target_change": -0.0003297569658757893,
+        "torque_cost": -0.005274530899566275
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 441,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    }
+  },
+  "discount": "gamma=.999 perpolicy transition, last shortenedstep oneexponent; density dtfromactualphysics; no bootstrap added",
+  "same_trajectory_original_reward_recovery": "Divide exactly pose_guide/head_track/balance/standing by.1; allnegative/terminal termsunchanged. This isoffline re-score, not another run.",
+  "density10_20s_late_success_upper_ignoring_costs": 36.107702519374136,
+  "measured_success_G_above_late_success_upper": true,
+  "bound_not_a_success_requirement": true
+}

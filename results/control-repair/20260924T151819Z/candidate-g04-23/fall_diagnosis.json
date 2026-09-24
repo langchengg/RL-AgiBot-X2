@@ -1,0 +1,1789 @@
+{
+  "candidate": "g04-support-middle-23",
+  "input_sha256": {
+    "results/control-repair/20260924T151819Z/candidate-g04-23/physical_trace.npz": "5109c417f776bbc5757305e1bf3984a697e04e39ab210887cd21393d4f349df2",
+    "results/control-repair/20260924T151819Z/candidate-g04-23/control_trace.npz": "8cb2640475878c4b4f9055164435afba305ffe14bebc7a43a99598181f23faf1",
+    "results/control-repair/20260924T151819Z/candidate-g04-23/summary.json": "00d15885465f2ec2e6536208bf6ad774245fcbecc3ace0c91428d7ec82b73c3c",
+    "results/control-repair/20260924T151819Z/candidate-g04-23/joint_constraints.csv": "dffad70a6f32992993962d382cfcbdc1fc914759cf445b538e127b8d1124b199",
+    "results/control-repair/20260924T151819Z/generation-04/plan.json": "fe7bf21053e524c45923d44a949d4dd7be2f18dc5ce915b1512e52cdf68336f7"
+  },
+  "source_kind": "offline postprocessing of existing complete candidate trace",
+  "method": "Strict original prepare used only to obtain fixed model. Reset and step APIs blocked. Each recorded qpos/qvel/ctrl/time copied to independent MjData; mj_forward and mj_subtreeVel there only. No recomputed force used as applied-force evidence.",
+  "geometry_scope": "Recomputed instantaneous ground-contact geometry; hull is convex hull of penetrating foot contact points, not a hardware support polygon. Signed margin positive inside. Foot origins and body forward axes are model frames. Capture-point proxy COM+v_xy*sqrt(COM_z/g) assumes fixed-height point-mass dynamics and is a qualitative instability diagnostic, not an independent success criterion.",
+  "time_semantics": "Recorded synchronized standing measurements and snapshot positions are post-step. Recorded integration torque/load uses the interval beginning at integration_pre_elapsed_s.",
+  "samples": [
+    {
+      "elapsed_s": 3.250000000000047,
+      "reference_phase": "catch-knot-13",
+      "recorded_measurements": {
+        "base_angular_rad_s": 1.2422320258800108,
+        "base_linear_m_s": 0.20051958522264526,
+        "com_linear_m_s": 0.33297681617094554,
+        "floor_penetration_m": 0.0015141225269184279,
+        "joint_limit_rad": 0.0,
+        "joint_rad_s": 1.3518522954780006,
+        "left_weight": 0.6295499334832998,
+        "other_force_N": 0.0,
+        "other_weight": 0.0,
+        "pelvis_height_m": 0.24522729130274085,
+        "right_weight": 0.7290031360870128,
+        "self_penetration_m": 0.0,
+        "support_gap_m": 0.0,
+        "tilt_deg": 94.10662901954237,
+        "time_s": 4.910999999999975,
+        "torso_angular_rad_s": 0.8573822704749983,
+        "upright_dot": -0.07161284597423424
+      },
+      "recorded_integration_ground_vertical_N": 559.2253176355769,
+      "integration_pre_elapsed_s": 3.2490000000000467,
+      "COM_world_xyz_m": [
+        -0.009293058880839804,
+        -0.1384924719152758,
+        0.229848536519889
+      ],
+      "COM_velocity_world_m_s": [
+        0.010295704800148667,
+        0.007151648174401298,
+        0.33274075869721376
+      ],
+      "feet_body_origins_world_xyz_m": [
+        [
+          -0.02554319437429921,
+          0.38490092007236676,
+          0.1157865971310381
+        ],
+        [
+          -0.10209016193258286,
+          -0.5981328864480705,
+          0.11871366965595737
+        ]
+      ],
+      "pelvis_world_xyz_m": [
+        0.16498280255162684,
+        -0.1612492492471721,
+        0.24522729130274085
+      ],
+      "torso_world_xyz_m": [
+        0.018342545702617646,
+        -0.12678538498636727,
+        0.2820480478923256
+      ],
+      "torso_up_world": [
+        -0.9972071435405502,
+        -0.021201725476194484,
+        -0.07161284597423424
+      ],
+      "mean_foot_forward_world_xy": [
+        0.9898091749299086,
+        -0.1424001307042019
+      ],
+      "COM_from_midfoot_forward_m": 0.05850719476758208,
+      "capture_point_proxy_from_midfoot_forward_m": 0.05991120010455062,
+      "instantaneous_foot_contact_hull_world_xy_m": [
+        [
+          -0.05559220318928131,
+          -0.6596511417985453
+        ],
+        [
+          0.030845491833771197,
+          0.4438966894834896
+        ]
+      ],
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0013018289410475876,
+        "right_ankle_roll_link": 0.0015141225269184279
+      },
+      "joints": {
+        "waist_pitch_joint": {
+          "q_rad": -0.27612048264774497,
+          "dq_rad_s": -0.3675949400076748,
+          "target_rad": -0.12580969434976577,
+          "raw_pd_Nm": 49.27516615151244,
+          "integration_torque_Nm": 48.0
+        },
+        "left_hip_pitch_joint": {
+          "q_rad": 1.2462779612861377,
+          "dq_rad_s": -1.3518522954780006,
+          "target_rad": 1.1355740054845809,
+          "raw_pd_Nm": -43.89962918763084,
+          "integration_torque_Nm": -43.89962918763084
+        },
+        "right_hip_pitch_joint": {
+          "q_rad": 0.9748191320200872,
+          "dq_rad_s": -1.0083487542760416,
+          "target_rad": 0.8606255172491073,
+          "raw_pd_Nm": -51.844051540232584,
+          "integration_torque_Nm": -51.844051540232584
+        },
+        "left_knee_joint": {
+          "q_rad": 1.3134257891143903,
+          "dq_rad_s": -0.4543400894031468,
+          "target_rad": 1.2305002826094629,
+          "raw_pd_Nm": -42.420059193882494,
+          "integration_torque_Nm": -42.420059193882494
+        },
+        "right_knee_joint": {
+          "q_rad": 1.5539324262038636,
+          "dq_rad_s": -0.43533216515945383,
+          "target_rad": 1.4456592543184759,
+          "raw_pd_Nm": -58.06333990302225,
+          "integration_torque_Nm": -58.06333990302225
+        },
+        "left_ankle_pitch_joint": {
+          "q_rad": -0.737621334573098,
+          "dq_rad_s": 0.2361288707643532,
+          "target_rad": -0.7075828386545182,
+          "raw_pd_Nm": 6.43649789494234,
+          "integration_torque_Nm": 6.43649789494234
+        },
+        "right_ankle_pitch_joint": {
+          "q_rad": -0.7337468151126667,
+          "dq_rad_s": 0.15882327793298187,
+          "target_rad": -0.6934498968720436,
+          "raw_pd_Nm": 10.374675464454437,
+          "integration_torque_Nm": 10.374675464454437
+        }
+      },
+      "COM_from_midfoot_fixed_forward_m": 0.05943033858609527,
+      "COM_fixed_forward_speed_m_s": 0.008815563644623842,
+      "capture_point_proxy_from_midfoot_fixed_forward_m": 0.060779725372039295,
+      "contact_point_count": 2,
+      "COM_from_posterior_contact_point_fixed_forward_m": 0.06695547638712548
+    },
+    {
+      "elapsed_s": 3.750000000000214,
+      "reference_phase": "unchanged-prefix-boundary",
+      "recorded_measurements": {
+        "base_angular_rad_s": 0.9602619013455164,
+        "base_linear_m_s": 0.4865017168089311,
+        "com_linear_m_s": 0.42184030323706656,
+        "floor_penetration_m": 5.641334662320318e-05,
+        "joint_limit_rad": 0.0,
+        "joint_rad_s": 2.091154354432162,
+        "left_weight": 0.0,
+        "other_force_N": 0.0,
+        "other_weight": 0.0,
+        "pelvis_height_m": 0.5111302725033705,
+        "right_weight": 0.4379903230634721,
+        "self_penetration_m": 0.0,
+        "support_gap_m": 0.0,
+        "tilt_deg": 35.541617597887075,
+        "time_s": 5.411000000000142,
+        "torso_angular_rad_s": 0.946582632403788,
+        "upright_dot": 0.8136935018422421
+      },
+      "recorded_integration_ground_vertical_N": 396.43947327921865,
+      "integration_pre_elapsed_s": 3.7490000000002137,
+      "COM_world_xyz_m": [
+        -0.08621054053878263,
+        -0.09502707816151999,
+        0.5813363939444122
+      ],
+      "COM_velocity_world_m_s": [
+        -0.15641601085802598,
+        0.0419949691304904,
+        0.3895121250360909
+      ],
+      "feet_body_origins_world_xyz_m": [
+        [
+          -0.08332871045010715,
+          0.35383123456459864,
+          0.10433014234104576
+        ],
+        [
+          -0.15871833984713132,
+          -0.5210460210913831,
+          0.09460846496414207
+        ]
+      ],
+      "pelvis_world_xyz_m": [
+        -0.018757835710854102,
+        -0.11986963525594117,
+        0.5111302725033705
+      ],
+      "torso_world_xyz_m": [
+        -0.10103387548249732,
+        -0.08356691208521241,
+        0.6374618067861632
+      ],
+      "torso_up_world": [
+        -0.5673176702943692,
+        0.12670258889019917,
+        0.8136935018422421
+      ],
+      "mean_foot_forward_world_xy": [
+        0.9831636854881579,
+        -0.18272703012237304
+      ],
+      "COM_from_midfoot_forward_m": 0.03631354735821768,
+      "capture_point_proxy_from_midfoot_forward_m": -0.0029901914901268056,
+      "instantaneous_foot_contact_hull_world_xy_m": [
+        [
+          -0.16904891816649065,
+          -0.49919450514618524
+        ]
+      ],
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "right_ankle_roll_link": 5.641334662320318e-05
+      },
+      "joints": {
+        "waist_pitch_joint": {
+          "q_rad": 0.004308316531569588,
+          "dq_rad_s": 0.17415065182988693,
+          "target_rad": 0.0216131294965744,
+          "raw_pd_Nm": 3.341404815409459,
+          "integration_torque_Nm": 3.341404815409459
+        },
+        "left_hip_pitch_joint": {
+          "q_rad": 0.4057462452275387,
+          "dq_rad_s": -0.15054609342463937,
+          "target_rad": 0.3791322087943554,
+          "raw_pd_Nm": -13.49914978231864,
+          "integration_torque_Nm": -13.49914978231864
+        },
+        "right_hip_pitch_joint": {
+          "q_rad": 0.09846227069247862,
+          "dq_rad_s": -1.3602182357622852,
+          "target_rad": 0.05676756145060062,
+          "raw_pd_Nm": -2.3858129430282276,
+          "integration_torque_Nm": -2.3858129430282276
+        },
+        "left_knee_joint": {
+          "q_rad": 0.9885837023243625,
+          "dq_rad_s": -0.2527731510819943,
+          "target_rad": 0.9869063396096229,
+          "raw_pd_Nm": 3.2734034771794587,
+          "integration_torque_Nm": 3.2734034771794587
+        },
+        "right_knee_joint": {
+          "q_rad": 1.0487493591052905,
+          "dq_rad_s": -0.5481658577304628,
+          "target_rad": 1.0368694616198542,
+          "raw_pd_Nm": 1.8776736008529529,
+          "integration_torque_Nm": 1.8776736008529529
+        },
+        "left_ankle_pitch_joint": {
+          "q_rad": -0.5924905001819647,
+          "dq_rad_s": -0.10294111020296406,
+          "target_rad": -0.5800586769580841,
+          "raw_pd_Nm": 4.724401508044549,
+          "integration_torque_Nm": 4.724401508044549
+        },
+        "right_ankle_pitch_joint": {
+          "q_rad": -0.5757744348419231,
+          "dq_rad_s": 0.4500304919052576,
+          "target_rad": -0.5563865863084794,
+          "raw_pd_Nm": 0.7160308312877817,
+          "integration_torque_Nm": 0.7160308312877817
+        }
+      },
+      "COM_from_midfoot_fixed_forward_m": 0.03631354735821768,
+      "COM_fixed_forward_speed_m_s": -0.1614561576938278,
+      "capture_point_proxy_from_midfoot_fixed_forward_m": -0.0029901914901268056,
+      "contact_point_count": 1,
+      "COM_from_posterior_contact_point_fixed_forward_m": 0.007591371043208256
+    },
+    {
+      "elapsed_s": 4.250000000000381,
+      "reference_phase": "fixed-start-quintic-11",
+      "recorded_measurements": {
+        "base_angular_rad_s": 0.22571241018505828,
+        "base_linear_m_s": 0.3105014876189452,
+        "com_linear_m_s": 0.26922408573488193,
+        "floor_penetration_m": 0.0013440341187020933,
+        "joint_limit_rad": 0.0,
+        "joint_rad_s": 0.881958904547007,
+        "left_weight": 0.5598001892335585,
+        "other_force_N": 0.0,
+        "other_weight": 0.0,
+        "pelvis_height_m": 0.5587000404379311,
+        "right_weight": 0.4617211541999602,
+        "self_penetration_m": 0.0,
+        "support_gap_m": 0.0,
+        "tilt_deg": 29.24969730182811,
+        "time_s": 5.911000000000309,
+        "torso_angular_rad_s": 0.40906055010310555,
+        "upright_dot": 0.8724985884856021
+      },
+      "recorded_integration_ground_vertical_N": 420.60116592308117,
+      "integration_pre_elapsed_s": 4.249000000000381,
+      "COM_world_xyz_m": [
+        -0.160994984217183,
+        -0.07826799622167488,
+        0.6333360305748743
+      ],
+      "COM_velocity_world_m_s": [
+        -0.238809687844191,
+        0.058518064855413734,
+        0.10966848871540409
+      ],
+      "feet_body_origins_world_xyz_m": [
+        [
+          -0.11795201599115365,
+          0.2973103298750822,
+          0.1023332047036287
+        ],
+        [
+          -0.1861239516292779,
+          -0.4846751441837523,
+          0.09703406282858092
+        ]
+      ],
+      "pelvis_world_xyz_m": [
+        -0.128488327494077,
+        -0.10815734678838528,
+        0.5587000404379311
+      ],
+      "torso_world_xyz_m": [
+        -0.19320288523467788,
+        -0.05915726261587417,
+        0.6908284202504651
+      ],
+      "torso_up_world": [
+        -0.4054114768134471,
+        0.2727411732001076,
+        0.8724985884856021
+      ],
+      "mean_foot_forward_world_xy": [
+        0.8859973684132488,
+        -0.4636902664115323
+      ],
+      "COM_from_midfoot_forward_m": -0.015083391101391392,
+      "capture_point_proxy_from_midfoot_forward_m": -0.07573880948120715,
+      "instantaneous_foot_contact_hull_world_xy_m": [
+        [
+          -0.18996516200024674,
+          -0.4535415012513898
+        ],
+        [
+          -0.03248527377915052,
+          0.2505958940541533
+        ]
+      ],
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0013440341187020933,
+        "right_ankle_roll_link": 0.0009172221579436908
+      },
+      "joints": {
+        "waist_pitch_joint": {
+          "q_rad": 0.03883551159518207,
+          "dq_rad_s": 0.2508189913334664,
+          "target_rad": 0.07600192418694496,
+          "raw_pd_Nm": 8.391048650502084,
+          "integration_torque_Nm": 8.391048650502084
+        },
+        "left_hip_pitch_joint": {
+          "q_rad": 0.4057581018429528,
+          "dq_rad_s": -0.09845577621943598,
+          "target_rad": 0.32582786950469017,
+          "raw_pd_Nm": -46.46022696696998,
+          "integration_torque_Nm": -46.46022696696998
+        },
+        "right_hip_pitch_joint": {
+          "q_rad": -0.21313098743016118,
+          "dq_rad_s": -0.04771987748032784,
+          "target_rad": -0.17732569941878323,
+          "raw_pd_Nm": 22.187076245145477,
+          "integration_torque_Nm": 22.187076245145477
+        },
+        "left_knee_joint": {
+          "q_rad": 0.9660003046129582,
+          "dq_rad_s": -0.881958904547007,
+          "target_rad": 0.9032682383954526,
+          "raw_pd_Nm": -23.146692395096395,
+          "integration_torque_Nm": -23.146692395096395
+        },
+        "right_knee_joint": {
+          "q_rad": 0.9174586645725845,
+          "dq_rad_s": -0.7099824851108733,
+          "target_rad": 0.9155510111302138,
+          "raw_pd_Nm": 10.522892418585393,
+          "integration_torque_Nm": 10.522892418585393
+        },
+        "left_ankle_pitch_joint": {
+          "q_rad": -0.6065277294110981,
+          "dq_rad_s": 0.05391052156368632,
+          "target_rad": -0.5679053586721421,
+          "raw_pd_Nm": 11.02125377258641,
+          "integration_torque_Nm": 11.02125377258641
+        },
+        "right_ankle_pitch_joint": {
+          "q_rad": -0.4324909330443177,
+          "dq_rad_s": 0.7215769969652507,
+          "target_rad": -0.40626093384623524,
+          "raw_pd_Nm": -0.29607326538639356,
+          "integration_torque_Nm": -0.29607326538639356
+        }
+      },
+      "COM_from_midfoot_fixed_forward_m": -0.011622827061843663,
+      "COM_fixed_forward_speed_m_s": -0.24548184503070952,
+      "capture_point_proxy_from_midfoot_fixed_forward_m": -0.0739965939697768,
+      "contact_point_count": 2,
+      "COM_from_posterior_contact_point_fixed_forward_m": -0.04009018629924915
+    },
+    {
+      "elapsed_s": 4.550000000000481,
+      "reference_phase": "fixed-start-quintic-20",
+      "recorded_measurements": {
+        "base_angular_rad_s": 1.7362056646371002,
+        "base_linear_m_s": 0.5549477330842484,
+        "com_linear_m_s": 0.5205354388089006,
+        "floor_penetration_m": 0.0006712116350099063,
+        "joint_limit_rad": 0.0,
+        "joint_rad_s": 1.2083919427052559,
+        "left_weight": 0.4547746979004585,
+        "other_force_N": 0.0,
+        "other_weight": 0.0,
+        "pelvis_height_m": 0.5809244495476966,
+        "right_weight": 0.44895156580167556,
+        "self_penetration_m": 0.0,
+        "support_gap_m": 0.0,
+        "tilt_deg": 24.59366752119155,
+        "time_s": 6.211000000000409,
+        "torso_angular_rad_s": 1.4162198198354856,
+        "upright_dot": 0.9092821119312839
+      },
+      "recorded_integration_ground_vertical_N": 391.9002925042234,
+      "integration_pre_elapsed_s": 4.549000000000481,
+      "COM_world_xyz_m": [
+        -0.2729374183602932,
+        -0.055987749314820645,
+        0.6556551202049177
+      ],
+      "COM_velocity_world_m_s": [
+        -0.5107634597380496,
+        0.09992620195273882,
+        -0.009622131556624275
+      ],
+      "feet_body_origins_world_xyz_m": [
+        [
+          -0.12210725556016769,
+          0.2967921179128957,
+          0.08897082117053198
+        ],
+        [
+          -0.21688943726118984,
+          -0.4622363462362292,
+          0.09595078803597787
+        ]
+      ],
+      "pelvis_world_xyz_m": [
+        -0.2539390810278493,
+        -0.06926788135023944,
+        0.5809244495476966
+      ],
+      "torso_world_xyz_m": [
+        -0.3227707510954486,
+        -0.020534351012835315,
+        0.7110556725532401
+      ],
+      "torso_up_world": [
+        -0.35285559725854015,
+        0.22067842759341919,
+        0.9092821119312839
+      ],
+      "mean_foot_forward_world_xy": [
+        0.6522845933501266,
+        -0.7579741481594606
+      ],
+      "COM_from_midfoot_forward_m": -0.08773567040454117,
+      "capture_point_proxy_from_midfoot_forward_m": -0.1934479006400303,
+      "instantaneous_foot_contact_hull_world_xy_m": [
+        [
+          -0.21147113599476203,
+          -0.4283411078058333
+        ],
+        [
+          -0.1562628907791176,
+          0.2796714034028175
+        ]
+      ],
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0006712116350099063,
+        "right_ankle_roll_link": 0.0001302463407398492
+      },
+      "joints": {
+        "waist_pitch_joint": {
+          "q_rad": 0.1480625235043891,
+          "dq_rad_s": 0.26568994622926045,
+          "target_rad": 0.15227323508262636,
+          "raw_pd_Nm": -1.710834619319026,
+          "integration_torque_Nm": -1.710834619319026
+        },
+        "left_hip_pitch_joint": {
+          "q_rad": 0.4476551719901032,
+          "dq_rad_s": 0.441650114501592,
+          "target_rad": 0.33606790259480473,
+          "raw_pd_Nm": -74.35527178002182,
+          "integration_torque_Nm": -74.35527178002182
+        },
+        "right_hip_pitch_joint": {
+          "q_rad": -0.295337133810191,
+          "dq_rad_s": -0.4583411544657462,
+          "target_rad": -0.20253301610052588,
+          "raw_pd_Nm": 63.08783663466652,
+          "integration_torque_Nm": 63.08783663466652
+        },
+        "left_knee_joint": {
+          "q_rad": 0.6968624366446995,
+          "dq_rad_s": -0.7899723293899761,
+          "target_rad": 0.6118995870098471,
+          "raw_pd_Nm": -37.564526614136945,
+          "integration_torque_Nm": -37.564526614136945
+        },
+        "right_knee_joint": {
+          "q_rad": 0.626539169992194,
+          "dq_rad_s": -1.154136581949716,
+          "target_rad": 0.6654398581415415,
+          "raw_pd_Nm": 42.336521173088165,
+          "integration_torque_Nm": 42.336521173088165
+        },
+        "left_ankle_pitch_joint": {
+          "q_rad": -0.533130688789757,
+          "dq_rad_s": 0.4070236596499274,
+          "target_rad": -0.5390927638411522,
+          "raw_pd_Nm": -6.8341973380451275,
+          "integration_torque_Nm": -6.8341973380451275
+        },
+        "right_ankle_pitch_joint": {
+          "q_rad": -0.1561095050858999,
+          "dq_rad_s": 1.077531443309136,
+          "target_rad": -0.10571958268433809,
+          "raw_pd_Nm": 2.8725930352653375,
+          "integration_torque_Nm": 2.8725930352653375
+        }
+      },
+      "COM_from_midfoot_fixed_forward_m": -0.10658263029212985,
+      "COM_fixed_forward_speed_m_s": -0.5204233036029757,
+      "capture_point_proxy_from_midfoot_fixed_forward_m": -0.24112527491511807,
+      "contact_point_count": 2,
+      "COM_from_posterior_contact_point_fixed_forward_m": -0.053376158429812276
+    },
+    {
+      "elapsed_s": 4.900000000000598,
+      "reference_phase": "fixed-start-quintic-29",
+      "recorded_measurements": {
+        "base_angular_rad_s": 1.8066660427125465,
+        "base_linear_m_s": 1.0469743429824374,
+        "com_linear_m_s": 1.1328586005177474,
+        "floor_penetration_m": 5.172977060721295e-05,
+        "joint_limit_rad": 0.0,
+        "joint_rad_s": 0.9541426601827961,
+        "left_weight": 0.37796693477242355,
+        "other_force_N": 0.0,
+        "other_weight": 0.0,
+        "pelvis_height_m": 0.5293071884639461,
+        "right_weight": 0.46542216024120714,
+        "self_penetration_m": 0.0,
+        "support_gap_m": 0.0,
+        "tilt_deg": 34.59539527878135,
+        "time_s": 6.561000000000526,
+        "torso_angular_rad_s": 1.6563922238655002,
+        "upright_dot": 0.8231820020846271
+      },
+      "recorded_integration_ground_vertical_N": 353.9023322942621,
+      "integration_pre_elapsed_s": 4.899000000000598,
+      "COM_world_xyz_m": [
+        -0.530399567404966,
+        -0.02450007294826591,
+        0.5959999439714333
+      ],
+      "COM_velocity_world_m_s": [
+        -1.0418338971374101,
+        0.09158717503534901,
+        -0.4353877914130686
+      ],
+      "feet_body_origins_world_xyz_m": [
+        [
+          -0.1452572682382735,
+          0.2717878292685465,
+          0.10038302215489972
+        ],
+        [
+          -0.27124307631689804,
+          -0.42728186315398986,
+          0.09839542090389264
+        ]
+      ],
+      "pelvis_world_xyz_m": [
+        -0.49515588300010804,
+        -0.015451649197859822,
+        0.5293071884639461
+      ],
+      "torso_world_xyz_m": [
+        -0.6003773176454658,
+        0.03440286130878287,
+        0.6317272473278023
+      ],
+      "torso_up_world": [
+        -0.549821677813597,
+        0.14165985334661862,
+        0.8231820020846271
+      ],
+      "mean_foot_forward_world_xy": [
+        0.22317726673043417,
+        -0.9747778760388094
+      ],
+      "COM_from_midfoot_forward_m": -0.1238003644558644,
+      "capture_point_proxy_from_midfoot_forward_m": -0.20311662312861056,
+      "instantaneous_foot_contact_hull_world_xy_m": [
+        [
+          -0.27539316573992106,
+          -0.39766380123965084
+        ],
+        [
+          -0.16586268571122645,
+          0.281359918679029
+        ]
+      ],
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 5.172977060721295e-05,
+        "right_ankle_roll_link": 3.6624809659417494e-05
+      },
+      "joints": {
+        "waist_pitch_joint": {
+          "q_rad": 0.2705064226234474,
+          "dq_rad_s": 0.4118980080447318,
+          "target_rad": 0.2479938087463379,
+          "raw_pd_Nm": -11.258239135501555,
+          "integration_torque_Nm": -11.258239135501555
+        },
+        "left_hip_pitch_joint": {
+          "q_rad": 0.5191844050621423,
+          "dq_rad_s": -0.376218279062502,
+          "target_rad": 0.37601955685019495,
+          "raw_pd_Nm": -79.97843474940491,
+          "integration_torque_Nm": -79.97843474940491
+        },
+        "right_hip_pitch_joint": {
+          "q_rad": -0.3445723529825544,
+          "dq_rad_s": 0.4129955788132545,
+          "target_rad": -0.19205372080951932,
+          "raw_pd_Nm": 84.40334940608429,
+          "integration_torque_Nm": 84.40334940608429
+        },
+        "left_knee_joint": {
+          "q_rad": 0.414453771299702,
+          "dq_rad_s": -0.9541426601827961,
+          "target_rad": 0.3247034167297185,
+          "raw_pd_Nm": -37.39640629744845,
+          "integration_torque_Nm": -37.39640629744845
+        },
+        "right_knee_joint": {
+          "q_rad": 0.34366949110962813,
+          "dq_rad_s": -0.2783695977717414,
+          "target_rad": 0.41350432231277234,
+          "raw_pd_Nm": 45.98738697521822,
+          "integration_torque_Nm": 45.98738697521822
+        },
+        "left_ankle_pitch_joint": {
+          "q_rad": -0.4713920635311281,
+          "dq_rad_s": -0.1933994967900687,
+          "target_rad": -0.5098102513551712,
+          "raw_pd_Nm": -8.948617873802316,
+          "integration_torque_Nm": -8.948617873802316
+        },
+        "right_ankle_pitch_joint": {
+          "q_rad": 0.13006987816145021,
+          "dq_rad_s": 0.4300745921487289,
+          "target_rad": 0.15579543662071227,
+          "raw_pd_Nm": 3.0529099056072333,
+          "integration_torque_Nm": 3.0529099056072333
+        }
+      },
+      "COM_from_midfoot_fixed_forward_m": -0.32645524253041514,
+      "COM_fixed_forward_speed_m_s": -1.0410287064676138,
+      "capture_point_proxy_from_midfoot_fixed_forward_m": -0.5830520869240288,
+      "contact_point_count": 2,
+      "COM_from_posterior_contact_point_fixed_forward_m": -0.3025105361990681
+    },
+    {
+      "elapsed_s": 5.180000000000692,
+      "reference_phase": "late-ankle-ramp-1",
+      "recorded_measurements": {
+        "base_angular_rad_s": 3.518192064830703,
+        "base_linear_m_s": 2.4104037886836,
+        "com_linear_m_s": 2.6336635869252456,
+        "floor_penetration_m": 0.0,
+        "joint_limit_rad": 0.0,
+        "joint_rad_s": 0.5488596959356776,
+        "left_weight": 0.0,
+        "other_force_N": 0.0,
+        "other_weight": 0.0,
+        "pelvis_height_m": 0.21400632555436586,
+        "right_weight": 0.0,
+        "self_penetration_m": 0.0,
+        "support_gap_m": 0.0,
+        "tilt_deg": 76.31130827295057,
+        "time_s": 6.841000000000619,
+        "torso_angular_rad_s": 3.505804738543087,
+        "upright_dot": 0.23664639011164693
+      },
+      "recorded_integration_ground_vertical_N": 0.0,
+      "integration_pre_elapsed_s": 5.179000000000691,
+      "COM_world_xyz_m": [
+        -0.8669204693115566,
+        -0.0021999067011436134,
+        0.24378534489233844
+      ],
+      "COM_velocity_world_m_s": [
+        -1.2348846098255457,
+        0.0879428246599194,
+        -2.324545105843893
+      ],
+      "feet_body_origins_world_xyz_m": [
+        [
+          -0.21716649739004928,
+          0.13941868686151915,
+          0.08014718510468183
+        ],
+        [
+          -0.30157805764379003,
+          -0.34799470164736823,
+          0.08777754430578881
+        ]
+      ],
+      "pelvis_world_xyz_m": [
+        -0.8031750312242869,
+        0.0012295054240825116,
+        0.21400632555436586
+      ],
+      "torso_world_xyz_m": [
+        -0.9497747743871697,
+        0.051750721389174775,
+        0.21227051843799496
+      ],
+      "torso_up_world": [
+        -0.9508162826656242,
+        0.19986716254814854,
+        0.23664639011164693
+      ],
+      "mean_foot_forward_world_xy": [
+        -0.07304133860532173,
+        -0.9973289140773683
+      ],
+      "COM_from_midfoot_forward_m": -0.057439281407231875,
+      "capture_point_proxy_from_midfoot_forward_m": -0.05704680201833636,
+      "instantaneous_foot_contact_hull_world_xy_m": [],
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {},
+      "joints": {
+        "waist_pitch_joint": {
+          "q_rad": 0.27380925427075203,
+          "dq_rad_s": -0.2227249358519418,
+          "target_rad": 0.26750140416622165,
+          "raw_pd_Nm": 0.6468480172553912,
+          "integration_torque_Nm": 0.6468480172553912
+        },
+        "left_hip_pitch_joint": {
+          "q_rad": 0.4010417111457334,
+          "dq_rad_s": -0.1450529577248269,
+          "target_rad": 0.4027064038515091,
+          "raw_pd_Nm": 3.4006224267792957,
+          "integration_torque_Nm": 3.4006224267792957
+        },
+        "right_hip_pitch_joint": {
+          "q_rad": -0.17846444425460412,
+          "dq_rad_s": 0.19638235879352958,
+          "target_rad": -0.1715652137473226,
+          "raw_pd_Nm": 1.1001990159461008,
+          "integration_torque_Nm": 1.1001990159461008
+        },
+        "left_knee_joint": {
+          "q_rad": 0.26461961938731227,
+          "dq_rad_s": -0.06616657877060238,
+          "target_rad": 0.26940362336188556,
+          "raw_pd_Nm": 4.3142544983932325,
+          "integration_torque_Nm": 4.3142544983932325
+        },
+        "right_knee_joint": {
+          "q_rad": 0.3566288032868539,
+          "dq_rad_s": 0.08156837730201155,
+          "target_rad": 0.3621801074907184,
+          "raw_pd_Nm": 2.2700765981734374,
+          "integration_torque_Nm": 2.2700765981734374
+        },
+        "left_ankle_pitch_joint": {
+          "q_rad": -0.5072232661203873,
+          "dq_rad_s": -0.02218495373849126,
+          "target_rad": -0.5062898634672165,
+          "raw_pd_Nm": 0.6774805174378354,
+          "integration_torque_Nm": 0.6774805174378354
+        },
+        "right_ankle_pitch_joint": {
+          "q_rad": 0.18322031193137617,
+          "dq_rad_s": -0.004687395633622579,
+          "target_rad": 0.18550025179982182,
+          "raw_pd_Nm": 0.9237510962890639,
+          "integration_torque_Nm": 0.9237510962890639
+        }
+      },
+      "COM_from_midfoot_fixed_forward_m": -0.6159735748067244,
+      "COM_fixed_forward_speed_m_s": -1.230163235319369,
+      "capture_point_proxy_from_midfoot_fixed_forward_m": -0.8098977875838116,
+      "contact_point_count": 0,
+      "COM_from_posterior_contact_point_fixed_forward_m": null
+    }
+  ],
+  "geometry_scan_period_s": 0.05,
+  "geometry_scan": [
+    {
+      "elapsed_s": 3.250000000000047,
+      "reference_phase": "catch-knot-13",
+      "COM_world_xyz_m": [
+        -0.009293058880839804,
+        -0.1384924719152758,
+        0.229848536519889
+      ],
+      "COM_velocity_world_m_s": [
+        0.010295704800148667,
+        0.007151648174401298,
+        0.33274075869721376
+      ],
+      "COM_from_midfoot_forward_m": 0.05850719476758208,
+      "capture_point_proxy_from_midfoot_forward_m": 0.05991120010455062,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0013018289410475876,
+        "right_ankle_roll_link": 0.0015141225269184279
+      }
+    },
+    {
+      "elapsed_s": 3.3000000000000638,
+      "reference_phase": "catch-knot-13",
+      "COM_world_xyz_m": [
+        -0.009361692837520653,
+        -0.1370923251190646,
+        0.25142618509336334
+      ],
+      "COM_velocity_world_m_s": [
+        -0.011374878041794352,
+        0.047344577470871896,
+        0.5326198089714423
+      ],
+      "COM_from_midfoot_forward_m": 0.05974909256714874,
+      "capture_point_proxy_from_midfoot_forward_m": 0.056895552036242775,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0015091398363137427,
+        "right_ankle_roll_link": 0.0017990663419517284
+      }
+    },
+    {
+      "elapsed_s": 3.3500000000000805,
+      "reference_phase": "catch-knot-13",
+      "COM_world_xyz_m": [
+        -0.011059434562641723,
+        -0.13376463959404056,
+        0.2835176605616588
+      ],
+      "COM_velocity_world_m_s": [
+        -0.06618314464410456,
+        0.08293977174620144,
+        0.7393675340345545
+      ],
+      "COM_from_midfoot_forward_m": 0.05970503588781442,
+      "capture_point_proxy_from_midfoot_forward_m": 0.04667839652356019,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.001571900137436198,
+        "right_ankle_roll_link": 0.0018619503176563286
+      }
+    },
+    {
+      "elapsed_s": 3.400000000000097,
+      "reference_phase": "catch-knot-13",
+      "COM_world_xyz_m": [
+        -0.015943327858983124,
+        -0.12904212146127245,
+        0.3245715221204623
+      ],
+      "COM_velocity_world_m_s": [
+        -0.12449699714594802,
+        0.1031726327395532,
+        0.8837051703142798
+      ],
+      "COM_from_midfoot_forward_m": 0.05857982752001253,
+      "capture_point_proxy_from_midfoot_forward_m": 0.033683938451557996,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0014993743358868812,
+        "right_ankle_roll_link": 0.0016959930078478914
+      }
+    },
+    {
+      "elapsed_s": 3.450000000000114,
+      "reference_phase": "catch-knot-13",
+      "COM_world_xyz_m": [
+        -0.023775713882343348,
+        -0.12351423857555278,
+        0.3705297538568184
+      ],
+      "COM_velocity_world_m_s": [
+        -0.18899255785361443,
+        0.11471034059838706,
+        0.9346569278427133
+      ],
+      "COM_from_midfoot_forward_m": 0.055991824956988734,
+      "capture_point_proxy_from_midfoot_forward_m": 0.01669369182605284,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0012650562843443637,
+        "right_ankle_roll_link": 0.0012754946808117519
+      }
+    },
+    {
+      "elapsed_s": 3.5000000000001306,
+      "reference_phase": "catch-knot-13",
+      "COM_world_xyz_m": [
+        -0.03449704061156328,
+        -0.11783956917223169,
+        0.41668413311719205
+      ],
+      "COM_velocity_world_m_s": [
+        -0.2286367728463797,
+        0.11203031487445325,
+        0.9002288833162823
+      ],
+      "COM_from_midfoot_forward_m": 0.0525433379490812,
+      "capture_point_proxy_from_midfoot_forward_m": 0.002793284578666217,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0006202499556617154,
+        "right_ankle_roll_link": 0.0002619622049404259
+      }
+    },
+    {
+      "elapsed_s": 3.5500000000001473,
+      "reference_phase": "catch-knot-13",
+      "COM_world_xyz_m": [
+        -0.04614746939279436,
+        -0.11223248681865818,
+        0.4597771316823901
+      ],
+      "COM_velocity_world_m_s": [
+        -0.23044945680274828,
+        0.10639993867373936,
+        0.8255336431851933
+      ],
+      "COM_from_midfoot_forward_m": 0.04891026262909038,
+      "capture_point_proxy_from_midfoot_forward_m": -0.0036388433961588333,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 7.81733880428721e-05,
+        "right_ankle_roll_link": 0.0004128469514917089
+      }
+    },
+    {
+      "elapsed_s": 3.600000000000164,
+      "reference_phase": "catch-knot-13",
+      "COM_world_xyz_m": [
+        -0.057341451900560204,
+        -0.10704896362443168,
+        0.4984953182938191
+      ],
+      "COM_velocity_world_m_s": [
+        -0.21717950964034022,
+        0.095592507759006,
+        0.7227232985045092
+      ],
+      "COM_from_midfoot_forward_m": 0.046214235493200716,
+      "capture_point_proxy_from_midfoot_forward_m": -0.005197824766811377,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 7.130651373580665e-05
+      }
+    },
+    {
+      "elapsed_s": 3.6500000000001807,
+      "reference_phase": "catch-knot-13",
+      "COM_world_xyz_m": [
+        -0.06790532116382349,
+        -0.10201221439314041,
+        0.5318853175461963
+      ],
+      "COM_velocity_world_m_s": [
+        -0.20525890942090805,
+        0.09328522214895775,
+        0.6180536720662845
+      ],
+      "COM_from_midfoot_forward_m": 0.043300615845482816,
+      "capture_point_proxy_from_midfoot_forward_m": -0.007048192412067458,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "right_ankle_roll_link": 0.0001392318169242913
+      }
+    },
+    {
+      "elapsed_s": 3.7000000000001974,
+      "reference_phase": "unchanged-prefix-boundary",
+      "COM_world_xyz_m": [
+        -0.07765395662838624,
+        -0.09772861392813961,
+        0.5594857947708398
+      ],
+      "COM_velocity_world_m_s": [
+        -0.184363024954683,
+        0.07938383480823846,
+        0.48519270276198145
+      ],
+      "COM_from_midfoot_forward_m": 0.03964613096374763,
+      "capture_point_proxy_from_midfoot_forward_m": -0.006890051398309646,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 8.620375739467733e-05,
+        "right_ankle_roll_link": 0.00013849878406368542
+      }
+    },
+    {
+      "elapsed_s": 3.750000000000214,
+      "reference_phase": "unchanged-prefix-boundary",
+      "COM_world_xyz_m": [
+        -0.08621054053878263,
+        -0.09502707816151999,
+        0.5813363939444122
+      ],
+      "COM_velocity_world_m_s": [
+        -0.15641601085802598,
+        0.0419949691304904,
+        0.3895121250360909
+      ],
+      "COM_from_midfoot_forward_m": 0.03631354735821768,
+      "capture_point_proxy_from_midfoot_forward_m": -0.0029901914901268056,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "right_ankle_roll_link": 5.641334662320318e-05
+      }
+    },
+    {
+      "elapsed_s": 3.8000000000002307,
+      "reference_phase": "unchanged-prefix-boundary",
+      "COM_world_xyz_m": [
+        -0.09382727791762016,
+        -0.09358717538792947,
+        0.5982279411966344
+      ],
+      "COM_velocity_world_m_s": [
+        -0.15201924487575577,
+        0.0204507435738057,
+        0.3011269955279592
+      ],
+      "COM_from_midfoot_forward_m": 0.03386471746908834,
+      "capture_point_proxy_from_midfoot_forward_m": -0.003914640454089921,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 4.1295781144294434e-05,
+        "right_ankle_roll_link": 0.00010025633301597846
+      }
+    },
+    {
+      "elapsed_s": 3.8500000000002474,
+      "reference_phase": "unchanged-prefix-boundary",
+      "COM_world_xyz_m": [
+        -0.10189996143629193,
+        -0.09277479601174123,
+        0.6120709201165885
+      ],
+      "COM_velocity_world_m_s": [
+        -0.17247901351816933,
+        0.01376717853835727,
+        0.2634291237728267
+      ],
+      "COM_from_midfoot_forward_m": 0.03141309405896114,
+      "capture_point_proxy_from_midfoot_forward_m": -0.011189870516765203,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 7.777368198907519e-05,
+        "right_ankle_roll_link": 0.0005714837408702473
+      }
+    },
+    {
+      "elapsed_s": 3.900000000000264,
+      "reference_phase": "fixed-start-quintic-2",
+      "COM_world_xyz_m": [
+        -0.11049280165042619,
+        -0.09243441909136342,
+        0.623605245232717
+      ],
+      "COM_velocity_world_m_s": [
+        -0.16564754008833055,
+        0.0029837179711968394,
+        0.18662052223913966
+      ],
+      "COM_from_midfoot_forward_m": 0.02824539086574911,
+      "capture_point_proxy_from_midfoot_forward_m": -0.011895950884830706,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 1.808144829030644e-05,
+        "right_ankle_roll_link": 0.00044001618458236035
+      }
+    },
+    {
+      "elapsed_s": 3.950000000000281,
+      "reference_phase": "fixed-start-quintic-3",
+      "COM_world_xyz_m": [
+        -0.11816944982427849,
+        -0.09239554795931113,
+        0.629687229078907
+      ],
+      "COM_velocity_world_m_s": [
+        -0.13900312181305044,
+        0.003599263927364285,
+        0.060897914273027716
+      ],
+      "COM_from_midfoot_forward_m": 0.024214376430656617,
+      "capture_point_proxy_from_midfoot_forward_m": -0.00930345428055669,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 7.279409674344588e-06,
+        "right_ankle_roll_link": 0.00037341396813969207
+      }
+    },
+    {
+      "elapsed_s": 4.0000000000002975,
+      "reference_phase": "fixed-start-quintic-4",
+      "COM_world_xyz_m": [
+        -0.12435713364493604,
+        -0.09179451640589191,
+        0.6298899339200463
+      ],
+      "COM_velocity_world_m_s": [
+        -0.11103446688419798,
+        0.022466452509171782,
+        -0.03859635363249175
+      ],
+      "COM_from_midfoot_forward_m": 0.018782820653303615,
+      "capture_point_proxy_from_midfoot_forward_m": -0.009488320320379296,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0005213187629470968,
+        "right_ankle_roll_link": 0.0007862465613185472
+      }
+    },
+    {
+      "elapsed_s": 4.050000000000314,
+      "reference_phase": "fixed-start-quintic-6",
+      "COM_world_xyz_m": [
+        -0.12961151329261197,
+        -0.09007913508817335,
+        0.6270922385240305
+      ],
+      "COM_velocity_world_m_s": [
+        -0.10310568879003677,
+        0.045140745588109016,
+        -0.05955458831146026
+      ],
+      "COM_from_midfoot_forward_m": 0.01291813398346644,
+      "capture_point_proxy_from_midfoot_forward_m": -0.01553811533093005,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0009588963880009472,
+        "right_ankle_roll_link": 0.0010616554694270154
+      }
+    },
+    {
+      "elapsed_s": 4.100000000000331,
+      "reference_phase": "fixed-start-quintic-7",
+      "COM_world_xyz_m": [
+        -0.13503998460445302,
+        -0.08739450709848677,
+        0.6249446955836856
+      ],
+      "COM_velocity_world_m_s": [
+        -0.11707641710579392,
+        0.05987467890999719,
+        -0.021173414143420922
+      ],
+      "COM_from_midfoot_forward_m": 0.006901577985665034,
+      "capture_point_proxy_from_midfoot_forward_m": -0.026254547011572774,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.001249912017035666,
+        "right_ankle_roll_link": 0.0011941054824212939
+      }
+    },
+    {
+      "elapsed_s": 4.150000000000348,
+      "reference_phase": "fixed-start-quintic-9",
+      "COM_world_xyz_m": [
+        -0.1416659469281639,
+        -0.08429075719244274,
+        0.6253424157587983
+      ],
+      "COM_velocity_world_m_s": [
+        -0.1497918838935648,
+        0.06284326075501524,
+        0.036198116205724114
+      ],
+      "COM_from_midfoot_forward_m": 0.00041522319909091714,
+      "capture_point_proxy_from_midfoot_forward_m": -0.04054891639175579,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.001405452472930331,
+        "right_ankle_roll_link": 0.0012024360480183916
+      }
+    },
+    {
+      "elapsed_s": 4.200000000000364,
+      "reference_phase": "fixed-start-quintic-10",
+      "COM_world_xyz_m": [
+        -0.15020974933967218,
+        -0.08121730223856245,
+        0.6284114652223093
+      ],
+      "COM_velocity_world_m_s": [
+        -0.19172076484485878,
+        0.060001070439318564,
+        0.08167631239986725
+      ],
+      "COM_from_midfoot_forward_m": -0.006799194676860216,
+      "capture_point_proxy_from_midfoot_forward_m": -0.056998540221718505,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0014260480770543855,
+        "right_ankle_roll_link": 0.0011012661686365484
+      }
+    },
+    {
+      "elapsed_s": 4.250000000000381,
+      "reference_phase": "fixed-start-quintic-11",
+      "COM_world_xyz_m": [
+        -0.160994984217183,
+        -0.07826799622167488,
+        0.6333360305748743
+      ],
+      "COM_velocity_world_m_s": [
+        -0.238809687844191,
+        0.058518064855413734,
+        0.10966848871540409
+      ],
+      "COM_from_midfoot_forward_m": -0.015083391101391392,
+      "capture_point_proxy_from_midfoot_forward_m": -0.07573880948120715,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0013440341187020933,
+        "right_ankle_roll_link": 0.0009172221579436908
+      }
+    },
+    {
+      "elapsed_s": 4.300000000000398,
+      "reference_phase": "fixed-start-quintic-13",
+      "COM_world_xyz_m": [
+        -0.17409783250212607,
+        -0.07533224981137905,
+        0.6389082532886533
+      ],
+      "COM_velocity_world_m_s": [
+        -0.2826484400153974,
+        0.059159130222033784,
+        0.11004969457640142
+      ],
+      "COM_from_midfoot_forward_m": -0.02478344889351358,
+      "capture_point_proxy_from_midfoot_forward_m": -0.09520096388200082,
+      "COM_contact_hull_signed_margin_m": -0.0458603764538637,
+      "capture_point_proxy_contact_hull_signed_margin_m": -0.11948614161882487,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0010944295482879464,
+        "right_ankle_roll_link": 0.0007595501612146184
+      }
+    },
+    {
+      "elapsed_s": 4.350000000000414,
+      "reference_phase": "fixed-start-quintic-14",
+      "COM_world_xyz_m": [
+        -0.1893477169555911,
+        -0.07234588498555643,
+        0.6443914146526538
+      ],
+      "COM_velocity_world_m_s": [
+        -0.3263458061000951,
+        0.061319064623062774,
+        0.10483061560060822
+      ],
+      "COM_from_midfoot_forward_m": -0.036091233833566515,
+      "capture_point_proxy_from_midfoot_forward_m": -0.115747618219984,
+      "COM_contact_hull_signed_margin_m": -0.06145730449575872,
+      "capture_point_proxy_contact_hull_signed_margin_m": -0.14653823505002417,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0007811317203440206,
+        "right_ankle_roll_link": 0.0006732683390659839
+      }
+    },
+    {
+      "elapsed_s": 4.400000000000431,
+      "reference_phase": "fixed-start-quintic-16",
+      "COM_world_xyz_m": [
+        -0.20675214412329831,
+        -0.06913642419944206,
+        0.6490871837589015
+      ],
+      "COM_velocity_world_m_s": [
+        -0.3692508424504643,
+        0.06825582816634894,
+        0.08082558279440735
+      ],
+      "COM_from_midfoot_forward_m": -0.048457909330884445,
+      "capture_point_proxy_from_midfoot_forward_m": -0.13658734299959577,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0007691601657243098,
+        "right_ankle_roll_link": 0.0005816158412673784
+      }
+    },
+    {
+      "elapsed_s": 4.450000000000448,
+      "reference_phase": "fixed-start-quintic-17",
+      "COM_world_xyz_m": [
+        -0.226527536040524,
+        -0.06531474244396734,
+        0.6525678159288351
+      ],
+      "COM_velocity_world_m_s": [
+        -0.41888999029017826,
+        0.08408831998457676,
+        0.05853325302379903
+      ],
+      "COM_from_midfoot_forward_m": -0.06177192363633588,
+      "capture_point_proxy_from_midfoot_forward_m": -0.15958452986748323,
+      "COM_contact_hull_signed_margin_m": -0.08602585871171224,
+      "capture_point_proxy_contact_hull_signed_margin_m": -0.1962187833684129,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0006533410218809805,
+        "right_ankle_roll_link": 0.0003748081387077119
+      }
+    },
+    {
+      "elapsed_s": 4.5000000000004645,
+      "reference_phase": "fixed-start-quintic-18",
+      "COM_world_xyz_m": [
+        -0.24859975840478069,
+        -0.06078680457481994,
+        0.654896232619629
+      ],
+      "COM_velocity_world_m_s": [
+        -0.4631950140856431,
+        0.09273910854492404,
+        0.038124290065179554
+      ],
+      "COM_from_midfoot_forward_m": -0.07590972769761536,
+      "capture_point_proxy_from_midfoot_forward_m": -0.17965099532688888,
+      "COM_contact_hull_signed_margin_m": -0.06440813947958875,
+      "capture_point_proxy_contact_hull_signed_margin_m": -0.1856443987456396,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0006692725010570373,
+        "right_ankle_roll_link": 0.00026099413690134753
+      }
+    },
+    {
+      "elapsed_s": 4.550000000000481,
+      "reference_phase": "fixed-start-quintic-20",
+      "COM_world_xyz_m": [
+        -0.2729374183602932,
+        -0.055987749314820645,
+        0.6556551202049177
+      ],
+      "COM_velocity_world_m_s": [
+        -0.5107634597380496,
+        0.09992620195273882,
+        -0.009622131556624275
+      ],
+      "COM_from_midfoot_forward_m": -0.08773567040454117,
+      "capture_point_proxy_from_midfoot_forward_m": -0.1934479006400303,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0006712116350099063,
+        "right_ankle_roll_link": 0.0001302463407398492
+      }
+    },
+    {
+      "elapsed_s": 4.600000000000498,
+      "reference_phase": "fixed-start-quintic-21",
+      "COM_world_xyz_m": [
+        -0.2997181712854259,
+        -0.050945168583386914,
+        0.6536158547986402
+      ],
+      "COM_velocity_world_m_s": [
+        -0.5576459833612595,
+        0.09910947149830297,
+        -0.06653567987156415
+      ],
+      "COM_from_midfoot_forward_m": -0.0959308068430546,
+      "capture_point_proxy_from_midfoot_forward_m": -0.197635064490104,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0007740803812467346,
+        "right_ankle_roll_link": 0.00039169865687407445
+      }
+    },
+    {
+      "elapsed_s": 4.650000000000515,
+      "reference_phase": "fixed-start-quintic-22",
+      "COM_world_xyz_m": [
+        -0.3287467519801035,
+        -0.046297211355542774,
+        0.6499547696911572
+      ],
+      "COM_velocity_world_m_s": [
+        -0.6069540436329258,
+        0.0904626036524609,
+        -0.08659988747856147
+      ],
+      "COM_from_midfoot_forward_m": -0.10422591307798121,
+      "capture_point_proxy_from_midfoot_forward_m": -0.19922269424000089,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0009694284497183221,
+        "right_ankle_roll_link": 0.00025076538260923164
+      }
+    },
+    {
+      "elapsed_s": 4.700000000000531,
+      "reference_phase": "fixed-start-quintic-24",
+      "COM_world_xyz_m": [
+        -0.36069745394454894,
+        -0.04184019530093389,
+        0.6446469184390969
+      ],
+      "COM_velocity_world_m_s": [
+        -0.6723478868029218,
+        0.08746852781864996,
+        -0.12675672250291478
+      ],
+      "COM_from_midfoot_forward_m": -0.10930973738575349,
+      "capture_point_proxy_from_midfoot_forward_m": -0.199055503773931,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0009497792281985369,
+        "right_ankle_roll_link": 1.1661070467082306e-05
+      }
+    },
+    {
+      "elapsed_s": 4.750000000000548,
+      "reference_phase": "fixed-start-quintic-25",
+      "COM_world_xyz_m": [
+        -0.3963005161381299,
+        -0.037473440359474246,
+        0.6372234329509032
+      ],
+      "COM_velocity_world_m_s": [
+        -0.7506811097840189,
+        0.08488576220905361,
+        -0.16583419983665607
+      ],
+      "COM_from_midfoot_forward_m": -0.1127042602529774,
+      "capture_point_proxy_from_midfoot_forward_m": -0.1976007728856989,
+      "COM_contact_hull_signed_margin_m": -0.17150796414938319,
+      "capture_point_proxy_contact_hull_signed_margin_m": -0.3638801590541604,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0007999914157898842,
+        "right_ankle_roll_link": 0.0003679875459802152
+      }
+    },
+    {
+      "elapsed_s": 4.800000000000565,
+      "reference_phase": "fixed-start-quintic-27",
+      "COM_world_xyz_m": [
+        -0.4360694576409449,
+        -0.033292659176640454,
+        0.6275774463382933
+      ],
+      "COM_velocity_world_m_s": [
+        -0.8401499186629497,
+        0.08269949320945767,
+        -0.2236570348650166
+      ],
+      "COM_from_midfoot_forward_m": -0.11697901692123448,
+      "capture_point_proxy_from_midfoot_forward_m": -0.19897107205440503,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0006472212407609935,
+        "right_ankle_roll_link": 8.577228522951407e-05
+      }
+    },
+    {
+      "elapsed_s": 4.850000000000581,
+      "reference_phase": "fixed-start-quintic-28",
+      "COM_world_xyz_m": [
+        -0.4806598854531651,
+        -0.02903639783588995,
+        0.6143447930992001
+      ],
+      "COM_velocity_world_m_s": [
+        -0.9415586317398741,
+        0.09049817651059934,
+        -0.31119953859612326
+      ],
+      "COM_from_midfoot_forward_m": -0.11999858799158929,
+      "capture_point_proxy_from_midfoot_forward_m": -0.20165018945666616,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0003993673933055065,
+        "right_ankle_roll_link": 0.00015055988967841837
+      }
+    },
+    {
+      "elapsed_s": 4.900000000000598,
+      "reference_phase": "fixed-start-quintic-29",
+      "COM_world_xyz_m": [
+        -0.530399567404966,
+        -0.02450007294826591,
+        0.5959999439714333
+      ],
+      "COM_velocity_world_m_s": [
+        -1.0418338971374101,
+        0.09158717503534901,
+        -0.4353877914130686
+      ],
+      "COM_from_midfoot_forward_m": -0.1238003644558644,
+      "capture_point_proxy_from_midfoot_forward_m": -0.20311662312861056,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 5.172977060721295e-05,
+        "right_ankle_roll_link": 3.6624809659417494e-05
+      }
+    },
+    {
+      "elapsed_s": 4.950000000000615,
+      "reference_phase": "fixed-start-quintic-31",
+      "COM_world_xyz_m": [
+        -0.5846553783906915,
+        -0.019992715260851463,
+        0.5694819937941433
+      ],
+      "COM_velocity_world_m_s": [
+        -1.1215711184861745,
+        0.08742664142670101,
+        -0.6396304798243655
+      ],
+      "COM_from_midfoot_forward_m": -0.12977184897119837,
+      "capture_point_proxy_from_midfoot_forward_m": -0.2028907031600986,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 3.6941663324975213e-06
+      }
+    },
+    {
+      "elapsed_s": 5.0000000000006315,
+      "reference_phase": "fixed-start-quintic-32",
+      "COM_world_xyz_m": [
+        -0.6424361468949332,
+        -0.016111560857500287,
+        0.5306765514049839
+      ],
+      "COM_velocity_world_m_s": [
+        -1.1862864137978408,
+        0.06583603861979137,
+        -0.9225396120927992
+      ],
+      "COM_from_midfoot_forward_m": -0.13794087308593256,
+      "capture_point_proxy_from_midfoot_forward_m": -0.1976950953240058,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "right_ankle_roll_link": 4.487465286428637e-05
+      }
+    },
+    {
+      "elapsed_s": 5.050000000000648,
+      "reference_phase": "fixed-start-quintic-34",
+      "COM_world_xyz_m": [
+        -0.7029954932798138,
+        -0.012711976233793679,
+        0.4758946415062702
+      ],
+      "COM_velocity_world_m_s": [
+        -1.233727217751671,
+        0.07082578040409257,
+        -1.2683449821369215
+      ],
+      "COM_from_midfoot_forward_m": -0.14217453144365166,
+      "capture_point_proxy_from_midfoot_forward_m": -0.19149700684451298,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {}
+    },
+    {
+      "elapsed_s": 5.100000000000665,
+      "reference_phase": "fixed-start-quintic-35",
+      "COM_world_xyz_m": [
+        -0.7658143974595961,
+        -0.009116121985829095,
+        0.40278736223549744
+      ],
+      "COM_velocity_world_m_s": [
+        -1.2747450083791663,
+        0.07943041537990297,
+        -1.649854055296742
+      ],
+      "COM_from_midfoot_forward_m": -0.1308660185561509,
+      "capture_point_proxy_from_midfoot_forward_m": -0.1650932262376695,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 4.983560759266436e-05,
+        "right_ankle_roll_link": 2.9589310305373415e-06
+      }
+    },
+    {
+      "elapsed_s": 5.150000000000682,
+      "reference_phase": "unchanged-static-prefix",
+      "COM_world_xyz_m": [
+        -0.8294772506867217,
+        -0.0048494570134802375,
+        0.30978020862442995
+      ],
+      "COM_velocity_world_m_s": [
+        -1.2611070437390905,
+        0.0871583680350862,
+        -2.068667059777168
+      ],
+      "COM_from_midfoot_forward_m": -0.09332370700327963,
+      "capture_point_proxy_from_midfoot_forward_m": -0.10625787898668262,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 1.481009183982706e-05
+      }
+    },
+    {
+      "elapsed_s": 5.200000000000698,
+      "reference_phase": "late-ankle-ramp-2",
+      "COM_world_xyz_m": [
+        -0.8913942775432544,
+        -0.0004405016944122127,
+        0.19551247867241112
+      ],
+      "COM_velocity_world_m_s": [
+        -1.210906708753757,
+        0.08725244338007584,
+        -2.4933295612109267
+      ],
+      "COM_from_midfoot_forward_m": -0.02773476534267804,
+      "capture_point_proxy_from_midfoot_forward_m": -0.019452919009709732,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {}
+    },
+    {
+      "elapsed_s": 5.250000000000715,
+      "reference_phase": "late-ankle-ramp-4",
+      "COM_world_xyz_m": [
+        -0.9160030759178227,
+        0.004599916868694908,
+        0.15590141521768264
+      ],
+      "COM_velocity_world_m_s": [
+        -0.07008535709927217,
+        0.0131191608190086,
+        0.23975102795269915
+      ],
+      "COM_from_midfoot_forward_m": 0.008181368651970963,
+      "capture_point_proxy_from_midfoot_forward_m": 0.008101695118762684,
+      "COM_contact_hull_signed_margin_m": null,
+      "capture_point_proxy_contact_hull_signed_margin_m": null,
+      "penetrating_floor_bodies_max_depth_m": {
+        "left_ankle_roll_link": 0.0006097701274796153,
+        "right_hip_pitch_link": 0.007947488969580627,
+        "right_hip_roll_link": 0.009813528675379816,
+        "right_ankle_roll_link": 0.0007032094751961244,
+        "torso_link": 0.016797608037191047,
+        "right_shoulder_pitch_link": 0.011520917604036167,
+        "right_shoulder_roll_link": 0.014651373055012969
+      }
+    }
+  ],
+  "recorded_outcome": {
+    "success": false,
+    "max_stable_hold_s": 0.0,
+    "pelvis_height_required_m": 0.6052459924998083,
+    "maximum_pelvis_height_m": 0.5809608409731037,
+    "minimum_tilt_deg_after_3s": 24.392468545210438
+  },
+  "script_sha256": "e87c43eb7e315fba50e016938bacf01031c36b2a1f64aa7975381330da2df1c6",
+  "fixed_fore_aft_basis_world_xy": [
+    0.9831636854881579,
+    -0.18272703012237304
+  ],
+  "fixed_fore_aft_basis_definition": "Horizontal mean foot-body +X axis at recorded t=3.75 s, held fixed for subsequent projections; posterior is the negative direction. This is a model-frame direction, not a recovered support polygon.",
+  "facts": [
+    "No stable-standing window occurred. Maximum pelvis height 0.5809608409731037m remained below 0.6052459924998083m; minimum torso tilt after 3s was 24.392468545210438deg, above 15deg.",
+    "Both feet carry load again around 4.0-4.75s, but recorded COM speed increases before support loss and the torso subsequently falls posteriorly.",
+    "Instantaneous foot geometry usually has fewer than three distinct penetrating contact points; polygon margins are null rather than fabricated."
+  ],
+  "inferences": [
+    "The slower reference arrests the original strong launch but does not complete the rise or arrest posterior COM drift. Later torso impact is a consequence of the failed balance transition rather than evidence of a large initial landing impulse.",
+    "Late knee extension and forward body-over-feet placement must be coordinated; preserving old joint endpoints alone does not preserve the old global stance or momentum."
+  ],
+  "untested_parameter_directions": [
+    {
+      "parameter": "landing_time_scale",
+      "values": [
+        1.0,
+        1.2,
+        1.4
+      ],
+      "keep": "Same early prefix and push1.8; compare with current1.8",
+      "reason": "Complete late extension before sustained backward acceleration grows; test entire episode because speeding can recreate impact."
+    },
+    {
+      "parameter": "landing_knee_flexion_rad",
+      "values": [
+        0.0,
+        0.03
+      ],
+      "keep": "Current0.06 is the comparison",
+      "reason": "Reduce continued crouch only alongside coordinated torso/hip transition; current maximal pelvis remains25mm below standing threshold."
+    },
+    {
+      "parameter": "late bilateral hip-pitch reference offset",
+      "values_rad": [
+        0.05,
+        0.1
+      ],
+      "interval": "Smooth window over first half of fixed-start-quintic tail, decay to zero before final reference endpoint",
+      "reason": "Hypothesis: shift torso/COM forward over planted feet; direction must be checked against model joint axes and actual measured displacement before adoption."
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "readonly_prepare_guards": "reset/step/learn forbidden; none called",
+  "runtime": {
+    "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "prefix": "/home/lang/RL-AgiBot-X2/.venv",
+    "python_version": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "os": "Linux-7.0.0-34-generic-aarch64-with-glibc2.39",
+    "architecture": "aarch64",
+    "modules": {
+      "x2_recovery.evaluate": "/home/lang/RL-AgiBot-X2/src/x2_recovery/x2_recovery/evaluate.py",
+      "x2_recovery.env": "/home/lang/RL-AgiBot-X2/src/x2_recovery/x2_recovery/env.py",
+      "x2_recovery.reset": "/home/lang/RL-AgiBot-X2/src/x2_recovery/x2_recovery/reset.py",
+      "x2_recovery.success": "/home/lang/RL-AgiBot-X2/src/x2_recovery/x2_recovery/success.py",
+      "x2_recovery.model": "/home/lang/RL-AgiBot-X2/src/x2_recovery/x2_recovery/model.py",
+      "x2_recovery.train": "/home/lang/RL-AgiBot-X2/src/x2_recovery/x2_recovery/train.py",
+      "mujoco": "/home/lang/RL-AgiBot-X2/.venv/lib/python3.12/site-packages/mujoco/__init__.py",
+      "gymnasium": "/home/lang/RL-AgiBot-X2/.venv/lib/python3.12/site-packages/gymnasium/__init__.py",
+      "stable_baselines3": "/home/lang/RL-AgiBot-X2/.venv/lib/python3.12/site-packages/stable_baselines3/__init__.py",
+      "torch": "/home/lang/RL-AgiBot-X2/.venv/lib/python3.12/site-packages/torch/__init__.py"
+    },
+    "dependencies": {
+      "mujoco": "3.13.0",
+      "gymnasium": "1.3.0",
+      "stable_baselines3": "2.9.0",
+      "torch": "2.8.0+cpu",
+      "numpy": "1.26.4"
+    },
+    "device": "cpu",
+    "torch_threads": 2,
+    "torch_interop_threads": 1,
+    "cpu_count": 8
+  },
+  "rclpy_module": "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py",
+  "ros_env": {
+    "ROS_DISTRO": "jazzy",
+    "ROS_DOMAIN_ID": "193",
+    "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+    "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+    "PYTHONPATH": "/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery:/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery/lib/python3.12/site-packages:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages",
+    "AMENT_PREFIX_PATH": "/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/x2_recovery:/opt/ros/jazzy"
+  },
+  "input_directory": "/home/lang/RL-AgiBot-X2/results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run",
+  "input_sha256": {
+    "policy_final.zip": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+    "resolved_config.json": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+    "manifest.json": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac",
+    "reload_probe.npz": "f98f58d40e089e075b8174d86ebbfff338882c1968fa97edc75261ae17db474b",
+    "progress.csv": "edb6073778eb32da1ca87130740517ba77fee6c10e499a2534f3706482ce94d5",
+    "reload_validation.json": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175"
+  },
+  "schema": "x2-controller-ppo-v1",
+  "controller": {
+    "mode": "reference_residual",
+    "version": "targets-v5",
+    "action_layout": "independentlegs17"
+  },
+  "wrapper_shape": [
+    [
+      149
+    ],
+    [
+      17
+    ]
+  ],
+  "native_shape": [
+    [
+      117
+    ],
+    [
+      31
+    ]
+  ],
+  "probe": {
+    "max_abs_error": 0.0,
+    "atol": 1e-07,
+    "rtol": 1e-06,
+    "observations": 16,
+    "action_shape": [
+      16,
+      17
+    ]
+  },
+  "policy_state_sha256": "24a51f6bf7bbcc2741cee197e0ea00667f3178fd6d4de92aceafd43ab61db1e6",
+  "model_identity": "bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0",
+  "asset_directory": "/home/lang/.cache/hrs-x2-recovery/agibot_x2_urdf"
+}

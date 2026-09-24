@@ -1,0 +1,62 @@
+{
+  "prepared_utc": "2026-09-24T20:23:16.410343+00:00",
+  "status": "PREPARED_ONLY",
+  "physics_or_ros_episodes_run": false,
+  "python": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+  "cwd": "/tmp",
+  "source_install": "/tmp/x2-repair-20260924T151819Z/v6-fresh/install/setup.bash",
+  "domains": {
+    "policy": 91,
+    "baseline": 92
+  },
+  "observed_existing_ros_processes": [],
+  "environment": {
+    "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+    "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+    "PYTHONNOUSERSITE": "1",
+    "X2_ASSET_REPO": "/home/lang/.cache/hrs-x2-recovery/agibot_x2_urdf"
+  },
+  "source_sha256": {
+    "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/test/test_ros_integration.py": "7915b1097ae73d8b6d69c66ab18a4b3bbcf2be0c09fb715f2aa31f451b9574a7",
+    "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/x2_recovery/env.py": "c4a5bc96dd7a26bcfec73c648a63ab476c65bdde4543fca0fb92f037fb041da0",
+    "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/x2_recovery/recovery_node.py": "43192a9f1aac4c80022d9fc6e3f7e3e422e2837e05b9c5e18abeb58d510b69d3",
+    "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/launch/recovery.launch.py": "b915912185c7df75dc0521fb2fad2c19fb150500079fe6faf680bbb0cf0757f4"
+  },
+  "installed_node_shebang": "#!/home/lang/RL-AgiBot-X2/.venv/bin/python",
+  "launch_source": "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/launch/recovery.launch.py",
+  "prefix": "/tmp/x2-repair-20260924T151819Z/v6-fresh/install/x2_recovery",
+  "preparation_shell": [
+    "cd /tmp",
+    "unset PYTHONPATH AMENT_PREFIX_PATH CMAKE_PREFIX_PATH COLCON_PREFIX_PATH",
+    "source /opt/ros/jazzy/setup.bash",
+    "source /tmp/x2-repair-20260924T151819Z/v6-fresh/install/setup.bash"
+  ],
+  "command_prefix": [
+    "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/test/test_ros_integration.py"
+  ],
+  "policy_required_arguments": [
+    "--controller-run",
+    "NEW_VALIDATED_BUNDLE",
+    "--expected-checkpoint-sha256",
+    "NEW_CHECKPOINT_SHA256",
+    "--reference-trace",
+    "NEW_BUNDLE_STANDALONE_TRACE",
+    "--output-dir",
+    "NEW_POLICY_EVIDENCE_DIRECTORY"
+  ],
+  "baseline_required_arguments": [
+    "--output-dir",
+    "NEW_BASELINE_EVIDENCE_DIRECTORY"
+  ],
+  "reference_trace_schema": {
+    "observations": "T+1 x149 float32 includingreset andnextobservations",
+    "actions": "T x17",
+    "qpos": "T+1 x38",
+    "qvel": "T+1 x37",
+    "reward": "T",
+    "time_s": "T+1 recovery elapsed MuJoCo simulation time, reset0"
+  },
+  "cleanup": "Existing runner owns child process groups, sends SIGINT to launch parent only, checks both business children, and stops only its own CLI daemon.",
+  "execution_started_utc": "2026-09-24T20:27:11.329321+00:00"
+}

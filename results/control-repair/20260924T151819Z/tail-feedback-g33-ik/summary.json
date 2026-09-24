@@ -1,0 +1,19 @@
+{
+  "status": "COMPLETE",
+  "planned": 30,
+  "completed": 30,
+  "invalid": 0,
+  "not_executed": 0,
+  "successful": 1,
+  "feasible": 1,
+  "exception": null,
+  "exceptions": [],
+  "source_unchanged": true,
+  "inputs_unchanged": true,
+  "wall_seconds": 378.2474075550017,
+  "controller": "experimental_IK_reference_torso_ankle_feedback",
+  "weight_transfer": false,
+  "training": false,
+  "ppo_control_inference": false,
+  "original_checkpoint_sha256_after": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64"
+}

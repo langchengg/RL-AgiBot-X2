@@ -1,0 +1,41 @@
+{
+  "status": "COMPLETE",
+  "planned_pairs": 20,
+  "valid_pairs": 20,
+  "invalid_or_blocked_pairs": 0,
+  "controllers": {
+    "A_reference": {
+      "completed": 20,
+      "standing": 20,
+      "envelope": 20,
+      "impact": 20,
+      "admissible": 20
+    },
+    "B_residual": {
+      "completed": 20,
+      "standing": 20,
+      "envelope": 20,
+      "impact": 20,
+      "admissible": 20
+    }
+  },
+  "pair_outcomes": {
+    "A_win": 0,
+    "B_win": 0,
+    "tie": 20
+  },
+  "both_success_pairs": 20,
+  "B_minus_A_success_time_s": {
+    "min": 0.0,
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0
+  },
+  "runner_sha256": "8b36d25956d81b4e4edb617c70634843e79f068200a5d7b69c388e52e3abcd15",
+  "existing_pair_runner_sha256": "4b08ef789b143086fdb522eea1fd075e2abd8a35bda5f2cdd5cbbd494a4d82cf",
+  "protocol_sha256": "f3e60db53e7f80cafc9038f8b169395218b95f3e7b8e06f466fd7f29728d4a98",
+  "scope": "Requirement pass follows the preregistered manifest exactly:20 valid pairs, all40 envelope passes, and at least16 B original standing successes. Impact and admissible counts are separate quality dimensions. All20 reset-only selections precede A/B outcomes; no replacement. New CSV admissible = standing AND envelope with31 declared velocities AND five integration-impact comparisons. Individual raw diagnostic summaries retain their older standing+envelope admissible definition; this summary and CSV explicitly add impact.",
+  "requirement_pass": true,
+  "all_40_impact_pass": true,
+  "B_admissible_at_least_16": true
+}

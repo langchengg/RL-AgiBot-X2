@@ -1,0 +1,27 @@
+{
+  "status": "COMPLETE",
+  "planned": 5,
+  "completed": 5,
+  "invalid": 0,
+  "not_executed": 0,
+  "nominal_three_hashes_match": {
+    "physical_state_sha256": true,
+    "policy_action_sha256": true,
+    "actual_target_sha256": true
+  },
+  "perturbed_planned": 4,
+  "perturbed_valid": 4,
+  "perturbed_success": 4,
+  "perturbed_feasible": 4,
+  "distinct_valid_handoff_states": 5,
+  "fatal": null,
+  "exceptions": [],
+  "inputs_unchanged": true,
+  "source_unchanged": true,
+  "wall_seconds": 26.656956679002178,
+  "controller": "reference_motion_plus_observation_only_analytical_ankle_feedback",
+  "training": false,
+  "weight_transfer": false,
+  "ppo_control_inference": false,
+  "interpretation": "Small preregistered development check only; not formal five, not held-out robustness and not evidence of PPO contribution. All illegal resets retained; no replacements."
+}

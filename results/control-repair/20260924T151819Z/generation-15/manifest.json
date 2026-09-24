@@ -1,0 +1,42 @@
+{
+  "kind": "full_episode_constraint_repair_search",
+  "started_utc": "2026-09-24T18:42:25.754119+00:00",
+  "control_input": "/home/lang/RL-AgiBot-X2/results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run",
+  "expected_checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+  "input_sha256": {
+    "training_reward.png": "92640b31ecc25eba8a02c78ee36bae699328aa45955589def0119df23156d201",
+    "resolved_config.json": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+    "progress.csv": "edb6073778eb32da1ca87130740517ba77fee6c10e499a2534f3706482ce94d5",
+    "rng_state.pt": "98b50d4fa2a694c2062214ae645f1a545209e5573a99799fe87dc989d97c45d4",
+    "policy_final.zip": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+    "reload_probe.npz": "f98f58d40e089e075b8174d86ebbfff338882c1968fa97edc75261ae17db474b",
+    "reload_validation.json": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175",
+    "manifest.json": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac",
+    "episode_diagnostics.csv": "fb31135941f4b0eb00823c62c6803591142614d518ad6e015795925f41c2b19d"
+  },
+  "plan_sha256": "e3fc620a11b478066e6a283fe4c603a1bd0fcff1fddee8bdf6374fd61f224dfe",
+  "source_sha256": "421e0844758ab50b7ca40a3f81c3fd6cefd3ef9face1e7ae1b91a00f3c83fe94",
+  "core_sources": {
+    "env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+  },
+  "workers": 3,
+  "max_wall_seconds": 240.0,
+  "requested_candidates": 32,
+  "comparison": {
+    "peak_ground_vertical_N": 1626.681419263664,
+    "peak_ground_sum_norm_N": 1845.4477378972624,
+    "floor_penetration_m": 0.00904692154437733,
+    "self_penetration_m": 0.0031814764288165204,
+    "max_joint_speed_rad_s": 8.347143742429603
+  },
+  "seed": 221030,
+  "zero_residual": true,
+  "supported_environment_control_overrides": "Complete original PD groups; only waist Kd in [1,6]x, all Kp and other groups unchanged.",
+  "required_search_feature": null,
+  "feasibility_scope": "Recovery physical samples only; reset settling is separately measured and retained.",
+  "budget_scope": "No task cutoff; scheduling stops at block deadline. Already-running complete episodes may overrun."
+}

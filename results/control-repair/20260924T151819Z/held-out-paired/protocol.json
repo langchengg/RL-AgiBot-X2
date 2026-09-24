@@ -1,0 +1,176 @@
+{
+  "protocol": {
+    "planned_pairs": 20,
+    "max_reset_candidates": 40,
+    "candidate_seeds": [
+      26092500,
+      26092501,
+      26092502,
+      26092503,
+      26092504,
+      26092505,
+      26092506,
+      26092507,
+      26092508,
+      26092509,
+      26092510,
+      26092511,
+      26092512,
+      26092513,
+      26092514,
+      26092515,
+      26092516,
+      26092517,
+      26092518,
+      26092519,
+      26092520,
+      26092521,
+      26092522,
+      26092523,
+      26092524,
+      26092525,
+      26092526,
+      26092527,
+      26092528,
+      26092529,
+      26092530,
+      26092531,
+      26092532,
+      26092533,
+      26092534,
+      26092535,
+      26092536,
+      26092537,
+      26092538,
+      26092539
+    ],
+    "allowed_base_config_difference": [
+      "reset_perturb_rad"
+    ],
+    "perturb_rad": 0.002,
+    "physical_pair_atol": 1e-10,
+    "rtol": 0,
+    "A": "same targets-v6 reference and explicit analytical feedback; zero PPO residual",
+    "B": "same controller; frozen trained deterministic PPO residual",
+    "selection": "First20 legal resets before any outcome; no replacement using controller results"
+  },
+  "source_identity": {
+    "input_sha256": {
+      "policy_final.zip": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+      "resolved_config.json": "6973248b351408dcad0d48ad54c0ee3187760ed3e9c3ca50d045202e4878db73",
+      "manifest.json": "0f450a3457b7a0346177c48a26c9d12be87601352c92943f560126d346da773a",
+      "reload_probe.npz": "3a73d17888b44e0f928f05d1bb9ea8821256e286db9e04f99d5537c7faa86ebc",
+      "progress.csv": "686493b8c035707af1af3fe62b1f39bc39409d77dc5dc5b2b0e5ad5a5c7df595",
+      "reload_validation.json": "cf21ed9e0f4a1cabdba1375f6050b089f7106d28c66d8b9b3e1f7518ccaba833"
+    },
+    "deployment_difference": {
+      "reset_perturb_rad": {
+        "published": 0.0,
+        "deployment": 0.002
+      }
+    },
+    "input_interface": {
+      "max_abs_error": 0.0,
+      "atol": 1e-07,
+      "rtol": 1e-06,
+      "observations": 16,
+      "action_shape": [
+        16,
+        17
+      ]
+    },
+    "controller_config_sha256": "2298b6d8576d2cf17e63267b33fc46cd1e23e7c50fb85a11fba888f473759ef3",
+    "audit_source_sha256": "1fb81ff48deb366c2ca1b8adf6126eb7a8de78519db6212ceceae9cb1df1f86d",
+    "runner_sha256": "4b08ef789b143086fdb522eea1fd075e2abd8a35bda5f2cdd5cbbd494a4d82cf",
+    "protocol_manifest_sha256": "9a1ab53e5ba0a8b64d5eacc4539d295a2b459b61aee35edf3fffeb3786c5fe17",
+    "deterministic": true,
+    "device": "cpu"
+  },
+  "full_deployment_base_config": {
+    "decimation": 20,
+    "episode_timeout_s": 20.0,
+    "step_wall_s": 5.0,
+    "reset_wall_s": 45.0,
+    "reset_perturb_rad": 0.002,
+    "joint_velocity_scale_rad_s": 5.0,
+    "base_linear_scale_m_s": 1.0,
+    "base_angular_scale_rad_s": 2.0,
+    "shaping_gamma": 0.999,
+    "height_weight": 3.0,
+    "upright_weight": 1.0,
+    "standing_hold_weight": 1.0,
+    "torque_cost_weight": -0.02,
+    "action_change_weight": -0.002,
+    "success_bonus": 50.0,
+    "safety_floor_m": 0.03,
+    "safety_self_m": 0.015,
+    "safety_joint_limit_rad": 0.05,
+    "safety_joint_speed_rad_s": 30.0,
+    "reference_angles": [
+      [
+        "hip_pitch",
+        -0.05
+      ],
+      [
+        "knee",
+        0.1
+      ],
+      [
+        "ankle_pitch",
+        -0.05
+      ],
+      [
+        "shoulder_pitch",
+        -0.15
+      ],
+      [
+        "elbow",
+        -0.3
+      ]
+    ],
+    "shoulder_roll_rad": 0.15,
+    "pd_gains": [
+      [
+        "hip",
+        600.0,
+        16.970562748477143
+      ],
+      [
+        "knee",
+        600.0,
+        16.970562748477143
+      ],
+      [
+        "ankle",
+        300.0,
+        11.313708498984761
+      ],
+      [
+        "waist",
+        300.0,
+        11.313708498984761
+      ],
+      [
+        "shoulder",
+        100.0,
+        4.242640687119286
+      ],
+      [
+        "elbow",
+        100.0,
+        4.242640687119286
+      ],
+      [
+        "head",
+        10.0,
+        0.4242640687119285
+      ],
+      [
+        "wrist",
+        10.0,
+        0.4242640687119285
+      ]
+    ]
+  },
+  "statement": "Original checkpoint and controller unchanged; only validated reset perturbation distribution differs."
+}

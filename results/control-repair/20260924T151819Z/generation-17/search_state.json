@@ -1,0 +1,15 @@
+{
+  "completed": 4,
+  "recorded_indices": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "pending_indices": [],
+  "unrecorded_indices": [],
+  "next_index": null,
+  "resume_rule": "Reconstruct remaining candidates from candidates.jsonl unique indices and plan identities; next_index is a hint only.",
+  "best_feasible": null,
+  "best_infeasible": "g17-quintic-g08-25"
+}

@@ -1,0 +1,282 @@
+{
+  "schema": "x2-reference-prefix-repair-delivery-v1",
+  "recorded_utc": "2026-09-24T20:41:16.961121+00:00",
+  "status": "VALIDATION_COMPLETE",
+  "publication_note": "Prepared before the normal commit/push. The containing Git commit and remote history are publication receipts; no future push result is asserted here.",
+  "start_head": "f542ec6414ae1366bc17868c0f43de80c580c8fc",
+  "states": {
+    "REFERENCE_OR_PREFIX_REPAIR": "PASS",
+    "CONSTRAINT_AWARE_RECOVERY": "PASS: nominal fixed-five 5/5 standing, envelope, impact and admissible",
+    "HELD_OUT_PERTURBATION_VALIDATION": "PASS: 20 distinct matched pairs; A/B each20/20 standing/envelope/impact/admissible",
+    "FINAL_CONTROLLER_RELOAD_AND_ROS": "PASS: strict new-process loading; fresh install; same-bundle real ROS success and failure paths",
+    "DELIVERY_AND_PUBLICATION": "VALIDATED_FOR_NORMAL_PUBLICATION; see containing commit and remote"
+  },
+  "new_controller": {
+    "schema": "x2-controller-ppo-v1",
+    "version": "targets-v6",
+    "training_run": "training-run",
+    "full_control": "final_control_config.json",
+    "control_file_sha256": "2cd00bcaa8f3c4a0a7066aef282aff87defe17286a428ddbe119c679b32f475f",
+    "checkpoint_sha256": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+    "resolved_config_sha256": "6973248b351408dcad0d48ad54c0ee3187760ed3e9c3ca50d045202e4878db73",
+    "core_source_sha256": {
+      "env.py": "c4a5bc96dd7a26bcfec73c648a63ab476c65bdde4543fca0fb92f037fb041da0",
+      "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+    },
+    "observation_shape": [
+      149
+    ],
+    "action_shape": [
+      17
+    ],
+    "actuators": 31,
+    "initialization": "fresh actor/critic/log_std/Adam, no migration or historical rollout reuse",
+    "reference_component": "revised coordinated prefix and stance; waist target pulse -0.04rad, start3.05s/peak3.25s/end3.45s",
+    "analytical_feedback": "torso sagittal PD to equal ankle pitch, kp.3 kd.03 cap.08rad,3.5s start/.2s ramp, current149D observable state, memoryless",
+    "PPO_permissions": "four ankle pitch/roll outputs <=.002rad,5.5s start/.2s ramp; other physical residual scales0",
+    "reward": "reference-balance-density10-v1",
+    "fixed_physics_and_success": "native X2RecoveryEnv prefix unchanged; model/reset/success/PD/bounds/20s horizon unchanged"
+  },
+  "training": {
+    "sampled_transitions": 4096,
+    "completed_rollout_count": 8,
+    "optimizer_steps": 174,
+    "sb3_n_updates": 25,
+    "partial_rollout_transitions": 0,
+    "parameter_changes": {
+      "actor_mean": {
+        "l2": 0.1597006087701177,
+        "max_abs": 0.004046492278575897
+      },
+      "critic": {
+        "l2": 2.1484145824615646,
+        "max_abs": 0.023404598236083984
+      },
+      "log_std": {
+        "l2": 0.007947619665213268,
+        "max_abs": 0.005559206008911133
+      }
+    }
+  },
+  "training_timing": {
+    "construction_seconds": 2.912682500998926,
+    "learn_seconds": 33.68257809900024,
+    "save_seconds": 0.004771582996909274,
+    "total_seconds": 37.0823791010007,
+    "plot_seconds": 0.14929325000048266
+  },
+  "nominal": {
+    "standing": true,
+    "envelope": true,
+    "impact": true,
+    "admissible": true,
+    "sim_duration_s": 6.616000000000924,
+    "continuous_hold_s": 2.000000000000421,
+    "recovery_metrics": {
+      "samples": 6616,
+      "sampled_duration_s": 6.6160000000000005,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": 0.0009999999999998899,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 3.8310997218389478,
+      "max_actuation_limit_ratio": 1.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.003367092986079424,
+          "geom_ids": [
+            0,
+            20
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "left_ankle_roll_link"
+          ],
+          "elapsed_s": 2.4539999999997812
+        },
+        "self": {
+          "depth_m": 0.0016629421521072204,
+          "geom_ids": [
+            2,
+            30
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "pelvis",
+            "right_hip_roll_link"
+          ],
+          "elapsed_s": 1.880999999999793
+        },
+        "peak_ground_vertical_N": 829.0844267515906,
+        "peak_ground_vertical_bodyweights": 2.0138507402510997,
+        "peak_ground_elapsed_s": 2.0229999999997776,
+        "peak_ground_sum_norm_N": 1134.171024846482,
+        "largest_ground_contact_N": 508.9418535083302
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.003367092986079424,
+          "geom_ids": [
+            0,
+            20
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "left_ankle_roll_link"
+          ],
+          "elapsed_s": 2.4539999999997812
+        },
+        "self": {
+          "depth_m": 0.0016629421521072204,
+          "geom_ids": [
+            2,
+            30
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "pelvis",
+            "right_hip_roll_link"
+          ],
+          "elapsed_s": 1.880999999999793
+        },
+        "peak_ground_vertical_N": 828.772011539575,
+        "peak_ground_vertical_bodyweights": 2.0130918819422443,
+        "peak_ground_elapsed_s": 2.0229999999997776,
+        "peak_ground_sum_norm_N": 1124.3152378580926,
+        "largest_ground_contact_N": 511.49576950638317
+      }
+    },
+    "standing_margins": {
+      "height_m": 0.009098168261961415,
+      "tilt_deg": 8.87332616561578,
+      "left_support_bodyweights": 0.4132355762399121,
+      "right_support_bodyweights": 0.432048895966717,
+      "feet_lower_bodyweights": 0.1899658675321645,
+      "feet_upper_bodyweights": 0.1951005420987828,
+      "other_weight": 1e-05,
+      "base_linear_m_s": 0.04600338618385744,
+      "com_linear_m_s": 0.033847077602549,
+      "base_angular_rad_s": 0.13381455239504744,
+      "torso_angular_rad_s": 0.06147468659382513,
+      "joint_rad_s": 0.004860274358417627,
+      "joint_limit_rad": 0.0001,
+      "floor_penetration_m": 4.606444900837406e-05,
+      "self_penetration_m": 0.0001,
+      "support_gap_m": 2e-06,
+      "pelvis_drift_m": 0.005856683095361533,
+      "left_drift_m": 0.027742020063423845,
+      "right_drift_m": 0.022440143430845057
+    },
+    "joint_constraints": "trained-policy-diagnostic/joint_constraints.csv",
+    "full_trace": "trained-policy-diagnostic/physical_trace.npz"
+  },
+  "fixed_five": {
+    "status": "COMPLETE",
+    "planned": 5,
+    "completed": 5,
+    "standing": 5,
+    "envelope": 5,
+    "impact": 5,
+    "admissible": 5,
+    "evaluator_status": "COMPLETE",
+    "scope": "Recovery only; reset settling retained separately. Admissible = original standing AND envelope AND all five integration-contact/speed comparisons. Raw evaluator success is unchanged.",
+    "runner_sha256": "8b36d25956d81b4e4edb617c70634843e79f068200a5d7b69c388e52e3abcd15"
+  },
+  "held_out": {
+    "status": "COMPLETE",
+    "planned_pairs": 20,
+    "valid_pairs": 20,
+    "invalid_or_blocked_pairs": 0,
+    "controllers": {
+      "A_reference": {
+        "completed": 20,
+        "standing": 20,
+        "envelope": 20,
+        "impact": 20,
+        "admissible": 20
+      },
+      "B_residual": {
+        "completed": 20,
+        "standing": 20,
+        "envelope": 20,
+        "impact": 20,
+        "admissible": 20
+      }
+    },
+    "pair_outcomes": {
+      "A_win": 0,
+      "B_win": 0,
+      "tie": 20
+    },
+    "both_success_pairs": 20,
+    "B_minus_A_success_time_s": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "runner_sha256": "8b36d25956d81b4e4edb617c70634843e79f068200a5d7b69c388e52e3abcd15",
+    "existing_pair_runner_sha256": "4b08ef789b143086fdb522eea1fd075e2abd8a35bda5f2cdd5cbbd494a4d82cf",
+    "protocol_sha256": "f3e60db53e7f80cafc9038f8b169395218b95f3e7b8e06f466fd7f29728d4a98",
+    "scope": "Requirement pass follows the preregistered manifest exactly:20 valid pairs, all40 envelope passes, and at least16 B original standing successes. Impact and admissible counts are separate quality dimensions. All20 reset-only selections precede A/B outcomes; no replacement. New CSV admissible = standing AND envelope with31 declared velocities AND five integration-impact comparisons. Individual raw diagnostic summaries retain their older standing+envelope admissible definition; this summary and CSV explicitly add impact.",
+    "requirement_pass": true,
+    "all_40_impact_pass": true,
+    "B_admissible_at_least_16": true
+  },
+  "held_out_metrics": "held-out-paired/metrics_summary.json",
+  "ROS": {
+    "status": "PASS",
+    "policy_checks": 142,
+    "baseline_checks": 92,
+    "scope": "new-controller real ROS deployment; checks overlap and are not episode counts",
+    "evidence": "ros-acceptance/summary.json"
+  },
+  "validation": {
+    "regression_tests": 236,
+    "regression_seconds": 87.262,
+    "build_exit": 0,
+    "reproduce_check": "PASS, no reset/step/train",
+    "reproduce_run": "PASS, copied writable inputs; one real success6.616s",
+    "source_identity": "validation/source-identity.json",
+    "commands": "validation/commands.json",
+    "environment": "validation/environment.json",
+    "old_v5_compatibility": "Use f542ec6414ae1366bc17868c0f43de80c580c8fc source in separate process; README archive/load command tested with saved action max error0. New source deliberately rejects old identity.",
+    "readme": "validation/readme.json"
+  },
+  "historical_preservation": {
+    "existing_result_files": 851,
+    "all_unchanged": true,
+    "old_checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+    "native_environment_prefix_byte_identical": true,
+    "old_manifests_updated": false
+  },
+  "search": "search_summary.json and candidate_results.csv preserve calibrated, failed and selected development trials; repeated nominal runs are not independent states.",
+  "limits": [
+    "Finite fixed and +/-0.002rad reset range only, no hardware certification or broader pose guarantee.",
+    "A and B both20/20 with equal recovery time: no PPO success-rate or speed advantage shown.",
+    "Observed nonzero residual changes state; this is not PPO independently learning the recovery.",
+    "Motor saturation, soft-contact penetration and transient zero-load samples remain. Global ground-load peak is not an isolated foot-landing force.",
+    "Final standing joint-speed and floor-depth margins are limited; 1kHz extrema are sampled, not continuous mathematical bounds.",
+    "System ROS, verified .venv and external pinned model reused; not a fresh OS installation."
+  ],
+  "search_archives": "validation/search-archives.json:58 plans/journals, verified byte-identical gzip; local raw files retained, no old artifact changed",
+  "contact_transition_comparison": "contact_transition_comparison.json; same integration-force definition and event-window rules; separate geometry/post-forward labels"
+}

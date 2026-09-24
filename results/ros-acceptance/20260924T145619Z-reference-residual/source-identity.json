@@ -1,0 +1,80 @@
+{
+  "start_head": "f542ec6414ae1366bc17868c0f43de80c580c8fc",
+  "end_head": "f542ec6414ae1366bc17868c0f43de80c580c8fc",
+  "branch": "main",
+  "changed_files": {
+    "README.md": {
+      "before_sha256": "3d655f47b94556a5e3b34b8281f73481450a6978e6cd93560b80e7a494c31a5f",
+      "after_sha256": "8ea4dce05e40ddd069e0adcd4649dc5be949d8a49ea4a6a1dbc1b73d4f8b1f79"
+    },
+    "src/x2_recovery/launch/recovery.launch.py": {
+      "before_sha256": "df28e45daf0194ed62db7bc54b9a7eea5c75843e464921f9ffeac9a2e599a634",
+      "after_sha256": "b915912185c7df75dc0521fb2fad2c19fb150500079fe6faf680bbb0cf0757f4"
+    },
+    "src/x2_recovery/test/test_ros_integration.py": {
+      "before_sha256": "3a6e0060795877e1911168090d9514a87224c65697ea6735b7b1230be0b8997a",
+      "after_sha256": "7915b1097ae73d8b6d69c66ab18a4b3bbcf2be0c09fb715f2aa31f451b9574a7"
+    },
+    "src/x2_recovery/test/test_ros_nodes.py": {
+      "before_sha256": "2d2169c6620662d621072935c633945da3aec58f67313b703dbc3ab7e1149e5c",
+      "after_sha256": "b51630c743063660a8ff014fe47992b420140910bef7e62903ecd53b3309a357"
+    },
+    "src/x2_recovery/x2_recovery/recovery_node.py": {
+      "before_sha256": "a2d4aa5cf23bae1d17634b14de19691fa7af9953f255c2f5df518ff4f2b94dd7",
+      "after_sha256": "801343ce065b34ef539eca45d85e8405facbae3c860c53e72600db1a2175fd9f"
+    }
+  },
+  "patch": {
+    "path": "working-tree.patch",
+    "sha256": "92dcdb8293b546e4c9d8af0b73370c05660e45dedcfa20b4b8be921948a70a06"
+  },
+  "protected_core_sha256": {
+    "src/x2_recovery/x2_recovery/__init__.py": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+    "src/x2_recovery/x2_recovery/baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249",
+    "src/x2_recovery/x2_recovery/constraint_audit.py": "1fb81ff48deb366c2ca1b8adf6126eb7a8de78519db6212ceceae9cb1df1f86d",
+    "src/x2_recovery/x2_recovery/diagnostics.py": "d7eb0171831845cbf04d1da4e3fc56d561f33cd1b9348cd57cb95f0c524bff33",
+    "src/x2_recovery/x2_recovery/env.py": "da77cecf0ae5557c239f377391af81d8ede4e551746387c80c1cecb041649fb7",
+    "src/x2_recovery/x2_recovery/evaluate.py": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+    "src/x2_recovery/x2_recovery/model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "src/x2_recovery/x2_recovery/model_audit.py": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+    "src/x2_recovery/x2_recovery/motion_search.py": "e031f360ff98d7ce1cd24504b5459b9d20bcd4fcf74b00212ca47414b3ecbc56",
+    "src/x2_recovery/x2_recovery/reproduce.py": "7df55e684abb53203fe031ef00c77ebce36bc49e0bf86eb43711749c34ede230",
+    "src/x2_recovery/x2_recovery/reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "src/x2_recovery/x2_recovery/simulation_validation.py": "bd302c8af9ec07121e432ad2181678f77851761c94176dd37d54df04c48af704",
+    "src/x2_recovery/x2_recovery/success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "src/x2_recovery/x2_recovery/success_validation.py": "dbcca3c25bcacf823c05f19991d657419319da54012b7a7dc4f114498a60be09",
+    "src/x2_recovery/x2_recovery/telemetry_node.py": "baea1de5052b23ee505090f304a9e8bb8bc748a528abfcc2386d975294e51975",
+    "src/x2_recovery/x2_recovery/train.py": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118"
+  },
+  "input_before_sha256": {
+    "policy_final.zip": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+    "resolved_config.json": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+    "manifest.json": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac",
+    "reload_probe.npz": "f98f58d40e089e075b8174d86ebbfff338882c1968fa97edc75261ae17db474b",
+    "progress.csv": "edb6073778eb32da1ca87130740517ba77fee6c10e499a2534f3706482ce94d5",
+    "reload_validation.json": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175"
+  },
+  "input_after_sha256": {
+    "policy_final.zip": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+    "resolved_config.json": "5fd1fd457494bed71c4c9632e433c3ce1aa1fc7753b5983d3334795f4a740645",
+    "manifest.json": "11d6ef629065fb787c2a32cb73602892adaa0336ade2adcfe88dc7250f1054ac",
+    "reload_probe.npz": "f98f58d40e089e075b8174d86ebbfff338882c1968fa97edc75261ae17db474b",
+    "progress.csv": "edb6073778eb32da1ca87130740517ba77fee6c10e499a2534f3706482ce94d5",
+    "reload_validation.json": "67c925d646156d2a41250fac668674983e123a96db7298904a79f71fd6218175"
+  },
+  "all_other_starting_tracked_files_byte_unchanged": true,
+  "protected_tracked_files": 796,
+  "sorted_protected_path_hash_mapping_sha256": "0b469b6c3d0c7f8f4f6683bd4cf42c4a0047b8ba353cd7184a868fb9573c741d",
+  "historical_results_files": 763,
+  "historical_results_changes": [],
+  "sorted_historical_path_hash_mapping_sha256": "42b9b9ef9e451a898b8fe3deafb119f68839bc1746c0e82f1e80efdec074dc46",
+  "model": {
+    "path": "/home/lang/.cache/hrs-x2-recovery/agibot_x2_urdf",
+    "commit": "60c5de582c523cd188f563819e62d34cfdc3d2d0",
+    "relevant_git_status": "",
+    "pinned_model_and_asset_checks": "PASS via unmodified prepare/model loader"
+  },
+  "staged_files": [],
+  "commit_created": false,
+  "push_executed": false
+}

@@ -1,0 +1,26 @@
+{
+  "protocol": {
+    "seeds": [
+      26092550,
+      26092551,
+      26092552,
+      26092553,
+      26092554
+    ],
+    "required_standing": 5,
+    "required_envelope": 5,
+    "required_admissible": 5
+  },
+  "comparison": {
+    "peak_ground_vertical_N": 1626.681419263664,
+    "peak_ground_sum_norm_N": 1845.4477378972624,
+    "floor_penetration_m": 0.00904692154437733,
+    "self_penetration_m": 0.0031814764288165204,
+    "max_joint_speed_rad_s": 8.347143742429603
+  },
+  "protocol_path": "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/manifest.json",
+  "protocol_sha256": "f3e60db53e7f80cafc9038f8b169395218b95f3e7b8e06f466fd7f29728d4a98",
+  "runner_sha256": "8b36d25956d81b4e4edb617c70634843e79f068200a5d7b69c388e52e3abcd15",
+  "model_loaded_by": "unchanged evaluate.prepare",
+  "measurement": "StreamingConstraintObserver: post-integration q/dq; integration-solve forces/contacts; reset/recovery separate; no extra step/forward."
+}

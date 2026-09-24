@@ -1,0 +1,94 @@
+{
+  "schema": "standing-window-timing-v1",
+  "source_trace_sha256": "d3670f9c81a453ec130a52fe67d2c272412ad1473bc7354e1954ec6a6f5c3c37",
+  "no_new_physics": true,
+  "original_standing_thresholds_unchanged": true,
+  "qualified_intervals": [
+    {
+      "first_elapsed_s": 4.600000000000498,
+      "last_elapsed_s": 4.600000000000498,
+      "max_recorded_hold_s": 0.0
+    },
+    {
+      "first_elapsed_s": 4.616000000000503,
+      "last_elapsed_s": 5.088000000000661,
+      "max_recorded_hold_s": 0.4720000000001576
+    },
+    {
+      "first_elapsed_s": 5.419000000000771,
+      "last_elapsed_s": 7.419000000000479,
+      "max_recorded_hold_s": 1.9999999999997078
+    }
+  ],
+  "entry_samples": [
+    {
+      "elapsed_s": 5.417000000000771,
+      "floor_penetration_m": 0.0010004419348613276,
+      "hold_s": 0.0,
+      "qualified": false
+    },
+    {
+      "elapsed_s": 5.418000000000771,
+      "floor_penetration_m": 0.0010001979620937974,
+      "hold_s": 0.0,
+      "qualified": false
+    },
+    {
+      "elapsed_s": 5.419000000000771,
+      "floor_penetration_m": 0.0009999553423825592,
+      "hold_s": 0.0,
+      "qualified": true
+    },
+    {
+      "elapsed_s": 5.420000000000772,
+      "floor_penetration_m": 0.0009997141206002187,
+      "hold_s": 0.001000000000000334,
+      "qualified": true
+    }
+  ],
+  "partitions": [
+    {
+      "label": "first_half",
+      "start_elapsed_s": 5.419000000000479,
+      "end_elapsed_s": 6.419000000000479,
+      "floor_max_m": 0.0009999553423825592,
+      "floor_minimum_margin_m": 4.465761744079644e-08,
+      "max_com_speed_m_s": 0.06819525346911577,
+      "max_base_speed_m_s": 0.05596682166004623,
+      "max_drift_pelvis_left_right_m": [
+        0.0450895152339489,
+        0.0011002379643693645,
+        0.006400941557552176
+      ]
+    },
+    {
+      "label": "second_half",
+      "start_elapsed_s": 6.419000000000479,
+      "end_elapsed_s": 7.419000000000479,
+      "floor_max_m": 0.0006274737456231179,
+      "floor_minimum_margin_m": 0.00037252625437688217,
+      "max_com_speed_m_s": 0.03621847014036268,
+      "max_base_speed_m_s": 0.029563531544693326,
+      "max_drift_pelvis_left_right_m": [
+        0.04808252804962644,
+        0.0014873556755548832,
+        0.006652927025096984
+      ]
+    },
+    {
+      "label": "final_sample",
+      "start_elapsed_s": 7.419000000000479,
+      "end_elapsed_s": 7.419000000000479,
+      "floor_max_m": 0.0006274737456231179,
+      "floor_minimum_margin_m": 0.00037252625437688217,
+      "max_com_speed_m_s": 0.016330419928702378,
+      "max_base_speed_m_s": 0.01246478144333407,
+      "max_drift_pelvis_left_right_m": [
+        0.04808252804962644,
+        0.0014873556755548832,
+        0.006652927025096984
+      ]
+    }
+  ],
+  "conclusion": "The44.66nm minimum floor margin is the first qualified sample crossing below1mm at the start of the final2s window; it is not evidence of progressive deterioration or persistent near-threshold penetration. Second-half minimum margin is0.372526mm and velocities decline. Maximum cumulative pelvis drift48.083mm still lies relatively close to its50mm window limit. No claim of broad robustness follows from one fixed episode."
+}

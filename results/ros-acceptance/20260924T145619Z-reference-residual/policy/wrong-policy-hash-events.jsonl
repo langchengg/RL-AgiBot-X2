@@ -1,0 +1,9 @@
+{"event": "prepare_begin", "monotonic_s": 6209.048762793, "count": 1}
+{"event": "prepare_end", "monotonic_s": 6209.802851044, "count": 1, "success": false, "error": "ValueError"}
+{"event": "node_event", "monotonic_s": 6209.802917461, "name": "initialization_failed", "episode": 0, "fields": {"controller_ready": false, "requested_controller": "reference_residual", "loaded_controller": null, "controller_run": "/home/lang/RL-AgiBot-X2/results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run", "error": {"type": "ValueError", "message": "Checkpoint identity mismatch"}, "executable": "/home/lang/RL-AgiBot-X2/.venv/bin/python", "module": "/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery/x2_recovery/recovery_node.py"}}
+{"event": "constructed", "monotonic_s": 6209.803805252, "controller": "reference_residual", "controller_ready": false, "initialization_error": {"type": "ValueError", "message": "Checkpoint identity mismatch"}, "status": "FAILED", "loaded_controller": null, "has_environment": false, "has_timer": false, "prepare_count": 1}
+{"event": "node_event", "monotonic_s": 6209.804157461, "name": "rejected", "episode": 0, "fields": {"status": "FAILED", "reason": "controller_unavailable", "callback_body_s": 3.957999979320448e-06}}
+{"event": "callback_return", "monotonic_s": 6209.804443794, "success": false, "duration_s": 0.0002930410000772099, "episode": 0, "before": {"episode": 0, "reset_count": 0, "control_steps": 0, "busy": false, "pending": false, "environment_id": 10708888}, "after": {"episode": 0, "reset_count": 0, "control_steps": 0, "busy": false, "pending": false, "environment_id": 10708888}}
+{"event": "send_begin", "monotonic_s": 6209.804469794, "success": false, "episode": 0}
+{"event": "send_end", "monotonic_s": 6209.804529419, "success": false, "episode": 0}
+{"event": "node_event", "monotonic_s": 6209.983754336, "name": "closed", "episode": 0, "fields": {}}

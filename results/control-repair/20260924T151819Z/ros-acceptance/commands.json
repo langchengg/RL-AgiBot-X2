@@ -1,0 +1,62 @@
+{
+  "policy": {
+    "cwd": "/tmp",
+    "source": [
+      "/opt/ros/jazzy/setup.bash",
+      "/tmp/x2-repair-20260924T151819Z/v6-fresh/install/setup.bash"
+    ],
+    "cleared_overlay_variables": [
+      "PYTHONPATH",
+      "AMENT_PREFIX_PATH",
+      "CMAKE_PREFIX_PATH",
+      "COLCON_PREFIX_PATH"
+    ],
+    "environment": {
+      "ROS_DOMAIN_ID": "91",
+      "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+      "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+      "PYTHONNOUSERSITE": "1",
+      "X2_ASSET_REPO": "/home/lang/.cache/hrs-x2-recovery/agibot_x2_urdf"
+    },
+    "argv": [
+      "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+      "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/test/test_ros_integration.py",
+      "--output-dir",
+      "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/ros-acceptance/policy",
+      "--controller-run",
+      "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/training-run",
+      "--expected-checkpoint-sha256",
+      "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+      "--reference-trace",
+      "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/ros-acceptance/standalone-reference.npz"
+    ],
+    "console": "policy-console.log"
+  },
+  "baseline": {
+    "cwd": "/tmp",
+    "source": [
+      "/opt/ros/jazzy/setup.bash",
+      "/tmp/x2-repair-20260924T151819Z/v6-fresh/install/setup.bash"
+    ],
+    "cleared_overlay_variables": [
+      "PYTHONPATH",
+      "AMENT_PREFIX_PATH",
+      "CMAKE_PREFIX_PATH",
+      "COLCON_PREFIX_PATH"
+    ],
+    "environment": {
+      "ROS_DOMAIN_ID": "92",
+      "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+      "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+      "PYTHONNOUSERSITE": "1",
+      "X2_ASSET_REPO": "/home/lang/.cache/hrs-x2-recovery/agibot_x2_urdf"
+    },
+    "argv": [
+      "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+      "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/test/test_ros_integration.py",
+      "--output-dir",
+      "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/ros-acceptance/baseline"
+    ],
+    "console": "baseline-console.log"
+  }
+}

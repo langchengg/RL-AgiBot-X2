@@ -1,0 +1,1624 @@
+{
+  "schema": "control-repair-search-snapshot-v1",
+  "captured_utc": "2026-09-24T20:26:30.902042+00:00",
+  "scope": "Search/development snapshot only, before final training/evaluation/ROS completion; not a final delivery summary.",
+  "csv": {
+    "path": "candidate_results.csv",
+    "sha256": "d611ca08072b1f29dd1a56c82cf8cbf492d97f6eb88c791aa00ba782ec38d543",
+    "rows": 1157
+  },
+  "counts": {
+    "executions": 1157,
+    "complete_physical": 1157,
+    "standing": 71,
+    "envelope": 312,
+    "impact": 67,
+    "feasible": 30,
+    "failed_or_incomplete": 1086,
+    "roles": {
+      "calibration_or_replay": 21,
+      "candidate": 1121,
+      "development_perturbation": 12,
+      "development_nominal_replay": 3
+    },
+    "statuses": {
+      "COMPLETE": 1156,
+      "RECOVERED_RECORDING_ERROR": 1
+    }
+  },
+  "by_batch": {
+    "calibration": {
+      "executions": 1,
+      "complete_physical": 1,
+      "standing": 1,
+      "envelope": 0,
+      "impact": 1,
+      "feasible": 0,
+      "failed_or_incomplete": 0,
+      "roles": {
+        "calibration_or_replay": 1
+      },
+      "statuses": {
+        "COMPLETE": 1
+      }
+    },
+    "generation-00": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-01": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 12,
+      "envelope": 0,
+      "impact": 8,
+      "feasible": 0,
+      "failed_or_incomplete": 20,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-02": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 1,
+      "envelope": 0,
+      "impact": 2,
+      "feasible": 0,
+      "failed_or_incomplete": 31,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-03": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 2,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 30,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-04": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 1,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-05": {
+      "executions": 18,
+      "complete_physical": 18,
+      "standing": 2,
+      "envelope": 0,
+      "impact": 2,
+      "feasible": 0,
+      "failed_or_incomplete": 16,
+      "roles": {
+        "candidate": 18
+      },
+      "statuses": {
+        "COMPLETE": 18
+      }
+    },
+    "generation-06": {
+      "executions": 16,
+      "complete_physical": 16,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 16,
+      "roles": {
+        "candidate": 16
+      },
+      "statuses": {
+        "COMPLETE": 16
+      }
+    },
+    "generation-07": {
+      "executions": 16,
+      "complete_physical": 16,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 16,
+      "roles": {
+        "candidate": 16
+      },
+      "statuses": {
+        "COMPLETE": 16
+      }
+    },
+    "generation-08": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-09": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-10": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-11": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-12": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-13": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 2,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-14": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-15": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-16": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-17": {
+      "executions": 4,
+      "complete_physical": 4,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 4,
+      "roles": {
+        "candidate": 4
+      },
+      "statuses": {
+        "COMPLETE": 4
+      }
+    },
+    "generation-18": {
+      "executions": 8,
+      "complete_physical": 8,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 8,
+      "roles": {
+        "candidate": 8
+      },
+      "statuses": {
+        "COMPLETE": 8
+      }
+    },
+    "generation-19": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 4,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-20": {
+      "executions": 30,
+      "complete_physical": 30,
+      "standing": 0,
+      "envelope": 7,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 30,
+      "roles": {
+        "candidate": 30
+      },
+      "statuses": {
+        "COMPLETE": 30
+      }
+    },
+    "generation-21": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-22": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 15,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-23": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 32,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-24": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 32,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-25": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-26": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 2,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-27": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 29,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-28": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 2,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-30": {
+      "executions": 32,
+      "complete_physical": 32,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 32,
+      "roles": {
+        "candidate": 32
+      },
+      "statuses": {
+        "COMPLETE": 32
+      }
+    },
+    "generation-31": {
+      "executions": 24,
+      "complete_physical": 24,
+      "standing": 0,
+      "envelope": 24,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 24,
+      "roles": {
+        "candidate": 24
+      },
+      "statuses": {
+        "COMPLETE": 24
+      }
+    },
+    "generation-32": {
+      "executions": 6,
+      "complete_physical": 6,
+      "standing": 0,
+      "envelope": 0,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 6,
+      "roles": {
+        "candidate": 6
+      },
+      "statuses": {
+        "COMPLETE": 6
+      }
+    },
+    "generation-32-calibration": {
+      "executions": 1,
+      "complete_physical": 1,
+      "standing": 0,
+      "envelope": 1,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 1,
+      "roles": {
+        "calibration_or_replay": 1
+      },
+      "statuses": {
+        "COMPLETE": 1
+      }
+    },
+    "generation-33": {
+      "executions": 24,
+      "complete_physical": 24,
+      "standing": 0,
+      "envelope": 21,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 24,
+      "roles": {
+        "candidate": 24
+      },
+      "statuses": {
+        "COMPLETE": 24
+      }
+    },
+    "insertion-calibration": {
+      "executions": 1,
+      "complete_physical": 1,
+      "standing": 0,
+      "envelope": 1,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 1,
+      "roles": {
+        "calibration_or_replay": 1
+      },
+      "statuses": {
+        "COMPLETE": 1
+      }
+    },
+    "tail-feedback": {
+      "executions": 24,
+      "complete_physical": 24,
+      "standing": 0,
+      "envelope": 12,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 24,
+      "roles": {
+        "calibration_or_replay": 2,
+        "candidate": 22
+      },
+      "statuses": {
+        "COMPLETE": 24
+      }
+    },
+    "tail-feedback-authority": {
+      "executions": 26,
+      "complete_physical": 26,
+      "standing": 0,
+      "envelope": 12,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 26,
+      "roles": {
+        "calibration_or_replay": 2,
+        "candidate": 24
+      },
+      "statuses": {
+        "COMPLETE": 26
+      }
+    },
+    "tail-feedback-bias": {
+      "executions": 21,
+      "complete_physical": 21,
+      "standing": 0,
+      "envelope": 15,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 21,
+      "roles": {
+        "calibration_or_replay": 1,
+        "candidate": 20
+      },
+      "statuses": {
+        "COMPLETE": 21
+      }
+    },
+    "tail-feedback-bias-local": {
+      "executions": 21,
+      "complete_physical": 21,
+      "standing": 0,
+      "envelope": 11,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 21,
+      "roles": {
+        "calibration_or_replay": 1,
+        "candidate": 20
+      },
+      "statuses": {
+        "COMPLETE": 21
+      }
+    },
+    "tail-feedback-fine-pd": {
+      "executions": 25,
+      "complete_physical": 25,
+      "standing": 0,
+      "envelope": 13,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 25,
+      "roles": {
+        "calibration_or_replay": 1,
+        "candidate": 24
+      },
+      "statuses": {
+        "COMPLETE": 25
+      }
+    },
+    "tail-feedback-g33-ik": {
+      "executions": 30,
+      "complete_physical": 30,
+      "standing": 1,
+      "envelope": 23,
+      "impact": 1,
+      "feasible": 1,
+      "failed_or_incomplete": 29,
+      "roles": {
+        "calibration_or_replay": 3,
+        "candidate": 27
+      },
+      "statuses": {
+        "COMPLETE": 30
+      }
+    },
+    "tail-feedback-next": {
+      "executions": 24,
+      "complete_physical": 24,
+      "standing": 0,
+      "envelope": 16,
+      "impact": 0,
+      "feasible": 0,
+      "failed_or_incomplete": 24,
+      "roles": {
+        "calibration_or_replay": 2,
+        "candidate": 22
+      },
+      "statuses": {
+        "COMPLETE": 24
+      }
+    },
+    "waist-negative": {
+      "executions": 27,
+      "complete_physical": 27,
+      "standing": 26,
+      "envelope": 15,
+      "impact": 26,
+      "feasible": 14,
+      "failed_or_incomplete": 1,
+      "roles": {
+        "calibration_or_replay": 3,
+        "candidate": 24
+      },
+      "statuses": {
+        "COMPLETE": 27
+      }
+    },
+    "waist-prebrake": {
+      "executions": 27,
+      "complete_physical": 27,
+      "standing": 13,
+      "envelope": 10,
+      "impact": 13,
+      "feasible": 3,
+      "failed_or_incomplete": 14,
+      "roles": {
+        "calibration_or_replay": 3,
+        "candidate": 24
+      },
+      "statuses": {
+        "COMPLETE": 27
+      }
+    },
+    "development-feedback-check/perturbation-followup": {
+      "executions": 4,
+      "complete_physical": 4,
+      "standing": 3,
+      "envelope": 2,
+      "impact": 3,
+      "feasible": 2,
+      "failed_or_incomplete": 1,
+      "roles": {
+        "development_perturbation": 4
+      },
+      "statuses": {
+        "COMPLETE": 4
+      }
+    },
+    "development-feedback-check": {
+      "executions": 1,
+      "complete_physical": 1,
+      "standing": 1,
+      "envelope": 1,
+      "impact": 1,
+      "feasible": 1,
+      "failed_or_incomplete": 0,
+      "roles": {
+        "development_nominal_replay": 1
+      },
+      "statuses": {
+        "RECOVERED_RECORDING_ERROR": 1
+      }
+    },
+    "development-negative23": {
+      "executions": 5,
+      "complete_physical": 5,
+      "standing": 5,
+      "envelope": 5,
+      "impact": 5,
+      "feasible": 5,
+      "failed_or_incomplete": 0,
+      "roles": {
+        "development_nominal_replay": 1,
+        "development_perturbation": 4
+      },
+      "statuses": {
+        "COMPLETE": 5
+      }
+    },
+    "development-prebrake18": {
+      "executions": 5,
+      "complete_physical": 5,
+      "standing": 4,
+      "envelope": 5,
+      "impact": 4,
+      "feasible": 4,
+      "failed_or_incomplete": 1,
+      "roles": {
+        "development_nominal_replay": 1,
+        "development_perturbation": 4
+      },
+      "statuses": {
+        "COMPLETE": 5
+      }
+    }
+  },
+  "independence": {
+    "statement": "Rows count actual executions, not independent initial states. Repeated calibration, same-seed searches, nominal replays and reuseddevelopmentseeds are explicitly labelled. No aggregate successfraction is a robustness estimate.",
+    "three_hash_repeated_groups": 27,
+    "additional_identical_trajectory_executions": 50,
+    "recorded_development_handoff_states": 5,
+    "development_checks": [
+      {
+        "batch": "development-feedback-check/perturbation-followup",
+        "status": "COMPLETE",
+        "journal_rows": 4,
+        "perturbed_valid": 4,
+        "perturbed_success": 3,
+        "perturbed_feasible": 2,
+        "inputs_unchanged": true,
+        "source_unchanged": true,
+        "nominal_hashes": null
+      },
+      {
+        "batch": "development-feedback-check",
+        "status": "FAILED",
+        "journal_rows": 0,
+        "perturbed_valid": 0,
+        "perturbed_success": 0,
+        "perturbed_feasible": 0,
+        "inputs_unchanged": true,
+        "source_unchanged": true,
+        "nominal_hashes": {
+          "physical_state_sha256": true,
+          "policy_action_sha256": true,
+          "actual_target_sha256": true
+        }
+      },
+      {
+        "batch": "development-negative23",
+        "status": "COMPLETE",
+        "journal_rows": 5,
+        "perturbed_valid": 4,
+        "perturbed_success": 4,
+        "perturbed_feasible": 4,
+        "inputs_unchanged": true,
+        "source_unchanged": true,
+        "nominal_hashes": {
+          "physical_state_sha256": true,
+          "policy_action_sha256": true,
+          "actual_target_sha256": true
+        }
+      },
+      {
+        "batch": "development-prebrake18",
+        "status": "COMPLETE",
+        "journal_rows": 5,
+        "perturbed_valid": 4,
+        "perturbed_success": 3,
+        "perturbed_feasible": 3,
+        "inputs_unchanged": true,
+        "source_unchanged": true,
+        "nominal_hashes": {
+          "physical_state_sha256": true,
+          "policy_action_sha256": true,
+          "actual_target_sha256": true
+        }
+      }
+    ]
+  },
+  "selected_candidate": {
+    "name": "negative-23-amp-0.04-start3.05",
+    "control_config_sha256": "605e9b49846546da4821ff06f22cc4fcf1133192187e4ede5b6ce705ca6dcd70",
+    "controller": "Modified reference plus observation-only analytical ankle feedback; no PPO inference/weighttransfer/training in these rows.",
+    "nominal_and_development_rows": [
+      {
+        "batch": "waist-negative",
+        "name": "negative-23-amp-0.04-start3.05",
+        "role": "candidate",
+        "status": "COMPLETE",
+        "seed": 221030,
+        "reset_seed": 1232936377,
+        "reset_perturb_rad": 0.0,
+        "controller": "experimental_IK_reference_torso_ankle_feedback",
+        "weight_transfer": false,
+        "training": false,
+        "ppo_control_inference": false,
+        "complete_episode": true,
+        "success": true,
+        "constraint_envelope_pass": true,
+        "impact_pass": true,
+        "feasible": true,
+        "reason": "success",
+        "sim_seconds": 6.616000000000924,
+        "max_stable_hold_s": 2.000000000000421,
+        "max_progress_quality": 0.9238926598417371,
+        "progress_integral_s": 2.6731797436533205,
+        "worst_joint": null,
+        "max_joint_excess_rad": 0.0,
+        "any_joint_above_zero_s": 0.0,
+        "any_joint_above_tolerance_s": 0.0,
+        "first_violation_s": null,
+        "max_joint_speed_rad_s": 3.8310997218389478,
+        "max_velocity_ratio": 0.38348692929422495,
+        "max_actuation_limit_ratio": 1.0,
+        "peak_ground_vertical_N": 829.0844267515906,
+        "peak_ground_sum_norm_N": 1134.171024846482,
+        "floor_penetration_m": 0.003367092986079424,
+        "self_penetration_m": 0.0016629421521072204,
+        "waist_lower_clearance_rad": 0.001896557005090671,
+        "waist_upper_clearance_rad": 0.0013041516179309598,
+        "waist_lower_excess_rad": 0.0,
+        "waist_upper_excess_rad": 0.0,
+        "waist_time_of_max_excess_s": 0.0,
+        "waist_above_tolerance_s": 0.0,
+        "waist_longest_excess_s": 0.0,
+        "physics_steps": 6616,
+        "control_sha256": "605e9b49846546da4821ff06f22cc4fcf1133192187e4ede5b6ce705ca6dcd70",
+        "physical_state_sha256": "5b62178b216eaf8311b0f5f95779506fd0031069a4001ae538a2e6df480b6ffa",
+        "actual_target_sha256": "906f1dffadd9045567d021ba6f33fba505bb99963d8dfcb483e26e11891a86e9",
+        "policy_action_sha256": "d2dad81fae98310a829abfaa77409e7e12ebcfe15c9fb323016b48c0c6922823",
+        "reset_handoff_sha256": null,
+        "source": "results/control-repair/20260924T151819Z/waist-negative/results.jsonl"
+      },
+      {
+        "batch": "development-negative23",
+        "name": "nominal-221030",
+        "role": "development_nominal_replay",
+        "status": "COMPLETE",
+        "seed": 221030,
+        "reset_seed": 1232936377,
+        "reset_perturb_rad": 0.0,
+        "controller": "reference_motion_plus_observation_only_analytical_ankle_feedback",
+        "weight_transfer": false,
+        "training": false,
+        "ppo_control_inference": false,
+        "complete_episode": true,
+        "success": true,
+        "constraint_envelope_pass": true,
+        "impact_pass": true,
+        "feasible": true,
+        "reason": "success",
+        "sim_seconds": 6.616000000000924,
+        "max_stable_hold_s": 2.000000000000421,
+        "max_progress_quality": 0.9238926598417371,
+        "progress_integral_s": 2.6731797436533205,
+        "worst_joint": null,
+        "max_joint_excess_rad": 0.0,
+        "any_joint_above_zero_s": 0.0,
+        "any_joint_above_tolerance_s": 0.0,
+        "first_violation_s": null,
+        "max_joint_speed_rad_s": 3.8310997218389478,
+        "max_velocity_ratio": 0.38348692929422495,
+        "max_actuation_limit_ratio": 1.0,
+        "peak_ground_vertical_N": 829.0844267515906,
+        "peak_ground_sum_norm_N": 1134.171024846482,
+        "floor_penetration_m": 0.003367092986079424,
+        "self_penetration_m": 0.0016629421521072204,
+        "waist_lower_clearance_rad": 0.001896557005090671,
+        "waist_upper_clearance_rad": 0.0013041516179309598,
+        "waist_lower_excess_rad": 0.0,
+        "waist_upper_excess_rad": 0.0,
+        "waist_time_of_max_excess_s": 0.0,
+        "waist_above_tolerance_s": 0.0,
+        "waist_longest_excess_s": 0.0,
+        "physics_steps": 6616,
+        "control_sha256": "605e9b49846546da4821ff06f22cc4fcf1133192187e4ede5b6ce705ca6dcd70",
+        "physical_state_sha256": "5b62178b216eaf8311b0f5f95779506fd0031069a4001ae538a2e6df480b6ffa",
+        "actual_target_sha256": "906f1dffadd9045567d021ba6f33fba505bb99963d8dfcb483e26e11891a86e9",
+        "policy_action_sha256": "d2dad81fae98310a829abfaa77409e7e12ebcfe15c9fb323016b48c0c6922823",
+        "reset_handoff_sha256": "3469c088bb4787053c0159e7f15804bab18d5bb5c9f74339b96844bc9c03c08b",
+        "source": "results/control-repair/20260924T151819Z/development-negative23/results.jsonl"
+      },
+      {
+        "batch": "development-negative23",
+        "name": "perturbed-26092400",
+        "role": "development_perturbation",
+        "status": "COMPLETE",
+        "seed": 26092400,
+        "reset_seed": 273144447,
+        "reset_perturb_rad": 0.002,
+        "controller": "reference_motion_plus_observation_only_analytical_ankle_feedback",
+        "weight_transfer": false,
+        "training": false,
+        "ppo_control_inference": false,
+        "complete_episode": true,
+        "success": true,
+        "constraint_envelope_pass": true,
+        "impact_pass": true,
+        "feasible": true,
+        "reason": "success",
+        "sim_seconds": 6.616000000000924,
+        "max_stable_hold_s": 2.000000000000422,
+        "max_progress_quality": 0.9244919939506259,
+        "progress_integral_s": 2.6745040745784467,
+        "worst_joint": null,
+        "max_joint_excess_rad": 0.0,
+        "any_joint_above_zero_s": 0.0,
+        "any_joint_above_tolerance_s": 0.0,
+        "first_violation_s": null,
+        "max_joint_speed_rad_s": 3.6534800387532065,
+        "max_velocity_ratio": 0.3858085843872331,
+        "max_actuation_limit_ratio": 1.0,
+        "peak_ground_vertical_N": 769.2063155552685,
+        "peak_ground_sum_norm_N": 985.4583625626797,
+        "floor_penetration_m": 0.003345971815720712,
+        "self_penetration_m": 0.0016656351806819338,
+        "waist_lower_clearance_rad": 0.0018868362815694373,
+        "waist_upper_clearance_rad": 0.001672337342397301,
+        "waist_lower_excess_rad": 0.0,
+        "waist_upper_excess_rad": 0.0,
+        "waist_time_of_max_excess_s": 0.0,
+        "waist_above_tolerance_s": 0.0,
+        "waist_longest_excess_s": 0.0,
+        "physics_steps": 6616,
+        "control_sha256": "605e9b49846546da4821ff06f22cc4fcf1133192187e4ede5b6ce705ca6dcd70",
+        "physical_state_sha256": "493557acdd2c24214a3c9aa6629b73e89c11a9358e4970eb9aa8a5fd89256311",
+        "actual_target_sha256": "4624f4f34d31b0d8440003372ed7e0f8debc9444e28602d155235f22c007722f",
+        "policy_action_sha256": "271fec61126d5f10fc615c1911fc38e3fc868726294dc3c0cce46c447cf25b4a",
+        "reset_handoff_sha256": "b2848fb2a8739af482da55d26aaa57b6f1baf3185c33b7a7f688acf8424c3837",
+        "source": "results/control-repair/20260924T151819Z/development-negative23/results.jsonl"
+      },
+      {
+        "batch": "development-negative23",
+        "name": "perturbed-26092405",
+        "role": "development_perturbation",
+        "status": "COMPLETE",
+        "seed": 26092405,
+        "reset_seed": 22297753,
+        "reset_perturb_rad": 0.002,
+        "controller": "reference_motion_plus_observation_only_analytical_ankle_feedback",
+        "weight_transfer": false,
+        "training": false,
+        "ppo_control_inference": false,
+        "complete_episode": true,
+        "success": true,
+        "constraint_envelope_pass": true,
+        "impact_pass": true,
+        "feasible": true,
+        "reason": "success",
+        "sim_seconds": 6.616000000000922,
+        "max_stable_hold_s": 2.0000000000004166,
+        "max_progress_quality": 0.924059396483591,
+        "progress_integral_s": 2.6708835458206255,
+        "worst_joint": null,
+        "max_joint_excess_rad": 0.0,
+        "any_joint_above_zero_s": 0.0,
+        "any_joint_above_tolerance_s": 0.0,
+        "first_violation_s": null,
+        "max_joint_speed_rad_s": 3.724403462748403,
+        "max_velocity_ratio": 0.38489677018100066,
+        "max_actuation_limit_ratio": 1.0,
+        "peak_ground_vertical_N": 823.9330971494155,
+        "peak_ground_sum_norm_N": 1126.7868348318473,
+        "floor_penetration_m": 0.00345230334920744,
+        "self_penetration_m": 0.0016641373627659085,
+        "waist_lower_clearance_rad": 0.0016195095434657913,
+        "waist_upper_clearance_rad": 0.0018291361874984147,
+        "waist_lower_excess_rad": 0.0,
+        "waist_upper_excess_rad": 0.0,
+        "waist_time_of_max_excess_s": 0.0,
+        "waist_above_tolerance_s": 0.0,
+        "waist_longest_excess_s": 0.0,
+        "physics_steps": 6616,
+        "control_sha256": "605e9b49846546da4821ff06f22cc4fcf1133192187e4ede5b6ce705ca6dcd70",
+        "physical_state_sha256": "0ea2e786152d3b42f38bf7eea002f8b42ba9ce8c4b93e07ad49b14e37f4688c4",
+        "actual_target_sha256": "edaf2f0a5a24f39641e85debe40f69d8753d81d1a055ac38b245e2fd163fb31d",
+        "policy_action_sha256": "1feed77a8085fca1d23fda2b4f1ef1c8d0988b92e75d62967b35e9ab07665f28",
+        "reset_handoff_sha256": "4c9031f841732686f5ae799d8f0592f2934ca19b3db789ad40eabed22686aab2",
+        "source": "results/control-repair/20260924T151819Z/development-negative23/results.jsonl"
+      },
+      {
+        "batch": "development-negative23",
+        "name": "perturbed-26092412",
+        "role": "development_perturbation",
+        "status": "COMPLETE",
+        "seed": 26092412,
+        "reset_seed": 1331356228,
+        "reset_perturb_rad": 0.002,
+        "controller": "reference_motion_plus_observation_only_analytical_ankle_feedback",
+        "weight_transfer": false,
+        "training": false,
+        "ppo_control_inference": false,
+        "complete_episode": true,
+        "success": true,
+        "constraint_envelope_pass": true,
+        "impact_pass": true,
+        "feasible": true,
+        "reason": "success",
+        "sim_seconds": 6.6160000000009305,
+        "max_stable_hold_s": 2.0000000000004334,
+        "max_progress_quality": 0.9231844589401577,
+        "progress_integral_s": 2.6742827534300364,
+        "worst_joint": null,
+        "max_joint_excess_rad": 0.0,
+        "any_joint_above_zero_s": 0.0,
+        "any_joint_above_tolerance_s": 0.0,
+        "first_violation_s": null,
+        "max_joint_speed_rad_s": 3.707036522717726,
+        "max_velocity_ratio": 0.3708965494854772,
+        "max_actuation_limit_ratio": 1.0,
+        "peak_ground_vertical_N": 827.8237473119475,
+        "peak_ground_sum_norm_N": 1130.9356025869545,
+        "floor_penetration_m": 0.0034467369463967957,
+        "self_penetration_m": 0.001661790907356044,
+        "waist_lower_clearance_rad": 0.0018871421295081348,
+        "waist_upper_clearance_rad": 0.001129924647563063,
+        "waist_lower_excess_rad": 0.0,
+        "waist_upper_excess_rad": 0.0,
+        "waist_time_of_max_excess_s": 0.0,
+        "waist_above_tolerance_s": 0.0,
+        "waist_longest_excess_s": 0.0,
+        "physics_steps": 6616,
+        "control_sha256": "605e9b49846546da4821ff06f22cc4fcf1133192187e4ede5b6ce705ca6dcd70",
+        "physical_state_sha256": "a7ec39016d997637b5ada4a984f1742475410df81240204616c31b08636caf27",
+        "actual_target_sha256": "1c1b3f52b8e6126cbdf524262dbb35b8eeec9d13e4824ef59724fdd7d06a46a1",
+        "policy_action_sha256": "6dd1c2a163d06ecc100b0960c5eb8fe137adcd022531901b5bd838dddc26c54c",
+        "reset_handoff_sha256": "608298bb9bec09c3dc557478664f056006f5246dc7ecb0d15f9f39b1500081b4",
+        "source": "results/control-repair/20260924T151819Z/development-negative23/results.jsonl"
+      },
+      {
+        "batch": "development-negative23",
+        "name": "perturbed-26092413",
+        "role": "development_perturbation",
+        "status": "COMPLETE",
+        "seed": 26092413,
+        "reset_seed": 242764517,
+        "reset_perturb_rad": 0.002,
+        "controller": "reference_motion_plus_observation_only_analytical_ankle_feedback",
+        "weight_transfer": false,
+        "training": false,
+        "ppo_control_inference": false,
+        "complete_episode": true,
+        "success": true,
+        "constraint_envelope_pass": true,
+        "impact_pass": true,
+        "feasible": true,
+        "reason": "success",
+        "sim_seconds": 6.616000000000929,
+        "max_stable_hold_s": 2.00000000000043,
+        "max_progress_quality": 0.9236491972259712,
+        "progress_integral_s": 2.6735714902873875,
+        "worst_joint": null,
+        "max_joint_excess_rad": 0.0,
+        "any_joint_above_zero_s": 0.0,
+        "any_joint_above_tolerance_s": 0.0,
+        "first_violation_s": null,
+        "max_joint_speed_rad_s": 3.600844119570805,
+        "max_velocity_ratio": 0.3732006814825004,
+        "max_actuation_limit_ratio": 1.0,
+        "peak_ground_vertical_N": 768.7906139824331,
+        "peak_ground_sum_norm_N": 986.9899247066319,
+        "floor_penetration_m": 0.0032533188415386867,
+        "self_penetration_m": 0.0016667192044514227,
+        "waist_lower_clearance_rad": 0.0019068544747642413,
+        "waist_upper_clearance_rad": 0.001316477098392499,
+        "waist_lower_excess_rad": 0.0,
+        "waist_upper_excess_rad": 0.0,
+        "waist_time_of_max_excess_s": 0.0,
+        "waist_above_tolerance_s": 0.0,
+        "waist_longest_excess_s": 0.0,
+        "physics_steps": 6616,
+        "control_sha256": "605e9b49846546da4821ff06f22cc4fcf1133192187e4ede5b6ce705ca6dcd70",
+        "physical_state_sha256": "f70747e9b6015d058c04b0fe52c75a31fa4401fdf637f835141bcbac36657b36",
+        "actual_target_sha256": "a7dc21571b7ec4965bf26e7a19f40508abacee6817579929b0911c7a9d0b7f4f",
+        "policy_action_sha256": "7798d57b425eca04fa017ef5e67296629c0b9a8db183c1811a79be1fbc216b96",
+        "reset_handoff_sha256": "a985584db11e22542b70fe7f30b752ce645e46b52fd5869ab59a25980f804011",
+        "source": "results/control-repair/20260924T151819Z/development-negative23/results.jsonl"
+      }
+    ],
+    "selection": "Chosen by preregistered fullstanding+envelope+impact gate, then greatestactualwaistlowerclearance; devseeds reused for tuning, not heldout."
+  },
+  "changes": {
+    "versus_published_control_fields": [
+      "reference_stages",
+      "residual_joint_multipliers",
+      "head_reference",
+      "residual_start_s"
+    ],
+    "reference_stages": {
+      "original_count": 76,
+      "candidate_count": 158,
+      "full_config_source": "waist-negative/plan.json#candidates[23]",
+      "inherits": "g19-29 slowedreference/supportroute; g33-9 static IK tail geometry."
+    },
+    "ik_tail": {
+      "source": "generation-33/plan.json#candidates[9]",
+      "joints": [
+        "left_ankle_pitch_joint",
+        "left_ankle_roll_joint",
+        "left_hip_pitch_joint",
+        "left_hip_roll_joint",
+        "left_hip_yaw_joint",
+        "left_knee_joint",
+        "right_ankle_pitch_joint",
+        "right_ankle_roll_joint",
+        "right_hip_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_yaw_joint",
+        "right_knee_joint",
+        "waist_pitch_joint",
+        "waist_roll_joint",
+        "waist_yaw_joint"
+      ],
+      "design_parameters": {
+        "static_solution": "bounded-static-d0.25-pitch-0.06",
+        "leg_delta_bound_rad": 0.25,
+        "static_torso_pitch_target_rad": -0.06,
+        "onset_elapsed_s": 3.35,
+        "finish_elapsed_s": 4.0,
+        "blend_strength": 1.0
+      },
+      "actual_first_linear_reference_difference_s": 3.35,
+      "note": "First actual linear-function difference is computed from the unchanged node before first modified endpoint; for this candidate it equals the declared3.35s onset."
+    },
+    "waist_pulse": {
+      "joint": "waist_pitch_joint",
+      "amplitude_rad": -0.04,
+      "start_s": 3.05,
+      "peak_s": 3.25,
+      "end_s": 3.45,
+      "sampling": "5ms nodes plus alloriginalnodes; existinglinear interpolation. Outsidewindow sameg33reference. Originaldense-zero replay had matching state/action/target hashes."
+    },
+    "feedback": {
+      "kind": "Analytical, existing149D observation only",
+      "kp": 0.3,
+      "kd": 0.03,
+      "formula": "clip(.3*torso_sagittal_tilt+.03*torso_tilt_rate, -.08,.08) rad to bothanklepitchresiduals",
+      "joints": [
+        "left_ankle_pitch_joint",
+        "right_ankle_pitch_joint"
+      ],
+      "action_columns": [
+        4,
+        10
+      ],
+      "start_s": 3.5,
+      "ramp_s": 0.2,
+      "original_published_start_s": 2.25,
+      "other_joint_residuals_zero": true
+    },
+    "head_reference": "Existing247sample headreference retimed along slowedreference; source fullconfiguration retained.",
+    "physics": "Mass/inertia/contact/gravity/timestep/PD/effort/targetrate/success/safety/horizon unchanged for selected candidate; devonlyresetuniform\u00b1.002rad explicitlyallowlisted."
+  },
+  "common_original_comparison": {
+    "label": "Original frozen mixed controller; diagnostic replay",
+    "source": "results/controller-review/20260924T132353Z/published-policy/summary.json",
+    "name": "published-policy diagnostic reproduction",
+    "controller": "reference_residual",
+    "calibration": false,
+    "success": true,
+    "constraint_envelope_pass": false,
+    "impact_pass": true,
+    "admissible_recovery": false,
+    "sim_duration_s": 4.856000000000583,
+    "maximum_stable_hold_s": 2.000000000000668,
+    "termination_reason": "success",
+    "worst_joint": "left_ankle_pitch_joint",
+    "max_joint_excess_rad": 0.04518521846959589,
+    "any_joint_above_tolerance_s": 1.064,
+    "max_joint_speed_rad_s": 8.347143742429603,
+    "max_declared_velocity_ratio": 0.6993250454448394,
+    "max_directional_motor_ratio": 1.0,
+    "peak_ground_vertical_N": 1626.681419263664,
+    "peak_ground_sum_norm_N": 1845.4477378972624,
+    "floor_penetration_m": 0.00904692154437733,
+    "self_penetration_m": 0.0031814764288165204,
+    "feedback_parameters": null
+  },
+  "common_metric_scope": "One real deterministic development episode per displayed row; original mixed is a diagnostic replay, not newly relabelled historical5/5. Recovery samples only, excludes reset settling. All use original standing criterion and original20s horizon; physical jointq/dq are1kHz post-step, contact/force peaks integration-solve pre-state. Max uninterrupted hold is not an accumulation. Impact is the same five original-baseline maxima; no scalar reward-ranking claim. These selected rows illustrate tradeoffs, not an unbiased success-rate comparison.",
+  "fixed_impact_thresholds": {
+    "peak_ground_vertical_N": 1626.681419263664,
+    "peak_ground_sum_norm_N": 1845.4477378972624,
+    "floor_penetration_m": 0.00904692154437733,
+    "self_penetration_m": 0.0031814764288165204,
+    "max_joint_speed_rad_s": 8.347143742429603
+  },
+  "recording_incidents": [
+    {
+      "batch": "development-feedback-check",
+      "fatal": {
+        "type": "TypeError",
+        "message": "Object of type ndarray is not JSON serializable"
+      },
+      "scope": "Recordkeeping/execution error retained; counts below distinguish actualphysicaltrial from journal entry."
+    },
+    {
+      "batch": "development-feedback-check",
+      "recording_incident": {
+        "initial_exit_code": 1,
+        "stage": "Nominal complete physical episode and summary/NPZ saved; raw JSONL serialization encountered ndarray in reset evidence before first line. No physical failure.",
+        "original_failed_attempt_preserved": true,
+        "original_count_caveat": "Initial failed summary.completed=1 and.invalid=1 refer to the same nominal trial appended before its JSONL writer exception; they are not two physics episodes.",
+        "recovery": "Only JSON serialization corrected in independent followup runner. Four remaining preregistered seeds executed once; nominal not rerun. This file derives valid nominal metrics from existing summary and confirms all three trajectory hashes against original candidate.",
+        "followup_exit_code": 0
+      }
+    }
+  ],
+  "checks": {
+    "score_mismatches": [],
+    "feedback_metric_errors": [],
+    "closed_count_mismatches": [],
+    "plan_row_identity_pass": true,
+    "feedback_identity_pass": true
+  },
+  "source_snapshots": {
+    "generation": {
+      "calibration": {
+        "journal_sha256": "4efd2a75f92db406c98109d826d0a0ff66f3ce4d5d1855b1aa9b540068582703",
+        "journal_bytes": 59931,
+        "plan_sha256": "4647a584f984063a8e7b6f07731c874d5556e608d7872313af87e17099f3c203",
+        "manifest_sha256": "6416c294e2052a5696329fe87cb57755dc89dd8937a3cf888db2d98e76b770d4",
+        "summary_sha256": "b6b404693f11d99c5cd6fea128f5f57bf742d922f26b9b0cc198956dc7084456"
+      },
+      "generation-00": {
+        "journal_sha256": "292b713f2135ca209c308ec05fc836af49e2fadf4c23e478dd9d469afbc61874",
+        "journal_bytes": 4483216,
+        "plan_sha256": "8b9b806a194aa293e987ce398da96e902db93e22b84dd0b830ede2e5e02833cb",
+        "manifest_sha256": "4486ea7680f65584f4f34c7206e55e3fc671b0ad5307c617815bc27526d202ac",
+        "summary_sha256": "52be27de0cc7c92a356d321fd95db15766c4f2f817130ad1a0eaa8c44261a3e2"
+      },
+      "generation-01": {
+        "journal_sha256": "185f27fa3b4a30353171e9f2f252d847f9a1d5559bf703ff9ce4b2ba5ec09193",
+        "journal_bytes": 3126595,
+        "plan_sha256": "3b55c0752bfb02dacc1288d87ba836d1769794409d27202d16035b72e9464693",
+        "manifest_sha256": "fd6782dd99cfdfd8700b199e53740f68eadd40fb06fe37f4d6ec0cf6e590ee42",
+        "summary_sha256": "fa332e1b12606a517388a505905e843b5afe06aab8a44de141b120a292ee652f"
+      },
+      "generation-02": {
+        "journal_sha256": "e2e4899c2d0e50f5234759631a41adf6df2ce9d67ed31703e478ce11a99dd4d0",
+        "journal_bytes": 2740579,
+        "plan_sha256": "3b7ebd5dca59f32fbcf63896529d88f20400fd5d6701dae6872d7e1fd44e8c48",
+        "manifest_sha256": "962f40274be8c2cca017bac0cf91bdd28533cb7ffd2070e28079c8114ce68648",
+        "summary_sha256": "df0f37e36da9aac2c8aded9d35594bad79876b00ed98267c21d33f26929fd01e"
+      },
+      "generation-03": {
+        "journal_sha256": "4d9f773bbd0b567dfd7d26737382bdd7837682114205874c1beec21421a9cf1f",
+        "journal_bytes": 2357528,
+        "plan_sha256": "01112112389840af86444b67df7929bb48932b2994064c1407241653025dd88f",
+        "manifest_sha256": "ed29fdf0a5c9c1f4d735bf4bd164af567aa9e60f25580e6b85f46055a9cde521",
+        "summary_sha256": "0d3c37f977dd8d982c088e303afaa0cc68d1a8101713858b364409cff49846be"
+      },
+      "generation-04": {
+        "journal_sha256": "2a0742655612b0242b599c2db7533a4b9b43487a1a5418e50426c73c2a1ecf4e",
+        "journal_bytes": 4196787,
+        "plan_sha256": "fe7bf21053e524c45923d44a949d4dd7be2f18dc5ce915b1512e52cdf68336f7",
+        "manifest_sha256": "9e4d40658de74d46c726dcd323cc243477ec7a2523757a25ea1ebda959b32ffa",
+        "summary_sha256": "5fddb69d4011c1bef25e8a924610b24c7cde095c9fc1463e339798376b7696c3"
+      },
+      "generation-05": {
+        "journal_sha256": "3c39b346f48591e5fcebb132e73f1e704e3f95188a7c5a0710cb4c96a338a938",
+        "journal_bytes": 2071972,
+        "plan_sha256": "6a4cd31a1fd75bb0746f90b77ccd7cca633ef8e506c1826928332570d4b6ab29",
+        "manifest_sha256": "ce376fc9198814c9abbe479aa1fc6f2206febdf0325f839624b5c165a2a3823b",
+        "summary_sha256": "4623aea948a8f69f416f91eae3cd50e2642120d1b6a4a1f1e8ea59c09d59cde3"
+      },
+      "generation-06": {
+        "journal_sha256": "bda37ad9193f1ea187f816a50869f347e0b4acc36158830edf438fe2af2e2740",
+        "journal_bytes": 2196536,
+        "plan_sha256": "e2ed6ab26c2468be0c6afb811b27968fca21ca36133105025128272a6ffa5bb5",
+        "manifest_sha256": "3b3c9d15aa851c3c0bad3f3c3d29cc93626f631295049786c3bc8bd6b1a39fcb",
+        "summary_sha256": "8a96a1a9870639cc1ad98faa4533717c209357dd6fe3fee788b5220c5be14bf6"
+      },
+      "generation-07": {
+        "journal_sha256": "08873aa629a0efa4b15de738126818ef3cff8eae4a4418cd122fed7049110bf3",
+        "journal_bytes": 2196403,
+        "plan_sha256": "14f28e030456bed6a7dd0078a32260f23b60541dc8145f01c7b70c24852ecf24",
+        "manifest_sha256": "cddbc0be934dba16d0d15c9dd8e5345c8fdb5f1c5f3b662a9eda6985a3710557",
+        "summary_sha256": "160f0327c3f9c75d3c03dff49c593b536c8acd80a49f15ac381083ddc2a0a8a2"
+      },
+      "generation-08": {
+        "journal_sha256": "f6e9b5277012f8201398bf3bb0970a6cb4ec395ab345f61a9826351dbdcc89a7",
+        "journal_bytes": 5305348,
+        "plan_sha256": "544a01ca111e980128c0d8ce858977ff9982278cbbd932dadfbe678e4ef5e822",
+        "manifest_sha256": "a3fc458db7d127c017a97a0ac4264c5e9c69636bcc58bc91403a39f677c71806",
+        "summary_sha256": "8cf06a892817071e5df0b6a19a760d67c6938b74c74e01dcf340c659a700b3fc"
+      },
+      "generation-09": {
+        "journal_sha256": "46ee9fd218b3d21884b9b8f9c4382291a1c59edc1c56ddc1c003e9ec878b22dc",
+        "journal_bytes": 4450983,
+        "plan_sha256": "0967f86cb684fe930b5343f7c90a44986eb1ab15914e8356671badf4711f027c",
+        "manifest_sha256": "1eaa5a32da076a8169824734003fae60240d7952625ce2ef2316dc6d2e95be75",
+        "summary_sha256": "eb348797a1413114ba2a6d1982782d51d1a73c1411fdb31c3d235c3d9164dc90"
+      },
+      "generation-10": {
+        "journal_sha256": "81174a7a97ba2f55a4532a0b39fb05c7d93a8fd2f7957f6ec2e84bb92f5e638c",
+        "journal_bytes": 4391680,
+        "plan_sha256": "f32bdbfaf583f2bec4983042d0765f737e14d4f22c6ca7afacb34f9b1ac7f8a8",
+        "manifest_sha256": "02b1bf4d14037dc38b86b447990e45b26c6594b99e05c96a6308fdf29460bba6",
+        "summary_sha256": "fbcdabdf8b7c3ab4792513ecde89d727a09d080ea72fdd1a3d82480635c586ae"
+      },
+      "generation-11": {
+        "journal_sha256": "b0eb71b79a86d91cd946f51909456e52002b132ede7f7244e1536421ced72215",
+        "journal_bytes": 5674499,
+        "plan_sha256": "a0816217309958907a0256eccc9800ec960e5854bd171c942d937a8bcb0a19d3",
+        "manifest_sha256": "62f4628e35afef1bbd4078e4f22b5e902b353536f6d0c963b8af893d40011c0a",
+        "summary_sha256": "d574c48e9d307ef0a2e0a7f04b32c5bcd4d162b312e34fa4063ca7593507b1b1"
+      },
+      "generation-12": {
+        "journal_sha256": "2f186328a7bdcf2b28099cb762b6085e2d604207a9d132879e739b908328a8e8",
+        "journal_bytes": 4442411,
+        "plan_sha256": "99d65abaae43fc1cea2fa268f5d19d12a7976f5d842aff209d46315adc11f014",
+        "manifest_sha256": "e4499db5515a7ae7d4c17fe99dac78318828539ab74bad9593677d266a8138aa",
+        "summary_sha256": "f86440dcad499c9c023d2219b08d76262bf56c65eaa7ec567806aa51d8cc42ec"
+      },
+      "generation-13": {
+        "journal_sha256": "a30dd3c8650601875ce4e19d7125bd79d6b0b1cbf6b42bdccf272f7675ada2f8",
+        "journal_bytes": 4525728,
+        "plan_sha256": "37938a1b66c444b3de4aa69aec3ae5e626f47ee97eef1adf4b6258318502e978",
+        "manifest_sha256": "2b3a16b74879644a927fa93aeb4afe175dbeb08d581d279261326da002e91edc",
+        "summary_sha256": "4a10a43e62297e4d2f8eec0794117fdf096da481c0cb5bf6462eb6858a606baa"
+      },
+      "generation-14": {
+        "journal_sha256": "4957f7433117aae54d4157c8cf0b6118e6b4da27f4339ed7eecd814e828104be",
+        "journal_bytes": 5684438,
+        "plan_sha256": "9954953b5bc9f8956dcba44b39890178456ae03511eb788acc7d6d3ab2f9064b",
+        "manifest_sha256": "12b39053f8828955bee270728994cdd512c5f1096f00f6bfcf9b5ad6caf5d986",
+        "summary_sha256": "212074ffcf9c02b903ede703c439ce39d879b80460edb7c2ebc398837043939a"
+      },
+      "generation-15": {
+        "journal_sha256": "c55d1002424ac55b209c7b588c475bae6d27532ff68c9f36f7a03c7b64b8c08a",
+        "journal_bytes": 5695000,
+        "plan_sha256": "e3fc620a11b478066e6a283fe4c603a1bd0fcff1fddee8bdf6374fd61f224dfe",
+        "manifest_sha256": "8e3a9d410a0e4c91d30319c04e21f04135669a829afff2f56b8801a518b0d21b",
+        "summary_sha256": "e1f5ed2e667db96ad1b1c39b2309f764c55d565038609d87173806665da3659a"
+      },
+      "generation-16": {
+        "journal_sha256": "2bdb162db368da0521cb836e3f1139969b3bb12078a534ff9a2237e7974b9459",
+        "journal_bytes": 5683351,
+        "plan_sha256": "d2fddfe64615a5cfc6ab4ca793471ec724570676d6c82369ad7695352addad03",
+        "manifest_sha256": "db88649ba9d60a89e4736190e304337b96616831a561ff25bd91e2c017683a96",
+        "summary_sha256": "9410e1b61f8c5fe23ffc1697b42a5b03858252f3bccbff4e2686d4c28a991203"
+      },
+      "generation-17": {
+        "journal_sha256": "5b5d45cb95cfd1e4935330f4de9799a1f542c1ad54432b731f24a7213367e1ee",
+        "journal_bytes": 634171,
+        "plan_sha256": "102dfac332f79c76c88b14c529ab148093860a4cc43c7a6b207fb5d435203375",
+        "manifest_sha256": "67b30e2ff89915238cff5f58e863c2b3180533724cece58ef14666806c291708",
+        "summary_sha256": "038c6837f29f6a3bcc466f45b75bda64e34c164966f31f5edb08971ad3d752a0"
+      },
+      "generation-18": {
+        "journal_sha256": "06064058c58e58943c63e2ddc91b5cd5da743235e9388f05e9c495d3855c79fd",
+        "journal_bytes": 1413089,
+        "plan_sha256": "17127b7d1982d6371c9e1946e0277673e3276a8071faa4303ad44c2f7ce746a7",
+        "manifest_sha256": "79ae1114256ae479ba878620bc1b3b973c53e785976c01f97bde722a78b4f1d2",
+        "summary_sha256": "383f5b2de7205b03dcc4741be8a6f83f8816ce881e6b9765db5ae85d50f198f9"
+      },
+      "generation-19": {
+        "journal_sha256": "f7de4771907dcea00fb7cca0f7e79630d38e32c1c78cb3186fdfa8f9ffaed157",
+        "journal_bytes": 5863106,
+        "plan_sha256": "326bf47f6f95c986739148f7df372fd2a1f155962dded41840cd6642ae1e2837",
+        "manifest_sha256": "2e0cd710b895108b6c153c56376374bbd9f5e5c7cd9c394daff5b675d0e4181c",
+        "summary_sha256": "8203d8b29e854808cfd38bf75952e97bbca86a563f051004844140580f48f1e0"
+      },
+      "generation-20": {
+        "journal_sha256": "885a82c35d8d964fb7221b81806012d55c94b8d98baf2f21e36e9ff12e3a8fc8",
+        "journal_bytes": 5181801,
+        "plan_sha256": "e704da9f525c6af06aa5168bf6b017d2d3cc265644964d3b2938c9a12fb7312d",
+        "manifest_sha256": "93fcd4fa1f40ad2d7e0546e22e0339184da26399292781958a835508987aa846",
+        "summary_sha256": "6b7e71030c8294e6c04e27fed8b89c2b10be75f74380ba541527f2468bedf888"
+      },
+      "generation-21": {
+        "journal_sha256": "9541318a36b5aa83ba4f8ca52e01f58b4002599b7cb450dcae3a5006be3cca92",
+        "journal_bytes": 5374801,
+        "plan_sha256": "88f5ff10bd331dbb05a3c72cbf85c773c8fd87aed7eb379b6bc9503e74c72ce2",
+        "manifest_sha256": "7bc1939393030ff0b944c3b1305bdc4466cef4c83b630779eee2f59240198878",
+        "summary_sha256": "fa2f35e9a71526a3a7061dd56355ad9ae1ae4ff65ddcae16eb846b81b56569ad"
+      },
+      "generation-22": {
+        "journal_sha256": "874cf3d19dc1407ae3d0596a54b5a4359a1659fedca9ede89e6186122b7288bf",
+        "journal_bytes": 5205566,
+        "plan_sha256": "697b65833ab9a3a12da9e434f0c7985afee760cf8530f2e3608919b7e033ccd9",
+        "manifest_sha256": "7dc4f486b645357a69ed1d541ffa8fe5030ec0be8788775560a831fe7fff35a1",
+        "summary_sha256": "5fe46ad399d85601c1ea3e9a880779027c4e1d953d8aa0796aa019d9d42ea973"
+      },
+      "generation-23": {
+        "journal_sha256": "6f6f5a83c15ce4122a7bad724476f1f7d5f5cfec3538f1e1dd0f01edc3585f20",
+        "journal_bytes": 9738874,
+        "plan_sha256": "a7887b3725efa1bafbf7a0b9edf9bc90ee1a76d298f2981fba88027c23cbac44",
+        "manifest_sha256": "da51f68bbedb57dbe837d4eb1b25c7f880d1f04d00476a644cdd476063b67c0f",
+        "summary_sha256": "5401311be3aa2eae6b03071ecef4a076410e699901d6d3478c5a514f0579ec97"
+      },
+      "generation-24": {
+        "journal_sha256": "60a3b700c7a6a807357db444665d138a52b272f15734cefd144df84feb0af410",
+        "journal_bytes": 9852910,
+        "plan_sha256": "eb595b1b1d6adb92428764f735446bfea28c317d87f0d5a843d7c34cedd539e0",
+        "manifest_sha256": "f9024abbe9a7bf086c18550aec13f2e98a236b235920bddc4f6bf0200e8ea0ba",
+        "summary_sha256": "d42a417020e3fe267aa6ba6a106d44b85c02e236ef9444db857220ec694c5365"
+      },
+      "generation-25": {
+        "journal_sha256": "6f6f2c989261e57023bd0c164f8baf7a4dd9ba158b1dee03dd6b1b667b20c220",
+        "journal_bytes": 4881542,
+        "plan_sha256": "2a0b808b96f2b574a314da3d850bfbd436fe6aa49282b243e8e0ea547d06116f",
+        "manifest_sha256": "f2d998d59288a2424854f554c8058c17ca4f24a597ee0a8e7ceeacacb9567064",
+        "summary_sha256": "2bab28ad81d8790d742802b66b28eabdcdb1a3e2c1ee2c5574b4ef96abafaa54"
+      },
+      "generation-26": {
+        "journal_sha256": "2b650386aea1db5045bec1faee6cc3b45b40f64b1063f827bac0e68d8370ad28",
+        "journal_bytes": 6145218,
+        "plan_sha256": "7cdf61f165ab5905b8f3744dedb36d1b46ffae7f324a11a0468108e345b9f937",
+        "manifest_sha256": "20c51dcc26ff80a2122b00e457877f4654226ffa74293e8717e1d9f46343582a",
+        "summary_sha256": "0a8081e13c782fda6f7533d7281071f3031f755fd0ce3cff4a0d802d3ee33169"
+      },
+      "generation-27": {
+        "journal_sha256": "56bef38029dcfe18ab221df083cf19948f307354c8a764ef938eb13b644e395c",
+        "journal_bytes": 9729810,
+        "plan_sha256": "5b3f75c399c690fda2de1bc2877111e45fbe1f05da25fdf097fdc897ea83eef8",
+        "manifest_sha256": "8fc31827fdb0cfc20ec7bfdffaa322e74c77cce38c20c75b058c1623b693f428",
+        "summary_sha256": "d8987ea3ad357d19b698de6d40ea997099c93acddb2448e1947c35274b8fdcb2"
+      },
+      "generation-28": {
+        "journal_sha256": "a34fa26927df39cef13df91960c3e7a31aae02887f76864e34837e7782d2e9ac",
+        "journal_bytes": 5839421,
+        "plan_sha256": "11f48bbf34aff06a8423410139f9777f7561434a850e13dd28ff600fd4759a14",
+        "manifest_sha256": "56a244dd20862f1066804a9c9bc5a08e55713686ace0655433e8e716ea410f98",
+        "summary_sha256": "fbbf7f23c83a2acb5090190f65239596414e13dbe0b9a2994a2f31ce36f1552d"
+      },
+      "generation-30": {
+        "journal_sha256": "14df1eb806dd183d5f70cb3315bcd374cc78a71c755d1ad6075c585612772d1d",
+        "journal_bytes": 9873367,
+        "plan_sha256": "96b61e61c58c457e5a72e649679840cd7d50fc76174949364cb2a604a93f2a14",
+        "manifest_sha256": "5d58cacf1db10f78f4aebf05386676dc6c6af6a72238a3599c5cb2889c745e43",
+        "summary_sha256": "43b424e4a25477319b4af555c6071fc7afe196064ff6f41fe3364bd866353c7b"
+      },
+      "generation-31": {
+        "journal_sha256": "d6c4c4af0d897f233d0b03a8343e4d551b2c0efc2ce83e2706e9a0308f3418bf",
+        "journal_bytes": 7322433,
+        "plan_sha256": "6e181261d3eb4b9f82ba6a70e459c049abd2324f034ba5f8f68484d871fc42a5",
+        "manifest_sha256": "061dcc0dc218c2c4de49109b35cfa6a254caa68bb663b64dffb622b1ee3f8c40",
+        "summary_sha256": "0539ed2279483afef753e8b74000d7a02de7e2fd97aeb1d2f13bbe25392ec82f"
+      },
+      "generation-32": {
+        "journal_sha256": "77a7dff00ec02d3f379ccf61dc627f968206ed83af73436f957adbcb46850473",
+        "journal_bytes": 2724966,
+        "plan_sha256": "c9a93abac20b050e61760215af2699bcf4af1912cdb34dd2e20fd2e0d2cc2647",
+        "manifest_sha256": "6701a97ad0e7c36c72829f3d027bc0af6d9cec048e603e3ff325895196d53a8d",
+        "summary_sha256": "5768ccd4d808796c774b5fbf46a395917385dfc55bdec23e1f56fc1aff75a480"
+      },
+      "generation-32-calibration": {
+        "journal_sha256": "b6b4a6b9d9026ec9d9bf43617e6da02afb0caa21b2f86f24ff8144afdd9bfbfe",
+        "journal_bytes": 455459,
+        "plan_sha256": "3d471fcf3329e7d19e877c6c9f52923b250015beb06ebfe2e340404296255848",
+        "manifest_sha256": "645389b72adb24577651e44e91c9a9c0e3a5616adad9ec8cd973325279104141",
+        "summary_sha256": "30f4ff2938cf06715821f5be4d49a58031ea3a990a41ae81d95922883e77e034"
+      },
+      "generation-33": {
+        "journal_sha256": "feca3fd90491f691294691e67aea9c7f8311bd2d827de9ef39db8f3d5bce8ed6",
+        "journal_bytes": 7320197,
+        "plan_sha256": "2580cc53f3b034f5351bbebbbff2856c320132d4674e9c8ed1c3f8e719e794bf",
+        "manifest_sha256": "6e7760e41acecbe5fccccb8d7a7e65a3cf4f511b9661d832caa6d0e4a420eda9",
+        "summary_sha256": "44af61fef36a35e824788ecc3c9d2bc630066bd0256cece77867b435aacbe43c"
+      },
+      "insertion-calibration": {
+        "journal_sha256": "bfa5144e68aa9d9e25fb06ddc15a1d0a7566a12e1674959cdad71d139706f4e2",
+        "journal_bytes": 305097,
+        "plan_sha256": "3daae8f0041987bf0a0059b62320f23519c369ee3d24a9402dfbf4848248c9a1",
+        "manifest_sha256": "bfb6d128d4ad3a396353ee9ab0812364efac5a0880dcf5d15b273c9b16f0ea6b",
+        "summary_sha256": "ebb321cbe6855acb189e7c5c6f6c32bb01d1fb7c354115059d5d26b4b70e9f3d"
+      }
+    },
+    "analytical_feedback": {
+      "tail-feedback": {
+        "journal_sha256": "ec11fc307e43cd5d2bb08cd0432a3dec2c4f5639d0438b02282123d13a8517ad",
+        "journal_bytes": 3946549,
+        "plan_sha256": "90648079d2799b048af614ea56718c6379a11bc1dcbb9a49454d176e5a99030c",
+        "manifest_sha256": "4956035b7fb4b6bf9f057a33bf5230e47886bab7b00a6a9456bde95cc1a5b40a",
+        "summary_sha256": "afdaf1713f030008c76b5cb9f90ab4f78653b360b7663adcd234a4e28a848374"
+      },
+      "tail-feedback-authority": {
+        "journal_sha256": "a4e6b24a8e668cb8ef8e47d770c7e53a6bb8ad045aa856573ff0fdf336245779",
+        "journal_bytes": 6469578,
+        "plan_sha256": "45cf2a1dd887044ff8d85e916b6037fc0d9c44a388bfa723b1d0b2d5236628b6",
+        "manifest_sha256": "29967ab094e37b0e6e9b0164bbc1bf8999543247bb976d2163448878938c1795",
+        "summary_sha256": "5b6ca6b65a8fdc27e9f6a65f7b8ddc7e4a0226fb83aa8089238a1f7c20270046"
+      },
+      "tail-feedback-bias": {
+        "journal_sha256": "ff34c77b092bf4369d8d3c632b51582c4a896fcb9e13a8d8684b41d002fb75d9",
+        "journal_bytes": 3945934,
+        "plan_sha256": "2dda16e31d28c873089377b23217e75b086b9ca0fb2d24b32a1a33606e3da5e0",
+        "manifest_sha256": "419ba41897c656785614feb911f48e75dc4ee422bd15f3cadba40170e64aabaf",
+        "summary_sha256": "c939f133eb6c55f1ee7e5abd01dcfe8e3bc780208a5a944a0fac2ee31ce2b52d"
+      },
+      "tail-feedback-bias-local": {
+        "journal_sha256": "3e6dc25221ccc22f883c78317f4dbf1e0d6db3f19bdd9174b2ee3aa9571bfa12",
+        "journal_bytes": 3945652,
+        "plan_sha256": "ab4c180411466c1f6b6458ce73a1d6e61b44069634056c31a64d2caa24c3e7f1",
+        "manifest_sha256": "259be1babbc358d66ef6be5aa2ff61bf9f9d89a74939312e670e5ec9cf90aa26",
+        "summary_sha256": "edd6152259c6f8d5ed8f9c16ba1842c447f38631fee173d8623f90493d4504a1"
+      },
+      "tail-feedback-fine-pd": {
+        "journal_sha256": "29a6e1b341e70238215b25322197970d38a899c52eb587ce9333f30083c83e28",
+        "journal_bytes": 4696788,
+        "plan_sha256": "553f5e5ab2657e5321ba9f019f08cbda819c13cae813d6de923fd702d4401df7",
+        "manifest_sha256": "5c8959dac7e3c78671abe6e083b8848e115894f988770351e1f19f5cbf1c426b",
+        "summary_sha256": "86b4e2e0c407205bb76fbb2780872810321321ecc846045a83ca5feb45388506"
+      },
+      "tail-feedback-g33-ik": {
+        "journal_sha256": "8f473bf0efb2549fdad3ddbe2bb33af196ee816dc94f68b8f23a21fa5240fabc",
+        "journal_bytes": 9316939,
+        "plan_sha256": "4bf4e619481ef210c4a408f6caeeded1db112055cc83d47dd31940cca0ea6085",
+        "manifest_sha256": "3fa9b7d4e5ffcd2cd0e5a9d1f4919a0dc3846684a9b481c11cf7a4ea61aa06ac",
+        "summary_sha256": "8085c1a808a256b146ed8a1afc2494f253ef3a4224fc259752de0539a751faaf"
+      },
+      "tail-feedback-next": {
+        "journal_sha256": "6a46ce7fbcb74b93acf6d06739e7ea487768cbe40ec6a4d28a616930979736c7",
+        "journal_bytes": 5922526,
+        "plan_sha256": "e41baa556c028acc513d3d5b9410b0ba2aa585b17608f12b2a11dd7ad80facc2",
+        "manifest_sha256": "cc0e07f174a22cc4ac1965085009df339c3e90ad7d09b30449e56824ccc12bf6",
+        "summary_sha256": "beb9db8d1251a4edcef326be2a6540202630a527cb737067af0b8ff212b3e041"
+      },
+      "waist-negative": {
+        "journal_sha256": "5f55ec2efd7f5cf983a8c9babfd3deaddfb373e646d7b36ff2daeee95ceef4ab",
+        "journal_bytes": 11062295,
+        "plan_sha256": "070bacccb8f4b048a0c7621210d4e7216fcce5df975d699a8f71dfe3f5bd92fa",
+        "manifest_sha256": "0b51052b43609d9c570ad43798350c6bd0da6bb191e4e7d2056f39386b7a40e3",
+        "summary_sha256": "d3a66d8f076a6c56885d4e11989949ce18a37e683846fbbc5afc514f8d9ca0e2"
+      },
+      "waist-prebrake": {
+        "journal_sha256": "0430e299b21983d04937514e3b3af6de3fd3a9d94276a721e849f6ca81fd9a10",
+        "journal_bytes": 11034081,
+        "plan_sha256": "f0150e96e2efb082e53f63d722a86dc4886dbd901a516f3bf6c4a1a40869622e",
+        "manifest_sha256": "3595cc6dc833db486601690320b2c461fb1640b41c32e36b4e93e1b86bb1b6e9",
+        "summary_sha256": "1feb5bfa433a5894e011f828edf7d8458100e136d15dcce128273cf3d0ea0e1a"
+      }
+    },
+    "development": {
+      "development-feedback-check/perturbation-followup": {
+        "journal_sha256": "d6f07f0e4b40393ba5769b4733e58323df7ef333a7f80a0e8a93189a9a31396f",
+        "manifest_sha256": "938a4a1b6a9ffbf375ac75c0986dc2672281efc18d6dbaf0f516891b6ac613c5",
+        "summary_sha256": "c3a3af95ca7f68a3a1fb6eb31b6c4e5721c3bfa0dd3d66936c2231a10dcab912"
+      },
+      "development-feedback-check": {
+        "journal_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "manifest_sha256": "ed109cbb7c1f53ed2c307eaa5189e7c9e873d3d335fbde28aa1be8dd6071d096",
+        "summary_sha256": "72111cba0d02c59a12a0c35dccfef84af2cb2d29a36e32e1f846c9349aa371b6"
+      },
+      "development-negative23": {
+        "journal_sha256": "8c4b2c2165afe6c123fe337a72152737ee1859b7bbfa1bf7d2fbd444fb86f38c",
+        "manifest_sha256": "ee9c29fde211e089837fed10accf7b437752ad29e6c6f28745fa687bd5414c9c",
+        "summary_sha256": "1937ca96f16fe5228d3b7fd0fe34d0f03b8f2c963e170112d4e54dca0eff484a"
+      },
+      "development-prebrake18": {
+        "journal_sha256": "e6332f4e2b10b17c05cf22c1eaeb1719506c881bc77affe1d61a52d66faf0daf",
+        "manifest_sha256": "933193906a49790f78e8af313b7a63695fe6de91e5c86df832e856ea59a34cc4",
+        "summary_sha256": "a76c0654f231e4cf2b7d5cc2fcb0bd5e37e1c76a39df1edf336d8373ba84cbb9"
+      }
+    }
+  },
+  "limitations": [
+    "The old published5/5 remain theiroriginalprotocol; this table does not overwriteoldresults.",
+    "Negative23 smallolddevelopmentbatch is not formal evaluation or proof of broadrobustness.",
+    "Later training, formal5, freshpairedvalidation and ROS outputs are excluded here and must be reported separately."
+  ]
+}

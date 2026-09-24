@@ -1,0 +1,12 @@
+{
+  "status": "COMPLETE",
+  "planned": 5,
+  "completed": 5,
+  "standing": 5,
+  "envelope": 5,
+  "impact": 5,
+  "admissible": 5,
+  "evaluator_status": "COMPLETE",
+  "scope": "Recovery only; reset settling retained separately. Admissible = original standing AND envelope AND all five integration-contact/speed comparisons. Raw evaluator success is unchanged.",
+  "runner_sha256": "8b36d25956d81b4e4edb617c70634843e79f068200a5d7b69c388e52e3abcd15"
+}

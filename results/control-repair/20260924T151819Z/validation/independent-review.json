@@ -1,0 +1,268 @@
+{
+  "schema": "independent-targetsv6-readonly-review-v1",
+  "source_env_sha256": "c4a5bc96dd7a26bcfec73c648a63ab476c65bdde4543fca0fb92f037fb041da0",
+  "source_path": "/tmp/x2-repair-20260924T151819Z/candidate/src/x2_recovery/x2_recovery/env.py",
+  "scope": "No reset, physical step, training or production edit. Numeric replay consumes recorded observations; reward tests use independent static MjData.",
+  "learned_authority": {
+    "action_shape": [
+      17
+    ],
+    "full_joint_scale_rad": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.002,
+      0.002,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.002,
+      0.002,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "active_action_columns": [
+      4,
+      5,
+      10,
+      11
+    ],
+    "mapping": [
+      {
+        "action_column": 4,
+        "action_name": "left_ankle_pitch",
+        "joint_name": "left_ankle_pitch_joint",
+        "joint_index": 4,
+        "fullscale_rad": 0.002
+      },
+      {
+        "action_column": 5,
+        "action_name": "left_ankle_roll",
+        "joint_name": "left_ankle_roll_joint",
+        "joint_index": 5,
+        "fullscale_rad": 0.002
+      },
+      {
+        "action_column": 10,
+        "action_name": "right_ankle_pitch",
+        "joint_name": "right_ankle_pitch_joint",
+        "joint_index": 10,
+        "fullscale_rad": 0.002
+      },
+      {
+        "action_column": 11,
+        "action_name": "right_ankle_roll",
+        "joint_name": "right_ankle_roll_joint",
+        "joint_index": 11,
+        "fullscale_rad": 0.002
+      }
+    ]
+  },
+  "feedback_parity": {
+    "actual_saved_observations": 371,
+    "actions_float32": "float32",
+    "bitwise_equal_to_successful_experimental_actor": true,
+    "max_error": 0.0
+  },
+  "gate_checks": [
+    {
+      "elapsed_s": 0,
+      "reference_feedback_gate": 0.0,
+      "ppo_residual_gate": 0.0
+    },
+    {
+      "elapsed_s": 3.49,
+      "reference_feedback_gate": 0.0,
+      "ppo_residual_gate": 0.0
+    },
+    {
+      "elapsed_s": 3.5,
+      "reference_feedback_gate": 0.0,
+      "ppo_residual_gate": 0.0
+    },
+    {
+      "elapsed_s": 3.6,
+      "reference_feedback_gate": 0.5000000000000008,
+      "ppo_residual_gate": 0.0
+    },
+    {
+      "elapsed_s": 3.7,
+      "reference_feedback_gate": 1.0,
+      "ppo_residual_gate": 0.0
+    },
+    {
+      "elapsed_s": 5.49,
+      "reference_feedback_gate": 1.0,
+      "ppo_residual_gate": 0.0
+    },
+    {
+      "elapsed_s": 5.5,
+      "reference_feedback_gate": 1.0,
+      "ppo_residual_gate": 0.0
+    },
+    {
+      "elapsed_s": 5.6,
+      "reference_feedback_gate": 1.0,
+      "ppo_residual_gate": 0.49999999999999667
+    },
+    {
+      "elapsed_s": 5.7,
+      "reference_feedback_gate": 1.0,
+      "ppo_residual_gate": 1.0
+    },
+    {
+      "elapsed_s": 20,
+      "reference_feedback_gate": 1.0,
+      "ppo_residual_gate": 1.0
+    }
+  ],
+  "reward_density_checks": [
+    {
+      "saved_original_term_max_abs_error": 0.0,
+      "transition_index": 0,
+      "physics_steps": 20,
+      "actual_dt_s": 0.02,
+      "old_density": {
+        "pose_guide": 0.9999999990845829,
+        "head_track": 2.0,
+        "balance": 0.0,
+        "overload": -0.0,
+        "self_penetration": -0.0,
+        "standing": 0.0
+      },
+      "new_density": {
+        "pose_guide": 0.0999999999084583,
+        "head_track": 0.2,
+        "balance": 0.0,
+        "overload": -0.0,
+        "self_penetration": -0.0,
+        "standing": 0.0
+      },
+      "positive_scale_only_exact": true
+    },
+    {
+      "saved_original_term_max_abs_error": 0.0,
+      "transition_index": 100,
+      "physics_steps": 20,
+      "actual_dt_s": 0.02,
+      "old_density": {
+        "pose_guide": 0.9492524799935265,
+        "head_track": 1.1296694197025725,
+        "balance": 0.0,
+        "overload": -0.0,
+        "self_penetration": -0.0,
+        "standing": 0.0
+      },
+      "new_density": {
+        "pose_guide": 0.09492524799935265,
+        "head_track": 0.11296694197025725,
+        "balance": 0.0,
+        "overload": -0.0,
+        "self_penetration": -0.0,
+        "standing": 0.0
+      },
+      "positive_scale_only_exact": true
+    },
+    {
+      "saved_original_term_max_abs_error": 0.0,
+      "transition_index": 180,
+      "physics_steps": 20,
+      "actual_dt_s": 0.02,
+      "old_density": {
+        "pose_guide": 0.6051733530446242,
+        "head_track": 0.02468362433075281,
+        "balance": 0.0,
+        "overload": -0.0,
+        "self_penetration": -0.0,
+        "standing": 0.0
+      },
+      "new_density": {
+        "pose_guide": 0.06051733530446242,
+        "head_track": 0.002468362433075281,
+        "balance": 0.0,
+        "overload": -0.0,
+        "self_penetration": -0.0,
+        "standing": 0.0
+      },
+      "positive_scale_only_exact": true
+    },
+    {
+      "saved_original_term_max_abs_error": 0.0,
+      "transition_index": 370,
+      "physics_steps": 19,
+      "actual_dt_s": 0.019,
+      "old_density": {
+        "pose_guide": 0.04093332722127673,
+        "head_track": 1.9681870655461906,
+        "balance": 5.441770218885255,
+        "overload": -0.0,
+        "self_penetration": -0.0,
+        "standing": 5.0
+      },
+      "new_density": {
+        "pose_guide": 0.0040933327221276735,
+        "head_track": 0.19681870655461908,
+        "balance": 0.5441770218885255,
+        "overload": -0.0,
+        "self_penetration": -0.0,
+        "standing": 0.5
+      },
+      "positive_scale_only_exact": true
+    }
+  ],
+  "terminal_rewards_review": {
+    "success": 50.0,
+    "safety": -2.0,
+    "unchanged_costs": [
+      "overload",
+      "self_penetration",
+      "torque_cost",
+      "target_change"
+    ],
+    "actual_last_transition_dt_s": 0.019,
+    "target_change_not_dt_scaled": "Preserved existing per-policy-transition semantics",
+    "gamma_per_policy_transition": 0.999,
+    "bootstrap": "Training remains SB3 original timeout handling; no new bootstrap or terminal additions."
+  },
+  "old_frozen_inputs_on_new_source": {
+    "rejected": true,
+    "reason": "Incomplete controller configuration",
+    "interpretation": "Expected different schema/source identity; historical strategy must use its frozen source. No compatibility check bypassed."
+  },
+  "template_validation": {
+    "ControlConfig_roundtrip": true,
+    "expected_fullscale_exact_to_1e18": true,
+    "physics_constructed_only": true,
+    "training_not_run": true
+  },
+  "source_unchanged_during_review": true,
+  "code_review_conclusion": {
+    "coordinate_chain": "Pelvis-local free-joint angular velocity + waist yaw/pitch/roll angular rates mapped by current waist axes, rotated into torso; gravity derivative\u2212omega\u00d7gravity and sagittal atan2 derivative match frozen formula.",
+    "observation": "Original117+adopted31+phase1; helper recomputes native read-only observation before target mutation and usesfloat32 packed observation.",
+    "reset": "Existing reset clears target/reference/last_controller and native previous_action/tracker; new feedback has no memory and derives both gates from actual elapsed simulation time.",
+    "legacy": "Old-version numeric target/reward branches unchanged; all feedback params must be zero on v1\u2013v5. Adding fields changes resolved identity; preserve historical code foroldcheckpoints.",
+    "feedback_vs_actor": "Reference feedback onankle pitch is independent of PPO .002 authority and5.5 gate; action/log_probability buffers remain PPO17D unchanged.",
+    "identity": "train.core_source_hashes includes env.py; evaluator requires environment/model/controller identity equality. No ignore switch or editedhistoricalhash observed.",
+    "limits": "Hardwired waist/ankle indices guarded by actual joint names onv6; whole17D independentlegs mapping assertsallnames.",
+    "findings": "No blocking correctness issue found in inspected targetsv6/density10 patch. Runtime physical equivalence andperturbed feasibility remain separate root validations."
+  }
+}

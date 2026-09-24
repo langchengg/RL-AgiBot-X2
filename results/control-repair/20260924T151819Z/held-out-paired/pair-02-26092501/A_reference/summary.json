@@ -1,0 +1,1243 @@
+{
+  "schema": "constraint-diagnostic-v1",
+  "status": "COMPLETE",
+  "error": null,
+  "seed": 26092501,
+  "controller": "zero_residual_reference",
+  "source_identity": {
+    "input_sha256": {
+      "policy_final.zip": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+      "resolved_config.json": "6973248b351408dcad0d48ad54c0ee3187760ed3e9c3ca50d045202e4878db73",
+      "manifest.json": "0f450a3457b7a0346177c48a26c9d12be87601352c92943f560126d346da773a",
+      "reload_probe.npz": "3a73d17888b44e0f928f05d1bb9ea8821256e286db9e04f99d5537c7faa86ebc",
+      "progress.csv": "686493b8c035707af1af3fe62b1f39bc39409d77dc5dc5b2b0e5ad5a5c7df595",
+      "reload_validation.json": "cf21ed9e0f4a1cabdba1375f6050b089f7106d28c66d8b9b3e1f7518ccaba833"
+    },
+    "deployment_difference": {
+      "reset_perturb_rad": {
+        "published": 0.0,
+        "deployment": 0.002
+      }
+    },
+    "input_interface": {
+      "max_abs_error": 0.0,
+      "atol": 1e-07,
+      "rtol": 1e-06,
+      "observations": 16,
+      "action_shape": [
+        16,
+        17
+      ]
+    },
+    "controller_config_sha256": "2298b6d8576d2cf17e63267b33fc46cd1e23e7c50fb85a11fba888f473759ef3",
+    "audit_source_sha256": "1fb81ff48deb366c2ca1b8adf6126eb7a8de78519db6212ceceae9cb1df1f86d",
+    "runner_sha256": "4b08ef789b143086fdb522eea1fd075e2abd8a35bda5f2cdd5cbbd494a4d82cf",
+    "protocol_manifest_sha256": "9a1ab53e5ba0a8b64d5eacc4539d295a2b459b61aee35edf3fffeb3786c5fe17",
+    "deterministic": true,
+    "device": "cpu"
+  },
+  "wall_seconds": 5.6548022530005255,
+  "trace_level": "compact",
+  "trace_retention": "All metrics calculated from full float64 physical vectors. Compact traces retain every physical sample scalar and joint extrema, joint CSV, and full control-boundary observations/actions/states; full traces also retain physical vectors.",
+  "reset_handoff_absolute_s": 1.6639999999999275,
+  "success": true,
+  "reset_handoff_comparison_max_abs": {
+    "observation": 0.0,
+    "qpos": 0.0,
+    "qvel": 0.0,
+    "integration_state": 0.0
+  },
+  "sim_duration_s": 6.6160000000009225,
+  "final_info": {
+    "is_success": true,
+    "termination_reason": "success",
+    "truncation_reason": null,
+    "elapsed_sim_s": 6.6160000000009225,
+    "physics_steps_executed": 16,
+    "stable_duration_s": 2.0000000000004183,
+    "standing_failures": [],
+    "reward_terms_raw": {
+      "height": -0.9134171805141806,
+      "upright": -0.9999583905573041,
+      "standing_hold": 0.016000000000000007,
+      "torque_cost": 0.00031529715909326566,
+      "action_change": 1.2638211194417093e-08,
+      "success": 1.0
+    },
+    "reward_terms": {
+      "pose_guide": 9.499942544297664e-05,
+      "head_track": 0.0031979653589502117,
+      "balance": 0.00867436253351164,
+      "overload": -0.0,
+      "self_penetration": -0.0,
+      "standing": 0.008,
+      "torque_cost": -6.3059431818653135e-06,
+      "target_change": -4.422525456056236e-11,
+      "success": 50.0,
+      "safety": -0.0
+    },
+    "torque_saturation_fraction": 0.0,
+    "reset_seed": 1189014962,
+    "state": {
+      "pelvis_height_m": 0.6142699387697971,
+      "tilt_deg": 0.710395605142569,
+      "left_weight": 0.5018005923426814,
+      "right_weight": 0.4983281584292046,
+      "other_weight": 0.0
+    },
+    "warnings": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "control": {
+      "any_saturation_time_fraction": 0.0,
+      "joint_saturation_time_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_boundary_fraction": 0.0,
+      "raw_torque_abs_max_Nm": 22.49439795202841,
+      "applied_torque_abs_max_Nm": 22.49439795202841,
+      "joint_rad_s": 0.02901501307831353,
+      "joint_limit_rad": 0.0,
+      "floor_penetration_m": 0.0005364956790713206,
+      "self_penetration_m": 0.0
+    },
+    "controller": {
+      "policy_action": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mapped_policy_action": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "action_layout": "independentlegs17",
+      "requested_target_rad": [
+        0.556823195529861,
+        0.17448212468538732,
+        -0.03255537768988779,
+        0.10979768267426938,
+        -0.3446462168137858,
+        -0.2121757461032284,
+        -0.07898327352603639,
+        -0.3763484787218126,
+        -0.7846686923110504,
+        0.12093476748864837,
+        0.3911693520303575,
+        -0.07887052782786294,
+        -0.15438270901866943,
+        0.26399999999999996,
+        -0.09973487063393638,
+        -1.7270626380958332e-08,
+        -0.0029731722933949655,
+        -1.124809859897946,
+        0.36678833231212893,
+        0.004260100879079651,
+        -0.5234213502441638,
+        -0.0009443249058440184,
+        -0.02220273002751454,
+        0.008820361762617412,
+        -1.1246877058160847,
+        -0.3668157960533691,
+        -0.004288424291048126,
+        -0.5234368406200903,
+        0.0011205449100229804,
+        -0.022231170772547014,
+        -0.008815809861664142
+      ],
+      "adopted_target_rad": [
+        0.556823195529861,
+        0.17448212468538732,
+        -0.03255537768988779,
+        0.10979768267426938,
+        -0.3446462168137858,
+        -0.2121757461032284,
+        -0.07898327352603639,
+        -0.3763484787218126,
+        -0.7846686923110504,
+        0.12093476748864837,
+        0.3911693520303575,
+        -0.07887052782786294,
+        -0.15438270901866943,
+        0.26399999999999996,
+        -0.09973487063393638,
+        -1.7270626380958332e-08,
+        -0.0029731722933949655,
+        -1.124809859897946,
+        0.36678833231212893,
+        0.004260100879079651,
+        -0.5234213502441638,
+        -0.0009443249058440184,
+        -0.02220273002751454,
+        0.008820361762617412,
+        -1.1246877058160847,
+        -0.3668157960533691,
+        -0.004288424291048126,
+        -0.5234368406200903,
+        0.0011205449100229804,
+        -0.022231170772547014,
+        -0.008815809861664142
+      ],
+      "pre_q_rad": [
+        0.5858910467393457,
+        0.19554494111224527,
+        -0.032219151755665774,
+        0.11784821897400355,
+        -0.39575661466878903,
+        -0.22206634385978036,
+        -0.11660457146510478,
+        -0.39841350147159227,
+        -0.7873268782255259,
+        0.11192570083974487,
+        0.43104862633832736,
+        -0.07901314536517089,
+        -0.15657846347882484,
+        0.30928204712721663,
+        -0.10469811968254,
+        0.000507071421501978,
+        -0.001908732048929668,
+        -1.0582480440406763,
+        0.3390192811863217,
+        0.00012416436590238864,
+        -0.4998140819051004,
+        -0.007570039552022449,
+        0.0039525888816362145,
+        -0.008663267585498551,
+        -1.0574969535867478,
+        -0.3400403753310517,
+        0.0003055418596899977,
+        -0.5001366734885188,
+        0.0015191388397471873,
+        0.003044915389066602,
+        0.0085671501617479
+      ],
+      "pre_time_s": 6.6000000000009225,
+      "target_tracking_max_rad": 0.0671907522293369,
+      "target_tracking_rms_rad": 0.027399174514953873,
+      "residual_gate": 1.0,
+      "residual_gate_time_s": 6.600000000000931,
+      "gated_residual_rad": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "feedback_policy_action": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.012917480431497097,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.012917480431497097,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "feedback_target_delta_rad": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0010333984345197679,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0010333984345197679,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "feedback_gate": 1.0,
+      "feedback_kind": "torso-ankle-pd-v1"
+    },
+    "learning_task": {
+      "head_height_m": 1.159596143191557,
+      "head_progress": 0.9351311686972444,
+      "reference_progress": 0.9401750860268853,
+      "head_tracking_error": -0.0050439173296408235,
+      "head_tracking_error_m": -0.0051526331413709325,
+      "contact_factor": 1.0,
+      "upright": 0.9999231365793557,
+      "foot_transfer_factor": 1.0,
+      "pose_error_rms_rad": 0.03042178869872046,
+      "elapsed_sim_s": 6.6160000000009225,
+      "measurement_scope": "post-step control boundary; head_pitch_link body origin in world Z",
+      "balance_height_factor": 0.913418596312296,
+      "balance_upright_gate": 0.9998462731587114,
+      "balance_bilateral_factor": 1.0,
+      "balance_nominal_load_factor": 1.0,
+      "balance_other_support_factor": 1.0,
+      "balance_low_speed_factor": 0.9893802906914813,
+      "balance_feet_weight": 1.000128750771886,
+      "positive_density_scale": 0.1
+    },
+    "physical_reward_terms": {
+      "height": -2.740251541542542,
+      "upright": -0.9999583905573041,
+      "standing_hold": 0.016000000000000007,
+      "torque_cost": -6.3059431818653135e-06,
+      "action_change": -2.5276422388834188e-11,
+      "success": 50.0
+    },
+    "physical_reward": 46.2757837619317
+  },
+  "physics_dt_s": 0.001,
+  "standing_tolerance_rad": 0.0001,
+  "duration_rule": "Right endpoint indicators: sum(mask[k])*dt for (post_time[k]-dt,post_time[k]]. Consecutive true samples form runs; extrema are physical-step sampled, not continuous extrema.",
+  "force_timing": "integration_* copies after native mj_step and before the EXISTING active mj_forward. Their contacts/forces use the pre-state time; qpos/qvel use post-time. postforward_* is the synchronized post-state recomputation used by existing success checks, not the applied interval solve.",
+  "force_definition": "Ground vertical is the signed sum of contact force world-Z on robot; bodyweights=force/(mass*9.81). Sum-norm and largest-contact force are separate; no force ratio is electrical power.",
+  "observer": "Scoped Python forwarding wrappers only; no added mj_step or active mj_forward; no physics-state writes.",
+  "timing_source": "https://github.com/google-deepmind/mujoco/blob/3.13.0/src/engine/engine_forward.c",
+  "noninterference_tolerances": {
+    "state_atol": 1e-10,
+    "action_atol": 1e-07,
+    "rtol": 0
+  },
+  "standing_settings": {
+    "h_ref_m": 0.6724955472220092,
+    "height_ratio_min": 0.9,
+    "tilt_deg_max": 15.0,
+    "foot_weight_min": 0.05,
+    "feet_weight_min": 0.8,
+    "feet_weight_max": 1.2,
+    "other_weight_max": 1e-05,
+    "linear_m_s_max": 0.1,
+    "angular_rad_s_max": 0.25,
+    "joint_rad_s_max": 0.5,
+    "pelvis_drift_m_max": 0.05,
+    "foot_drift_m_max": 0.03,
+    "hold_s": 2.0,
+    "floor_penetration_m_max": 0.001,
+    "self_penetration_m_max": 0.0001,
+    "support_gap_m_max": 2e-06,
+    "joint_limit_rad_max": 0.0001
+  },
+  "segments": {
+    "reset_settling": {
+      "samples": 1664,
+      "sampled_duration_s": 1.6640000000000001,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": -1.6629999999999276,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 0.9505255666382493,
+      "max_actuation_limit_ratio": 0.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.002664868104268539,
+          "geom_ids": [
+            0,
+            80
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": -1.6019999999999275
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": -1.6639999999999275
+        },
+        "peak_ground_vertical_N": 997.0583862056601,
+        "peak_ground_vertical_bodyweights": 2.421860433443467,
+        "peak_ground_elapsed_s": -1.6309999999999276,
+        "peak_ground_sum_norm_N": 1204.6783140495747,
+        "largest_ground_contact_N": 434.83766585570316
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.002664868104268539,
+          "geom_ids": [
+            0,
+            80
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_wrist_roll_link"
+          ],
+          "elapsed_s": -1.6019999999999275
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": -1.6629999999999276
+        },
+        "peak_ground_vertical_N": 997.0583862056601,
+        "peak_ground_vertical_bodyweights": 2.421860433443467,
+        "peak_ground_elapsed_s": -1.6309999999999276,
+        "peak_ground_sum_norm_N": 1204.6783140495747,
+        "largest_ground_contact_N": 434.83766585570316
+      }
+    },
+    "recovery": {
+      "samples": 6616,
+      "sampled_duration_s": 6.6160000000000005,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": 0.0009999999999998899,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 3.6580234675815606,
+      "max_actuation_limit_ratio": 1.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.003244771040119147,
+          "geom_ids": [
+            0,
+            20
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "left_ankle_roll_link"
+          ],
+          "elapsed_s": 2.453999999999782
+        },
+        "self": {
+          "depth_m": 0.001666489527732547,
+          "geom_ids": [
+            2,
+            30
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "pelvis",
+            "right_hip_roll_link"
+          ],
+          "elapsed_s": 1.880999999999793
+        },
+        "peak_ground_vertical_N": 767.9402810206709,
+        "peak_ground_vertical_bodyweights": 1.8653312660346009,
+        "peak_ground_elapsed_s": 3.3800000000000914,
+        "peak_ground_sum_norm_N": 992.2551329142669,
+        "largest_ground_contact_N": 516.8944046795152
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.003244771040119147,
+          "geom_ids": [
+            0,
+            20
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "left_ankle_roll_link"
+          ],
+          "elapsed_s": 2.453999999999782
+        },
+        "self": {
+          "depth_m": 0.001666489527732547,
+          "geom_ids": [
+            2,
+            30
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "pelvis",
+            "right_hip_roll_link"
+          ],
+          "elapsed_s": 1.880999999999793
+        },
+        "peak_ground_vertical_N": 768.6166141978116,
+        "peak_ground_vertical_bodyweights": 1.8669740831295711,
+        "peak_ground_elapsed_s": 3.3810000000000917,
+        "peak_ground_sum_norm_N": 1005.6095021475323,
+        "largest_ground_contact_N": 520.0439643908696
+      }
+    },
+    "residual_disabled": {
+      "samples": 5500,
+      "sampled_duration_s": 5.5,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": 0.0009999999999998899,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 3.6580234675815606,
+      "max_actuation_limit_ratio": 1.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.003244771040119147,
+          "geom_ids": [
+            0,
+            20
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "left_ankle_roll_link"
+          ],
+          "elapsed_s": 2.453999999999782
+        },
+        "self": {
+          "depth_m": 0.001666489527732547,
+          "geom_ids": [
+            2,
+            30
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "pelvis",
+            "right_hip_roll_link"
+          ],
+          "elapsed_s": 1.880999999999793
+        },
+        "peak_ground_vertical_N": 767.9402810206709,
+        "peak_ground_vertical_bodyweights": 1.8653312660346009,
+        "peak_ground_elapsed_s": 3.3800000000000914,
+        "peak_ground_sum_norm_N": 992.2551329142669,
+        "largest_ground_contact_N": 516.8944046795152
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.003244771040119147,
+          "geom_ids": [
+            0,
+            20
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "left_ankle_roll_link"
+          ],
+          "elapsed_s": 2.453999999999782
+        },
+        "self": {
+          "depth_m": 0.001666489527732547,
+          "geom_ids": [
+            2,
+            30
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "pelvis",
+            "right_hip_roll_link"
+          ],
+          "elapsed_s": 1.880999999999793
+        },
+        "peak_ground_vertical_N": 768.6166141978116,
+        "peak_ground_vertical_bodyweights": 1.8669740831295711,
+        "peak_ground_elapsed_s": 3.3810000000000917,
+        "peak_ground_sum_norm_N": 1005.6095021475323,
+        "largest_ground_contact_N": 520.0439643908696
+      }
+    },
+    "residual_ramp": {
+      "samples": 200,
+      "sampled_duration_s": 0.2,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": 5.5010000000008,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 0.047320828874779765,
+      "max_actuation_limit_ratio": 0.3682605423238215,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.0008532353657180148,
+          "geom_ids": [
+            0,
+            40
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 5.500000000000799
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": 5.500000000000799
+        },
+        "peak_ground_vertical_N": 411.8362781960341,
+        "peak_ground_vertical_bodyweights": 1.0003526383397359,
+        "peak_ground_elapsed_s": 5.679000000000859,
+        "peak_ground_sum_norm_N": 416.01652709221037,
+        "largest_ground_contact_N": 136.38963023335378
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.0008527639850028036,
+          "geom_ids": [
+            0,
+            40
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 5.5010000000008
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": 5.5010000000008
+        },
+        "peak_ground_vertical_N": 411.84244879652135,
+        "peak_ground_vertical_bodyweights": 1.0003676267630592,
+        "peak_ground_elapsed_s": 5.6800000000008595,
+        "peak_ground_sum_norm_N": 416.0221176100552,
+        "largest_ground_contact_N": 136.24862903784862
+      }
+    },
+    "residual_full": {
+      "samples": 916,
+      "sampled_duration_s": 0.916,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": 5.7010000000008665,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 0.07409704351767717,
+      "max_actuation_limit_ratio": 0.46744765240788333,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.0007343972580825071,
+          "geom_ids": [
+            0,
+            40
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 5.700000000000866
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": 5.700000000000866
+        },
+        "peak_ground_vertical_N": 413.8224460907962,
+        "peak_ground_vertical_bodyweights": 1.0051770513380613,
+        "peak_ground_elapsed_s": 5.7580000000008855,
+        "peak_ground_sum_norm_N": 418.39912917409333,
+        "largest_ground_contact_N": 104.72183227921725
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.0007337045151188061,
+          "geom_ids": [
+            0,
+            40
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 5.7010000000008665
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": 5.7010000000008665
+        },
+        "peak_ground_vertical_N": 413.7984095869795,
+        "peak_ground_vertical_bodyweights": 1.0051186665349672,
+        "peak_ground_elapsed_s": 5.759000000000886,
+        "peak_ground_sum_norm_N": 418.37725161687945,
+        "largest_ground_contact_N": 104.54660537292723
+      }
+    },
+    "final_standing_window": {
+      "samples": 2001,
+      "sampled_duration_s": 2.001,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": 4.616000000000504,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 0.49513542750365225,
+      "max_actuation_limit_ratio": 0.46744765240788333,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.0009628601974441498,
+          "geom_ids": [
+            0,
+            40
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 4.860000000000586
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": 4.615000000000504
+        },
+        "peak_ground_vertical_N": 413.8224460907962,
+        "peak_ground_vertical_bodyweights": 1.0051770513380613,
+        "peak_ground_elapsed_s": 5.7580000000008855,
+        "peak_ground_sum_norm_N": 418.39912917409333,
+        "largest_ground_contact_N": 165.2943113524212
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.0009628601974441498,
+          "geom_ids": [
+            0,
+            40
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_ankle_roll_link"
+          ],
+          "elapsed_s": 4.860000000000586
+        },
+        "self": {
+          "depth_m": 0.0,
+          "geom_ids": null,
+          "geom_names": null,
+          "bodies": null,
+          "elapsed_s": 4.616000000000504
+        },
+        "peak_ground_vertical_N": 413.7984095869795,
+        "peak_ground_vertical_bodyweights": 1.0051186665349672,
+        "peak_ground_elapsed_s": 5.759000000000886,
+        "peak_ground_sum_norm_N": 418.37725161687945,
+        "largest_ground_contact_N": 165.29516459659985
+      }
+    },
+    "landing_100ms": {
+      "samples": 394,
+      "sampled_duration_s": 0.394,
+      "max_joint_excess_rad": 0.0,
+      "worst_joint": "left_hip_pitch_joint",
+      "worst_joint_elapsed_s": 1.8219999999997996,
+      "any_joint_above_zero_s": 0.0,
+      "any_joint_above_standing_tolerance_s": 0.0,
+      "max_joint_speed_rad_s": 3.6580234675815606,
+      "max_actuation_limit_ratio": 1.0,
+      "integration_contacts": {
+        "floor": {
+          "depth_m": 0.0017778293522456162,
+          "geom_ids": [
+            0,
+            34
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_knee_link"
+          ],
+          "elapsed_s": 1.8569999999997957
+        },
+        "self": {
+          "depth_m": 0.001666489527732547,
+          "geom_ids": [
+            2,
+            30
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "pelvis",
+            "right_hip_roll_link"
+          ],
+          "elapsed_s": 1.880999999999793
+        },
+        "peak_ground_vertical_N": 705.6021952115616,
+        "peak_ground_vertical_bodyweights": 1.7139117046464027,
+        "peak_ground_elapsed_s": 1.8479999999997967,
+        "peak_ground_sum_norm_N": 902.6124457886164,
+        "largest_ground_contact_N": 459.6361528123402
+      },
+      "postforward_contacts": {
+        "floor": {
+          "depth_m": 0.0017778293522456162,
+          "geom_ids": [
+            0,
+            34
+          ],
+          "geom_names": [
+            "floor",
+            ""
+          ],
+          "bodies": [
+            "world",
+            "right_knee_link"
+          ],
+          "elapsed_s": 1.8569999999997957
+        },
+        "self": {
+          "depth_m": 0.001666489527732547,
+          "geom_ids": [
+            2,
+            30
+          ],
+          "geom_names": [
+            "",
+            ""
+          ],
+          "bodies": [
+            "pelvis",
+            "right_hip_roll_link"
+          ],
+          "elapsed_s": 1.880999999999793
+        },
+        "peak_ground_vertical_N": 704.4326251592042,
+        "peak_ground_vertical_bodyweights": 1.7110708124046516,
+        "peak_ground_elapsed_s": 1.8479999999997967,
+        "peak_ground_sum_norm_N": 905.9573546584427,
+        "largest_ground_contact_N": 460.4040089894994
+      }
+    }
+  },
+  "segment_definition": "Residual stage uses actual gate held from pre-control boundary; final window includes both endpoint samples (2001 samples for a 2s hold). Segment memberships overlap.",
+  "final_window_start_elapsed_s": 4.6160000000009225,
+  "standing_window_minimum_margins": {
+    "height_m": 0.009021508662435562,
+    "tilt_deg": 8.761060733357827,
+    "left_support_bodyweights": 0.41345119629609434,
+    "right_support_bodyweights": 0.431766752197934,
+    "feet_lower_bodyweights": 0.19029909043222504,
+    "feet_upper_bodyweights": 0.19488133346503256,
+    "other_weight": 1e-05,
+    "base_linear_m_s": 0.045556877895465094,
+    "com_linear_m_s": 0.03349390407093457,
+    "base_angular_rad_s": 0.13355461123332096,
+    "torso_angular_rad_s": 0.058718885941455856,
+    "joint_rad_s": 0.004864572496347752,
+    "joint_limit_rad": 0.0001,
+    "floor_penetration_m": 3.713980255585017e-05,
+    "self_penetration_m": 0.0001,
+    "support_gap_m": 2e-06,
+    "pelvis_drift_m": 0.004970421311477381,
+    "left_drift_m": 0.02767923163703829,
+    "right_drift_m": 0.022190930315779726
+  },
+  "airborne_intervals": [
+    {
+      "start_s": 1.8199999999997998,
+      "end_s": 1.8209999999997997,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 3.5580000000001513,
+      "end_s": 3.561000000000152,
+      "sampled_duration_s": 0.003,
+      "samples": 3
+    },
+    {
+      "start_s": 3.5940000000001633,
+      "end_s": 3.5960000000001635,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 3.61400000000017,
+      "end_s": 3.6170000000001705,
+      "sampled_duration_s": 0.003,
+      "samples": 3
+    },
+    {
+      "start_s": 3.6310000000001756,
+      "end_s": 3.636000000000177,
+      "sampled_duration_s": 0.005,
+      "samples": 5
+    },
+    {
+      "start_s": 3.6390000000001783,
+      "end_s": 3.6410000000001785,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 3.6520000000001827,
+      "end_s": 3.660000000000185,
+      "sampled_duration_s": 0.008,
+      "samples": 8
+    },
+    {
+      "start_s": 3.6750000000001903,
+      "end_s": 3.6820000000001922,
+      "sampled_duration_s": 0.007,
+      "samples": 7
+    },
+    {
+      "start_s": 3.686000000000194,
+      "end_s": 3.699000000000198,
+      "sampled_duration_s": 0.013000000000000001,
+      "samples": 13
+    },
+    {
+      "start_s": 3.7120000000002027,
+      "end_s": 3.7220000000002056,
+      "sampled_duration_s": 0.01,
+      "samples": 10
+    },
+    {
+      "start_s": 3.725000000000207,
+      "end_s": 3.729000000000208,
+      "sampled_duration_s": 0.004,
+      "samples": 4
+    },
+    {
+      "start_s": 3.731000000000209,
+      "end_s": 3.7370000000002106,
+      "sampled_duration_s": 0.006,
+      "samples": 6
+    },
+    {
+      "start_s": 3.7380000000002114,
+      "end_s": 3.7390000000002113,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    },
+    {
+      "start_s": 3.740000000000212,
+      "end_s": 3.7420000000002123,
+      "sampled_duration_s": 0.002,
+      "samples": 2
+    },
+    {
+      "start_s": 3.7450000000002137,
+      "end_s": 3.750000000000215,
+      "sampled_duration_s": 0.005,
+      "samples": 5
+    },
+    {
+      "start_s": 3.752000000000216,
+      "end_s": 3.753000000000216,
+      "sampled_duration_s": 0.001,
+      "samples": 1
+    }
+  ],
+  "landing_events": [
+    {
+      "elapsed_s": 1.8219999999997996,
+      "ground_vertical_N": 468.68486678496436
+    },
+    {
+      "elapsed_s": 3.562000000000152,
+      "ground_vertical_N": 267.56278142214944
+    },
+    {
+      "elapsed_s": 3.597000000000164,
+      "ground_vertical_N": 225.78830213672842
+    },
+    {
+      "elapsed_s": 3.618000000000171,
+      "ground_vertical_N": 268.6117900711791
+    },
+    {
+      "elapsed_s": 3.637000000000177,
+      "ground_vertical_N": 269.44491757209045
+    },
+    {
+      "elapsed_s": 3.642000000000179,
+      "ground_vertical_N": 569.3123200002419
+    },
+    {
+      "elapsed_s": 3.661000000000185,
+      "ground_vertical_N": 315.97080141663696
+    },
+    {
+      "elapsed_s": 3.6830000000001926,
+      "ground_vertical_N": 288.6711240784995
+    },
+    {
+      "elapsed_s": 3.7000000000001982,
+      "ground_vertical_N": 288.15706929999396
+    },
+    {
+      "elapsed_s": 3.723000000000206,
+      "ground_vertical_N": 237.90301056999118
+    },
+    {
+      "elapsed_s": 3.7300000000002083,
+      "ground_vertical_N": 205.48214259993364
+    },
+    {
+      "elapsed_s": 3.738000000000211,
+      "ground_vertical_N": 180.06625132369868
+    },
+    {
+      "elapsed_s": 3.7400000000002116,
+      "ground_vertical_N": 182.25549997989108
+    },
+    {
+      "elapsed_s": 3.7430000000002126,
+      "ground_vertical_N": 208.451549080647
+    },
+    {
+      "elapsed_s": 3.7510000000002153,
+      "ground_vertical_N": 163.33318409746892
+    },
+    {
+      "elapsed_s": 3.7540000000002163,
+      "ground_vertical_N": 281.4239222526759
+    }
+  ],
+  "airborne_landing_definition": "Airborne = synchronized postforward total ground vertical force <=1e-9 N; landing = the next loaded sample; landing_100ms is the union of 0.1 s windows beginning at those samples. This is a force-based diagnostic, not a claim of complete geometric separation.",
+  "constraint_envelope_checks": {
+    "joint_excess": true,
+    "directional_actuation": true,
+    "declared_velocity": true,
+    "velocity_limits_declared_count": 31
+  },
+  "constraint_envelope_pass": true,
+  "constraint_envelope_definition": "Recovery nominal joint-range excess <=0.0001 rad, directional actuation ratio<=1+1e-10 and each declared URDF speed ratio<=1+1e-10. The joint tolerance is borrowed from standing, not a hardware safety allowance. Candidate impact non-regression requires separate comparison with the unchanged-controller baseline.",
+  "admissible_recovery": true,
+  "standing_window_sway": {
+    "torso_tilt_range_deg": 5.847700392112103,
+    "maximum_torso_tilt_deg": 6.238939266642173,
+    "pelvis_xy_peak_to_peak_m": [
+      0.0476176635797369,
+      0.010243594387480905
+    ],
+    "max_base_angular_rad_s": 0.11644538876667904,
+    "max_torso_angular_rad_s": 0.19128111405854414
+  },
+  "actuation_consistency": {
+    "integration_vs_postforward_max_abs_Nm": 0.0,
+    "mapped_joint_vs_ctrl_max_abs_Nm": 0.0,
+    "actuator_vs_ctrl_max_abs_Nm": 0.0,
+    "mapping": "31 stateless scalar hinge motors; fixed unit gain/gear; no actuator-output clamp; input and joint clamps preserved."
+  },
+  "reward": {
+    "raw_return": 53.851712783121364,
+    "observed_discounted_prefix": 39.0309350086991,
+    "discounted_terms": {
+      "balance": 1.0074814285593283,
+      "head_track": 0.9839031701241723,
+      "overload": -0.00037006107061191224,
+      "pose_guide": 0.34227606138238065,
+      "safety": 0.0,
+      "self_penetration": 0.0,
+      "standing": 0.7621217779927121,
+      "success": 35.94025208369065,
+      "target_change": -0.00033024830463185837,
+      "torque_cost": -0.004399203674898769
+    },
+    "gamma_per_policy_transition": 0.999,
+    "transitions": 331,
+    "terminated": true,
+    "truncated": false,
+    "critic_tail_estimate": null,
+    "historical_rollout_bootstrap": null,
+    "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+  },
+  "maximum_stable_hold_s": 2.0000000000004183,
+  "artifacts_sha256": {
+    "joint_constraints.csv": "b2f30645ca8612f6037c2406e93eda16f18fed285143e9abcd345d7d2dd21672",
+    "physical_trace.npz": "ed1acd5ffc84adb8818c41e557aec15dee1a580130eb46c720f13272306d3989",
+    "control_trace.npz": "ed9b5b26b13321c5d126c142894f0b9a78f1dec745fa4b87bb90d0b67f50331a"
+  }
+}

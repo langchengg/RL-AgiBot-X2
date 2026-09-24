@@ -1,0 +1,18 @@
+{
+  "created_utc": "2026-09-24T20:22:17.980265+00:00",
+  "selected_reference": "waist-negative/negative-23-amp-0.04-start3.05",
+  "development_evidence": "development-negative23/summary.json",
+  "control_config_sha256": "2cd00bcaa8f3c4a0a7066aef282aff87defe17286a428ddbe119c679b32f475f",
+  "initialization": "fresh actor, critic and Adam; no old checkpoint transfer; no old rollouts",
+  "budget": {
+    "transitions": 4096,
+    "workers": 2,
+    "n_steps": 256,
+    "rollout_batch": 512,
+    "max_wall_seconds": 1200
+  },
+  "seed": 26092490,
+  "reward_version": "reference-balance-density10-v1",
+  "PPO_permissions": "four ankle outputs only, each <=0.002rad, 5.5s start/0.2s ramp; analytical reference feedback independent",
+  "selected_before_held_out": true
+}

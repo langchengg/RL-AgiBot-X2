@@ -1,0 +1,9 @@
+{"event": "prepare_begin", "monotonic_s": 6207.359905001, "count": 1}
+{"event": "prepare_end", "monotonic_s": 6208.109028835, "count": 1, "success": false, "error": "ValueError"}
+{"event": "node_event", "monotonic_s": 6208.109089168, "name": "initialization_failed", "episode": 0, "fields": {"controller_ready": false, "requested_controller": "reference_residual", "loaded_controller": null, "controller_run": "/nonexistent/x2-controller", "error": {"type": "ValueError", "message": "Missing input: /nonexistent/x2-controller/resolved_config.json"}, "executable": "/home/lang/RL-AgiBot-X2/.venv/bin/python", "module": "/tmp/x2-ros-deploy-20260924T145619Z/fresh/build/x2_recovery/x2_recovery/recovery_node.py"}}
+{"event": "constructed", "monotonic_s": 6208.109673668, "controller": "reference_residual", "controller_ready": false, "initialization_error": {"type": "ValueError", "message": "Missing input: /nonexistent/x2-controller/resolved_config.json"}, "status": "FAILED", "loaded_controller": null, "has_environment": false, "has_timer": false, "prepare_count": 1}
+{"event": "node_event", "monotonic_s": 6208.110271251, "name": "rejected", "episode": 0, "fields": {"status": "FAILED", "reason": "controller_unavailable", "callback_body_s": 4.125000486965291e-06}}
+{"event": "callback_return", "monotonic_s": 6208.110579751, "success": false, "duration_s": 0.00031554200086247874, "episode": 0, "before": {"episode": 0, "reset_count": 0, "control_steps": 0, "busy": false, "pending": false, "environment_id": 10708888}, "after": {"episode": 0, "reset_count": 0, "control_steps": 0, "busy": false, "pending": false, "environment_id": 10708888}}
+{"event": "send_begin", "monotonic_s": 6208.110606418, "success": false, "episode": 0}
+{"event": "send_end", "monotonic_s": 6208.110667418, "success": false, "episode": 0}
+{"event": "node_event", "monotonic_s": 6208.289177335, "name": "closed", "episode": 0, "fields": {}}

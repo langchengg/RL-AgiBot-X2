@@ -1,0 +1,44 @@
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Root colcon workspace outputs
+/build/
+/install/
+/log/
+
+# Local editor and OS artifacts
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Local secrets; keep shareable examples visible
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Task handout, if placed in the workspace
+HRS_Take_Home_Task*.pdf
+
+# Python package metadata produced by colcon/setuptools
+*.egg-info/
+
+# Local model audit evidence (strict JSON, rendered images, verification logs)
+/audit-output/
+
+# Reproducible PPO runs retain full local evidence, policies and source snapshots.
+/runs/
+
+# Byte-identical gzip copies of these complete historical traces are published.
+# Keep the original local JSONL files; see README for restoration and SHA-256 checks.
+/results/evaluation/ppo-smoke-20260922T044430Z/trajectory.jsonl
+/results/evaluation/ppo-reference-residual-20260922T212457Z/trajectory.jsonl

@@ -1,0 +1,56 @@
+[
+  {
+    "length": 62,
+    "physics_steps": 1240,
+    "return_value": 0.35802082259931944,
+    "terms": {
+      "pose_guide": 0.1228268743682627,
+      "head_track": 0.23571001560007313,
+      "balance": 0.0,
+      "overload": 0.0,
+      "self_penetration": 0.0,
+      "standing": 0.0,
+      "torque_cost": -0.00046454175277996603,
+      "target_change": -5.1525616236363166e-05,
+      "success": 0.0,
+      "safety": 0.0
+    },
+    "saturation": 0.0,
+    "height": 0.08261211879597902,
+    "tilt": 72.3059865571819,
+    "hold": 0.0,
+    "bilateral": 0.0503262216098326,
+    "tracking": 0.16223574813335434,
+    "raw_oob": 0.0,
+    "boundary": 0.0,
+    "tilt_at_height": 79.40543477794238,
+    "other_at_height": 0.5927863836776104
+  },
+  {
+    "length": 62,
+    "physics_steps": 1240,
+    "return_value": 0.35802082259931944,
+    "terms": {
+      "pose_guide": 0.1228268743682627,
+      "head_track": 0.23571001560007313,
+      "balance": 0.0,
+      "overload": 0.0,
+      "self_penetration": 0.0,
+      "standing": 0.0,
+      "torque_cost": -0.00046454175277996603,
+      "target_change": -5.1525616236363166e-05,
+      "success": 0.0,
+      "safety": 0.0
+    },
+    "saturation": 0.0,
+    "height": 0.08261211879597902,
+    "tilt": 72.3059865571819,
+    "hold": 0.0,
+    "bilateral": 0.0503262216098326,
+    "tracking": 0.16223574813335434,
+    "raw_oob": 0.0,
+    "boundary": 0.0,
+    "tilt_at_height": 79.40543477794238,
+    "other_at_height": 0.5927863836776104
+  }
+]

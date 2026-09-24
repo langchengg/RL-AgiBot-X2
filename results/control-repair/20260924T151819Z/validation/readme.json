@@ -1,0 +1,10 @@
+{
+  "sha256": "696cc21576cb605e7d9aaed8230a0b5bb766f4ac533386c8b1b5bf8ae683064f",
+  "lines": 690,
+  "bytes": 44065,
+  "bash_blocks": 11,
+  "syntax_errors": [],
+  "local_targets": 57,
+  "missing": [],
+  "scope": "Syntax and actual CLI/config/command-flow review. New-runtime check/run actually executed; training/evaluation command evidence retained. Historical loader checked read-only. Final Git-index availability verified before commit."
+}

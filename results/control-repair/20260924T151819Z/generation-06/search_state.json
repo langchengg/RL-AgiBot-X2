@@ -1,0 +1,27 @@
+{
+  "completed": 16,
+  "recorded_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "pending_indices": [],
+  "unrecorded_indices": [],
+  "next_index": null,
+  "resume_rule": "Reconstruct remaining candidates from candidates.jsonl unique indices and plan identities; next_index is a hint only.",
+  "best_feasible": null,
+  "best_infeasible": "g06-local-cem-04"
+}

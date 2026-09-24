@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "streaming_state_sha256": "5e4d4e65e10efc04b50d849246c1bd94377237cbc82c6e6670c2b2d81efcd6c4",
+  "full_observer_state_sha256": "5e4d4e65e10efc04b50d849246c1bd94377237cbc82c6e6670c2b2d81efcd6c4",
+  "sample_count": 20000,
+  "scope": "Byte-identical full qpos/qvel for the same complete candidate with the new streaming and existing full observers."
+}

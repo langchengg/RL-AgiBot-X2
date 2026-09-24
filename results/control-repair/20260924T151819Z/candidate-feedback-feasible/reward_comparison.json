@@ -1,0 +1,215 @@
+{
+  "schema": "feasible-feedback-reward-audit-v1",
+  "episodes": {
+    "candidate-feedback-feasible": {
+      "success": true,
+      "sim_seconds": 7.419000000000479,
+      "hold_s": 1.9999999999997078,
+      "constraint_envelope_pass": true,
+      "streaming_equivalence": {
+        "physical_state_sha256": true,
+        "actual_target_sha256": true,
+        "policy_action_sha256": true,
+        "original_observations_exact": true,
+        "original_actions_exact": true,
+        "original_adopted_target_exact": true,
+        "original_requested_target_exact": true
+      }
+    },
+    "candidate-feedback-zero-reference": {
+      "success": false,
+      "sim_seconds": 20.000000000003563,
+      "hold_s": 0.0,
+      "constraint_envelope_pass": true,
+      "streaming_equivalence": {
+        "physical_state_sha256": true,
+        "actual_target_sha256": true,
+        "policy_action_sha256": true,
+        "original_observations_exact": true,
+        "original_actions_exact": true,
+        "original_adopted_target_exact": true,
+        "original_requested_target_exact": true
+      }
+    }
+  },
+  "exact_reward_rankings": {
+    "candidate-feedback-feasible/reference-balance-v1": {
+      "raw_return": 97.04204293819397,
+      "observed_discounted_prefix": 71.3593293547529,
+      "discounted_terms": {
+        "balance": 13.06509101983891,
+        "head_track": 11.018865357769707,
+        "overload": 0.0,
+        "pose_guide": 3.453087532559698,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 9.297016422141207,
+        "success": 34.53032356834566,
+        "target_change": -0.0003297759997357723,
+        "torque_cost": -0.004724769902534693
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 371,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    },
+    "candidate-feedback-feasible/reference-balance-density10-v1": {
+      "raw_return": 54.69887792485609,
+      "observed_discounted_prefix": 38.20867505567434,
+      "discounted_terms": {
+        "balance": 1.3065091019838908,
+        "head_track": 1.101886535776971,
+        "overload": 0.0,
+        "pose_guide": 0.3453087532559701,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 0.9297016422141196,
+        "success": 34.53032356834566,
+        "target_change": -0.0003297759997357723,
+        "torque_cost": -0.004724769902534693
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 371,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    },
+    "candidate-feedback-zero-reference/reference-balance-v1": {
+      "raw_return": 17.419771716184975,
+      "observed_discounted_prefix": 15.057287617881085,
+      "discounted_terms": {
+        "balance": 3.569231557401596,
+        "head_track": 8.03188406831333,
+        "overload": 0.0,
+        "pose_guide": 3.4637330781942914,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 0.0,
+        "success": 0.0,
+        "target_change": -0.0003298126988144695,
+        "torque_cost": -0.0072312733293365536
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 1000,
+      "terminated": false,
+      "truncated": true,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    },
+    "candidate-feedback-zero-reference/reference-balance-density10-v1": {
+      "raw_return": 1.732282401428588,
+      "observed_discounted_prefix": 1.4989237843627716,
+      "discounted_terms": {
+        "balance": 0.35692315574015965,
+        "head_track": 0.8031884068313336,
+        "overload": 0.0,
+        "pose_guide": 0.3463733078194298,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 0.0,
+        "success": 0.0,
+        "target_change": -0.0003298126988144695,
+        "torque_cost": -0.0072312733293365536
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 1000,
+      "terminated": false,
+      "truncated": true,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    }
+  },
+  "rows": [
+    {
+      "controller": "candidate-feedback-feasible",
+      "reward_version": "reference-balance-v1",
+      "success": true,
+      "transitions": 371,
+      "sim_seconds": 7.419000000000479,
+      "raw_return": 97.04204293819397,
+      "discounted_prefix": 71.3593293547529,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail": "unavailable_not_added"
+    },
+    {
+      "controller": "candidate-feedback-feasible",
+      "reward_version": "reference-balance-density10-v1",
+      "success": true,
+      "transitions": 371,
+      "sim_seconds": 7.419000000000479,
+      "raw_return": 54.69887792485609,
+      "discounted_prefix": 38.20867505567434,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail": "unavailable_not_added"
+    },
+    {
+      "controller": "candidate-feedback-zero-reference",
+      "reward_version": "reference-balance-v1",
+      "success": false,
+      "transitions": 1000,
+      "sim_seconds": 20.000000000003563,
+      "raw_return": 17.419771716184975,
+      "discounted_prefix": 15.057287617881085,
+      "terminated": false,
+      "truncated": true,
+      "critic_tail": "unavailable_not_added"
+    },
+    {
+      "controller": "candidate-feedback-zero-reference",
+      "reward_version": "reference-balance-density10-v1",
+      "success": false,
+      "transitions": 1000,
+      "sim_seconds": 20.000000000003563,
+      "raw_return": 1.732282401428588,
+      "discounted_prefix": 1.4989237843627716,
+      "terminated": false,
+      "truncated": true,
+      "critic_tail": "unavailable_not_added"
+    }
+  ],
+  "theoretical_bounds": {
+    "reference-balance-v1": {
+      "positive_density_bound_per_second": 14.0,
+      "max_transition_positive": 0.28,
+      "max_20s_failure_discounted_prefix_ignoring_negative": 177.0452810641299,
+      "max_20s_success_discounted_return_ignoring_negative": 195.44845547709104,
+      "one_step_delay_immediately_before_success_upper_advantage": 0.22999999999999998,
+      "immediate_safety_failure": -2.0,
+      "max_nonterminal_cycles_included": true,
+      "scope": "Mathematical upper bounds, not actual physics;no assumed critic bootstrap"
+    },
+    "reference-balance-density10-v1": {
+      "positive_density_bound_per_second": 1.4000000000000001,
+      "max_transition_positive": 0.028000000000000004,
+      "max_20s_failure_discounted_prefix_ignoring_negative": 17.70452810641299,
+      "max_20s_success_discounted_return_ignoring_negative": 36.107702519374136,
+      "one_step_delay_immediately_before_success_upper_advantage": -0.02200000000000004,
+      "immediate_safety_failure": -2.0,
+      "max_nonterminal_cycles_included": true,
+      "scope": "Mathematical upper bounds, not actual physics;no assumed critic bootstrap"
+    }
+  },
+  "original_inputs_unchanged": true,
+  "original_policy_unchanged": true,
+  "training": false,
+  "wall_seconds": 24.59784371999922,
+  "gamma_semantics": "gamma=.999 per policy transition; shortened final step retains one exponent. No missing future reward after termination; timeout prefix only; final critic not used.",
+  "interpretation": "Analytical feedback plus new IK reference, not PPO. Both are same physical model/reset/reward version; control differences are explicit. Reduced-density values are offline rescoring, not learned results.",
+  "execution_record": {
+    "new_complete_physical_episodes": 2,
+    "success_episode_rerun": false,
+    "postprocessing_retry": "First physical diagnostic and all equivalence checks completed; serialization of in-memory ndarray into augmented JSON failed. Base summary and NPZ were already complete. Resume read existing success episode, completed metadata, then executed the one outstanding zero-feedback episode. No physics repeated.",
+    "first_recipe": "results/control-repair/20260924T151819Z/candidate-feedback-feasible/diagnostic_recipe.py",
+    "resume_recipe": "results/control-repair/20260924T151819Z/candidate-feedback-feasible/diagnostic_resume_recipe.py",
+    "wall_seconds_scope": "Resume call including read-only processing of prior completed success; excludes first physical run; per-episode summary wall_seconds retains actual diagnostic times."
+  }
+}

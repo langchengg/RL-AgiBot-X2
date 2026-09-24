@@ -1,0 +1,113 @@
+{
+  "cwd": "/tmp",
+  "clean_shell": {
+    "unset": [
+      "PYTHONPATH",
+      "AMENT_PREFIX_PATH",
+      "COLCON_PREFIX_PATH",
+      "CMAKE_PREFIX_PATH",
+      "LD_LIBRARY_PATH"
+    ],
+    "source": [
+      "/opt/ros/jazzy/setup.bash",
+      "/tmp/x2-ros-deploy-20260924T145619Z/fresh/install/setup.bash"
+    ]
+  },
+  "environment": {
+    "PYTHONNOUSERSITE": "1",
+    "X2_ASSET_REPO": "/home/lang/.cache/hrs-x2-recovery/agibot_x2_urdf",
+    "ROS_DOMAIN_ID": "193",
+    "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+    "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp",
+    "MUJOCO_GL": "osmesa"
+  },
+  "fresh_build": {
+    "command": [
+      "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+      "/usr/bin/colcon",
+      "--log-base",
+      "/tmp/x2-ros-deploy-20260924T145619Z/fresh/log",
+      "build",
+      "--base-paths",
+      "/home/lang/RL-AgiBot-X2/src",
+      "--packages-select",
+      "x2_recovery",
+      "--symlink-install",
+      "--build-base",
+      "/tmp/x2-ros-deploy-20260924T145619Z/fresh/build",
+      "--install-base",
+      "/tmp/x2-ros-deploy-20260924T145619Z/fresh/install"
+    ],
+    "exit_code": 0,
+    "wall_s": 1.29,
+    "scope": "New build/install/log directories; only Jazzy sourced for build"
+  },
+  "policy": {
+    "command": [
+      "timeout",
+      "--signal=INT",
+      "--kill-after=15s",
+      "400s",
+      "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+      "/home/lang/RL-AgiBot-X2/src/x2_recovery/test/test_ros_integration.py",
+      "--output-dir",
+      "/home/lang/RL-AgiBot-X2/results/ros-acceptance/20260924T145619Z-reference-residual/policy",
+      "--controller-run",
+      "/home/lang/RL-AgiBot-X2/results/evaluation/ppo-reference-residual-20260922T212457Z/inputs/training-run",
+      "--expected-checkpoint-sha256",
+      "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+      "--reference-trace",
+      "/home/lang/RL-AgiBot-X2/results/controller-review/20260924T132353Z/unobserved/control_trace.npz"
+    ],
+    "exit_code": 0
+  },
+  "baseline": {
+    "command": [
+      "timeout",
+      "--signal=INT",
+      "--kill-after=15s",
+      "300s",
+      "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+      "/home/lang/RL-AgiBot-X2/src/x2_recovery/test/test_ros_integration.py",
+      "--output-dir",
+      "/home/lang/RL-AgiBot-X2/results/ros-acceptance/20260924T145619Z-reference-residual/baseline"
+    ],
+    "exit_code": 0,
+    "controller": "explicit scripted_baseline in all child launches"
+  },
+  "node_unit": {
+    "command": [
+      "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "/home/lang/RL-AgiBot-X2/src/x2_recovery/test",
+      "-p",
+      "test_ros_nodes.py"
+    ],
+    "exit_code": 0,
+    "tests": 35,
+    "wall_s": 2.547,
+    "environment_override": {
+      "ROS_DOMAIN_ID": "194",
+      "ROS_LOCALHOST_ONLY": "1"
+    },
+    "scope": "Synthetic/fault-injection logic tests; not physical success evidence"
+  },
+  "child_launch_service_topic_commands": {
+    "policy": "policy/summary.json: processes and cli",
+    "baseline": "baseline/summary.json: processes and cli"
+  },
+  "readonly_loader": {
+    "evidence": "controller-identity.json",
+    "forbidden_calls": [
+      "X2RecoveryEnv.reset",
+      "X2RecoveryEnv.step",
+      "ControlledRecoveryEnv.reset",
+      "ControlledRecoveryEnv.step",
+      "PPO.learn"
+    ],
+    "guard_result": "PASS"
+  }
+}

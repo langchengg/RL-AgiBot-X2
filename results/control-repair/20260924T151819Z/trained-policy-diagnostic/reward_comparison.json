@@ -1,0 +1,109 @@
+{
+  "trained_policy": {
+    "reference-balance-density10-v1": {
+      "raw_return": 53.8595787512761,
+      "observed_discounted_prefix": 39.03742310515904,
+      "discounted_terms": {
+        "balance": 1.008883373503465,
+        "head_track": 0.9889829763878839,
+        "overload": -0.000362880269603247,
+        "pose_guide": 0.3422694117291483,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 0.7621217779927121,
+        "success": 35.94025208369065,
+        "target_change": -0.000330331155299224,
+        "torque_cost": -0.0043933067199167725
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 331,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    },
+    "reference-balance-v1": {
+      "raw_return": 88.6489504532623,
+      "observed_discounted_prefix": 66.95774096167793,
+      "discounted_terms": {
+        "balance": 10.088833735034655,
+        "head_track": 9.889829763878836,
+        "overload": -0.000362880269603247,
+        "pose_guide": 3.4226941172914813,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 7.621217779927128,
+        "success": 35.94025208369065,
+        "target_change": -0.000330331155299224,
+        "torque_cost": -0.0043933067199167725
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 331,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    }
+  },
+  "zero_PPO_reference": {
+    "reference-balance-density10-v1": {
+      "raw_return": 53.859569254902105,
+      "observed_discounted_prefix": 39.037416045321315,
+      "discounted_terms": {
+        "balance": 1.0088757804259547,
+        "head_track": 0.9889835425820027,
+        "overload": -0.000362880269603247,
+        "pose_guide": 0.3422694148561883,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 0.7621217779927121,
+        "success": 35.94025208369065,
+        "target_change": -0.0003303311157164491,
+        "torque_cost": -0.0043933428408720115
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 331,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    },
+    "reference-balance-v1": {
+      "raw_return": 88.64885593971839,
+      "observed_discounted_prefix": 66.95767068803303,
+      "discounted_terms": {
+        "balance": 10.088757804259547,
+        "head_track": 9.889835425820033,
+        "overload": -0.000362880269603247,
+        "pose_guide": 3.4226941485618787,
+        "safety": 0.0,
+        "self_penetration": 0.0,
+        "standing": 7.621217779927128,
+        "success": 35.94025208369065,
+        "target_change": -0.0003303311157164491,
+        "torque_cost": -0.0043933428408720115
+      },
+      "gamma_per_policy_transition": 0.999,
+      "transitions": 331,
+      "terminated": true,
+      "truncated": false,
+      "critic_tail_estimate": null,
+      "historical_rollout_bootstrap": null,
+      "semantics": "No post-terminal reward; critic tail is not observed reward or historical bootstrap."
+    }
+  },
+  "gamma_per_transition": 0.999,
+  "last_trained_transition_physics_steps": 16,
+  "same_reset_max_abs": {
+    "observation": 0.0,
+    "qpos": 0.0,
+    "qvel": 0.0
+  },
+  "interpretation": "Same new reference, built-in feedback, physical settings and reward. Original reward is an offline re-score. No critic tail or historical bootstrap fabricated. One deterministic pair does not establish residual benefit.",
+  "density10_late_success_upper_ignoring_costs": 36.10770251937413,
+  "trained_observed_G_above_late_upper": true,
+  "theoretical_bound_is_not_success_criterion": true
+}

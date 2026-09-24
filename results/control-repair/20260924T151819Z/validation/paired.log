@@ -1,0 +1,78 @@
+preflight 26092500: accepted (1/20)
+preflight 26092501: accepted (2/20)
+preflight 26092502: accepted (3/20)
+preflight 26092503: accepted (4/20)
+preflight 26092504: accepted (5/20)
+preflight 26092505: accepted (6/20)
+preflight 26092506: accepted (7/20)
+preflight 26092507: accepted (8/20)
+preflight 26092508: accepted (9/20)
+preflight 26092509: accepted (10/20)
+preflight 26092510: accepted (11/20)
+preflight 26092511: accepted (12/20)
+preflight 26092512: accepted (13/20)
+preflight 26092513: accepted (14/20)
+preflight 26092514: accepted (15/20)
+preflight 26092515: accepted (16/20)
+preflight 26092516: accepted (17/20)
+preflight 26092517: accepted (18/20)
+preflight 26092518: accepted (19/20)
+preflight 26092519: accepted (20/20)
+pair 1/20 26092500 A_reference: COMPLETE success=True time=6.616000000000924
+pair 1/20 26092500 B_residual: COMPLETE success=True time=6.616000000000924
+pair 2/20 26092501 A_reference: COMPLETE success=True time=6.6160000000009225
+pair 2/20 26092501 B_residual: COMPLETE success=True time=6.6160000000009225
+pair 3/20 26092502 A_reference: COMPLETE success=True time=6.616000000000924
+pair 3/20 26092502 B_residual: COMPLETE success=True time=6.616000000000924
+pair 4/20 26092503 A_reference: COMPLETE success=True time=6.616000000000929
+pair 4/20 26092503 B_residual: COMPLETE success=True time=6.616000000000929
+pair 5/20 26092504 A_reference: COMPLETE success=True time=6.616000000000924
+pair 5/20 26092504 B_residual: COMPLETE success=True time=6.616000000000924
+pair 6/20 26092505 A_reference: COMPLETE success=True time=6.616000000000925
+pair 6/20 26092505 B_residual: COMPLETE success=True time=6.616000000000925
+pair 7/20 26092506 A_reference: COMPLETE success=True time=6.61600000000092
+pair 7/20 26092506 B_residual: COMPLETE success=True time=6.61600000000092
+pair 8/20 26092507 A_reference: COMPLETE success=True time=6.616000000000926
+pair 8/20 26092507 B_residual: COMPLETE success=True time=6.616000000000926
+pair 9/20 26092508 A_reference: COMPLETE success=True time=6.616000000000927
+pair 9/20 26092508 B_residual: COMPLETE success=True time=6.616000000000927
+pair 10/20 26092509 A_reference: COMPLETE success=True time=6.616000000000924
+pair 10/20 26092509 B_residual: COMPLETE success=True time=6.616000000000924
+pair 11/20 26092510 A_reference: COMPLETE success=True time=6.616000000000924
+pair 11/20 26092510 B_residual: COMPLETE success=True time=6.616000000000924
+pair 12/20 26092511 A_reference: COMPLETE success=True time=6.616000000000927
+pair 12/20 26092511 B_residual: COMPLETE success=True time=6.616000000000927
+pair 13/20 26092512 A_reference: COMPLETE success=True time=6.6160000000009225
+pair 13/20 26092512 B_residual: COMPLETE success=True time=6.6160000000009225
+pair 14/20 26092513 A_reference: COMPLETE success=True time=6.616000000000922
+pair 14/20 26092513 B_residual: COMPLETE success=True time=6.616000000000922
+pair 15/20 26092514 A_reference: COMPLETE success=True time=6.616000000000924
+pair 15/20 26092514 B_residual: COMPLETE success=True time=6.616000000000924
+pair 16/20 26092515 A_reference: COMPLETE success=True time=6.616000000000923
+pair 16/20 26092515 B_residual: COMPLETE success=True time=6.616000000000923
+pair 17/20 26092516 A_reference: COMPLETE success=True time=6.616000000000925
+pair 17/20 26092516 B_residual: COMPLETE success=True time=6.616000000000925
+pair 18/20 26092517 A_reference: COMPLETE success=True time=6.616000000000919
+pair 18/20 26092517 B_residual: COMPLETE success=True time=6.616000000000919
+pair 19/20 26092518 A_reference: COMPLETE success=True time=6.616000000000925
+pair 19/20 26092518 B_residual: COMPLETE success=True time=6.616000000000925
+pair 20/20 26092519 A_reference: COMPLETE success=True time=6.616000000000923
+pair 20/20 26092519 B_residual: COMPLETE success=True time=6.616000000000923
+{
+  "planned": 20,
+  "valid_pairs": 20,
+  "success_outcomes": {
+    "A_win": 0,
+    "B_win": 0,
+    "tie": 20
+  },
+  "both_success_pairs": 20,
+  "B_minus_A_success_time_s": {
+    "min": 0.0,
+    "max": 0.0,
+    "mean": 0.0,
+    "median": 0.0
+  },
+  "wall_seconds": 269.42090075300075
+}
+{"status": "COMPLETE", "planned_pairs": 20, "valid_pairs": 20, "invalid_or_blocked_pairs": 0, "controllers": {"A_reference": {"completed": 20, "standing": 20, "envelope": 20, "impact": 20, "admissible": 20}, "B_residual": {"completed": 20, "standing": 20, "envelope": 20, "impact": 20, "admissible": 20}}, "pair_outcomes": {"A_win": 0, "B_win": 0, "tie": 20}, "both_success_pairs": 20, "B_minus_A_success_time_s": {"min": 0.0, "max": 0.0, "mean": 0.0, "median": 0.0}, "runner_sha256": "8b36d25956d81b4e4edb617c70634843e79f068200a5d7b69c388e52e3abcd15", "existing_pair_runner_sha256": "4b08ef789b143086fdb522eea1fd075e2abd8a35bda5f2cdd5cbbd494a4d82cf", "protocol_sha256": "f3e60db53e7f80cafc9038f8b169395218b95f3e7b8e06f466fd7f29728d4a98", "scope": "Requirement pass follows the preregistered manifest exactly:20 valid pairs, all40 envelope passes, and at least16 B original standing successes. Impact and admissible counts are separate quality dimensions. All20 reset-only selections precede A/B outcomes; no replacement. New CSV admissible = standing AND envelope with31 declared velocities AND five integration-impact comparisons. Individual raw diagnostic summaries retain their older standing+envelope admissible definition; this summary and CSV explicitly add impact.", "requirement_pass": true, "all_40_impact_pass": true, "B_admissible_at_least_16": true}

@@ -1,0 +1,5 @@
+controller,reward_version,success,transitions,sim_seconds,raw_return,discounted_prefix,terminated,truncated,critic_tail
+candidate-feedback-feasible,reference-balance-v1,True,371,7.419000000000479,97.04204293819397,71.3593293547529,True,False,unavailable_not_added
+candidate-feedback-feasible,reference-balance-density10-v1,True,371,7.419000000000479,54.69887792485609,38.20867505567434,True,False,unavailable_not_added
+candidate-feedback-zero-reference,reference-balance-v1,False,1000,20.000000000003563,17.419771716184975,15.057287617881085,False,True,unavailable_not_added
+candidate-feedback-zero-reference,reference-balance-density10-v1,False,1000,20.000000000003563,1.732282401428588,1.4989237843627716,False,True,unavailable_not_added

@@ -9,3 +9,11 @@ results/controller-review/** -text
 results/controller-review/**/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # Preserve trailing blank lines emitted by ROS CLI in raw acceptance logs.
 results/controller-review/*/ros-acceptance/**/*.log whitespace=-blank-at-eof
+# New repair/ROS evidence retains its measured bytes and raw command output.
+results/control-repair/** -text
+results/control-repair/**/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+results/control-repair/**/*.patch whitespace=-blank-at-eol,-blank-at-eof
+results/control-repair/**/*.diff whitespace=-blank-at-eol,-blank-at-eof
+results/control-repair/**/*.log whitespace=-blank-at-eof
+results/ros-acceptance/20260924T145619Z-reference-residual/** -text
+results/ros-acceptance/20260924T145619Z-reference-residual/**/*.log whitespace=-blank-at-eof
