@@ -13,6 +13,19 @@ joint-limit excess failed the additional envelope and its old perturbation resul
 new frozen input bundle; `scripted_baseline` remains an explicit debug/fallback choice.
 These are finite simulation results, not broad-pose robustness or hardware certification.
 
+## Demo — v6 recovery
+
+[![AgiBot X2 v6 recovering from a supine pose and holding a stable stance](results/demonstrations/v6-recovery-20260925T060741Z/recovery-v6.gif)](results/demonstrations/v6-recovery-20260925T060741Z/recovery-v6.mp4)
+
+[Watch or download the full MP4](results/demonstrations/v6-recovery-20260925T060741Z/recovery-v6.mp4) · [Recording provenance](results/demonstrations/v6-recovery-20260925T060741Z/manifest.json) · [Recording script](results/demonstrations/v6-recovery-20260925T060741Z/record_demo.py)
+
+Independent real-simulation reproduction of the published v6 controller:
+repaired reference motion + analytical torso/ankle feedback + trained PPO residual.
+This nominal episode (seed 221030) took **6.616 simulated seconds**, including the
+final **2.000-second continuous standing hold**, shown at approximately 1× speed;
+it is a direct simulation demonstration, not a ROS recording or an additional
+formal evaluation/robustness trial. The GIF loops the same episode.
+
 ## Setup and Quick Start
 
 Target: **Ubuntu 24.04 ARM64 Parallels**, system Python **3.12.3**, ROS 2 **Jazzy**.
@@ -102,8 +115,9 @@ RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-$$"
 Each output must be new and disjoint from the input. The episode summary is under
 `replay-<id>/training-input/development-221030/`; `execution.json` records the child
 exit code. Inspect `success`, `reason` and `sim_duration_s`: exit 0 alone is not success.
-Nothing installs or trains implicitly. The [existing video][video] depicts the historical
-v5 controller in a separate real reproduction, not the new controller.
+Nothing installs or trains implicitly. The [v6 demonstration](#demo--v6-recovery) above
+uses this input. The [historical v5 video][video] remains a separate real reproduction
+of the older controller.
 
 ### Reproduce the historical v5 controller
 

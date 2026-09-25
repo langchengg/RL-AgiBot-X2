@@ -1,0 +1,1904 @@
+{
+  "kind": "independent demonstration reproduction",
+  "formal_evaluation": false,
+  "recorded_utc": "2026-09-25T06:09:35Z",
+  "source_commit": "6143ead5bebd9f8a8abb43192abf4f249a344a0c",
+  "controller": "repaired reference + bounded torso/ankle analytical feedback + trained PPO residual",
+  "training_run": "results/control-repair/20260924T151819Z/training-run",
+  "input_sha256": {
+    "policy_final.zip": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+    "resolved_config.json": "6973248b351408dcad0d48ad54c0ee3187760ed3e9c3ca50d045202e4878db73",
+    "manifest.json": "0f450a3457b7a0346177c48a26c9d12be87601352c92943f560126d346da773a",
+    "reload_probe.npz": "3a73d17888b44e0f928f05d1bb9ea8821256e286db9e04f99d5537c7faa86ebc",
+    "progress.csv": "686493b8c035707af1af3fe62b1f39bc39409d77dc5dc5b2b0e5ad5a5c7df595",
+    "reload_validation.json": "cf21ed9e0f4a1cabdba1375f6050b089f7106d28c66d8b9b3e1f7518ccaba833"
+  },
+  "source_sha256": {
+    "__init__.py": "d403ad3a0788c19559da75d29168d967a47c7d09da5914ede09bb7f631d62532",
+    "evaluate.py": "107dca0342f21c54a1ce44195833111c4e75dc09ed19fb9ae260ae021d764366",
+    "train.py": "42aa4581b167d9c868e69cf45fccc42b6685fbd4e8295886b00083b049999118",
+    "env.py": "c4a5bc96dd7a26bcfec73c648a63ab476c65bdde4543fca0fb92f037fb041da0",
+    "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+    "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+    "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+    "model_audit.py": "e8733a70be722f018f22e8bda364c02117bf15df1614157bc746330454111adc",
+    "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+  },
+  "model_source": {
+    "repository": "https://github.com/AgibotTech/agibot_x2_urdf",
+    "commit": "60c5de582c523cd188f563819e62d34cfdc3d2d0",
+    "scene": "X2_URDF-v1.3.0/scene.xml"
+  },
+  "model_fingerprint": "bd9bfae8f3a5115cad202f989cf43d7ef0a6678346e4dd3c519de76c300316b0",
+  "versions": {
+    "python": "3.12.3",
+    "mujoco": "3.13.0",
+    "torch": "2.8.0+cpu",
+    "os": "Linux-7.0.0-34-generic-aarch64-with-glibc2.39",
+    "architecture": "aarch64"
+  },
+  "strict_probe": {
+    "max_abs_error": 7.450580596923828e-09,
+    "atol": 1e-07,
+    "rtol": 1e-06,
+    "observations": 16,
+    "action_shape": [
+      16,
+      17
+    ]
+  },
+  "seed": 221030,
+  "reset_seed": 1232936377,
+  "reset": {
+    "status": "PASS",
+    "criteria": {
+      "clearance_m": 0.002,
+      "geometry_epsilon_m": 2e-06,
+      "max_settle_s": 5.0,
+      "dwell_s": 0.5,
+      "hold_s": 1.0,
+      "wall_s": 45.0,
+      "face_up_deg": 20.0,
+      "linear_m_s": 0.01,
+      "angular_rad_s": 0.05,
+      "joint_rad_s": 0.02,
+      "drift_m": 0.003,
+      "drift_rad": 0.01,
+      "floor_m": 0.001,
+      "self_m": 0.0001,
+      "joint_epsilon_rad": 1e-06,
+      "transient_floor_m": 0.012,
+      "transient_self_m": 0.003,
+      "perturb_rad": 0.0
+    },
+    "initial": {
+      "seed": 1232936377,
+      "attempts": 1,
+      "requested_joints_rad": {
+        "waist_yaw_joint": 0.0,
+        "waist_roll_joint": 0.0,
+        "head_yaw_joint": 0.0,
+        "head_pitch_joint": 0.0,
+        "waist_pitch_joint": 0.3,
+        "left_hip_pitch_joint": 0.01,
+        "left_hip_roll_joint": 0.0,
+        "left_hip_yaw_joint": 0.0,
+        "left_knee_joint": 0.03,
+        "left_ankle_pitch_joint": -0.37,
+        "left_ankle_roll_joint": 0.0,
+        "left_shoulder_pitch_joint": 0.42,
+        "left_shoulder_roll_joint": 0.5,
+        "left_shoulder_yaw_joint": 0.0,
+        "left_elbow_joint": -0.65,
+        "left_wrist_yaw_joint": 0.0,
+        "left_wrist_pitch_joint": -0.22,
+        "left_wrist_roll_joint": 0.05,
+        "right_hip_pitch_joint": 0.01,
+        "right_hip_roll_joint": 0.0,
+        "right_hip_yaw_joint": 0.0,
+        "right_knee_joint": 0.03,
+        "right_ankle_pitch_joint": -0.37,
+        "right_ankle_roll_joint": 0.0,
+        "right_shoulder_pitch_joint": 0.42,
+        "right_shoulder_roll_joint": -0.5,
+        "right_shoulder_yaw_joint": 0.0,
+        "right_elbow_joint": -0.65,
+        "right_wrist_yaw_joint": 0.0,
+        "right_wrist_pitch_joint": -0.22,
+        "right_wrist_roll_joint": -0.05
+      },
+      "qpos": [
+        0.0,
+        0.0,
+        0.08060621648902502,
+        0.7071067811865476,
+        -0.0,
+        -0.7071067811865475,
+        -0.0,
+        0.01,
+        0.0,
+        0.0,
+        0.03,
+        -0.37,
+        0.0,
+        0.01,
+        0.0,
+        0.0,
+        0.03,
+        -0.37,
+        0.0,
+        0.0,
+        0.3,
+        0.0,
+        0.42,
+        0.5,
+        0.0,
+        -0.65,
+        0.0,
+        -0.22,
+        0.05,
+        0.42,
+        -0.5,
+        0.0,
+        -0.65,
+        0.0,
+        -0.22,
+        -0.05,
+        0.0,
+        0.0
+      ],
+      "geometry": {
+        "minimum_clearance_m": 0.0020000000000000018,
+        "nearest_pair": [
+          0,
+          53
+        ],
+        "query_support_max_error_m": 5.551115123125783e-17,
+        "nearby_eligible_pairs": [
+          {
+            "pair": [
+              2,
+              7
+            ],
+            "distance_m": 0.002650680474812405
+          },
+          {
+            "pair": [
+              2,
+              30
+            ],
+            "distance_m": 0.002653472183677364
+          },
+          {
+            "pair": [
+              53,
+              58
+            ],
+            "distance_m": 0.006949578544967727
+          },
+          {
+            "pair": [
+              53,
+              71
+            ],
+            "distance_m": 0.006948732301974106
+          },
+          {
+            "pair": [
+              53,
+              82
+            ],
+            "distance_m": 0.002450965327808173
+          }
+        ],
+        "adjacent_or_same_body_overlaps": [
+          {
+            "pair": [
+              2,
+              5
+            ],
+            "distance_m": -0.01453108250370666
+          },
+          {
+            "pair": [
+              2,
+              28
+            ],
+            "distance_m": -0.01453108428506355
+          },
+          {
+            "pair": [
+              5,
+              7
+            ],
+            "distance_m": -0.09985027667468738
+          },
+          {
+            "pair": [
+              7,
+              9
+            ],
+            "distance_m": -0.009500543102261928
+          },
+          {
+            "pair": [
+              9,
+              11
+            ],
+            "distance_m": -0.09703670699218092
+          },
+          {
+            "pair": [
+              11,
+              13
+            ],
+            "distance_m": -0.05292445456617424
+          },
+          {
+            "pair": [
+              28,
+              30
+            ],
+            "distance_m": -0.09905603498033067
+          },
+          {
+            "pair": [
+              30,
+              32
+            ],
+            "distance_m": -0.009500546781369152
+          },
+          {
+            "pair": [
+              32,
+              34
+            ],
+            "distance_m": -0.0970492535421903
+          },
+          {
+            "pair": [
+              34,
+              36
+            ],
+            "distance_m": -0.05292446177300352
+          },
+          {
+            "pair": [
+              53,
+              69
+            ],
+            "distance_m": -6.998518838199473e-08
+          },
+          {
+            "pair": [
+              56,
+              58
+            ],
+            "distance_m": -0.08549982382038807
+          },
+          {
+            "pair": [
+              58,
+              60
+            ],
+            "distance_m": -0.028349885065113545
+          },
+          {
+            "pair": [
+              60,
+              62
+            ],
+            "distance_m": -0.05260045695317982
+          },
+          {
+            "pair": [
+              65,
+              67
+            ],
+            "distance_m": -0.039097901105441785
+          },
+          {
+            "pair": [
+              69,
+              71
+            ],
+            "distance_m": -0.08550107775021686
+          },
+          {
+            "pair": [
+              71,
+              73
+            ],
+            "distance_m": -0.02841175099026725
+          },
+          {
+            "pair": [
+              73,
+              75
+            ],
+            "distance_m": -0.04953707352720219
+          },
+          {
+            "pair": [
+              78,
+              80
+            ],
+            "distance_m": -0.039097898213617144
+          }
+        ],
+        "wrist_hip_distances_m": {
+          "9-67": 0.2851841194100288,
+          "32-80": 0.2860984294241598
+        }
+      }
+    },
+    "episode_start_time": 1.6609999999999279,
+    "window_resets": 0,
+    "initial_metrics": {
+      "time_s": 0.0,
+      "torso_face_deg": 17.18873385392475,
+      "torso_longitudinal_deg": 17.188733853924706,
+      "pelvis_face_deg": 0.0,
+      "pelvis_longitudinal_deg": 1.2722218725854067e-14,
+      "base_linear_m_s": 0.0,
+      "com_linear_m_s": 0.0,
+      "base_angular_rad_s": 0.0,
+      "torso_angular_rad_s": 0.0,
+      "joint_rad_s": 0.0,
+      "joint_violation_rad": 0.0,
+      "floor": {
+        "penetration_m": 0.0,
+        "pair": null,
+        "time_s": 0.0
+      },
+      "self": {
+        "penetration_m": 0.0,
+        "pair": null,
+        "time_s": 0.0
+      },
+      "ground_support_N": 0.0,
+      "back_support_N": 0.0,
+      "support": [],
+      "com": [
+        -0.03922818489662455,
+        0.00024041476637707152,
+        0.09971991700589021
+      ]
+    },
+    "final": {
+      "time_s": 1.6609999999999279,
+      "torso_face_deg": 17.69414007796033,
+      "torso_longitudinal_deg": 17.69400409375398,
+      "pelvis_face_deg": 0.10163326587114944,
+      "pelvis_longitudinal_deg": 0.08872772590013196,
+      "base_linear_m_s": 7.128321538538056e-06,
+      "com_linear_m_s": 1.8018922238067688e-05,
+      "base_angular_rad_s": 2.7873451768682667e-05,
+      "torso_angular_rad_s": 6.749743694652244e-05,
+      "joint_rad_s": 0.006260553141925424,
+      "joint_violation_rad": 0.0,
+      "floor": {
+        "penetration_m": 0.00019265119733988256,
+        "pair": [
+          0,
+          53
+        ],
+        "time_s": 1.6609999999999279
+      },
+      "self": {
+        "penetration_m": 0.0,
+        "pair": null,
+        "time_s": 1.6609999999999279
+      },
+      "ground_support_N": 411.69111540567104,
+      "back_support_N": 113.77189914933447,
+      "support": [
+        {
+          "pair": [
+            0,
+            2
+          ],
+          "body": "pelvis",
+          "vertical_N": 54.31823515452858,
+          "distance_m": -0.00012070460273710948,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            2
+          ],
+          "body": "pelvis",
+          "vertical_N": 42.22469584542415,
+          "distance_m": -9.452342820781556e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            2
+          ],
+          "body": "pelvis",
+          "vertical_N": 42.32456042240513,
+          "distance_m": -9.466574968032548e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            9
+          ],
+          "body": "left_hip_yaw_link",
+          "vertical_N": 16.65549621428179,
+          "distance_m": -7.713229473481353e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            9
+          ],
+          "body": "left_hip_yaw_link",
+          "vertical_N": 6.237101019656451,
+          "distance_m": -2.905719172191512e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            9
+          ],
+          "body": "left_hip_yaw_link",
+          "vertical_N": 7.616236449023693,
+          "distance_m": -3.5477744891751484e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            13
+          ],
+          "body": "left_ankle_pitch_link",
+          "vertical_N": 9.424341066129918,
+          "distance_m": -9.405277484687835e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            13
+          ],
+          "body": "left_ankle_pitch_link",
+          "vertical_N": 9.297769256775045,
+          "distance_m": -9.27710617925695e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            16
+          ],
+          "body": "left_ankle_roll_link",
+          "vertical_N": 5.088727598104723,
+          "distance_m": -6.577553091999516e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            18
+          ],
+          "body": "left_ankle_roll_link",
+          "vertical_N": 0.19055261888973146,
+          "distance_m": -2.482982571059937e-06,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            32
+          ],
+          "body": "right_hip_yaw_link",
+          "vertical_N": 16.322489670994475,
+          "distance_m": -7.57070906528684e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            32
+          ],
+          "body": "right_hip_yaw_link",
+          "vertical_N": 7.74948706857703,
+          "distance_m": -3.6141546766801924e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            32
+          ],
+          "body": "right_hip_yaw_link",
+          "vertical_N": 6.3596613266552176,
+          "distance_m": -2.9655623755675542e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            36
+          ],
+          "body": "right_ankle_pitch_link",
+          "vertical_N": 9.985967180972821,
+          "distance_m": -9.949693487303762e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            36
+          ],
+          "body": "right_ankle_pitch_link",
+          "vertical_N": 8.7576798355746,
+          "distance_m": -8.75715470653668e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            39
+          ],
+          "body": "right_ankle_roll_link",
+          "vertical_N": 0.5697679451992022,
+          "distance_m": -7.68283573912825e-06,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            41
+          ],
+          "body": "right_ankle_roll_link",
+          "vertical_N": 4.6797246745397505,
+          "distance_m": -6.033047739383967e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            53
+          ],
+          "body": "torso_link",
+          "vertical_N": 113.77189914933447,
+          "distance_m": -0.00019265119733988256,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            62
+          ],
+          "body": "left_elbow_link",
+          "vertical_N": 19.751685088408866,
+          "distance_m": -0.00018093785725378786,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            62
+          ],
+          "body": "left_elbow_link",
+          "vertical_N": 4.346077422463368,
+          "distance_m": -4.140496080776851e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            67
+          ],
+          "body": "left_wrist_roll_link",
+          "vertical_N": 1.1694077345892502,
+          "distance_m": -3.5774596126046665e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            75
+          ],
+          "body": "right_elbow_link",
+          "vertical_N": 10.073614955898073,
+          "distance_m": -9.503711354249406e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            75
+          ],
+          "body": "right_elbow_link",
+          "vertical_N": 5.539842260669216,
+          "distance_m": -5.279756358765597e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            80
+          ],
+          "body": "right_wrist_roll_link",
+          "vertical_N": 4.32920843353416,
+          "distance_m": -0.00013207182522198546,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            80
+          ],
+          "body": "right_wrist_roll_link",
+          "vertical_N": 3.933775295832014,
+          "distance_m": -0.00011883298949601911,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        },
+        {
+          "pair": [
+            0,
+            80
+          ],
+          "body": "right_wrist_roll_link",
+          "vertical_N": 0.9731117172092673,
+          "distance_m": -2.8843508954594366e-05,
+          "solref": [
+            0.02,
+            1.0
+          ],
+          "solimp": [
+            0.9,
+            0.95,
+            0.001,
+            0.5,
+            2.0
+          ]
+        }
+      ],
+      "com": [
+        -0.03915397356544956,
+        0.0002307764770375872,
+        0.09514732105002378
+      ]
+    },
+    "transient_maximum": {
+      "floor": {
+        "penetration_m": 0.002696279358938583,
+        "pair": [
+          0,
+          80
+        ],
+        "time_s": 0.06200000000000005
+      },
+      "self": {
+        "penetration_m": 0.0,
+        "pair": null,
+        "time_s": 0.0
+      }
+    },
+    "settled_start_s": 0.16100000000000012,
+    "window_maxima": {
+      "floor_m": 0.00025593878625766037,
+      "self_m": 0.0,
+      "joint_rad_s": 0.01949645073506277,
+      "linear_m_s": 0.001517191766801083,
+      "angular_rad_s": 0.004967090719664055,
+      "drift_m": 4.104721376241698e-05,
+      "drift_rad": 0.00944615393152981
+    },
+    "window_penetration": {
+      "floor": {
+        "penetration_m": 0.00025593878625766037,
+        "pair": [
+          0,
+          62
+        ],
+        "time_s": 0.16100000000000012
+      },
+      "self": {
+        "penetration_m": 0.0,
+        "pair": null,
+        "time_s": 0.16100000000000012
+      }
+    },
+    "hold_start_s": 0.6610000000000001,
+    "warnings": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "success": true,
+  "termination_reason": "success",
+  "truncation_reason": null,
+  "simulated_duration_s": 6.616000000000924,
+  "longest_continuous_hold_s": 2.000000000000421,
+  "control_steps": 331,
+  "physics_steps": 6616,
+  "final_transition_physics_steps": 16,
+  "reset_settling_s": 1.6609999999999279,
+  "terminal_info": {
+    "is_success": true,
+    "termination_reason": "success",
+    "truncation_reason": null,
+    "elapsed_sim_s": 6.616000000000924,
+    "physics_steps_executed": 16,
+    "stable_duration_s": 2.000000000000421,
+    "standing_failures": [],
+    "reward_terms_raw": {
+      "height": -0.9135325847310417,
+      "upright": -0.9999682593067982,
+      "standing_hold": 0.016000000000000007,
+      "torque_cost": 0.0003103649504406637,
+      "action_change": 1.406842989057982e-08,
+      "success": 1.0
+    },
+    "reward_terms": {
+      "pose_guide": 9.500639200061527e-05,
+      "head_track": 0.0031979198232076327,
+      "balance": 0.008649991741113623,
+      "overload": -0.0,
+      "self_penetration": -0.0,
+      "standing": 0.008,
+      "torque_cost": -6.207299008813274e-06,
+      "target_change": -4.9227730558437014e-11,
+      "success": 50.0,
+      "safety": -0.0
+    },
+    "torque_saturation_fraction": 0.0,
+    "reset_seed": 1232936377,
+    "state": {
+      "pelvis_height_m": 0.6143474811037958,
+      "tilt_deg": 0.6175391272385095,
+      "left_weight": 0.5009847747912302,
+      "right_weight": 0.49900266580555935,
+      "other_weight": 0.0
+    },
+    "warnings": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "control": {
+      "any_saturation_time_fraction": 0.0,
+      "joint_saturation_time_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_boundary_fraction": 0.0,
+      "raw_torque_abs_max_Nm": 22.2182788503015,
+      "applied_torque_abs_max_Nm": 22.2182788503015,
+      "joint_rad_s": 0.03204435781049414,
+      "joint_limit_rad": 0.0,
+      "floor_penetration_m": 0.0005312348349420888,
+      "self_penetration_m": 0.0
+    },
+    "controller": {
+      "policy_action": [
+        -0.008243118412792683,
+        -0.014711758121848106,
+        -0.03574654459953308,
+        0.02119365520775318,
+        0.017221521586179733,
+        0.006670310627669096,
+        -0.01934410259127617,
+        -0.0037973655853420496,
+        -0.011799845844507217,
+        -0.03235315904021263,
+        0.04405128210783005,
+        -0.01072043739259243,
+        -0.035931579768657684,
+        -0.025951512157917023,
+        -0.035812150686979294,
+        0.012933127582073212,
+        -0.009792384691536427
+      ],
+      "mapped_policy_action": [
+        -0.008243118412792683,
+        -0.014711758121848106,
+        -0.03574654459953308,
+        0.02119365520775318,
+        0.017221521586179733,
+        0.006670310627669096,
+        -0.01934410259127617,
+        -0.0037973655853420496,
+        -0.011799845844507217,
+        -0.03235315904021263,
+        0.04405128210783005,
+        -0.01072043739259243,
+        0.0,
+        -0.035931579768657684,
+        0.0,
+        0.0,
+        0.0,
+        -0.025951512157917023,
+        -0.035812150686979294,
+        0.012933127582073212,
+        -0.009792384691536427,
+        0.0,
+        0.0,
+        0.0,
+        -0.025951512157917023,
+        0.035812150686979294,
+        -0.012933127582073212,
+        -0.009792384691536427,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "action_layout": "independentlegs17",
+      "requested_target_rad": [
+        0.556823195529861,
+        0.17448212468538732,
+        -0.03255537768988779,
+        0.10979768267426938,
+        -0.3452975871230791,
+        -0.21216240548197307,
+        -0.07898327352603639,
+        -0.3763484787218126,
+        -0.7846686923110504,
+        0.12093476748864837,
+        0.3905716412421075,
+        -0.07889196870264813,
+        -0.15438270901866943,
+        0.26399999999999996,
+        -0.09973487063393638,
+        -1.7270626380958332e-08,
+        -0.0029731722933949655,
+        -1.124809859897946,
+        0.36678833231212893,
+        0.004260100879079651,
+        -0.5234213502441638,
+        -0.0009443249058440184,
+        -0.02220273002751454,
+        0.008820361762617412,
+        -1.1246877058160847,
+        -0.3668157960533691,
+        -0.004288424291048126,
+        -0.5234368406200903,
+        0.0011205449100229804,
+        -0.022231170772547014,
+        -0.008815809861664142
+      ],
+      "adopted_target_rad": [
+        0.556823195529861,
+        0.17448212468538732,
+        -0.03255537768988779,
+        0.10979768267426938,
+        -0.3452975871230791,
+        -0.21216240548197307,
+        -0.07898327352603639,
+        -0.3763484787218126,
+        -0.7846686923110504,
+        0.12093476748864837,
+        0.3905716412421075,
+        -0.07889196870264813,
+        -0.15438270901866943,
+        0.26399999999999996,
+        -0.09973487063393638,
+        -1.7270626380958332e-08,
+        -0.0029731722933949655,
+        -1.124809859897946,
+        0.36678833231212893,
+        0.004260100879079651,
+        -0.5234213502441638,
+        -0.0009443249058440184,
+        -0.02220273002751454,
+        0.008820361762617412,
+        -1.1246877058160847,
+        -0.3668157960533691,
+        -0.004288424291048126,
+        -0.5234368406200903,
+        0.0011205449100229804,
+        -0.022231170772547014,
+        -0.008815809861664142
+      ],
+      "pre_q_rad": [
+        0.5858677093169022,
+        0.1952522556787246,
+        -0.032338278686078574,
+        0.11840400904400526,
+        -0.3944899932261744,
+        -0.2229029718002852,
+        -0.1161782709839489,
+        -0.3981960613476678,
+        -0.7870782993238975,
+        0.11211548549500745,
+        0.4307805579590471,
+        -0.08057426573933228,
+        -0.1566412802488622,
+        0.3092433137821442,
+        -0.10426983060289466,
+        0.0003114278210642555,
+        -0.0020890565131069373,
+        -1.0582496531496308,
+        0.3391111499783223,
+        0.00012661240876234912,
+        -0.49980731476703394,
+        -0.007667913463503876,
+        0.004120708883681587,
+        -0.008622450272936668,
+        -1.0575787736979356,
+        -0.34003558825094254,
+        0.0003049832691361528,
+        -0.5001512254031145,
+        0.0017233575849488834,
+        0.0030117056139873965,
+        0.008538294804900315
+      ],
+      "pre_time_s": 6.600000000000924,
+      "target_tracking_max_rad": 0.06710893211814906,
+      "target_tracking_rms_rad": 0.027272831791027515,
+      "residual_gate": 1.0,
+      "residual_gate_time_s": 6.600000000000933,
+      "gated_residual_rad": [
+        -0.0,
+        -0.0,
+        -0.0,
+        0.0,
+        3.444304317235947e-05,
+        1.3340621255338192e-05,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        8.810256421566009e-05,
+        -2.144087478518486e-05,
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        -0.0,
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        0.0,
+        -0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "feedback_policy_action": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.021490147337317467,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.021490147337317467,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "feedback_target_delta_rad": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0017192117869853974,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0017192117869853974,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "feedback_gate": 1.0,
+      "feedback_kind": "torso-ankle-pd-v1"
+    },
+    "learning_task": {
+      "head_height_m": 1.1595893442586769,
+      "head_progress": 0.9351245132155838,
+      "reference_progress": 0.9401750860268853,
+      "head_tracking_error": -0.005050572811301501,
+      "head_tracking_error_m": -0.005159432074250958,
+      "contact_factor": 0.9999874405967895,
+      "upright": 0.9999419169391547,
+      "foot_transfer_factor": 0.9999874405967895,
+      "pose_error_rms_rad": 0.030273789156977298,
+      "elapsed_sim_s": 6.616000000000924,
+      "measurement_scope": "post-step control boundary; head_pitch_link body origin in world Z",
+      "balance_height_factor": 0.9135339016616312,
+      "balance_upright_gate": 0.9998838338783094,
+      "balance_bilateral_factor": 1.0,
+      "balance_nominal_load_factor": 1.0,
+      "balance_other_support_factor": 1.0,
+      "balance_low_speed_factor": 0.9864390224636809,
+      "balance_feet_weight": 0.9999874405967895,
+      "positive_density_scale": 0.1
+    },
+    "physical_reward_terms": {
+      "height": -2.740597754193125,
+      "upright": -0.9999682593067982,
+      "standing_hold": 0.016000000000000007,
+      "torque_cost": -6.207299008813274e-06,
+      "action_change": -2.813685978115964e-11,
+      "success": 50.0
+    },
+    "physical_reward": 46.27542777917293
+  },
+  "render": {
+    "backend": "OSMesa",
+    "fixed_camera": true,
+    "camera": {
+      "lookat": [
+        0.0,
+        0.0,
+        0.65
+      ],
+      "azimuth": 125.0,
+      "elevation": -20.0,
+      "distance": 2.8
+    },
+    "size_px": [
+      640,
+      480
+    ],
+    "nominal_fps": 25,
+    "frames": 167,
+    "frame_schedule": "Initial handoff, every40ms of real simulation, plus true terminal",
+    "full_integration_and_controller_memory_exactly_unchanged_every_render": true,
+    "mp4_playback_minus_simulation_s": 0.0009999999990757402,
+    "gif_playback_minus_simulation_s": 0.023999999999075428,
+    "terminal_frame_display": "MP4 final live frame at6.616s,1ms packet; GIF at6.620s,20ms (centisecond quantization). No artificial hold."
+  },
+  "policy_state_sha256_before": "3218ad31e5044d4fe0420fb527acb6964181b23ad9bab4da0d037e043e10cbd6",
+  "policy_state_sha256_after": "3218ad31e5044d4fe0420fb527acb6964181b23ad9bab4da0d037e043e10cbd6",
+  "optimizer_unchanged": true,
+  "inputs_unchanged": true,
+  "core_source_unchanged": true,
+  "recording_command": [
+    "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "/tmp/x2-v6-demo-review/record_demo.py",
+    "--training-run",
+    "/home/lang/RL-AgiBot-X2/results/control-repair/20260924T151819Z/training-run",
+    "--expected-checkpoint-sha256",
+    "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+    "--seed",
+    "221030",
+    "--output",
+    "/home/lang/RL-AgiBot-X2/results/demonstrations/v6-recovery-20260925T060741Z",
+    "--ffmpeg",
+    "/tmp/x2-v6-demo-review/codec/extracted/usr/bin/ffmpeg",
+    "--ffprobe",
+    "/tmp/x2-v6-demo-review/codec/extracted/usr/bin/ffprobe",
+    "--preview-gate",
+    "/tmp/x2-v6-demo-review/preview-approved"
+  ],
+  "recording_cwd": "/tmp",
+  "media": {
+    "commands": [
+      [
+        "/tmp/x2-v6-demo-review/codec/extracted/usr/bin/ffmpeg",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-n",
+        "-safe",
+        "0",
+        "-f",
+        "concat",
+        "-i",
+        "/tmp/x2-v6-demo-frames-05rkhzzs/frames.ffconcat",
+        "-fps_mode",
+        "vfr",
+        "-enc_time_base",
+        "1:1000",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "22",
+        "-preset",
+        "medium",
+        "-pix_fmt",
+        "yuv420p",
+        "-video_track_timescale",
+        "1000",
+        "-movflags",
+        "+faststart",
+        "-an",
+        "/home/lang/RL-AgiBot-X2/results/demonstrations/v6-recovery-20260925T060741Z/recovery-v6.mp4"
+      ],
+      [
+        "/tmp/x2-v6-demo-review/codec/extracted/usr/bin/ffprobe",
+        "-v",
+        "error",
+        "-count_frames",
+        "-show_streams",
+        "-show_format",
+        "-of",
+        "json",
+        "/home/lang/RL-AgiBot-X2/results/demonstrations/v6-recovery-20260925T060741Z/recovery-v6.mp4"
+      ],
+      [
+        "/tmp/x2-v6-demo-review/codec/extracted/usr/bin/ffmpeg",
+        "-v",
+        "error",
+        "-i",
+        "/home/lang/RL-AgiBot-X2/results/demonstrations/v6-recovery-20260925T060741Z/recovery-v6.mp4",
+        "-f",
+        "null",
+        "-"
+      ]
+    ],
+    "mp4": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 640,
+          "height": 480,
+          "coded_width": 640,
+          "coded_height": 480,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "pix_fmt": "yuv420p",
+          "level": 52,
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "167000/6641",
+          "time_base": "1/1000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 6617,
+          "duration": "6.617000",
+          "bit_rate": "552288",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "167",
+          "nb_read_frames": "167",
+          "extradata_size": 44,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc60.31.102 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/home/lang/RL-AgiBot-X2/results/demonstrations/v6-recovery-20260925T060741Z/recovery-v6.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "6.617000",
+        "size": "459681",
+        "bit_rate": "555757",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf60.16.100"
+        }
+      }
+    },
+    "gif": {
+      "width": 640,
+      "height": 480,
+      "frames": 84,
+      "nominal_fps": 12.5,
+      "durations_ms": [
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80,
+        60,
+        20
+      ],
+      "loop": 0,
+      "duration_s": 6.64,
+      "terminal_presentation_s": 6.62
+    },
+    "gif_source_frame_indices": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      54,
+      56,
+      58,
+      60,
+      62,
+      64,
+      66,
+      68,
+      70,
+      72,
+      74,
+      76,
+      78,
+      80,
+      82,
+      84,
+      86,
+      88,
+      90,
+      92,
+      94,
+      96,
+      98,
+      100,
+      102,
+      104,
+      106,
+      108,
+      110,
+      112,
+      114,
+      116,
+      118,
+      120,
+      122,
+      124,
+      126,
+      128,
+      130,
+      132,
+      134,
+      136,
+      138,
+      140,
+      142,
+      144,
+      146,
+      148,
+      150,
+      152,
+      154,
+      156,
+      158,
+      160,
+      162,
+      164,
+      166
+    ],
+    "encoding_method": "H264/libx264; Pillow global128color GIF from the same live PNG frames",
+    "timing": "MP4 regular25fps plus true terminal at millisecond precision (VFR); GIF regular80ms with shortened final intervals on the centisecond grid. No intro/outro, synthetic posture, interpolation, or duplicated hold."
+  },
+  "artifacts": {
+    "recovery-v6.mp4": {
+      "bytes": 459681,
+      "sha256": "1eb8273aed170a0bbb7792eb3a7cfadffcf593c00981a4e480eba284cf2a44ac"
+    },
+    "recovery-v6.gif": {
+      "bytes": 2282536,
+      "sha256": "e7fd3601b58f5a9757f9d5dfc8cae42be413924a5dad716bd7fe5761c0f04dd3"
+    },
+    "trace.npz": {
+      "bytes": 498161,
+      "sha256": "0bca6aabd3e29c718d7830e6c8081f55eb22545c1bdc34cb6793b6322a84ddf7"
+    }
+  },
+  "recorder_sha256": "d3bf8f74ef9a4d776da3a8de02108f42b316b18b10506158b630e7f0d9552232",
+  "wall_seconds": 113.14263613699995,
+  "local_visual_review": {
+    "status": "PASS",
+    "tool": "Codex in-app browser actual local MP4/GIF playback, plus original PNG inspection",
+    "mp4_browser_observation": {
+      "ended": true,
+      "currentTime": 6.617,
+      "duration": 6.617,
+      "readyState": 4,
+      "videoWidth": 640,
+      "videoHeight": 480
+    },
+    "gif_browser_observation": {
+      "complete": true,
+      "naturalWidth": 640,
+      "naturalHeight": 480,
+      "different_animated_frames_observed": true,
+      "loop_observed": true
+    },
+    "sampled_simulation_times_s": [
+      0,
+      2,
+      3,
+      4,
+      4.64,
+      6.616
+    ],
+    "findings": "Fixed camera contains whole body, both feet and support transitions; no blackscreen, inversion, cropping, missing hold or interpolated movement. GIF reduces color fidelity; MP4 preserves full-color detail."
+  },
+  "public_page_check": "Not asserted before publication; post-push check reported separately",
+  "same_condition_comparison": {
+    "source": "results/control-repair/20260924T151819Z/trained-policy-diagnostic/control_trace.npz",
+    "sha256": "1e46e4a9590afe4387fc5e3d5ec55da8c3b13618a0425dcfe06df3cc8ccb5080",
+    "absolute_tolerance": 1e-07,
+    "relative_tolerance": 0,
+    "actual_max_abs_errors": {
+      "observation": 0.0,
+      "action": 0.0,
+      "next_observation": 0.0,
+      "reward": 0.0,
+      "terminated": 0.0,
+      "truncated": 0.0,
+      "elapsed_s": 0.0,
+      "qpos": 0.0,
+      "qvel": 0.0,
+      "physics_steps": 0.0,
+      "reset_observation": 0.0,
+      "reset_qpos": 0.0,
+      "reset_qvel": 0.0
+    },
+    "scope": "Control boundary observations/actions/qpos/qvel/rewards/times and reset; full live integration state also checked around every render. No new 1kHz audit claimed."
+  },
+  "max_actual_gated_ppo_residual_rad": 8.820052444934845e-05,
+  "inference_calls": 331,
+  "recorder_publication_review": {
+    "executed_script_sha256": "d3bf8f74ef9a4d776da3a8de02108f42b316b18b10506158b630e7f0d9552232",
+    "published_script_sha256": "ff709fee56d92ac1be80130f670115d7fdc775c5cfce5006df7f103ab2300c82",
+    "post_recording_changes": [
+      "Reject output nested in frozen input (actual recording already used disjoint paths).",
+      "Null decode verification uses passthrough/ms timebase to avoid false DTS warning on short final frame."
+    ],
+    "dynamics_and_frame_capture_functions_unchanged": true,
+    "original_to_published_patch": "--- /tmp/x2-v6-demo-review/record_demo.py\t2026-09-25 14:07:41.334299839 +0800\n+++ /home/lang/RL-AgiBot-X2/results/demonstrations/v6-recovery-20260925T060741Z/record_demo.py\t2026-09-25 14:10:13.719001953 +0800\n@@ -60,7 +60,7 @@\n     assert stream['codec_name'] == 'h264' and stream['pix_fmt'] == 'yuv420p'\n     assert abs(float(probe['format']['duration'])-duration) < .04\n     commands += [probe_command, checked([args.ffmpeg, '-v', 'error', '-i', str(mp4),\n-                                        '-f', 'null', '-'])]\n+                                        '-fps_mode', 'passthrough', '-enc_time_base', '1:1000', '-f', 'null', '-'])]\n     # Same raw samples, nominal 12.5 fps. Quantize actual terminal PTS to 10 ms;\n     # preserve the true terminal image instead of extending a previous still.\n     gif_ids = [i for i, f in enumerate(frames[:-1])\n@@ -119,6 +119,9 @@\n     assert os.environ['MUJOCO_GL'] == 'osmesa'\n     output = args.output.resolve()\n     assert not output.exists(), 'Refusing to overwrite any output'\n+    training_input = args.training_run.resolve()\n+    assert not output.is_relative_to(training_input) and not training_input.is_relative_to(output), \\\n+        'Output and frozen input must be disjoint'\n     assert args.width%2 == args.height%2 == 0\n     for tool in (args.ffmpeg, args.ffprobe):\n         subprocess.run([tool, '-version'], check=True, stdout=subprocess.DEVNULL)\n"
+  },
+  "local_validation": {
+    "full_mp4_decode_exit_code": 0,
+    "decode_command": [
+      "/tmp/x2-v6-demo-review/codec/extracted/usr/bin/ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/home/lang/RL-AgiBot-X2/results/demonstrations/v6-recovery-20260925T060741Z/recovery-v6.mp4",
+      "-fps_mode",
+      "passthrough",
+      "-enc_time_base",
+      "1:1000",
+      "-f",
+      "null",
+      "-"
+    ],
+    "decode_note": "The recording-time default null muxer warned on its implicit25fps timebase. Explicit passthrough/millisecond recheck emitted no errors; input167 VFR frames/PTS are valid.",
+    "ffprobe_frame_pts_vs_live_sample_max_abs_s": 1.0720313525780512e-12,
+    "mp4_top_level_boxes": [
+      "ftyp",
+      "moov",
+      "free",
+      "mdat"
+    ],
+    "faststart": true,
+    "GIF_all_frames_decoded": 84,
+    "readme_demo_precedes_setup": true,
+    "new_relative_link_references_resolve": 5,
+    "published_recorder_syntax_and_help": true,
+    "input_child_output_rejected_before_loading_and_mkdir": true,
+    "git_diff_check_exit_code": 0,
+    "preexisting_tracked_files_checked": 2381,
+    "only_changed_preexisting_file": [
+      "README.md"
+    ],
+    "all_preexisting_runtime_tests_launch_dependencies_inputs_and_results_unchanged": true,
+    "scope": "One real direct-simulation demonstration, fresh package build and media/entry checks. No train/search/formal-five/perturbation/ROS/regression rerun."
+  },
+  "runtime_setup": {
+    "ROS_DISTRO": "jazzy",
+    "python_executable": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "module_source_root": "src/x2_recovery/x2_recovery",
+    "module_loading": "Fresh symlink colcon install under /tmp/x2-v6-demo-review; resolved source belongs to this checkout. No custom PYTHONPATH override.",
+    "dependencies": {
+      "mujoco": "3.13.0",
+      "gymnasium": "1.3.0",
+      "stable-baselines3": "2.9.0",
+      "torch": "2.8.0+cpu",
+      "Pillow": "10.2.0"
+    },
+    "build_command": [
+      ".venv/bin/python",
+      "/usr/bin/colcon",
+      "--log-base",
+      "/tmp/x2-v6-demo-review/log",
+      "build",
+      "--base-paths",
+      "src",
+      "--packages-select",
+      "x2_recovery",
+      "--symlink-install",
+      "--build-base",
+      "/tmp/x2-v6-demo-review/build",
+      "--install-base",
+      "/tmp/x2-v6-demo-review/install"
+    ],
+    "build_exit_code": 0,
+    "encoder": "ffmpeg/ffprobe6.1.1-3ubuntu5 from Ubuntu noble ARM64 packages, extracted ONLY under /tmp with needed shared libraries; no apt install, sudo, driver change or .venv modification.",
+    "encoder_version_command": [
+      "/tmp/x2-v6-demo-review/codec/extracted/usr/bin/ffmpeg",
+      "-version"
+    ],
+    "temporary_codec_deb_files": [
+      "ffmpeg_7%3a6.1.1-3ubuntu5_arm64.deb",
+      "libass9_1%3a0.17.1-2build1_arm64.deb",
+      "libavdevice60_7%3a6.1.1-3ubuntu5_arm64.deb",
+      "libavfilter9_7%3a6.1.1-3ubuntu5_arm64.deb",
+      "libbs2b0_3.1.0+dfsg-7build1_arm64.deb",
+      "libfftw3-double3_3.3.10-1ubuntu3_arm64.deb",
+      "libflite1_2.2-6build3_arm64.deb",
+      "libjack-jackd2-0_1.9.21~dfsg-3ubuntu3_arm64.deb",
+      "liblilv-0-0_0.24.22-1build1_arm64.deb",
+      "libmysofa1_1.3.2+dfsg-2ubuntu2_arm64.deb",
+      "libopenal1_1%3a1.23.1-4build1_arm64.deb",
+      "libplacebo338_6.338.2-2build1_arm64.deb",
+      "libpocketsphinx3_0.8.0+real5prealpha+1-15ubuntu5_arm64.deb",
+      "libpostproc57_7%3a6.1.1-3ubuntu5_arm64.deb",
+      "librubberband2_3.3.0+dfsg-2build1_arm64.deb",
+      "libserd-0-0_0.32.2-1_arm64.deb",
+      "libsord-0-0_0.16.16-2build1_arm64.deb",
+      "libsphinxbase3t64_0.8+5prealpha+1-17build2_arm64.deb",
+      "libsratom-0-0_0.6.16-1build1_arm64.deb",
+      "libunibreak5_5.1-2build1_arm64.deb",
+      "libvidstab1.1_1.1.0-2build1_arm64.deb",
+      "libzimg2_3.0.5+ds1-1build1_arm64.deb",
+      "libzix-0-0_0.4.2-2build1_arm64.deb"
+    ]
+  },
+  "reproduction": {
+    "prerequisites": "Same verified project .venv, fixed model, source ROS Jazzy and installed current package; OSMesa, Pillow, ffmpeg+ffprobe/libx264. Recording never installs anything. Encode tools are not training dependencies.",
+    "shell": "export WS=\"$HOME/RL-AgiBot-X2\"; source /opt/ros/jazzy/setup.bash; source \"$WS/install/setup.bash\"; export MUJOCO_GL=osmesa; cd /tmp; \"$WS/.venv/bin/python\" \"$WS/results/demonstrations/v6-recovery-20260925T060741Z/record_demo.py\" --training-run \"$WS/results/control-repair/20260924T151819Z/training-run\" --expected-checkpoint-sha256 af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540 --seed 221030 --output \"$WS/runs/v6-demo-$(date -u +%Y%m%dT%H%M%SZ)-$$\"",
+    "ffmpeg_note": "Use --ffmpeg and --ffprobe for already available non-PATH executables, with their library path configured. The optional preview gate was used only for initial visual inspection in this recording."
+  },
+  "final_control_config_sha256": "2cd00bcaa8f3c4a0a7066aef282aff87defe17286a428ddbe119c679b32f475f"
+}
