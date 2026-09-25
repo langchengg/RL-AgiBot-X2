@@ -1,0 +1,716 @@
+{
+  "status": "LOCAL_DELIVERY_VALIDATED",
+  "recorded_utc": "2026-09-25T07:11:38.750668+00:00",
+  "scope": "Final delivery convergence, not new controller development or formal evaluation. Normal publication is verified in the final response; no recursive commit receipt.",
+  "start_commit": "5deb5d655e1ce2f9019cf86ee65290ea7900125f",
+  "candidate": {
+    "base": "full git clone --no-hardlinks of original workspace, including all published inputs and Git history",
+    "directory": "/tmp/x2-delivery-20260925T065042Z/candidate",
+    "patch_sha256": "890769c38068cf9676ac85c06f0f93763526a7a4817c0666201aee7a93a3dcaa",
+    "patch_in_logs": "candidate.patch",
+    "runtime_and_readme_sha256": {
+      "README.md": "3f18caf4aa1f1e1a69b3af04f976f4dca2b5c8fb2aa7012bdde5791591d6d4ed",
+      "src/x2_recovery/x2_recovery/recovery_node.py": "3cee0b1afa79027505e46b1048ef8d298f1ae5facb2612398e4b2c03320d1324",
+      "src/x2_recovery/x2_recovery/reproduce.py": "d42ecc61d0cb10c65608fbe0f0dff7f43c8b66743d0372be844e5f935ec5564c"
+    },
+    "dependency_scope": "Same existing VM, Jazzy, original compatible .venv and pinned external model; new build/install, no dependency installation or new-machine claim",
+    "cwd": "/tmp",
+    "environment": "env -i; source /opt/ros/jazzy/setup.bash then candidate fresh install/setup.bash; PYTHONNOUSERSITE=1; X2_ASSET_REPO pinned original path; no manual current-source PYTHONPATH",
+    "prefix": "/tmp/x2-delivery-20260925T065042Z/install/x2_recovery",
+    "entry_shebang": "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+    "module_resolved": "/tmp/x2-delivery-20260925T065042Z/candidate/src/x2_recovery/x2_recovery/env.py"
+  },
+  "issues": [
+    {
+      "severity": "IMPORTANT",
+      "problem": "Unqualified Robot Model config link pointed to historical v5",
+      "fix": "Link explicitly to current v6 resolved configuration",
+      "validation": "Tracked link plus strict current loading"
+    },
+    {
+      "severity": "IMPORTANT",
+      "problem": "Repeated shell contexts and long historical detail obscured current workflows",
+      "fix": "One shared runtime block per terminal; current/history links named separately; retained six subject areas, demo, limits, and necessary commands",
+      "validation": "13 Bash syntax checks, parser/config checks, current recovery and real ROS; no train command executed"
+    },
+    {
+      "severity": "IMPORTANT",
+      "problem": "Runtime messages unconditionally described current controller as historical/unresolved",
+      "fix": "Only two version-neutral diagnostic strings; controller checks still separate from ROS success",
+      "validation": "AST differs only in those string constants; full regression and real ROS"
+    },
+    {
+      "severity": "IMPORTANT",
+      "problem": "Headless regression launched with default GLFW failed one rendering test",
+      "fix": "Document MUJOCO_GL=osmesa before Python; use already installed OSMesa",
+      "validation": "First failure preserved; all 236 tests passed without changing tests or runtime logic"
+    }
+  ],
+  "runtime_diff": {
+    "src/x2_recovery/x2_recovery/recovery_node.py": {
+      "line": 151,
+      "before": "Simulation demonstration; full-episode constraint risks are not resolved",
+      "after": "Simulation demonstration; ROS standing success alone does not certify whole-episode constraints or hardware safety."
+    },
+    "src/x2_recovery/x2_recovery/reproduce.py": {
+      "line": 44,
+      "before": "Historical simulation controller; standing success does not certify whole-episode constraints.",
+      "after": "Simulation reproduction; standing success alone does not certify whole-episode constraints or hardware safety."
+    }
+  },
+  "readme": {
+    "before": {
+      "lines": 704,
+      "bytes": 45100
+    },
+    "after": {
+      "lines": 549,
+      "bytes": 34263
+    },
+    "task_brief": "Actual local two-page HRS_Take_Home_Task.pdf read with pdftotext; private PDF not redistributed",
+    "coverage": {
+      "Setup and Quick Start": 23,
+      "Robot Model and Simulation": 149,
+      "Environment Design": 185,
+      "Rewards and Training": 241,
+      "Evaluation and Limitations": 333,
+      "ROS 2 Integration and Validation": 426
+    },
+    "links": {
+      "status": "PASS: every local target exists in the staged Git tree",
+      "count": 34,
+      "summary_target": "This file; all other local targets existed in starting Git tree",
+      "staged_check_target_count": 34
+    },
+    "bash_blocks_checked": 13,
+    "semantics": "CLI help, train/resume config parsing with execution boundary intercepted; full current check/run; ROS installed launch. Training and formal-five commands not run."
+  },
+  "selected_controller": {
+    "input": "results/control-repair/20260924T151819Z/training-run",
+    "schema": "x2-controller-ppo-v1",
+    "version": "targets-v6",
+    "method": "repaired reference + bounded analytical torso-to-ankle feedback + trained PPO residual",
+    "observation_shape": [
+      149
+    ],
+    "action_shape": [
+      17
+    ],
+    "actuators": 31,
+    "input_sha256": {
+      "policy_final.zip": "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+      "resolved_config.json": "6973248b351408dcad0d48ad54c0ee3187760ed3e9c3ca50d045202e4878db73",
+      "manifest.json": "0f450a3457b7a0346177c48a26c9d12be87601352c92943f560126d346da773a",
+      "reload_probe.npz": "3a73d17888b44e0f928f05d1bb9ea8821256e286db9e04f99d5537c7faa86ebc",
+      "progress.csv": "686493b8c035707af1af3fe62b1f39bc39409d77dc5dc5b2b0e5ad5a5c7df595",
+      "reload_validation.json": "cf21ed9e0f4a1cabdba1375f6050b089f7106d28c66d8b9b3e1f7518ccaba833"
+    },
+    "strict_saved_action_check": {
+      "max_abs_error": 7.450580596923828e-09,
+      "atol": 1e-07,
+      "rtol": 1e-06,
+      "observations": 16,
+      "action_shape": [
+        16,
+        17
+      ]
+    },
+    "core_source_sha256": {
+      "env.py": "c4a5bc96dd7a26bcfec73c648a63ab476c65bdde4543fca0fb92f037fb041da0",
+      "model.py": "d507d7e5b713512ffb4a3a8846ef7289f94a52921fb5194de4c85524770c36d5",
+      "reset.py": "faee1d51217899a155d78e7c32d5e0c1310663fec42ab1ec88c4956dd4f4893e",
+      "success.py": "f6ae7a0d2d0b4b6af967ae5d23f34c1552e10457f3dd48dddb7208cd7fc5e5b1",
+      "baseline.py": "699e130bfd380428734cbe35d47e805772f7fdbed3f90294d6cd65e40ef52249"
+    }
+  },
+  "environment": {
+    "uname": {
+      "system": "Linux",
+      "node": "lang",
+      "release": "7.0.0-34-generic",
+      "version": "#34~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 16:05:40 UTC 2",
+      "machine": "aarch64",
+      "processor": "aarch64"
+    },
+    "os_release": {
+      "NAME": "Ubuntu",
+      "ID": "ubuntu",
+      "PRETTY_NAME": "Ubuntu 24.04.5 LTS",
+      "VERSION_ID": "24.04",
+      "VERSION": "24.04.5 LTS (Noble Numbat)",
+      "VERSION_CODENAME": "noble",
+      "ID_LIKE": "debian",
+      "HOME_URL": "https://www.ubuntu.com/",
+      "SUPPORT_URL": "https://help.ubuntu.com/",
+      "BUG_REPORT_URL": "https://bugs.launchpad.net/ubuntu/",
+      "PRIVACY_POLICY_URL": "https://www.ubuntu.com/legal/terms-and-policies/privacy-policy",
+      "UBUNTU_CODENAME": "noble",
+      "LOGO": "ubuntu-logo"
+    },
+    "cpu_count": 8,
+    "virtualization": "parallels",
+    "model_head": "60c5de582c523cd188f563819e62d34cfdc3d2d0",
+    "model_status": "",
+    "pip_check": "No broken requirements found."
+  },
+  "commands": [
+    {
+      "command": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "/usr/bin/colcon",
+        "--log-base",
+        "/tmp/x2-delivery-20260925T065042Z/log",
+        "build",
+        "--base-paths",
+        "/tmp/x2-delivery-20260925T065042Z/candidate/src",
+        "--packages-select",
+        "x2_recovery",
+        "--symlink-install",
+        "--build-base",
+        "/tmp/x2-delivery-20260925T065042Z/build",
+        "--install-base",
+        "/tmp/x2-delivery-20260925T065042Z/install"
+      ],
+      "exit_code": 0,
+      "log": "build.log"
+    },
+    {
+      "command": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "-m",
+        "x2_recovery.reproduce",
+        "check",
+        "--training-run",
+        "/tmp/x2-delivery-20260925T065042Z/candidate/results/control-repair/20260924T151819Z/training-run",
+        "--expected-checkpoint-sha256",
+        "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+        "--output",
+        "/tmp/x2-delivery-20260925T065042Z/load-check"
+      ],
+      "exit_code": 0,
+      "log": "reproduction.log"
+    },
+    {
+      "command": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "-m",
+        "x2_recovery.reproduce",
+        "run",
+        "--training-run",
+        "/tmp/x2-delivery-20260925T065042Z/candidate/results/control-repair/20260924T151819Z/training-run",
+        "--expected-checkpoint-sha256",
+        "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+        "--seed",
+        "221030",
+        "--output",
+        "/tmp/x2-delivery-20260925T065042Z/recovery"
+      ],
+      "exit_code": 0,
+      "log": "reproduction.log"
+    },
+    {
+      "command": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/tmp/x2-delivery-20260925T065042Z/candidate/src/x2_recovery/test",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "attempts": [
+        {
+          "MUJOCO_GL": null,
+          "DISPLAY": null,
+          "exit_code": 1,
+          "tests": 236,
+          "errors": 1,
+          "log": "regression.log",
+          "cause": "GLFW default has no DISPLAY; gladLoadGL error in RGB-render test"
+        },
+        {
+          "MUJOCO_GL": "osmesa",
+          "exit_code": 0,
+          "tests": 236,
+          "errors": 0,
+          "seconds": 98.431,
+          "log": "regression-osmesa.log"
+        }
+      ]
+    },
+    {
+      "command": [
+        "/home/lang/RL-AgiBot-X2/.venv/bin/python",
+        "/tmp/x2-delivery-20260925T065042Z/candidate/src/x2_recovery/test/test_ros_integration.py",
+        "--output-dir",
+        "/tmp/x2-delivery-20260925T065042Z/ros-policy",
+        "--controller-run",
+        "/tmp/x2-delivery-20260925T065042Z/candidate/results/control-repair/20260924T151819Z/training-run",
+        "--expected-checkpoint-sha256",
+        "af70fe7ed8ae6c8b1a2ed1f73cd247b116789488120586fc1d8dc949fbca5540",
+        "--reference-trace",
+        "/tmp/x2-delivery-20260925T065042Z/candidate/results/control-repair/20260924T151819Z/ros-acceptance/standalone-reference.npz"
+      ],
+      "exit_code": 0,
+      "ROS_DOMAIN_ID": "87",
+      "log": "ros-policy/summary.json"
+    }
+  ],
+  "cli_checks": {
+    "status": "PASS",
+    "commands": 7,
+    "all_exit_zero": true,
+    "scope": "Train/continue/evaluate parser and saved config matching only; no environment construction, reset, step or learn. Initial prebuild check failed because original install directory absent; preserved in cli-check.json."
+  },
+  "standalone_reproduction": {
+    "label": "delivery reproduction; not part of published five or paired batches",
+    "seed": 221030,
+    "reset_seed": 1232936377,
+    "reset_status": "PASS",
+    "success": true,
+    "reason": "success",
+    "sim_duration_s": 6.616000000000924,
+    "max_stable_seconds": 2.000000000000421,
+    "transitions": 331,
+    "physics_steps": 6616,
+    "wall_seconds": 6.547468878000473,
+    "policy_state_unchanged": true,
+    "nominal_comparison": {
+      "scope": "Offline comparison of actual delivery reproduction with frozen nominal v6; no new episode or state edits",
+      "reference": "/tmp/x2-delivery-20260925T065042Z/candidate/results/control-repair/20260924T151819Z/trained-policy-diagnostic/control_trace.npz",
+      "reference_sha256": "1e46e4a9590afe4387fc5e3d5ec55da8c3b13618a0425dcfe06df3cc8ccb5080",
+      "source_trajectory_sha256": "4a4f767c02a28b71719877451cd4d75b64789e78ec512ef900fa97b29745fd2e",
+      "transitions": 331,
+      "checks": {
+        "action": {
+          "max_abs_error": 0.0,
+          "exact_equal": true,
+          "shape": [
+            331,
+            17
+          ]
+        },
+        "reward": {
+          "max_abs_error": 0.0,
+          "exact_equal": true,
+          "shape": [
+            331
+          ]
+        },
+        "elapsed_s": {
+          "max_abs_error": 0.0,
+          "exact_equal": true,
+          "shape": [
+            331
+          ]
+        },
+        "reset_observation": {
+          "max_abs_error": 0.0,
+          "exact_equal": true,
+          "shape": [
+            149
+          ]
+        },
+        "reset_qpos": {
+          "max_abs_error": 0.0,
+          "exact_equal": true,
+          "shape": [
+            38
+          ]
+        },
+        "reset_qvel": {
+          "max_abs_error": 0.0,
+          "exact_equal": true,
+          "shape": [
+            37
+          ]
+        },
+        "joint_q": {
+          "max_abs_error": 0.0,
+          "exact_equal": true,
+          "shape": [
+            331,
+            31
+          ]
+        },
+        "joint_dq": {
+          "max_abs_error": 0.0,
+          "exact_equal": true,
+          "shape": [
+            331,
+            31
+          ]
+        }
+      },
+      "pass_all_exact": true
+    },
+    "compact_trace": "recovery-trace.npz",
+    "full_summary_in_logs": "recovery/training-input/development-221030/summary.json",
+    "raw_24MiB_trajectory": "Retained in temporary validation workspace; compact boundary trace and original full episode summary published instead"
+  },
+  "historical_reproduction": {
+    "source_commit": "f542ec6414ae1366bc17868c0f43de80c580c8fc",
+    "scope": "git archive into isolated directory; PYTHONPATH applies only to child; read-only v5 prepare, no episode or old full publication-tree audit",
+    "status": "PASS",
+    "checkpoint_sha256": "11d8f3e203936d2bd49b3b6cfb62e91909c6a8c8825425f540dacc712bb54c64",
+    "action_check": {
+      "max_abs_error": 0.0,
+      "atol": 1e-07,
+      "rtol": 1e-06,
+      "observations": 16,
+      "action_shape": [
+        16,
+        17
+      ]
+    }
+  },
+  "regression": {
+    "tests": 236,
+    "status": "PASS",
+    "seconds": 98.431,
+    "initial_attempt_preserved": true,
+    "scope": "Existing unchanged unittest suite; includes synthetic tiny-environment PPO bookkeeping fixtures and bounded physical tests. No X2 policy training or frozen checkpoint updates."
+  },
+  "ros": {
+    "status": "PASS",
+    "checks": 142,
+    "failed_checks": [],
+    "scope": "Existing cross-process policy runner on fresh candidate install; ordinary launch, separate read-only instrumentation, controlled post-step exception and invalid-artifact scenarios are distinguished in raw logs. Normal runner wall budget 30 s; README 180 s is additional headroom; timeout test 3 s. Full baseline-only 92-check historical runner not repeated.",
+    "ordinary_launch_first_two_episodes": [
+      {
+        "episode": 1,
+        "controller": "reference_residual",
+        "status": "SUCCEEDED",
+        "reason": "success",
+        "control_steps": 331,
+        "elapsed_sim_s": 6.616000000000924,
+        "wall_s": 7.2920033370000965,
+        "timeout_overshoot_s": 0.0,
+        "stable_duration_s": 2.000000000000421
+      },
+      {
+        "episode": 2,
+        "controller": "reference_residual",
+        "status": "SUCCEEDED",
+        "reason": "success",
+        "control_steps": 331,
+        "elapsed_sim_s": 6.616000000000924,
+        "wall_s": 7.275254003000555,
+        "timeout_overshoot_s": 0.0,
+        "stable_duration_s": 2.000000000000421
+      }
+    ],
+    "all_scenarios_episode_outcomes": [
+      {
+        "episode": 1,
+        "controller": "reference_residual",
+        "status": "SUCCEEDED",
+        "reason": "success",
+        "control_steps": 331,
+        "elapsed_sim_s": 6.616000000000924,
+        "wall_s": 7.2920033370000965,
+        "timeout_overshoot_s": 0.0,
+        "stable_duration_s": 2.000000000000421
+      },
+      {
+        "episode": 2,
+        "controller": "reference_residual",
+        "status": "SUCCEEDED",
+        "reason": "success",
+        "control_steps": 331,
+        "elapsed_sim_s": 6.616000000000924,
+        "wall_s": 7.275254003000555,
+        "timeout_overshoot_s": 0.0,
+        "stable_duration_s": 2.000000000000421
+      },
+      {
+        "episode": 1,
+        "controller": "reference_residual",
+        "status": "FAILED",
+        "reason": "recovery_timeout",
+        "control_steps": 121,
+        "elapsed_sim_s": 2.41999999999977,
+        "wall_s": 3.007774210000207,
+        "timeout_overshoot_s": 0.007774210000206949,
+        "stable_duration_s": 0.0
+      },
+      {
+        "episode": 1,
+        "controller": "reference_residual",
+        "status": "FAILED",
+        "reason": "shutdown",
+        "control_steps": 4,
+        "elapsed_sim_s": 0.07999999999999119,
+        "wall_s": 0.6949224169993613,
+        "timeout_overshoot_s": 0.0,
+        "stable_duration_s": 0.0
+      },
+      {
+        "episode": 1,
+        "controller": "reference_residual",
+        "status": "SUCCEEDED",
+        "reason": "success",
+        "control_steps": 331,
+        "elapsed_sim_s": 6.616000000000924,
+        "wall_s": 7.281090336000489,
+        "timeout_overshoot_s": 0.0,
+        "stable_duration_s": 2.000000000000421
+      },
+      {
+        "episode": 2,
+        "controller": "reference_residual",
+        "status": "SUCCEEDED",
+        "reason": "success",
+        "control_steps": 331,
+        "elapsed_sim_s": 6.616000000000924,
+        "wall_s": 7.230556836000687,
+        "timeout_overshoot_s": 0.0,
+        "stable_duration_s": 2.000000000000421
+      },
+      {
+        "episode": 1,
+        "controller": "reference_residual",
+        "status": "FAILED",
+        "reason": "step_error",
+        "control_steps": 2,
+        "elapsed_sim_s": 0.039999999999995595,
+        "wall_s": 0.6759614590000638,
+        "timeout_overshoot_s": 0.0,
+        "stable_duration_s": 0.0
+      },
+      {
+        "episode": 2,
+        "controller": "reference_residual",
+        "status": "SUCCEEDED",
+        "reason": "success",
+        "control_steps": 331,
+        "elapsed_sim_s": 6.616000000000924,
+        "wall_s": 7.244380461999754,
+        "timeout_overshoot_s": 0.0,
+        "stable_duration_s": 2.000000000000421
+      }
+    ],
+    "telemetry": {
+      "result": "PASS",
+      "matched": 18,
+      "max_absolute_error": 0.0
+    },
+    "response_order": {
+      "result": "PASS",
+      "send_end": 5186.009627222,
+      "reset_begin": 5186.017503472,
+      "reset_end": 5186.617792097,
+      "first_step_begin": 5186.622277305
+    },
+    "busy_during_reset": {
+      "one_second_goal_met": true,
+      "round_trip_s": 0.6171530420006093,
+      "result": "MET",
+      "explanation": "Busy response waits for the current bounded reset on the exclusive executor; the initial acceptance response is tested separately before reset"
+    },
+    "wall_timeout": {
+      "episode": 1,
+      "controller": "reference_residual",
+      "status": "FAILED",
+      "reason": "recovery_timeout",
+      "control_steps": 121,
+      "elapsed_sim_s": 2.41999999999977,
+      "wall_s": 3.007774210000207,
+      "timeout_overshoot_s": 0.007774210000206949,
+      "stable_duration_s": 0.0
+    },
+    "deterministic_wrapper_calls": {
+      "result": "PASS",
+      "controls": 662
+    },
+    "active_residual": {
+      "result": "PASS",
+      "active_transitions": 112,
+      "max_abs_gated_residual_rad": 8.820052444934845e-05
+    },
+    "policy_unchanged": {
+      "result": "PASS",
+      "evidence": [
+        {
+          "event": "policy_state_check",
+          "monotonic_s": 5193.291404975,
+          "episode": 1,
+          "status": "SUCCEEDED",
+          "unchanged": true,
+          "tensors": 13
+        },
+        {
+          "event": "policy_state_check",
+          "monotonic_s": 5200.790481729,
+          "episode": 2,
+          "status": "SUCCEEDED",
+          "unchanged": true,
+          "tensors": 13
+        }
+      ]
+    },
+    "standalone_comparison": {
+      "reference": "/tmp/x2-delivery-20260925T065042Z/candidate/results/control-repair/20260924T151819Z/ros-acceptance/standalone-reference.npz",
+      "fields": {
+        "observations": {
+          "standalone_shape": [
+            332,
+            149
+          ],
+          "ros_shape": [
+            332,
+            149
+          ],
+          "max_absolute_error": 0.0,
+          "atol": 1e-10,
+          "rtol": 0
+        },
+        "actions": {
+          "standalone_shape": [
+            331,
+            17
+          ],
+          "ros_shape": [
+            331,
+            17
+          ],
+          "max_absolute_error": 0.0,
+          "atol": 1e-07,
+          "rtol": 0
+        },
+        "qpos": {
+          "standalone_shape": [
+            332,
+            38
+          ],
+          "ros_shape": [
+            332,
+            38
+          ],
+          "max_absolute_error": 0.0,
+          "atol": 1e-10,
+          "rtol": 0
+        },
+        "qvel": {
+          "standalone_shape": [
+            332,
+            37
+          ],
+          "ros_shape": [
+            332,
+            37
+          ],
+          "max_absolute_error": 0.0,
+          "atol": 1e-10,
+          "rtol": 0
+        },
+        "reward": {
+          "standalone_shape": [
+            331
+          ],
+          "ros_shape": [
+            331
+          ],
+          "max_absolute_error": 0.0,
+          "atol": 1e-10,
+          "rtol": 0
+        },
+        "time_s": {
+          "standalone_shape": [
+            332
+          ],
+          "ros_shape": [
+            332
+          ],
+          "max_absolute_error": 0.0,
+          "atol": 1e-10,
+          "rtol": 0
+        }
+      },
+      "scope": "Simulation state/action comparisons; ROS and wall timestamps intentionally differ"
+    },
+    "cleanup": {
+      "all_children_exited": true,
+      "remaining_owned_group_members": [],
+      "cleanup_errors": [],
+      "own_cli_daemon_stopped": true
+    },
+    "full_raw_result": "validation-logs.tar.gz:ros-policy/summary.json"
+  },
+  "invariance": {
+    "algorithm": "SHA-256 of each pre-existing tracked file; aggregate SHA-256 of sorted UTF-8 path + NUL + hex SHA + LF",
+    "before_tracked_count": 2386,
+    "expected_changed": {
+      "README.md": {
+        "before": "1b24888f92c0709d53383f7adc0d761109c6035a397de9ad7874e0be3e4fc77c",
+        "after": "3f18caf4aa1f1e1a69b3af04f976f4dca2b5c8fb2aa7012bdde5791591d6d4ed"
+      },
+      "src/x2_recovery/x2_recovery/recovery_node.py": {
+        "before": "43192a9f1aac4c80022d9fc6e3f7e3e422e2837e05b9c5e18abeb58d510b69d3",
+        "after": "3cee0b1afa79027505e46b1048ef8d298f1ae5facb2612398e4b2c03320d1324"
+      },
+      "src/x2_recovery/x2_recovery/reproduce.py": {
+        "before": "7df55e684abb53203fe031ef00c77ebce36bc49e0bf86eb43711749c34ede230",
+        "after": "d42ecc61d0cb10c65608fbe0f0dff7f43c8b66743d0372be844e5f935ec5564c"
+      }
+    },
+    "groups": {
+      "unchanged_tracked": {
+        "count": 2383,
+        "sorted_path_sha256_aggregate": "09c1eac7af7d82864e36b7e86c054b7def5664dc48a4bec0a0a8dde2720eb7fc",
+        "all_bytes_unchanged": true
+      },
+      "historical_results": {
+        "count": 2347,
+        "sorted_path_sha256_aggregate": "b72f8e366d3ffaf5a0af9610e2baf17a3df95ca8f9ed79ccc6fd98eab0bf0f9e",
+        "all_bytes_unchanged": true
+      },
+      "tests": {
+        "count": 13,
+        "sorted_path_sha256_aggregate": "b765fd96d12e859c666aeefdf005f538829b56f21b800f8aab1f8a5c754ad094",
+        "all_bytes_unchanged": true
+      },
+      "protected_execution": {
+        "count": 20,
+        "sorted_path_sha256_aggregate": "41a9b0e0d385c8fdab2be25a0e1ae597850d39e6b0caddd4a15e264f2d0198d7",
+        "all_bytes_unchanged": true
+      }
+    },
+    "deleted_count": 0,
+    "unexpected_changes": []
+  },
+  "deleted_files": [],
+  "deletion_review": "No safe deletion established. model_audit fingerprint and baseline reference are live dependencies; source snapshots, resource marker, attribution and gitattributes retained.",
+  "media": {
+    "status": "PASS",
+    "scope": "Existing v6 media hash/probe/full decode only; no new video, GIF, episode recording or webpage visual claim",
+    "details_in_logs": "media-check.json"
+  },
+  "not_rerun": [
+    "X2 training/continuation/search",
+    "formal five-episode or perturbation evaluation",
+    "full historical publication audit",
+    "historical baseline-only ROS runner",
+    "all dependency installation",
+    "media recording"
+  ],
+  "unresolved_delivery_blockers": [],
+  "known_limits": [
+    "Finite simulated fixed-supine and \u00b10.002 rad coverage only; no broad-pose or hardware proof",
+    "Zero-residual reference+analytical feedback also succeeds; PPO benefit not established",
+    "Soft contact penetration, torque saturation and small standing margins remain",
+    "Raw HumanUP motion separate license remains unestablished as disclosed; no raw asset newly distributed or new license granted"
+  ],
+  "evidence": {
+    "validation-logs.tar.gz": {
+      "bytes": 2595023,
+      "sha256": "5c9790c6a364556b5d87d19e7be3c16ced2bf60ca90aaf0ca24d254620224bd4"
+    },
+    "recovery-trace.npz": {
+      "bytes": 188157,
+      "sha256": "399ea911c9c91bad17d505d2a1656ce8b8921f7d85800dbff48c58d21c386dc8"
+    }
+  }
+}

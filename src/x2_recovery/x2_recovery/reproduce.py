@@ -41,7 +41,7 @@ def checked_inputs(source, expected):
                     actuators=len(evaluate.physical_env(env).loaded.mapping),
                     model_asset_directory=prepared['model_asset_directory'],
                     source_identity=prepared['saved']['identity']['core_source_hashes'],
-                    limitation='Historical simulation controller; standing success does not certify whole-episode constraints.')
+                    limitation='Simulation reproduction; standing success alone does not certify whole-episode constraints or hardware safety.')
         return report,dict(prepared['input_sources'])
     finally:
         env.close()

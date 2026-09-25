@@ -148,7 +148,7 @@ class RecoveryNode(Node):
                 model_identity=saved['identity']['model_fingerprint'],
                 control_identity=dict(schema=saved['schema'], mode=control['mode'],
                                       version=control['version'], action_layout=control['action_layout']),
-                scope='Simulation demonstration; full-episode constraint risks are not resolved')
+                scope='Simulation demonstration; ROS standing success alone does not certify whole-episode constraints or hardware safety.')
         else:
             raise ValueError('controller must be scripted_baseline or reference_residual')
         self.names = [row.joint_name for row in self.base_env.loaded.mapping]
